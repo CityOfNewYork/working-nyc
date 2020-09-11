@@ -1,0 +1,44 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1" id="content">
+
+    {% include ['components/utility-nav.twig'] with {
+      return: {
+        'label': __('Home', 'WNYC'),
+        'link': '/'
+      },
+    } %}
+
+    {# Header Section #}
+    <div class="layout-content">
+      <header class="o-header">
+        <div>
+          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC')}}{% else %}{{ post.title }}{% endif %}
+          </h1>
+
+          {% include 'components/breadcrumbs.twig' with 
+            {
+              crumbs: [
+                {
+                  'label': post.title,
+                  'link': ''
+                }
+              ]
+            }
+          %}
+        </div>
+      </header>
+
+    </div>
+
+    <section class="bg-scale-2 layout-content">
+      <div class="py-4 wrap">
+        {% if post.content %}{{ post.content }}{% endif %}
+      </div>
+    </section>
+
+  </main>
+</div>
+{% endblock %}

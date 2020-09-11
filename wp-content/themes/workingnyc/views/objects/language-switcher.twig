@@ -1,0 +1,34 @@
+<div aria-hidden="true" class="o-text-controller bg-scale-1 o-text-controller-fixed hidden" data-js="text-controller" id="aria-c-text-controller">
+	<div class="o-text-controller__inner">
+		<div>
+			<div class="text-end">
+				<button aria-controls="aria-c-text-controller" aria-expanded="false" class="btn btn-primary btn-small" data-dropdown="close" data-js="dropdown" tabindex="-1">
+					<svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
+						<use xlink:href="#icon-wnyc-ui-x"></use>
+					</svg>
+					<span>{{__('Close', 'WNYC - Navigation')}}</span>
+					<span class="sr-only">{{__('and return to site', 'WNYC - Navigation')}}</span>
+				</button>
+			</div>
+			<p class="h4 block w-full m-0 py-2 text-alt">{{__('Translate Text', 'WNYC - Navigation')}}</p>
+			<div class="o-text-controller__options">
+				<div class="o-text-controller__languages">
+          
+          <div class="notranslate">
+            {% do action('wpml_add_language_selector') %}
+          </div>
+
+					<p>
+						<span class="sr-only">{{__('Powered by Google Translate', 'WNYC - Navigation')}}</span>
+						<svg aria-hidden="true" class="icon-logo-google-translate" tabindex="-1">
+							<use xlink:href="#logo-google-translate"></use>
+						</svg>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="google_translate_element" class="hidden"></div>
+

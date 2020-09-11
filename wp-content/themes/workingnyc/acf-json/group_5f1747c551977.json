@@ -1,0 +1,173 @@
+{
+    "key": "group_5f1747c551977",
+    "title": "Filters",
+    "fields": [
+        {
+            "key": "field_5f17492c7b13f",
+            "label": "Add filters",
+            "name": "filters_add",
+            "type": "radio",
+            "instructions": "Would you like to add a filter on this page?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Yes": "Yes",
+                "No": "No"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "No",
+            "layout": "vertical",
+            "return_format": "value",
+            "save_other_choice": 0
+        },
+        {
+            "key": "field_5f1f45154ceb5",
+            "label": "Filters Label",
+            "name": "filters_label",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5f17492c7b13f",
+                        "operator": "==",
+                        "value": "Yes"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5f1749717b140",
+            "label": "Filters Post Type",
+            "name": "filters_post_type",
+            "type": "select",
+            "instructions": "Select the post type you would like to add to this page.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5f17492c7b13f",
+                        "operator": "==",
+                        "value": "Yes"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "programs": "Programs"
+            },
+            "default_value": false,
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_5f1747cb7b13d",
+            "label": "Filters",
+            "name": "filters",
+            "type": "flexible_content",
+            "instructions": "Pick the filters you would like to include this page. ORDER MATTERS. Add the filters in the order you would like to see them displayed.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5f17492c7b13f",
+                        "operator": "==",
+                        "value": "Yes"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "layout_5f17481e0b022": {
+                    "key": "layout_5f17481e0b022",
+                    "name": "filters_taxonomies",
+                    "label": "Taxonomies",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5f1748397b13e",
+                            "label": "Filter Name",
+                            "name": "filter_name",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "locations": "Locations",
+                                "services": "Services",
+                                "populations": "Populations",
+                                "recruitment_status": "Recruitment Status",
+                                "schedule": "Schedule",
+                                "sectors": "Sector",
+                                "duration": "Duration"
+                            },
+                            "default_value": false,
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "ajax": 0,
+                            "placeholder": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Add Row",
+            "min": "",
+            "max": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-landing-page.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}

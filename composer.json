@@ -1,0 +1,80 @@
+{
+  "name": "working-nyc",
+  "description": "",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "NYC Opportunity",
+      "email": "products@nycopportunity.nyc.gov",
+      "homepage": "http://nyc.gov/opportunity"
+    }
+  ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "timber/timber": "^1.16",
+    "wpackagist-plugin/aryo-activity-log": "^2.5",
+    "wpackagist-plugin/core-sitemaps": "^0.3.0",
+    "wpackagist-plugin/duplicate-post": "^3.2",
+    "wpackagist-plugin/gathercontent-import": "^3.1",
+    "wpackagist-plugin/google-authenticator": "^0.52.0",
+    "wpackagist-plugin/limit-login-attempts-reloaded": "^2.9",
+    "wpackagist-plugin/loggedin": "^1.2",
+    "wpackagist-plugin/rollbar": "^2.6",
+    "wpackagist-plugin/wp-autoupdates": "^0.8.1",
+    "wpackagist-plugin/wp-security-questions": "^1.0",
+    "wpackagist-plugin/wps-hide-login": "1.5.2.1",
+    "nyco/wp-assets": "^1.1",
+    "nyco/wp-config": "^1.0",
+    "wpackagist-plugin/wordpress-importer": "^0.7.0",
+    "wpackagist-plugin/custom-post-type-ui": "^1.7",
+    "wpackagist-plugin/taxonomy-terms-order": "1.5.7.2",
+    "wpackagist-plugin/acf-to-rest-api": "^3.3"
+  },
+  "require-dev": {
+    "enelogic/wpml-installer": "^0.1.6",
+    "filp/whoops": "^2.3",
+    "philippbaschke/acf-pro-installer": "^1.0",
+    "squizlabs/php_codesniffer": "^3.4",
+    "umutphp/wp-vulnerability-check": "^0.1.1",
+    "whoops/soap": "^1.0",
+    "wpackagist-plugin/query-monitor": "^3.3",
+    "wpackagist-plugin/redis-cache": "^1.4",
+    "wpackagist-plugin/wp-auto-login": "^1.0",
+    "wpackagist-plugin/wp-crontrol": "^1.7"
+  },
+  "scripts": {
+    "development": [
+      "composer dump-autoload"
+    ],
+    "production": [
+      "composer dump-autoload --no-dev --optimize"
+    ],
+    "predeploy": [
+      "composer run development",
+      "composer run lint",
+      "composer run wpscan",
+      "composer run production"
+    ],
+    "lint": [
+      "vendor/bin/phpcs --standard=phpcs.xml"
+    ],
+    "fix": [
+      "vendor/bin/phpcbf --standard=phpcs.xml"
+    ],
+    "wpscan": [
+      "vendor/bin/wp-vulnerability-check --config wpscan.yml"
+    ],
+    "version": [
+      "composer update nothing",
+      "composer run production"
+    ],
+    "deps": [
+      "composer show --tree"
+    ]
+  }
+}

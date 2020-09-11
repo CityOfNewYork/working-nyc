@@ -1,0 +1,57 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1" id="content">
+    {# Header Section #}
+    <div class="layout-content">
+      <header class="o-header">
+        <div>
+          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC')}}{% else %}{{ post.title }}{% endif %}
+          </h1>
+          <h2 class="o-header__subtitle text-alt">
+            {% if post.content %}{{ post.content }}{% endif %}
+          </h2>
+          <p class="small">
+            <span class="flex items-center">
+              <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
+                <use xlink:href="#icon-wnyc-ui-info"></use>
+              </svg>
+              {{ __('Last updated', 'WNYC-Date') }}
+              {{modified_date}}
+            </span>
+          </p>
+        </div>
+      </header>
+    </div>
+
+    {# Sections - Jump Nav #}
+    <div class="sticky top-0 bg-scale-1 z-10 layout-content">
+      <nav class="c-utility leading-normal block">
+        <span class="me-1">{{ __('Jump to', 'WNYC')}}</span>
+        <a class="btn btn-link btn-small btn-secondary font-secondary" href="#content">{{ __('Top of page', 'WNYC')}}</a>
+        {% for section in sections %}
+          <a class="btn btn-link btn-small btn-secondary font-secondary" href="#{{ section.section_title|trim|replace({' ': '-'})|lower }}">{{section.section_title}}</a>
+        {% endfor %}
+      </nav>
+    </div>
+
+    {# Sections #}
+    {% if sections %}
+      <section class="bg-scale-2 layout-content">
+        <div class="py-4 wrap">
+          {% for section in sections %}
+            <div class="pt-utility-anchor" id="{{ section.section_title|trim|replace({' ': '-'})|lower }}">
+              <h3 class="h5 text-alt border-b border-scale-4 pb-3">
+                {{ section.section_title }}</a>
+              </h3>
+              <p>{{section.section_content}}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </main>
+</div>
+{% endblock %}
+

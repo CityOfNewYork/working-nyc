@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="{{language_code}}" dir="{{direction}}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <meta name="description" content="{{meta_desc}}">
+    <meta name="keywords" content="{{meta_keywords}}">
+    <meta name="robots" content="{{meta_robots}}">
+
+    <link rel="manifest" href="{{theme.path}}/manifest.json">
+    <link href="{{theme.path}}/favicons/favicon@32x32.png" rel="icon" sizes="32x32" type="image/png" />
+    <link href="{{theme.path}}/favicons/apple@180x180.png" rel="apple-touch-icon" sizes="180x180" />
+
+    {{ function('enqueue_language_style', 'style') }}
+
+    {% block head_extras %}{% endblock %}
+
+    {# CSS polyfill for IE #}
+    <script type="text/javascript">
+      if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)){
+        document.write('<script src="https:\/\/cdn.jsdelivr.net\/gh\/nuxodin\/ie11CustomProperties@4.1.0\/ie11CustomProperties.min.js"><\/script>');
+        document.write('<style>.o-navigation{display:block !important;}.c-card{display:block !important;}.c-utility{display:block !important;}<\/style>');
+
+        document.addEventListener("DOMContentLoaded", function(){
+          const warning = document.getElementById("ie-warning");
+          warning.classList.remove("hidden");
+        });
+      }
+    </script>
+
+    {{ function('wp_head') }}
+
+    {% block scripts_head %}
+      {% include 'services/google-analytics.twig' %}
+      {% include 'services/google-tag-manager.twig' %}
+    {% endblock %}
+
+    {% if language_code != 'en' %}
+      {% include ['services/google-translate.twig'] %}
+    {% endif %}
+  </head>
+
+  <body class="color bg-scale-2 pb-8 mb-1 tablet:pb-0 tablet:mb-0">
+  {% include 'services/google-tag-manager-body.twig' %}
+
+    <a class="sr-only" href="#content">{{ __('Skip to main content', 'WNYC') }}</a>
+
+    {# <div class="relative z-10 shadow-up tablet:shadow-none"> #}
+    {% block header %}
+      {% include 'objects/navigation.twig' %}
+      {% include 'objects/language-switcher.twig' %}
+    {% endblock %}
+
+    {% include 'objects/ie-warning.twig' %}
+
+    {% block content %}{% endblock %}
+
+    {% if show_newsletter is not defined%}
+      {% include 'objects/newsletter.twig' %}
+    {% endif %}
+    {# </div> #}
+
+    {% block footer %}
+      {% include 'objects/footer.twig' %}
+    {% endblock %}
+
+    {{ function('enqueue_script', 'source') }}
+    {{ wp_footer }}
+
+    {% block scripts_extra %}{% endblock %}
+  </body>
+</html>

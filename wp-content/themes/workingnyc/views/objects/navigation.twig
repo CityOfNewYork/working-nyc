@@ -1,0 +1,79 @@
+<nav aria-label="Primary Navigation" class="o-navigation bg-scale-2 o-navigation-fixed" role="navigation">
+	<a class="o-navigation__logo o-navigation__menu-item" href="{{site.url}}">
+		<span class="sr-only">Working N Y C</span>
+    <svg aria-hidden="true" class="hidden tablet:inline icon-logo-standard-menu-item fill-white text-blue-l-2">
+      <use xlink:href="#logo-wnyc-standard"></use>
+    </svg>
+    <svg aria-hidden="true" class="tablet:hidden icon-logo-stacked-menu-item fill-white text-blue-l-2">
+      <use xlink:href="#logo-wnyc-stacked"></use>
+    </svg>
+	</a>
+	
+  {% for menu_item in header_menu.get_items %}
+    <a class="hidden desktop:inline-flex" href="{{menu_item.link}}">{{menu_item.title}}</a>
+  {% endfor %}
+  
+  {# <button aria-controls="aria-c-search" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-js="search">
+    <svg class="o-navigation__menu-icon icon-wnyc-ui">
+      <use xlink:href="#icon-wnyc-ui-search"></use>
+    </svg>
+    <span class="o-navigation__menu-label">{{__('Search', 'WNYC - Navigation')}}</span>
+  </button> #}
+
+  <button aria-controls="aria-c-text-controller" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-dropdown="open" data-dropdown-lock="true" data-js="dropdown">
+    <svg class="o-navigation__menu-icon icon-wnyc-ui">
+      <use xlink:href="#icon-wnyc-ui-translate"></use>
+    </svg>
+    <span class="o-navigation__menu-label">{{__('Translate', 'WNYC - Navigation')}}</span>
+  </button>
+
+  <button aria-controls="aria-c-mobile-menu" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:hidden" data-js="mobile-menu" data-js-mobile-menu="open">
+    <svg class="o-navigation__menu-icon icon-wnyc-ui">
+      <use xlink:href="#icon-wnyc-ui-menu"></use>
+    </svg>
+    <span class="o-navigation__menu-label">{{__('Menu', 'WNYC - Navigation')}}</span>
+  </button>
+
+</nav>
+
+{# Mobile Nav #}
+<aside aria-hidden="true" class="o-mobile-menu o-mobile-menu-fixed hidden" id="aria-c-mobile-menu">
+	<nav aria-label="mobile menu" class="o-mobile-menu__nav border-b pb-2">
+      <a href="{{site.url}}" tabindex="-1">{{ __('Home', 'WNYC - Navigation') }}</a>
+    {% for menu_item in header_menu.get_items %}
+      <a href="{{menu_item.link}}" tabindex="-1">{{menu_item.title}}</a>
+    {% endfor %}
+	</nav>
+  <div class="pt-3">
+    <button aria-controls="aria-c-mobile-menu" aria-expanded="false" class="btn-link" data-js="mobile-menu" data-js-mobile-menu="close" tabindex="-1">
+      <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
+        <use xlink:href="#icon-wnyc-ui-x"></use>
+      </svg>
+      <span>{{__('Close', 'WNYC - Navigation')}}</span> <span class="sr-only">{{__('and return to site', 'WNYC - Navigation')}}</span>
+    </button>
+  </div>
+</aside>
+
+{# Search Box #}
+{# <div aria-hidden="true" class="o-search o-search-fixed hidden" id="aria-c-search">
+	<div class="o-search__close">
+			<button aria-controls="aria-c-search" aria-expanded="false" class="btn-link" data-js="toggle" tabindex="-1"> <svg class="icon-wnyc-ui">
+				<use xlink:href="#icon-wnyc-ui-x"></use>
+			</svg>
+			<span>Close</span>
+		</button>
+	</div>
+	<form class="o-search__form" tabindex="-1">
+		<label class="label" for="search-field" tabindex="-1">Search for programs and occupations</label>
+		<div
+			class="input-search">
+			<input
+			data-js="search__input" id="search-field" name="s" placeholder="Search" type="text" value="" tabindex="-1">
+			<button class="btn-link input-search__submit" type="submit" tabindex="-1">
+				<svg class="icon-wnyc-ui icon-4">
+					<use xlink:href="#icon-wnyc-ui-search"></use>
+				</svg>
+			</button>
+		</div>
+	</form>
+</div> #}

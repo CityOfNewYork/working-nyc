@@ -1,0 +1,44 @@
+<footer aria-label="Primary Footer" class="o-footer bg-scale-1 tablet:bg-scale-2" role="contentinfo">
+
+	<div class="page-max">
+		<div class="o-footer__wrap">
+			<nav aria-label="Footer Primary Navigation" class="o-footer__nav o-footer__nav-a">
+				<a class="uppercase text-small no-underline" href="/">
+					<span class="sr-only">Working N Y C</span>
+					<svg aria-hidden="true" class="icon-logo-standard-menu-item fill-white text-blue-l-2">
+						<use xlink:href="#logo-wnyc-standard"></use>
+					</svg>
+				</a>
+
+        {% for menu_item in footer_menu.get_items %}
+          <a href="{{menu_item.link}}">{{menu_item.title}}</a>
+        {% endfor %}
+
+			</nav>
+
+      <nav aria-label="Footer Secondary Navigation" class="o-footer__nav o-footer__nav-b">
+        <div class="py-2">
+          <svg aria-hidden="true" class="icon-logo-partnership-footer">
+            <use xlink:href="#logo-partnership-workdev-opportunity"></use>
+          </svg>
+          <span class="sr-only">N Y C Office of Workforce Development and Office for Economic Opporunity</span>
+        </div>
+        <a href="http://nyc.gov/wkdev" rel="nofollow noopener" target="_blank">Workforce Development</a>
+        <a href="http://nyc.gov/opportunity" rel="nofollow noopener" target="_blank">Economic Opportunity</a>
+      </nav>
+
+			<div class="o-footer__break"></div>
+			<nav aria-label="Footer Tertiary Navigation" class="o-footer__nav o-footer__nav-c border-none mb-0">
+				<a class="font-secondary font-normal text-inherit no-underline flex items-center pb-1" href="http://nyc.gov" rel="nofollow noopener" target="_blank">
+					<svg aria-hidden="true" class="icon-logo-nyc-copyright fill-white me-1">
+						<use xlink:href="#logo-nyc"></use>
+					</svg>
+					<span>{{ __('© 2020 City of New York. All Rights Reserved.', 'WNYC')}}</span>
+				</a>
+				<p class="small">{{ __('NYC is a trademark and service mark of the City of New York', 'WNYC')}}</p>
+				<a href="https://www1.nyc.gov/home/privacy-policy.page" rel="nofollow noopener" target="_blank">{{ __('Privacy Policy', 'WNYC')}}</a>
+				<a href="https://www1.nyc.gov/home/terms-of-use.page" rel="nofollow noopener" target="_blank">{{ __('Terms of Use', 'WNYC')}}</a>
+			</nav>
+		</div>
+	</div>
+</footer>

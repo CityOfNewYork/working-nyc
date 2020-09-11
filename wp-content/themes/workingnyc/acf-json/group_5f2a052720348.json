@@ -1,0 +1,146 @@
+{
+    "key": "group_5f2a052720348",
+    "title": "Questionnaire",
+    "fields": [
+        {
+            "key": "field_5f2a065e594db",
+            "label": "Post Type",
+            "name": "questionnaire_post_type",
+            "type": "select",
+            "instructions": "Select a post type for this questionnaire.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "programs": "Programs"
+            },
+            "default_value": "programs",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "ajax": 0,
+            "placeholder": ""
+        },
+        {
+            "key": "field_5f2c6ee0454a2",
+            "label": "Threshold",
+            "name": "questionnaire_threshold",
+            "type": "number",
+            "instructions": "What is the minimum number of posts for the questions to continue?",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": "",
+            "max": "",
+            "step": ""
+        },
+        {
+            "key": "field_5f2a0535594d6",
+            "label": "Questionnaire",
+            "name": "questionnaire",
+            "type": "flexible_content",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layouts": {
+                "layout_5f2a054a63c04": {
+                    "key": "layout_5f2a054a63c04",
+                    "name": "questionnaire_fields",
+                    "label": "Questionnaire Fields",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_5f2a0557594d7",
+                            "label": "Question",
+                            "name": "questionnaire_question",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_5f2a0643594da",
+                            "label": "Taxonomy",
+                            "name": "questionnaire_taxonomy",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "recruitment_status": "Recruitment Status",
+                                "schedule": "Schedule",
+                                "duration": "Duration",
+                                "populations": "Populations",
+                                "services": "Services",
+                                "locations": "Locations",
+                                "sectors": "Sectors"
+                            },
+                            "default_value": false,
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "ajax": 0,
+                            "placeholder": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                }
+            },
+            "button_label": "Add Row",
+            "min": "",
+            "max": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_template",
+                "operator": "==",
+                "value": "template-home-page.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": ""
+}

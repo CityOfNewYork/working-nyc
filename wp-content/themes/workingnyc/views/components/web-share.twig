@@ -1,0 +1,57 @@
+<div class='c-web-share'>
+  <button aria-controls="aria-c-web-share-fallback" aria-expanded="false" class="btn btn-small btn-primary m-0" data-js="web-share" data-web-share='{{ this.share|json_encode }}'>
+    <svg class="c-web-share__icon icon-wnyc-ui">
+      <use xlink:href="#icon-wnyc-ui-share-2"></use>
+    </svg>
+
+    <span>{{__('Share', 'WNYC')}}</span>
+  </button>
+
+  <div aria-hidden="true" class="c-web-share__fallback color-card hidden right-0" id="aria-c-web-share-fallback" role="region">
+    <div class="c-web-share__fallback-body">
+      <div class="flex mb-1 items-center flex-row-reverse">
+        <button aria-controls="aria-c-web-share-fallback" aria-expanded="false" class="btn btn-primary btn-small m-0" data-js="web-share" tabindex="-1"> 
+          <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
+            <use xlink:href="#icon-wnyc-ui-x"></use>
+          </svg>
+          <span>{{__('Close', 'WNYC')}}</span>
+        </button>
+        <label class="c-web-share__label flex-1" for="web-share-url" tabindex="-1">{{__('Share this URL', 'WNYC')}}</label>
+      </div>
+
+      <div class="c-web-share__input input">
+        <input data-copy-target="web-share-url" id="web-share-url" name="web-share-url" tabindex="-1" type="text" value="{{this.share.url}}" />
+      </div>
+
+      <div class="c-web-share__items">
+        <button aria-pressed="false" class="c-web-share__item c-web-share__copy btn btn-small btn-primary" data-copy="web-share-url" data-js="copy" tabindex="-1">
+          <svg class="icon icon-wnyc-ui">
+            <use xlink:href="#icon-wnyc-ui-copy"></use>
+          </svg>
+
+          <svg class="icon-pressed icon-wnyc-ui me-1">
+            <use xlink:href="#icon-wnyc-ui-check"></use>
+          </svg>
+
+          <span>{{ __('Copy URL', 'WNYC') }}</span>
+        </button>
+
+        <a class="c-web-share__item btn btn-small btn-primary" href="https://www.facebook.com/sharer/sharer.php?u={{this.share.url|url_encode}}" tabindex="-1" target="_blank">
+          <svg class="icon-wnyc-ui">
+            <use xlink:href="#icon-wnyc-ui-facebook"></use>
+          </svg>
+
+          <span>{{ __('Facebook', 'WNYC') }}</span>
+        </a>
+
+        <a class="c-web-share__item btn btn-small btn-primary" href="https://twitter.com/intent/tweet?text={{this.share.text|url_encode}}%20{{this.share.url|url_encode}}" tabindex="-1" target="_blank">
+          <svg class="icon-wnyc-ui">
+            <use xlink:href="#icon-wnyc-ui-twitter"></use>
+          </svg>
+
+          <span>{{ __('Twitter', 'WNYC') }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

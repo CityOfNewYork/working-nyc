@@ -1,0 +1,110 @@
+{% extends "base.twig" %}
+
+{% block head_extras %}
+  <link href="https://cdn.jsdelivr.net/gh/michalsnik/aos@v2.3.4/dist/aos.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/gh/michalsnik/aos@v2.3.4/dist/aos.js"></script>
+{% endblock %}
+
+{% block content %}
+  <div class="bg-scale-1 bg-shape-wnyc-abc bg-fixed">
+    <header class="o-banner page-max py-7 px-2 tablet:px-8 tablet:flex tablet:layout-two-columns-gutter">
+      <div class="pb-6 hidden tablet:flex"></div>
+      <div class="pb-6 hidden tablet:flex"></div>
+      <div>
+        <div class="tablet:pe-4 tablet:py-4 tablet:sticky desktop:py-8 top-0">
+          <h1 class="sr-only">Working N Y C</h1>
+          <svg aria-hidden="true" class="icon-logo-homepage fill-white text-blue-l-2">
+            <use xlink:href="#logo-wnyc-standard"></use>
+          </svg>
+          <h2 class="h4 tablet:font-normal tablet:text-h3 font-bold text-alt mb-5">{{post.post_content|striptags}}</h2>
+          {# <p class="mb-5 text-center tablet:text-start">
+            <a class="btn btn-link btn-secondary font-secondary" href="#answer-a-few-questions">Answer a few questions to get started</a>
+            <br class="tablet:hidden" />or
+            <br />
+            <a class="btn btn-link btn-secondary font-secondary block tablet:inline-flex" href="#content">
+              <span>Scroll to browse programs</span>
+              <br class="tablet:hidden" />
+              <svg aria-hidden="true" class="icon-wnyc-ui m-0 mt-1">
+                <use xlink:href="#icon-wnyc-ui-chevron-down"></use>
+              </svg>
+            </a>
+          </p> #}
+        </div>
+      </div>
+
+      {% include 'components/questionnaire.twig' %}
+
+    </header>
+
+    <main id="content">
+      {% if featured_posts %}
+        {% for section in featured_posts %}
+          <section class="page-max py-4" id="training-programs-recruiting-now">
+            <div>
+              <div class="layout-content">
+                <div class="wrap">
+                  <h2 class="h4 font-normal text-alt mt-0">{{section.featured_posts_heading}}</h2>
+                  <p>{{section.featured_posts_description}}</p>
+                </div>
+              </div>
+
+              <div class="scroll py-3 scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:pb-0 tablet:layout-two-columns-gutter desktop:layout-four-columns-gutter wrap">
+                {% for featured in section.featured_posts_objects %}
+                  {% set featured = TimberPost(featured) %}
+
+                  {% include ['components/programs-card.twig'] with {
+                    post: featured
+                  } %}
+             
+                {% endfor %}
+
+                <div class="wrap relative tablet:hidden">
+                  <a class="btn btn-secondary btn-next flex w-full h-full" href="{{programs_archive}}">
+                    <svg aria-hidden="true" class="icon-wnyc-ui">
+                      <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                    </svg>
+                    <span>{{ __('See all programs', 'WNYC')}}</span>
+                    <svg aria-hidden="true" class="icon-wnyc-ui">
+                      <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                    </svg>
+                  </a>
+                </div>
+
+              </div>
+
+              <div class="layout-content">
+                <div class="wrap tablet:py-6">
+                  <a class="btn btn-secondary btn-next flex w-full" href="{{programs_archive}}">
+                    <svg aria-hidden="true" class="icon-wnyc-ui">
+                      <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                    </svg>
+                    <span>{{ __('See all programs', 'WNYC')}}</span>
+                    <svg aria-hidden="true" class="icon-wnyc-ui">
+                      <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+          </section>
+        {% endfor %}
+      {% endif %}
+      
+    </main>
+  </div>
+  
+{% endblock %}
+
+{% block scripts_extra %}
+
+<script type="text/javascript">
+	AOS.init({
+    duration: 400, 
+    easing: 'ease-out'
+  });
+</script>
+
+
+{% endblock %}
+

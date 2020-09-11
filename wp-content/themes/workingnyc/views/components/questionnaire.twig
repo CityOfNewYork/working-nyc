@@ -1,0 +1,85 @@
+{% if questionnaire_qs %}
+  <section data-aos="fade-up" data-aos-anchor-placement="top-bottom" id="answer-a-few-questions" data-post-type="{{questionnaire_post_type}}" data-post-threshold="{{questionnaire_threshold}}" v-cloak>
+    <p class="mb-5 text-center tablet:mb-3">
+      <a class="btn btn-link btn-secondary font-secondary" href="#answer-a-few-questions">{{ __('Answer a question to get started', 'WNYC-Questionnaire') }}</a>
+      <br class="tablet:hidden" />{{ __('or', 'WNYC-Questionnaire') }}
+      <br />
+      <a class="btn btn-link btn-secondary font-secondary block tablet:inline-flex" href="#content">
+        <span>{{ __('Scroll to browse programs', 'WNYC-Questionnaire') }}</span>
+        <br class="tablet:hidden" />
+        <svg aria-hidden="true" class="icon-wnyc-ui m-0 mt-1">
+          <use xlink:href="#icon-wnyc-ui-chevron-down"></use>
+        </svg>
+      </a>
+    </p>
+    <form :action="'{{programs_archive}}'+query" class="c-card" data-js="validate-and-query" method="post">
+      <div class="c-card__body">
+
+        {% for question in questionnaire_qs %}
+          <fieldset {% if loop.index == 1 %}class="mb-2"{% else %}aria-hidden="true" class="hidden mt-3"{% endif %} data-taxonomy="{{question.questionnaire_taxonomy}}" field-key="{{loop.index}}">
+            {# <legend class="text-alt small">Question {{loop.index}}</legend> #}
+            <div class="c-question">
+              <label class="c-question__label">{{question.questionnaire_question}}</label>
+              <p>{{ __('Choose one for now. You can add later using filters.', 'WNYC-Questionnaire') }}</p>
+              <div class="c-question__container">
+                <div class="select ">
+                  <select aria-controls="aria-c-schedules" data-js="toggle" name="population" v-model="checkedFilters[{{loop.index}}]">
+                    <option value="undefined" disabled>{{ __('Select an option', 'WNYC-Questionnaire') }}</option>
+                    <option  v-for="(term,index) in filters[{{loop.index - 1}}]" :value="term">v{ term.name }</option>
+                  </select>
+                  <svg aria-hidden="true" class="select__graphic">
+                    <use xlink:href="#select-wnyc-chevrons"></use>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        {% endfor %}
+
+        <div aria-hidden="true" id="aria-c-messaging">
+          <article class="c-alert color-status-secondary mb-5" data-js="alert-success" v-if="(success || checkedFilters.length == (filters.length + 1)) && totalPosts > 0">
+            <div class="c-alert__graphic">
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use xlink:href="#icon-wnyc-ui-info"></use>
+              </svg>
+            </div>
+            <div class="c-alert__body">
+              <p data-alert="text">
+                <span>{{ __('Got it! We found', 'WNYC-Questionnaire') }} <b>v{ totalPosts }</b> {{ __('programs matching your interest.', 'WNYC-Questionnaire') }}
+              </p>
+            </div>
+          </article>
+          <article class="c-alert color-status-secondary mb-5" data-js="alert-warning" v-if="success==false">
+            <div class="c-alert__graphic">
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use xlink:href="#icon-wnyc-ui-info"></use>
+              </svg>
+            </div>
+            <div class="c-alert__body">
+              <p data-alert="text">{{ __('For those choices, we suggest seeing', 'WNYC-Questionnaire') }}
+                <a href="{{programs_archive}}" tabindex="-1">{{ __('all programs available now.', 'WNYC-Questionnaire') }}</a>
+                {{ __('Add filters on the Programs page to find what’s right for you. To get updates on programs that match your interests, you can also', 'WNYC-Questionnaire') }}
+                <a href="/newsletter" tabindex="-1">{{ __('sign up for our newsletter.', 'WNYC-Questionnaire') }}</a>
+              </p>
+
+            </div>
+          </article>
+          <article class="c-alert color-status-tertiary mb-5" data-js="alert-warning" v-if="error">
+            <div class="c-alert__graphic">
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use xlink:href="#icon-wnyc-ui-info"></use>
+              </svg>
+            </div>
+            <div class="c-alert__body">
+              <p data-alert="text">{{ __('Sorry, there was an error on our site. Please try again later.', 'WNYC-Questionnaire') }}</p>
+            </div>
+          </article>
+        </div>
+        <button class="btn btn-primary btn-next w-full" v-if="totalPosts == 0 && checkedFilters.length == 0">{{ __('Find your program now', 'WNYC-Questionnaire') }}</button>
+        <button class="btn btn-secondary btn-next w-full" v-if="totalPosts > 1 && checkedFilters.length > 0">{{ __('Find your programs now', 'WNYC-Questionnaire') }}</button>
+        <button class="btn btn-secondary btn-next w-full" v-if="totalPosts == 1 && checkedFilters.length > 0">{{ __('Find your program now', 'WNYC-Questionnaire') }}</button>
+      </div>
+    </form>
+  </section>
+{% endif %}
+

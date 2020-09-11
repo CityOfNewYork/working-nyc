@@ -1,0 +1,15 @@
+{
+  "manifest_version": 2,
+  "name": "Working NYC",
+  "short_name": "Working NYC",
+  "version": "1.0.0",
+  "description": "Connecting NYC job seekers to workforce services.",
+  "homepage_url": "https://working.nyc.gov",
+  "icons": [
+    {
+      "src": "favicons/android@384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    }
+  ]
+}
