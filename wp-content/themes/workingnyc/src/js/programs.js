@@ -22,7 +22,7 @@ class Programs {
         baseUrl: baseUrl,
         lang: lang,
         postType: postType,
-        programsURL: `${baseUrl}${postType}?lang=${lang}`,
+        programsURL: `${baseUrl}${postType}?lang=${lang}&orderby=menu_order&order=asc`,
         posts: null,
         labels: Programs.setTaxObj(filters, true),
         taxonomies: Programs.setTaxObj(filters, false),
@@ -158,7 +158,7 @@ Programs.getPrograms = function () {
   
   let filters =  Programs.generateFilters(this)
 
-  let url = `${this.baseUrl}${this.postType}?lang=${this.lang}&per_page=${this.perPage}&page=${this.page}&${filters}`;
+  let url = `${this.programsURL}&per_page=${this.perPage}&page=${this.page}&${filters}`;
 
   axios
     .get(url)

@@ -2007,6 +2007,28 @@
         "homepage": "https://wordpress.org/plugins/rollbar/"
     },
     {
+        "name": "wpackagist-plugin/simple-custom-post-order",
+        "version": "2.5.0",
+        "version_normalized": "2.5.0.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/simple-custom-post-order/",
+            "reference": "tags/2.5.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/simple-custom-post-order.2.5.0.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/simple-custom-post-order/"
+    },
+    {
         "name": "wpackagist-plugin/taxonomy-terms-order",
         "version": "1.5.7.2",
         "version_normalized": "1.5.7.2",

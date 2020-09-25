@@ -17586,7 +17586,7 @@
 	      baseUrl: baseUrl,
 	      lang: lang,
 	      postType: postType,
-	      programsURL: "".concat(baseUrl).concat(postType, "?lang=").concat(lang),
+	      programsURL: "".concat(baseUrl).concat(postType, "?lang=").concat(lang, "&orderby=menu_order&order=asc"),
 	      posts: null,
 	      labels: Programs.setTaxObj(filters, true),
 	      taxonomies: Programs.setTaxObj(filters, false),
@@ -17738,7 +17738,7 @@
 	  var _this2 = this;
 
 	  var filters = Programs.generateFilters(this);
-	  var url = "".concat(this.baseUrl).concat(this.postType, "?lang=").concat(this.lang, "&per_page=").concat(this.perPage, "&page=").concat(this.page, "&").concat(filters);
+	  var url = "".concat(this.programsURL, "&per_page=").concat(this.perPage, "&page=").concat(this.page, "&").concat(filters);
 	  axios.get(url).then(function (response) {
 	    _this2.totalPosts = response.headers['x-wp-total'];
 

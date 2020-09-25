@@ -7,7 +7,7 @@
   * Register routes and fields for programs rest endpoint
   */
 add_action( 'rest_api_init', 'register_rest_programs' );
-add_filter( 'rest_program_collection_params', 'filter_add_rest_orderby_params', 10, 1 );
+add_filter( 'rest_programs_collection_params', 'filter_add_rest_orderby_params', 10, 1 );
 
 function register_rest_programs() {
   $taxonomies = get_object_taxonomies( 'programs' );

@@ -33,7 +33,8 @@
     "wpackagist-plugin/wordpress-importer": "^0.7.0",
     "wpackagist-plugin/custom-post-type-ui": "^1.7",
     "wpackagist-plugin/taxonomy-terms-order": "1.5.7.2",
-    "wpackagist-plugin/acf-to-rest-api": "^3.3"
+    "wpackagist-plugin/acf-to-rest-api": "^3.3",
+    "wpackagist-plugin/simple-custom-post-order": "^2.5"
   },
   "require-dev": {
     "enelogic/wpml-installer": "^0.1.6",

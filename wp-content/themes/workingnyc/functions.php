@@ -42,6 +42,7 @@ $includes = [
   '/includes/wnyc_shortcodes.php',
   '/includes/wnyc_pages.php',
   '/includes/newsletter.php',
+  '/includes/rest/rest.php',
   '/includes/rest/programs.php',
 ];
 
