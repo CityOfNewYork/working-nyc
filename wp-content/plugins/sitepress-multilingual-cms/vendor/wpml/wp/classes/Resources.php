@@ -2,6 +2,8 @@
 
 namespace WPML\LIB\WP\App;
 
+use WPML\FP\Fns;
+use WPML\FP\Obj;
 use WPML\LIB\WP\Nonce;
 use WPML\LIB\WP\WordPress;
 
@@ -30,6 +32,18 @@ class Resources {
 		if ( $localize ) {
 			if ( isset( $localize['data']['endpoint'] ) ) {
 				$localize['data']['nonce'] = Nonce::create( $localize['data']['endpoint'] );
+			}
+			if ( isset( $localize['data']['endpoints'] ) ) {
+				$localize = Obj::over(
+					Obj::lensPath( [ 'data', 'endpoints' ] ),
+					Fns::map( function ( $endpoint ) {
+						return [
+							'endpoint' => $endpoint,
+							'nonce'    => Nonce::create( $endpoint )
+						];
+					} ),
+					$localize
+				);
 			}
 			wp_localize_script( $handle, $localize['name'], $localize['data'] );
 		}

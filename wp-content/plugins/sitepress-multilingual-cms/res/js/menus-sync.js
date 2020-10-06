@@ -17,7 +17,7 @@ var WPML_core = WPML_core || {};
 		check_all.off('change');
 
 		check_all.on('change', function () {
-			var on = jQuery(this).attr('checked');
+			var on = jQuery(this).prop('checked');
 			var checkboxes = icl_msync_confirm.find('tbody :checkbox');
 
 			if (on) {
@@ -96,7 +96,7 @@ var WPML_core = WPML_core || {};
 
 				jQuery('#icl_msync_confirm').find('tbody :checkbox').each(function () {
 
-					if (jQuery(this).val().search('newfrom-' + menu_id + '-') == 0 && jQuery(this).attr('checked')) {
+					if (jQuery(this).val().search('newfrom-' + menu_id + '-') == 0 && jQuery(this).prop('checked')) {
 						mnthis.prop('checked', true);
 						mnthis.prop('readonly', true);
 					}

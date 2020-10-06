@@ -82,7 +82,7 @@ class WPML_Admin_Text_Import extends WPML_Admin_Text_Functionality {
 				}
 
 				$_icl_admin_option_names = is_array( $_icl_admin_option_names )
-					? array_replace_recursive( $arr_options, $_icl_admin_option_names ) : $arr_options;
+					? array_replace_recursive( $_icl_admin_option_names, $arr_options ) : $arr_options;
 			}
 
 			update_option( '_icl_admin_option_names', $_icl_admin_option_names );

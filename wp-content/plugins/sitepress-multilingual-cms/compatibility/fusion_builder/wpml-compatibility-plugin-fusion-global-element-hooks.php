@@ -10,9 +10,11 @@ class WPML_Compatibility_Plugin_Fusion_Global_Element_Hooks extends BaseHooks im
 
 	const ACTION = 'wpml_compatibility_fusion_get_template_translation_icons';
 
-	const LAYOUTS_SCREEN_ID = 'fusion-builder_page_fusion-layouts';
+	const LAYOUTS_SCREEN_ID           = 'avada_page_avada-layouts';
+	const LAYOUTS_SCREEN_ID_BEFORE_V7 = 'fusion-builder_page_fusion-layouts';
 
-	const SECTIONS_SCREEN_ID = 'fusion-builder_page_fusion-layout-sections';
+	const SECTIONS_SCREEN_ID           = 'avada-layout-sections';
+	const SECTIONS_SCREEN_ID_BEFORE_V7 = 'fusion-builder_page_fusion-layout-sections';
 
 	/** @var IWPML_Current_Language */
 	private $current_language;
@@ -131,13 +133,13 @@ class WPML_Compatibility_Plugin_Fusion_Global_Element_Hooks extends BaseHooks im
 		$current_screen    = get_current_screen();
 		$current_screen_id = $current_screen ? $current_screen->id : null;
 
-		if ( ! in_array( $current_screen_id, [ self::LAYOUTS_SCREEN_ID, self::SECTIONS_SCREEN_ID ], true ) ) {
+		if ( ! ( self::isLayoutsScreen( $current_screen_id ) || self::isSectionsScreen( $current_screen_id ) ) ) {
 			return;
 		}
 
 		$this->enqueue_style();
 
-		if ( self::LAYOUTS_SCREEN_ID !== $current_screen_id ) {
+		if ( ! self::isLayoutsScreen( $current_screen_id ) ) {
 			return;
 		}
 
@@ -193,5 +195,23 @@ class WPML_Compatibility_Plugin_Fusion_Global_Element_Hooks extends BaseHooks im
 				'flags' => $flags,
 			]
 		);
+	}
+
+	/**
+	 * @param string $screenId
+	 *
+	 * @return bool
+	 */
+	private static function isLayoutsScreen( $screenId ) {
+		return in_array( $screenId, [ self::LAYOUTS_SCREEN_ID_BEFORE_V7, self::LAYOUTS_SCREEN_ID ], true );
+	}
+
+	/**
+	 * @param string $screenId
+	 *
+	 * @return bool
+	 */
+	private static function isSectionsScreen( $screenId ) {
+		return in_array( $screenId, [ self::SECTIONS_SCREEN_ID_BEFORE_V7, self::SECTIONS_SCREEN_ID ], true );
 	}
 }

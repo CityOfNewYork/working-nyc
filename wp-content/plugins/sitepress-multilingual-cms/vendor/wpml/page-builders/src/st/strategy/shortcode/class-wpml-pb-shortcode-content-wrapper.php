@@ -3,12 +3,13 @@
 use WPML\FP\Logic;
 use WPML\FP\Maybe;
 use WPML\FP\Str;
+use WPML\LIB\WP\Gutenberg;
 use function WPML\FP\pipe;
+
 
 class WPML_PB_Shortcode_Content_Wrapper {
 
 	const WRAPPER_SHORTCODE_NAME  = 'wpml_string_wrapper';
-	const GUTENBERG_OPENING_START = '<!-- wp:';
 
 	/** @var string $content */
 	private $content;
@@ -264,11 +265,10 @@ class WPML_PB_Shortcode_Content_Wrapper {
 	 * @return string
 	 */
 	public static function maybeWrap( $content, array $shortcodes ) {
-		$notGutenbergContent  = pipe( Str::includes( self::GUTENBERG_OPENING_START ), Logic::not() );
 		$containsOneShortcode = pipe( Str::match( '/' . get_shortcode_regex( $shortcodes ) . '/s' ), Logic::isEmpty(), Logic::not() );
 
 		return Maybe::of( $content )
-			->filter( $notGutenbergContent )
+			->filter( Gutenberg::doesNotHaveBlock() )
 			->filter( $containsOneShortcode )
 			->filter( [ self::class, 'isStrippedContentDifferent' ] )
 			->map( [ self::class, 'wrap' ] )

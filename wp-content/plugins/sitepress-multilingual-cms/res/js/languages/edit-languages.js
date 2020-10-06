@@ -11,7 +11,7 @@ jQuery(document).ready(function(){
                 jQuery(this).val('');
             });
             jQuery('#icl_edit_languages_ignore_add').val('true');
-            jQuery('#icl_edit_languages_form').find(':submit').attr('disabled','disabled');
+            jQuery('#icl_edit_languages_form').find(':submit').prop('disabled',true);
         });
     });
     jQuery('.icl_edit_languages_use_upload').click(function(){
@@ -22,8 +22,8 @@ jQuery(document).ready(function(){
         jQuery(this).closest('ul').find('.wpml-edit-languages-flag-upload-wrapper').hide();
         jQuery(this).closest('ul').find('.wpml-edit-languages-flag-wpml-wrapper').show();
     });
-    jQuery('#icl_edit_languages_form').find(':submit').attr('disabled','disabled');
+    jQuery('#icl_edit_languages_form').find(':submit').prop('disabled',true);
     jQuery('#icl_edit_languages_form input, #icl_edit_languages_form select').click(function(){
-        jQuery('#icl_edit_languages_form').find(':submit').removeAttr('disabled');
+        jQuery('#icl_edit_languages_form').find(':submit').prop('disabled', false);
     });
 });

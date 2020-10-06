@@ -232,6 +232,8 @@ class WPML_LS_Settings {
 		if ( null === $this->settings ) {
 			$this->settings = get_option( self::SETTINGS_SLUG );
 
+			$this->handle_corrupted_settings();
+
 			if ( ! $this->settings || ! isset( $this->settings['migrated'] ) ) {
 				$this->settings   = $this->migration()->get_converted_settings( $this->sitepress->get_settings() );
 				$default_settings = $this->get_default_settings();
@@ -250,6 +252,46 @@ class WPML_LS_Settings {
 				$this->settings = $this->strings->translate_all( $this->settings );
 			}
 		}
+	}
+
+	private function handle_corrupted_settings() {
+
+		$corrupted_settings = [];
+
+		foreach ( array( 'menus', 'sidebars', 'statics' ) as $group ) {
+			if ( ! isset( $this->settings[ $group ] ) ) {
+				continue;
+			}
+
+			foreach ( $this->settings[ $group ] as $key => $slot ) {
+				if ( $slot instanceof __PHP_Incomplete_Class ) {
+					unset( $this->settings[ $group ][ $key ] );
+					$corrupted_settings[] = ucfirst( $group ) . ' - ' . $key ;
+				}
+			}
+		}
+
+		if ( $corrupted_settings ) {
+			$this->add_corrupted_settings_notice( $corrupted_settings );
+		}
+	}
+
+	/**
+	 * @param array $corrupted_settings
+	 */
+	private function add_corrupted_settings_notice( $corrupted_settings ) {
+
+		$message = __( 'Some WPML Language Switcher settings were reinitialized because they were corrupted. Please re-configure them:', 'sitepress' );
+		$message .= ' ' . join( ', ', $corrupted_settings ) . '.';
+
+		$admin_notices = wpml_get_admin_notices();
+		$notice        = $admin_notices->create_notice( 'corrupted_settings', $message, 'wpml-ls-settings' );
+
+		$notice->set_css_class_types( 'error' );
+		$notice->set_dismissible( true );
+		$notice->set_flash( true );
+
+		$admin_notices->add_notice( $notice );
 	}
 
 	/**

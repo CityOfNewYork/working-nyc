@@ -217,6 +217,7 @@ class WPML_Dependencies {
 
 		update_option( $this->data_key . 'valid_plugins', $this->valid_plugins );
 		update_option( $this->data_key . 'invalid_plugins', $this->invalid_plugins );
+		update_option( $this->data_key . 'expected_versions', $this->expected_versions );
 	}
 
 	public function get_plugins_validation() {
@@ -277,9 +278,10 @@ class WPML_Dependencies {
 
 	private function maybe_init_admin_notice() {
 		$this->admin_notice      = null;
-		$this->installed_plugins = get_option( $this->data_key . 'installed_plugins', array() );
-		$this->invalid_plugins   = get_option( $this->data_key . 'invalid_plugins', array() );
-		$this->valid_plugins     = get_option( $this->data_key . 'valid_plugins', array() );
+		$this->installed_plugins = get_option( $this->data_key . 'installed_plugins', [] );
+		$this->invalid_plugins   = get_option( $this->data_key . 'invalid_plugins', [] );
+		$this->expected_versions = get_option( $this->data_key . 'expected_versions', [] );
+		$this->valid_plugins     = get_option( $this->data_key . 'valid_plugins', [] );
 
 		if ( $this->has_invalid_plugins() ) {
 			$notice_paragraphs = array();

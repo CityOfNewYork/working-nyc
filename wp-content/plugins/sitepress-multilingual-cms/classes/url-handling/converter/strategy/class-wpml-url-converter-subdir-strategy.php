@@ -115,6 +115,10 @@ class WPML_URL_Converter_Subdir_Strategy extends WPML_URL_Converter_Abstract_Str
 		}
 	}
 
+	public function use_wp_login_url_converter() {
+		return true;
+	}
+
 	/**
 	 * Will return true if root URL or child of root URL
 	 *

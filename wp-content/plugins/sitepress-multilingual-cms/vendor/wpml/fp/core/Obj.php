@@ -29,6 +29,10 @@ use WPML\FP\Functor\IdentityFunctor;
  * @method static callable|bool has( ...$prop, ...$item ) - Curried :: string → a → bool
  * @method static callable|mixed evolve( ...$transformations, ...$item ) - Curried :: array → array → array
  *
+ * @method static callable|array objOf(...$key, ...$value) - Curried :: string -> mixed -> array
+ *
+ * Creates an object containing a single key:value pair.
+ *
  * @method static callable|array keys( ...$obj ) - Curried :: object|array->array
  *
  * Returns
@@ -62,6 +66,8 @@ use WPML\FP\Functor\IdentityFunctor;
  *
  * $this->assertEquals( [ 1, 2, 3 ], Obj::values( (object) [ 'a' => 1, 'b' => 2, 'c' => 3 ] ) );
  * ```
+ *
+ * @method static callable|array replaceRecursive(array ...$newValue, ...$target) - Curried :: array->array->array
  */
 class Obj {
 
@@ -280,6 +286,12 @@ class Obj {
 
 			throw new \InvalidArgumentException( 'obj should be either array or object' );
 		} ) );
+
+		self::macro( 'objOf', curryN( 2, function ( $key, $value ) {
+			return [ $key => $value ];
+		} ) );
+
+		self::macro( 'replaceRecursive', curryN( 2, flip( 'array_replace_recursive' ) ) );
 	}
 
 	private static function matchType( $item, $reference ) {

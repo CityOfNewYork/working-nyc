@@ -57,7 +57,6 @@ WPML_String_Translation.ChangeTranslationPriority = function () {
 
     var initializeSelect2 = function () {
         privateData.translation_priority_select.select2({
-            escapeMarkup:       function(m) { return m; },
             width:              'auto',
             dropdownCss:        {'z-index': parseInt(jQuery('.ui-dialog').css('z-index'), 10) + 100},
             dropdownAutoWidth:  true

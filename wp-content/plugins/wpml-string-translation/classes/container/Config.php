@@ -25,6 +25,7 @@ class Config {
 			\WPML_ST_Upgrade::class,
 			\WPML_Theme_Localization_Type::class,
 			\WPML_ST_Translations_File_Dictionary_Storage_Table::class,
+			\WPML\ST\TranslationFile\Sync\TranslationUpdates::class,
 		];
 	}
 
@@ -33,4 +34,11 @@ class Config {
 			\WPML_ST_Translations_File_Dictionary_Storage::class => \WPML_ST_Translations_File_Dictionary_Storage_Table::class,
 		];
 	}
+
+	static public function getDelegated() {
+		return [
+			\WPML_Admin_Texts::class => function() { return wpml_st_load_admin_texts(); },
+		];
+	}
+
 }

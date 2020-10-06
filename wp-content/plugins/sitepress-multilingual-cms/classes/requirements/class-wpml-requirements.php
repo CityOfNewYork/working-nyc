@@ -51,14 +51,6 @@ class WPML_Requirements {
 				'wpml-translation-management',
 			),
 		),
-		'woocommerce'   => array(
-			'url'          => '#',
-			'requirements' => array(
-				'woocommerce-multilingual',
-				'wpml-translation-management',
-				'wpml-string-translation',
-			),
-		),
 		'gravityforms'  => array(
 			'url'          => '#',
 			'requirements' => array(

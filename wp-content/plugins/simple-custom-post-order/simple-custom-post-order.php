@@ -3,10 +3,10 @@
 * Plugin Name: Simple Custom Post Order
 * Plugin URI: https://wordpress.org/plugins-wp/simple-custom-post-order/
 * Description: Order Items (Posts, Pages, and Custom Post Types) using a Drag and Drop Sortable JavaScript.
-* Version: 2.5.0
+* Version: 2.5.1
 * Author: Colorlib
 * Author URI: https://colorlib.com/
-* Tested up to: 5.4
+* Tested up to: 5.5
 * Requires: 4.6 or higher
 * License: GPLv3 or later
 * License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,7 +36,7 @@
 
 define('SCPORDER_URL', plugins_url('', __FILE__));
 define('SCPORDER_DIR', plugin_dir_path(__FILE__));
-define('SCPORDER_VERSION', '2.5.0');
+define('SCPORDER_VERSION', '2.5.1');
 
 $scporder = new SCPO_Engine();
 
@@ -51,6 +51,7 @@ class SCPO_Engine {
         add_action('admin_menu', array($this, 'admin_menu'));
 
         add_action('admin_init', array( $this, 'refresh' ) );
+
 
         add_action('admin_init', array($this, 'update_options'));
         add_action('admin_init', array($this, 'load_script_css'));
@@ -93,6 +94,7 @@ class SCPO_Engine {
     }
 
     public function load_scpo_textdomain(){
+
         load_plugin_textdomain( 'simple-custom-post-order', false, basename( dirname( __FILE__ ) ) . '/languages/' );
     }
 
@@ -227,12 +229,13 @@ class SCPO_Engine {
             wp_enqueue_script('jquery');
             wp_enqueue_script('jquery-ui-sortable');
             wp_enqueue_script('scporderjs', SCPORDER_URL . '/assets/scporder.js', array('jquery'), SCPORDER_VERSION, true);
-
             wp_enqueue_style('scporder', SCPORDER_URL . '/assets/scporder.css', array(), SCPORDER_VERSION );
+
         }
     }
 
     public function refresh() {
+
 
         if ( scporder_doing_ajax() ) {
             return;
@@ -243,7 +246,7 @@ class SCPO_Engine {
         $tags = $this->get_scporder_options_tags();
 
         if (!empty($objects)) {
-            
+
             foreach ($objects as $object) {
                 $result = $wpdb->get_results("
                     SELECT count(*) as cnt, max(menu_order) as max, min(menu_order) as min
@@ -257,6 +260,7 @@ class SCPO_Engine {
                 // Here's the optimization
                 $wpdb->query("SET @row_number = 0;");
                 $wpdb->query("UPDATE $wpdb->posts as pt JOIN (
+
                   SELECT ID, (@row_number:=@row_number + 1) AS `rank`
                   FROM $wpdb->posts
                   WHERE post_type = '$object' AND post_status IN ( 'publish', 'pending', 'draft', 'private', 'future' )
@@ -264,6 +268,7 @@ class SCPO_Engine {
                 ) as pt2
                 ON pt.id = pt2.id
                 SET pt.menu_order = pt2.`rank`;");
+
 
             }
         }
@@ -325,6 +330,7 @@ class SCPO_Engine {
         }
 
         do_action('scp_update_menu_order');
+
     }
 
     public function update_menu_order_tags() {
@@ -358,6 +364,7 @@ class SCPO_Engine {
         }
 
         do_action('scp_update_menu_order_tags');
+
     }
 
     public function update_options() {
@@ -372,6 +379,7 @@ class SCPO_Engine {
         $input_options['objects'] = isset($_POST['objects']) ? $_POST['objects'] : '';
         $input_options['tags'] = isset($_POST['tags']) ? $_POST['tags'] : '';
         $input_options['show_advanced_view'] = isset($_POST['show_advanced_view']) ? $_POST['show_advanced_view'] : '';
+
 
         update_option('scporder_options', $input_options);
 
@@ -491,14 +499,17 @@ class SCPO_Engine {
     public function scporder_pre_get_posts($wp_query) {
         $objects = $this->get_scporder_options_objects();
 
+
         if (empty($objects))
             return false;
-        if (is_admin()) {
+        if (is_admin() && ! wp_doing_ajax()) {
 
             if (isset($wp_query->query['post_type']) && !isset($_GET['orderby'])) {
                 if (in_array($wp_query->query['post_type'], $objects)) {
-                    $wp_query->set('orderby', 'menu_order');
-                    $wp_query->set('order', 'ASC');
+                    if (!$wp_query->get('orderby'))
+                        $wp_query->set('orderby', 'menu_order');
+                    if (!$wp_query->get('order'))
+                        $wp_query->set('order', 'ASC');
                 }
             }
         } else {
@@ -531,18 +542,19 @@ class SCPO_Engine {
                 if (!$wp_query->get('order'))
                     $wp_query->set('order', 'ASC');
             }
-
         }
     }
 
     public function scporder_get_terms_orderby($orderby, $args) {
-        if (is_admin())
+
+        if (is_admin() && ! wp_doing_ajax())
             return $orderby;
 
         $tags = $this->get_scporder_options_tags();
 
         if (!isset($args['taxonomy']))
             return $orderby;
+
 
         if(is_array($args['taxonomy'])){
             if(isset($args['taxonomy'][0])){
@@ -555,6 +567,7 @@ class SCPO_Engine {
             $taxonomy = $args['taxonomy'];
         }
 
+
         if (!in_array($taxonomy, $tags))
             return $orderby;
 
@@ -565,7 +578,8 @@ class SCPO_Engine {
     public function scporder_get_object_terms($terms) {
         $tags = $this->get_scporder_options_tags();
 
-        if (is_admin() && isset($_GET['orderby']))
+
+        if (is_admin() && ! wp_doing_ajax() && isset($_GET['orderby']))
             return $terms;
 
         foreach ($terms as $key => $term) {
@@ -599,6 +613,7 @@ class SCPO_Engine {
         $tags = isset($scporder_options['tags']) && is_array($scporder_options['tags']) ? $scporder_options['tags'] : array();
         return $tags;
     }
+
 
     /**
      *  SCPO reset order for post types/taxonomies
@@ -681,3 +696,4 @@ function scporder_uninstall_db() {
     }
     delete_option('scporder_install');
 }
+

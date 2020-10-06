@@ -2,7 +2,7 @@
 
 abstract class WPML_Admin_Text_Functionality {
 
-	protected final function is_blacklisted( $option_name ) {
+	public final function is_blacklisted( $option_name ) {
 		global $wp_taxonomies;
 
 		$black_list = array_fill_keys( array(
@@ -125,7 +125,7 @@ abstract class WPML_Admin_Text_Functionality {
 	 *
 	 * @return mixed Value set for the option.
 	 */
-	protected function get_option_without_filtering( $key, $default = false ) {
+	public function get_option_without_filtering( $key, $default = false ) {
 		global $wpdb;
 
 		$value = $wpdb->get_var( $wpdb->prepare( "SELECT option_value

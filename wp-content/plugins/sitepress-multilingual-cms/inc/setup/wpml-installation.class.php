@@ -4,6 +4,10 @@ class WPML_Installation extends WPML_WPDB_And_SP_User {
 
 	const WPML_START_VERSION_KEY = 'wpml_start_version';
 
+	public static function getStartVersion() {
+		return get_option( self::WPML_START_VERSION_KEY, '0.0.0' );
+	}
+
 	function go_to_setup1() {
 		// Reverse $this->prepopulate_translations()
 		$this->wpdb->query( "TRUNCATE TABLE {$this->wpdb->prefix}icl_translations" );
@@ -114,15 +118,18 @@ class WPML_Installation extends WPML_WPDB_And_SP_User {
 		return $sanitized_codes;
 	}
 
-	public function finish_installation( $site_key = false ) {
+	public function finish_installation( ) {
 		icl_set_setting( 'setup_complete', 1, true );
-		if ( $site_key ) {
-			icl_set_setting( 'site_key', $site_key, true );
-		}
 
 		update_option( self::WPML_START_VERSION_KEY, ICL_SITEPRESS_VERSION );
 
 		do_action( 'wpml_setup_completed' );
+	}
+
+	public function store_site_key( $site_key = false ) {
+		if ( $site_key ) {
+			icl_set_setting( 'site_key', $site_key, true );
+		}
 	}
 
 	public function finish_step3() {

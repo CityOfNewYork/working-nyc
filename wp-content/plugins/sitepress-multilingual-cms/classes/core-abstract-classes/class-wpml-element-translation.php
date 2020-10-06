@@ -1,21 +1,23 @@
 <?php
+
 /**
  * WPML_Element_Translation Class
  *
  * @package wpml-core
  * @abstract
- *
  */
-
 abstract class WPML_Element_Translation extends WPML_WPDB_User {
 	/** @var array[] $element_data */
-	protected $element_data = array();
+	protected $element_data = [];
+
 	/** @var array[] $translations */
-	protected $translations = array();
+	protected $translations = [];
+
 	/** @var array[] $trid_groups */
-	protected $trid_groups = array();
+	protected $trid_groups = [];
+
 	/** @var array[] $trid_groups */
-	protected $translation_ids_element = array();
+	protected $translation_ids_element = [];
 
 	/** @var int $type_prefix_length */
 	private $type_prefix_length;
@@ -34,15 +36,14 @@ abstract class WPML_Element_Translation extends WPML_WPDB_User {
 	 * Clears the cached translations.
 	 */
 	public function reload() {
-		$this->element_data = array();
+		$this->element_data            = [];
+		$this->translations            = [];
+		$this->trid_groups             = [];
+		$this->translation_ids_element = [];
 
-		$this->translations            = array();
-		$this->trid_groups             = array();
-		$this->translation_ids_element = array();
 	}
 
 	public function get_element_trid( $element_id ) {
-
 		return $this->maybe_populate_cache ( $element_id )
 			? $this->element_data[ $element_id ]['trid'] : null;
 	}
@@ -315,11 +316,11 @@ abstract class WPML_Element_Translation extends WPML_WPDB_User {
 	}
 
 	/**
-	 * @param $post_id
+	 * @param int $post_id
 	 *
 	 * @return bool
 	 */
 	public function is_a_duplicate( $post_id ) {
-		return (bool) get_post_meta( $post_id, '_icl_lang_duplicate_of', true ) ? true : false;
+		return (bool) get_post_meta( $post_id, '_icl_lang_duplicate_of', true );
 	}
 }

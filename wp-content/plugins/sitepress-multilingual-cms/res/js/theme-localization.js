@@ -29,7 +29,7 @@ function iclSaveThemeLocalization(){
 function iclSaveThemeLocalizationType(){
     jQuery(this).find('.icl_form_errors').fadeOut();
     var val         = jQuery(this).find('[name="icl_theme_localization_type"]:checked').val();
-    var td_on       = jQuery(this).find('[name="icl_theme_localization_load_td"]').attr('checked');
+    var td_on       = jQuery(this).find('[name="icl_theme_localization_load_td"]').prop('checked');
     var td_value    = jQuery(this).find('[name="textdomain_value"]').val();
 
     if(val == 2 && td_on && !jQuery.trim(td_value)){

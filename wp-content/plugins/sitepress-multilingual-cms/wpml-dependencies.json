@@ -1,7 +1,7 @@
 {
-  "sitepress-multilingual-cms":  "4.3.13",
-  "wpml-string-translation":     "3.0.10",
-  "wpml-translation-management": "2.9.7",
+  "sitepress-multilingual-cms":  "4.4.0",
+  "wpml-string-translation":     "3.1.0",
+  "wpml-translation-management": "2.10.0",
   "woocommerce-multilingual":    "4.7.8",
   "wpml-media-translation":      "2.5.1",
   "wpml-sticky-links":           "1.5.0",

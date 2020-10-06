@@ -39,7 +39,7 @@ class Cache {
 			};
 		} ) );
 
-		self::macro( 'memorize', self::memorizeWithCheck( Fns::__, Fns::T(), Fns::__ ) );
+		self::macro( 'memorize', self::memorizeWithCheck( Fns::__, Fns::always( true ), Fns::__ ) );
 
 	}
 

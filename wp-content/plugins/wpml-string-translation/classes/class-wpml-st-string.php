@@ -21,6 +21,9 @@ class WPML_ST_String {
 	/** @var  int $status */
 	private $status;
 
+	/** @var array|null */
+	private $string_properties;
+
 	/**
 	 * @param int $string_id
 	 * @param wpdb $wpdb
@@ -50,11 +53,11 @@ class WPML_ST_String {
 
 		return $this->language;
 	}
-	
+
 	/**
 	 * @return string
 	 */
-	
+
 	public function get_value() {
 		return $this->wpdb->get_var( "SELECT value " . $this->from_where_snippet() . " LIMIT 1" );
 	}
@@ -193,8 +196,14 @@ class WPML_ST_String {
 		$res          = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT id, value, status
                                           " . $this->from_where_snippet( true )
 		                                                            . " AND language=%s", $language ) );
-		if ( isset( $res->status ) && $res->status == ICL_TM_WAITING_FOR_TRANSLATOR && is_null( $value ) ) {
 
+		if (
+			isset( $res->status ) &&
+			$res->status == ICL_TM_WAITING_FOR_TRANSLATOR &&
+			is_null( $value ) &&
+			! in_array( $status, [ ICL_TM_IN_PROGRESS, ICL_TM_NOT_TRANSLATED ] )
+			&& ! $res->value
+		) {
 			return false;
 		}
 
@@ -223,14 +232,16 @@ class WPML_ST_String {
 			}
 
 			if ( ! empty( $translation_data ) ) {
-				$st_update['translation_date'] = current_time( "mysql" );
 				$this->wpdb->update( $this->wpdb->prefix . 'icl_string_translations', $translation_data, array( 'id' => $st_id ) );
+				$this->wpdb->query(
+					$this->wpdb->prepare( "UPDATE {$this->wpdb->prefix}icl_string_translations SET translation_date = NOW() WHERE id = %d", $st_id )
+				);
 			}
 		} else {
 			$translation_data = array_merge( $translation_data, array(
-				'string_id'     => $this->string_id,
-				'language'      => $language,
-				'status'        => ( $status ? $status : ICL_TM_NOT_TRANSLATED ),
+				'string_id'        => $this->string_id,
+				'language'         => $language,
+				'status'           => ( $status ? $status : ICL_TM_NOT_TRANSLATED ),
 			) );
 
 			$this->wpdb->insert( $this->wpdb->prefix . 'icl_string_translations', $translation_data );
@@ -299,6 +310,31 @@ class WPML_ST_String {
 
 	/** @return string|null */
 	public function get_context() {
-		return $this->wpdb->get_var( "SELECT context " . $this->from_where_snippet() . " LIMIT 1" );
+		return $this->get_string_properties()->context;
+	}
+
+	/** @return string|null */
+	public function get_gettext_context() {
+		return $this->get_string_properties()->gettext_context;
+	}
+
+	/** @return string|null */
+	public function get_name() {
+		return $this->get_string_properties()->name;
+	}
+
+	private function get_string_properties() {
+
+		if ( ! $this->string_properties ) {
+			$row = $this->wpdb->get_row( "SELECT name, context, gettext_context " . $this->from_where_snippet() . " LIMIT 1" );
+
+			$this->string_properties = $row ? $row : (object) [
+				'name'            => null,
+				'gettext_context' => null,
+				'context'         => null,
+			];
+		}
+
+		return $this->string_properties;
 	}
 }

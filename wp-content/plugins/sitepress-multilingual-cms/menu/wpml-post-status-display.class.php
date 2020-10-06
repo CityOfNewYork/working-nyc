@@ -25,14 +25,18 @@ class WPML_Post_Status_Display {
 	 * @return string
 	 */
 	private function render_status_icon( $link, $text, $css_class ) {
+		$icon = $this->get_action_icon( $css_class, $text );
+		if ( strpos( $icon, 'disabled' ) ) {
+			$link = null;
+		}
 
 		if ( $link ) {
 			$icon_html = '<a href="' . esc_url( $link ) . '" class="js-wpml-translate-link">';
 		} else {
-			$icon_html = '<a>';
+			$icon_html = '<span>';
 		}
-		$icon_html .= $this->get_action_icon( $css_class, $text );
-		$icon_html .= '</a>';
+		$icon_html .= $icon;
+		$icon_html .= $link ? '</a>' : '</span>';
 
 		return $icon_html;
 	}

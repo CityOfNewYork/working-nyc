@@ -91,6 +91,6 @@ class StringsRetrieve {
 	private function getModifiedMOOnlyWhere() {
 		return " AND st.status IN (" .
 		       wpml_prepare_in( [ ICL_TM_COMPLETE, ICL_TM_NEEDS_UPDATE ], '%d' ) .
-		       ") AND (st.value != st.mo_string OR st.mo_string IS NULL)";
+		       ") AND st.value IS NOT NULL";
 	}
 }

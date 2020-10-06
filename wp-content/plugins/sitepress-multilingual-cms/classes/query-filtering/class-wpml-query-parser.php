@@ -286,11 +286,13 @@ class WPML_Query_Parser {
 
 				$new_url = get_term_link( $translated_term, $taxonomy );
 
-				/** @var WPML_WP_API */
-				global $wpml_wp_api;
-				$wpml_wp_api->wp_safe_redirect( $new_url );
+				if ( ! is_wp_error( $new_url ) ) {
+					/** @var WPML_WP_API */
+					global $wpml_wp_api;
+					$wpml_wp_api->wp_safe_redirect( $new_url );
 
-				return null;
+					return null;
+				}
 			}
 		}
 

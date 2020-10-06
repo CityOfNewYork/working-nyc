@@ -61,11 +61,7 @@ class WPML_Gutenberg_Integration implements \WPML\PB\Gutenberg\Integration {
 	 */
 	function register_strings( WP_Post $post, $package_data ) {
 
-		if ( ! $this->is_gutenberg_post( $post ) ) {
-			return;
-		}
-
-		if ( self::PACKAGE_ID === $package_data['kind'] ) {
+		if ( $this->is_gutenberg_post( $post ) && self::PACKAGE_ID === $package_data['kind'] ) {
 			$this->strings_registration->register_strings( $post, $package_data );
 		}
 	}

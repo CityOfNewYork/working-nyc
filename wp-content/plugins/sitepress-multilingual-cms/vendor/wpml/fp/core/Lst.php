@@ -37,7 +37,7 @@ use WPML\Collect\Support\Arr;
  * @method static callable|array make ( ...$a ) - Curried :: mixed → array
  * @method static callable|array insert( ...$index, ...$v, ...$array ) - Curried :: int → mixed → array → array
  * @method static callable|array range( ...$from, ...$to )  - Curried :: int → int → array
- * @method static callable|array xprod(...$a, ...$b) - Curried :: [a] -> [b] -> [a, b]
+ * @method static callable|array xprod( ...$a, ...$b ) - Curried :: [a]->[b]->[a, b]
  *
  * Creates a new list out of the two supplied by creating each possible pair from the lists.
  *
@@ -52,6 +52,14 @@ use WPML\Collect\Support\Arr;
  *
  * $this->assertEquals( $expectedResult, Lst::xprod( $a, $b ) );
  * ```
+ * @method static callable|array prepend( ...$val, ...$array ) - Curried:: a → [a] → [a]
+ *
+ * Returns a new array with the given element at the front, followed by the contents of the list.
+ *
+ * @method static callable|array reverse( ...$array ) - Curried:: [a] → [a]
+ *
+ * Returns a new array with the elements reversed.
+ *
  */
 class Lst {
 
@@ -219,6 +227,10 @@ class Lst {
 
 			return $result;
 		} ) );
+
+		self::macro( 'prepend', Lst::insert( 0 ) );
+
+		self::macro( 'reverse', curryN( 1, 'array_reverse' ) );
 	}
 
 

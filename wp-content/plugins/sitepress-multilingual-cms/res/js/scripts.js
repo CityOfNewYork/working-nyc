@@ -52,6 +52,10 @@ jQuery(document).ready(function($){
         });
     }
 
+	if (jQuery('#icl_login_page_translation').length) {
+		jQuery('#icl_login_page_translation').submit(iclSaveForm);
+	}
+
     jQuery('.icl_sync_custom_posts').change(function(){
         var val = jQuery(this).val();
         var table_row = jQuery(this).closest('tr');
@@ -154,7 +158,6 @@ jQuery(document).ready(function($){
              }, 300, function() {
                 var $header = $target.find('.wpml-section-header h3');
                 $header.addClass('active');
-                console.log($header);
                 setTimeout(function(){
                     $header.removeClass('active');
                 }, 700);
@@ -320,7 +323,7 @@ function iclToggleShowTranslations(){
 }
 
 function icl_copy_from_original(lang, trid){
-	jQuery('#icl_cfo').after(icl_ajxloaderimg).attr('disabled', 'disabled');
+	jQuery('#icl_cfo').after(icl_ajxloaderimg).prop('disabled', true);
 
     //has visual = set to normal non-html editing mode
     var ed;
@@ -419,7 +422,7 @@ function wpml_copy_external_custom_fields_from_original(custom_fields) {
 
 function icl_make_translatable(){
     var that = jQuery(this);
-    jQuery(this).attr('disabled', 'disabled');
+    jQuery(this).prop('disabled', true);
     jQuery('#icl_div_config').find('.icl_form_success').hide();
     var iclMakeTranslatable = jQuery('[name=icl_make_translatable]:checked');
     var translate_input = iclMakeTranslatable.val().split(',');
@@ -428,7 +431,7 @@ function icl_make_translatable(){
     var custom_taxs_on = [];
     var custom_taxs_off = [];
     jQuery(".icl_mcs_custom_taxs").each(function(){
-        if(jQuery(this).attr('checked')){
+        if(jQuery(this).prop('checked')){
             custom_taxs_on.push(jQuery(this).val());
         }else{
             custom_taxs_off.push(jQuery(this).val());
@@ -439,7 +442,7 @@ function icl_make_translatable(){
     var cfnames = [];
     var cfvals = [];
     jQuery('.icl_mcs_cfs:checked').each(function(){
-        if(!jQuery(this).attr('disabled')){
+        if(!jQuery(this).prop('disabled')){
             cfnames.push(jQuery(this).attr('name').replace(/^icl_mcs_cf_/,''));
             cfvals.push(jQuery(this).val());
         }
@@ -459,7 +462,7 @@ function icl_make_translatable(){
 
         },
         function(data) {
-            that.removeAttr('disabled');
+            that.prop('disabled', false);
             if(translate){
                 var iclDiv = jQuery('#icl_div');
                 if (iclDiv.length > 0) {

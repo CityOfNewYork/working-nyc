@@ -114,11 +114,8 @@ class WPML_Package {
 		$this->update_strings_data();
 	}
 
-	/**
-	 * @return array
-	 */
 	public function update_strings_data() {
-		$strings    = array();
+		$strings    = [];
 		$package_id = $this->ID;
 		if ( $package_id ) {
 			$results = $this->get_package_strings();
@@ -127,20 +124,16 @@ class WPML_Package {
 				$strings[ $string_name ] = $result->value;
 			}
 
-			// Add/update any registered strings
-			if ( isset( $package_strings[ $package_id ]['strings'] ) ) {
-				foreach ( $package_strings[ $package_id ]['strings'] as $id => $string_data ) {
-					$strings[ $id ] = $string_data['value'];
-				}
-			}
 			$this->string_data = $strings;
 		}
 	}
 
 	/**
+	 * @param bool $refresh
+	 *
 	 * @return mixed
 	 */
-	public function get_package_strings() {
+	public function get_package_strings( $refresh = false ) {
 		global $wpdb;
 		$package_id = $this->ID;
 		$results    = false;
@@ -151,7 +144,7 @@ class WPML_Package {
 			$found     = false;
 
 			$results = $cache->get( $cache_key, $found );
-			if ( ! $found ) {
+			if ( ! $found || $refresh ) {
 				$results_query   = "
 					SELECT id, name, value, wrap_tag, type, title
 					FROM {$wpdb->prefix}icl_strings

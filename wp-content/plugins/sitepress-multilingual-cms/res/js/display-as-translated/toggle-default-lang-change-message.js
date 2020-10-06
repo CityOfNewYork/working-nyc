@@ -5,7 +5,7 @@ jQuery(document).ready(function(){
 
 	jQuery('#icl_change_default_button').click(function(){
 		before_message.show();
-		save.attr('disabled', 'disabled');
+		save.prop('disabled', true);
 	});
 
 	jQuery('#icl_cancel_default_button').click(function(){
@@ -13,10 +13,6 @@ jQuery(document).ready(function(){
 	});
 
 	jQuery(gotIt).click(function(){
-		save.attr('disabled', 'disabled');
-
-		if(gotIt.is(':checked')) {
-			save.removeAttr('disabled');
-		}
+		save.prop('disabled', !gotIt.is(':checked'));
 	})
 });

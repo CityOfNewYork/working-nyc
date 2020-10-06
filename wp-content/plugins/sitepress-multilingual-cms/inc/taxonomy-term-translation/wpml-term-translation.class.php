@@ -12,8 +12,17 @@
  */
 class WPML_Term_Translation extends WPML_Element_Translation {
 
-	private $ttids;
-	private $term_ids;
+	/** @var array|null */
+	protected $ttids;
+
+	/** @var array|null */
+	protected $term_ids;
+
+	public function reload() {
+		parent::reload();
+		$this->term_ids = null;
+		$this->ttids    = null;
+	}
 
 	/**
 	 * @param int $term_id
@@ -49,12 +58,6 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 		$this->maybe_warm_term_id_cache();
 
 		return $ttid && isset( $this->term_ids[ $ttid ] ) ? $this->term_ids[ $ttid ] : $ttid;
-	}
-
-	public function reload() {
-		parent::reload();
-		$this->term_ids = null;
-		$this->ttids    = null;
 	}
 
 	/**
@@ -115,6 +118,7 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 	private function maybe_warm_term_id_cache() {
 
 		if ( ! isset( $this->ttids ) || ! isset( $this->term_ids ) ) {
+
 			$data           = $this->wpdb->get_results( "	SELECT wpml_translations.element_id, tax.term_id, tax.taxonomy
 													 " . $this->get_element_join() . "
 													 JOIN {$this->wpdb->terms} terms

@@ -14,6 +14,8 @@ use function WPML\FP\curryN;
  * @method static callable|int setAsTranslationOf( ...$el_id, ...$translated_id, ...$language_code )
  * @method static callable|array get( ...$el_id ) - Curried :: int → [object]
  * @method static callable|array getIfOriginal( ...$el_id ) - Curried :: int → [object]
+ * @method static callable|array getOriginal( ...$element_id ) - Curried :: int → object|null
+ * @method static callable|array getOriginalId( ...$element_id ) - Curried :: int → int
  */
 class PostTranslations {
 
@@ -32,6 +34,9 @@ class PostTranslations {
 
 		self::macro( 'getIfOriginal', curryN( 1, self::withPostType( Translations::getIfOriginal() ) ) );
 
+		self::macro( 'getOriginal', curryN( 1, self::withPostType( Translations::getOriginal() ) ) );
+
+		self::macro( 'getOriginalId', curryN( 1, self::withPostType( Translations::getOriginalId() ) ) );
 	}
 
 	/**

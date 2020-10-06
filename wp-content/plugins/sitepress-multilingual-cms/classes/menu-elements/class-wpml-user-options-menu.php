@@ -93,10 +93,20 @@ class WPML_User_Options_Menu {
 	 * @param $use_admin_language_for_edit
 	 */
 	private function get_hidden_languages_options( $use_admin_language_for_edit ) {
-		$wp_api = $this->sitepress->get_wp_api();
-		if ( $wp_api->current_user_can( 'translate' ) || $wp_api->current_user_can( 'manage_options' ) ) {
+
+		/**
+		 * Filters a condition if current user can see hidden languages options in profile settings
+		 *
+		 * @params bool $show_hidden_languages_options
+		 */
+		$show_hidden_languages_options = apply_filters(
+			'wpml_show_hidden_languages_options',
+			current_user_can( 'manage_options' )
+		);
+
+		if ( $show_hidden_languages_options ) {
 			$hidden_languages  = $this->sitepress->get_setting( 'hidden_languages' );
-			$display_hidden_languages = $wp_api->get_user_meta( $this->current_user->ID, 'icl_show_hidden_languages', true );
+			$display_hidden_languages = get_user_meta( $this->current_user->ID, 'icl_show_hidden_languages', true );
 			?>
 
 			<tr class="user-language-wrap">

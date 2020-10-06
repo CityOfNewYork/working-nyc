@@ -275,6 +275,16 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 						'type'        => __( 'Video: DailyMotion URL', 'sitepress' ),
 						'editor_type' => 'LINE'
 					),
+					'hosted_url'=> array(
+						'field'       => 'url',
+						'type'        => __( 'Video: Self hosted', 'sitepress' ),
+						'editor_type' => 'LINE'
+					),
+					'external_url'=> array(
+						'field'       => 'url',
+						'type'        => __( 'Video: External hosted', 'sitepress' ),
+						'editor_type' => 'LINE'
+					),
 				),
 			),
 			'login'       => array(
@@ -368,7 +378,7 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 					array(
 						'field'       => 'blockquote_content',
 						'type'        => __( 'Blockquote: Content', 'sitepress' ),
-						'editor_type' => 'VISUAL'
+						'editor_type' => 'AREA',
 					),
 					array(
 						'field'       => 'tweet_button_label',
@@ -423,6 +433,16 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 					array(
 						'field'       => 'title',
 						'type'        => __( 'Title', 'sitepress' ),
+						'editor_type' => 'LINE'
+					),
+					array(
+						'field'       => 'prefix',
+						'type'        => __( 'Prefix', 'sitepress' ),
+						'editor_type' => 'LINE'
+					),
+					array(
+						'field'       => 'suffix',
+						'type'        => __( 'Suffix', 'sitepress' ),
 						'editor_type' => 'LINE'
 					),
 				),
@@ -860,7 +880,74 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				'integration-class' => [
 					'\WPML\PB\Elementor\Modules\MediaCarousel',
 				]
-			]
+			],
+			'lottie'     => [
+				'conditions' => [ self::TYPE => 'lottie' ],
+				'fields'     => [
+					'custom_link' => [
+						'field'       => 'url',
+						'type'        => __( 'Lottie: Link URL', 'sitepress' ),
+						'editor_type' => 'LINK'
+					],
+				],
+			],
+			'author-box'           => array(
+				'conditions' => array( self::TYPE => 'author-box' ),
+				'fields'     => array(
+					array(
+						'field'       => 'author_name',
+						'type'        => __( 'Author Name', 'sitepress' ),
+						'editor_type' => 'LINE',
+					),
+					array(
+						'field'       => 'author_bio',
+						'type'        => __( 'Author Bio', 'sitepress' ),
+						'editor_type' => 'AREA',
+					),
+					'author_website' => array(
+						'field'       => 'url',
+						'field_id'    => 'author_website',
+						'type'        => __( 'Author Link', 'sitepress' ),
+						'editor_type' => 'LINK',
+					),
+					array(
+						'field'       => 'link_text',
+						'type'        => __( 'Archive Text', 'sitepress' ),
+						'editor_type' => 'LINE',
+					),
+					'posts_url'      => array(
+						'field'       => 'url',
+						'field_id'    => 'posts_url',
+						'type'        => __( 'Archive Button URL', 'sitepress' ),
+						'editor_type' => 'LINK',
+					),
+				),
+			),
+			'reviews' => array(
+				'conditions'        => array( self::TYPE => 'reviews' ),
+				'fields'     => [],
+				'integration-class' => [
+					'\WPML\PB\Elementor\Modules\Reviews',
+				]
+			),
+			'galleries' => array(
+				'conditions'        => array( self::TYPE => 'gallery' ),
+				'fields'            => array(
+					array(
+						'field'       => 'show_all_galleries_label',
+						'type'        => __( 'All Gallery Label', 'sitepress' ),
+						'editor_type' => 'LINE'
+					),
+					'url' => array(
+						'field'       => 'url',
+						'type'        => __( 'Gallery custom link', 'sitepress' ),
+						'editor_type' => 'LINK'
+					),
+				),
+				'integration-class' => [
+					'\WPML\PB\Elementor\Modules\MulitpleGallery',
+				]
+			),
 		);
 	}
 

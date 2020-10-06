@@ -29,9 +29,17 @@ abstract class DOMHandle {
 		$dom = new \DOMDocument();
 		\libxml_use_internal_errors( true );
 		$html = mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' );
-		$dom->loadHTML( '<div>' . $html . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		$dom->loadHTML( '<div>' . $html . '</div>' );
 		\libxml_clear_errors();
 
+		// Remove doc type and <html> <body> wrappers
+		$dom->removeChild( $dom->doctype );
+
+		/**
+		 * $dom->firstChild->firstChild->firstChild is node that we are intersted in (without body tags).
+		 * $dom->firstChild Old node that we are replacing
+		 */
+		$dom->replaceChild( $dom->firstChild->firstChild->firstChild, $dom->firstChild );
 		return $dom;
 	}
 
@@ -41,7 +49,7 @@ abstract class DOMHandle {
 	 *
 	 * @return array
 	 */
-	private function getInnerHTML( \DOMNode $element, $context ) {
+	protected function getInnerHTML( \DOMNode $element, $context ) {
 		$innerHTML = $element instanceof \DOMText
 			? $element->nodeValue
 			: $this->getInnerHTMLFromChildNodes( $element, $context );
@@ -143,7 +151,7 @@ abstract class DOMHandle {
 			] );
 	}
 
-	private function removeCdataFromStyleTag( $innerHTML ) {
+	protected function removeCdataFromStyleTag( $innerHTML ) {
 		return preg_replace( '/<style(.*?)><!\\[CDATA\\[(.*?)\\]\\]><\\/style>/', '<style$1>$2</style>', $innerHTML );
 	}
 

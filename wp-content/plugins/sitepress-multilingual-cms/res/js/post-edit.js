@@ -166,7 +166,7 @@ jQuery(document).ready(function ($) {
 				var set_as_source_checkbox = $('<input type="checkbox" value="1" name="set_as_source" />');
 
 				if(!translation_set_has_source_language) {
-					set_as_source_checkbox.attr('checked', 'checked');
+					set_as_source_checkbox.prop('checked', true);
 				}
 				var action = $('<label>').append(set_as_source_checkbox).append(postEdit.$connect_translations_dialog.data('set_as_source-text'));
 				action.appendTo($list);
@@ -329,7 +329,7 @@ function setupCopyButtons() {
 			type: "POST", url: icl_ajx_url,
 			data: "icl_ajx_action=reset_duplication&post_id=" + jQuery('#post_ID').val() + '&_icl_nonce=' + jQuery('#_icl_nonce_rd').val(),
 			success: function (msg) {
-				location.reload()
+				location.reload(true);
 			}
 		});
 	});

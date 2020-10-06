@@ -303,7 +303,6 @@ class Installer_Theme_Class {
 
     /** Override WordPress Themes API response with our own themes API*/
     public function installer_theme_api_override_response( $res, $action, $args ) {
-
         if ( true === $res ) {
             if ( isset($args->browse) ) {
                 $browse = $args->browse;
@@ -344,18 +343,9 @@ class Installer_Theme_Class {
                     }
                 }
             }
-            return $res;
-        } else {
-            //Default WP Themes here
-            $client_side_active_tab = get_option( 'wp_installer_clientside_active_tab' );
-            if ( $client_side_active_tab ) {
-                if ( !(in_array( $client_side_active_tab, $this->theme_repo )) ) {
-                    //Not OTGS tab
-                    return $res;
-                }
-            }
-
         }
+
+	    return $res;
     }
 
     /** Get Themes */

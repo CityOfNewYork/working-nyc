@@ -37,9 +37,9 @@ jQuery(function($){
 				data: {
 					action: 'wpml_update_localization_options',
 					nonce: $( '#wpml-localization-options-nonce' ).val(),
-					wpml_st_display_strings_scan_notices: 'checked' === alert_scan_new_strings.attr( 'checked' ) ? alert_scan_new_strings.val() : 0,
-					use_theme_plugin_domain: 'checked' === use_theme_plugin_domain.attr( 'checked' ) ? use_theme_plugin_domain.val() : 0,
-					theme_localization_load_textdomain: 'checked' === theme_localization_load_textdomain.attr( 'checked' ) ? theme_localization_load_textdomain.val() : 0,
+					wpml_st_display_strings_scan_notices: 'checked' === alert_scan_new_strings.prop( 'checked' ) ? alert_scan_new_strings.val() : 0,
+					use_theme_plugin_domain: 'checked' === use_theme_plugin_domain.prop( 'checked' ) ? use_theme_plugin_domain.val() : 0,
+					theme_localization_load_textdomain: 'checked' === theme_localization_load_textdomain.prop( 'checked' ) ? theme_localization_load_textdomain.val() : 0,
 					gettext_theme_domain_name: gettext_theme_domain_name.val()
 
 				},

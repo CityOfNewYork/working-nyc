@@ -27,6 +27,7 @@ class WPML_UI_Screen_Options_Pagination {
 	public function init_hooks() {
 		add_action( 'admin_head', array( $this, 'add_screen_options' ) );
 		add_filter( 'set-screen-option', array( $this, 'set_screen_options_filter' ), 10, 3 );
+		add_filter( 'set_screen_option_' . $this->option_name, [ $this, 'set_screen_options_filter' ], 10, 3 );
 	}
 	
 	public function add_screen_options() {

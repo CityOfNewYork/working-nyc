@@ -53,6 +53,7 @@ class Config {
 
 				return $wpml_language_resolution;
 			},
+			\TranslationManagement::class     => 'wpml_load_core_tm',
 		];
 	}
 }

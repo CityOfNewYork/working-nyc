@@ -4,6 +4,8 @@
 
     <?php include dirname(__FILE__) . '/_posts_sync_options.php'; ?>
 
+	<?php include dirname(__FILE__) . '/_login_translation_options.php'; ?>
+
     <?php if(defined('WPML_ST_VERSION')): ?>
     <?php  include WPML_ST_PATH . '/menu/_slug-translation-options.php'; ?>
     <?php endif; ?>

@@ -123,20 +123,20 @@ class OTGS_Installer_Products_Parser {
 	 */
 	private function add_release_notes( $products_downloads ) {
 		foreach ( $products_downloads as $kind => $downloads ) {
-			foreach ( $downloads as $slug => $download ) {
-				$start = strpos( $download['changelog'], '<h4>' . $download['version'] . '</h4>' );
-				if ( $start !== false ) {
-					$start += strlen( $download['version'] ) + 9;
-					$end   = strpos( $download['changelog'], '<h4>', 4 );
-					if ( $end ) {
-						$release_notes = substr( $download['changelog'], $start, $end - $start );
-					} else {
-						$release_notes = substr( $download['changelog'], $start );
+				foreach ( $downloads as $slug => $download ) {
+					$start = strpos( $download['changelog'], '<h4>' . $download['version'] . '</h4>' );
+					if ( $start !== false ) {
+						$start += strlen( $download['version'] ) + 9;
+						$end   = strpos( $download['changelog'], '<h4>', 4 );
+						if ( $end ) {
+							$release_notes = substr( $download['changelog'], $start, $end - $start );
+						} else {
+							$release_notes = substr( $download['changelog'], $start );
+						}
 					}
+					$products_downloads[ $kind ][ $slug ]['release-notes'] = ! empty( $release_notes ) ? $release_notes : '';
 				}
-				$products_downloads[ $kind ][ $slug ]['release-notes'] = ! empty( $release_notes ) ? $release_notes : '';
 			}
-		}
 
 		return $products_downloads;
 	}

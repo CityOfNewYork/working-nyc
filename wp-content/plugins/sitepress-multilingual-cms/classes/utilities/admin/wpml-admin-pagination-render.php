@@ -20,25 +20,27 @@ class WPML_Admin_Pagination_Render {
 	}
 
 	public function get_model() {
-		$model = array(
-			'strings'     => array(
-				'listNavigation' => __( 'Navigation', 'sitepress' ),
-				'firstPage'      => __( 'First page', 'sitepress' ),
-				'previousPage'   => __( 'Previous page', 'sitepress' ),
-				'nextPage'       => __( 'Next page', 'sitepress' ),
-				'lastPage'       => __( 'Last page', 'sitepress' ),
-				'currentPage'    => __( 'Current page', 'sitepress' ),
-				'of'             => __( 'of', 'sitepress' ),
-				'totalItemsText' => sprintf(
-					_n( '%s item', '%s items', $this->pagination->get_total_items(), 'sitepress' ),
-					$this->pagination->get_total_items()
-				),
-			),
+		return [
+			'strings'     => self::get_strings( $this->pagination->get_total_items() ),
 			'pagination'  => $this->pagination,
 			'total_items' => $this->pagination->get_total_items(),
-		);
+		];
+	}
 
-		return $model;
+	public static function get_strings( $totalItems ) {
+		return [
+			'listNavigation' => __( 'Navigation', 'sitepress' ),
+			'firstPage'      => __( 'First page', 'sitepress' ),
+			'previousPage'   => __( 'Previous page', 'sitepress' ),
+			'nextPage'       => __( 'Next page', 'sitepress' ),
+			'lastPage'       => __( 'Last page', 'sitepress' ),
+			'currentPage'    => __( 'Current page', 'sitepress' ),
+			'of'             => __( 'of', 'sitepress' ),
+			'totalItemsText' => sprintf(
+				_n( '%s item', '%s items', $totalItems, 'sitepress' ),
+				$totalItems
+			),
+		];
 	}
 
 	/**

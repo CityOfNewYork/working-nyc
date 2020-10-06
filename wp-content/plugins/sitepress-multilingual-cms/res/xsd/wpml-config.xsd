@@ -111,6 +111,7 @@
             <xs:element type="wpml-generic-setting-key" name="key" maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute type="xs:string" name="name" use="required"/>
+        <xs:attribute type="xs:string" name="label" use="optional"/>
         <xs:attribute name="search-method">
             <xs:simpleType>
                 <xs:restriction base="xs:string">
@@ -149,6 +150,7 @@
                 <xs:attribute type="xs:string" name="encoding" use="optional"/>
                 <xs:attribute type="xs:string" name="encoding-condition" use="optional"/>
                 <xs:attribute type="xs:string" name="raw-html" use="optional"/>
+                <xs:attribute type="xs:string" name="label" use="optional"/>
                 <xs:attribute name="ignore-content" use="optional">
                     <xs:simpleType>
                         <xs:restriction base="xs:integer">
@@ -179,6 +181,7 @@
             <xs:extension base="xs:string">
                 <xs:attribute type="xs:string" name="type" use="optional"/>
                 <xs:attribute type="xs:string" name="encoding" use="optional"/>
+                <xs:attribute type="xs:string" name="label" use="optional"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>
@@ -278,6 +281,7 @@
             <xs:element type="wpml-generic-setting-key" name="key" maxOccurs="unbounded" minOccurs="0"/>
         </xs:choice>
         <xs:attribute type="xs:string" name="type" use="required"/>
+        <xs:attribute type="xs:string" name="label" use="optional"/>
         <xs:attribute name="translate" use="required">
             <xs:simpleType>
                 <xs:restriction base="xs:integer">
@@ -292,6 +296,7 @@
         <xs:simpleContent>
             <xs:extension base="xs:string">
                 <xs:attribute type="xs:string" name="type" use="optional"/>
+                <xs:attribute type="xs:string" name="label" use="optional"/>
             </xs:extension>
         </xs:simpleContent>
     </xs:complexType>

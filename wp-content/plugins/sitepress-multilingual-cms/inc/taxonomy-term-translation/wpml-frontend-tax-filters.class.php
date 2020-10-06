@@ -20,11 +20,12 @@ class WPML_Frontend_Tax_Filters{
 	function slug_template($template){
 		global $sitepress;
 
-		if ( ( $term = $this->get_queried_tax_term () ) === false ) {
+		$term = $this->get_queried_tax_term();
+
+		if ( $term === false || !is_taxonomy_translated( $term->taxonomy )) {
 			return $template;
 		}
 
-		$taxonomy = $term->taxonomy;
 		$templates = array();
 
 		$has_filter = remove_filter( 'get_term', array( $sitepress, 'get_term_adjust_id' ), 1 );
@@ -32,12 +33,10 @@ class WPML_Frontend_Tax_Filters{
 		$current_language = $sitepress->get_current_language();
 		$default_language = $sitepress->get_default_language();
 
-		if ( is_taxonomy_translated( $taxonomy ) ) {
-			$templates = $this->add_term_templates($term, $current_language, $templates);
-			$templates = $this->add_original_term_templates($term,$default_language, $current_language, $templates);
-		}
+		$templates = $this->add_term_templates($term, $current_language, $templates);
+		$templates = $this->add_original_term_templates($term,$default_language, $current_language, $templates);
 
-		if ( !in_array ( $taxonomy, array( 'category', 'post_tag' ), true ) ) {
+		if ( !in_array ( $term->taxonomy, array( 'category', 'post_tag' ), true ) ) {
 			$templates[ ] = 'taxonomy-' . $current_language . '.php';
 			$templates[ ] = 'taxonomy.php';
 		}

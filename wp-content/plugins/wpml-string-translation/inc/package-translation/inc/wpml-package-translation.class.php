@@ -1,5 +1,9 @@
 <?php
 
+use \WPML\FP\Obj;
+use function \WPML\FP\pipe;
+use function \WPML\FP\partial;
+
 class WPML_Package_Translation extends WPML_Package_Helper {
 	var $load_priority = 100;
 	var $package_translation_active;
@@ -68,7 +72,7 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 
 			/* WPML hooks */
 			add_filter( 'wpml_get_translatable_types', array( $this, 'get_translatable_types' ), 10, 1 );
-			add_filter( 'wpml_get_translatable_item', array( $this, 'get_translatable_item' ), 10, 2 );
+			add_filter( 'wpml_get_translatable_item', array( $this, 'get_translatable_item' ), 10, 3 );
 			add_filter( 'wpml_external_item_url', array( $this, 'get_package_edit_url' ), 10, 2 );
 			add_filter( 'wpml_external_item_link', array( $this, 'get_package_edit_link' ), 10, 3 );
 			add_filter( 'wpml_get_external_item_title', array( $this, 'get_package_title' ), 10, 3 );
@@ -77,6 +81,7 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 			add_filter( 'wpml_get_package_type_prefix', array( $this, 'get_package_type_prefix' ), 10, 2 );
 			add_filter( 'wpml_language_for_element', array( $this, 'get_language_for_element' ), 10, 2 );
 			add_filter( 'wpml_st_get_string_package', array( $this, 'get_string_package' ), 10, 2 );
+			add_action( 'wpml_save_external', [ $this, 'save_package_translations' ], 10, 3 );
 
 			/* Translation queue hooks */
 			add_filter( 'wpml_tm_external_translation_job_title', array( $this, 'get_post_title' ), 10, 2 );
@@ -360,7 +365,7 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 	 *
 	 * @return string
 	 */
-	public function get_package_element_type( $kind_slug ) {
+	public static function get_package_element_type( $kind_slug ) {
 		if ( is_object( $kind_slug ) ) {
 			$kind_slug = $kind_slug->kind_slug;
 		}
@@ -776,4 +781,24 @@ class WPML_Package_Translation extends WPML_Package_Helper {
 	private function set_refresh_not_required() {
 		update_option( 'wpml-package-translation-refresh-required', 'no', false );
 	}
+
+	public function save_package_translations( $element_type_prefix, $job, $decoder ) {
+		if ( $element_type_prefix === 'package' ) {
+			$element_type_prefix = $this->get_package_type_prefix( $element_type_prefix, $job->original_doc_id );
+
+			foreach ( $job->elements as $field ) {
+				if ( $field->field_translate ) {
+					$string_id = icl_st_is_registered_string( $element_type_prefix, $field->field_type );
+					if ( ! $string_id ) {
+						icl_register_string( $element_type_prefix, $field->field_type, $decoder( $field->field_data, $field->field_format ) );
+						$string_id = icl_st_is_registered_string( $element_type_prefix, $field->field_type );
+					}
+					if ( $string_id ) {
+						icl_add_string_translation( $string_id, $job->language_code, $decoder( $field->field_data_translated, $field->field_format ), ICL_TM_COMPLETE );
+					}
+				}
+			}
+		}
+	}
+
 }

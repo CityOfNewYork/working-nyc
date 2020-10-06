@@ -113,100 +113,6 @@ class WPML_Terms_Translations {
 	}
 
 	/**
-	 *
-	 * Once we create a new term, it could be that this term is actually the translation of another term in more than one taxonomy.
-	 * In this case entries for all taxonomies have to be created in icl_translations.
-	 * This action creates these entries.
-	 *
-	 * @param $tt_id
-	 * @param $language_code
-	 * @param $taxonomy
-     *
-     * @return bool
-	 */
-	public static function sync_ttid_action( $taxonomy, $tt_id, $language_code ) {
-		global $wpdb, $sitepress, $wp_version;
-
-        if(version_compare($wp_version, '4.1.1', '>=')){
-            return false;
-        }
-
-		// First we get all taxonomies, to which the new term's original element belongs.
-		$original_ttid   = $sitepress->get_original_element_id( $tt_id, 'tax_' . $taxonomy );
-		$source_language = $sitepress->get_language_for_element( $original_ttid, 'tax_' . $taxonomy );
-
-		$query_for_original_term_id = $wpdb->prepare( "SELECT term_id FROM {$wpdb->term_taxonomy} WHERE term_taxonomy_id=%d", $original_ttid );
-		$original_term_id           = $wpdb->get_var( $query_for_original_term_id );
-
-		if ( $original_term_id ) {
-			$taxonomy_query_prepared = $wpdb->prepare( "SELECT taxonomy, term_taxonomy_id FROM {$wpdb->term_taxonomy} WHERE term_id = %d", $original_term_id );
-			$original_tax_terms      = $wpdb->get_results( $taxonomy_query_prepared );
-
-			$query_for_translated_term_id = $wpdb->prepare( "SELECT term_id FROM {$wpdb->term_taxonomy} WHERE term_taxonomy_id=%d", $tt_id );
-			$translated_term_id           = $wpdb->get_var( $query_for_translated_term_id );
-
-			$taxonomy_query_prepared   = $wpdb->prepare( "SELECT taxonomy FROM {$wpdb->term_taxonomy} WHERE term_id = %d", $translated_term_id );
-			$taxonomies_on_translation = $wpdb->get_col( $taxonomy_query_prepared );
-
-			foreach ( $original_tax_terms as $original_tax_term ) {
-				if ( isset( $original_tax_term->taxonomy ) && isset( $original_tax_term->term_taxonomy_id ) ) {
-					$original_taxonomy = $original_tax_term->taxonomy;
-					$original_tax_ttid = $original_tax_term->term_taxonomy_id;
-					if ( ! in_array( $original_taxonomy, $taxonomies_on_translation ) ) {
-						$ttid_row = array( 'term_id' => $translated_term_id, 'taxonomy' => $original_taxonomy );
-						if ( is_taxonomy_hierarchical( $taxonomy ) ) {
-							$original_term_parent_query_prepared = $wpdb->prepare( "SELECT parent FROM {$wpdb->term_taxonomy} WHERE $original_tax_ttid = %d", $original_tax_ttid );
-							$parent                              = $wpdb->get_var( $original_term_parent_query_prepared );
-							if ( $parent > 0 ) {
-								$ttid_row [ 'parent' ] = $parent;
-							}
-						}
-
-						$update = false;
-						$trid   = $sitepress->get_element_trid( $original_tax_ttid, 'tax_' . $original_taxonomy );
-
-						if ( $trid ) {
-
-							$data = array(
-								'trid'                 => $trid,
-								'language_code'        => $language_code,
-								'source_language_code' => $source_language,
-								'element_type'         => 'tax_' . $original_taxonomy
-							);
-
-							$existing_translations = $sitepress->get_element_translations( $trid, 'tax_' . $original_taxonomy );
-							if ( isset( $existing_translations[ $language_code ] ) ) {
-								$update = true;
-							}
-
-							if ( ! $update ) {
-								$wpdb->insert( $wpdb->term_taxonomy, $ttid_row );
-								$new_ttid             = $wpdb->insert_id;
-								$data[ 'element_id' ] = $new_ttid;
-								$wpdb->insert( $wpdb->prefix . 'icl_translations', $data );
-
-								do_action(
-									'wpml_translation_update',
-									array(
-										'type' => 'insert',
-										'trid' => $data['trid'],
-										'element_id' => $data['element_id'],
-										'element_type' => $data['element_type'],
-										'translation_id' => $wpdb->insert_id,
-										'context' => 'tax'
-									)
-								);
-							}
-						}
-					}
-				}
-			}
-		}
-
-        return true;
-	}
-
-	/**
 	 * This function provides an action hook only used by WCML.
 	 * It will be removed in the future and should not be implemented in new spots.
 	 * @deprecated deprecated since version 3.1.8.3
@@ -246,7 +152,7 @@ class WPML_Terms_Translations {
 				'is_translated_taxonomy'
 			) );
 			$terms_by_language_and_taxonomy = array();
-			
+
 			if ( ! empty( $taxonomies ) ) {
 				$res = $wpdb->get_results( "	SELECT language_code, taxonomy, term_id FROM {$wpdb->term_taxonomy} tt
  										JOIN {$wpdb->prefix}icl_translations wpml_translations
@@ -256,7 +162,7 @@ class WPML_Terms_Translations {
 			} else {
 				$res = array();
 			}
-		
+
 			foreach ( $res as $term ) {
 				$lang                                              = $term->language_code;
 				$tax                                               = $term->taxonomy;

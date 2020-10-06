@@ -93,16 +93,12 @@ function iclShowNextButtonStep1() {
         })
     });
 
-    if (found) {
-        jQuery('input[name="icl_content_trans_setup_next_1"]').removeAttr("disabled");
-    } else {
-        jQuery('input[name="icl_content_trans_setup_next_1"]').attr("disabled", "disabled");
-    }
+    jQuery('input[name="icl_content_trans_setup_next_1"]').prop("disabled", !found);
 }
 
 function toggleTranslationPairsSub() {
     var code = jQuery(this).attr('name').split('_').pop();
-    if (jQuery(this).attr('checked')) {
+    if (jQuery(this).prop('checked')) {
         jQuery('#icl_tr_pair_sub_' + code).slideDown();
     } else {
         jQuery('#icl_tr_pair_sub_' + code).css("display", "none");

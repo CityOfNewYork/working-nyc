@@ -113,6 +113,8 @@ class WPML_Change_String_Domain_Language_Dialog extends WPML_WPDB_And_SP_User {
 			$this->string_factory->find_by_id( $strid )->update_status();
 		}
 
+		do_action( 'wpml_st_language_of_strings_changed', $string_ids );
+
 		return array( 'success' => true );
 	}
 }

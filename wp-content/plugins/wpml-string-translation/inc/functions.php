@@ -1006,22 +1006,6 @@ function icl_translation_add_string_translation( $rid, $translation, $lang_code 
 	return true;
 }
 
-function icl_st_get_pending_string_translations_stats() {
-    global $wpdb, $sitepress, $wp_query;
-
-    $strings      = new WPML_ST_Strings( $sitepress, $wpdb, $wp_query );
-    $current_user = $sitepress->get_current_user();
-
-    return $strings->get_pending_translation_stats( $current_user );
-}
-
-function icl_st_is_translator(){
-    return current_user_can('translate')
-	&& !current_user_can('manage_options')
-	&& !current_user_can('manage_categories')
-	&& !current_user_can('wpml_manage_string_translation');
-}
-
 function icl_st_admin_notices_string_updated() {
 	?>
 	<div class="updated">

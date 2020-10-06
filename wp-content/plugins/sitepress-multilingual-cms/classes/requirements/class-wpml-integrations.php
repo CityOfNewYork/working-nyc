@@ -66,23 +66,6 @@ class WPML_Integrations {
 			),
 		),
 		'integrations'  => array(
-			'woocommerce'  => array(
-				'name'  => 'WooCommerce',
-				'class' => 'WooCommerce',
-				'notices-display' => array(),
-			),
-			'gravityforms' => array(
-				'name'  => 'Gravity Forms',
-				'class' => 'GFForms',
-				'notices-display' => array(),
-			),
-			'buddypress'   => array(
-				'name'  => 'BuddyPress',
-				'class' => 'BuddyPress',
-				'notices-display' => array(
-					'wpml-translation-editor',
-				),
-			),
 			'bb-plugin'   => array(
 				'name'  => 'Beaver Builder Plugin',
 				'class' => 'FLBuilderLoader',
@@ -96,11 +79,6 @@ class WPML_Integrations {
 				'notices-display' => array(
 					'wpml-translation-editor',
 				),
-			),
-			'wordpress-seo'   => array(
-				'name'  => 'Yoast SEO',
-				'constant' => 'WPSEO_VERSION',
-				'notices-display' => array(),
 			),
 		),
 	);

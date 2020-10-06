@@ -241,8 +241,17 @@ class WPML_Query_Filter extends  WPML_Full_Translation_API {
 				$query_vars = $o['args'][1][1]->query_vars;
 				$post_type  = esc_sql( $query_vars['post_type'] );
 
-				if ( ! $post_type && (bool) $query_vars['pagename'] ) {
-					$post_type = 'page';
+				if ( ! $post_type ) {
+					if ( (bool) $query_vars['pagename'] ) {
+						$post_type = 'page';
+					} elseif ( isset( $query_vars['p'] ) ) {
+						$post_type = $this->wpdb->get_var(
+							$this->wpdb->prepare(
+								"SELECT post_type from {$this->wpdb->posts} where ID=%d",
+								$query_vars['p']
+							)
+						);
+					}
 				}
 
 				break;

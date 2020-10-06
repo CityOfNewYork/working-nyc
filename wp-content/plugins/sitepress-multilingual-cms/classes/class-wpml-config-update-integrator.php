@@ -54,7 +54,7 @@ class WPML_Config_Update_Integrator {
 		if ( $action && $nonce && wp_verify_nonce( $nonce, $action ) ) {
 			if ( 'wpml_xml_update_clear' === $action ) {
 				$this->log->clear();
-				wp_safe_redirect( $this->log->get_log_url() );
+				wp_safe_redirect( $this->log->get_log_url(), 302, 'WPML' );
 			}
 			if ( 'wpml_xml_update_refresh' === $action ) {
 				$this->upgrader_process_complete_event();

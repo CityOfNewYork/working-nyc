@@ -25,7 +25,7 @@ class Post {
 
 		self::macro( 'getTerms', curryN( 2, pipe(
 			'get_the_terms',
-			Logic::ifElse( Logic::isArray(), Either::class . '::right', Either::class . '::left' )
+			Logic::ifElse( Logic::isArray(), [ Either::class, 'right' ], [ Either::class, 'left' ] )
 		) ) );
 
 		self::macro( 'getMetaSingle', curryN( 2, partialRight( 'get_post_meta', true ) ) );

@@ -53,8 +53,6 @@ class WPML_Package_TM_Jobs {
 	final public function delete_translation_jobs() {
 		global $wpdb;
 
-		$deleted = false;
-
 		$post_translations = $this->get_post_translations();
 		foreach ( $post_translations as $lang => $translation ) {
 			$rid_query   = "SELECT rid FROM {$wpdb->prefix}icl_translation_status WHERE translation_id=%d";
@@ -68,28 +66,19 @@ class WPML_Package_TM_Jobs {
 				if ( $job_id ) {
 					$wpdb->delete($wpdb->prefix . 'icl_translate_job', array('job_id' => $job_id) );
 					$wpdb->delete($wpdb->prefix . 'icl_translate', array('job_id' => $job_id) );
-					$deleted = true;
 				}
 			}
-			
-			$wpdb->delete($wpdb->prefix . 'icl_translations', array('translation_id' => $translation->translation_id));
-		}
 
-		return $deleted;
+		}
 	}
 
 	final public function delete_translations() {
 		global $sitepress;
-		$package = $this->package;
 
-		$translation_element_type = $package->get_translation_element_type();
-		$trid                     = $this->get_trid();
-
-		$deleted = false;
-		if($trid) {
-			$deleted = $sitepress->delete_element_translation($trid, $translation_element_type);
-		}
-		return $deleted;
+		$sitepress->delete_element_translation(
+			$this->get_trid(),
+			$this->package->get_translation_element_type()
+		);
 	}
 
 	final public function get_post_translations() {

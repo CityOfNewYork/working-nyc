@@ -86,4 +86,8 @@ class WPML_URL_Converter_Parameter_Strategy extends WPML_URL_Converter_Abstract_
 
 		return $source_url;
 	}
+
+	public function use_wp_login_url_converter() {
+		return true;
+	}
 }

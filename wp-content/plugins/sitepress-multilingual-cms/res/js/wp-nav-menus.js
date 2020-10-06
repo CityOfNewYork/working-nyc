@@ -18,7 +18,7 @@ WPML_core.wp_nav_language_change = function() {
         url: location.href,
         success: function(res){
             jQuery('#icl_translation_of_wrap').html(res);
-            thiss.removeAttr('disabled');
+            thiss.prop('disabled', false);
         }
     });
 };

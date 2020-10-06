@@ -1,5 +1,9 @@
 <?php
 
+use WPML\FP\Maybe;
+use WPML\FP\Obj;
+use function WPML\FP\partial;
+
 /**
  * Class WPML_Post_Synchronization
  *
@@ -219,7 +223,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 		$term_count_update = new WPML_Update_Term_Count( $wp_api );
 		
 		$post           = get_post ( $post_id );
-		$source_post_status = get_post_status( $post_id );
+		$source_post_status = $this->get_post_status( $post_id );
 		$translated_ids = $this->post_translation->get_element_translations( $post_id, false, true );
 		$post_format = $this->sync_post_format ? get_post_format( $post_id ) : null;
 		$ping_status = $this->sync_ping_status ? ( pings_open( $post_id ) ? 'open' : 'closed' ) : null;
@@ -230,7 +234,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 		$post_date = $this->sync_post_date ? $wpdb->get_var( $wpdb->prepare( "SELECT post_date FROM {$wpdb->posts} WHERE ID=%d LIMIT 1", $post_id ) ) : null;
 
 		foreach ( $translated_ids as $lang_code => $translated_pid ) {
-			$post_status = get_post_status( $translated_pid );
+			$post_status = $this->get_post_status( $translated_pid );
 
 			$post_status_differs = ( 'private' === $source_post_status && 'publish' === $post_status )
 			                       || ( 'publish' === $source_post_status && 'private' === $post_status );
@@ -259,11 +263,11 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 			if ( $post_password !== null ) {
 				$wpdb->update ( $wpdb->posts, array( 'post_password' => $post_password ), array( 'ID' => $translated_pid ) );
 			}
-			if ( $post_status !== null && ! in_array( get_post_status( $translated_pid ), array( 'auto-draft', 'draft', 'inherit', 'trash' ) ) ) {
+			if ( $post_status !== null && ! in_array( $this->get_post_status( $translated_pid ), array( 'auto-draft', 'draft', 'inherit', 'trash' ) ) ) {
 				$wpdb->update ( $wpdb->posts, array( 'post_status' => $post_status ), array( 'ID' => $translated_pid ) );
 				$term_count_update->update_for_post( $translated_pid );
-			} elseif ( $post_status == null && $this->sync_private_flag && get_post_status( $translated_pid ) === 'private' ) {
-				$wpdb->update ( $wpdb->posts, array( 'post_status' => get_post_status( $post_id ) ), array( 'ID' => $translated_pid ) );
+			} elseif ( $post_status == null && $this->sync_private_flag && $this->get_post_status( $translated_pid ) === 'private' ) {
+				$wpdb->update ( $wpdb->posts, array( 'post_status' => $this->get_post_status( $post_id ) ), array( 'ID' => $translated_pid ) );
 				$term_count_update->update_for_post( $translated_pid );
 			}
 			if ( $ping_status !== null ) {
@@ -288,6 +292,24 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 			);
 			$wpdb->query( $query );
 		}
+	}
+
+	/**
+	 * The function `get_post_status` does not return the raw status for attachments.
+	 * As we are running direct DB updates here, we need the actual DB value.
+	 *
+	 * @param $post_id
+	 *
+	 * @return string|false
+	 */
+	private function get_post_status( $post_id ) {
+		$isAttachment = function( $post_id ) { return 'attachment' === get_post_type( $post_id ); };
+
+		return Maybe::of( $post_id )
+			->filter( $isAttachment )
+			->map( 'get_post' )
+			->map( Obj::prop( 'post_status' ) )
+			->getOrElse( partial( 'get_post_status', $post_id ) );
 	}
 
 	private function sync_custom_fields( $original_id, $post_id ) {

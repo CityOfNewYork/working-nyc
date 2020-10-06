@@ -18,6 +18,15 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static callable|string pregReplace( ...$pattern, ...$replace, ...$str ) - Curried :: string → string → string → string
  * @method static callable|string match( ...$pattern, ...$str ) - Curried :: string → string → array
  * @method static callable|string matchAll( ...$pattern, ...$str ) - Curried :: string → string → array
+ * @method static callable|string wrap( ...$before, ...$after, ...$str ) - Curried :: string → string → string
+ *
+ * Wraps a string inside 2 other strings
+ *
+ * ```
+ * $wrapsInDiv = Str::wrap( '<div>', '</div>' );
+ * $wrapsInDiv( 'To be wrapped' ); // '<div>To be wrapped</div>'
+ * ```
+ *
  */
 class Str {
 	use Macroable;
@@ -44,7 +53,10 @@ class Str {
 
 		self::macro( 'len', curryN( 1, 'strlen' ) );
 
-		self::macro( 'replace', curryN( 3, 'str_replace') );
+
+		self::macro( 'replace', curryN( 3, function ( $search, $replace, $subject ) {
+			return str_replace( $search, $replace, $subject );
+		} ) );
 
 		self::macro( 'pregReplace', curryN( 3, function ( $pattern, $replace, $subject ) {
 			return preg_replace( $pattern, $replace, $subject );
@@ -60,6 +72,10 @@ class Str {
 			$matches = [];
 
 			return preg_match_all( $pattern, $subject, $matches, PREG_SET_ORDER ) ? $matches : [];
+		} ) );
+
+		self::macro( 'wrap', curryN( 3, function ( $before, $after, $string ) {
+			return $before . $string . $after;
 		} ) );
 	}
 }

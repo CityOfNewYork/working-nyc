@@ -870,3 +870,12 @@ function wpml_get_filesystem_direct() {
 function wpml_update_escaped_post( array $postarray, $lang = null, $wp_error = false ) {
 	return wpml_get_create_post_helper()->insert_post( $postarray, $lang, $wp_error );
 }
+
+/**
+ * @param string $group
+ *
+ * @return WPML_WP_Cache
+ */
+function wpml_get_cache( $group = '' ) {
+	return new WPML_WP_Cache( $group );
+}

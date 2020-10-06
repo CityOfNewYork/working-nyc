@@ -70,6 +70,7 @@ trait Curryable {
 	 * @throws \BadMethodCallException
 	 */
 	public function __call( $method, $parameters ) {
+		throw new BadMethodCallException( "Curryable does not support methods in object scope. This is a limitation of PHP 5.x." );
 		if ( ! static::hasCurry( $method ) ) {
 			throw new BadMethodCallException( "Method {$method} does not exist." );
 		}

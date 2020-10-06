@@ -55,6 +55,8 @@ class WPML_Change_String_Language_Select {
 			foreach( $strings as $string ) {
 				icl_update_string_status( $string );
 			}
+
+			do_action( 'wpml_st_language_of_strings_changed', $strings );
 		}
 		
 		return $response;

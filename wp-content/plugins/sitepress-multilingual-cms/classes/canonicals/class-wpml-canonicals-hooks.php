@@ -53,7 +53,7 @@ class WPML_Canonicals_Hooks {
 			$actual_uri  = preg_replace( '#^' . $install_subdir . '#', '', $current_uri );
 			$actual_uri  = '/' . ltrim( $actual_uri, '/' );
 
-			if ( 0 !== strpos( $actual_uri, '/' . $lang . '/' ) ) {
+			if ( 0 !== strpos( $actual_uri, '/' . $lang ) ) {
 				$canonical_uri = trailingslashit( $install_subdir ) . $lang . $actual_uri;
 				$canonical_uri = user_trailingslashit( $canonical_uri );
 				$this->sitepress->get_wp_api()->wp_safe_redirect( $canonical_uri, 301 );

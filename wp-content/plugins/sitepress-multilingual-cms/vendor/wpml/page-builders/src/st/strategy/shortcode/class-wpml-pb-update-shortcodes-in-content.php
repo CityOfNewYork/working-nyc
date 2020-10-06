@@ -1,5 +1,7 @@
 <?php
 
+use WPML\LIB\WP\Gutenberg;
+
 class WPML_PB_Update_Shortcodes_In_Content {
 
 	const LONG_STRING_THRESHOLD = 5000;
@@ -19,6 +21,10 @@ class WPML_PB_Update_Shortcodes_In_Content {
 	}
 
 	public function update( $translated_post_id, $original_post, $string_translations, $lang ) {
+		if ( Gutenberg::hasBlock( $original_post->post_content ) ) {
+			return;
+		}
+
 		$original_content = $original_post->post_content;
 		$original_content = apply_filters( 'wpml_pb_shortcode_content_for_translation', $original_content, $original_post->ID );
 

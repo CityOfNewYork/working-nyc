@@ -150,6 +150,21 @@ class WPML_Slug_Translation implements IWPML_Action {
 				if ( isset( $wp_rewrite->extra_permastructs[ $post->post_type ] ) ) {
 					$struct_original = $wp_rewrite->extra_permastructs[ $post->post_type ]['struct'];
 
+					/**
+					 * This hook allows to filter the slug we want to search and replace
+					 * in the permalink structure. This is required for 3rd party
+					 * plugins replacing the original slug with a placeholder.
+					 *
+					 * @since 3.1.0
+					 *
+					 * @param string  $slug_this The original slug.
+					 * @param string  $post_link The initial link.
+					 * @param WP_Post $post      The post.
+					 * @param bool    $leavename Whether to keep the post name.
+					 * @param bool    $sample    Is it a sample permalink.
+					 */
+					$slug_this = apply_filters( 'wpml_st_post_type_link_filter_original_slug', $slug_this, $post_link, $post, $leavename, $sample );
+
 					$lslash                                                       = false !== strpos( $struct_original, '/' . $slug_this ) ? '/' : '';
 					$wp_rewrite->extra_permastructs[ $post->post_type ]['struct'] = preg_replace( '@' . $lslash . $slug_this . '/@',
 						$lslash . $slug_real . '/',

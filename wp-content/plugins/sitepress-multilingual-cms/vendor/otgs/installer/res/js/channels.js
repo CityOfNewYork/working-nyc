@@ -10,7 +10,7 @@
             .on('change', '.installer-channel-selector', maybeShowPrompt);
 
         $('.otgs_wp_installer_table')
-            .on('click', '.installer-channel-retry', retryChannelSwitch)
+            .on('click', '.installer-channel-retry', retryChannelSwitch);
 
         $('.installer-switch-confirmation')
             .on('click', '.js-cancel', cancelSwitch)
@@ -64,8 +64,8 @@
             channel: select.val(),
             nonce: select.parent().find('.nonce').val(),
             noprompt: selectorContainer.find('.js-remember').length ?
-                selectorContainer.find('.js-remember').attr('checked') == 'checked' : 0
-        }
+                selectorContainer.find('.js-remember').prop('checked') : 0
+        };
 
         resetUpdateErrors();
         otgs_wp_installer.reset_errors();
@@ -146,7 +146,7 @@
 
         var select = $(this)
             .closest('.otgs_wp_installer_table')
-            .find('.installer-channel-selector')
+            .find('.installer-channel-selector');
 
         if(select.val() > 1 && !hasUpdateErrors()){
 
@@ -258,4 +258,4 @@
 
     $(document).ready( channelSelectorInit );
 
-})(jQuery)
+})(jQuery);

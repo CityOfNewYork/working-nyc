@@ -3,6 +3,8 @@ require WPML_PLUGIN_PATH . '/menu/post-menus/post-edit-screen/wpml-sync-custom-f
 
 class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 
+    const PRIORITY_ENQUEUE_SCRIPTS = 10;
+
 	/** @var string $page */
 	private $page;
 
@@ -20,7 +22,7 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 
 	public function add_admin_hooks() {
 		add_action( 'admin_print_scripts', array( $this, 'wpml_js_scripts_setup' ) );
-		add_action( 'admin_print_styles', array( $this, 'wpml_css_setup' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'wpml_css_setup' ), self::PRIORITY_ENQUEUE_SCRIPTS );
 	}
 
 	public function register_styles() {
@@ -135,7 +137,7 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 				if ( $this->sitepress->get_setting( 'sync_private_flag' ) && 'private' === $this->post_translations->get_original_post_status( $trid, $source_lang ) ) {
 					?>
 					<script type="text/javascript">addLoadEvent(function () {
-							jQuery('#visibility-radio-private').attr('checked', 'checked');
+							jQuery('#visibility-radio-private').prop('checked', true);
 							jQuery('#post-visibility-display').html('<?php echo icl_js_escape(__('Private', 'sitepress')); ?>');
 						});
 					</script><?php
@@ -159,7 +161,7 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 									});
 								} );
 							} else {
-								jQuery('#sticky').attr('checked', 'checked');
+								jQuery('#sticky').prop('checked', true);
 								var post_visibility_display = jQuery('#post-visibility-display');
 								post_visibility_display.html(post_visibility_display.html() + ', <?php echo icl_js_escape(__('Sticky', 'sitepress')) ?>');
 							}
@@ -188,7 +190,7 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 			?>
 			<script type="text/javascript">
 				addLoadEvent(function () {
-					jQuery('#post-format-' + '<?php echo $format ?>').attr('checked', 'checked');
+					jQuery('#post-format-' + '<?php echo $format ?>').prop('checked', true);
 				});
 			</script><?php
 		}
@@ -283,16 +285,16 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 				var ping_status = jQuery('#ping_status');
 				<?php if($this->sitepress->get_setting('sync_comment_status')): ?>
 				<?php if($this->post_translations->get_original_comment_status($trid, $source_lang) === 'open'): ?>
-				comment_status.attr('checked', 'checked');
+				comment_status.prop('checked', true);
 				<?php else: ?>
-				comment_status.removeAttr('checked');
+				comment_status.prop('checked', false);
 				<?php endif; ?>
 				<?php endif; ?>
 				<?php if($this->sitepress->get_setting('sync_ping_status')): ?>
 				<?php if($this->post_translations->get_original_ping_status($trid, $source_lang) === 'open'): ?>
-				ping_status.attr('checked', 'checked');
+				ping_status.prop('checked', true);
 				<?php else: ?>
-				ping_status.removeAttr('checked');
+				ping_status.prop('checked', false);
 				<?php endif; ?>
 				<?php endif; ?>
 			});</script><?php
@@ -318,7 +320,7 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 							jQuery('#aa').val('<?php echo esc_js( $aa ); ?>').attr('readonly', 'readonly');
 							jQuery('#mm').val('<?php echo esc_js( $mm ); ?>').attr('disabled', 'disabled').attr('id', 'mm-disabled').attr('name', 'mm-disabled');
 							// create a hidden element for month because we wont get anything returned from the disabled month dropdown.
-							jQuery('<input type="hidden" id="mm" name="mm" value="<?php echo $mm ?>" />').insertAfter('#mm-disabled')
+							jQuery('<input type="hidden" id="mm" name="mm" value="<?php echo $mm ?>" />').insertAfter('#mm-disabled');
 							jQuery('#jj').val('<?php echo esc_js( $jj ); ?>').attr('readonly', 'readonly');
 							jQuery('#hh').val('<?php echo esc_js( $hh ); ?>').attr('readonly', 'readonly');
 							jQuery('#mn').val('<?php echo esc_js( $mn ); ?>').attr('readonly', 'readonly');
@@ -363,7 +365,7 @@ class WPML_Admin_Scripts_Setup extends WPML_Full_Translation_API {
 							? $this->term_translations->term_id_in( $term->term_id,
 							                                        $current_lang,
 							                                        false ) : $term->term_id;
-						$js[]    = "jQuery('#in-" . $tax . "-" . $term_id . "').attr('checked', 'checked');";
+						$js[]    = "jQuery('#in-" . $tax . "-" . $term_id . "').prop('checked', true);";
 					} else {
 						if ( in_array( $tax, $translatable_taxs ) ) {
 							$term_id = $this->term_translations->term_id_in( $term->term_id, $current_lang, false );

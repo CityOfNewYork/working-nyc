@@ -92,7 +92,7 @@ function icl_plugin_upgrade(){
         $sql = "ALTER TABLE {$wpdb->prefix}icl_translation_status ADD COLUMN `_prevstate` longtext";
         $wpdb->query($sql);
     }
-    
+
 	$versions = array(
 		'2.0.5',
 		'2.2.2',

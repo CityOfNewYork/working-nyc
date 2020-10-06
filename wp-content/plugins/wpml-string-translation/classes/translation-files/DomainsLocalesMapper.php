@@ -4,6 +4,9 @@ namespace WPML\ST\TranslationFile;
 
 use wpdb;
 use WPML\Collect\Support\Collection;
+use WPML\FP\Fns;
+use WPML\FP\Lst;
+use WPML\FP\Obj;
 use WPML_Locale;
 
 class DomainsLocalesMapper {
@@ -18,8 +21,8 @@ class DomainsLocalesMapper {
 	private $locale;
 
 	public function __construct( wpdb $wpdb, WPML_Locale $locale ) {
-		$this->wpdb   = $wpdb;
-		$this->locale = $locale;
+		$this->wpdb      = $wpdb;
+		$this->locale    = $locale;
 	}
 
 	/**
@@ -38,6 +41,20 @@ class DomainsLocalesMapper {
 	 */
 	public function get_from_string_ids( array $string_ids ) {
 		return $this->get_results_where( self::ALIAS_STRINGS, $string_ids );
+	}
+
+	/**
+	 * @param  callable  $getActiveLanguages
+	 * @param  string  $domain
+	 *
+	 * @return array
+	 */
+	public function get_from_domain( callable $getActiveLanguages, $domain ) {
+		$createEntity = function ( $locale ) use ( $domain ) {
+			return (object) [ 'domain' => $domain, 'locale' => $locale ];
+		};
+
+		return Fns::map( $createEntity, Obj::values( Lst::pluck( 'default_locale', $getActiveLanguages() ) ) );
 	}
 
 	/**

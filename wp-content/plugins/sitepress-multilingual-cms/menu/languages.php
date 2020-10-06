@@ -110,6 +110,7 @@ $theme_wpml_config_file = WPML_Config::get_theme_wpml_config_file();
 		  3 => __( '3. Language switcher', 'sitepress' ),
 		  4 => __( '4. Compatibility', 'sitepress' ),
 		  5 => __( '5. Registration', 'sitepress' ),
+		  6 => __( '6. Recommendations', 'sitepress' ),
 	  ) );
 	  $wizard_progress->render();
   }
@@ -337,85 +338,195 @@ $theme_wpml_config_file = WPML_Config::get_theme_wpml_config_file();
 				</footer>
 			</div>
 
-	<?php
-		elseif ( $setup_wizard_step === 5 ): ?>
-		<?php $site_key = WP_Installer()->get_site_key('wpml'); ?>
-		<div class="wpml-section" id="lang-sec-0">
-			<div class="wpml-section-header">
-				<h3><?php esc_html_e( 'Registration', 'sitepress' ) ?></h3>
-			</div>
-			<div class="wpml-section-content">
+		<?php
+        elseif ( $setup_wizard_step === 5 ): ?>
+			<?php $site_key = WP_Installer()->get_site_key( 'wpml' ); ?>
+            <div class="wpml-section" id="lang-sec-0">
+                <div class="wpml-section-header">
+                    <h3><?php esc_html_e( 'Registration', 'sitepress' ) ?></h3>
+                </div>
+                <div class="wpml-section-content">
 
-				<?php if(is_multisite() && !empty($site_key)): ?>
+					<?php if ( is_multisite() && ! empty( $site_key ) ): ?>
 
-				<p class="wpml-wizard-instruction"><?php esc_html_e( 'WPML is already registered network-wide.', 'sitepress' ) ?></p>
-				<footer class="clearfix text-right">
-					<form id="installer_registration_form">
-						<input type="hidden" name="action" value="installer_save_key" />
-						<input type="hidden" name="button_action" value="installer_save_key" />
-						<input <?php if(empty($site_key)): ?>style="display: none;"<?php endif; ?> class="button-primary button-large"
-                               name="finish" value="<?php esc_attr_e( 'Finish', 'sitepress' ) ?>" type="submit" />
-						<?php wp_nonce_field('registration_form_submit_nonce', '_icl_nonce'); ?>
-					</form>
-				</footer>
+                        <p class="wpml-wizard-instruction"><?php esc_html_e( 'WPML is already registered network-wide.', 'sitepress' ) ?></p>
+                        <footer class="clearfix text-right">
+                            <form id="installer_registration_form">
+                                <input type="hidden" name="action" value="installer_save_key"/>
+                                <input type="hidden" name="button_action" value="installer_save_key"/>
+                                <input id="icl_setup_next_6"
+								       <?php if ( empty( $site_key ) ): ?>style="display: none;"<?php endif; ?>
+                                       class="button-primary alignright" name="save"
+                                       value="<?php esc_attr_e( 'Next', 'sitepress' ) ?>" type="button"/>
+								<?php wp_nonce_field( 'setup_got_to_step6_nonce', '_icl_nonce_gts6' ); ?>
+                            </form>
+                        </footer>
 
-				<?php else: ?>
+					<?php else: ?>
 
-				<p class="wpml-wizard-instruction">
-                    <?php esc_html_e( 'Enter the site key, from your wpml.org account, to receive automatic updates for WPML on this site.', 'sitepress' ) ?>
+                        <p class="wpml-wizard-instruction">
+							<?php esc_html_e( 'Enter the site key, from your wpml.org account, to receive automatic updates for WPML on this site.', 'sitepress' ) ?>
+                        </p>
+                        <form id="installer_registration_form">
+                            <input type="hidden" name="action" value="installer_save_key"/>
+                            <input type="hidden" name="button_action" value="installer_save_key"/>
+                            <label for="installer_site_key">
+								<?php esc_html_e( 'Site key:', 'sitepress' ) ?>
+                                <input type="text" name="installer_site_key"
+                                       value="<?php echo esc_attr( $site_key ) ?>" <?php disabled( ! empty( $site_key ) ) ?> />
+                            </label>
+
+                            <div class="status_msg<?php if ( ! empty( $site_key ) ): ?> icl_valid_text<?php endif; ?>">
+								<?php
+								if ( $site_key ) {
+									esc_html_e( 'Thank you for registering WPML on this site. You will receive automatic updates when new versions are available.', 'sitepress' );
+								}
+								?>
+                            </div>
+
+                            <div class="text-right">
+								<?php if ( empty( $site_key ) ): ?>
+                                    <input class="button-primary" name="register"
+                                           value="<?php esc_attr_e( 'Register', 'sitepress' ) ?>" type="submit"/>
+                                    <input class="button-secondary" name="later"
+                                           value="<?php esc_attr_e( 'Remind me later', 'sitepress' ) ?>" type="submit"/>
+									<?php wp_nonce_field( 'registration_form_submit_nonce', '_icl_nonce' ); ?>
+								<?php endif; ?>
+
+                                <input id="icl_setup_next_6"
+								       <?php if ( empty( $site_key ) ): ?>style="display: none;"<?php endif; ?>
+                                       class="button-primary alignright" name="save"
+                                       value="<?php esc_attr_e( 'Next', 'sitepress' ) ?>" type="submit"/>
+
+                                <input class="button-primary" name="finish" style="display: none;"
+                                       value="<?php esc_attr_e( 'Finish', 'sitepress' ) ?>" type="submit"/>
+
+								<?php wp_nonce_field( 'setup_got_to_step6_nonce', '_icl_nonce_gts6' ); ?>
+                            </div>
+
+                        </form>
+
+					<?php endif; ?>
+
+					<?php if ( empty( $site_key ) ): ?>
+                        <div class="no_site_key">
+                            <hr class="wpml-margin-top-base">
+                            <p>
+								<?php
+								printf(
+									esc_html__( "Don't have a key for this site? %sGenerate a key for this site%s", 'sitepress' ),
+									'<a class="button-primary" href="https://wpml.org/my-account/sites/?add=' . urlencode( get_site_url() ) . '" target="_blank">', '</a>'
+								)
+								?>
+                            </p>
+                            <p>
+								<?php
+								printf(
+									esc_html__( "If you don't have a WPML.org account or a valid subscription, you can %spurchase%s one and get later upgrades, full support and 30 days money-back guarantee.", 'sitepress' ),
+									'<a href="http://wpml.org/purchase/" target="_blank">', '</a>'
+								)
+								?>
+                            </p>
+                        </div>
+					<?php endif; ?>
+                </div>
+            </div>
+
+		<?php elseif ( $setup_wizard_step === 6 ): ?>
+
+    <div class="wpml-section">
+        <div class="wpml-section-header">
+            <h3>
+				<?php esc_html_e( 'Complete WPML’s Installation', 'sitepress' ); ?>
+            </h3>
+        </div>
+		<?php
+		$recommendation_groups = WP_Installer()->get_recommendations( 'wpml' );
+		if ( $recommendation_groups ) {
+			?>
+            <div class="wpml-section-content">
+                <p class="wpml-wizard-instruction">
+					<?php esc_html_e( 'Based on your theme and other plugins running on your site, we recommend that you enable the following WPML components on this site.',
+						'sitepress' ); ?>
                 </p>
-				<form id="installer_registration_form">
-					<input type="hidden" name="action" value="installer_save_key" />
-					<input type="hidden" name="button_action" value="installer_save_key" />
-					<label for="installer_site_key">
-						<?php esc_html_e( 'Site key:', 'sitepress' ) ?>
-						<input type="text" name="installer_site_key" value="<?php echo esc_attr( $site_key ) ?>" <?php disabled( ! empty( $site_key ) ) ?> />
-					</label>
 
-					<div class="status_msg<?php if ( ! empty( $site_key ) ): ?> icl_valid_text<?php endif; ?>">
-						<?php
-						if ( $site_key ) {
-                            esc_html_e( 'Thank you for registering WPML on this site. You will receive automatic updates when new versions are available.', 'sitepress' );
-                        }
-                        ?>
-					</div>
+                <form id="installer_recommendations_form">
+					<?php
+					uasort( $recommendation_groups, function ( $a, $b ) {
+						return (int) $a['order'] - (int) $b['order'];
+					} );
 
-					<div class="text-right">
-						<?php if ( empty( $site_key ) ): ?>
-						<input class="button-primary" name="register" value="<?php esc_attr_e( 'Register', 'sitepress' ) ?>" type="submit" />
-						<input class="button-secondary" name="later" value="<?php esc_attr_e( 'Remind me later', 'sitepress' ) ?>" type="submit" />
-						<?php endif; ?>
-						<input <?php if(empty($site_key)): ?>style="display: none;"<?php endif; ?> class="button-primary button-large button" name="finish"
-                               value="<?php esc_attr_e( 'Finish', 'sitepress' ) ?>" type="submit" />
+					foreach ( $recommendation_groups as $group_slug => $recommendation_group ) {
+						echo '<h3>' . $recommendation_group['title'] . '</h3>';
+						echo '<ul class="wpml-recommendations-list">';
+						foreach ( $recommendation_group['plugins'] as $slug => $plugin ) {
+							if ( $group_slug !== 'plugins-for-developing-custom-sites-with-wpml' ) {
+								$checked = 'checked';
+							} else {
+								$checked = '';
+							}
+							if ( $plugin['is_active'] ) {
+								$plugin_disabled = 'disabled="disabled" ';
+							} else {
+								$plugin_disabled = ' ';
+							}
 
-						<?php wp_nonce_field('registration_form_submit_nonce', '_icl_nonce'); ?>
-					</div>
+							echo '<li class="' . $plugin['download_data']['slug'] . '">
+				                <input ' . $plugin_disabled . $checked . ' type="checkbox" value="' . base64_encode( json_encode( $plugin['download_data'] ) ) . '" id="opt-' . $plugin['download_data']['slug'] . '" />
+				                <label for="opt-' . $plugin['download_data']['slug'] . '">' . $plugin['name'] . '</label>
+		                        <span class="js-wpml-tooltip-open" id="opt-' . $plugin['download_data']['slug'] . '" title="' . $plugin['short_description'] . '"></span>
+				                </li>';
+						}
+						echo '</ul>';
+					}
+			?>
 
-				</form>
+                    <input type="hidden" name="button_action" value="install_recommendations"/>
 
-				<?php endif; ?>
+                    <div class="text-left">
+                        <p class="icl_error_text hidden">
+							<?php esc_html_e( 'There was an error during plugin installation.',
+								'sitepress' ); ?>
+                        </p>
+                    </div>
 
-				<?php if(empty($site_key)): ?>
-					<hr class="wpml-margin-top-base">
-				<p>
-                    <?php
-                    printf(
-                        esc_html__( "Don't have a key for this site? %sGenerate a key for this site%s", 'sitepress' ),
-                        '<a class="button-primary" href="https://wpml.org/my-account/sites/?add=' . urlencode( get_site_url() ) . '" target="_blank">', '</a>'
-                    )
-                    ?>
+                    <div class="text-right">
+	                    <input class="button-link" name="finish"
+	                           data-finish-text="<?php esc_attr_e( 'Finish', 'sitepress' ) ?>"
+	                           data-skip-text="<?php esc_attr_e( 'Skip and Finish', 'sitepress' ) ?>"
+	                           value="<?php esc_attr_e( 'Skip and Finish', 'sitepress' ) ?>" type="submit"/>
+
+                        <input id="save_recommendations" class="button-primary" name="install_recommendations"
+
+                               value="<?php esc_attr_e( 'Install and activate selected plugins', 'sitepress' ) ?>"
+                               type="submit"/>
+
+
+                    </div>
+					<?php wp_nonce_field( 'recommendations_form_submit_nonce', '_icl_nonce' ); ?>
+
+                </form>
+            </div>
+			<?php
+		} else { ?>
+            <div class="wpml-section-content">
+                <p class="wpml-wizard-instruction">
+					<?php esc_html_e( 'At this moment, we could not find any recommendation for your site.',
+						'sitepress' ); ?>
                 </p>
-				<p>
-                    <?php
-                    printf(
-                        esc_html__( "If you don't have a WPML.org account or a valid subscription, you can %spurchase%s one and get later upgrades, full support and 30 days money-back guarantee.", 'sitepress' ),
-                        '<a href="http://wpml.org/purchase/" target="_blank">', '</a>'
-                    )
-                    ?>
-                </p>
-				<?php endif; ?>
-			</div>
-		</div>
+                <form id="installer_recommendations_form">
+	                <input type="hidden" name="button_action" value="finish"/>
+                    <input class="button-secondary" name="finish"
+                           value="<?php esc_attr_e( 'Finish', 'sitepress' ) ?>" type="submit"/>
+					<?php wp_nonce_field( 'recommendations_form_submit_nonce', '_icl_nonce' ); ?>
+
+                </form>
+            </div>
+			<?php
+
+		}
+		?>
+
 
 		<?php endif; ?>
 

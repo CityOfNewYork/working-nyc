@@ -2,8 +2,8 @@
 Contributors: wpchefgadget
 Tags: brute force, login, security, GDPR, protection
 Requires at least: 3.0
-Tested up to: 5.4
-Stable tag: 2.13.0
+Tested up to: 5.5
+Stable tag: 2.15.2
 
 Reloaded version of the original Limit Login Attempts plugin for Login Protection by a team of WordPress developers. GDPR compliant.
 
@@ -41,6 +41,7 @@ Translations: Bulgarian, Brazilian Portuguese, Catalan, Chinese (Traditional), C
 Plugin uses standard actions and filters only.
 
 Based on the original code from Limit Login Attemps plugin by Johan Eenfeldt.
+[](http://coderisk.com/wp/plugin/limit-login-attempts-reloaded/RIPS-M7n4uQXa-G)
 
 == Screenshots ==
 
@@ -49,6 +50,21 @@ Based on the original code from Limit Login Attemps plugin by Johan Eenfeldt.
 3. Administration interface in WordPress 5.2.1
 
 == Changelog ==
+
+= 2.15.2 =
+* Alternative method of closing the feedback message.
+
+= 2.15.1 =
+* Refactoring.
+
+= 2.15.0 =
+* Reset password feature has been removed as unwanted.
+* Small refactoring.
+
+= 2.14.0 =
+* BuddyPress login error compatibility implemented.
+* UltimateMember compatibility implemented.
+* A PHP warning fixed.
 
 = 2.13.0 =
 * Fixed incompatibility with PHP < 5.6.

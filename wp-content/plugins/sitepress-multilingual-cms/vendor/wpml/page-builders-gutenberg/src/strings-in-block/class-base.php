@@ -44,6 +44,21 @@ abstract class Base implements StringsInBlock {
 		return null;
 	}
 
+
+	/**
+	 * @param  \WP_Block_Parser_Block  $block
+	 *
+	 * @return string
+	 */
+	protected function get_block_label( \WP_Block_Parser_Block $block ) {
+		$label = $this->get_block_config( $block, 'label' );
+		if ( ! is_string( $label ) ) {
+			$label = $block->blockName;
+		}
+
+		return $label;
+	}
+
 	/**
 	 * @param \WP_Block_Parser_Block $block
 	 * @param string                 $type

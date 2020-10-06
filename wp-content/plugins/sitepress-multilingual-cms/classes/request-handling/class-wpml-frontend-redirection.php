@@ -1,8 +1,10 @@
 <?php
 
+use WPML\Language\Detection\Frontend;
+
 class WPML_Frontend_Redirection extends WPML_SP_User {
 
-	/** @var  WPML_Frontend_Request $request_handler */
+	/** @var Frontend $request_handler */
 	private $request_handler;
 
 	/** @var  WPML_Redirection */
@@ -14,10 +16,10 @@ class WPML_Frontend_Redirection extends WPML_SP_User {
 	/**
 	 * WPML_Frontend_Redirection constructor.
 	 *
-	 * @param SitePress                $sitepress
-	 * @param WPML_Frontend_Request    $request_handler
-	 * @param WPML_Redirection         $redir_helper
-	 * @param WPML_Language_Resolution $lang_resolution
+	 * @param  SitePress  $sitepress
+	 * @param  Frontend  $request_handler
+	 * @param  WPML_Redirection  $redir_helper
+	 * @param  WPML_Language_Resolution  $lang_resolution
 	 */
 	public function __construct(
 		&$sitepress,

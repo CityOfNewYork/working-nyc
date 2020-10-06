@@ -1,6 +1,8 @@
 <?php
 
 class WPML_Package_Helper {
+	const PREFIX_BATCH_STRING = 'batch-string-';
+
 	private   $default_language;
 	private   $last_registered_string_id;
 	protected $registered_strings;
@@ -29,8 +31,10 @@ class WPML_Package_Helper {
 		// delete the strings and the translations
 
 		$this->delete_package_strings( $package_id );
-		$this->delete_package_translation_jobs( $package_id );
-		$this->delete_package_translations( $package_id );
+
+		$tm = new WPML_Package_TM( $this->package_factory->create( $package_id ) );
+		$tm->delete_translation_jobs();
+		$tm->delete_translations();
 
 		global $wpdb;
 		$delete_query   = "DELETE FROM {$wpdb->prefix}icl_string_packages WHERE id=%d";
@@ -61,18 +65,6 @@ class WPML_Package_Helper {
 		foreach ( $strings as $string_id ) {
 			do_action( 'wpml_st_delete_all_string_data', $string_id );
 		}
-	}
-
-	protected function delete_package_translation_jobs( $package_id ) {
-		$package = $this->package_factory->create( $package_id );
-		$tm      = new WPML_Package_TM( $package );
-		$tm->delete_translation_jobs();
-	}
-
-	protected function delete_package_translations( $package_id ) {
-		$package = $this->package_factory->create( $package_id );
-		$tm      = new WPML_Package_TM( $package );
-		$tm->delete_translations();
 	}
 
 	protected function loaded() {
@@ -139,7 +131,7 @@ class WPML_Package_Helper {
 
 			// Need to create a new record.
 			if ( $package->has_kind_and_name() ) {
-				$package_id = $this->create_new_package( $package );
+				$package_id = self::create_new_package( $package );
 				$package    = $this->package_factory->create( $package );
 			}
 		}
@@ -247,15 +239,20 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param WPML_Package             $item
-	 * @param int|WP_Post|WPML_Package $package
+	 * @param  WPML_Package  $item
+	 * @param  int|WP_Post|WPML_Package  $package
+	 * @param  string  $type
 	 *
 	 * @return bool|WPML_Package
 	 */
-	final public function get_translatable_item( $item, $package ) {
-		$tm = new WPML_Package_TM( $item );
+	final public function get_translatable_item( $item, $package, $type = 'package' ) {
+		if ( $type === 'package' || explode( '_', $type )[0] === 'package' ) {
+			$tm = new WPML_Package_TM( $item );
 
-		return $tm->get_translatable_item( $package );
+			return $tm->get_translatable_item( $package );
+		}
+
+		return $item;
 	}
 
 	final function get_post_title( $title, $package_id ) {
@@ -273,9 +270,36 @@ class WPML_Package_Helper {
 		$title      = $this->get_editor_string_element( $name, $package_id, 'title' );
 		if ( $title && $title != '' ) {
 			$name = $title;
+		} elseif (
+			\WPML\FP\Str::includes( self::PREFIX_BATCH_STRING, $name )
+			&& ( $string = $this->get_st_string_by_batch_name( $name ) )
+		) {
+			$name = $this->empty_if_md5( $string->get_name() )
+				?: ( $string->get_gettext_context() ?: ( $string->get_context() ?: $name ) );
 		}
 
 		return $name;
+	}
+
+	private function empty_if_md5( $str ) {
+		return preg_replace( '#^((.+)( - ))?([a-z0-9]{32})$#', '$2', $str );
+	}
+
+	/**
+	 * @param string $batch_string_name
+	 *
+	 * @return WPML_ST_String|null
+	 * @throws \Auryn\InjectionException
+	 */
+	private function get_st_string_by_batch_name( $batch_string_name ) {
+		$string_id = (int) \WPML\FP\Str::replace( self::PREFIX_BATCH_STRING, '', $batch_string_name );
+		if ( $string_id ) {
+			$string_factory = WPML\Container\make( WPML_ST_String_Factory::class );
+
+			return $string_factory->find_by_id( $string_id );
+		}
+
+		return null;
 	}
 
 	final function get_editor_string_style( $style, $field_type, $package ) {
@@ -441,16 +465,16 @@ class WPML_Package_Helper {
 	/**
 	 * @param WPML_Package $package
 	 *
-	 * @return bool|mixed|null|string
+	 * @return int
 	 */
-	final private function create_new_package( $package ) {
+	final public static function create_new_package( WPML_Package $package ) {
 		$package_id = $package->create_new_package_record();
 
 		$tm = new WPML_Package_TM( $package );
 
 		$tm->update_package_translations( true );
 
-		return $package_id;
+		return (int) $package_id;
 	}
 
 	/**

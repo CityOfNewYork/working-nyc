@@ -6,6 +6,9 @@ class Texts {
 
 	protected static $repo;
 	protected static $product;
+	protected static $apiHost;
+	protected static $communicationDetailsLink;
+	protected static $supportLink;
 
 	public static function notRegistered() {
 		// translators: %s Product name
@@ -13,7 +16,7 @@ class Texts {
 		// translators: %s Product name
 		$bodyHTML = self::getBodyHTML( __( '%s plugin must be registered in order to receive stability and security updates. Without these updates, the plugin may become incompatible with new versions of WordPress, which include security patches.', 'installer' ) ) .
 		            self::inButtonAreaHTML( self::getNotRegisteredButtons() ) .
-		            self::getDismissHTML();
+		            self::getDismissHTML( Account::NOT_REGISTERED );
 
 		return self::insideDiv( 'register', $headingHTML . $bodyHTML );
 	}
@@ -24,7 +27,7 @@ class Texts {
 		// translators: %s Product name
 		$bodyHTML = self::getBodyHTML( __( "Your site is using an expired %s account, which means you won't receive updates. This can lead to stability and security issues.", 'installer' ) ) .
 		            self::inButtonAreaHTML( self::getExpiredButtons() ) .
-		            self::getDismissHTML();
+		            self::getDismissHTML( Account::EXPIRED );
 
 		return self::insideDiv( 'expire', $headingHTML . $bodyHTML );
 	}
@@ -37,6 +40,39 @@ class Texts {
 		        self::inButtonAreaHTML( self::getRefundedButtons() );
 
 		return self::insideDiv( 'refund', $headingHTML . $body );
+	}
+
+	public static function connectionIssues() {
+		// translators: %1$s Product name %2$s host name (ex. wpml.org)
+		$headingHTML = self::getConnectionIssueHeadingHTML( __( '%1$s plugin cannot connect to %2$s', 'installer' ) );
+
+		// translators: %1$s Product name %2$s host name (ex. wpml.org)
+		$body = self::getConnectionIssueBodyHTML( __( '%1$s needs to connect to its server to check for new releases and security updates. Something in the network or security settings is preventing this. Please allow outgoing communication to %2$s to remove this notice.', 'installer' ) ) .
+		        self::inLinksAreaHTML(
+			        __( 'Need help?', 'installer' ),
+			        // translators: %1$s is `communication error details` %2$s is ex. wpml.org technical support
+			        __( 'See the %1$s and let us know in %2$s.', 'installer' ),
+			        self::getCommunicationDetailsLinkHTML( __( 'communication error details', 'installer' )),
+			        // translators: %s is host name (ex. wpml.org)
+			        self::getSupportLinkHTML(  __( '%s technical support', 'installer' ))
+		        );
+
+		return self::insideDiv( 'connection-issues', $headingHTML . $body );
+	}
+
+	public static function pluginActivatedRecommendation( $parameters ) {
+		$heading_html = self::getHeadingHTML( $parameters['recommendation_notification'] );
+
+		$body_text = sprintf(
+			__( 'Please install %s to allow translating %s.', 'installer' ),
+			strip_tags( $parameters['glue_plugin_name'] ),
+			$parameters['glue_check_name']
+		);
+
+		$body_html = self::getBodyHTML( $body_text ) .
+		             self::inButtonAreaHTML( self::getRecommendationButtons($parameters) );
+
+		return self::insideDiv( 'plugin-recommendation', $heading_html . $body_html );
 	}
 
 	/**
@@ -53,8 +89,8 @@ class Texts {
 			'otgs-installer-notice-' . esc_attr( $type ),
 		];
 
-		if ( $type !== 'refund' ) {
-			$classes[] = 'is-dismissible';
+		if ( $type !== 'refund' && $type !== 'connection-issues') {
+			$classes[] = 'otgs-is-dismissible';
 		}
 
 		return '<div class="' . implode( ' ', $classes ) . '">' .
@@ -62,6 +98,15 @@ class Texts {
 		       $html .
 		       '</div>' .
 		       '</div>';
+	}
+
+	private static function getRecommendationButtons($parameters) {
+
+		$installButton         = __( "Install and activate", 'installer' );
+		$dismiss              = __( "Ignore and don't ask me again", 'installer' );
+
+		return self::getRecommendationInstallButtonHTML( $installButton, $parameters ) .
+		       self::getRecommendationDismissHTML( $dismiss, $parameters );
 	}
 
 	/**
@@ -104,24 +149,31 @@ class Texts {
 	}
 
 	/**
+	 * @param string $notice_type The method takes care of escaping the string.
+	 *
 	 * @return string
 	 */
-	protected static function getDismissHTML() {
-		return '<span class="installer-dismiss-nag notice-dismiss" ' . self::getDismissedAttributes( Account::NOT_REGISTERED ) . '>'
+	protected static function getDismissHTML($notice_type) {
+		return '<span class="installer-dismiss-nag notice-dismiss" ' . self::getDismissedAttributes( $notice_type ) . '>'
 		       . '<span class="screen-reader-text">' . esc_html__( 'Dismiss', 'installer' ) . '</span></span>';
 	}
 
 	/**
-	 * @param string $text The method takes care of escaping the string.
+	 * @param string $notice_type The method takes care of escaping the string.
 	 *
 	 * @return string
 	 */
-	private static function getDismissedAttributes( $text ) {
-		return 'data-repository="' . esc_attr( static::$repo ) . '" data-notice="' . esc_attr( $text ) . '"';
+	private static function getDismissedAttributes( $notice_type, $noticeId = null ) {
+		$dismissedAttributes = 'data-repository="' . esc_attr( static::$repo ) . '" data-notice-type="' . esc_attr( $notice_type ) . '"';
+		if ( $noticeId ) {
+			$dismissedAttributes .= '" data-notice-plugin-slug="' . esc_attr( $noticeId ) . '"';
+		}
+
+		return $dismissedAttributes;
 	}
 
 	/**
-	 * @param string $url  The method takes care of escaping the string.
+	 * @param string $url The method takes care of escaping the string.
 	 * @param string $text The method takes care of escaping the string.
 	 *
 	 * @return string
@@ -131,7 +183,20 @@ class Texts {
 	}
 
 	/**
-	 * @param string $url  The method takes care of escaping the string.
+	 * @param string $url The method takes care of escaping the string.
+	 * @param string $text The method takes care of escaping the string.
+	 *
+	 * @return string
+	 */
+	protected static function getRecommendationInstallButtonHTML( $text, $parameters ) {
+		return
+			wp_nonce_field( 'recommendation_success_nonce', 'recommendation_success_nonce' ) .
+			'<input type="hidden" id="originalPluginData" value="'. base64_encode( json_encode( ['slug' =>$parameters['glue_check_slug'], 'repository_id' => $parameters['repository_id']] ) ).'">' .
+			'<button class="js-install-recommended otgs-installer-notice-status-item otgs-installer-notice-status-item-btn" value="' . base64_encode( json_encode( $parameters['download_data'] ) ) . '">' . esc_html( $text ) . '</button><span class="spinner"></span>';
+	}
+
+	/**
+	 * @param string $url The method takes care of escaping the string.
 	 * @param string $text The method takes care of escaping the string.
 	 *
 	 * @return string
@@ -150,6 +215,16 @@ class Texts {
 	}
 
 	/**
+	 * @param string $text The method takes care of escaping the string.
+	 *
+	 * @return string
+	 */
+	protected static function getRecommendationDismissHTML( $text, $parameters ) {
+		return '<a class="installer-dismiss-nag otgs-installer-notice-status-item-link" ' . self::getDismissedAttributes( Recommendation::PLUGIN_ACTIVATED, $parameters['glue_check_slug'] ) . ' href="#">'
+		       . esc_html( $text ) . '</a>';
+	}
+
+	/**
 	 * @param string $html An unescaped HTML string but with escaped data (e.g. attributes, URLs, or strings in the HTML produced from any input).
 	 *
 	 * @return string
@@ -160,7 +235,19 @@ class Texts {
 	}
 
 	/**
-	 * @param string $text  The method takes care of escaping the string.
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	private static function inLinksAreaHTML( $title, $text, $communicationDetails, $supportLink ) {
+		return '<div class="otgs-installer-notice-status">
+					<p class="otgs-installer-notice-status-item">' . esc_html( $title ) . '</p>
+					<p class="otgs-installer-notice-status-item">' . sprintf( esc_html( $text ), $communicationDetails, $supportLink ) . '</p>
+				</div>';
+	}
+
+	/**
+	 * @param string $text The method takes care of escaping the string.
 	 *                      If the string contains a placeholder, it will be replaced with the value of `static::$product`.
 	 *
 	 * @return string
@@ -170,7 +257,16 @@ class Texts {
 	}
 
 	/**
-	 * @param string $text  The method takes care of escaping the string.
+	 * @param string $text
+	 *
+	 * @return string
+	 */
+	protected static function getConnectionIssueHeadingHTML( $text ) {
+		return '<h2>' . esc_html( sprintf( $text, static::$product, static::$apiHost ) ) . '</h2>';
+	}
+
+	/**
+	 * @param string $text The method takes care of escaping the string.
 	 *                      If the string contains a placeholder, it will be replaced with the value of `static::$product`.
 	 *
 	 * @return string
@@ -180,11 +276,29 @@ class Texts {
 	}
 
 	/**
+	 * @param string $text  The method takes care of escaping the string.
+	 *                      If the string contains a placeholder, it will be replaced with the value of `static::$product`.
+	 *
+	 * @return string
+	 */
+	protected static function getConnectionIssueBodyHTML( $text ) {
+		return '<p>' . esc_html( sprintf( $text, static::$product, static::$apiHost ) ) . '</p>';
+	}
+
+	/**
 	 * @param string $text The method takes care of escaping the string.
 	 *
 	 * @return string
 	 */
 	private static function getStagingButtonHTML( $text ) {
 		return '<a class="otgs-installer-notice-status-item otgs-installer-notice-status-item-link installer-dismiss-nag" ' . self::getDismissedAttributes( Account::NOT_REGISTERED ) . '>' . esc_html( $text ) . '</a>';
+	}
+
+	private static function getCommunicationDetailsLinkHTML( $text ) {
+		return '<a href="' . esc_url( static::$communicationDetailsLink ) . '">' . esc_html( $text ) . '</a>';
+	}
+
+	private static function getSupportLinkHTML( $text ) {
+		return '<a href="' . esc_url( static::$supportLink ) . '">' . esc_html( sprintf( $text, static::$product ) ) . '</a>';
 	}
 }

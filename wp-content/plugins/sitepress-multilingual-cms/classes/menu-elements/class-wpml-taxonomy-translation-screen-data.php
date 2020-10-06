@@ -62,18 +62,19 @@ class WPML_Taxonomy_Translation_Screen_Data extends WPML_WPDB_And_SP_User {
 			)
 		);
 
+		$query_limit_cap = defined( 'WPML_TAXONOMY_TRANSLATION_MAX_TERMS_RESULTS_SET' ) ?
+			WPML_TAXONOMY_TRANSLATION_MAX_TERMS_RESULTS_SET : self::WPML_TAXONOMY_TRANSLATION_MAX_TERMS_RESULTS_SET;
+
 		$join_statements   = array();
 		$as                = $this->alias_statements( $attributes_to_select );
 		$join_statements[] = "{$as['t']} JOIN {$as['tt']} ON tt.term_id = t.term_id";
 		$join_statements[] = "{$as['i']} ON i.element_id = tt.term_taxonomy_id";
-		$from_clause       = join( ' JOIN ', $join_statements );
+		$from_clause       = $this->build_from_clause( join( ' JOIN ', $join_statements ), $attributes_to_select, $query_limit_cap );
 		$select_clause     = $this->build_select_vars( $attributes_to_select );
 		$where_clause      = $this->build_where_clause( $attributes_to_select );
 		$full_statement    = "SELECT SQL_CALC_FOUND_ROWS {$select_clause} FROM {$from_clause} WHERE {$where_clause}";
 
-		$query_limit_cap = defined( 'WPML_TAXONOMY_TRANSLATION_MAX_TERMS_RESULTS_SET' ) ?
-			WPML_TAXONOMY_TRANSLATION_MAX_TERMS_RESULTS_SET : self::WPML_TAXONOMY_TRANSLATION_MAX_TERMS_RESULTS_SET;
-		$full_statement  .= sprintf( ' LIMIT %d', $query_limit_cap );
+
 
 		$all_terms = $this->wpdb->get_results( $full_statement );
 
@@ -210,6 +211,25 @@ class WPML_Taxonomy_Translation_Screen_Data extends WPML_WPDB_And_SP_User {
 		$where_clause = join( ' AND  ', $where_clauses );
 
 		return $where_clause;
+	}
+
+	/**
+	 * @param string $from
+	 * @param array $selects
+	 * @param int $limit
+	 *
+	 * @return string
+	 */
+	private function build_from_clause( $from, $selects, $limit ) {
+		return $from . sprintf(
+				" INNER JOIN ( 
+					SELECT trid FROM %s WHERE element_type = '%s' AND source_language_code IS NULL LIMIT %d
+				  ) lm on lm.trid = %s.trid",
+				$this->wpdb->prefix . 'icl_translations',
+				'tax_' . $this->taxonomy,
+				$limit,
+				$selects[ $this->wpdb->prefix . 'icl_translations' ]['alias']
+			);
 	}
 
 	/**

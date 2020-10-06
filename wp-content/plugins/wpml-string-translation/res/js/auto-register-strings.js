@@ -63,7 +63,7 @@ WPML_String_Translation.AutoRegisterStrings = {
 
         if (fromDialog) {
             apply_button = this.dialog.parent().find('.js-wpml-st-apply-button');
-            apply_button.attr('disabled', 'disabled');
+            apply_button.prop('disabled', true);
         }
 
         var data = {
@@ -90,7 +90,7 @@ WPML_String_Translation.AutoRegisterStrings = {
                 }
 
                 if (fromDialog) {
-                    apply_button.removeAttr('disabled');
+                    apply_button.prop('disabled', false);
                 }
             }
         });

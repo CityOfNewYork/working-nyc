@@ -10,19 +10,10 @@ use function OTGS\Installer\FP\partial;
 
 class Account {
 
-	const NOT_REGISTERED         = 'not-registered';
-	const EXPIRED                = 'expired';
-	const REFUNDED               = 'refunded';
+	const NOT_REGISTERED = 'not-registered';
+	const EXPIRED = 'expired';
+	const REFUNDED = 'refunded';
 	const GET_FIRST_INSTALL_TIME = 'get_first_install_time';
-
-	public static function addHooks( \WP_Installer $installer ) {
-		add_filter( 'otgs_installer_admin_notices_config', self::class . '::config', 10, 1 );
-		add_filter( 'otgs_installer_admin_notices_texts', self::class . '::texts', 10, 1 );
-		add_filter(
-			'otgs_installer_admin_notices',
-			partial( self::class . '::getCurrentNotices', $installer )
-		);
-	}
 
 	/**
 	 * @param \WP_Installer $installer
@@ -34,39 +25,17 @@ class Account {
 
 		$config = $installer->get_site_key_nags_config();
 
-		$addNoticesForType = function ( Collection $notices, array $data ) use ( $installer, $config ) {
-			list( $type, $fn ) = $data;
-			$addNotice  = partial( self::class . '::addNotice', $type );
-			$shouldShow = partial( [ self::class, $fn ], $installer );
-
-			return $notices->mergeRecursive( Collection::of( $config )
-			                                           ->filter( $shouldShow )
-			                                           ->pluck( 'repository_id' )
-			                                           ->reduce( $addNotice, [] ) );
-		};
-
 		$noticeTypes = [
-			self::NOT_REGISTERED => 'shouldShowNotRegistered',
-			self::EXPIRED        => 'shouldShowExpired',
-			self::REFUNDED       => 'shouldShowRefunded'
+			self::NOT_REGISTERED => [Account::class, 'shouldShowNotRegistered'],
+			self::EXPIRED        => [Account::class, 'shouldShowExpired'],
+			self::REFUNDED       => [Account::class, 'shouldShowRefunded'],
 		];
 
 		return collection::of( $noticeTypes )
 		                 ->entities()
-		                 ->reduce( $addNoticesForType, Collection::of( $initialNotices ) )
+		                 ->reduce( Notice::addNoticesForType($installer, $config), Collection::of( $initialNotices ) )
 		                 ->get();
 
-	}
-
-	/**
-	 * @param string $noticeId
-	 * @param array $notices
-	 * @param string $repoId
-	 *
-	 * @return array
-	 */
-	public static function addNotice( $noticeId, array $notices, $repoId ) {
-		return array_merge_recursive( $notices, [ 'repo' => [ $repoId => [ $noticeId ] ] ] );
 	}
 
 	/**
@@ -127,7 +96,7 @@ class Account {
 					Account::EXPIRED        => $toolsetPages,
 					Account::REFUNDED       => $toolsetPages,
 				],
-			]
+			],
 		] );
 	}
 
@@ -142,12 +111,12 @@ class Account {
 			'repo' => [
 				'wpml'    => $config,
 				'toolset' => $config,
-			]
+			],
 		] );
 	}
 
 	public static function texts( array $initialTexts ) {
-		return array_merge( $initialTexts, [
+		return array_merge_recursive( $initialTexts, [
 			'repo' => [
 				'wpml'    => [
 					Account::NOT_REGISTERED => WPMLTexts::class . '::notRegistered',
@@ -159,8 +128,19 @@ class Account {
 					Account::EXPIRED        => ToolsetTexts::class . '::expired',
 					Account::REFUNDED       => ToolsetTexts::class . '::refunded',
 				],
-			]
+			],
 		] );
+	}
+
+	public static function dismissions( array $initialDismissions ) {
+		return array_merge_recursive(
+			$initialDismissions,
+			[
+				Account::NOT_REGISTERED => Dismissions::class . '::dismissAccountNotice',
+				Account::EXPIRED        => Dismissions::class . '::dismissAccountNotice',
+				Account::REFUNDED       => Dismissions::class . '::dismissAccountNotice',
+			]
+		);
 	}
 
 	private static function isDevelopmentSite( $url ) {

@@ -4,7 +4,7 @@ jQuery(document).ready(function () {
         var nonce = self.data('nonce');
         var reload = self.data('reload');
 
-        self.attr('disabled', 'disabled');
+        self.prop('disabled', true);
         self.after(icl_ajxloaderimg);
         jQuery.ajax({
             type : "post",
@@ -21,7 +21,7 @@ jQuery(document).ready(function () {
                 }
             },
             complete: function() {
-                self.removeAttr('disabled');
+                self.prop('disabled', false);
                 self.next().fadeOut();
             }
         });

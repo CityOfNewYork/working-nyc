@@ -19,7 +19,7 @@ class WPML_Browser_Redirect {
 
 	public function init(){
         if( ! isset( $_GET['redirect_to'] ) &&
-            ! is_admin() &&
+            ! is_admin() && ! is_customize_preview() &&
 			( ! isset( $_SERVER['REQUEST_URI'] ) || ! preg_match( '#wp-login\.php$#', preg_replace( "@\?(.*)$@", '', $_SERVER['REQUEST_URI'] ) ) )
         ) {
 	        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -33,21 +33,22 @@ class WPML_Browser_Redirect {
 
         // Build multi language urls array
         $languages      = $this->sitepress->get_ls_languages($args);
-        $language_urls  = array();
-        foreach($languages as $language) {
-			if(isset($language['default_locale']) && $language['default_locale']) {
-				$language_urls[$language['default_locale']] = $language['url'];
-				$language_parts = explode('_', $language['default_locale']);
-				if(count($language_parts)>1) {
-					foreach($language_parts as $language_part) {
-						if(!isset($language_urls[$language_part])) {
-							$language_urls[$language_part] = $language['url'];
-						}
-					}
-				}
-			}
-			$language_urls[$language['language_code']] = $language['url'];
-        }
+        $language_urls  = [];
+	    foreach ( $languages as $language ) {
+		    if ( isset( $language['default_locale'] ) && $language['default_locale'] ) {
+			    $default_locale                   = strtolower( $language['default_locale'] );
+			    $language_urls[ $default_locale ] = $language['url'];
+			    $language_parts                   = explode( '_', $default_locale );
+			    if ( count( $language_parts ) > 1 ) {
+				    foreach ( $language_parts as $language_part ) {
+					    if ( ! isset( $language_urls[ $language_part ] ) ) {
+						    $language_urls[ $language_part ] = $language['url'];
+					    }
+				    }
+			    }
+		    }
+		    $language_urls[ $language['language_code'] ] = $language['url'];
+	    }
         // Cookie parameters
         $http_host = $_SERVER['HTTP_HOST'] == 'localhost' ? '' : $_SERVER['HTTP_HOST'];
         $cookie = array(

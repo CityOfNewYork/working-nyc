@@ -2,7 +2,7 @@
 
 namespace WPML\Compatibility\Divi;
 
-class Builder implements \IWPML_Frontend_Action {
+class Builder implements \IWPML_Frontend_Action, \IWPML_Backend_Action, \IWPML_AJAX_Action {
 
 	public function add_hooks() {
 		add_filter( 'theme_locale', [ $this, 'switch_to_user_language' ] );

@@ -9,15 +9,16 @@ use WPML_ST_Translations_File_Dictionary_Storage_Table;
 use WPML_ST_Translations_File_Dictionary;
 use WPML\WP\OptionManager;
 use function WPML\Container\make;
+use function WPML\FP\partial;
 
 class Factory implements \IWPML_Backend_Action_Loader, \IWPML_Deferred_Action_Loader {
 
 	const WPML_VERSION_INTRODUCING_ST_MO_FLOW = '4.3.0';
-	const OPTION_GROUP = 'ST-MO';
-	const IGNORE_WPML_VERSION = 'ignore-wpml-version';
+	const OPTION_GROUP                        = 'ST-MO';
+	const IGNORE_WPML_VERSION                 = 'ignore-wpml-version';
 
 	/**
-	 * @return \IWPML_Action|UI|null
+	 * @return callable|null
 	 * @throws \Auryn\InjectionException
 	 */
 	public function create() {
@@ -37,8 +38,8 @@ class Factory implements \IWPML_Backend_Action_Loader, \IWPML_Deferred_Action_Lo
 			) {
 				$files_to_import               = $st_page ? $this->getFilesToImport() : wpml_collect( [] );
 				$domains_to_pre_generate_count = self::getDomainsToPreGenerateCount();
-				if ( $files_to_import->count() || $domains_to_pre_generate_count ) {
-					return new UI(
+				if ( $files_to_import->count() || $domains_to_pre_generate_count || isset( $_GET['search'] ) ) {
+					return partial( [ UI::class, 'add_hooks' ],
 						Model::provider( $files_to_import, $domains_to_pre_generate_count, $st_page, is_network_admin() ),
 						$st_page
 					);

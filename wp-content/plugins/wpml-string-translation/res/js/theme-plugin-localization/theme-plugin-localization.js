@@ -342,7 +342,7 @@ jQuery(function($) {
 
 		selectItems: function( scanButton, group ) {
 			group.forEach(function(item){
-				$( 'input[value="' + item + '"]' ).attr( 'checked', 'checked' );
+				$( 'input[value="' + item + '"]' ).prop( 'checked', true );
 			});
 		},
 

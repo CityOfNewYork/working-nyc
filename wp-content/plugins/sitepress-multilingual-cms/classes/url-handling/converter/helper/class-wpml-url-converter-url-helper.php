@@ -82,7 +82,7 @@ class WPML_URL_Converter_Url_Helper {
 	 *
 	 * @return string
 	 */
-	private function get_unfiltered_home_option() {
+	public function get_unfiltered_home_option() {
 		if ( $this->wpml_include_url_filter ) {
 			return $this->wpml_include_url_filter->get_unfiltered_home();
 		} else {

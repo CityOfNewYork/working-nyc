@@ -53,7 +53,7 @@ class WPML_Compatibility_Theme_Enfold {
 	public function get_content_from_custom_field( $content, $post_id ) {
 
 		if ( $this->is_active( $post_id ) ) {
-			$content = get_post_meta( $post_id, '_aviaLayoutBuilderCleanData', true );
+			$content = str_replace( "\r\n", "\n", get_post_meta( $post_id, '_aviaLayoutBuilderCleanData', true ) );
 		}
 		return $content;
 	}

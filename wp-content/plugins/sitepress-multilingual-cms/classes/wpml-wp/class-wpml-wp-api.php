@@ -731,8 +731,9 @@ class WPML_WP_API extends WPML_PHP_Functions {
 	}
 
 	public function wp_safe_redirect( $redir_target, $status = 302 ) {
-		wp_safe_redirect( $redir_target, $status );
-		exit;
+		if( wp_safe_redirect( $redir_target, $status, 'WPML' ) ) {
+			exit;
+		}
 	}
 
 	/**

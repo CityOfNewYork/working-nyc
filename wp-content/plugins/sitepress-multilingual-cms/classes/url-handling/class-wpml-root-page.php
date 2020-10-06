@@ -277,6 +277,18 @@ class WPML_Root_Page {
 	 */
 	public static function wpml_home_url_template_include( $template ) {
 
-		return self::is_current_request_root() ? get_page_template() : $template;
+		return self::is_current_request_root() ? self::get_root_page_template() : $template;
+	}
+
+	/**
+	 * @return string
+	 */
+	public static function get_root_page_template() {
+		$page_template = get_page_template();
+		if ( $page_template ) {
+			return $page_template;
+		}
+		$singular_template = get_singular_template();
+		return $singular_template ?: get_index_template();
 	}
 }

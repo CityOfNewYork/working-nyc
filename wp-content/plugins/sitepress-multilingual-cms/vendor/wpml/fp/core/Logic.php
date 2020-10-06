@@ -13,12 +13,10 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static callable cond( ...$conditions, ...$fn ) - Curried :: [( a->bool ), callable]->callable
  * @method static callable both( ...$a, ...$b, ...$data ) - Curried :: ( a → bool ) → ( a → bool ) → a → bool
  * @method static callable allPass( array $predicates ) - Curried :: [( *… → bool )] → ( *… → bool )
- * @method static callable|bool and ( ...$a, ...$b ) - Curried :: a → b → bool
  * @method static callable anyPass( array $predicates ) - Curried :: [( *… → bool )] → ( *… → bool )
  * @method static callable complement( ...$fn ) - Curried :: ( *… → * ) → ( *… → bool )
  * @method static callable|mixed defaultTo( ...$a, ...$b ) - Curried :: a → b → a | b
  * @method static callable|bool either( ...$a, ...$b ) - Curried :: ( *… → bool ) → ( *… → bool ) → ( *… → bool )
- * @method static callable|bool or ( ...$a, ...$b ) - Curried :: a → b → bool
  * @method static callable|mixed until ( ...$predicate, ...$transform, ...$data ) - Curried :: ( a → bool ) → ( a → a ) → a → a
  * @method static callable|bool propSatisfies( ...$predicate, ...$prop, ...$data ) - Curried :: ( a → bool ) → String → [String => a] → bool
  * @method static callable|bool isArray ( ...$a ) - Curried :: a → bool
@@ -61,10 +59,6 @@ class Logic {
 			return true;
 		} ) );
 
-		self::macro( 'and', curryN( 2, function ( $a, $b ) {
-			return Fns::value( $a ) && Fns::value( $b );
-		} ) );
-
 		self::macro( 'anyPass', curryN( 2, function ( array $predicates, $data ) {
 			foreach ( $predicates as $predicate ) {
 				if ( $predicate( $data ) ) {
@@ -85,10 +79,6 @@ class Logic {
 
 		self::macro( 'either', curryN( 3, function ( callable $a, callable $b, $data ) {
 			return $a( $data ) || $b( $data );
-		} ) );
-
-		self::macro( 'or', curryN( 2, function ( $a, $b ) {
-			return Fns::value( $a ) || Fns::value( $b );
 		} ) );
 
 		self::macro( 'until', curryN( 3, function ( $predicate, $transform, $data ) {

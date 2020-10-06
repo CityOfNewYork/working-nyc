@@ -47,26 +47,6 @@ class WPML_Admin_Text_Configuration extends WPML_Admin_Text_Functionality {
 		return $this->config;
 	}
 
-	function get_wpml_config_file( $data ) {
-
-		return "<wpml-config>\n\t<admin-texts>\n" . $this->output_xml( $data, 0 )
-		       . "\t</admin-texts>\n</wpml-config>\n";
-	}
-
-	private function output_xml( $data, $level ) {
-		$output = '';
-
-		foreach ( $data as $key => $value ) {
-			$tabs = str_repeat( "\t", $level + 2 );
-			$output .= $tabs . '<key name="' . $key . '"'
-			           . ( is_array( $value ) && ! empty( $value )
-					? ">\n" . $this->output_xml( $value, $level + 1 ) . $tabs . '</key' : '/' )
-			           . ">\n";
-		}
-
-		return $output;
-	}
-
 	private function fill_wildcards( array $config_array ) {
 
 		return ( ! isset( $config_array['attr']['name'] ) || $config_array['attr']['name'] !== '*' )

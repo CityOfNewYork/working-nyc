@@ -329,6 +329,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 	var preselectSlot = function(subform) {
 		if (currentItemSlug) {
 			var selector = '.js-wpml-ls-available-slots option[value="' + currentItemSlug + '"]';
+			subform.find(selector).prop('selected', true);
 			subform.find(selector).attr('selected', 'selected');
 			currentItemSlug = null;
 		}
@@ -358,7 +359,9 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 		// Prevent loosing selected after replacing in original id
 		formAndDialogBox.on('change', 'select', function () {
 			var selectedVal = $(this).val();
-			$('option', this).removeAttr('selected');
+			$('option', this).prop('selected', false);
+			$('option', this).attr('selected', false);
+			$('option[value="' + selectedVal + '"]', this).prop('selected', true);
 			$('option[value="' + selectedVal + '"]', this).attr('selected', 'selected');
 		});
 	};
@@ -514,7 +517,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 			section.find('button.js-wpml-ls-open-dialog').attr('disabled', 'disabled')
 				.siblings('.js-wpml-ls-tooltip-wrapper').removeClass('hidden');
 		} else {
-			section.find('button.js-wpml-ls-open-dialog').removeAttr('disabled')
+			section.find('button.js-wpml-ls-open-dialog').prop('disabled', false)
 				.siblings('.js-wpml-ls-tooltip-wrapper').addClass('hidden');
 		}
 	};
@@ -652,11 +655,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 				usedOption    = $.inArray(optionNode.val(), alreadyUsed) >= 0,
 				currentOption = optionNode.val();
 
-			if (usedOption && selectedOption !== currentOption) {
-				optionNode.attr('disabled', 'disabled');
-			} else {
-				optionNode.removeAttr('disabled');
-			}
+			optionNode.prop('disabled', usedOption && selectedOption !== currentOption);
 		});
 	};
 
@@ -688,9 +687,9 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 
 			jQuery.each(force, function(k, v){
 				if(v === 1) {
-					subform.find('.js-wpml-ls-setting-' + k).attr('checked', 'checked').prop('disabled', true);
+					subform.find('.js-wpml-ls-setting-' + k).prop('checked', true).prop('disabled', true);
 				} else {
-					subform.find('.js-wpml-ls-setting-' + k).removeAttr('checked').prop('disabled', true);
+					subform.find('.js-wpml-ls-setting-' + k).prop('checked', false).prop('disabled', true);
 				}
 			});
 		});
@@ -705,7 +704,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 			includeCurrentLangInput.prop('disabled', false);
 
 			if(isHierarchical === 1) {
-				includeCurrentLangInput.attr('checked', 'checked').prop('disabled', true);
+				includeCurrentLangInput.prop('checked', true).prop('disabled', true);
 			}
 		});
 	};
@@ -776,7 +775,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 	}, 500);
 
 	var getSerializedSettings = function(form) {
-		var disabled = form.find(':input:disabled').removeAttr('disabled'),
+		var disabled = form.find(':input:disabled').prop('disabled', false),
 			settings = form.find('input, select, textarea').serialize();
 
 		disabled.attr('disabled','disabled');

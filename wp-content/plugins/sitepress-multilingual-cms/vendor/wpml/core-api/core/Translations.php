@@ -5,6 +5,7 @@ namespace WPML\Element\API;
 use WPML\Collect\Support\Traits\Macroable;
 use WPML\FP\Fns;
 use WPML\FP\Maybe;
+use WPML\FP\Obj;
 use function WPML\FP\curryN;
 
 /**
@@ -29,6 +30,8 @@ use function WPML\FP\curryN;
  * @method static callable|int setAsTranslationOf( ...$el_id, ...$el_type, ...$translated_id, ...$language_code )
  * @method static callable|array get( ...$el_id, ...$el_type )
  * @method static callable|array getIfOriginal( ...$el_id, ...$el_type )
+ * @method static callable|array getOriginal( ...$element_id, ...$element_type )
+ * @method static callable|array getOriginalId( ...$element_id, ...$element_type )
  * @method static callable|bool isOriginal( ...$el_id, ...$translations )
  */
 class Translations {
@@ -63,6 +66,15 @@ class Translations {
 			            ->getOrElse( [] );
 		} ) );
 
+		self::macro( 'getOriginal', curryN( 2, function( $element_id, $element_type ) {
+			return wpml_collect( self::get( $element_id, $element_type ) )
+				->first( Obj::prop( 'original' ) );
+		} ) );
+
+		self::macro( 'getOriginalId', curryN( 2, function( $element_id, $element_type ) {
+			return (int) Obj::prop( 'element_id',  self::getOriginal( $element_id, $element_type ) );
+		} ) );
+
 		self::macro( 'isOriginal', curryN( 2, function ( $id, $translations ) {
 			$isElementOriginal = curryN( 3, function ( $id, $state, $element ) {
 				return $state || ( $element->original && (int) $element->element_id === ( int ) $id );
@@ -70,7 +82,6 @@ class Translations {
 
 			return Fns::reduce( $isElementOriginal( $id ), false, $translations );
 		} ) );
-
 	}
 }
 

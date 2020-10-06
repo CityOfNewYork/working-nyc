@@ -33,6 +33,8 @@ class Model {
 				'domains_to_pre_generate_count' => $domains_to_pre_generate_count,
 				'file_path'                     => WP_LANG_DIR . '/wpml',
 				'is_st_page'                    => $is_st_page,
+				'admin_texts_url'               => 'admin.php?page=' . WPML_ST_FOLDER . '/menu/string-translation.php&trop=1',
+				'is_search'                     => isset( $_GET['search'] ),
 				'run_ror_all_sites'             => ( new Condition() )->shouldRunWithAllSites(),
 			];
 		};

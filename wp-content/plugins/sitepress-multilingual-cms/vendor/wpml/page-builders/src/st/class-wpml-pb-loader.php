@@ -1,6 +1,8 @@
 <?php
 
+use WPML\PB\Container\Config;
 use function WPML\Container\make;
+use function WPML\Container\share;
 
 class WPML_PB_Loader {
 
@@ -10,6 +12,8 @@ class WPML_PB_Loader {
 		WPML_ST_Settings $st_settings,
 		$pb_integration = null // Only needed for testing
 	) {
+		share( Config::getSharedClasses() );
+
 		do_action( 'wpml_load_page_builders_integration' );
 
 		$page_builder_strategies = array();
@@ -46,14 +50,14 @@ class WPML_PB_Loader {
 			}
 		}
 
-		self::load_hooks();
+		self::load_hooks( (bool) $page_builder_strategies );
 
 		if ( $page_builder_strategies ) {
 			if ( $pb_integration ) {
 				$factory = $pb_integration->get_factory();
 			} else {
-				$factory        = new WPML_PB_Factory( $wpdb, $sitepress );
-				$pb_integration = new WPML_PB_Integration( $sitepress, $factory );
+				$factory        = make( 'WPML_PB_Factory' );
+				$pb_integration = make( 'WPML_PB_Integration' );
 			}
 			$pb_integration->add_hooks();
 			foreach ( $page_builder_strategies as $strategy ) {
@@ -64,11 +68,24 @@ class WPML_PB_Loader {
 
 	}
 
-	private static function load_hooks() {
+	/**
+	 * @param bool $has_page_builder_strategy
+	 */
+	private static function load_hooks( $has_page_builder_strategy ) {
 		$hooks = [
-			WPML_PB_Handle_Post_Body::class,
 			WPML\PB\Compatibility\Toolset\Layouts\HooksFactory::class,
 		];
+
+		if ( $has_page_builder_strategy ) {
+			$hooks = array_merge(
+				$hooks,
+				[
+					WPML_PB_Handle_Post_Body::class,
+//					WPML\PB\AutoUpdate\Hooks::class, // see wpmlcore-7428
+					WPML\PB\Shutdown\Hooks::class,
+				]
+			);
+		}
 
 		make( WPML_Action_Filter_Loader::class )->load( $hooks );
 	}

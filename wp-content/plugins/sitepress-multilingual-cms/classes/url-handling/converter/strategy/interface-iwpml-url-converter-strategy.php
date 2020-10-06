@@ -13,4 +13,8 @@ interface IWPML_URL_Converter_Strategy {
 	public function get_home_url_relative( $url, $lang );
 
 	public function fix_trailingslashit( $source_url );
+
+	public function skip_convert_url_string( $url, $lang_code );
+
+	public function use_wp_login_url_converter();
 }

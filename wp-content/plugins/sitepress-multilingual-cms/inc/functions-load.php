@@ -4,6 +4,8 @@
  * @global WPML_Slug_Filter $wpml_slug_filter
  */
 
+require_once __DIR__ . '/wpml_load_request_handler.php';
+
 /**
  * Loads global variables providing functionality that is used throughout the plugin.
  *
@@ -88,42 +90,6 @@ function wpml_load_post_translation( $is_admin, $settings ) {
 	}
 
 	$wpml_post_translations->init();
-}
-
-function wpml_load_request_handler( $is_admin, $active_language_codes, $default_language ) {
-	/**
-	 * @var WPML_Request       $wpml_request_handler
-	 * @var WPML_URL_Converter $wpml_url_converter
-	 */
-	global $wpml_request_handler, $wpml_url_converter;
-
-	if ( ! isset( $wpml_request_handler ) ) {
-		require WPML_PLUGIN_PATH . '/inc/request-handling/wpml-request.class.php';
-		require WPML_PLUGIN_PATH . '/inc/request-handling/wpml-backend-request.class.php';
-	}
-
-	$wpml_cookie = new WPML_Cookie();
-	$wp_api      = new WPML_WP_API();
-
-	$rest_request_analyze = \WPML\Container\make( \WPML_REST_Request_Analyze::class );
-	$is_backend_rest      = $rest_request_analyze->is_rest_request()
-	                        && ! $rest_request_analyze->should_load_on_frontend();
-
-	if ( $is_admin === true || $is_backend_rest ) {
-		$wpml_request_handler = new WPML_Backend_Request(
-			$wpml_url_converter,
-			$active_language_codes,
-			$default_language, $wpml_cookie,
-			$wp_api );
-	} else {
-		$wpml_request_handler = new WPML_Frontend_Request(
-			$wpml_url_converter,
-			$active_language_codes,
-			$default_language, $wpml_cookie,
-			$wp_api );
-	}
-
-	return $wpml_request_handler;
 }
 
 function wpml_load_query_filter( $installed ) {

@@ -81,11 +81,9 @@ WPML_String_Translation.TranslationBasket = function () {
 			var lang = checked.data('language');
 			
 			jQuery('#icl_tm_languages').find('input').each(function() {
-				if (lang === jQuery(this).data('language')) {
-					jQuery(this).parent().hide();
-				} else {
-					jQuery(this).parent().show();
-				}
+				var show = lang === jQuery(this).data('language');
+				jQuery(this).closest('tr').toggle(!show);
+				jQuery(this).attr('disabled', show);
 			});
 			
 			jQuery('input[name="icl-tr-from"]').val(lang);

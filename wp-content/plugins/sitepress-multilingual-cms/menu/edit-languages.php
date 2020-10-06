@@ -669,7 +669,7 @@ class SitePress_EditLanguages {
 				$this->set_errors( __( 'Error uploading flag file.', 'sitepress' ) );
 			}
 			$this->wpml_flags->clear();
-		} elseif ( empty( $data['flag'] ) || 'false' === $data['flag_upload'] ) {
+		} elseif ( empty( $data['flag'] ) || \WPML\FP\Relation::propEq( 'flag_upload', 'false', $data ) ) {
 			$data['flag'] = $data['code'] . '.png';
 		} else {
 			$from_template = 1;

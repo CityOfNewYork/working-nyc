@@ -10,18 +10,62 @@ use WPML\FP\Functor\Functor;
  * Class Maybe
  * @package WPML\FP
  * @method static callable|Just|Nothing fromNullable( ...$value ) - Curried :: a → Nothing | Just a
+ *
+ * if $value is null or false it returns a Nothing otherwise returns a Just containing the value
+ *
+ * @method static callable safe( ...$fn ) - Curried :: ( a → b ) → ( a → Maybe b )
+ *
+ * returns a function that when called will run the passed in function and put the result into a Maybe
+ *
+ * @method static callable safeAfter( ...$predicate, ...$fn ) - Curried :: ( b → bool ) → ( a → b ) → ( a → Maybe b )
+ *
+ * returns a function that when called will run the passed in function and pass the result of the function
+ * to the predicate. If the predicate returns true the result will be a Just containing the result of the function.
+ * Otherwise it returns a Nothing if the predicate returns false.
+ *
+ * @method static callable safeBefore( ...$predicate, ...$fn ) - Curried :: ( a → bool ) → ( a → b ) → ( a → Maybe b )
+ *
+ * returns a function that when called will pass the given value to the predicate.
+ * If the predicate returns true the value will be lifted into a Just instance and
+ * the passed in function will then be mapped.
+ * Otherwise it returns a Nothing if the predicate returns false.
+ *
+ * @method static callable|Just just( ...$value ) - Curried :: a → Just a
+ *
+ * returns a Just containing the value.
+ *
+ * @method static callable|Just of( ...$value ) - Curried :: a → Just a
+ *
+ * returns a Just containing the value.
+ *
  */
 class Maybe {
 
 	use Macroable;
 
-	/**
-	 * @param $value
-	 *
-	 * @return Just
-	 */
-	public static function just( $value ) {
-		return new Just( $value );
+	public static function init() {
+		self::macro( 'just', curryN(1, function( $value ) {
+			return new Just( $value );
+		}));
+
+		self::macro( 'of', self::just() );
+
+		self::macro( 'fromNullable', curryN( 1, function( $value ) {
+			return is_null( $value ) || $value === false ? self::nothing() : self::just( $value );
+		} ) );
+
+		Maybe::macro( 'safe', curryN( 1, function( $fn ) {
+			return pipe( $fn, self::fromNullable() );
+		} ) );
+
+		Maybe::macro( 'safeAfter', curryN( 2, function( $predicate, $fn ) {
+			return pipe( $fn, Logic::ifElse( $predicate, self::just(), [ self::class, 'nothing' ] ) );
+		} ) );
+
+		Maybe::macro( 'safeBefore', curryN( 2, function( $predicate, $fn ) {
+			return pipe( Logic::ifElse( $predicate, self::just(), [ self::class, 'nothing' ] ), Fns::map( $fn ) );
+		} ) );
+
 	}
 
 	/**
@@ -29,15 +73,6 @@ class Maybe {
 	 */
 	public static function nothing() {
 		return new Nothing();
-	}
-
-	/**
-	 * @param $value
-	 *
-	 * @return Just
-	 */
-	public static function of( $value ) {
-		return self::just( $value );
 	}
 
 	/**
@@ -55,15 +90,7 @@ class Maybe {
 	}
 }
 
-/**
- * @param mixed $value
- *
- * @return Just|Nothing
- */
-Maybe::macro( 'fromNullable', curryN( 1, function( $value ) {
-	return is_null( $value ) || $value === false ? Maybe::nothing() : Maybe::just( $value );
-} ) );
-
+Maybe::init();
 
 class Just extends Maybe {
 	use Functor;

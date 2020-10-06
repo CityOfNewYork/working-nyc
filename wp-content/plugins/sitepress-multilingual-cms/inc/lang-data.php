@@ -220,6 +220,7 @@ function icl_get_languages_locales() {
 		$result = array(
 			'af'      => 'af_ZA',
 			'ar'      => 'ar',
+			'az'      => 'az',
 			'be'      => 'be_BY',
 			'bg'      => 'bg_BG',
 			'bn'      => 'bn_BD',
@@ -287,7 +288,7 @@ function icl_get_languages_locales() {
 			'tr'      => 'tr_TR',
 			'ug'      => 'ug_CN',
 			'uk'      => 'uk',
-			'ur'      => 'uz_UZ',
+			'ur'      => 'ur',
 			'uz'      => 'uz_UZ',
 			'vi'      => 'vi_VN',
 			'zh-hans' => 'zh_CN',

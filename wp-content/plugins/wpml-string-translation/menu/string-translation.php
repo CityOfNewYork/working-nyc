@@ -81,9 +81,6 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 
 	<h2><?php echo esc_html__( 'String translation', 'wpml-string-translation' ) ?></h2>
 
-	<div id="wpml-mo-scan-st-page"></div>
-
-
 	<?php
 		do_action( 'display_basket_notification', 'st_dashboard_top' );
 	?>
@@ -158,7 +155,7 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
     <?php else: ?>
 
         <p style="line-height:220%;">
-			<?php echo esc_html__( 'Select which strings to display:', 'wpml-string-translation' ); ?>
+			<?php echo esc_html__( 'Display:', 'wpml-string-translation' ); ?>
         <select name="icl_st_filter_status">
 	        <?php
 	        $createOption = function( $str, $option ) use ( $status_filter ) {
@@ -172,28 +169,9 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 
 	        $createOption( __( 'All strings', 'wpml-string-translation' ), false  );
 	        $createOption( WPML_ST_String_Statuses::get_status( ICL_TM_COMPLETE ), ICL_TM_COMPLETE );
-	        if ( icl_st_is_translator() ) {
-
-		        if ( $icl_st_pending = icl_st_get_pending_string_translations_stats() ) {
-			        foreach ( $icl_st_pending as $lang => $count ) {
-				        $lang_details = $sitepress->get_language_details( $lang );
-
-				        $selected = '';
-				        if ( isset( $status_filter_lang ) ) {
-					        $selected = selected( $lang, $status_filter_lang, false );
-				        }
-				        ?>
-				        <option value="<?php echo ICL_TM_WAITING_FOR_TRANSLATOR . '-' . $lang ?>" <?php echo $selected; ?>>
-							<?php printf( esc_html__( 'Pending %s translation (%d)', 'wpml-string-translation' ), $lang_details['display_name'], $count ) ?>
-				        </option>
-			        <?php
-			        }
-		        }
-	        } else {
-	        	$createOption( __( 'Translation needed', 'wpml-string-translation' ), ICL_TM_NOT_TRANSLATED );
-	        	$createOption( __( 'Waiting for translator', 'wpml-string-translation' ), ICL_TM_WAITING_FOR_TRANSLATOR );
-	        	$createOption( __( 'Partial Translation', 'wpml-string-translation' ), ICL_STRING_TRANSLATION_PARTIAL );
-	        }
+			$createOption( __( 'Translation needed', 'wpml-string-translation' ), ICL_TM_NOT_TRANSLATED );
+			$createOption( __( 'Waiting for translator', 'wpml-string-translation' ), ICL_TM_WAITING_FOR_TRANSLATOR );
+			$createOption( __( 'Partial Translation', 'wpml-string-translation' ), ICL_STRING_TRANSLATION_PARTIAL );
 	        ?>
 
         </select>
@@ -201,7 +179,7 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
             <?php if ( ! empty( $icl_contexts ) ): ?>
                 &nbsp;&nbsp;
                 <span style="white-space:nowrap">
-        <?php echo esc_html__( 'Select strings within domain:', 'wpml-string-translation' ) ?>
+        <?php echo esc_html__( 'In domain:', 'wpml-string-translation' ) ?>
                     <select name="icl_st_filter_context">
                         <option value=""
 								<?php if ( $context_filter === false ): ?>selected="selected"<?php endif; ?>><?php echo esc_html__( 'All domains', 'wpml-string-translation' ) ?></option>
@@ -221,7 +199,7 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 
         <?php if( $translation_priorities ): ?>
             <span style="white-space:nowrap">
-                <?php echo esc_html__( 'Select strings Translation Priority:', 'wpml-string-translation' ) ?>
+                <?php echo esc_html__( 'With Priority:', 'wpml-string-translation' ) ?>
                 <select name="icl-st-filter-translation-priority">
                     <option value=""><?php esc_html_e( 'All Translation Priorities', 'wpml-string-translation' ) ?></option>
                     <?php
@@ -270,6 +248,7 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
         <?php endif; ?>
 
         </p>
+		<div id="wpml-mo-scan-st-page"></div>
 		<?php if( ! empty( $icl_contexts ) ): ?>
 			<p><a href="#" id="wpml-language-of-domains-link"><?php esc_html_e( 'Languages of domains', 'wpml-string-translation' ); ?></a></p>
 		<?php endif; ?>
@@ -306,7 +285,10 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 		if ( $search_translation ) {
 			$query_args['search_translation'] = $search_translation;
 		}
+		?>
 
+	<div class="tablenav icl-st-tablenav">
+		<?php
 		if ( $wp_query->found_posts > 10 ) {
 			$paged = filter_input( INPUT_GET, 'paged', FILTER_SANITIZE_NUMBER_INT );
 			if ( ! $paged || $get_show_results === 'all' ) {
@@ -317,9 +299,6 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 				$query_args['pages'] = $paged;
 			}
 
-			?>
-			<div class="tablenav">
-				<?php
 				if ( $get_show_results === 'all' ) {
 					$url_show_paginated_results = add_query_arg( $query_args, admin_url( 'admin.php' ) );
 					?>
@@ -360,7 +339,9 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 							echo $page_links_text;
 						}
 
-						if ( ! $get_show_results ) {
+						if ( ! $get_show_results ) { ?>
+						<div class="icl-st-per-page">
+						<?php
 							echo esc_html__( 'Strings per page:', 'wpml-string-translation' );
 
 							$strings_per_page = $wp_query->query_vars['posts_per_page'];
@@ -386,26 +367,24 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 								<?php echo implode( $options ); ?>
 							</select>&nbsp;
 							<a href="<?php echo esc_url( $url_show_all_results ); ?>"><?php echo esc_html__( 'Display all results', 'wpml-string-translation' ); ?></a>
-							<?php
-						}
-						?>
-					</div>
+						</div>
 					<?php
 				}
 				?>
 			</div>
 			<?php
+			}
 		}
 		?>
 
         <?php if( current_user_can('manage_options') || current_user_can('manage_translations') ):  // the rest is only for admins or translation mangagers, not for editors  ?>
 
-        <span class="subsubsub">
+        <div class="icl-st-bulk-actions">
             <input type="hidden" id="_icl_nonce_dstr"
                    value="<?php echo wp_create_nonce( 'icl_st_delete_strings_nonce' ) ?>"/>
 						<div id="wpml-st-package-incomplete"
 							 style="display:none;color:red;"><?php echo esc_html__( "You have selected strings belonging to a package. Please select all strings from the affected package or unselect these strings.", 'wpml-string-translation' ) ?></div>
-            <input type="button" class="button-secondary" id="icl_st_delete_selected"
+            <input type="button" class="button button-secondary" id="icl_st_delete_selected"
 				   value="<?php echo esc_attr__( 'Delete selected strings', 'wpml-string-translation' ) ?>"
 				   data-confirm="<?php echo esc_attr__( "Are you sure you want to delete these strings?\nTheir translations will be deleted too.", 'wpml-string-translation' ) ?>"
                    data-error="<?php echo __( "WPML could not delete the strings", 'wpml-string-translation' ) ?>"
@@ -425,11 +404,10 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 
             <span class="spinner icl-st-change-spinner"></span>
 
-        </span>
+        </div>
+			</div>
 
         <br clear="all" />
-
-        <br />
 
 		<?php do_action( 'wpml_st_below_menu', $status_filter_lang, 10, 2 ) ?>
 
@@ -689,7 +667,7 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
                                     </select>
                                </p>
                                <p style="line-height:2.3em">
-                                    <input type="checkbox" name="icl_st_pe_translations" id="icl_st_pe_translations" checked="checked" value="1" onchange="if(jQuery(this).attr('checked'))jQuery('#icl_st_e_language').fadeIn('fast'); else jQuery('#icl_st_e_language').fadeOut('fast')" />
+                                    <input type="checkbox" name="icl_st_pe_translations" id="icl_st_pe_translations" checked="checked" value="1" onchange="if(jQuery(this).prop('checked'))jQuery('#icl_st_e_language').fadeIn('fast'); else jQuery('#icl_st_e_language').fadeOut('fast')" />
 								   <label for="icl_st_pe_translations"><?php echo esc_html__( 'Also include translations', 'wpml-string-translation' ) ?></label>
                                     <select name="icl_st_e_language" id="icl_st_e_language">
                                     <?php foreach($active_languages as $al): if($al['code']==$string_settings['strings_language']) continue; ?>

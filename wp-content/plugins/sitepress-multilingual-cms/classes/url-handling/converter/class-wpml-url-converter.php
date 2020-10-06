@@ -8,6 +8,9 @@
  *
  */
 
+use \WPML\UrlHandling\WPLoginUrlConverter;
+use \WPML\SuperGlobals\Server;
+
 class WPML_URL_Converter {
 	/**
 	 * @var IWPML_URL_Converter_Strategy
@@ -102,6 +105,10 @@ class WPML_URL_Converter {
 		$this->slash_helper = $slash_helper;
 	}
 
+	public function get_default_site_url() {
+		return $this->get_url_helper()->get_unfiltered_home_option();
+	}
+
 	/**
 	 * Scope of this function:
 	 * 1. Convert the home URL in the specified language depending on language negotiation:
@@ -163,6 +170,15 @@ class WPML_URL_Converter {
 			$language = $this->get_strategy()->get_lang_from_url_string( $url );
 		}
 
+		/**
+		 * Filters language code fetched from the current URL and allows to rewrite
+		 * the language to set on front-end
+		 *
+		 * @param string $language language fetched from the current URL
+		 * @param string $url current URL.
+		 */
+		$language = apply_filters( 'wpml_get_language_from_url', $language, $url );
+
 		return $this->get_strategy()->validate_language( $language, $url );
 	}
 
@@ -177,15 +193,25 @@ class WPML_URL_Converter {
 	}
 
 	/**
+	 * @param SitePress $sitepress
+	 *
+	 * @return WPLoginUrlConverter|null
+	 */
+	public function get_wp_login_url_converter( $sitepress ) {
+		return $this->strategy->use_wp_login_url_converter()
+			? new WPLoginUrlConverter( $sitepress, $this )
+			: null;
+	}
+
+	/**
 	 * @param string $url
 	 *
 	 * @return bool
 	 */
 	private function can_resolve_object_url( $url ) {
-		$server_name = isset( $_SERVER['SERVER_NAME'] ) ? $_SERVER['SERVER_NAME'] : '';
 		$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
 		$server_name = strpos( $request_uri, '/' ) === 0
-			? untrailingslashit( $server_name ) : trailingslashit( $server_name );
+			? untrailingslashit( Server::getServerName() ) : trailingslashit( Server::getServerName() );
 		$request_url = stripos( get_option( 'siteurl' ), 'https://' ) === 0
 			? 'https://' . $server_name . $request_uri : 'http://' . $server_name . $request_uri;
 

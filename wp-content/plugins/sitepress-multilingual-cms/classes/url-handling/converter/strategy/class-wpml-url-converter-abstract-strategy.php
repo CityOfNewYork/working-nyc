@@ -109,4 +109,7 @@ abstract class WPML_URL_Converter_Abstract_Strategy implements IWPML_URL_Convert
 		return apply_filters( 'wpml_skip_convert_url_string', false, $source_url, $lang_code );
 	}
 
+	public function use_wp_login_url_converter() {
+		return false;
+	}
 }
