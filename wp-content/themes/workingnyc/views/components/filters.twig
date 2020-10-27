@@ -15,8 +15,8 @@
     	<fieldset tabindex="-1" v-for="(filter, index) in filters">
 				<legend class="h4 block w-full m-0 py-2 ps-2 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">v{ labels[index] }</legend>
 				<div class="layout-rows tablet:layout-two-columns-gutter">
-						<label class="option w-full" tabindex="-1" v-for="term in filter">
-						<input type="checkbox" :value="term" tabindex="-1" v-model="checkedFilters">
+          <label class="option w-full" tabindex="-1" v-for="term in filter" gtm-data="test">
+						<input type="checkbox" :id="term.slug" :value="term" tabindex="-1" v-model="checkedFilters">
 						<span class="option__base">
 							<svg aria-hidden="true" class="option__graphic">
 								<use xlink:href="#option-wnyc-checkbox"></use>

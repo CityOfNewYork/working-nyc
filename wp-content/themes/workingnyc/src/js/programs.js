@@ -46,6 +46,7 @@ class Programs {
         getPrograms: Programs.getPrograms,
         getTax: Programs.getTax,
         postUrl: Programs.postUrl,
+        updateScroll: Programs.updateScroll,
       },
       created: function() {
         
@@ -228,6 +229,18 @@ Programs.postUrl = function(slug){
   return '/' + url;
 
 }
+
+/**
+ * Update location of scroll on Show ore
+ */
+Programs.updateScroll = function () {
+  let cur = window.pageYOffset;
+
+  window.setTimeout(function () {
+    window.scrollTo(0, cur);
+  }, 1000);
+}
+
 export default Programs;
 
 

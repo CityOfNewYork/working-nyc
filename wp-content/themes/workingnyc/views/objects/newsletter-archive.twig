@@ -56,7 +56,7 @@
               {% if field.type != 'checkbox' %}
 
                 <div class="c-question">
-                  <label class="c-question__label" for="question-69e7355a34326">{{field.label}}</label>
+                  <label class="c-question__label" for="{{field.id}}">{{field.label}}</label>
                   <div class="c-question__container">
                     <div class="c-question__input">
                       <div class="input">
@@ -72,8 +72,8 @@
                   <div class="c-question__container layout-rows tablet:layout-two-columns-gutter">
 
                     {% for subfield in field.fields%}
-
                       <label class="option" for="{{subfield.for}}">
+                      <span class="sr-only">Select interests (option {{loop.index}} of {{field.fields|length}}): </span>
                       <input id="{{subfield.id}}" name="{{subfield.name}}" type="checkbox" value="{{subfield.value}}">
                       <span class="option__base">
                         <svg aria-hidden="true" class="option__graphic">
@@ -90,9 +90,6 @@
 
             {% endfor %}
             
-            <div aria-hidden="true" style="position: absolute; left: -5000px;">
-              <input name="b_d04b7b607bddbd338b416fa89_98ff3f3900" tabindex="-1" type="text" value="">
-            </div>
             <button class="btn-primary" type="submit">Submit</button>
 
             <article aria-hidden="true" class="c-alert color-status-tertiary mt-5 hidden" data-js="alert-warning">

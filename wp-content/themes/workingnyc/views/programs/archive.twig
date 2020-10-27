@@ -40,92 +40,98 @@
           </div>
         </div>
 
-        <section class="page-max">
+        <section class="page-max" id="programs">
           <div class="wrap layout-rows-gutter tablet:layout-two-columns-gutter desktop:layout-three-columns-gutter">
 
-              <article class="c-card" v-for="post in posts">
-                <header class="c-card__header">
-                  <h2 class="c-card__title mt-0 mb-2">
-                    <a :href="postUrl(post.slug)">
-                      <span class="underline" data-program="plain-language-name">v{ post.acf.program_title }</span>
-                    </a>
-                  </h2>
-                  <h3 class="c-card__subtitle text-alt mb-1">
-                  <b data-program="title">v{ post.title }</b><span data-program="title"> {{ __('by', 'WNYC-Programs') }} v{ post.acf.program_agency }</span>
-                  </h3>
-                </header>
-                <div class="c-card__body">
-                  <p class="c-card__status flex items-center">
-                    <mark class="badge status-alt me-2" data-program="recruiting" v-if="post.recruitment_status.length > 0">
-                      v{ post.recruitment_status[0].name }
-                    </mark>
-                    {# <span class="flex me-2" data-program="accessible">
-                      <svg aria-hidden="true" class="icon text-alt">
-                        <use xlink:href="#icon-wnyc-accessible"></use>
-                      </svg>
-                      <span class="sr-only">Accommodates Disabilities</span>
-                    </span>
-                    <span class="flex me-2" data-program="multilingual">
-                      <svg aria-hidden="true" class="icon-wnyc-ui text-alt">
-                        <use xlink:href="#icon-wnyc-ui-translate"></use>
-                      </svg>
-                      <span class="sr-only">Accommodates Multiple Languages</span>
-                    </span> #}
-                  </p>
-
-                  <div class="c-card__summary">
-                    <p>
-                      <span data-program="summary">v{ post.acf.program_intro.replace('—', '') | stripHtml }</span>
-                      
-                      <span v-if="post.populations.length > 0">{{ __('For', 'WNYC-Programs') }}
-                        <span v-html="$options.filters.combineStr(post.populations, 'populations', true)"></span>.</span>
-                    </p>
-                  </div>
-                  <ul class="c-card__features">
-                      <li class="flex items-center" v-if="post.services.length > 0">
-                        <svg aria-hidden="true" class="icon-wnyc-ui me-1">
-                          <use xlink:href="#icon-wnyc-ui-award"></use>
-                        </svg>
-
-                        <span v-html="$options.filters.combineStr(post.services, 'services', false)"></span>
-                      </li>
-
-                      <li class="flex items-center" v-if="(post.duration.length > 0) || (post.schedule.length > 0)">
-                        <svg aria-hidden="true" class="icon-wnyc-ui me-1">
-                          <use xlink:href="#icon-wnyc-ui-calendar"></use>
-                        </svg>
-                        <span v-if="post.duration.length > 0 && post.schedule.length > 0">
-                          <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }, </span>
-                          <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
-                        </span>
-                        <span v-else>
-                          <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }</span>
-                          <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
-                        </span>
-                      </li>
-
-                  </ul>
-                  <a class="c-card__cta btn btn-secondary btn-next" :href="postUrl(post.slug)">
-                    <svg aria-hidden="true" class="icon-wnyc-ui">
-                      <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
-                    </svg>
-                    <span>{{ __('Learn more', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} <span data-program="plain-language-name">v{ post.acf.program_title }</span>
-                      </span>
-                    </span>
-                    <svg aria-hidden="true" class="icon-wnyc-ui">
-                      <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
-                    </svg>
+            <article class="c-card" v-for="post in posts">
+              <header class="c-card__header">
+                <h2 class="c-card__title mt-0 mb-2">
+                  <a :href="postUrl(post.slug)">
+                    <span class="underline" data-program="plain-language-name">v{ post.acf.program_title }</span>
                   </a>
+                </h2>
+                <h3 class="c-card__subtitle text-alt mb-1">
+                <b data-program="title">v{ post.title }</b><span data-program="title"> {{ __('by', 'WNYC-Programs') }} v{ post.acf.program_agency }</span>
+                </h3>
+              </header>
+              <div class="c-card__body">
+                <p class="c-card__status flex items-center">
+                  <mark class="badge status-alt me-2" data-program="recruiting" v-if="post.recruitment_status.length > 0">
+                    v{ post.recruitment_status[0].name }
+                  </mark>
+                </p>
+
+                <div class="c-card__summary">
+                  <p>
+                    <span data-program="summary">v{ post.acf.program_intro.replace('—', '') | stripHtml }</span>
+                    
+                    <span v-if="post.populations.length > 0">{{ __('For', 'WNYC-Programs') }}
+                      <span v-html="$options.filters.combineStr(post.populations, 'populations', true)"></span>.</span>
+                  </p>
                 </div>
-              </article>
+                <ul class="c-card__features">
+                    <li class="flex items-center" v-if="post.services.length > 0">
+                      <svg aria-hidden="true" class="icon-wnyc-ui me-1">
+                        <use xlink:href="#icon-wnyc-ui-award"></use>
+                      </svg>
+
+                      <span v-html="$options.filters.combineStr(post.services, 'services', false)"></span>
+                    </li>
+
+                    <li class="flex items-center" v-if="(post.duration.length > 0) || (post.schedule.length > 0)">
+                      <svg aria-hidden="true" class="icon-wnyc-ui me-1">
+                        <use xlink:href="#icon-wnyc-ui-calendar"></use>
+                      </svg>
+                      <span v-if="post.duration.length > 0 && post.schedule.length > 0">
+                        <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }, </span>
+                        <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
+                      </span>
+                      <span v-else>
+                        <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }</span>
+                        <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
+                      </span>
+                    </li>
+
+                </ul>
+                <a class="c-card__cta btn btn-secondary btn-next" :href="postUrl(post.slug)">
+                  <svg aria-hidden="true" class="icon-wnyc-ui">
+                    <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                  </svg>
+                  <span>{{ __('Learn more', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} <span data-program="plain-language-name">v{ post.acf.program_title }</span>
+                    </span>
+                  </span>
+                  <svg aria-hidden="true" class="icon-wnyc-ui">
+                    <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                  </svg>
+                </a>
+              </div>
+            </article>
+
+            {# Suggest #}
+            <article class="c-card">
+              <div class="c-alert c-alert__graphic items-center h-full w-full" data-js="alert-help" v-if="totalVisible > 0 && totalVisible == totalPosts">
+                <svg aria-hidden="true" class="icon-wnyc-ui mr-2">
+                  <use xlink:href="#icon-wnyc-ui-help"></use>
+                </svg>
+
+                <div class="c-alert__body">
+                  <b class="text-alt mb-1">
+                    {{options.new_program_heading}}
+                  </b>
+
+                  <p data-js-alert="text">{{options.new_program_body | striptags('<a><svg><title><use>') }}</p>
+                </div>
+              </div>
+            </article>
+            {# Suggest end #}
 
             <article aria-hidden="true"> </article>
           </div>
         </section>
 
-        <div class="bg-scale-1 page-max layout-content" v-if="totalVisible < totalPosts">
+        <div class="bg-scale-1 page-max layout-content">
           <div class="py-2 wrap">
-            <button class="btn btn-tertiary w-full" v-on:click="page += 1">{{ __('Show more', 'WNYC')}}</button>
+            <button id="pagination" class="btn btn-tertiary w-full" v-if="totalVisible < totalPosts"v-on:click="page += 1; updateScroll();">{{ __('Show more', 'WNYC')}}</button>
           </div>
         </div>
       </div>

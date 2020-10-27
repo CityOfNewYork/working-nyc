@@ -47,7 +47,6 @@
 
     <a class="sr-only" href="#content">{{ __('Skip to main content', 'WNYC') }}</a>
 
-    {# <div class="relative z-10 shadow-up tablet:shadow-none"> #}
     {% block header %}
       {% include 'objects/navigation.twig' %}
       {% include 'objects/language-switcher.twig' %}
@@ -57,10 +56,13 @@
 
     {% block content %}{% endblock %}
 
+    {% if options.feedback is defined %}
+      {% include 'objects/feedback.twig' %}
+    {% endif %}
+
     {% if show_newsletter is not defined%}
       {% include 'objects/newsletter.twig' %}
     {% endif %}
-    {# </div> #}
 
     {% block footer %}
       {% include 'objects/footer.twig' %}

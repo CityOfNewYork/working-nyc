@@ -17609,7 +17609,8 @@
 	    methods: {
 	      getPrograms: Programs.getPrograms,
 	      getTax: Programs.getTax,
-	      postUrl: Programs.postUrl
+	      postUrl: Programs.postUrl,
+	      updateScroll: Programs.updateScroll
 	    },
 	    created: function created() {
 	      var _this = this;
@@ -17806,6 +17807,17 @@
 	  }
 
 	  return '/' + url;
+	};
+	/**
+	 * Update location of scroll on Show ore
+	 */
+
+
+	Programs.updateScroll = function () {
+	  var cur = window.pageYOffset;
+	  window.setTimeout(function () {
+	    window.scrollTo(0, cur);
+	  }, 1000);
 	};
 
 	var Questionnaire = function Questionnaire() {

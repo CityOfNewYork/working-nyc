@@ -164,39 +164,68 @@
           <nav class="tablet:layout-three-columns-gutter">
             {% if post.program_learn_more %}
             <a class="btn btn-secondary btn-next mb-1 w-full" href="{{post.program_learn_more}}">
-              <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
-              </svg>{{ __('Learn More', 'WNYC-Programs') }}<svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
-              </svg>
+              {{ __('Learn More', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
+              {% if direction == 'ltr' %}
+                <svg aria-hidden="true" class="icon-wnyc-ui inline">
+                  <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                </svg>
+                {% else %}
+                <svg aria-hidden="true" class="icon-wnyc-ui">
+                  <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                </svg>
+              {% endif %}
             </a>
             {% endif %}
 
             {% if post.program_apply_online %}
             <a class="btn btn-secondary btn-next mb-1 w-full" href="{{post.program_apply_online}}">
-              <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
-              </svg>{{ __('Apply', 'WNYC-Programs') }}<svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
-              </svg>
+              {{ __('Apply', 'WNYC-Programs') }} <span class="sr-only">{{ __('for', 'WNYC-Programs') }} {{post.program_title}}</span>{% if direction == 'ltr' %}
+                <svg aria-hidden="true" class="icon-wnyc-ui inline">
+                  <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                </svg>
+                {% else %}
+                <svg aria-hidden="true" class="icon-wnyc-ui">
+                  <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                </svg>
+              {% endif %}
             </a>
             {% endif %}
 
             {% if post.program_call %}
               <a class="btn btn-secondary btn-next mb-1 w-full" href="tel:{{post.program_call|trim|replace({'(':'', ')':'', '-':''})}}">
-                {{ __('Call', 'WNYC-Programs') }} {{post.program_call}}
+                {{ __('Call', 'WNYC-Programs') }} {{post.program_call}}  <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
               </a>
             {% endif %}
 
             {% if post.program_email %}
               <a class="btn btn-secondary btn-next mb-1 w-full" href="mailto:{{post.program_email}}">
-                {{ __('Email', 'WNYC-Programs') }} {{post.program_email}}
+                {{ __('Email', 'WNYC-Programs') }} {{post.program_email}}  <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
               </a>
             {% endif %}
 
           </nav>
         </div>
       </section>
+
+      {# Suggest Update #}
+      <section class="layout-content bg-scale-1" id="suggest-update">
+        <div class="pt-2 pb-3 wrap">
+          <article class="c-alert c-alert__graphic items-center mr-0" data-js="alert-help">
+            <svg aria-hidden="true" class="icon-wnyc-ui mr-2">
+              <use xlink:href="#icon-wnyc-ui-help"></use>
+            </svg>
+
+            <div class="c-alert__body">
+              <b class="text-alt mb-1">
+                {{options.update_program_heading}}
+              </b>
+
+              <p data-js-alert="text">{{options.update_program_body | striptags('<a><svg><title><use>') }}</p>
+            </div>
+          </article>
+        </div>
+      </section>
+      {# Suggest Update end#}
 
       {# More #}
       {# <section class="bg-scale-1 layout-content tablet:pb-6">

@@ -1,0 +1,14 @@
+<section class="layout-content bg-scale-2" data-js="feedback">
+	<div class="tablet:p-3">
+    <article class="c-alert color-status-primary" data-js="alert-warning">
+      <div class="c-alert__graphic">
+        <svg aria-hidden="true" class="icon-wnyc-ui">
+          <use xlink:href="#icon-wnyc-ui-help"></use>
+        </svg>
+      </div>
+      <div class="c-alert__body">
+        <p data-js-alert="text">{{options.feedback | striptags('<a><svg><title><use>') }}</p>
+      </div>
+    </article>
+	</div>
+</section>

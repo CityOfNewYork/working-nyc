@@ -24,6 +24,9 @@ class Site extends TimberSite {
     $context['header_menu'] = new TimberMenu('header_menu');
     $context['footer_menu'] = new TimberMenu('footer_menu');
 
+    // WNYC Settings
+    $context['options'] = get_fields('options');
+
     return $context;
   }
 }
@@ -36,6 +39,7 @@ new Site();
 
 $includes = [
   '/includes/styles_and_scripts.php',
+  '/includes/airtable.php',
   '/includes/date_format.php',
   '/includes/templating.php',
   '/includes/meta.php',
