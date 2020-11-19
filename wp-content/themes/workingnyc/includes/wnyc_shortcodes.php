@@ -46,6 +46,8 @@ function add_airtable( $attr ) {
     "device" => null,
     "browser" => null,
     "lang" => null,
+    'program_name' => null,
+    'program_link' => null,
   ), $attr );
 
   // If name is missing, don't return anything
@@ -53,20 +55,33 @@ function add_airtable( $attr ) {
     return;
   }
 
+  if (!empty($atts["program_name"]) | !empty($atts["program_link"])){
+    $post = get_page_by_path(basename($_SERVER['REQUEST_URI']), OBJECT, 'programs');    
+  }
+
   // Compile the query parameters
   $params = array();
-  if ($atts["device"] == "true"){
-    $device = 'prefill_Your+device='.get_mobile_desktop();
+  if (!empty($atts["device"])){
+    $device = Airtable\prefill(Airtable\get_formatted_string($atts['device'])).Airtable\get_mobile_desktop();
     array_push($params, $device);
   }
-  if ($atts["browser"] == "true"){
-    $browser = 'prefill_Your+browser='.get_current_browser();
+  if (!empty($atts["browser"])){
+    $browser = Airtable\prefill(Airtable\get_formatted_string($atts['browser'])).Airtable\get_current_browser();
     array_push($params, $browser);
   }
-  if ($atts["lang"] == "true"){
-    $lang = 'prefill_Your+preferred+language='.get_language_name();
+  if (!empty($atts["lang"])){
+    $lang = Airtable\prefill(Airtable\get_formatted_string($atts['lang'])).Airtable\get_language_name();
     array_push($params, $lang);
   }
+  if (!empty($atts["program_name"])){
+    $program_name = Airtable\prefill(Airtable\get_formatted_string($atts['program_name'])).Airtable\get_formatted_string($post->post_title);
+    array_push($params, $program_name);
+  }
+  if (!empty($atts["program_link"])){
+    $program_link = Airtable\prefill(Airtable\get_formatted_string($atts['program_link'])).get_permalink($post->id);
+    array_push($params, $program_link);
+  }
+  
   $url = $atts['url'].'?'.implode("&", $params);
 
   return '<a class="btn btn-text text-inherit underline" href="'.$url.'" target="_blank"><span>'.$atts['text'].'</span><svg aria-hidden="true" class="icon-wnyc-ui" style="margin-left:5px;"><use xlink:href="#icon-wnyc-ui-external-link"></use></svg></a>';
@@ -80,7 +95,7 @@ add_shortcode( 'link', 'add_airtable' );
 function add_custom_shortcodes($shortcodes) {
   $shortcodes['Blockquote'] = '[blockquote text=""]';
   $shortcodes['Icon'] = '[icon name=""]';
-  $shortcodes['Airtable Link'] = '[link url="" text="" device="true" browser="true" lang="true"]';
+  $shortcodes['Airtable Link'] = '[link url="" text="" device="" browser="" lang="" program_name="" program_link=""]';
   return $shortcodes;
 }
 add_filter( 'bsd_shortcode_list', 'add_custom_shortcodes' );

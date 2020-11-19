@@ -1,4 +1,7 @@
 <?php
+
+namespace Airtable;
+
 /**
  * Airtable functions to populate query parameters of an airtable form
  */
@@ -47,4 +50,19 @@ function get_language_name(){
   $details = $sitepress->get_language_details(ICL_LANGUAGE_CODE);
   $language_name = preg_replace('/[[:space:]]+/', '+', $details['english_name']);;
   return $language_name;
+}
+
+/**
+ * Returns the question formatted based on Airtable prefill requirements
+ */
+function get_formatted_string($question){
+  return preg_replace('/[[:space:]]+/', '+', $question);
+}
+
+/**
+ * Wraps the question in the Airtable prefill parameter
+ */
+function prefill($question){
+  return 'prefill_'.$question.'=';
+  
 }

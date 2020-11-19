@@ -37,12 +37,12 @@ function parse_fields($str){
     $name = $field->getAttribute("name");
     $type = $field->getAttribute("type");
     $id = $field->getAttribute("id");
-    $required = $field->getAttribute("required");
+    $class = $field->getAttribute("class");
     $label = $field->parentNode->nodeValue;
 
     if ($type != 'checkbox') {
     
-      $new_field = create_obj($value, $name, $type, $id, $label, $required);
+      $new_field = create_obj($value, $name, $type, $id, $label, $class);
       
       array_push($array_objs, $new_field);
 
@@ -72,35 +72,42 @@ function parse_fields($str){
         $new_field->fields = array();
         $fieldset_group = $group;
 
-        $nested_field=create_obj($value, $name, $type, $id, $label, $required);
+        $nested_field=create_obj($value, $name, $type, $id, $label, $class);
         
         array_push($new_field->fields, $nested_field);
         array_push($array_objs, $new_field);
         
       } else {
-        $nested_field=create_obj($value, $name, $type, $id, $label, $required);
+        $nested_field=create_obj($value, $name, $type, $id, $label, $class);
         
         $last_index = count($array_objs) - 1;
         
         array_push($array_objs[$last_index]->fields, $nested_field);
       }
     }
-  }    
+  }
+
   return $array_objs;
 }
 
 /**
  * Creates an object with keys for element
  */
-function create_obj($value, $name, $type, $id, $label, $required) {
+function create_obj($value, $name, $type, $id, $label, $class) {
   $obj = new stdClass();
   $obj->type = $type;
   $obj->name = $name;
   $obj->value = $value;
-  $obj->required = $required;
   $obj->id = $id;
   $obj->for = $id;
   $obj->label = $label;
+  
+  // determine required
+  if (strpos($class, 'required') !== false) {
+    $obj->required = 'true';
+  } else {
+    $obj->required = 'false';
+  }
 
   return $obj;
   

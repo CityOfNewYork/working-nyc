@@ -43,6 +43,8 @@
         <section class="page-max" id="programs">
           <div class="wrap layout-rows-gutter tablet:layout-two-columns-gutter desktop:layout-three-columns-gutter">
 
+            <p data-alert="text" aria-live="polite" class="sr-only" v-if="posts!=null">Showing results v{ posts.length } of v{ totalPosts }.</p>
+
             <article class="c-card" v-for="post in posts">
               <header class="c-card__header">
                 <h2 class="c-card__title mt-0 mb-2">

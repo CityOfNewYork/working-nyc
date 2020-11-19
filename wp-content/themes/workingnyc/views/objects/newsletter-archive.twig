@@ -31,94 +31,102 @@
         </div>
       </header>
     </div>
-  <section class="layout-content">
-  
-    <div class="wrap">
-      <div class="pb-6">
+    <section class="layout-content">
+    
+      <div class="wrap">
+        <div class="pb-6">
 
-        {% if newsletter_message %}
-          <article class="c-alert color-status-tertiary mt-5" data-js="alert-warning">
-            <div class="c-alert__graphic">
-              <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-info"></use>
-              </svg>
-            </div>
-            <div class="c-alert__body">
-              <p data-js-alert="text">{{ __('To receive the most relevant information, please answer the following optional questions.', 'WNYC-Newsletter')}}</p>
-            </div>
-          </article>
-        {% endif %}
+          {% if newsletter_message %}
+            <article class="c-alert color-status-tertiary mt-5" data-js="alert-warning">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-wnyc-ui">
+                  <use xlink:href="#icon-wnyc-ui-info"></use>
+                </svg>
+              </div>
+              <div class="c-alert__body">
+                <p data-js-alert="text">{{ __('To receive the most relevant information, please answer the following optional questions.', 'WNYC-Newsletter')}}</p>
+              </div>
+            </article>
+          {% endif %}
 
-        <div data-js="newsletter-form">
-          <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank" novalidate="true">
+          <div data-js="newsletter-form">
+            <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank" novalidate="true">
 
-            {% for field in form_fields%}
-              {% if field.type != 'checkbox' %}
+              {% for field in form_fields%}
+                {% if field.type != 'checkbox' %}
 
-                <div class="c-question">
-                  <label class="c-question__label" for="{{field.id}}">{{field.label}}</label>
-                  <div class="c-question__container">
-                    <div class="c-question__input">
-                      <div class="input">
-                        <input id="{{field.id}}" name="{{field.name}}" required="true" type="{{field.type}}" value="{% if field.name == 'EMAIL'%}{{email}}{% endif %}">
+                  <div class="c-question">
+                    <label class="c-question__label" for="{{field.id}}">{{field.label}}</label>
+                    <div class="c-question__container">
+                      <div class="c-question__input">
+                        <div class="input">
+                          <input id="{{field.id}}" name="{{field.name}}" {% if field.required == "true" %}required="{{field.required}}"{% endif %} type="{{field.type}}" value="{% if field.name == 'EMAIL'%}{{email}}{% endif %}">
+                        </div>
                       </div>
                     </div>
                   </div>
+
+                {% else %}
+                  <fieldset	class="c-question">
+                    <legend class="c-question__label">{{field.legend}}</legend>
+                    <div class="c-question__container layout-rows tablet:layout-two-columns-gutter">
+
+                      {% for subfield in field.fields%}
+                        <label class="option" for="{{subfield.for}}">
+                        <span class="sr-only">Select interests (option {{loop.index}} of {{field.fields|length}}): </span>
+                        <input id="{{subfield.id}}" name="{{subfield.name}}" type="checkbox" value="{{subfield.value}}">
+                        <span class="option__base">
+                          <svg aria-hidden="true" class="option__graphic">
+                            <use xlink:href="#option-wnyc-checkbox"></use>
+                          </svg>
+                          <span class="option__label">{{subfield.label}}</span>
+                        </span>
+                        </label>
+                      
+                      {% endfor %}
+                    </div>
+                  </fieldset>
+                {% endif %}
+
+              {% endfor %}
+              
+              <button class="btn-primary" type="submit">Submit</button>
+
+              <article aria-hidden="true" class="c-alert color-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
+                <div class="c-alert__graphic">
+                  <svg aria-hidden="true" class="icon-wnyc-ui">
+                    <use xlink:href="#icon-wnyc-ui-info"></use>
+                  </svg>
                 </div>
-
-              {% else %}
-                <fieldset	class="c-question">
-                  <legend class="c-question__label">{{field.legend}}</legend>
-                  <div class="c-question__container layout-rows tablet:layout-two-columns-gutter">
-
-                    {% for subfield in field.fields%}
-                      <label class="option" for="{{subfield.for}}">
-                      <span class="sr-only">Select interests (option {{loop.index}} of {{field.fields|length}}): </span>
-                      <input id="{{subfield.id}}" name="{{subfield.name}}" type="checkbox" value="{{subfield.value}}">
-                      <span class="option__base">
-                        <svg aria-hidden="true" class="option__graphic">
-                          <use xlink:href="#option-wnyc-checkbox"></use>
-                        </svg>
-                        <span class="option__label">{{subfield.label}}</span>
-                      </span>
-                      </label>
-                    
-                    {% endfor %}
-                  </div>
-                </fieldset>
-              {% endif %}
-
-            {% endfor %}
-            
-            <button class="btn-primary" type="submit">Submit</button>
-
-            <article aria-hidden="true" class="c-alert color-status-tertiary mt-5 hidden" data-js="alert-warning">
-              <div class="c-alert__graphic">
-                <svg aria-hidden="true" class="icon-wnyc-ui">
-                  <use xlink:href="#icon-wnyc-ui-info"></use>
-                </svg>
-              </div>
-              <div
-                class="c-alert__body">
-                <p data-js-alert="text"></p>
-              </div>
-            </article>
-            <article aria-hidden="true" class="c-alert color-status-secondary mt-5 hidden" data-js="alert-success">
-              <div class="c-alert__graphic">
-                <svg aria-hidden="true" class="icon-wnyc-ui">
-                  <use xlink:href="#icon-wnyc-ui-info"></use>
-                </svg>
-              </div>
-              <div
-                class="c-alert__body">
-                <p data-js-alert="text"></p>
-              </div>
-            </article>
-          </form>
+                <div class="c-alert__body">
+                  <p data-js-alert="text">Please fill out the required fields and submit again.</p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="c-alert color-status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
+                <div class="c-alert__graphic">
+                  <svg aria-hidden="true" class="icon-wnyc-ui">
+                    <use xlink:href="#icon-wnyc-ui-info"></use>
+                  </svg>
+                </div>
+                <div class="c-alert__body">
+                  <p data-js-alert="text"></p>
+                </div>
+              </article>
+              <article aria-hidden="true" class="c-alert color-status-secondary mt-5 hidden" data-js="alert-success" role="alert">
+                <div class="c-alert__graphic">
+                  <svg aria-hidden="true" class="icon-wnyc-ui">
+                    <use xlink:href="#icon-wnyc-ui-info"></use>
+                  </svg>
+                </div>
+                <div class="c-alert__body">
+                  <p data-js-alert="text"></p>
+                </div>
+              </article>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
   </main>
 </div>

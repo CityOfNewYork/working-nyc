@@ -93,10 +93,21 @@ import Questionnaire from 'questionnaire';
   let params = new URLSearchParams(window.location.search);
   let response = params.get('response');
   let newsletter = null;
-
+  
   if (element) {
+    let submit = element.querySelector('[type=submit]');
+    let error = element.querySelector('[data-js="alert-error"]')
+    
     newsletter = new Newsletter(element);
     newsletter.form.selectors.ERROR_MESSAGE_PARENT = '.c-question__container';
+
+    // display error on invalid form
+    submit.addEventListener('click', function(){
+      if (response == null) {
+        error.setAttribute("aria-hidden", "false");
+        error.classList.remove('hidden')
+      }
+    })
   }
 
   if (response && newsletter) {
