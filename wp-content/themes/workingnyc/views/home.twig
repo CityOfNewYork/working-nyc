@@ -37,9 +37,42 @@
     </header>
 
     <main id="content">
+
+      {# Announcements #}
+      <section class="page-max py-4" id="announcements">
+        <div class="layout-content">
+          <div class="wrap">
+            <h2 class="h4 font-normal text-alt mt-0">{{__('Announcements', 'WNYC')}}</h2>
+          </div>
+        </div>
+
+        {% for announcement in announcements %}
+          <div>
+            {% if announcement.announcement_is_external == 'Yes' %}
+              <a href="{{announcement.url}}" target="_blank">{{announcement.announcement_title}}<svg aria-hidden="true" class="icon-wnyc-ui ml-1"><use xlink:href="#icon-wnyc-ui-external-link"></use></svg></a>
+            {% else %}
+              <a href="{{announcements.url}}">{{announcement.announcement_title}}</a>
+            {% endif %}
+
+            <div>
+              {{announcement.announcement_details}}
+            </div>
+            
+            <div>
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use xlink:href="#icon-wnyc-ui-calendar"></use>
+              </svg>
+              <span>{{announcement.post_date|date}}</span>
+            </div>
+
+          </div>
+        {% endfor %}
+      </section>
+
+      {# Programs #}
       {% if featured_posts %}
         {% for section in featured_posts %}
-          <section class="page-max py-4" id="training-programs-recruiting-now">
+          <section class="page-max py-4" id="{{section.featured_posts_heading | lower | replace({' ':'-'}) }}">
             <div>
               <div class="layout-content">
                 <div class="wrap">
