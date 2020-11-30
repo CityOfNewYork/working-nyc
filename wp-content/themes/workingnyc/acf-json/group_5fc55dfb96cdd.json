@@ -68,7 +68,7 @@
             "key": "field_5fc55edfcfdec",
             "label": "URL",
             "name": "announcement_url",
-            "type": "url",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
