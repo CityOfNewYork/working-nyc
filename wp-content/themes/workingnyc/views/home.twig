@@ -51,7 +51,7 @@
             {% if announcement.announcement_is_external == 'Yes' %}
               <a href="{{announcement.announcement_url}}" target="_blank">{{announcement.announcement_title}}<svg aria-hidden="true" class="icon-wnyc-ui ml-1"><use xlink:href="#icon-wnyc-ui-external-link"></use></svg></a>
             {% else %}
-              <a href="{{announcements.announcement_url}}">{{announcement.announcement_title}}</a>
+              <a href="{{announcement.announcement_url}}">{{announcement.announcement_title}}</a>
             {% endif %}
 
             <div>
