@@ -1,25 +1,23 @@
-<div class="layout-content sticky top-0 bg-scale-1 z-10">
-  <nav aria-label="utility" class="c-utility wrap">
-    <a class="btn-link me-auto" href="{{return.link}}">
-      <svg aria-hidden="true" class="icon-wnyc-ui">
-        <use xlink:href="#icon-wnyc-ui-chevron-left"></use>
-      </svg>
-      <span>{{return.label}}</span>
-    </a>
+<nav aria-label="utility" class="c-utility wrap">
+  <a class="btn-link me-auto" href="{{return.link}}">
+    <svg aria-hidden="true" class="icon-wnyc-ui">
+      <use xlink:href="#icon-wnyc-ui-chevron-left"></use>
+    </svg>
+    <span>{{return.label}}</span>
+  </a>
 
-    {% for item in cta %}
-      <a class="btn btn-small {{item.class}}" href="{{item.link}}">{{item.label}}</a>
-    {% endfor %}
+  {% for item in cta %}
+    <a class="btn btn-small {{item.class}}" href="{{item.link}}">{{item.label}}</a>
+  {% endfor %}
 
-    {% if web_share %}
-      {% include 'components/web-share.twig' with {this: {share: web_share}} only %}
-    {% endif %}
+  {% if web_share %}
+    {% include 'components/web-share.twig' with {this: {share: web_share, class: 'right-0'}} only %}
+  {% endif %}
 
-    {% if has_filters %}
-      <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary" data-dropdown="open" data-dropdown-lock="true" data-js="dropdown">
-        <span class="me-1">{{filters_label}}</span>
-        <span class="badge badge-small color-status-secondary">v{ totalFilters }</span>
-      </button>
-    {% endif %}
-  </nav>
-</div>
+  {% if has_filters %}
+    <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary" data-dropdown="open" data-dropdown-lock="true" data-js="dropdown">
+      <span class="me-1">{{filters_label}}</span>
+      <span class="badge badge-small color-status-secondary">v{ totalFilters }</span>
+    </button>
+  {% endif %}
+</nav>

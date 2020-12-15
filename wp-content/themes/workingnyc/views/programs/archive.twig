@@ -7,16 +7,14 @@
       <div id="vue-{{post_type}}" data-filters="{{filters}}">
 
         <div class="c-dropdown layout-content sticky top-0 bg-scale-1 z-10">
-
           {% include ['components/utility-nav.twig'] with {
             return: {
-              'label': __('Home', 'Program'), 
+              'label': __('Home', 'Program'),
               'link': site.url
             },
             has_filters: true
-            } 
-          %}
-        
+          } %}
+
         {% include 'components/filters.twig' %}
         </div>
 
@@ -27,7 +25,7 @@
                 <h1 class="o-header__title">{{page_title}}</h1>
                 <h2 class="o-header__subtitle">{{page_tagline}}</h2>
 
-                {% include 'components/breadcrumbs.twig' with { 
+                {% include 'components/breadcrumbs.twig' with {
                   crumbs: [
                     {
                       'label': 'Programs',
@@ -40,8 +38,9 @@
           </div>
         </div>
 
-        <section class="page-max" id="programs">
-          <div class="wrap layout-rows-gutter tablet:layout-two-columns-gutter desktop:layout-three-columns-gutter">
+        <section class="page-max desktop:px-6" id="programs">
+          {# TODO: [WK-246] [Programs Archive] Loading Spinner #}
+          <div class="wrap desktop:px-6 layout-rows-gutter tablet:layout-col-2-gap-1-1 desktop:layout-col-2-gap-2-2">
 
             <p data-alert="text" aria-live="polite" class="sr-only" v-if="posts!=null">Showing results v{ posts.length } of v{ totalPosts }.</p>
 
@@ -57,8 +56,8 @@
                 </h3>
               </header>
               <div class="c-card__body">
-                <p class="c-card__status flex items-center">
-                  <mark class="badge status-alt me-2" data-program="recruiting" v-if="post.recruitment_status.length > 0">
+                <p class="c-card__status flex items-center" v-if="post.recruitment_status.length > 0">
+                  <mark class="badge status-alt me-2" data-program="recruiting">
                     v{ post.recruitment_status[0].name }
                   </mark>
                 </p>
@@ -66,7 +65,7 @@
                 <div class="c-card__summary">
                   <p>
                     <span data-program="summary">v{ post.acf.program_intro.replace('—', '') | stripHtml }</span>
-                    
+
                     <span v-if="post.populations.length > 0">{{ __('For', 'WNYC-Programs') }}
                       <span v-html="$options.filters.combineStr(post.populations, 'populations', true)"></span>.</span>
                   </p>

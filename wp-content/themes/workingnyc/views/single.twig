@@ -3,13 +3,14 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-
-    {% include ['components/utility-nav.twig'] with {
-      return: {
-        'label': __('Home', 'WNYC'),
-        'link': '/'
-      },
-    } %}
+    <div class="layout-content sticky top-0 bg-scale-1 z-10">
+      {% include ['components/utility-nav.twig'] with {
+        return: {
+          'label': __('Home', 'WNYC'),
+          'link': '/'
+        },
+      } %}
+    </div>
 
     {# Header Section #}
     <div class="layout-content">
@@ -18,7 +19,7 @@
           <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC')}}{% else %}{{ post.title }}{% endif %}
           </h1>
 
-          {% include 'components/breadcrumbs.twig' with 
+          {% include 'components/breadcrumbs.twig' with
             {
               crumbs: [
                 {

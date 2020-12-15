@@ -4,24 +4,26 @@
 <div class="bg-scale-2">
 	<main class="bg-scale-1" id="content">
     <div>
-      {% include ['components/utility-nav.twig'] with {
-        return: {
-          'label': __('Programs', 'Program'),
-          'link': programs_archive
-        },
-        cta: [
-          {
-            'label': __('Next Steps', 'Program'),
-            'link': '#next-steps',
-            'class': 'btn-link btn-secondary'
+      <div class="layout-content sticky top-0 bg-scale-1 z-10">
+        {% include ['components/utility-nav.twig'] with {
+          return: {
+            'label': __('Programs', 'Program'),
+            'link': programs_archive
+          },
+          cta: [
+            {
+              'label': __('Next Steps', 'Program'),
+              'link': '#next-steps',
+              'class': 'btn-link btn-secondary'
+            }
+          ],
+          web_share: {
+            'title': post.program_title,
+            'text': post.get_field('program_intro')|striptags,
+            'url': fn('wp_get_shortlink')
           }
-        ],
-        web_share: {
-          'title': post.program_title,
-          'text': post.get_field('program_intro')|striptags,
-          'url': fn('wp_get_shortlink')
-        }
-      } %}
+        } %}
+      </div>
 
       {# Header Section #}
       <div class="layout-content">

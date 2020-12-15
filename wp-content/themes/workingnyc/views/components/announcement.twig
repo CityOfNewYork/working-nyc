@@ -1,0 +1,52 @@
+<article class="c-card c-card-transparent h-full">
+  <header class="c-card__header">
+    <h2 class="c-card__title">
+      <a href="{{ this.link }}" target="{{ this.target }}">
+        {% if this.date|date('U') > this.statusPeriod|date('U') %}
+        <mark class="badge status-alt" title="{{ this.statusTitle }}">
+          {{ this.status }}
+        </mark>
+        {% endif %}
+
+        {{ this.announcement_title }}
+
+        {% if this.target == '_blank' %}
+        <svg aria-hidden="true" class="icon-wnyc-ui">
+          <use xlink:href="#icon-wnyc-ui-external-link"></use>
+        </svg>
+        {% endif %}
+      </a>
+    </h2>
+  </header>
+
+  <div class="c-card__body">
+    <div class="c-card__summary">
+      {{ this.announcement_details|wpautop }}
+    </div>
+
+    <ul class="c-card__features">
+      <li class="flex items-center">
+        <svg aria-hidden="true" class="icon-wnyc-ui me-1">
+          <use xlink:href="#icon-wnyc-ui-alert-triangle"></use>
+        </svg>
+
+        <span>
+          {{ __('Updated ', 'WNYC') }}
+          {{ this.date|date(fn('get_option', 'date_format')) }}
+          {{ this.date|date(fn('get_option', 'time_format')) }}
+        </span>
+      </li>
+    </ul>
+
+    {% include 'components/web-share.twig' with {this: {
+      share: {
+        'title': this.announcement_title,
+        'text': this.announcement_details|striptags,
+        'url': this.shortlink
+      }
+    }} only %}
+
+    {# @span This empty span tag currently assists the stylesheet in removing margin on the last visible element in the card. #}
+    <span></span>
+  </div>
+</article>

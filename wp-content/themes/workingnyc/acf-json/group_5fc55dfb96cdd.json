@@ -68,10 +68,18 @@
             "key": "field_5fc55edfcfdec",
             "label": "URL",
             "name": "announcement_url",
-            "type": "text",
+            "type": "url",
             "instructions": "",
             "required": 0,
-            "conditional_logic": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5fc55e91cfdea",
+                        "operator": "==",
+                        "value": "Yes"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "",
                 "class": "",
@@ -79,6 +87,34 @@
             },
             "default_value": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_5fd25f8efed31",
+            "label": "Content",
+            "name": "announcement_content",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5fc55e91cfdea",
+                        "operator": "==",
+                        "value": "No"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 1,
+            "multiple": 0,
+            "return_format": "object",
+            "ui": 1
         }
     ],
     "location": [
@@ -97,5 +133,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "modified": 1607634364
 }
