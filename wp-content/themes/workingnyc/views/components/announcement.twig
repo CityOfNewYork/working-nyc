@@ -39,6 +39,7 @@
     </ul>
 
     {% include 'components/web-share.twig' with {this: {
+      class: 'z-10',
       share: {
         'title': this.announcement_title,
         'text': this.announcement_details|striptags,
