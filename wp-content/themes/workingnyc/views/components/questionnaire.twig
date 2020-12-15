@@ -14,7 +14,7 @@
     </p>
 
     <form :action="'{{programs_archive}}'+query" class="c-card" data-js="validate-and-query" method="post" id="answer-a-few-questions" data-post-type="{{questionnaire_post_type}}" data-post-threshold="{{questionnaire_threshold}}">
-      <div class="c-card__body">
+      <div class="p-3 desktop:p-4">
 
         {% for question in questionnaire_qs %}
           <fieldset {% if loop.index == 1 %}class="mb-2"{% else %}aria-hidden="true" class="hidden mt-3"{% endif %} data-taxonomy="{{question.questionnaire_taxonomy}}" field-key="{{loop.index}}">
