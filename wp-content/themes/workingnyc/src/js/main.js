@@ -59,6 +59,7 @@ import Questionnaire from 'questionnaire';
   new Track();
   new WindowVh();
 
+  // TODO: [WK-251] The web share api isn't triggered for supported devices
   new WebShare({
     fallback: () => {
       new Toggle({
@@ -93,11 +94,11 @@ import Questionnaire from 'questionnaire';
   let params = new URLSearchParams(window.location.search);
   let response = params.get('response');
   let newsletter = null;
-  
+
   if (element) {
     let submit = element.querySelector('[type=submit]');
     let error = element.querySelector('[data-js="alert-error"]')
-    
+
     newsletter = new Newsletter(element);
     newsletter.form.selectors.ERROR_MESSAGE_PARENT = '.c-question__container';
 
