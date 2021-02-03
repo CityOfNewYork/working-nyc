@@ -75,7 +75,6 @@ class Announcement extends Timber\Post {
    * @return  String  The announcement date in UTC format
    */
   public function getDate() {
-    return ($this->announcement_is_external === 'Yes')
-      ? $this->post_modified : $this->get_field('announcement_content')->post_modified;
+    return $this->post_modified;
   }
 }
