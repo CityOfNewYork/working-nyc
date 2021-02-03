@@ -115,6 +115,33 @@
             "multiple": 0,
             "return_format": "object",
             "ui": 1
+        },
+        {
+            "key": "field_601ad4694007f",
+            "label": "Content Anchor",
+            "name": "announcement_content_anchor",
+            "type": "text",
+            "instructions": "Enter the section name you would like this link to anchor to.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5fc55e91cfdea",
+                        "operator": "==",
+                        "value": "No"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -133,6 +160,5 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": "",
-    "modified": 1607634364
+    "description": ""
 }
