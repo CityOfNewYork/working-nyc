@@ -47,6 +47,9 @@ import WindowVh from 'utilities/window-vh/window-vh';
 import Programs from 'programs';
 import Questionnaire from 'questionnaire';
 
+// Additional modules
+import headerIds from 'modules/header-ids'
+
 (function (window) {
   'use strict';
 
@@ -58,6 +61,8 @@ import Questionnaire from 'questionnaire';
   new Search();
   new Track();
   new WindowVh();
+
+  headerIds();
 
   // TODO: [WK-251] The web share api isn't triggered for supported devices
   new WebShare({
