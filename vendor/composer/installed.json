@@ -2092,6 +2092,50 @@
         "homepage": "https://wordpress.org/plugins/wordpress-importer/"
     },
     {
+        "name": "wpackagist-plugin/wp-all-export",
+        "version": "1.2.7",
+        "version_normalized": "1.2.7.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/wp-all-export/",
+            "reference": "tags/1.2.7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/wp-all-export.1.2.7.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/wp-all-export/"
+    },
+    {
+        "name": "wpackagist-plugin/wp-all-import",
+        "version": "3.5.6",
+        "version_normalized": "3.5.6.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/wp-all-import/",
+            "reference": "tags/3.5.6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/wp-all-import.3.5.6.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/wp-all-import/"
+    },
+    {
         "name": "wpackagist-plugin/wp-auto-login",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",

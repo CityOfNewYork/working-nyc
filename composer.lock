@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f898581fb7f0395506e87cfb9d1276df",
+    "content-hash": "35b5aa17061e91c538ecd19debdc1e3d",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -1500,6 +1500,46 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-importer/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-all-export",
+            "version": "1.2.7",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-all-export/",
+                "reference": "tags/1.2.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-all-export.1.2.7.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-all-export/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-all-import",
+            "version": "3.5.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-all-import/",
+                "reference": "tags/3.5.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-all-import.3.5.6.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-all-import/"
         },
         {
             "name": "wpackagist-plugin/wp-autoupdates",
