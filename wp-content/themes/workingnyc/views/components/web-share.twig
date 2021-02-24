@@ -3,7 +3,7 @@
 <div class='c-web-share {{ this.class }}'>
   <button aria-controls="aria-c-web-share-fallback-{{ id }}" aria-expanded="false" class="btn btn-small btn-primary m-0" data-js="web-share" data-web-share='{{ this.share|json_encode }}'>
     <svg class="c-web-share__icon icon-wnyc-ui">
-      <use xlink:href="#icon-wnyc-ui-share-2"></use>
+      <use xlink:href="#share-2"></use>
     </svg>
 
     <span>{{__('Share', 'WNYC')}}</span>
@@ -14,7 +14,7 @@
       <div class="flex mb-1 items-center flex-row-reverse">
         <button aria-controls="aria-c-web-share-fallback-{{ id }}" aria-expanded="false" class="btn btn-primary btn-small m-0" data-js="web-share" tabindex="-1">
           <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-            <use xlink:href="#icon-wnyc-ui-x"></use>
+            <use xlink:href="#x"></use>
           </svg>
           <span>{{__('Close', 'WNYC')}}</span>
         </button>
@@ -28,11 +28,11 @@
       <div class="c-web-share__items">
         <button aria-pressed="false" class="c-web-share__item c-web-share__copy btn btn-small btn-primary mx-0" data-copy="web-share-url-{{ id }}" data-js="copy" tabindex="-1">
           <svg class="icon icon-wnyc-ui">
-            <use xlink:href="#icon-wnyc-ui-copy"></use>
+            <use xlink:href="#copy"></use>
           </svg>
 
           <svg class="icon-pressed icon-wnyc-ui me-1">
-            <use xlink:href="#icon-wnyc-ui-check"></use>
+            <use xlink:href="#check"></use>
           </svg>
 
           <span>{{ __('Copy URL', 'WNYC') }}</span>
@@ -40,7 +40,7 @@
 
         <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://www.facebook.com/sharer/sharer.php?u={{this.share.url|url_encode}}" tabindex="-1" target="_blank">
           <svg class="icon-wnyc-ui">
-            <use xlink:href="#icon-wnyc-ui-facebook"></use>
+            <use xlink:href="#facebook"></use>
           </svg>
 
           <span>{{ __('Facebook', 'WNYC') }}</span>
@@ -48,7 +48,7 @@
 
         <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://twitter.com/intent/tweet?text={{this.share.text|url_encode}}%20{{this.share.url|url_encode}}" tabindex="-1" target="_blank">
           <svg class="icon-wnyc-ui">
-            <use xlink:href="#icon-wnyc-ui-twitter"></use>
+            <use xlink:href="#twitter"></use>
           </svg>
 
           <span>{{ __('Twitter', 'WNYC') }}</span>

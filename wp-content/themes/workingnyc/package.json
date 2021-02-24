@@ -19,6 +19,7 @@
     "@nycopportunity/working-patterns": "0.0.1-42",
     "@vue/compiler-sfc": "^3.0.0-rc.2",
     "axios": "^0.19.2",
+    "feather-icons": "^4.28.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {

@@ -7,8 +7,8 @@ const crypto = require('crypto');
  * Config
  */
 const iconsDir = [
-  'node_modules/@nycopportunity/patterns-framework/dist/svg/',
-  'node_modules/@nycopportunity/working-patterns/dist/svg/'
+  'node_modules/@nycopportunity/working-patterns/dist/svg/',
+  'node_modules/feather-icons/dist/icons/'
 ];
 
 const matches = [
@@ -17,6 +17,23 @@ const matches = [
   'option-',
   'shape-',
   'select-',
+  'arrow-',
+  'chevron-',
+  'help-circle',
+  'calendar',
+  'users',
+  'award',
+  'x',
+  'copy',
+  'check',
+  'facebook',
+  'menu',
+  'translate',
+  'search',
+  'info',
+  'alert-',
+  'external-link',
+  'share-2'
 ];
 
 const outputDir = `${process.env.PWD}/assets/svg/`;
@@ -37,9 +54,11 @@ async function clean() {
   fs.readdir(`${outputDir}`, (err, files) => {
     if (err) console.log(err);
     for (const file of files) {
-      fs.unlink(`${outputDir}${file}`, err => {
-        if (err) console.log('error' + err);
-      })
+      if (fs.existsSync(`${outputDir}${file}`)){
+        fs.unlink(`${outputDir}${file}`, err => {
+          if (err) console.log('error' + err);
+        })
+      }
     }
   });
 }
@@ -71,6 +90,13 @@ async function compile() {
         })
       }
     }
+
+    let name = fs.readFileSync(`${outputDir}icons.svg`, 'utf8');
+    var hash = crypto.createHash('md5').update(name).digest('hex').substring(0, 7);
+
+    fs.rename(`${outputDir}icons.svg`, `${outputDir}icons-${hash}.svg`, function (err) {
+      if (err) console.log('Error renaming icons: ' + err);
+    });
 
     console.log(`\n${compileEmoji}  Icons compiled.`)
 

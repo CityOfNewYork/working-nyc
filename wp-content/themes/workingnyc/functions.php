@@ -27,6 +27,10 @@ class Site extends TimberSite {
     // WNYC Settings
     $context['options'] = get_fields('options');
 
+    // Icons path
+    $matches = glob(get_template_directory().'/assets/svg/icons-*');
+    $context['icons_path'] = strstr($matches[0], '/wp-content');
+
     return $context;
   }
 }

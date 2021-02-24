@@ -8,7 +8,7 @@
         <span>{{ __('Scroll to browse programs', 'WNYC-Questionnaire') }}</span>
         <br class="tablet:hidden" />
         <svg aria-hidden="true" class="icon-wnyc-ui m-0 mt-1">
-          <use xlink:href="#icon-wnyc-ui-chevron-down"></use>
+          <use xlink:href="#chevron-down"></use>
         </svg>
       </a>
     </p>
@@ -41,7 +41,7 @@
           <article class="c-alert color-status-secondary mb-5" data-js="alert-success" v-if="(success || checkedFilters.length == (filters.length + 1)) && totalPosts > 0">
             <div class="c-alert__graphic">
               <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-info"></use>
+                <use xlink:href="#info"></use>
               </svg>
             </div>
             <div class="c-alert__body">
@@ -53,7 +53,7 @@
           <article class="c-alert color-status-secondary mb-5" data-js="alert-warning" v-if="success==false">
             <div class="c-alert__graphic">
               <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-info"></use>
+                <use xlink:href="#info"></use>
               </svg>
             </div>
             <div class="c-alert__body">
@@ -68,7 +68,7 @@
           <article class="c-alert color-status-tertiary mb-5" data-js="alert-warning" v-if="error">
             <div class="c-alert__graphic">
               <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-info"></use>
+                <use xlink:href="#info"></use>
               </svg>
             </div>
             <div class="c-alert__body">

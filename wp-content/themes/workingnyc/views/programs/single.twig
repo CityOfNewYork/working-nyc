@@ -59,7 +59,7 @@
               <p class="small">
                 <a class="btn btn-link btn-small btn-secondary font-secondary" href="#more-information">
                   <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
-                    <use xlink:href="#icon-wnyc-ui-award"></use>
+                    <use xlink:href="#award"></use>
                   </svg>
                   <span>{{ post.terms('services')|map(s => "#{s.name}")|join(', ') }}</span>
                 </a>
@@ -70,7 +70,7 @@
               <p class="small">
                 <a class="btn btn-link btn-small btn-secondary font-secondary" href="#eligibility">
                   <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
-                    <use xlink:href="#icon-wnyc-ui-users"></use>
+                    <use xlink:href="#users"></use>
                   </svg>
                   <span>{{ post.terms('populations')|map(s => "#{s.name}")|join(', ') }}</span>
                 </a>
@@ -81,7 +81,7 @@
               <p class="small">
                 <a class="btn btn-link btn-small btn-secondary font-secondary" href="#schedule">
                   <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
-                    <use xlink:href="#icon-wnyc-ui-calendar"></use>
+                    <use xlink:href="#calendar"></use>
                   </svg>
                   <span>
                     {% if post.terms('duration')%}{{post.terms('duration')[0]}}{% endif %}{% if post.terms('duration') and post.terms('schedule')%}, {% endif %}{% if post.terms('schedule')%}{{post.terms('schedule')[0]}}{% endif %}
@@ -93,7 +93,7 @@
             <p class="small">
               <span class="flex items-center">
                 <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
-                  <use xlink:href="#icon-wnyc-ui-alert-triangle"></use>
+                  <use xlink:href="#alert-triangle"></use>
                 </svg>{{ __('Last updated', 'WNYC-Date') }} {{modified_date}}
               </span>
             </p>
@@ -169,11 +169,11 @@
               {{ __('Learn More', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
               {% if direction == 'ltr' %}
                 <svg aria-hidden="true" class="icon-wnyc-ui inline">
-                  <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                  <use xlink:href="#arrow-right"></use>
                 </svg>
                 {% else %}
                 <svg aria-hidden="true" class="icon-wnyc-ui">
-                  <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                  <use xlink:href="#arrow-left"></use>
                 </svg>
               {% endif %}
             </a>
@@ -183,11 +183,11 @@
             <a class="btn btn-secondary btn-next mb-1 w-full" href="{{post.program_apply_online}}">
               {{ __('Apply', 'WNYC-Programs') }} <span class="sr-only">{{ __('for', 'WNYC-Programs') }} {{post.program_title}}</span>{% if direction == 'ltr' %}
                 <svg aria-hidden="true" class="icon-wnyc-ui inline">
-                  <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                  <use xlink:href="#arrow-right"></use>
                 </svg>
                 {% else %}
                 <svg aria-hidden="true" class="icon-wnyc-ui">
-                  <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                  <use xlink:href="#arrow-left"></use>
                 </svg>
               {% endif %}
             </a>
@@ -214,7 +214,7 @@
         <div class="pt-2 pb-3 wrap">
           <article class="c-alert c-alert__graphic items-center mr-0" data-js="alert-help">
             <svg aria-hidden="true" class="icon-wnyc-ui mr-2">
-              <use xlink:href="#icon-wnyc-ui-help"></use>
+              <use xlink:href="#help-circle"></use>
             </svg>
 
             <div class="c-alert__body">
@@ -236,9 +236,9 @@
           <nav class="py-2 wrap">
             <a class="btn btn-primary btn-next w-full" href="#">
               <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-arrow-left"></use>
+                <use xlink:href="#arrow-left"></use>
               </svg>{{ __('More programs at', 'WNYC-Programs') }} {{post.program_provider}}<svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#icon-wnyc-ui-arrow-right"></use>
+                <use xlink:href="#arrow-right"></use>
               </svg>
             </a>
           </nav>

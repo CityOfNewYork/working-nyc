@@ -53,7 +53,10 @@ import headerIds from 'modules/header-ids'
 (function (window) {
   'use strict';
 
-  new Icons('/wp-content/themes/workingnyc/assets/svg/icons.svg');
+  const icons = document.querySelector('#icons').textContent
+  new Icons(icons != undefined ? icons : '');
+
+  // new Icons('/wp-content/themes/workingnyc/assets/svg/icons.svg');
   new Toggle();
   new Accordion();
   new Copy();

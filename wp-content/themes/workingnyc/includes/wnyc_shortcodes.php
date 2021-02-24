@@ -32,7 +32,7 @@ function add_icon( $attr ) {
     return;
   }
 
-  return '<svg aria-hidden="true" class="icon-wnyc-ui"><use xlink:href="#icon-wnyc-ui-'. $atts['name'] .'"></use></svg>';
+  return '<svg aria-hidden="true" class="icon-wnyc-ui"><use xlink:href="#'. $atts['name'] .'"></use></svg>';
 }
 add_shortcode( 'icon', 'add_icon' );
 
@@ -84,7 +84,7 @@ function add_airtable( $attr ) {
   
   $url = $atts['url'].'?'.implode("&", $params);
 
-  return '<a class="btn btn-text text-inherit underline" href="'.$url.'" target="_blank"><span>'.$atts['text'].'</span><svg aria-hidden="true" class="icon-wnyc-ui" style="margin-left:5px;"><use xlink:href="#icon-wnyc-ui-external-link"></use></svg></a>';
+  return '<a class="btn btn-text text-inherit underline" href="'.$url.'" target="_blank"><span>'.$atts['text'].'</span><svg aria-hidden="true" class="icon-wnyc-ui" style="margin-left:5px;"><use xlink:href="#external-link"></use></svg></a>';
 
 }
 add_shortcode( 'link', 'add_airtable' );
