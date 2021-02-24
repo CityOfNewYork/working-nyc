@@ -13,21 +13,25 @@
 /**
  * Filters the list of registered sitemap providers.
  *
- * @param array $providers Array of Core_Sitemap_Provider objects.
+ * @param array $providers Array of WP_Sitemaps_Provider objects.
  */
-add_filter('core_sitemaps_register_providers', function($providers) {
-  unset($providers['users']);
+add_filter('wp_sitemaps_add_provider', 
+  function( $provider, $name ) {
+    if ( 'users' === $name ) {
+      return false;
+    }
 
-  return $providers;
-});
+    return $provider;
+  }, 10, 2
+);
 
 /**
  * Filter the list of post object sub types available within the sitemap.
  *
  * @param array $post_types List of registered object sub types.
  */
-add_filter('core_sitemaps_post_types', function($post_types) {
-  // unset($post_types['post']);
+add_filter('wp_sitemaps_post_types', function($post_types) {
+  unset($post_types['post']);
 
   return $post_types;
 });

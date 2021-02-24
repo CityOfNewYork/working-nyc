@@ -19,7 +19,6 @@
     "timber/timber": "^1.16",
     "wpackagist-plugin/acf-to-rest-api": "^3.3",
     "wpackagist-plugin/aryo-activity-log": "^2.5",
-    "wpackagist-plugin/core-sitemaps": "^0.3.0",
     "wpackagist-plugin/custom-post-type-ui": "^1.7",
     "wpackagist-plugin/duplicate-post": "^3.2",
     "wpackagist-plugin/gathercontent-import": "^3.1",
