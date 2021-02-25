@@ -48,11 +48,11 @@
               <header class="c-card__header">
                 <h2 class="c-card__title mt-0 mb-2">
                   <a :href="postUrl(post.slug)">
-                    <span data-program="plain-language-name">v{ post.acf.program_title }</span>
+                    <span data-program="plain-language-name" v-html="post.acf.program_title"></span>
                   </a>
                 </h2>
                 <h3 class="c-card__subtitle text-alt mb-1">
-                <b data-program="title">v{ post.title }</b><span data-program="title"> {{ __('by', 'WNYC-Programs') }} v{ post.acf.program_agency }</span>
+                <b data-program="title" v-html="post.title"></b><span data-program="title"> {{ __('by', 'WNYC-Programs') }} </span><span v-html="post.acf.program_agency"></span>
                 </h3>
               </header>
               <div class="c-card__body">
