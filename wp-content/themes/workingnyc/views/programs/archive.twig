@@ -56,7 +56,7 @@
                 </h3>
               </header>
               <div class="c-card__body">
-                <p class="c-card__status flex items-center" v-if="post.recruitment_status[0].slug=='actively-recruiting'">
+                <p class="c-card__status flex items-center" v-if="post.recruitment_status.length > 0 && post.recruitment_status[0].slug=='actively-recruiting'">
                   <mark class="badge status-alt me-2" data-program="recruiting">
                     v{ post.recruitment_status[0].name }
                   </mark>
@@ -109,11 +109,13 @@
             </article>
 
             {# Suggest #}
-            <article class="c-card">
-              <div class="c-alert c-alert__graphic items-center h-full w-full" data-js="alert-help" v-if="totalVisible > 0 && totalVisible == totalPosts">
-                <svg aria-hidden="true" class="icon-wnyc-ui mr-2">
-                  <use xlink:href="#help"></use>
-                </svg>
+            <article class="c-card border-l-4 border-mid-0">
+              <div class="c-alert items-center h-full w-full" data-js="alert-help" v-if="totalVisible > 0 && totalVisible == totalPosts">
+                <div class="c-alert__graphic border-l-0">
+                  <svg aria-hidden="true" class="icon-wnyc-ui mr-2">
+                    <use xlink:href="#help-circle"></use>
+                  </svg>
+                </div>
 
                 <div class="c-alert__body">
                   <b class="text-alt mb-1">
