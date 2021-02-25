@@ -10,8 +10,7 @@
     </h3>
   </header>
   <div class="c-card__body">
-    {# TODO: [WK-247] [Programs Card] Extend post type with model and "status" value. Only show the 'actively recruiting" status badge #}
-    {% if post.terms('recruitment_status') %}
+    {% if post.terms('recruitment_status')[0].slug == 'actively-recruiting' %}
     <p class="c-card__status flex items-center">
       <mark class="badge status-alt me-2" data-program="recruiting">
         {{ post.terms('recruitment_status')[0] }}
