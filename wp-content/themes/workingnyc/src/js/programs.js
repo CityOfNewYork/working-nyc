@@ -207,7 +207,7 @@ Programs.setTaxObj = function(str, labels) {
  */
 Programs.getTax = function() {
 
-  let promises = this.taxonomies.map(x => `${this.baseUrl}${Object.keys(x)[0]}?hide_empty=true`);
+  let promises = this.taxonomies.map(x => `${this.baseUrl}${Object.keys(x)[0]}?hide_empty=true&per_page=100`);
 
   return promises
   
