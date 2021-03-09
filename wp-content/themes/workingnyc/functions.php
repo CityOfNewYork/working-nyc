@@ -41,19 +41,9 @@ new Site();
  * Includes
  */
 
-$includes = [
-  '/includes/styles_and_scripts.php',
-  '/includes/airtable.php',
-  '/includes/date_format.php',
-  '/includes/templating.php',
-  '/includes/meta.php',
-  '/includes/wnyc_shortcodes.php',
-  '/includes/wnyc_pages.php',
-  '/includes/newsletter.php',
-  '/includes/rest/rest.php',
-  '/includes/rest/programs.php',
-];
+$includes_dir    = get_template_directory() .'/includes/';
+$includes = preg_grep('~\.(php)$~', scandir($includes_dir));
 
-for ($i=0; $i < sizeof($includes); $i++) {
-  require_once(get_template_directory() . $includes[$i]);
+foreach ($includes as $i => $inc) {
+  require_once($includes_dir. $inc);
 }

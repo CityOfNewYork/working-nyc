@@ -36,7 +36,11 @@
 
     <section class="bg-scale-2 layout-content">
       <div class="py-4 wrap">
-        {% if post.content %}{{ post.content }}{% endif %}
+        {% if sitemap %}
+          {% include 'sitemap.twig'%}
+        {% elseif post.content %}
+          {{ post.content }}
+        {% endif %}
       </div>
     </section>
 

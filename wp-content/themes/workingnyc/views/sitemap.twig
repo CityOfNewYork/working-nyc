@@ -1,0 +1,25 @@
+<div>
+  <h2 class="h3">General Navigation</h2>
+  <ul>
+  {% for menu_item in footer_menu.get_items %}
+    <li><a class="block" href="{{menu_item.link}}">{{menu_item.title}}</a></li>
+  {% endfor %}
+  </ul>
+</div>
+
+<div>
+	<h2 class="h3">Programs</h2>
+  {% for program in programs %}
+    <h3 class="h4">By {{program.category.taxonomy}}</h3>
+    {% for term in program.category.terms %}
+      <h4 class="h5">{{term.name}}</h4>
+      <ul>
+        {% for p in term.posts %}
+          <li>
+            <a class="block" href="{{programs_archive}}{{p.post_name}}">{{p.post_title}}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endfor %}
+  {% endfor %}
+</div>
