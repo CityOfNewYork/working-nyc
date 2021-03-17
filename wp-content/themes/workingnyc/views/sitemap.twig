@@ -9,17 +9,11 @@
 
 <div>
 	<h2 class="h3">Programs</h2>
-  {% for program in programs %}
-    <h3 class="h4">By {{program.category.taxonomy}}</h3>
-    {% for term in program.category.terms %}
-      <h4 class="h5">{{term.name}}</h4>
-      <ul>
-        {% for p in term.posts %}
-          <li>
-            <a class="block" href="{{programs_archive}}{{p.post_name}}">{{p.post_title}}</a>
-          </li>
-        {% endfor %}
-      </ul>
+  <ul>
+    {% for program in programs %}
+      <li>
+        <a class="block" href="{{programs_archive}}{{program.post_name}}">{{program.post_title}}</a>
+      </li>
     {% endfor %}
-  {% endfor %}
+  </ul>
 </div>
