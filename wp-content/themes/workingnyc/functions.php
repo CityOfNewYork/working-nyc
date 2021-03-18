@@ -23,6 +23,8 @@ class Site extends TimberSite {
 
     $context['header_menu'] = new TimberMenu('header_menu');
     $context['footer_menu'] = new TimberMenu('footer_menu');
+    $context['footer_menu_secondary'] = new TimberMenu('footer_menu_secondary');
+    $context['footer_menu_tertiary'] = new TimberMenu('footer_menu_tertiary');
 
     // WNYC Settings
     $context['options'] = get_fields('options');

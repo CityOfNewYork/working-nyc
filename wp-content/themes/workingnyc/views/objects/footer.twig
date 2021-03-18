@@ -23,8 +23,9 @@
           </svg>
           <span class="sr-only">N Y C Office of Workforce Development and Office for Economic Opporunity</span>
         </div>
-        <a href="http://nyc.gov/wkdev" rel="nofollow noopener" target="_blank">Workforce Development</a>
-        <a href="http://nyc.gov/opportunity" rel="nofollow noopener" target="_blank">Economic Opportunity</a>
+        {% for menu_item in footer_menu_secondary.get_items %}
+          <a href="{{menu_item.link}}" rel="nofollow noopener" target="_blank">{{menu_item.title}}</a>
+        {% endfor %}
       </nav>
 
 			<div class="o-footer__break"></div>
@@ -36,8 +37,9 @@
 					<span>{{ __('© 2020 City of New York. All Rights Reserved.', 'WNYC')}}</span>
 				</a>
 				<p class="small">{{ __('NYC is a trademark and service mark of the City of New York', 'WNYC')}}</p>
-				<a href="https://www1.nyc.gov/home/privacy-policy.page" rel="nofollow noopener" target="_blank">{{ __('Privacy Policy', 'WNYC')}}</a>
-				<a href="https://www1.nyc.gov/home/terms-of-use.page" rel="nofollow noopener" target="_blank">{{ __('Terms of Use', 'WNYC')}}</a>
+				{% for menu_item in footer_menu_tertiary.get_items %}
+          <a href="{{menu_item.link}}" rel="nofollow noopener" target="_blank">{{menu_item.title}}</a>
+        {% endfor %}
 			</nav>
 		</div>
 	</div>
