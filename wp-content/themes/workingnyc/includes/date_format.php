@@ -29,6 +29,6 @@ function modified_date_formatted($id) {
       return $interval->d.__(' days ago', 'WNYC-Date');
     }
   } else {
-    return __('on', 'WNYC-Date').$mod_date->format('M d, Y');
+    return __(' on ', 'WNYC-Date').$mod_date->format('M d, Y');
   }
 }
