@@ -21,6 +21,7 @@
 !/vendor/timber
 !/vendor/twig
 !/vendor/upstatement
+!/vendor/spatie
 
 # WordPress #
 ############

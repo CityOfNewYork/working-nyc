@@ -35,7 +35,8 @@
     "nyco/wp-assets": "^1.1",
     "nyco/wp-config": "^1.0",
     "wpackagist-plugin/wp-all-export": "^1.2",
-    "wpackagist-plugin/wp-all-import": "^3.5"
+    "wpackagist-plugin/wp-all-import": "^3.5",
+    "spatie/schema-org": "^2.8"
   },
   "require-dev": {
     "enelogic/wpml-installer": "^0.1.6",

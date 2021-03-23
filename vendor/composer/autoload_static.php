@@ -35,6 +35,7 @@ class ComposerStaticInit6cbc51615953bd34ad5d71e8ca1199d2
             'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Translation\\' => 30,
+            'Spatie\\SchemaOrg\\' => 17,
         ),
         'P' => 
         array (
@@ -106,6 +107,10 @@ class ComposerStaticInit6cbc51615953bd34ad5d71e8ca1199d2
         'Symfony\\Component\\Translation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
+        ),
+        'Spatie\\SchemaOrg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/schema-org/src',
         ),
         'Psr\\SimpleCache\\' => 
         array (

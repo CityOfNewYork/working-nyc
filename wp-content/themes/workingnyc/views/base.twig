@@ -13,6 +13,8 @@
     <link href="{{theme.path}}/favicons/favicon@32x32.png" rel="icon" sizes="32x32" type="image/png" />
     <link href="{{theme.path}}/favicons/apple@180x180.png" rel="apple-touch-icon" sizes="180x180" />
 
+    <script type="application/ld+json">{{schema}}</script>
+
     {{ function('enqueue_language_style', 'style') }}
 
     {% block head_extras %}{% endblock %}

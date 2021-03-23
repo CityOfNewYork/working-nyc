@@ -37,6 +37,17 @@ $context['questionnaire_post_type'] = Templating\get_questionnaire_post_type($po
 $context['questionnaire_threshold'] = Templating\get_questionnaire_threshold($post->ID);
 $context['questionnaire_qs'] = Templating\get_questionnaire_qs($post->ID);
 
+/**
+ * Generate schema for page
+ */
+$schemas = array();
+array_push($schemas, 
+  WNYCSchema\website(),
+  WNYCSchema\organization()
+);
+
+$context['schema'] = json_encode($schemas, JSON_UNESCAPED_SLASHES);
+
 $template = 'home.twig';
 
 Timber::render( $template, $context );
