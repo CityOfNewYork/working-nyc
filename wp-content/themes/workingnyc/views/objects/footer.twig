@@ -34,9 +34,10 @@
 					<svg aria-hidden="true" class="icon-logo-nyc-copyright fill-white me-1">
 						<use xlink:href="#logo-nyc"></use>
 					</svg>
-					<span>{{ __('© 2020 City of New York. All Rights Reserved.', 'WNYC')}}</span>
+
+					<span>{{'© %d '|format(function('date', 'Y'))}}{{ __('City of New York. All Rights Reserved.', 'WNYC')}}</span>
 				</a>
-				<p class="small">{{ __('NYC is a trademark and service mark of the City of New York', 'WNYC')}}</p>
+				<p class="small">{{ __('NYC is a trademark and service mark of the City of New York.', 'WNYC')}}</p>
 				{% for menu_item in footer_menu_tertiary.get_items %}
           <a href="{{menu_item.link}}" rel="nofollow noopener" target="_blank">{{menu_item.title}}</a>
         {% endfor %}
