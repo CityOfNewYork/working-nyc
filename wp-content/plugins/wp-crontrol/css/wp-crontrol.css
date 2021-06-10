@@ -1,4 +1,3 @@
-
 @keyframes crontrol-rotating {
 	from {
 		transform: rotate(0deg);
@@ -50,6 +49,17 @@ table.wp-list-table {
 	border-color: #dc3232;
 }
 
+.wp-list-table .column-crontrol_icon .dashicons,
+.wp-list-table .check-column .dashicons {
+	margin-left: 6px;
+	font-size: 14px;
+	color: #aaa;
+}
+
+.wp-list-table .column-crontrol_icon .dashicons {
+	margin-top: 2px;
+}
+
 #crontrol-hash-message {
 	display: none;
 }
@@ -90,4 +100,13 @@ table.wp-list-table {
 
 .row-actions .in-use {
 	color: #666;
+}
+
+.form-field input[type="number"] {
+	width: 100px;
+}
+
+.crontrol-edit-event-standard .crontrol-event-php,
+.crontrol-edit-event-php .crontrol-event-standard {
+	display: none;
 }
