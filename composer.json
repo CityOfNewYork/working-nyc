@@ -1,6 +1,6 @@
 {
   "name": "nyco/working-nyc",
-  "description": "",
+  "description": "Find and connect to services and resources that can help you prepare for and get a job.",
   "version": "1.2.0",
   "authors": [
     {
@@ -16,6 +16,9 @@
     }
   ],
   "require": {
+    "nyco/wp-assets": "^1.1",
+    "nyco/wp-config": "^1.0",
+    "spatie/schema-org": "^2.8",
     "timber/timber": "^1.16",
     "wpackagist-plugin/acf-to-rest-api": "^3.3",
     "wpackagist-plugin/aryo-activity-log": "^2.5",
@@ -29,26 +32,21 @@
     "wpackagist-plugin/simple-custom-post-order": "^2.5",
     "wpackagist-plugin/taxonomy-terms-order": "^1.5",
     "wpackagist-plugin/wordpress-importer": "^0.7.0",
-    "wpackagist-plugin/wp-autoupdates": "^0.8.1",
-    "wpackagist-plugin/wp-security-questions": "^1.0",
-    "wpackagist-plugin/wps-hide-login": "^1.5.2.1",
-    "nyco/wp-assets": "^1.1",
-    "nyco/wp-config": "^1.0",
     "wpackagist-plugin/wp-all-export": "^1.2",
     "wpackagist-plugin/wp-all-import": "^3.5",
-    "spatie/schema-org": "^2.8"
+    "wpackagist-plugin/wp-security-questions": "^1.0",
+    "wpackagist-plugin/wps-hide-login": "^1.5.2.1",
+    "wpackagist-plugin/wpscan": "^1.15"
   },
   "require-dev": {
-    "enelogic/wpml-installer": "^0.1.6",
-    "filp/whoops": "^2.3",
-    "philippbaschke/acf-pro-installer": "^1.0",
-    "squizlabs/php_codesniffer": "^3.4",
-    "umutphp/wp-vulnerability-check": "^0.1.1",
-    "whoops/soap": "^1.0",
-    "wpackagist-plugin/query-monitor": "^3.6",
-    "wpackagist-plugin/redis-cache": "^1.4",
-    "wpackagist-plugin/wp-auto-login": "^1.0",
-    "wpackagist-plugin/wp-crontrol": "^1.7"
+    "filp/whoops": "*",
+    "nielsdeblaauw/query-monitor-twig-profile": "*",
+    "squizlabs/php_codesniffer": "*",
+    "whoops/soap": "*",
+    "wpackagist-plugin/query-monitor": "*",
+    "wpackagist-plugin/redis-cache": "*",
+    "wpackagist-plugin/wp-auto-login": "*",
+    "wpackagist-plugin/wp-crontrol": "*"
   },
   "scripts": {
     "development": [
@@ -58,10 +56,9 @@
       "composer dump-autoload --no-dev --optimize"
     ],
     "predeploy": [
-      "composer run development",
-      "composer run lint",
-      "composer run wpscan",
-      "composer run production"
+      "@development",
+      "@lint",
+      "@production"
     ],
     "lint": [
       "vendor/bin/phpcs --standard=phpcs.xml"
@@ -69,15 +66,14 @@
     "fix": [
       "vendor/bin/phpcbf --standard=phpcs.xml"
     ],
-    "wpscan": [
-      "vendor/bin/wp-vulnerability-check --config wpscan.yml"
-    ],
     "version": [
       "composer update nothing",
-      "composer run production"
+      "@production"
     ],
     "deps": [
       "composer show --tree"
     ]
-  }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }

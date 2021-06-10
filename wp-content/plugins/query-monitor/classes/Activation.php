@@ -30,8 +30,9 @@ class QM_Activation extends QM_Plugin {
 
 	public function activate( $sitewide = false ) {
 		$db = WP_CONTENT_DIR . '/db.php';
+		$create_symlink = defined( 'QM_DB_SYMLINK' ) ? QM_DB_SYMLINK : true;
 
-		if ( ! file_exists( $db ) && function_exists( 'symlink' ) ) {
+		if ( $create_symlink && ! file_exists( $db ) && function_exists( 'symlink' ) ) {
 			@symlink( $this->plugin_path( 'wp-content/db.php' ), $db ); // phpcs:ignore
 		}
 
@@ -99,9 +100,8 @@ class QM_Activation extends QM_Plugin {
 
 	public function php_notice() {
 		?>
-		<div id="qm_php_notice" class="error">
+		<div id="qm_php_notice" class="notice notice-error">
 			<p>
-				<span class="dashicons dashicons-warning" style="color:#dd3232" aria-hidden="true"></span>
 				<?php
 				echo esc_html( sprintf(
 					/* Translators: 1: Minimum required PHP version, 2: Current PHP version. */

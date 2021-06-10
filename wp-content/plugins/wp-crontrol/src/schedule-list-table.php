@@ -41,6 +41,15 @@ class Schedule_List_Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Gets the name of the primary column.
+	 *
+	 * @return string The name of the primary column.
+	 */
+	protected function get_primary_column_name() {
+		return 'crontrol_name';
+	}
+
+	/**
 	 * Prepares the list table items and arguments.
 	 */
 	public function prepare_items() {
@@ -66,7 +75,8 @@ class Schedule_List_Table extends \WP_List_Table {
 	 */
 	public function get_columns() {
 		return array(
-			'crontrol_name'     => __( 'Name', 'wp-crontrol' ),
+			'crontrol_icon'     => '',
+			'crontrol_name'     => __( 'Internal Name', 'wp-crontrol' ),
 			'crontrol_interval' => __( 'Interval', 'wp-crontrol' ),
 			'crontrol_display'  => __( 'Display Name', 'wp-crontrol' ),
 		);
@@ -78,7 +88,7 @@ class Schedule_List_Table extends \WP_List_Table {
 	 * @return string[] Array of class names.
 	 */
 	protected function get_table_classes() {
-		return array( 'widefat', 'striped', $this->_args['plural'] );
+		return array( 'widefat', 'fixed', 'striped', 'table-view-list', $this->_args['plural'] );
 	}
 
 	/**
@@ -118,6 +128,24 @@ class Schedule_List_Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Returns the output for the icon cell of a table row.
+	 *
+	 * @param array $schedule The schedule for the current row.
+	 * @return string The cell output.
+	 */
+	protected function column_crontrol_icon( array $schedule ) {
+		if ( in_array( $schedule['name'], self::$core_schedules, true ) ) {
+			return sprintf(
+				'<span class="dashicons dashicons-wordpress" aria-hidden="true"></span>
+				<span class="screen-reader-text">%s</span>',
+				esc_html__( 'This is a WordPress core schedule and cannot be deleted', 'wp-crontrol' )
+			);
+		}
+
+		return '';
+	}
+
+	/**
 	 * Returns the output for the schdule name cell of a table row.
 	 *
 	 * @param array $schedule The schedule for the current row.
@@ -140,12 +168,12 @@ class Schedule_List_Table extends \WP_List_Table {
 			esc_html( interval( $schedule['interval'] ) )
 		);
 
-		if ( $schedule['interval'] < WP_CRON_LOCK_TIMEOUT ) {
+		if ( $schedule['is_too_frequent'] ) {
 			$interval .= sprintf(
 				'<span class="status-crontrol-warning"><br><span class="dashicons dashicons-warning" aria-hidden="true"></span> %s</span>',
 				sprintf(
 					/* translators: 1: The name of the configuration constant, 2: The value of the configuration constant */
-					esc_html__( 'This interval is less than the %1$s constant which is set to %2$s. Events that use it may not run on time.', 'wp-crontrol' ),
+					esc_html__( 'This interval is less than the %1$s constant which is set to %2$s seconds. Events that use it may not run on time.', 'wp-crontrol' ),
 					'<code>WP_CRON_LOCK_TIMEOUT</code>',
 					intval( WP_CRON_LOCK_TIMEOUT )
 				)
