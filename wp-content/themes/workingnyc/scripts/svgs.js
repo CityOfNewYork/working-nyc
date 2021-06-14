@@ -27,6 +27,7 @@ const matches = [
   'copy',
   'check',
   'facebook',
+  'twitter',
   'menu',
   'translate',
   'search',
@@ -49,18 +50,23 @@ const compileEmoji = '\u{2728}';
  * Remove previous files
  */
 async function clean() {
-  console.log(`\n${cleanEmoji}  Removing existing files`);
+  console.log(`${cleanEmoji}  Removing existing files`);
 
-  fs.readdir(`${outputDir}`, (err, files) => {
-    if (err) console.log(err);
+  try {
+    let files = fs.readdirSync(`${outputDir}`);
+
     for (const file of files) {
       if (fs.existsSync(`${outputDir}${file}`)){
-        fs.unlink(`${outputDir}${file}`, err => {
+        fs.unlinkSync(`${outputDir}${file}`, err => {
           if (err) console.log('error' + err);
         })
       }
     }
-  });
+
+    return files;
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 /**
@@ -68,38 +74,38 @@ async function clean() {
  */
 async function compile() {
   await clean()
-  console.log(`\n${buildEmoji}  Compiling icons`);
+
+  console.log(`\n${buildEmoji}  Creating Icon Sprite`);
 
   try {
     let icons = svgstore();
+
     for await (const path of iconsDir) {
       for await (const s of matches) {
-        glob(`${path}${s}*`, {}, (err, files) => {
-          files.forEach(file => {
-            let filename = file.replace(`${path}`, '');
+        let files = glob.sync(`${path}${s}*`, {});
 
-            fs.copyFile(file, `${outputDir}${filename}`, (err) => {
-              if (err) throw err;
+        for (let index = 0; index < files.length; index++) {
+          const file = files[index];
 
-              // Add icon to store
-              icons.add(filename.replace('.svg', ''), fs.readFileSync(file, 'utf8'));
+          let filename = file.replace(`${path}`, '');
 
-              fs.writeFileSync(`${outputDir}icons.svg`, icons);
-            });
-          })
-        })
+          // Add icon to store
+          icons.add(filename.replace('.svg', ''), fs.readFileSync(file, 'utf8'));
+
+          // console.dir(icons);
+          fs.writeFileSync(`${outputDir}icons.svg`, icons.toString());
+        }
       }
     }
+
+    console.log(`\n${buildEmoji}  Hashing Icon Sprite`);
 
     let name = fs.readFileSync(`${outputDir}icons.svg`, 'utf8');
     var hash = crypto.createHash('md5').update(name).digest('hex').substring(0, 7);
 
-    fs.rename(`${outputDir}icons.svg`, `${outputDir}icons-${hash}.svg`, function (err) {
-      if (err) console.log('Error renaming icons: ' + err);
-    });
+    fs.renameSync(`${outputDir}icons.svg`, `${outputDir}icons-${hash}.svg`);
 
-    console.log(`\n${compileEmoji}  Icons compiled.`)
-
+    console.log(`\n${compileEmoji}  Icon sprite created.`);
   } catch (err) {
     console.log('Error! ' + err);
   }
