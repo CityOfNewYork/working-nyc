@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Remove Menus
  * Description: Removes unused menus from the WP Dashboard
- * Author: Mayor's Office for Economic Opportunity
+ * Author: NYC Opportunity
  */
 
 add_action('admin_menu', function() {
