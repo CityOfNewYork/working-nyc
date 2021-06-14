@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Register Post Types
  * Description: Creates custom post types for WorkingNYC
- * Author: Mayor's Office for Economic Opportunity
+ * Author: NYC Opportunity
  */
 
 add_action('init', function() {

@@ -3,7 +3,7 @@
 /**
  * Plugin Name: Registering Menus
  * Description: Adds header and footer menu.
- * Author: Mayor's Office for Economic Opportunity
+ * Author: NYC Opportunity
  */
 
 add_action('init', function() {
