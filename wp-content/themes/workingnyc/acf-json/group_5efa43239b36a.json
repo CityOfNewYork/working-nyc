@@ -1,6 +1,6 @@
 {
     "key": "group_5efa43239b36a",
-    "title": "SEO",
+    "title": "Search Engine Optimization (SEO) meta",
     "fields": [
         {
             "key": "field_5efa4326ea712",
@@ -58,6 +58,23 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_60c26f433adba",
+            "label": "Resources",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<a href=\"https:\/\/developers.google.com\/search\/docs\" target=\"_blank\">Google Search Documentation<\/a> | Breaks down Google Search from the basic steps to the most advanced.\r\n\r\n<a href=\"https:\/\/developers.google.com\/search\/docs\/advanced\/guidelines\/health-government-websites\" target=\"_blank\">Best Practices for Health and Government Websites<\/a> | Primer on Google Search best practices for government websites.\r\n\r\n<a href=\"https:\/\/www.usa.gov\/style-guide\/seo\" target=\"_blank\">USA.gov SEO Guide<\/a> | Guide on keywords for SEO.",
+            "new_lines": "wpautop",
+            "esc_html": 0
         }
     ],
     "location": [
@@ -79,9 +96,10 @@
     "menu_order": 5,
     "position": "normal",
     "style": "default",
-    "label_placement": "top",
+    "label_placement": "left",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "modified": 1623356190
 }

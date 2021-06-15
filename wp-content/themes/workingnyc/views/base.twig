@@ -9,6 +9,23 @@
     <meta name="keywords" content="{{meta_keywords}}">
     <meta name="robots" content="{{meta_robots}}">
 
+    {% if fn('defined', 'META_OG_TYPE') %}<meta property="og:type" content="{{ fn('constant', 'META_OG_TYPE') }}" />{% endif %}
+    <meta property="og:title" content="{% if post.custom.og_title %}{{ post.custom.og_title }}{% else %}{{ fn('wp_get_document_title') }}{% endif %}"/>
+
+    {% if meta_desc or post.custom.og_description %}
+    <meta property="og:description" content="{% if post.custom.og_description %}{{ post.custom.og_description }}{% else %}{{ meta_desc }}{% endif %}"/>
+    {% endif %}
+
+    {% if post.custom.og_image %}
+    <meta property="og:image" content="{{ post.get_field(post.custom._og_image) }}"/>
+    <meta property="og:image:alt" content="{{ fn('get_post_meta', post.custom.og_image, '_wp_attachment_image_alt', true) }}"/>
+    <meta name="twitter:image:alt" content="{{ fn('get_post_meta', post.custom.og_image, '_wp_attachment_image_alt', true) }}"/>
+    {% endif %}
+
+    <meta name="twitter:card" content="summary{% if post.custom.og_image %}_large_image{% endif %}"/>
+
+    {% if fn('defined', 'META_TWITTER_SITE') %}<meta name="twitter:site" content="{{ fn('constant', 'META_TWITTER_SITE') }}" />{% endif %}
+
     <link rel="manifest" href="{{theme.path}}/manifest.json">
     <link href="{{theme.path}}/favicons/favicon@32x32.png" rel="icon" sizes="32x32" type="image/png" />
     <link href="{{theme.path}}/favicons/apple@180x180.png" rel="apple-touch-icon" sizes="180x180" />
@@ -30,7 +47,7 @@
         const warning = document.getElementById("ie-warning");
         const links = warning.querySelectorAll('a')
         let tabindex = "-1";
-        
+
         if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)){
           warning.classList.remove("hidden");
           warning.setAttribute("aria-hidden", "false");
@@ -41,7 +58,6 @@
           link.setAttribute("tabindex", tabindex)
         });
       });
-
     </script>
 
     {{ function('wp_head') }}
