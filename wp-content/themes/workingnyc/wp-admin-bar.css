@@ -1,0 +1,9 @@
+/**
+ * Initialized byt the Customize WordPress Admin plugin.
+ *
+ * @author NYC Opportunity
+ */
+
+ #wpadminbar {
+  position: static !important;
+}

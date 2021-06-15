@@ -57,7 +57,9 @@
   </head>
 
   <body class="color bg-scale-2 pb-8 mb-1 tablet:pb-0 tablet:mb-0">
-  {% include 'services/google-tag-manager-body.twig' %}
+    {{ fn('wp_body_open') }}
+
+    {% include 'services/google-tag-manager-body.twig' %}
 
     <a class="sr-only" href="#content">{{ __('Skip to main content', 'WNYC') }}</a>
 
