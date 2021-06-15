@@ -1,0 +1,122 @@
+{
+    "key": "group_5eb97faaae31b",
+    "title": "Web Share and Open Graph (OG) meta",
+    "fields": [
+        {
+            "key": "field_5eb981510ade2",
+            "label": "Web Share Text",
+            "name": "web_share_text",
+            "type": "text",
+            "instructions": "This text will pre-fill what users say about this content. Limit to 160 characters. Defaults to the \"Intro\" field for program posts.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5eb97fb30adde",
+            "label": "OG Title",
+            "name": "og_title",
+            "type": "text",
+            "instructions": "Will display as the page title in social media posts. Only use if different from the post title.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5eb97ff40addf",
+            "label": "OG Description",
+            "name": "og_description",
+            "type": "text",
+            "instructions": "Will display as the content in social media posts and override the generic page meta description. Leave blank to use the SEO page meta description.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5eb980150ade0",
+            "label": "OG Image",
+            "name": "og_image",
+            "type": "image",
+            "instructions": "Will display as the preview image in social media posts. Be sure the media item has Alt Text for screen readers. Recommended image dimensions are 1200 × 628 pixels.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "full",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_60c26bae798e2",
+            "label": "Resources",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<a href=\"https:\/\/www.figma.com\/file\/CH7ZOCW55SgsDnsTj3UrTi\/?node-id=3533%3A1905\" target=\"_blank\">Working NYC \/ Patterns \/ OG Image Templates<\/a>  |  Figma file for OG Image Templates. The file also includes all Working NYC patterns for the creation of new assets.\r\n\r\n<a href=\"https:\/\/metatags.io\/\" target=\"_blank\">MetaTags.io<\/a>  |  Edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more. This tool can help test out writing content and designing images, illustrating how it will display across platforms.\r\n\r\n<a href=\"https:\/\/www.opengraph.xyz\/\" target=\"_blank\">Open Graph .XYZ; Preview and Generate Open Graph Meta<\/a>  |  This tool can help preview how meta tags look to each platform in a live site. \r\n\r\n<a href=\"https:\/\/developers.facebook.com\/tools\/debug\/\" target=\"_blank\">Facebook OG Debugger<\/a> |  This tool can help debug issues with the display of cards on Facebook.\r\n\r\n<a href=\"https:\/\/cards-dev.twitter.com\/validator\" target=\"_blank\">Twitter Card Validator<\/a>  |  This tool can help debug issues with the display of Twitter Cards.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "!=",
+                "value": "gc_templates"
+            }
+        ]
+    ],
+    "menu_order": 6,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "modified": 1623355066
+}
