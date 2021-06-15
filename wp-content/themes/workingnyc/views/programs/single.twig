@@ -19,7 +19,7 @@
           ],
           web_share: {
             'title': post.program_title,
-            'text': post.get_field('program_intro')|striptags,
+            'text': (post.web_share_text) ? post.web_share_text : post.get_field('program_intro')|striptags,
             'url': fn('wp_get_shortlink')
           }
         } %}
