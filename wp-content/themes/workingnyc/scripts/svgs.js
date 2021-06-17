@@ -6,16 +6,16 @@ const crypto = require('crypto');
 /**
  * Config
  */
+
 const iconsDir = [
   'node_modules/@nycopportunity/working-patterns/dist/svg/',
   'node_modules/feather-icons/dist/icons/'
 ];
 
-const matches = [
+const sprite = [
   'icon-',
   'logo-',
   'option-',
-  'shape-',
   'select-',
   'arrow-',
   'chevron-',
@@ -37,26 +37,32 @@ const matches = [
   'share-2'
 ];
 
+const copy = [
+  'shape-wnyc-a.svg',
+  'shape-wnyc-b.svg',
+  'shape-wnyc-c.svg'
+];
+
 const outputDir = `${process.env.PWD}/assets/svg/`;
 
 /**
  * Emojis
  */
-const buildEmoji = '\u{1f6e0}';
-const cleanEmoji = '\u{267b}';
-const compileEmoji = '\u{2728}';
+const emojiBuild = '\u{1F6E0} ';
+const emojiClean = '\u{1F5D1} ';
+const emojiSuccess = '\u{2728}';
 
 /**
  * Remove previous files
  */
 async function clean() {
-  console.log(`${cleanEmoji}  Removing existing files`);
+  console.log(`${emojiClean} Removing existing files`);
 
   try {
     let files = fs.readdirSync(`${outputDir}`);
 
     for (const file of files) {
-      if (fs.existsSync(`${outputDir}${file}`)){
+      if (fs.existsSync(`${outputDir}${file}`)) {
         fs.unlinkSync(`${outputDir}${file}`, err => {
           if (err) console.log('error' + err);
         })
@@ -70,18 +76,16 @@ async function clean() {
 }
 
 /**
- * Copy svgs and generate store
+ * Copy SVG Source into SVG Sprite
  */
-async function compile() {
-  await clean()
-
-  console.log(`\n${buildEmoji}  Creating Icon Sprite`);
+async function createSprite() {
+  console.log(`\n${emojiBuild} Creating SVG sprite`);
 
   try {
     let icons = svgstore();
 
     for await (const path of iconsDir) {
-      for await (const s of matches) {
+      for await (const s of sprite) {
         let files = glob.sync(`${path}${s}*`, {});
 
         for (let index = 0; index < files.length; index++) {
@@ -98,20 +102,48 @@ async function compile() {
       }
     }
 
-    console.log(`\n${buildEmoji}  Hashing Icon Sprite`);
+    console.log(`\n${emojiBuild} Hashing SVG sprite`);
 
     let name = fs.readFileSync(`${outputDir}icons.svg`, 'utf8');
     var hash = crypto.createHash('md5').update(name).digest('hex').substring(0, 7);
 
     fs.renameSync(`${outputDir}icons.svg`, `${outputDir}icons-${hash}.svg`);
 
-    console.log(`\n${compileEmoji}  Icon sprite created.`);
+    console.log(`\n${emojiSuccess} Icon sprite created`);
+
+    return true;
   } catch (err) {
     console.log('Error! ' + err);
   }
 }
 
 /**
- * Execute Icons
+ * Copy Files
  */
-compile();
+async function copyFiles() {
+  try {
+    for (let index = 0; index < copy.length; index++) {
+      const file = copy[index];
+
+      fs.copyFileSync(`${iconsDir[0]}${file}`, `${outputDir}${file}`);
+
+      console.log(`\n${emojiSuccess} Copied ${file} to ${outputDir.replace(process.env.PWD, '')}`);
+    }
+
+    return true;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+/**
+ * Create Icon Sprite
+ */
+
+(async () => {
+  await clean();
+
+  await createSprite();
+
+  await copyFiles();
+})();
