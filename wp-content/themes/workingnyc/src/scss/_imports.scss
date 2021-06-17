@@ -1,95 +1,31 @@
 @charset 'utf-8';
 
-/**
- * Major !defaults that will generate different stylesheets
- */
+/***********
+ * Defaults
+ ***********/
 
 $language: '' !default;
 
-/**
- * Import Everything
- */
+/********************
+ * Custom Properties
+ ********************/
 
-// @forward '@nycopportunity/working-patterns/src/scss/imports';          // All non-color defining styles
-// @forward '@nycopportunity/working-patterns/src/utilities/color/color'; // Since we don't need a separate stylesheet for color, currently. If using a theme switcher, these could go into separate stylesheets in a similar format to languages
-// @forward '@nycopportunity/working-patterns/src/utilities/color/color' with ($mode: 'light'); // Alternate color example, this would be similar
+@forward '@nycopportunity/pattern-attribution/src/tokens';
 
-/**
- * Alt: import main pattern blocks
- */
+/*****************************
+ * Import main pattern blocks
+ *****************************/
 
 @forward '@nycopportunity/working-patterns/src/utilities/fonts/fonts';     // If @font-face is used it needs to be imported before all other declarations.
 @forward '@nycopportunity/working-patterns/src/scss/elements';             // All Elements
 @forward '@nycopportunity/working-patterns/src/scss/components';           // All Components
 @forward '@nycopportunity/working-patterns/src/scss/objects';              // All Objects
+@forward '@nycopportunity/pattern-attribution/src/attribution';
 @forward '@nycopportunity/working-patterns/src/elements/base/first-last';  // Base elements that need to be included after other patterns to take effect
 @forward '@nycopportunity/working-patterns/src/scss/utilities';            // All Utilities
 @forward '@nycopportunity/working-patterns/dist/styles/_tailwindcss.scss'; // Tailwindcss
 @forward '@nycopportunity/working-patterns/src/utilities/color/color';     // Since we don't need a separate stylesheet for color, currently. If using a theme switcher, these could go into separate stylesheets in a similar format to languages
-// @forward '@nycopportunity/working-patterns/src/utilities/color/color' with ($mode: 'light'); // Alternate color example with forwarding
 
-/**
- * Alt: individual imports
- */
-
-/**********
-* Elements
-***********/
-
-// @import '@nycopportunity/working-patterns/src/elements/badge/badge';
-// @import '@nycopportunity/working-patterns/src/elements/base/base';
-// @import '@nycopportunity/working-patterns/src/elements/buttons/buttons';
-// @import '@nycopportunity/working-patterns/src/elements/divider/divider';
-// @import '@nycopportunity/working-patterns/src/elements/forms/forms';
-// @import '@nycopportunity/working-patterns/src/elements/icons/icons';
-// @import '@nycopportunity/working-patterns/src/elements/inputs/inputs';
-// @import '@nycopportunity/working-patterns/src/elements/labels/labels';
-// @import '@nycopportunity/working-patterns/src/elements/layouts/layouts';
-// @import '@nycopportunity/working-patterns/src/elements/links/links';
-// @import '@nycopportunity/working-patterns/src/elements/nav/nav';
-// @import '@nycopportunity/working-patterns/src/elements/options/options';
-// @import '@nycopportunity/working-patterns/src/elements/selects/selects';
-// @import '@nycopportunity/working-patterns/src/elements/tables/tables';
-
-/*************
- * Components
- *************/
-
-// @import '@nycopportunity/working-patterns/src/components/accordion/accordion';
-// @import '@nycopportunity/working-patterns/src/components/alert/alert';
-// @import '@nycopportunity/working-patterns/src/components/card/card';
-// @import '@nycopportunity/working-patterns/src/components/dropdown/dropdown';
-// @import '@nycopportunity/working-patterns/src/components/question/question';
-// @import '@nycopportunity/working-patterns/src/components/utility/utility';
-// @import '@nycopportunity/working-patterns/src/components/web-share/web-share';
-
-/**********
- * Objects
- **********/
-
-// @import '@nycopportunity/working-patterns/src/objects/banner/banner';
-// @import '@nycopportunity/working-patterns/src/objects/footer/footer';
-// @import '@nycopportunity/working-patterns/src/objects/header/header';
-// @import '@nycopportunity/working-patterns/src/objects/mobile-menu/mobile-menu';
-// @import '@nycopportunity/working-patterns/src/objects/navigation/navigation';
-// @import '@nycopportunity/working-patterns/src/objects/newsletter/newsletter';
-// @import '@nycopportunity/working-patterns/src/objects/search/search';
-// @import '@nycopportunity/working-patterns/src/objects/text-controller/text-controller';
-
-/***********
-* Utilities
-************/
-
-// @import '@nycopportunity/working-patterns/src/utilities/animate/animate';
-// @import '@nycopportunity/working-patterns/src/utilities/background/background';
-// @import '@nycopportunity/working-patterns/src/utilities/body/body';
-// @import '@nycopportunity/working-patterns/src/utilities/clearfix/clearfix';
-// @import '@nycopportunity/working-patterns/src/utilities/color/color';
-// @import '@nycopportunity/working-patterns/src/utilities/fonts/fonts';
-// @import '@nycopportunity/working-patterns/src/utilities/margin/margin';
-// @import '@nycopportunity/working-patterns/src/utilities/padding/padding';
-// @import '@nycopportunity/working-patterns/src/utilities/scroll/scroll';
-// @import '@nycopportunity/working-patterns/dist/styles/_tailwindcss.scss';
-// @import '@nycopportunity/working-patterns/src/utilities/text/text';
-// @import '@nycopportunity/working-patterns/src/utilities/toggle/toggle';
-// @import '@nycopportunity/working-patterns/src/utilities/typography/typography';
+:root {
+  --o-attribution-section-borders: 1px solid var(--color-scale-4);
+}

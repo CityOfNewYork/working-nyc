@@ -35,11 +35,11 @@ const watcher = chokidar.watch(`${process.env.PWD}/src/scss`, {
 /**
  * Emojis
  */
-const watchEmoji = '\u{1f440}';
-const buildEmoji = '\u{1f6e0}';
-const stylesEmoji = '\u{1f485}';
-const cleanEmoji = '\u{267b}';
-const compileEmoji = '\u{2728}';
+const emojiWatch = '\u{1F440}';
+const emojiBuild = '\u{1F6E0} ';
+const emojiStyles = '\u{1F5D1}';
+const emojiClean = '\u{1F5D1} ';
+const emojiCompile = '\u{2728}';
 
 /**
  * Config - Sass
@@ -88,7 +88,7 @@ async function styles(style) {
 
     await fs.writeFileSync(filenameExport, result.css);
 
-    console.log(`\n${compileEmoji}  Stylesheet created: ${filename}-${hash}.css`)
+    console.log(`\n${emojiCompile} Stylesheet created: ${filename}-${hash}.css`)
 
   } catch (err) {
     console.log('Error! ' + err);
@@ -99,7 +99,7 @@ async function styles(style) {
  * Remove previous files
  */
 async function clean() {
-  console.log(`\n${cleanEmoji}  Removing existing files`);
+  console.log(`\n${emojiClean} Removing existing files`);
 
   fs.readdir(`${outputDir}`, (err, files) => {
     if (err) console.log(err);
@@ -128,14 +128,14 @@ async function compile() {
  * Execute Styles
  */
 if (args.watch) {
-  console.log(`\n${watchEmoji}  Watching styles begins`);
+  console.log(`\n${emojiWatch} Watching styles begins`);
 
   watcher.on('change', (changed) => {
-    console.log(`\n${stylesEmoji}  Change detected in ` + changed.replace(`${process.env.PWD}`, ''));
+    console.log(`\n${emojiStyles}  Change detected in ` + changed.replace(`${process.env.PWD}`, ''));
     compile();
   });
 } else {
-  console.log(`\n${buildEmoji}  Building styles begins`);
+  console.log(`\n${emojiBuild} Building styles begins`);
 
   compile();
   watcher.close();
