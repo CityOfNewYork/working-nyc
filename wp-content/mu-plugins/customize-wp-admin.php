@@ -20,7 +20,7 @@ add_action('wp_before_admin_bar_render', function() {
   $wp_admin_bar->remove_node('customize');
   $wp_admin_bar->remove_node('comments');
   $wp_admin_bar->remove_node('updates');
-  $wp_admin_bar->remove_node('edit');
+  // $wp_admin_bar->remove_node('edit');
 }, 99);
 
 /**
