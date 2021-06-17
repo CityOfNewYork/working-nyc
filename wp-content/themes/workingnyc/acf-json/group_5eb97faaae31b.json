@@ -7,7 +7,7 @@
             "label": "Web Share Text",
             "name": "web_share_text",
             "type": "text",
-            "instructions": "This text will pre-fill what users say about this content. Limit to 160 characters. Defaults to the \"Intro\" field for program posts.",
+            "instructions": "This text will pre-fill what users say about this content. Limit to the size of a tweet (160 characters). For <a href=\"wp-admin\/wp-admin\/edit.php?post_type=programs\">programs<\/a>, this field defaults to the <b>Intro<\/b> field value if blank.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -26,7 +26,7 @@
             "label": "OG Title",
             "name": "og_title",
             "type": "text",
-            "instructions": "Will display as the page title in social media posts. Only use if different from the post title.",
+            "instructions": "This will display as the first line in social media cards. If blank, the document title will be used by default. For <a href=\"wp-admin\/wp-admin\/wp-admin\/edit.php?post_type=programs\">programs<\/a>, this will default to the <b>Program Title<\/b> field value.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -45,7 +45,7 @@
             "label": "OG Description",
             "name": "og_description",
             "type": "text",
-            "instructions": "Will display as the content in social media posts and override the generic page meta description. Leave blank to use the SEO page meta description.",
+            "instructions": "This will display as the second line content in social media cards. If blank, the SEO meta description will be used by default. For <a href=\"wp-admin\/wp-admin\/wp-admin\/edit.php?post_type=programs\">programs<\/a>, this field defaults to the <b>Intro<\/b> field value.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -64,7 +64,7 @@
             "label": "OG Image",
             "name": "og_image",
             "type": "image",
-            "instructions": "Will display as the preview image in social media posts. Be sure the media item has Alt Text for screen readers. Recommended image dimensions are 1200 × 628 pixels.",
+            "instructions": "This will display as the preview image in social media posts. Be sure the media item has <b>alt text<\/b> for screen readers (click \"Edit Image\" here or in the Media Library to modify the alt text). The recommended image dimensions are 1200 × 628 pixels.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -72,7 +72,7 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "url",
+            "return_format": "id",
             "preview_size": "full",
             "library": "all",
             "min_width": "",
@@ -96,7 +96,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<a href=\"https:\/\/www.figma.com\/file\/CH7ZOCW55SgsDnsTj3UrTi\/?node-id=3533%3A1905\" target=\"_blank\">Working NYC \/ Patterns \/ OG Image Templates<\/a>  |  Figma file for OG Image Templates. The file also includes all Working NYC patterns for the creation of new assets.\r\n\r\n<a href=\"https:\/\/metatags.io\/\" target=\"_blank\">MetaTags.io<\/a>  |  Edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more. This tool can help test out writing content and designing images, illustrating how it will display across platforms.\r\n\r\n<a href=\"https:\/\/www.opengraph.xyz\/\" target=\"_blank\">Open Graph .XYZ; Preview and Generate Open Graph Meta<\/a>  |  This tool can help preview how meta tags look to each platform in a live site. \r\n\r\n<a href=\"https:\/\/developers.facebook.com\/tools\/debug\/\" target=\"_blank\">Facebook OG Debugger<\/a> |  This tool can help debug issues with the display of cards on Facebook.\r\n\r\n<a href=\"https:\/\/cards-dev.twitter.com\/validator\" target=\"_blank\">Twitter Card Validator<\/a>  |  This tool can help debug issues with the display of Twitter Cards.",
+            "message": "<a href=\"https:\/\/metatags.io\/\" target=\"_blank\">MetaTags.io<\/a>  |  Edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more. This tool can help test out writing content and designing images, illustrating how it will display across platforms.\r\n\r\n<a href=\"https:\/\/www.opengraph.xyz\/\" target=\"_blank\">Open Graph .XYZ; Preview and Generate Open Graph Meta<\/a>  |  This tool can help preview how meta tags look to each platform in a live site. \r\n\r\n<a href=\"https:\/\/www.figma.com\/file\/CH7ZOCW55SgsDnsTj3UrTi\/?node-id=3533%3A1905\" target=\"_blank\">Working NYC \/ Patterns \/ OG Image Templates<\/a>  |  Figma file for OG Image Templates. The file also includes all Working NYC patterns for the creation of new assets.\r\n\r\n<a href=\"https:\/\/developers.facebook.com\/tools\/debug\/\" target=\"_blank\">Facebook OG Debugger<\/a> |  This tool can help debug issues with the display of cards on Facebook.\r\n\r\n<a href=\"https:\/\/cards-dev.twitter.com\/validator\" target=\"_blank\">Twitter Card Validator<\/a>  |  This tool can help debug issues with the display of Twitter Cards.",
             "new_lines": "wpautop",
             "esc_html": 0
         }
@@ -105,8 +105,27 @@
         [
             {
                 "param": "post_type",
+                "operator": "==",
+                "value": "page"
+            },
+            {
+                "param": "page_template",
                 "operator": "!=",
-                "value": "gc_templates"
+                "value": "template-home-page.php"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "programs"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "announcements"
             }
         ]
     ],
@@ -118,5 +137,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1623355066
+    "modified": 1623872442
 }

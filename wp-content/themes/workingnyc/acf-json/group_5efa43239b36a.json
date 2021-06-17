@@ -1,13 +1,13 @@
 {
     "key": "group_5efa43239b36a",
-    "title": "Search Engine Optimization (SEO) meta",
+    "title": "Search Engine (SEO) meta",
     "fields": [
         {
             "key": "field_5efa4326ea712",
             "label": "Meta Description",
             "name": "meta_desc",
             "type": "text",
-            "instructions": "",
+            "instructions": "Meta descriptions should be around or less than 150 words, include keywords and action words visitors are using when searching, written in plain language, and unique to each page. For <a href=\"wp-admin\/edit.php?post_type=programs\">programs<\/a>, this field defaults to the <b>Intro<\/b> value if blank.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -26,7 +26,7 @@
             "label": "Meta Keywords",
             "name": "meta_keywords",
             "type": "text",
-            "instructions": "",
+            "instructions": "Keywords are only used by search engines other than Google. They should reflect relevant and actionable terms visitors are using when searching.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -45,7 +45,7 @@
             "label": "Meta Robots",
             "name": "meta_robots",
             "type": "text",
-            "instructions": "noindex, nofollow, none, noarchive",
+            "instructions": "This tag instructs robots on how to index the page content such as text, images, and links.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -72,7 +72,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "<a href=\"https:\/\/developers.google.com\/search\/docs\" target=\"_blank\">Google Search Documentation<\/a> | Breaks down Google Search from the basic steps to the most advanced.\r\n\r\n<a href=\"https:\/\/developers.google.com\/search\/docs\/advanced\/guidelines\/health-government-websites\" target=\"_blank\">Best Practices for Health and Government Websites<\/a> | Primer on Google Search best practices for government websites.\r\n\r\n<a href=\"https:\/\/www.usa.gov\/style-guide\/seo\" target=\"_blank\">USA.gov SEO Guide<\/a> | Guide on keywords for SEO.",
+            "message": "<a href=\"https:\/\/metatags.io\/\" target=\"_blank\">MetaTags.io<\/a> | Edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more. This tool can help test out writing content and designing images, illustrating how it will display across platforms.\r\n\r\n<a href=\"https:\/\/www.opengraph.xyz\/\" target=\"_blank\">Open Graph .XYZ; Preview and Generate Open Graph Meta<\/a>  |  This tool can help preview how meta tags look to each platform in a live site. \r\n\r\n<a href=\"https:\/\/developers.google.com\/search\/docs\" target=\"_blank\">Google Search Documentation<\/a> | Breaks down Google Search from the basic steps to the most advanced.\r\n\r\n<a href=\"https:\/\/developers.google.com\/search\/docs\/advanced\/guidelines\/health-government-websites\" target=\"_blank\">Best Practices for Health and Government Websites<\/a> | Primer on Google Search best practices for government websites.\r\n\r\n<a href=\"https:\/\/digital.gov\/2017\/04\/14\/steps-towards-seo-meta-descriptions-on-medlineplus\/\" target=\"_blank\">Steps Towards SEO, Meta Descriptions<\/a> | Digital.gov resource\r\n\r\n<a href=\"https:\/\/digital.gov\/2013\/05\/29\/government-websites-and-keyword-search-strategy\/\" target=\"_blank\">Government Websites and Keyword Search Strategy<\/a> | Digital.gov resource\r\n\r\n<a href=\"https:\/\/moz.com\/learn\/seo\/robots-meta-directives\" target=\"_blank\">Robots Meta Directives<\/a> | An overview of using robots meta to instruct search engines on how to crawl content on the page.",
             "new_lines": "wpautop",
             "esc_html": 0
         }
@@ -83,6 +83,11 @@
                 "param": "post_type",
                 "operator": "==",
                 "value": "page"
+            },
+            {
+                "param": "page_template",
+                "operator": "!=",
+                "value": "template-home-page.php"
             }
         ],
         [
@@ -90,6 +95,13 @@
                 "param": "post_type",
                 "operator": "==",
                 "value": "programs"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "announcements"
             }
         ]
     ],
@@ -101,5 +113,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1623356190
+    "modified": 1623871598
 }

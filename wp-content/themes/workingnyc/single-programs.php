@@ -7,11 +7,8 @@ $context = Timber::get_context();
 $post = Timber::get_post();
 
 $context['post'] = $post;
-$context['modified_date'] = WorkingNYC\modified_date_formatted( $post->ID );
-
-$context['meta_desc'] = WorkingNYC\get_meta_desc($post->ID);
-$context['meta_keywords'] = WorkingNYC\get_meta_keywords($post->ID);
-$context['meta_robots'] = WorkingNYC\get_meta_robots($post->ID);
+$context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
+$context['meta'] = new WorkingNYC\Meta($post->ID);
 
 /**
  * Generate schema for page
@@ -27,13 +24,13 @@ foreach ($arr_ed as $value) {
 }
 
 if ($ed == true){
-  array_push($schemas, 
+  array_push($schemas,
     WNYCSchema\educational_organization($post)
   );
-} 
+}
 
 if ($ed == false && $post->program_agency != ''){
-  array_push($schemas, 
+  array_push($schemas,
     WNYCSchema\government_service($post),
     WNYCSchema\government_organization($post)
   );

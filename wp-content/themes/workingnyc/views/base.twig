@@ -5,26 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <meta name="description" content="{{meta_desc}}">
-    <meta name="keywords" content="{{meta_keywords}}">
-    <meta name="robots" content="{{meta_robots}}">
+    {% if meta.description %}<meta name="description" content="{{ meta.description }}" />{% endif %}
+    {% if meta.keywords %}<meta name="keywords" content="{{ meta.keywords }}" />{% endif %}
+    {% if meta.robots %}<meta name="robots" content="{{ meta.robots }}" />{% endif %}
 
-    {% if fn('defined', 'META_OG_TYPE') %}<meta property="og:type" content="{{ fn('constant', 'META_OG_TYPE') }}" />{% endif %}
-    <meta property="og:title" content="{% if post.custom.og_title %}{{ post.custom.og_title }}{% else %}{{ fn('wp_get_document_title') }}{% endif %}"/>
+    {% if meta.og_type %}<meta property="og:type" content="{{ meta.og_type }}" />{% endif %}
+    {% if meta.og_title %}<meta property="og:title" content="{{ meta.og_title }}" />{% endif %}
 
-    {% if meta_desc or post.custom.og_description %}
-    <meta property="og:description" content="{% if post.custom.og_description %}{{ post.custom.og_description }}{% else %}{{ meta_desc }}{% endif %}"/>
+    {% if meta.og_description %}<meta property="og:description" content="{{ meta.og_description }}" />{% endif %}
+
+    {% if meta.og_image %}
+    <meta property="og:image" content="{{ meta.og_image.url }}" />
+    <meta property="og:image:alt" content="{{ meta.og_image.alt }}" />
+    <meta name="twitter:image:alt" content="{{ meta.og_image.alt }}" />
     {% endif %}
 
-    {% if post.custom.og_image %}
-    <meta property="og:image" content="{{ post.get_field(post.custom._og_image) }}"/>
-    <meta property="og:image:alt" content="{{ fn('get_post_meta', post.custom.og_image, '_wp_attachment_image_alt', true) }}"/>
-    <meta name="twitter:image:alt" content="{{ fn('get_post_meta', post.custom.og_image, '_wp_attachment_image_alt', true) }}"/>
-    {% endif %}
-
-    <meta name="twitter:card" content="summary{% if post.custom.og_image %}_large_image{% endif %}"/>
-
-    {% if fn('defined', 'META_TWITTER_SITE') %}<meta name="twitter:site" content="{{ fn('constant', 'META_TWITTER_SITE') }}" />{% endif %}
+    {% if meta.twitter_card_type %}<meta name="twitter:card" content="{{ meta.twitter_card_type }}" />{% endif %}
+    {% if meta.twitter_site %}<meta name="twitter:site" content="{{ meta.twitter_site }}" />{% endif %}
 
     <link rel="manifest" href="{{theme.path}}/manifest.json">
     <link href="{{theme.path}}/favicons/favicon@32x32.png" rel="icon" sizes="32x32" type="image/png" />
