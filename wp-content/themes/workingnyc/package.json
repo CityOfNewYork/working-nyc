@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@nycopportunity/access-patterns": "^0.15.13",
+    "@nycopportunity/pattern-attribution": "^1.0.3",
     "@nycopportunity/patterns-framework": "^1.0.0-14",
     "@nycopportunity/working-patterns": "0.0.1-42",
     "@vue/compiler-sfc": "^3.0.0-rc.2",
