@@ -1,13 +1,17 @@
 <?php
 
-/*
-Template Name: Home Page
-*/
+/**
+ * Template Name: Home Page
+ *
+ * @author NYC Opportunity
+ */
 
-require_once get_stylesheet_directory() . '/timber-posts/Announcement.php';
+require_once WorkingNYC\timber_post('Announcement');
 
 /**
  * Context
+ *
+ * @author NYC Opportunity
  */
 
 $context = Timber::get_context();
@@ -17,6 +21,8 @@ $context['post'] = $post;
 
 /**
  * Get the 4 top announcements based on menu order
+ *
+ * @author NYC Opportunity
  */
 
 $context['announcements'] = array_map(function($post) {
@@ -28,9 +34,7 @@ $context['announcements'] = array_map(function($post) {
     'order' => 'ASC',
   )));
 
-$context['meta_desc'] = WorkingNYC\get_meta_desc($post->ID);
-$context['meta_keywords'] = WorkingNYC\get_meta_keywords($post->ID);
-$context['meta_robots'] = WorkingNYC\get_meta_robots($post->ID);
+$context['meta'] = new WorkingNYC\Meta($post->ID);
 
 $context['featured_posts'] = Templating\get_featured_posts($post->ID);
 $context['questionnaire_post_type'] = Templating\get_questionnaire_post_type($post->ID);
@@ -39,15 +43,17 @@ $context['questionnaire_qs'] = Templating\get_questionnaire_qs($post->ID);
 
 /**
  * Generate schema for page
+ *
+ * @author NYC Opportunity
  */
+
 $schemas = array();
-array_push($schemas, 
+
+array_push($schemas,
   WNYCSchema\website(),
   WNYCSchema\organization()
 );
 
 $context['schema'] = json_encode($schemas, JSON_UNESCAPED_SLASHES);
 
-$template = 'home.twig';
-
-Timber::render( $template, $context );
+Timber::render('home.twig', $context);

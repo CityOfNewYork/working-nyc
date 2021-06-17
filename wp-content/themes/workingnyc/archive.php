@@ -18,8 +18,9 @@ require_once WorkingNYC\timber_post('Page');
 
 $path = $wp->request; // Request should match the page permalink and post type
 
-$ID = defined('ICL_LANGUAGE_CODE')
-  ? icl_object_id(get_page_by_path($path)->ID, 'page', true, ICL_LANGUAGE_CODE) : get_page_by_path($path)->ID;
+$ID = get_page_by_path($path)->ID;
+
+$ID = defined('ICL_LANGUAGE_CODE') ? icl_object_id(get_page_by_path($path)->ID, 'page', true, ICL_LANGUAGE_CODE) : $ID;
 
 $page = new WorkingNYC\Page($ID);
 
@@ -38,12 +39,8 @@ $context['post_type'] = Templating\get_post_type($path);
 $context['filters'] = Templating\get_filters($path);
 $context['filters_label'] = Templating\get_filter_label($path);
 
-$context['meta_desc'] = $page->custom['meta_desc'];
-$context['meta_keywords'] = $page->custom['meta_keywords'];
-$context['meta_robots'] = $page->custom['meta_robots'];
-
-$context['post'] = $page;
-
+$context['meta'] = new WorkingNYC\Meta($ID);
+// $context['post'] = $page;
 $context['posts'] = Timber::get_posts();
 
 /**
