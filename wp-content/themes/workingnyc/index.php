@@ -10,4 +10,4 @@ $context = Timber::get_context();
 
 $template = 'index.twig';
 
-Timber::render( $template, $context );
+Timber::render('index.twig', $context);
