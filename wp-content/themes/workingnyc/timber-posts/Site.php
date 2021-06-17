@@ -14,9 +14,11 @@ use TimberMenu;
 class Site extends TimberSite {
 
   function __construct() {
-    add_theme_support( 'title-tag' );
-    add_theme_support( 'menus' );
-    add_filter( 'timber_context', array( $this, 'add_to_context' ) );
+    add_theme_support('title-tag');
+
+    add_theme_support('menus');
+
+    add_filter('timber_context', array($this, 'add_to_context'));
 
     parent::__construct();
   }
@@ -24,7 +26,7 @@ class Site extends TimberSite {
   /**
    * Timber Context Object
    */
-  function add_to_context ( $context ) {
+  function add_to_context ($context) {
     $context['language_code'] = ICL_LANGUAGE_CODE;
     $context['newsletter_link'] = ICL_LANGUAGE_CODE == 'en'? '/newsletter' : '/'.ICL_LANGUAGE_CODE.'/newsletter';
     $context['direction'] = (ICL_LANGUAGE_CODE === 'ar' || ICL_LANGUAGE_CODE === 'ur') ? 'rtl' : 'ltr';

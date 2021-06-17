@@ -14,7 +14,7 @@ class Page extends Timber\Post {
   /**
    * Constructor
    *
-   * @return  Object  Instance of Announcement
+   * @return  Object  Instance of Page
    */
   public function __construct($pid = false) {
     if ($pid) {

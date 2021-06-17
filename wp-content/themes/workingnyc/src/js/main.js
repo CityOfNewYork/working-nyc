@@ -81,16 +81,18 @@ import headerIds from 'modules/header-ids'
   document.querySelector(wpmlClasses).removeAttribute('class');
 
   // Add tabindex=-1 to wpml language links
-  const wpmlLinks=document.querySelectorAll('.wpml-ls-link');
+  const wpmlLinks = document.querySelectorAll('.wpml-ls-link');
+
   wpmlLinks.forEach(function (link) {
-    link.setAttribute("tabindex", "-1");
+    link.setAttribute('tabindex', '-1');
   })
 
-  if (document.querySelector('[id*=vue]')){
-    new Programs()
+  if (document.querySelector('[id*=vue]')) {
+    new Programs();
   }
-  if (document.querySelector('[id*=answer-a-few-questions]')){
-    new Questionnaire()
+
+  if (document.querySelector('[id*=answer-a-few-questions]')) {
+    new Questionnaire();
   }
 
   new Dropdown();
@@ -98,6 +100,7 @@ import headerIds from 'modules/header-ids'
   /**
    * Newsletter Archive Landing
   */
+
   let element = document.querySelector('[data-js="newsletter-form"]')
   let params = new URLSearchParams(window.location.search);
   let response = params.get('response');
@@ -111,9 +114,10 @@ import headerIds from 'modules/header-ids'
     newsletter.form.selectors.ERROR_MESSAGE_PARENT = '.c-question__container';
 
     // display error on invalid form
-    submit.addEventListener('click', function(){
+    submit.addEventListener('click', function() {
       if (response == null) {
-        error.setAttribute("aria-hidden", "false");
+        error.setAttribute('aria-hidden', 'false');
+
         error.classList.remove('hidden')
       }
     })

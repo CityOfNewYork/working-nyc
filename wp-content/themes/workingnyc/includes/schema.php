@@ -11,7 +11,7 @@ function website() {
   $schema = Schema::webSite()
     ->url(get_bloginfo('url'))
     ->description(get_bloginfo('description'));
-  
+
   return $schema->toArray();
 }
 
@@ -24,7 +24,7 @@ function organization() {
     ->email(get_bloginfo('admin_email'))
     ->url(get_bloginfo('url'))
     ->logo(get_bloginfo('url').'/wp-content/themes/workingnyc/assets/svg/logo-wnyc-standard.svg');
-  
+
   return $schema->toArray();
 }
 
@@ -34,7 +34,7 @@ function organization() {
 function government_organization($program = null) {
   $schema = Schema::governmentOrganization()
     ->name($program->program_title);
-  
+
   return $schema->toArray();
 }
 
@@ -54,7 +54,7 @@ function government_service($program = null) {
     ->audience(Schema::Audience()
       ->name(implode(', ', $program->terms('populations')))
 );
-  
+
   return $schema->toArray();
 }
 
@@ -64,6 +64,6 @@ function government_service($program = null) {
 function educational_organization($program = null) {
   $schema = Schema::educationalOrganization()
     ->name($program->program_agency !=''? $program->program_agency: $program->program_provider);
-  
+
   return $schema->toArray();
 }
