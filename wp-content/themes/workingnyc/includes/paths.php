@@ -7,14 +7,46 @@
 namespace WorkingNYC;
 
 /**
- * Returns the path of a controller file in the /controllers directory.
+ * Returns the path of a Timber Post file in the /timber-posts directory.
  *
- * @param   String  $name  The name of the controller to retrieve.
+ * @param   String  $name  The name of the Timber Post to retrieve.
  *
- * @return  String         The full path of the controller file.
+ * @return  String         The full path of the Timber Post file.
  */
 function timber_post($name) {
   return get_stylesheet_directory() . "/timber-posts/$name.php";
+}
+
+/**
+ * Includes (PHP Libraries)
+ */
+
+/**
+ * Returns the path of an include file in the /includes directory.
+ *
+ * @param   String  $name  The name of the include to retrieve.
+ *
+ * @return  String         The full path of the include file.
+ */
+function inc($name = false) {
+  if ($name) {
+    return get_stylesheet_directory() . "/includes/$name.php";
+  } else {
+    return get_stylesheet_directory() . '/includes/';
+  }
+}
+
+/**
+ * Require all includes in the /includes directory
+ */
+function require_includes() {
+  foreach (scandir(inc()) as $filename) {
+    $path = inc() . $filename;
+
+    if (is_file($path)) {
+      require_once $path;
+    }
+  }
 }
 
 /**
@@ -47,7 +79,7 @@ function require_blocks() {
     $path = block() . $filename;
 
     if (is_file($path)) {
-      require $path;
+      require_once $path;
     }
   }
 }
@@ -83,7 +115,7 @@ function require_shortcodes($base = 'shortcode') {
     $path = shortcode() . $filename;
 
     if (is_file($path) && $filename != $base . '.php') {
-      require $path;
+      require_once $path;
     }
   }
 }
