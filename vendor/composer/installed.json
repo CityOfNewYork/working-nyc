@@ -1648,6 +1648,26 @@
         "homepage": "https://wordpress.org/plugins/acf-to-rest-api/"
     },
     {
+        "name": "wpackagist-plugin/adminimize",
+        "version": "1.11.7",
+        "version_normalized": "1.11.7.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/adminimize/",
+            "reference": "tags/1.11.7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/adminimize.1.11.7.zip"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/adminimize/"
+    },
+    {
         "name": "wpackagist-plugin/aryo-activity-log",
         "version": "2.5.2",
         "version_normalized": "2.5.2.0",
@@ -1786,6 +1806,26 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/loggedin/"
+    },
+    {
+        "name": "wpackagist-plugin/members",
+        "version": "3.1.5",
+        "version_normalized": "3.1.5.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/members/",
+            "reference": "tags/3.1.5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/members.3.1.5.zip"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/members/"
     },
     {
         "name": "wpackagist-plugin/query-monitor",
