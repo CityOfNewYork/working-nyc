@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9966eb25b56575d0b939ba965a291660",
+    "content-hash": "07319b0507d611420f40614c24bdfb78",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -1353,6 +1353,24 @@
             "homepage": "https://wordpress.org/plugins/acf-to-rest-api/"
         },
         {
+            "name": "wpackagist-plugin/adminimize",
+            "version": "1.11.7",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/adminimize/",
+                "reference": "tags/1.11.7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/adminimize.1.11.7.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/adminimize/"
+        },
+        {
             "name": "wpackagist-plugin/aryo-activity-log",
             "version": "2.5.2",
             "source": {
@@ -1477,6 +1495,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/loggedin/"
+        },
+        {
+            "name": "wpackagist-plugin/members",
+            "version": "3.1.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/members/",
+                "reference": "tags/3.1.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/members.3.1.5.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/members/"
         },
         {
             "name": "wpackagist-plugin/rollbar",
