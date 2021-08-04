@@ -1,14 +1,16 @@
-<nav class="o-header__breadcrumbs">
-	<a href="{{site.url}}">{{ __('Home', 'WNYC')}}</a>
+<nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
+  <a href="{{site.url}}">{{ __('Home', 'WNYC') }}</a>
+
   {% if crumbs %}
     {% for crumb in crumbs %}
       <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-wnyc-ui text-scale-4">
         <use xlink:href="#chevron-right"></use>
       </svg>
+
       {% if crumb.link != '' %}
-        <a href="{{crumb.link}}">{{crumb.label}}</a>
+      <a href="{{ crumb.link }}">{{ crumb.label }}</a>
       {% else %}
-        <b>{{crumb.label}}</b>
+      <a href="#" aria-current="page">{{ crumb.label }}</a>
       {% endif %}
     {% endfor %}
   {% endif %}
