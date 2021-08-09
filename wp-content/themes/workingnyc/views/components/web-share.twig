@@ -18,11 +18,11 @@
           </svg>
           <span>{{__('Close', 'WNYC')}}</span>
         </button>
-        <label class="c-web-share__label flex-1" for="web-share-url" tabindex="-1">{{__('Share this URL', 'WNYC')}}</label>
+        <label class="c-web-share__label flex-1" for="web-share-url-{{ id }}" tabindex="-1">{{__('Share this URL', 'WNYC')}}</label>
       </div>
 
       <div class="c-web-share__input input">
-        <input data-copy-target="web-share-url-{{ id }}" id="web-share-url" name="web-share-url" tabindex="-1" type="text" value="{{this.share.url}}" />
+        <input data-copy-target="web-share-url-{{ id }}" id="web-share-url-{{ id }}" name="web-share-url-{{ id }}" tabindex="-1" type="text" value="{{this.share.url}}" />
       </div>
 
       <div class="c-web-share__items">

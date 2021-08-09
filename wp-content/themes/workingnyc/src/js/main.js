@@ -5,6 +5,7 @@
 /**
  * Polyfills
  */
+
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import 'core-js/features/promise';
@@ -15,40 +16,43 @@ import 'core-js/features/url-search-params';
 
 import 'whatwg-fetch';
 
-import 'matches';
-import 'closest';
-import 'remove';
-import 'foreach';
+import '@nycopportunity/access-patterns/src/utilities/element/closest';
+import '@nycopportunity/access-patterns/src/utilities/element/matches';
+import '@nycopportunity/access-patterns/src/utilities/element/remove';
+import '@nycopportunity/access-patterns/src/utilities/nodelist/foreach';
 
 /**
  * Components
  */
-import Accordion from 'components/accordion/accordion';
-import Dropdown from 'components/dropdown/dropdown';
+
+import Accordion from '@nycopportunity/working-patterns/src/components/accordion/accordion';
+import Dropdown from '@nycopportunity/working-patterns/src/components/dropdown/dropdown';
 
 /**
  * Objects
  */
-import Search from 'objects/search/search';
-import MobileNav from 'objects/mobile-menu/mobile-menu';
+
+import Menu from '@nycopportunity/pattern-menu/src/menu';
 
 /**
-* Utilities
-*/
-import Toggle from 'utilities/toggle/toggle';
-import Icons from 'utilities/icons/icons';
-import Copy from 'utilities/copy/copy';
-import Newsletter from 'utilities/newsletter/newsletter';
-import Track from 'utilities/track/track';
-import WebShare from 'utilities/web-share/web-share';
-import WindowVh from 'utilities/window-vh/window-vh';
+ * Utilities
+ */
+
+import Toggle from '@nycopportunity/pttrn-scripts/src/toggle/toggle';
+import Icons from '@nycopportunity/pttrn-scripts/src/icons/icons';
+import Copy from '@nycopportunity/pttrn-scripts/src/copy/copy';
+import Newsletter from '@nycopportunity/pttrn-scripts/src/newsletter/newsletter';
+import Track from '@nycopportunity/pttrn-scripts/src/track/track';
+import WebShare from '@nycopportunity/pttrn-scripts/src/web-share/web-share';
+import WindowVh from '@nycopportunity/pttrn-scripts/src/window-vh/window-vh';
+import Observe from '@nycopportunity/pttrn-scripts/src/observe/observe';
 
 // Post Types
-import Programs from 'programs';
-import Questionnaire from 'questionnaire';
+import Programs from './programs';
+import Questionnaire from './questionnaire';
 
 // Additional modules
-import headerIds from 'modules/header-ids'
+// import headerIds from 'modules/header-ids'
 
 (function (window) {
   'use strict';
@@ -60,14 +64,12 @@ import headerIds from 'modules/header-ids'
   new Toggle();
   new Accordion();
   new Copy();
-  new MobileNav();
-  new Search();
+  new Menu();
   new Track();
   new WindowVh();
 
-  headerIds();
+  // headerIds();
 
-  // TODO: [WK-251] The web share api isn't triggered for supported devices
   new WebShare({
     fallback: () => {
       new Toggle({
@@ -141,7 +143,68 @@ import headerIds from 'modules/header-ids'
   /**
    * Initialize Google Translate Widget
    */
+
   if (document.documentElement.lang != 'en') {
     googleTranslateElementInit();
   }
+
+  /**
+   * Scrolling Jump Navigation
+   */
+
+  const jumpClassToggle = item => {
+    for (let i = 0; i < item.parentNode.children.length; i++) {
+      const sibling = item.parentNode.children[i];
+
+      if (sibling.classList.contains('no-underline'))
+        sibling.classList.remove('no-underline', 'text-alt');
+    }
+
+    item.classList.add('no-underline', 'text-alt');
+  };
+
+  (element => {
+    if (element) {
+      let activeNavigation = element.querySelectorAll('a[href]');
+
+      for (let i = 0; i < activeNavigation.length; i++) {
+        const a = activeNavigation[i];
+
+        a.addEventListener('click', event => {
+          setTimeout(() => {
+            jumpClassToggle(event.target);
+          }, 200);
+        });
+      }
+    }
+  })(document.querySelector('[data-js*="active-navigation"]'));
+
+  (elements => {
+    elements.forEach(element => {
+      new Observe({
+        element: element,
+        options: {
+          rootMargin: '0px',
+          threshold: [0.15]
+        },
+        trigger: (entry/*, prevEntry*/) => {
+          // If we are anchor jumping and the entry isn't intersecting
+          if (!entry.isIntersecting) return;
+
+          // if the intersection ratio is less than the previous ratio
+          // if (entry.intersectionRatio < prevEntry.intersectionRatio) return;
+
+          let jumpItem = document.querySelector(`a[href="#${entry.target.id}"]`);
+
+          jumpItem.parentNode.scrollTo({
+            left: jumpItem.offsetLeft,
+            top: 0,
+            behavior: 'smooth'
+          });
+
+          jumpClassToggle(jumpItem);
+        }
+      });
+    });
+  })(document.querySelectorAll(Observe.selector));
 })(window)

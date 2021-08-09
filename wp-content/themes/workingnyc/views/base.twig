@@ -69,7 +69,9 @@
     {% endif %}
   </head>
 
-  <body class="color bg-scale-2 pb-8 mb-1 tablet:pb-0 tablet:mb-0">
+  {% set navigationSpacing = 'pb-8 mb-2 tablet:pb-0 tablet:mb-0' %}
+
+  <body class="color bg-scale-2">
     {{ fn('wp_body_open') }}
 
     {% include 'services/google-tag-manager-body.twig' %}
