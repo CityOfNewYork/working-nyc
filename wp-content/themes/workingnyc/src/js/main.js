@@ -183,16 +183,8 @@ import Questionnaire from './questionnaire';
     elements.forEach(element => {
       new Observe({
         element: element,
-        options: {
-          rootMargin: '0px',
-          threshold: [0.15]
-        },
-        trigger: (entry/*, prevEntry*/) => {
-          // If we are anchor jumping and the entry isn't intersecting
+        trigger: (entry) => {
           if (!entry.isIntersecting) return;
-
-          // if the intersection ratio is less than the previous ratio
-          // if (entry.intersectionRatio < prevEntry.intersectionRatio) return;
 
           let jumpItem = document.querySelector(`a[href="#${entry.target.id}"]`);
 

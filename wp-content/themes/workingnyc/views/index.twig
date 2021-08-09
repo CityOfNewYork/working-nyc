@@ -48,12 +48,12 @@
     {% if sections %}
     <div class="bg-scale-2">
       <div class="layout-content">
-        <div class="py-4 wrap" data-js="observe" data-js-observe-root="document" data-js-observe-items="heading">
+        <div class="py-4 wrap" data-js="observe" data-js-observe-items="heading">
           {% for section in sections %}
           <section data-js-observe-item="heading" {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
             {% if section.section_title %}
             <div class="pt-utility-anchor bg-scale-2 sticky top-0">
-              <h3 class="h5 mt-0 text-alt border-b border-scale-4 py-3">
+              <h3 class="h5 mt-0 text-alt border-b border-scale-4 py-2 tablet:py-3">
                 {{ section.section_title }}
               </h3>
             </div>

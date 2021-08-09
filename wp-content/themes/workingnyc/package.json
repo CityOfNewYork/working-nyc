@@ -19,7 +19,7 @@
     "@nycopportunity/pattern-attribution": "^1.0.3",
     "@nycopportunity/pattern-menu": "^1.0.0",
     "@nycopportunity/pattern-navigation": "^1.0.2",
-    "@nycopportunity/pttrn-scripts": "^1.0.6",
+    "@nycopportunity/pttrn-scripts": "^1.0.7",
     "@nycopportunity/working-patterns": "^0.0.1-44",
     "@vue/compiler-sfc": "^3.0.0-rc.2",
     "axios": "^0.19.2",
