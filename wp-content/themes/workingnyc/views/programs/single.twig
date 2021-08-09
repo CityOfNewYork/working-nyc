@@ -30,6 +30,7 @@
         <header class="o-header">
           <div>
             <h1 class="o-header__title">{{post.program_title}}</h1>
+
             <h2 class="o-header__subtitle text-alt">
               <b>{{post.title}}</b> {{ __('by', 'WNYC-Programs')}} {% if post.program_provider and post.program_agency %}{{post.program_agency}} | {{post.program_provider}}{% else %}{{post.program_provider}}{{post.program_agency}}{% endif %}
             </h2>
@@ -61,6 +62,7 @@
                   <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
                     <use xlink:href="#award"></use>
                   </svg>
+
                   <span>{{ post.terms('services')|map(s => "#{s.name}")|join(', ') }}</span>
                 </a>
               </p>
@@ -72,6 +74,7 @@
                   <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
                     <use xlink:href="#users"></use>
                   </svg>
+
                   <span>{{ post.terms('populations')|map(s => "#{s.name}")|join(', ') }}</span>
                 </a>
               </p>
@@ -83,6 +86,7 @@
                   <svg aria-hidden="true" class="icon-wnyc-ui me-1 icon-2">
                     <use xlink:href="#calendar"></use>
                   </svg>
+
                   <span>
                     {% if post.terms('duration')%}{{post.terms('duration')[0]}}{% endif %}{% if post.terms('duration') and post.terms('schedule')%}, {% endif %}{% if post.terms('schedule')%}{{post.terms('schedule')[0]}}{% endif %}
                   </span>
@@ -102,150 +106,167 @@
       </div>
 
       {# Sections #}
-      <section class="bg-scale-2 layout-content">
+      <div class="bg-scale-2 layout-content">
         <div class="py-4 wrap">
-          <div class="pt-utility-anchor" id="more-information">
-          <blockquote class="text-alt mt-0">
-            <span aria-hidden="true" class="blockquote__mark">—</span>
-            <p>{{post.get_field('program_intro')}}</p>
-          </blockquote>
-            {{post.get_field('program_more_info')}}
-          </div>
+          <section class="pt-utility-anchor" id="more-information">
+            <blockquote class="text-alt mt-0">
+              <span aria-hidden="true" class="blockquote__mark">—</span>
+
+              <p>{{ post.get_field('program_intro') }}</p>
+            </blockquote>
+
+            {{ post.get_field('program_more_info') }}
+          </section>
 
           {% if post.get_field('program_eligibility') %}
-            <div class="pt-utility-anchor" id="eligibility">
-              <h3 class="h5 text-alt">
+          <section>
+            <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="eligibility">
+              <h3 class="h5 mt-0 text-alt border-b border-scale-4 py-2 tablet:py-3">
                 {{ __('Who it\'s for', 'Program') }}
               </h3>
-              {{post.get_field('program_eligibility')}}
             </div>
+
+            {{ post.get_field('program_eligibility') }}
+          </section>
           {% endif %}
 
           {% if post.get_field('program_schedule') %}
-            <div class="pt-utility-anchor" id="schedule">
-              <h3 class="h5 text-alt">
+          <section>
+            <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="schedule">
+              <h3 class="h5 mt-0 text-alt border-b border-scale-4 py-2 tablet:py-3">
                 {{ __('Schedule', 'Program') }}
               </h3>
-              {{post.get_field('program_schedule')}}
             </div>
+
+            {{ post.get_field('program_schedule') }}
+          </section>
           {% endif %}
 
           {% if post.get_field('program_disability') %}
-            <div class="pt-utility-anchor" id="disability-accommodation">
-              <h3 class="h5 text-alt">
+          <section>
+            <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="disability-accommodation">
+              <h3 class="h5 mt-0 text-alt border-b border-scale-4 py-2 tablet:py-3">
                 {{ __('Disability Accommodation', 'Program') }}
               </h3>
-              {{post.get_field('program_disability')}}
-          </div>
+            </div>
+
+            {{ post.get_field('program_disability') }}
+          </section>
           {% endif %}
 
           {% if post.get_field('program_language_access') %}
-            <div class="pt-utility-anchor" id="language-access">
-              <h3 class="h5 text-alt">
+          <section>
+            <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="language-access">
+              <h3 class="h5 mt-0 text-alt border-b border-scale-4 py-2 tablet:py-3">
                 {{ __('Language Access', 'Program') }}
               </h3>
-                {{post.get_field('program_language_access')}}
             </div>
+
+            {{ post.get_field('program_language_access') }}
+          </section>
           {% endif %}
 
           {% if post.get_field('program_next_steps') %}
-            <div class="pt-utility-anchor" id="next-steps">
-              <h3 class="h5 text-alt">
+          <section>
+            <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="next-steps">
+              <h3 class="h5 mt-0 text-alt border-b border-scale-4 py-2 tablet:py-3">
                 {{ __('Next Steps', 'Program') }}
               </h3>
-              {{post.get_field('program_next_steps')}}
             </div>
+
+            {{ post.get_field('program_next_steps') }}
+          </section>
           {% endif %}
-
         </div>
-      </section>
+      </div>
     </div>
-      {# Links #}
-      <section class="bg-scale-1 layout-content py-2 pb-1 tablet:py-4 tablet:pb-3" id="contact">
-        <div class="wrap">
-          <nav class="tablet:layout-three-columns-gutter">
-            {% if post.program_learn_more %}
-            <a class="btn btn-secondary btn-next mb-1 w-full" href="{{post.program_learn_more}}">
-              {{ __('Learn More', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
-              {% if direction == 'ltr' %}
-                <svg aria-hidden="true" class="icon-wnyc-ui inline">
-                  <use xlink:href="#arrow-right"></use>
-                </svg>
-                {% else %}
-                <svg aria-hidden="true" class="icon-wnyc-ui">
-                  <use xlink:href="#arrow-left"></use>
-                </svg>
-              {% endif %}
-            </a>
-            {% endif %}
 
-            {% if post.program_apply_online %}
-            <a class="btn btn-secondary btn-next mb-1 w-full" href="{{post.program_apply_online}}">
-              {{ __('Apply', 'WNYC-Programs') }} <span class="sr-only">{{ __('for', 'WNYC-Programs') }} {{post.program_title}}</span>{% if direction == 'ltr' %}
-                <svg aria-hidden="true" class="icon-wnyc-ui inline">
-                  <use xlink:href="#arrow-right"></use>
-                </svg>
-                {% else %}
-                <svg aria-hidden="true" class="icon-wnyc-ui">
-                  <use xlink:href="#arrow-left"></use>
-                </svg>
-              {% endif %}
-            </a>
-            {% endif %}
-
-            {% if post.program_call %}
-              <a class="btn btn-secondary btn-next mb-1 w-full" href="tel:{{post.program_call|trim|replace({'(':'', ')':'', '-':''})}}">
-                {{ __('Call', 'WNYC-Programs') }} {{post.program_call}}  <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
-              </a>
-            {% endif %}
-
-            {% if post.program_email %}
-              <a class="btn btn-secondary btn-next mb-1 w-full" href="mailto:{{post.program_email}}">
-                {{ __('Email', 'WNYC-Programs') }} {{post.program_email}}  <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
-              </a>
-            {% endif %}
-
-          </nav>
-        </div>
-      </section>
-
-      {# Suggest Update #}
-      <section class="layout-content bg-scale-1" id="suggest-update">
-        <div class="pt-2 pb-3 wrap">
-          <article class="c-alert border-l-8 border-mid-0 items-center mr-0" data-js="alert-help">
-            <div class="c-alert__graphic border-l-0">
-              <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#help-circle"></use>
-              </svg>
-            </div>
-
-            <div class="c-alert__body">
-              <b class="text-alt mb-1">
-                {{options.update_program_heading}}
-              </b>
-
-              <p data-js-alert="text">{{options.update_program_body | striptags('<a><svg><title><use>') }}</p>
-            </div>
-          </article>
-        </div>
-      </section>
-      {# Suggest Update end#}
-
-      {# More #}
-      {# <section class="bg-scale-1 layout-content tablet:pb-6">
-        <div class="page-max">
-          <div class="text-center text-alt mb-1">—</div>
-          <nav class="py-2 wrap">
-            <a class="btn btn-primary btn-next w-full" href="#">
-              <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use xlink:href="#arrow-left"></use>
-              </svg>{{ __('More programs at', 'WNYC-Programs') }} {{post.program_provider}}<svg aria-hidden="true" class="icon-wnyc-ui">
+    {# Links #}
+    <section class="bg-scale-1 layout-content py-2 pb-1 tablet:py-4 tablet:pb-3" id="contact">
+      <div class="wrap">
+        <nav class="tablet:layout-three-columns-gutter">
+          {% if post.program_learn_more %}
+          <a class="btn btn-secondary btn-next mb-1 w-full" href="{{post.program_learn_more}}">
+            {{ __('Learn More', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
+            {% if direction == 'ltr' %}
+              <svg aria-hidden="true" class="icon-wnyc-ui inline">
                 <use xlink:href="#arrow-right"></use>
               </svg>
+              {% else %}
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use xlink:href="#arrow-left"></use>
+              </svg>
+            {% endif %}
+          </a>
+          {% endif %}
+
+          {% if post.program_apply_online %}
+          <a class="btn btn-secondary btn-next mb-1 w-full" href="{{post.program_apply_online}}">
+            {{ __('Apply', 'WNYC-Programs') }} <span class="sr-only">{{ __('for', 'WNYC-Programs') }} {{post.program_title}}</span>{% if direction == 'ltr' %}
+              <svg aria-hidden="true" class="icon-wnyc-ui inline">
+                <use xlink:href="#arrow-right"></use>
+              </svg>
+              {% else %}
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use xlink:href="#arrow-left"></use>
+              </svg>
+            {% endif %}
+          </a>
+          {% endif %}
+
+          {% if post.program_call %}
+            <a class="btn btn-secondary btn-next mb-1 w-full" href="tel:{{post.program_call|trim|replace({'(':'', ')':'', '-':''})}}">
+              {{ __('Call', 'WNYC-Programs') }} {{post.program_call}}  <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
             </a>
-          </nav>
-        </div>
-      </section> #}
+          {% endif %}
+
+          {% if post.program_email %}
+            <a class="btn btn-secondary btn-next mb-1 w-full" href="mailto:{{post.program_email}}">
+              {{ __('Email', 'WNYC-Programs') }} {{post.program_email}}  <span class="sr-only">{{ __('about', 'WNYC-Programs') }} {{post.program_title}}</span>
+            </a>
+          {% endif %}
+
+        </nav>
+      </div>
+    </section>
+
+    {# Suggest Update #}
+    <section class="layout-content bg-scale-1" id="suggest-update">
+      <div class="pt-2 pb-3 wrap">
+        <article class="c-alert border-l-8 border-mid-0 items-center mr-0" data-js="alert-help">
+          <div class="c-alert__graphic border-l-0">
+            <svg aria-hidden="true" class="icon-wnyc-ui">
+              <use xlink:href="#help-circle"></use>
+            </svg>
+          </div>
+
+          <div class="c-alert__body">
+            <b class="text-alt mb-1">
+              {{options.update_program_heading}}
+            </b>
+
+            <p data-js-alert="text">{{options.update_program_body | striptags('<a><svg><title><use>') }}</p>
+          </div>
+        </article>
+      </div>
+    </section>
+    {# Suggest Update end#}
+
+    {# More #}
+    {# <section class="bg-scale-1 layout-content tablet:pb-6">
+      <div class="page-max">
+        <div class="text-center text-alt mb-1">—</div>
+        <nav class="py-2 wrap">
+          <a class="btn btn-primary btn-next w-full" href="#">
+            <svg aria-hidden="true" class="icon-wnyc-ui">
+              <use xlink:href="#arrow-left"></use>
+            </svg>{{ __('More programs at', 'WNYC-Programs') }} {{post.program_provider}}<svg aria-hidden="true" class="icon-wnyc-ui">
+              <use xlink:href="#arrow-right"></use>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </section> #}
   </main>
 </div>
 {% endblock %}
