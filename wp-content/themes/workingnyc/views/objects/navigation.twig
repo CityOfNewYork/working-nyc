@@ -1,5 +1,5 @@
 <nav aria-label="Primary Navigation" class="o-navigation bg-scale-2 o-navigation-fixed" role="navigation">
-  <a class="o-navigation__logo o-navigation__menu-item" href="{{site.url}}">
+  <a class="o-navigation__logo o-navigation__menu-item bg-scale-1 tablet:bg-transparent" href="{{site.url}}">
     <span class="sr-only">Working N Y C</span>
 
     <svg aria-hidden="true" class="hidden tablet:inline icon-logo-standard-menu-item fill-white text-blue-l-2">
@@ -12,7 +12,7 @@
   </a>
 
   {% for menu_item in header_menu.get_items %}
-    <a class="hidden desktop:inline-flex" href="{{menu_item.link}}">{{menu_item.title}}</a>
+  <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
   {% endfor %}
 
   {# <button aria-controls="aria-c-search" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-js="search">
@@ -27,35 +27,35 @@
       <use xlink:href="#icon-wnyc-translate"></use>
     </svg>
 
-    <span class="o-navigation__menu-label">{{__('Translate', 'WNYC - Navigation')}}</span>
+    <span class="o-navigation__menu-label">{{ __('Translate', 'WNYC - Navigation') }}</span>
   </button>
 
-  <button aria-haspopup="menu" aria-controls="aria-c-mobile-menu" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:hidden" data-js="mobile-menu" data-js-mobile-menu="open">
+  <button aria-haspopup="menu" aria-controls="aria-c-menu" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:hidden mie-0" data-js="menu" data-js-menu="open">
     <svg class="o-navigation__menu-icon icon-wnyc-ui">
       <use xlink:href="#menu"></use>
     </svg>
 
-    <span class="o-navigation__menu-label">{{__('Menu', 'WNYC - Navigation')}}</span>
+    <span class="o-navigation__menu-label">{{ __('Menu', 'WNYC - Navigation') }}</span>
   </button>
 </nav>
 
 {# Mobile Nav #}
-<aside aria-hidden="true" class="o-mobile-menu o-mobile-menu-fixed hidden" id="aria-c-mobile-menu" role="menu">
-  <nav aria-label="mobile menu" class="o-mobile-menu__nav border-b pb-2">
-    <a href="{{site.url}}" tabindex="-1">{{ __('Home', 'WNYC - Navigation') }}</a>
+<aside aria-hidden="true" class="o-menu o-menu-fixed color-modal hidden" id="aria-c-menu" role="menu">
+  <nav aria-label="mobile menu" class="o-menu__nav border-b pb-2">
+    <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC - Navigation') }}</a>
 
     {% for menu_item in header_menu.get_items %}
-    <a href="{{menu_item.link}}" tabindex="-1">{{menu_item.title}}</a>
+    <a class="o-menu__nav-item" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
     {% endfor %}
   </nav>
 
   <div class="pt-3">
-    <button aria-haspopup="menu" aria-controls="aria-c-mobile-menu" aria-expanded="false" class="btn-link" data-js="mobile-menu" data-js-mobile-menu="close" tabindex="-1">
+    <button aria-haspopup="menu" aria-controls="aria-c-menu" aria-expanded="false" class="btn-link" data-js="menu" data-js-menu="close" tabindex="-1">
       <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
         <use xlink:href="#x"></use>
       </svg>
 
-      <span>{{__('Close', 'WNYC - Navigation')}}</span> <span class="sr-only">{{__('and return to site', 'WNYC - Navigation')}}</span>
+      <span>{{ __('Close', 'WNYC - Navigation') }}</span> <span class="sr-only">{{ __('and return to site', 'WNYC - Navigation') }}</span>
     </button>
   </div>
 </aside>

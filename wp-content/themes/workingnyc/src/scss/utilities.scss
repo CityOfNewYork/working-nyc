@@ -1,0 +1,38 @@
+@use '@nycopportunity/working-patterns/src/config/media';
+@use '@nycopportunity/working-patterns/src/config/dimensions';
+
+body, .o-navigation-spacing {
+  padding-bottom: dimensions.get('navigation-height-mobile');
+}
+
+.o-navigation-spacing-bottom {
+  bottom: dimensions.get('navigation-height-mobile');
+}
+
+.o-navigation-spacing-top {
+  top: 0;
+}
+
+.mie-0 {
+  margin-inline-end: 0;
+}
+
+@include media.screen-and-min-width('tablet') {
+  body, .o-navigation-spacing {
+    padding-bottom: 0;
+  }
+
+  .o-navigation-spacing-bottom {
+    bottom: 0;
+  }
+
+  .o-navigation-spacing-top {
+    top: dimensions.get('navigation-height');
+  }
+}
+
+@include media.screen-and-min-width('desktop') {
+  .o-navigation-spacing-top {
+    top: 0px;
+  }
+}

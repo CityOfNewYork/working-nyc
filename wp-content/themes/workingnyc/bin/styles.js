@@ -128,14 +128,14 @@ async function compile() {
  * Execute Styles
  */
 if (args.watch) {
-  console.log(`\n${emojiWatch} Watching styles begins`);
+  console.log(`\n${emojiWatch} Watching styles`);
 
   watcher.on('change', (changed) => {
     console.log(`\n${emojiStyles}  Change detected in ` + changed.replace(`${process.env.PWD}`, ''));
     compile();
   });
 } else {
-  console.log(`\n${emojiBuild} Building styles begins`);
+  console.log(`\n${emojiBuild} Building styles`);
 
   compile();
   watcher.close();
