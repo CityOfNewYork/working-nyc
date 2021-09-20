@@ -25,3 +25,14 @@ new WorkingNYC\Site();
  */
 
 WorkingNYC\require_includes();
+
+/**
+ * Shortcodes
+ *
+ * @link /shortcodes/
+ * @link https://codex.wordpress.org/Shortcode
+ */
+
+WorkingNYC\require_shortcodes();
+
+new Shortcode\Program();
