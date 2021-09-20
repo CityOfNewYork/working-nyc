@@ -11,5 +11,5 @@
 // phpcs:enable
 
 add_filter('nonce_life', function() {
-  return 0.5 * HOUR_IN_SECONDS;
+  return 12 * HOUR_IN_SECONDS;
 });
