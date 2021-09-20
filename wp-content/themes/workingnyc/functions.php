@@ -36,3 +36,4 @@ WorkingNYC\require_includes();
 WorkingNYC\require_shortcodes();
 
 new Shortcode\Program();
+new Shortcode\Card();

@@ -1,0 +1,15 @@
+<article class="c-card {{ this.classes }}" id="{{ this.id }}">
+  <header class="c-card__header">
+    {% if this.title %}<h4 class="c-card__title mt-0 mb-2">
+      {{ this.title }}
+    </h4>{% endif %}
+
+    {% if this.subtitle %}<h5 class="c-card__subtitle text-alt mb-1">
+      {{ this.subtitle }}
+    </h5>{% endif %}
+  </header>
+
+  {% if this.body %}<div class="c-card__body">
+    <p>{{ this.body }}</p>
+  </div>{% endif %}
+</article>

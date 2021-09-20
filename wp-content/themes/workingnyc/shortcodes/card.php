@@ -15,12 +15,12 @@ use Timber;
 /**
  * Class
  */
-class Program extends Shortcode {
+class Card extends Shortcode {
   /** The shortcode tag */
-  public $tag = 'program';
+  public $tag = 'card';
 
   /** The path to the Timber Component */
-  public $template = 'components/program.twig';
+  public $template = 'components/card.twig';
 
   /**
    * Shortcode Callback
@@ -32,20 +32,17 @@ class Program extends Shortcode {
    * @return  String                  A compiled component string
    */
   public function shortcode($atts, $content, $shortcode_tag) {
-    $post = new Timber\Post($atts['id']);
+    $id = $this->tag . '-' . uniqid();
 
-    if (isset($atts['learn-more'])) {
-      $post->link = $atts['learn-more'];
-    }
+    $card = array(
+      'id' => $id,
+      'classes' => 'static mb-4'
+    );
 
-    if (isset($atts['learn-more-new-window']) && 'true' === $atts['learn-more-new-window']) {
-      $post->link_target = '_blank';
-    }
-
-    $post->classes = 'static mb-4';
-
-    return (null === $post->id) ?
-      "<!-- A post with the ID $post->ID does not exist -->" :
-      Timber::compile($this->template, array('post' =>  $post));
+    return Timber::compile(
+      $this->template, array(
+        'this' => array_merge($card, $atts)
+      )
+    );
   }
 }
