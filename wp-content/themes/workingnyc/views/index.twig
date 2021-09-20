@@ -9,9 +9,7 @@
         <div>
           <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
 
-          <h2 class="o-header__subtitle text-alt">
-            {% if post.content %}{{ post.content }}{% endif %}
-          </h2>
+          {% if post.content %}{{ post.content }}{% endif %}
 
           <p class="small">
             <span class="flex items-center">
@@ -31,17 +29,19 @@
     {# Jump Navigation #}
     <div class="layout-content sticky top-0 bg-scale-1 z-20">
       <div class="px-2 tablet:px-3">
-        <nav class="c-utility overflow-y-hidden overflow-x-auto whitespace-nowrap relative px-0" data-js="active-navigation" aria-label="Jump Navigation">
-          <span class="c-utility__item">{{ __('Jump to', 'WNYC')}}</span>
+        <div class="overflow-hidden overflow-x-scroll whitespace-nowrap" data-js="active-navigation-scroll">
+          <nav class="c-utility inline-flex relative px-0" data-js="active-navigation" aria-label="Jump Navigation">
+            <span class="c-utility__item">{{ __('Jump to', 'WNYC')}}</span>
 
-          <a class="btn btn-link btn-small btn-secondary font-secondary" href="#content">{{ __('Top of page', 'WNYC') }}</a>
+            <a class="btn btn-link btn-small btn-secondary font-secondary" href="#content">{{ __('Top of page', 'WNYC') }}</a>
 
-          {% for section in sections %}
-          {% if section.section_title %}
-          <a class="btn btn-link btn-small btn-secondary font-secondary" href="#{{ section.section_title|trim|replace({' ': '-'})|lower }}">{{ section.section_title }}</a>
-          {% endif %}
-          {% endfor %}
-        </nav>
+            {% for section in sections %}
+            {% if section.section_title %}
+            <a class="btn btn-link btn-small btn-secondary font-secondary" href="#{{ section.section_title|trim|replace({' ': '-'})|lower }}">{{ section.section_title }}</a>
+            {% endif %}
+            {% endfor %}
+          </nav>
+        </div>
       </div>
     </div>
 
