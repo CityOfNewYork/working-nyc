@@ -22,6 +22,9 @@ class Card extends Shortcode {
   /** The path to the Timber Component */
   public $template = 'components/card.twig';
 
+  /** The shortcode hint for the selector dropdown */
+  public $hint = 'title="" subtitle="" body=""';
+
   /**
    * Shortcode Callback
    *

@@ -18,6 +18,9 @@ class Shortcode {
   /** The shortcode tag */
   public $tag = '';
 
+  /** The shortcode hint for the selector dropdown */
+  public $hint = '';
+
   /**
    * Constructor
    */
@@ -25,6 +28,21 @@ class Shortcode {
     $this->shortcode = $this->prefix . $this->tag;
 
     add_shortcode($this->shortcode, [$this, 'shortcode']);
+
+    add_filter('bsd_shortcode_list', [$this, 'addToSelector']);
+  }
+
+  /**
+   * Adds the Short-code to the BSD Tiny MCE selector list.
+   *
+   * @param   Array  $shortcodes  The full list of short-codes
+   *
+   * @return  Array               The amended list of short-codes
+   */
+  public function addToSelector($shortcodes) {
+    $shortcodes[ucwords(str_replace('-', ' ', $this->tag))] = "[$this->shortcode $this->hint]";
+
+    return $shortcodes;
   }
 
   /**

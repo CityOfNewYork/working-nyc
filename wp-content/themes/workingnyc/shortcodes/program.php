@@ -22,6 +22,9 @@ class Program extends Shortcode {
   /** The path to the Timber Component */
   public $template = 'components/program.twig';
 
+  /** The shortcode hint for the selector dropdown */
+  public $hint = 'id=""';
+
   /**
    * Shortcode Callback
    *
