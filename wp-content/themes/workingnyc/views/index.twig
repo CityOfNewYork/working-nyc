@@ -6,7 +6,7 @@
     {# Header Section #}
     <div class="layout-content">
       <header class="o-header">
-        <div>
+        <div class="w-full">
           <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
 
           {% if post.content %}{{ post.content }}{% endif %}
