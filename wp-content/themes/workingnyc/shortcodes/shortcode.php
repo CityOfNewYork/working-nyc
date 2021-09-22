@@ -21,6 +21,9 @@ class Shortcode {
   /** The shortcode hint for the selector dropdown */
   public $hint = '';
 
+  /** Wether the shortcode should have a closing tag or not */
+  public $closes = false;
+
   /**
    * Constructor
    */
@@ -40,7 +43,15 @@ class Shortcode {
    * @return  Array               The amended list of short-codes
    */
   public function addToSelector($shortcodes) {
-    $shortcodes[ucwords(str_replace('-', ' ', $this->tag))] = "[$this->shortcode $this->hint]";
+    $key = ucwords(str_replace('-', ' ', $this->tag));
+
+    $shortcodes[$key] = "[$this->shortcode $this->hint]";
+
+    if ($this->closes) {
+      $shortcodes[$key] = "$shortcodes[$key]" .
+        __('Add body content between these shortcode tags.') .
+        "[/$this->shortcode]";
+    }
 
     return $shortcodes;
   }

@@ -25,6 +25,9 @@ class Card extends Shortcode {
   /** The shortcode hint for the selector dropdown */
   public $hint = 'title="" subtitle="" body=""';
 
+  /** Wether the shortcode should have a closing tag or not */
+  public $closes = true;
+
   /**
    * Shortcode Callback
    *
@@ -39,7 +42,8 @@ class Card extends Shortcode {
 
     $card = array(
       'id' => $id,
-      'classes' => 'static mb-4'
+      'classes' => 'static mb-4',
+      'body' => $content
     );
 
     return Timber::compile(
