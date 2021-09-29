@@ -35,5 +35,9 @@ WorkingNYC\require_includes();
 
 WorkingNYC\require_shortcodes();
 
-new Shortcode\Program();
+new Shortcode\Accordion();
+new Shortcode\AirtableLink();
+new Shortcode\Blockquote();
 new Shortcode\Card();
+new Shortcode\Icon();
+new Shortcode\Program();

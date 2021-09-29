@@ -1,9 +1,11 @@
 <?php
 
 /**
- * Program Shortcode Handler. The shortcode accepts the following attributes;
+ * Card Shortcode Handler. The shortcode accepts the following attributes
+ * in addition to the content body;
  *
- * @param  Number  id  The program post ID
+ * @param  String  title     The Card title
+ * @param  String  subtitle  The Card subtitle
  *
  * @author NYC Opportunity
  */

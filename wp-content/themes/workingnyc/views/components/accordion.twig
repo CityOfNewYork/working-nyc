@@ -1,0 +1,47 @@
+<article class="c-accordion {{ this.classes }}" id="{{ this.id }}">
+  <header class="c-accordion__header">
+    <button aria-controls="aria-c-{{ this.id }}" aria-expanded="{{ this.active }}" class="c-accordion__toggle btn btn-text w-full text-start print:hidden {% if this.active %}active{% endif %}" data-js="accordion">
+      <span class="c-accordion__heading text-alt mt-0" id="aria-lb-{{ this.id }}">
+        <span>{{ this.header }}</span>
+      </span>
+
+      <span class="c-accordion__toggle-active">
+        <span>{{ __('Hide', 'wnyc') }}</span>
+
+        <svg aria-hidden="true" class="icon-wnyc-ui">
+          <use xlink:href="#chevron-down"></use>
+        </svg>
+      </span>
+
+      <span class="c-accordion__toggle-inactive">
+        <span>{{ __('Expand', 'wnyc') }}</span>
+
+        <svg aria-hidden="true" class="icon-wnyc-ui">
+          <use xlink:href="#chevron-up"></use>
+        </svg>
+      </span>
+    </button>
+  </header>
+
+  <div aria-hidden="{% if this.active %}false{% else %}true{% endif %}" id="aria-c-{{ this.id }}" aria-labelledby="aria-lb-{{ this.id }}" class="c-accordion__body print:active hidden:overflow animated {% if this.active %}active{% else %}hidden{% endif %}" role="region">
+    <div class="c-accordion__padding">
+      <p>{{ this.body }}</p>
+
+      {% if this.cta %}
+      <p class="print:hidden">
+        <a class="btn btn-secondary btn-next w-full" href="{{ this.cta.href }}" {% if this.cta.target %}target="{{ this.cta.target }}"{% endif %} {% if this.cta.rel %}rel="{{ this.cta.rel }}"{% endif %} {% if this.active == false %}tabindex="-1"{% endif %}>
+          <svg aria-hidden="true" class="icon-wnyc-ui" {% if this.active == false %}tabindex="-1"{% endif %}>
+            <use xlink:href="#arrow-left"></use>
+          </svg>
+
+          {{ this.cta.text }}
+
+          <svg aria-hidden="true" class="icon-wnyc-ui" {% if this.active == false %}tabindex="-1"{% endif %}>
+            <use xlink:href="#arrow-right"></use>
+          </svg>
+        </a>
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</article>
