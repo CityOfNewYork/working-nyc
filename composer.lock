@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be51b8eaff87618c497dc442de9b5f4f",
+    "content-hash": "0b4f22978d0fd1650c343b2214e76266",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -1500,7 +1500,7 @@
                 "url": "https://downloads.wordpress.org/plugin/acf-to-rest-api.3.3.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/acf-to-rest-api/"
@@ -1518,7 +1518,7 @@
                 "url": "https://downloads.wordpress.org/plugin/adminimize.1.11.7.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/adminimize/"
@@ -1536,7 +1536,7 @@
                 "url": "https://downloads.wordpress.org/plugin/aryo-activity-log.2.5.2.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/aryo-activity-log/"
@@ -1554,7 +1554,7 @@
                 "url": "https://downloads.wordpress.org/plugin/custom-post-type-ui.1.8.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/custom-post-type-ui/"
@@ -1572,7 +1572,7 @@
                 "url": "https://downloads.wordpress.org/plugin/duplicate-post.3.2.6.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/duplicate-post/"
@@ -1590,7 +1590,7 @@
                 "url": "https://downloads.wordpress.org/plugin/gathercontent-import.3.1.14.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/gathercontent-import/"
@@ -1608,7 +1608,7 @@
                 "url": "https://downloads.wordpress.org/plugin/google-authenticator.0.52.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/google-authenticator/"
@@ -1626,7 +1626,7 @@
                 "url": "https://downloads.wordpress.org/plugin/limit-login-attempts-reloaded.2.15.2.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/limit-login-attempts-reloaded/"
@@ -1644,7 +1644,7 @@
                 "url": "https://downloads.wordpress.org/plugin/loggedin.1.3.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/loggedin/"
@@ -1662,7 +1662,7 @@
                 "url": "https://downloads.wordpress.org/plugin/members.3.1.5.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/members/"
@@ -1680,7 +1680,7 @@
                 "url": "https://downloads.wordpress.org/plugin/rollbar.2.6.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/rollbar/"
@@ -1698,7 +1698,7 @@
                 "url": "https://downloads.wordpress.org/plugin/simple-custom-post-order.2.5.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/simple-custom-post-order/"
@@ -1716,7 +1716,7 @@
                 "url": "https://downloads.wordpress.org/plugin/taxonomy-terms-order.1.5.7.3.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/taxonomy-terms-order/"
@@ -1734,7 +1734,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.7.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-importer/"
@@ -1752,7 +1752,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wp-all-export.1.2.7.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-all-export/"
@@ -1770,7 +1770,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wp-all-import.3.5.6.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-all-import/"
@@ -1788,7 +1788,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wp-security-questions.zip?timestamp=1582179208"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-security-questions/"
@@ -1806,7 +1806,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wps-hide-login.1.5.7.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wps-hide-login/"
@@ -1824,7 +1824,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wpscan.1.15.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wpscan/"
@@ -2112,7 +2112,7 @@
                 "url": "https://downloads.wordpress.org/plugin/query-monitor.3.7.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/query-monitor/"
@@ -2130,7 +2130,7 @@
                 "url": "https://downloads.wordpress.org/plugin/redis-cache.2.0.18.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/redis-cache/"
@@ -2148,7 +2148,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wp-auto-login.1.0.1.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-auto-login/"
@@ -2166,7 +2166,7 @@
                 "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.10.0.zip"
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ~2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-crontrol/"

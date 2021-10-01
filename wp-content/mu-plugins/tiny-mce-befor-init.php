@@ -4,37 +4,43 @@
 /**
  * Plugin Name: Configure TinyMCE Settings
  * Description: Configuration for the classic WordPress text editor. Adds p, h2, h3, h4, and h5 block options to the TinyMCE editor. Removes the blockquote block. Removes underline, alignjustify, and forecolor from advanced toolbar. Removes the TinyMCE Emoji Plugin.
- * Author: Blue State Digital
+ * Author: NYC Opportunity
  */
 // phpcs:enable
 
 /**
  * Configure TinyMCE settings
- * @param  array $init Array with TinyMCE config.
- * @return array       Updated array
+ *
+ * @param   Array  $init  Array with TinyMCE config
+ *
+ * @return  Array         Updated array
  */
+
 add_filter('tiny_mce_before_init', function ($init) {
-  $style_formats = array(  
-    array(  
-      'title' => 'Blockquote',  
-      'block' => 'blockquote',  
+  $style_formats = array(
+    array(
+      'title' => 'Blockquote',
+      'block' => 'blockquote',
       'classes' => 'text-alt mt-0',
       'wrapper' => false,
-    ),  
-    array(  
-      'title' => 'Blockquote Mark',  
-      'block' => 'span',  
+    ),
+    array(
+      'title' => 'Blockquote Mark',
+      'block' => 'span',
       'classes' => 'blockquote__mark',
       'attributes' => array(
         'aria-hidden' => 'true',
       ),
       'wrapper' => false,
     ),
-  );  
-  $init['style_formats'] = json_encode( $style_formats );  
-  $init['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Heading 5=h5;Heading 6=h6';
+  );
+
+  $init['style_formats'] = json_encode($style_formats);
+
+  $init['block_formats'] = 'Paragraph=p; Heading 4=h4; Heading 5=h5; Heading 6=h6';
+
   $init['extended_valid_elements'] = '*[*]';
-  
+
   return $init;
 });
 
@@ -61,7 +67,7 @@ add_filter('mce_buttons', function ($buttons) {
  * @return array         Difference between the two arrays
  */
 add_filter('mce_buttons_2', function ($buttons) {
-  $remove = array( 
+  $remove = array(
     'underline',
     'alignjustify',
     'forecolor',

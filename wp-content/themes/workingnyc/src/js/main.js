@@ -51,9 +51,6 @@ import Observe from '@nycopportunity/pttrn-scripts/src/observe/observe';
 import Programs from './programs';
 import Questionnaire from './questionnaire';
 
-// Additional modules
-// import headerIds from 'modules/header-ids'
-
 (function (window) {
   'use strict';
 
@@ -152,6 +149,12 @@ import Questionnaire from './questionnaire';
    * Scrolling Jump Navigation
    */
 
+  /**
+   * Method for toggling the jump navigation item, used by the click event
+   * handler and the intersection observer event handler.
+   *
+   * @var NodeElement
+   */
   const jumpClassToggle = item => {
     for (let i = 0; i < item.parentNode.children.length; i++) {
       const sibling = item.parentNode.children[i];
@@ -163,6 +166,11 @@ import Questionnaire from './questionnaire';
     item.classList.add('no-underline', 'text-alt');
   };
 
+  /**
+   * Click event handler for jump navigation items
+   *
+   * @var NodeElement
+   */
   (element => {
     if (element) {
       let activeNavigation = element.querySelectorAll('a[href]');
@@ -179,6 +187,11 @@ import Questionnaire from './questionnaire';
     }
   })(document.querySelector('[data-js*="active-navigation"]'));
 
+  /**
+   * Intersection Observer event handler for jump navigation items
+   *
+   * @var NodeElementList
+   */
   (elements => {
     elements.forEach(element => {
       new Observe({
@@ -188,7 +201,9 @@ import Questionnaire from './questionnaire';
 
           let jumpItem = document.querySelector(`a[href="#${entry.target.id}"]`);
 
-          jumpItem.parentNode.scrollTo({
+          if (!jumpItem) return;
+
+          jumpItem.closest('[data-js*="active-navigation-scroll"]').scrollTo({
             left: jumpItem.offsetLeft,
             top: 0,
             behavior: 'smooth'

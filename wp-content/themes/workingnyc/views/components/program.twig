@@ -1,7 +1,7 @@
-<article class="c-card h-full">
+<article class="c-card h-full {{ post.classes }}">
   <header class="c-card__header">
     <h2 class="c-card__title mt-0 mb-2">
-      <a href="{{post.link}}">
+      <a href="{{post.link}}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
         <span data-program="plain-language-name">{{post.program_title}}</span>
       </a>
     </h2>
@@ -63,7 +63,7 @@
       {% endif %}
     </ul>
 
-    <a class="c-card__cta btn btn-secondary btn-next" href="{{post.link}}">
+    <a class="c-card__cta btn btn-secondary btn-next" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
       <svg aria-hidden="true" class="icon-wnyc-ui">
         <use xlink:href="#arrow-left"></use>
       </svg>

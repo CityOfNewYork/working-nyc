@@ -1,7 +1,7 @@
 {
   "name": "nyco/working-nyc",
   "description": "Find and connect to services and resources that can help you prepare for and get a job.",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "authors": [
     {
       "name": "NYC Opportunity",
@@ -69,7 +69,7 @@
       "vendor/bin/phpcbf --standard=phpcs.xml"
     ],
     "version": [
-      "composer update nothing",
+      "composer update nothing --ignore-platform-reqs",
       "@production"
     ],
     "deps": [
