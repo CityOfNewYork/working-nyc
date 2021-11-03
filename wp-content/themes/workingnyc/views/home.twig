@@ -1,10 +1,5 @@
 {% extends "base.twig" %}
 
-{% block head_extras %}
-  <link href="https://cdn.jsdelivr.net/gh/michalsnik/aos@v2.3.4/dist/aos.css" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/gh/michalsnik/aos@v2.3.4/dist/aos.js"></script>
-{% endblock %}
-
 {% block content %}
   <div class="bg-scale-1 bg-shape-wnyc-abc bg-fixed">
     <header class="o-banner page-max desktop:px-6">
@@ -118,16 +113,3 @@
   </div>
 
 {% endblock %}
-
-{% block scripts_extra %}
-
-<script type="text/javascript">
-	AOS.init({
-    duration: 400,
-    easing: 'ease-out'
-  });
-</script>
-
-
-{% endblock %}
-

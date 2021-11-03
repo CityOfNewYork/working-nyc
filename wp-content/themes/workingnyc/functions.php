@@ -31,6 +31,8 @@ WorkingNYC\require_includes();
  *
  * @link /shortcodes/
  * @link https://codex.wordpress.org/Shortcode
+ *
+ * @author NYC Opportunity
  */
 
 WorkingNYC\require_shortcodes();
@@ -41,3 +43,47 @@ new Shortcode\Blockquote();
 new Shortcode\Card();
 new Shortcode\Icon();
 new Shortcode\Program();
+
+/**
+ * Enqueue Global Integrations
+ *
+ * @author NYC Opportunity
+ */
+
+add_action('wp_enqueue_scripts', function() {
+  WorkingNYC\enqueue_inline('data-layer');
+  WorkingNYC\enqueue_inline('google-optimize');
+  WorkingNYC\enqueue_inline('google-analytics');
+  WorkingNYC\enqueue_inline('google-tag-manager');
+
+  if ('en' !== ICL_LANGUAGE_CODE) {
+    WorkingNYC\enqueue_inline('google-translate-element');
+  }
+
+  WorkingNYC\enqueue_inline('ie11-custom-properties');
+});
+
+/**
+ * Manual DNS prefetch and preconnect headers that are not added through
+ * enqueueing functions above. DNS prefetch is added automatically. Preconnect
+ * headers always need to be added manually.
+ *
+ * @link https://developer.mozilla.org/en-US/docs/Web/Performance/dns-prefetch
+ *
+ * @author NYC Opportunity
+ */
+
+add_filter('wp_resource_hints', function($urls, $relation_type) {
+  switch ($relation_type) {
+    case 'dns-prefetch':
+      $urls = array_merge($urls, [
+        '//www.google-analytics.com',
+        '//cdn.jsdelivr.net',
+        '//translate.googleapis.com'
+      ]);
+
+      break;
+  }
+
+  return $urls;
+}, 10, 2);
