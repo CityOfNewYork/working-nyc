@@ -2,37 +2,57 @@
 @use '@nycopportunity/working-patterns/src/config/dimensions';
 
 body, .o-navigation-spacing {
-  padding-bottom: dimensions.get('navigation-height-mobile');
+  padding-bottom: var(--o-navigation-height);
 }
 
 .o-navigation-spacing-bottom {
-  bottom: dimensions.get('navigation-height-mobile');
+  bottom: var(--o-navigation-height);
 }
 
 .o-navigation-spacing-top {
-  top: 0;
+  top: 0px;
+}
+
+.o-navigation-spacing-bottom {
+  bottom: var(--o-navigation-height);
+}
+
+.o-navigation-feedback-spacing-bottom {
+  bottom: calc(var(--o-navigation-height) + var(--o-feedback-height));
 }
 
 .mie-0 {
-  margin-inline-end: 0;
+  margin-inline-end: 0px;
 }
 
 @include media.screen-and-min-width('tablet') {
   body, .o-navigation-spacing {
-    padding-bottom: 0;
+    padding-bottom: 0px;
   }
 
   .o-navigation-spacing-bottom {
-    bottom: 0;
+    bottom: 0px;
   }
 
   .o-navigation-spacing-top {
-    top: dimensions.get('navigation-height');
+    top: var(--o-navigation-height);
+  }
+
+  .o-navigation-feedback-spacing-bottom {
+    bottom: var(--o-feedback-height);
   }
 }
 
 @include media.screen-and-min-width('desktop') {
   .o-navigation-spacing-top {
     top: 0px;
+  }
+
+  .o-navigation-spacing-bottom {
+    bottom: 0px;
+  }
+
+  .o-navigation-feedback-spacing-bottom {
+    bottom: var(--o-feedback-height);
   }
 }

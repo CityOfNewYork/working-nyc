@@ -31362,7 +31362,6 @@
 	/**
 	 * Patterns
 	 */
-	// import headerIds from 'modules/header-ids'
 
 	(function (window) {
 
@@ -31448,6 +31447,13 @@
 	   * Scrolling Jump Navigation
 	   */
 
+	  /**
+	   * Method for toggling the jump navigation item, used by the click event
+	   * handler and the intersection observer event handler.
+	   *
+	   * @var NodeElement
+	   */
+
 
 	  const jumpClassToggle = item => {
 	    for (let i = 0; i < item.parentNode.children.length; i++) {
@@ -31457,6 +31463,12 @@
 
 	    item.classList.add('no-underline', 'text-alt');
 	  };
+	  /**
+	   * Click event handler for jump navigation items
+	   *
+	   * @var NodeElement
+	   */
+
 
 	  (element => {
 	    if (element) {
@@ -31472,6 +31484,12 @@
 	      }
 	    }
 	  })(document.querySelector('[data-js*="active-navigation"]'));
+	  /**
+	   * Intersection Observer event handler for jump navigation items
+	   *
+	   * @var NodeElementList
+	   */
+
 
 	  (elements => {
 	    elements.forEach(element => {
@@ -31491,6 +31509,21 @@
 	      });
 	    });
 	  })(document.querySelectorAll(Observe.selector));
+	  /**
+	   * Set CSS properties of various element heights for calculating the true
+	   * window bottom value in CSS.
+	   */
+
+
+	  let setObjectHeights = () => {
+	    let navigation = document.querySelector('[data-js="navigation"]');
+	    let feedback = document.querySelector('[data-js="feedback"]');
+	    document.documentElement.style.setProperty('--o-navigation-height', `${navigation.clientHeight}px`);
+	    document.documentElement.style.setProperty('--o-feedback-height', `${feedback.clientHeight}px`);
+	  };
+
+	  window.addEventListener('load', () => setObjectHeights());
+	  window.addEventListener('resize', () => setObjectHeights());
 	})(window);
 
 }());

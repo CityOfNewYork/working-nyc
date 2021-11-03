@@ -37,7 +37,8 @@ class AirtableLink extends Shortcode {
         'browser' => null,
         'lang' => null,
         'program_name' => null,
-        'program_link' => null
+        'program_link' => null,
+        'class' => null
       ), $atts);
 
     // If name is missing, don't return anything
@@ -78,11 +79,17 @@ class AirtableLink extends Shortcode {
 
     if (!empty($atts['program_link'])) {
       $program_link = Airtable\prefill(Airtable\get_formatted_string($atts['program_link'])) . get_permalink($post->id);
+
       array_push($params, $program_link);
     }
 
     $url = $atts['url'] . '?' . implode('&', $params);
 
-    return '<a class="btn btn-text text-inherit underline" href="'.$url.'" target="_blank"><span>'.$atts['text'].'</span><svg aria-hidden="true" class="icon-wnyc-ui" style="margin-left:5px;"><use xlink:href="#external-link"></use></svg></a>';
+    return '<a class="'. $atts['class'] . '" href="'. $url . '" target="_blank">' .
+      '<span>' . $atts['text'] . '</span>' .
+      '<svg aria-hidden="true" class="icon-wnyc-ui" style="margin-left: 5px;">' .
+        '<use xlink:href="#external-link"></use>' .
+      '</svg>' .
+    '</a>';
   }
 }
