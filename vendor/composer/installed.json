@@ -803,17 +803,17 @@
         },
         {
             "name": "nyco/wp-assets",
-            "version": "1.4.0",
-            "version_normalized": "1.4.0.0",
+            "version": "1.4.1",
+            "version_normalized": "1.4.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CityOfNewYork/nyco-wp-assets.git",
-                "reference": "c44eb5937d788893e2908d0fd5b384cb11342140"
+                "reference": "4329b3a44cb1b191bc0e1e250a1f5de05cac446a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CityOfNewYork/nyco-wp-assets/zipball/c44eb5937d788893e2908d0fd5b384cb11342140",
-                "reference": "c44eb5937d788893e2908d0fd5b384cb11342140",
+                "url": "https://api.github.com/repos/CityOfNewYork/nyco-wp-assets/zipball/4329b3a44cb1b191bc0e1e250a1f5de05cac446a",
+                "reference": "4329b3a44cb1b191bc0e1e250a1f5de05cac446a",
                 "shasum": ""
             },
             "require": {
@@ -823,7 +823,7 @@
             "require-dev": {
                 "squizlabs/php_codesniffer": "~3.0"
             },
-            "time": "2021-03-17T20:45:55+00:00",
+            "time": "2021-11-04T17:22:08+00:00",
             "type": "wordpress-muplugin",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
@@ -858,7 +858,7 @@
             ],
             "support": {
                 "issues": "https://github.com/cityofnewyork/nyco-wp-assets/issues",
-                "source": "https://github.com/CityOfNewYork/nyco-wp-assets/tree/v1.4.0"
+                "source": "https://github.com/CityOfNewYork/nyco-wp-assets/tree/v1.4.1"
             },
             "install-path": "../../wp-content/mu-plugins/wp-assets"
         },

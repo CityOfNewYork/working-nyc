@@ -1,12 +1,12 @@
 <?php
 
-// phpcs:disable
 /**
  * Plugin Name: Query Vars
- * Description: Adds acceptable query vars to the site for WordPress Database queries.
+ * Description: Adds acceptable query vars to the site for WordPress DB queries.
+ * Plugin URI: https://github.com/cityofnewyork/working-nyc
  * Author: NYC Opportunity
+ * Author URI: nyc.gov/opportunity
  */
-// phpcs:enable
 
 add_filter('query_vars', function($publicQueryVars) {
   /**

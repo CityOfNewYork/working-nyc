@@ -119,12 +119,12 @@
             'dev_requirement' => false,
         ),
         'nyco/wp-assets' => array(
-            'pretty_version' => '1.4.0',
-            'version' => '1.4.0.0',
+            'pretty_version' => '1.4.1',
+            'version' => '1.4.1.0',
             'type' => 'wordpress-muplugin',
             'install_path' => __DIR__ . '/../../wp-content/mu-plugins/wp-assets',
             'aliases' => array(),
-            'reference' => 'c44eb5937d788893e2908d0fd5b384cb11342140',
+            'reference' => '4329b3a44cb1b191bc0e1e250a1f5de05cac446a',
             'dev_requirement' => false,
         ),
         'nyco/wp-config' => array(

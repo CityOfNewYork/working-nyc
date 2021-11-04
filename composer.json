@@ -16,7 +16,7 @@
     }
   ],
   "require": {
-    "nyco/wp-assets": "1.4",
+    "nyco/wp-assets": "^1.4",
     "nyco/wp-config": "1.0.3",
     "spatie/schema-org": "^2.8",
     "timber/timber": "^1.16",

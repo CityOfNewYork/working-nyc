@@ -15,7 +15,7 @@ require_once WorkingNYC\timber_post('Announcement');
  */
 
 add_action('wp_enqueue_scripts', function() {
-  WorkingNYC\enqueue_inline('animate-on-scroll');
+  enqueue_inline('animate-on-scroll');
 });
 
 /**

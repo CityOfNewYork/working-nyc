@@ -51,16 +51,16 @@ new Shortcode\Program();
  */
 
 add_action('wp_enqueue_scripts', function() {
-  WorkingNYC\enqueue_inline('data-layer');
-  WorkingNYC\enqueue_inline('google-optimize');
-  WorkingNYC\enqueue_inline('google-analytics');
-  WorkingNYC\enqueue_inline('google-tag-manager');
+  enqueue_inline('data-layer');
+  enqueue_inline('google-optimize');
+  enqueue_inline('google-analytics');
+  enqueue_inline('google-tag-manager');
 
   if ('en' !== ICL_LANGUAGE_CODE) {
-    WorkingNYC\enqueue_inline('google-translate-element');
+    enqueue_inline('google-translate-element');
   }
 
-  WorkingNYC\enqueue_inline('ie11-custom-properties');
+  enqueue_inline('ie11-custom-properties');
 });
 
 /**
