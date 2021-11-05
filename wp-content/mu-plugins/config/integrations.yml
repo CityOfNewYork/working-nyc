@@ -10,6 +10,7 @@
 - handle: google-optimize
   name: Google Optimize
   instructions: Enables the creation, previewing, and running of active Optimize experiments (A/B testing). Disable when there is no active experiment to improve site performance. Additionally, Optimize is integrated through the Google Analytics tag. That will need to be active in addition to this integration.
+  path: https://www.googleoptimize.com/optimize.js?id={{ GOOGLE_OPTIMIZE_ID }}
   dep: GOOGLE_OPTIMIZE_ID
   localize:
     - GOOGLE_OPTIMIZE_ID
