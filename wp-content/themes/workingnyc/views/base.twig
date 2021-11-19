@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{language_code}}" dir="{{direction}}">
+<html lang="{{ language_code }}" dir="{{ direction }}">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -24,57 +24,24 @@
     {% if meta.twitter_site %}<meta name="twitter:site" content="{{ meta.twitter_site }}" />{% endif %}
 
     <link rel="manifest" href="{{theme.path}}/manifest.json">
-    <link href="{{theme.path}}/favicons/favicon@32x32.png" rel="icon" sizes="32x32" type="image/png" />
-    <link href="{{theme.path}}/favicons/apple@180x180.png" rel="apple-touch-icon" sizes="180x180" />
+    <link href="{{ theme.path }}/favicons/favicon@32x32.png" rel="icon" sizes="32x32" type="image/png" />
+    <link href="{{ theme.path }}/favicons/apple@180x180.png" rel="apple-touch-icon" sizes="180x180" />
 
-    <script type="application/ld+json">{{schema}}</script>
+    <script type="application/ld+json">{{ schema }}</script>
 
     {{ function('enqueue_language_style', 'style') }}
 
     {% block head_extras %}{% endblock %}
 
-    {# CSS polyfill for IE #}
-    <script type="text/javascript">
-      if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)){
-        document.write('<script src="https:\/\/cdn.jsdelivr.net\/gh\/nuxodin\/ie11CustomProperties@4.1.0\/ie11CustomProperties.min.js"><\/script>');
-        document.write('<style>.o-navigation{display:block !important;}.c-card{display:block !important;}.c-utility{display:block !important;}<\/style>');
-      }
-
-      document.addEventListener("DOMContentLoaded", function(){
-        const warning = document.getElementById("ie-warning");
-        const links = warning.querySelectorAll('a')
-        let tabindex = "-1";
-
-        if(/MSIE \d|Trident.*rv:/.test(navigator.userAgent)){
-          warning.classList.remove("hidden");
-          warning.setAttribute("aria-hidden", "false");
-          tabindex="0";
-        }
-
-        links.forEach(function(link){
-          link.setAttribute("tabindex", tabindex)
-        });
-      });
-    </script>
-
     {{ function('wp_head') }}
 
-    {% block scripts_head %}
-      {% include 'services/google-analytics.twig' %}
-      {% include 'services/google-tag-manager.twig' %}
-    {% endblock %}
-
-    {% if language_code != 'en' %}
-      {% include ['services/google-translate.twig'] %}
-    {% endif %}
+    {% block scripts_head %}{% endblock %}
   </head>
 
   {% set navigationSpacing = 'pb-8 mb-2 tablet:pb-0 tablet:mb-0' %}
 
   <body class="color bg-scale-2">
     {{ fn('wp_body_open') }}
-
-    {% include 'services/google-tag-manager-body.twig' %}
 
     <a class="sr-only" href="#content">{{ __('Skip to main content', 'WNYC') }}</a>
 
@@ -83,15 +50,23 @@
       {% include 'objects/text-controller.twig' %}
     {% endblock %}
 
-    {% include 'objects/ie-warning.twig' %}
+    {% if fn('defined', 'SUPPORT_IE_11') %}
+      {% include 'objects/ie-warning.twig' %}
+    {% endif %}
 
     {% block content %}{% endblock %}
 
     {% if options.feedback is defined %}
-      {% include 'objects/feedback.twig' %}
+      {% if variant == 'fa' %}
+        {% include 'objects/feedback-a.twig' %}
+      {% elseif variant == 'fb' %}
+        {% include 'objects/feedback-b.twig' %}
+      {% else %}
+        {% include 'objects/feedback.twig' %}
+      {% endif %}
     {% endif %}
 
-    {% if show_newsletter is not defined%}
+    {% if show_newsletter is not defined %}
       {% include 'objects/newsletter.twig' %}
     {% endif %}
 

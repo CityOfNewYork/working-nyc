@@ -12,7 +12,6 @@ use TimberSite;
 use TimberMenu;
 
 class Site extends TimberSite {
-
   function __construct() {
     add_theme_support('title-tag');
 
@@ -26,7 +25,7 @@ class Site extends TimberSite {
   /**
    * Timber Context Object
    */
-  function add_to_context ($context) {
+  function add_to_context($context) {
     $context['language_code'] = ICL_LANGUAGE_CODE;
     $context['newsletter_link'] = ICL_LANGUAGE_CODE == 'en'? '/newsletter' : '/'.ICL_LANGUAGE_CODE.'/newsletter';
     $context['direction'] = (ICL_LANGUAGE_CODE === 'ar' || ICL_LANGUAGE_CODE === 'ur') ? 'rtl' : 'ltr';
@@ -45,6 +44,9 @@ class Site extends TimberSite {
     // Icons path
     $matches = glob(get_template_directory().'/assets/svg/icons-*');
     $context['icons_path'] = strstr($matches[0], '/wp-content');
+
+    // A/B testing variant
+    $context['variant'] = get_query_var('wnyc_v', false);
 
     return $context;
   }

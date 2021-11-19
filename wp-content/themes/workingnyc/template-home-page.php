@@ -9,13 +9,23 @@
 require_once WorkingNYC\timber_post('Announcement');
 
 /**
+ * Enqueue
+ *
+ * @author NYC Opportunity
+ */
+
+add_action('wp_enqueue_scripts', function() {
+  enqueue_inline('animate-on-scroll');
+});
+
+/**
  * Context
  *
  * @author NYC Opportunity
  */
 
 $context = Timber::get_context();
-$post = Timber::get_post();
+$post = Timber::get_post(get_option('page_on_front'));
 
 $context['post'] = $post;
 

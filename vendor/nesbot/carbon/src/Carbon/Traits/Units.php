@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Traits;
 
 use Carbon\CarbonConverterInterface;
@@ -16,6 +17,7 @@ use Carbon\CarbonInterval;
 use Carbon\Exceptions\UnitException;
 use Closure;
 use DateInterval;
+use ReturnTypeWillChange;
 
 /**
  * Trait Units.
@@ -47,7 +49,7 @@ trait Units
                 $seconds = (int) floor($diff / static::MICROSECONDS_PER_SECOND);
                 $time += $seconds;
                 $diff -= $seconds * static::MICROSECONDS_PER_SECOND;
-                $microtime = str_pad("$diff", 6, '0', STR_PAD_LEFT);
+                $microtime = str_pad((string) $diff, 6, '0', STR_PAD_LEFT);
                 $tz = $this->tz;
 
                 return $this->tz('UTC')->modify("@$time.$microtime")->tz($tz);
@@ -165,7 +167,7 @@ trait Units
             'weekday',
         ];
 
-        return in_array($unit, $modifiableUnits) || in_array($unit, static::$units);
+        return \in_array($unit, $modifiableUnits) || \in_array($unit, static::$units);
     }
 
     /**
@@ -193,9 +195,10 @@ trait Units
      *
      * @return static
      */
+    #[ReturnTypeWillChange]
     public function add($unit, $value = 1, $overflow = null)
     {
-        if (is_string($unit) && func_num_args() === 1) {
+        if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);
         }
 
@@ -231,10 +234,11 @@ trait Units
     {
         $date = $this;
 
-        if (!is_numeric($value) || !floatval($value)) {
-            return $date->isMutable() ? $date : $date->copy();
+        if (!is_numeric($value) || !(float) $value) {
+            return $date->isMutable() ? $date : $date->avoidMutation();
         }
 
+        $unit = self::singularUnit($unit);
         $metaUnits = [
             'millennium' => [static::YEARS_PER_MILLENNIUM, 'year'],
             'century' => [static::YEARS_PER_CENTURY, 'year'],
@@ -253,14 +257,14 @@ trait Units
             if ($weekendDays !== [static::SATURDAY, static::SUNDAY]) {
                 $absoluteValue = abs($value);
                 $sign = $value / max(1, $absoluteValue);
-                $weekDaysCount = 7 - min(6, count(array_unique($weekendDays)));
+                $weekDaysCount = 7 - min(6, \count(array_unique($weekendDays)));
                 $weeks = floor($absoluteValue / $weekDaysCount);
 
                 for ($diff = $absoluteValue % $weekDaysCount; $diff; $diff--) {
                     /** @var static $date */
                     $date = $date->addDays($sign);
 
-                    while (in_array($date->dayOfWeek, $weekendDays)) {
+                    while (\in_array($date->dayOfWeek, $weekendDays)) {
                         $date = $date->addDays($sign);
                     }
                 }
@@ -270,7 +274,7 @@ trait Units
             }
 
             $timeString = $date->toTimeString();
-        } elseif ($canOverflow = in_array($unit, [
+        } elseif ($canOverflow = \in_array($unit, [
                 'month',
                 'year',
             ]) && ($overflow === false || (
@@ -303,11 +307,13 @@ trait Units
         $date = $date->modify("$value $unit");
 
         if (isset($timeString)) {
-            return $date->setTimeFromTimeString($timeString);
+            $date = $date->setTimeFromTimeString($timeString);
+        } elseif (isset($canOverflow, $day) && $canOverflow && $day !== $date->day) {
+            $date = $date->modify('last day of previous month');
         }
 
-        if (isset($canOverflow, $day) && $canOverflow && $day !== $date->day) {
-            $date = $date->modify('last day of previous month');
+        if (!$date) {
+            throw new UnitException('Unable to add unit '.var_export(\func_get_args(), true));
         }
 
         return $date;
@@ -352,9 +358,10 @@ trait Units
      *
      * @return static
      */
+    #[ReturnTypeWillChange]
     public function sub($unit, $value = 1, $overflow = null)
     {
-        if (is_string($unit) && func_num_args() === 1) {
+        if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);
         }
 
@@ -374,7 +381,7 @@ trait Units
             [$value, $unit] = [$unit, $value];
         }
 
-        return $this->addUnit($unit, -floatval($value), $overflow);
+        return $this->addUnit($unit, -(float) $value, $overflow);
     }
 
     /**
@@ -390,7 +397,7 @@ trait Units
      */
     public function subtract($unit, $value = 1, $overflow = null)
     {
-        if (is_string($unit) && func_num_args() === 1) {
+        if (\is_string($unit) && \func_num_args() === 1) {
             $unit = CarbonInterval::make($unit);
         }
 

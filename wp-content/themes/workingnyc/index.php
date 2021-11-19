@@ -1,13 +1,10 @@
 <?php
+
 /**
-* Index template and Homepage
-*
-* A fallback list template used if a more specific template is not available
-*
-*/
+ * Index template and Homepage
+ *
+ * A fallback list template used if a more specific template is not available
+ *
+ */
 
-$context = Timber::get_context();
-
-$template = 'index.twig';
-
-Timber::render('index.twig', $context);
+require 'template-home-page.php';

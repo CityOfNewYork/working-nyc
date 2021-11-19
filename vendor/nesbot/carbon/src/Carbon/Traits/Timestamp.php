@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Carbon\Traits;
 
 /**
@@ -45,6 +46,7 @@ trait Timestamp
         $delta = floor($decimal / static::MICROSECONDS_PER_SECOND);
         $integer += $delta;
         $decimal -= $delta * static::MICROSECONDS_PER_SECOND;
+        $decimal = str_pad((string) $decimal, 6, '0', STR_PAD_LEFT);
 
         return static::rawCreateFromFormat('U u', "$integer $decimal");
     }
@@ -137,6 +139,16 @@ trait Timestamp
     }
 
     /**
+     * Returns the timestamp with millisecond precision.
+     *
+     * @return int
+     */
+    public function getTimestampMs()
+    {
+        return (int) $this->getPreciseTimestamp(3);
+    }
+
+    /**
      * @alias getTimestamp
      *
      * Returns the UNIX timestamp for the current date.
@@ -162,19 +174,19 @@ trait Timestamp
      */
     private static function getIntegerAndDecimalParts($numbers, $decimals = 6)
     {
-        if (is_int($numbers) || is_float($numbers)) {
+        if (\is_int($numbers) || \is_float($numbers)) {
             $numbers = number_format($numbers, $decimals, '.', '');
         }
 
-        $sign = substr($numbers, 0, 1) === '-' ? -1 : 1;
+        $sign = str_starts_with($numbers, '-') ? -1 : 1;
         $integer = 0;
         $decimal = 0;
 
         foreach (preg_split('`[^0-9.]+`', $numbers) as $chunk) {
             [$integerPart, $decimalPart] = explode('.', "$chunk.");
 
-            $integer += intval($integerPart);
-            $decimal += floatval("0.$decimalPart");
+            $integer += (int) $integerPart;
+            $decimal += (float) ("0.$decimalPart");
         }
 
         $overflow = floor($decimal);

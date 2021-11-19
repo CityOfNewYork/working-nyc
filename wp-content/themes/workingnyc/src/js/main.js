@@ -214,4 +214,22 @@ import Questionnaire from './questionnaire';
       });
     });
   })(document.querySelectorAll(Observe.selector));
+
+  /**
+   * Set CSS properties of various element heights for calculating the true
+   * window bottom value in CSS.
+   */
+  let setObjectHeights = () => {
+    let navigation = document.querySelector('[data-js="navigation"]');
+    let feedback = document.querySelector('[data-js="feedback"]');
+
+    document.documentElement.style
+      .setProperty('--o-navigation-height', `${navigation.clientHeight}px`);
+
+    document.documentElement.style
+      .setProperty('--o-feedback-height', `${feedback.clientHeight}px`);
+  };
+
+  window.addEventListener('load', () => setObjectHeights());
+  window.addEventListener('resize', () => setObjectHeights());
 })(window)
