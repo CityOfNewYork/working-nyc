@@ -2,7 +2,7 @@
 
 import Vue from 'vue/dist/vue.common';
 import axios from 'axios/dist/axios';
-import router from './router'
+import router from './router';
 
 class Programs {
 
@@ -49,7 +49,7 @@ class Programs {
         updateScroll: Programs.updateScroll,
       },
       created: function() {
-        
+
         /**
          * Get the taxonomies
          */
@@ -91,14 +91,14 @@ class Programs {
 
 /**
  * Update the router based on the filters and returns the filters
- * @param {object} obj 
+ * @param {object} obj
  */
 Programs.generateFilters = function(obj) {
 
   let checked = obj.checkedFilters
 
   obj.totalFilters = checked.length
-  
+
   // generate the query params
   var params = {};
   var ids = {};
@@ -128,7 +128,7 @@ Programs.generateFilters = function(obj) {
 
 /**
  * Extracts the filters in the URL and updates the checkedFilters
- * @param {object} obj 
+ * @param {object} obj
  */
 Programs.parseQuery = function(obj){
   let query = obj.$route.query;
@@ -138,7 +138,7 @@ Programs.parseQuery = function(obj){
   let checked = []
   let terms = [].concat.apply([], filters);
   Object.keys(query).forEach(function (key) {
-    
+
     if (Array.isArray(query[key])){
       query[key].forEach(function(term){
         checked.push(terms.filter(x => x.slug === term)[0])
@@ -156,7 +156,7 @@ Programs.parseQuery = function(obj){
  * Request to get the programs and update router
  **/
 Programs.getPrograms = function () {
-  
+
   let filters =  Programs.generateFilters(this)
 
   let url = `${this.programsURL}&per_page=${this.perPage}&page=${this.page}&${filters}`;
@@ -180,8 +180,8 @@ Programs.getPrograms = function () {
 /**
  * Creates an object with keys that will be populated when the user filters
  * OR creates an array of labels
- * @param {string} str 
- * @param {boolean} labels 
+ * @param {string} str
+ * @param {boolean} labels
  */
 Programs.setTaxObj = function(str, labels) {
 
@@ -202,7 +202,7 @@ Programs.setTaxObj = function(str, labels) {
   return taxonomies;
 }
 
-/** 
+/**
  * Creates the array of URLS to get the taxonomies
  */
 Programs.getTax = function() {
@@ -210,16 +210,16 @@ Programs.getTax = function() {
   let promises = this.taxonomies.map(x => `${this.baseUrl}${Object.keys(x)[0]}?hide_empty=true&per_page=100`);
 
   return promises
-  
+
 }
 
 /**
  * Returns the correct url for the programs detail
- * @param {string} slug 
+ * @param {string} slug
  */
 Programs.postUrl = function(slug){
   let url = '';
-  
+
   if (this.lang != 'en') {
     url = [this.lang, this.postType, slug].join('/');
   } else {

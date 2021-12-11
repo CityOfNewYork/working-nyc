@@ -1,50 +1,116 @@
-@charset 'utf-8';
 
-/***********
- * Defaults
- ***********/
+/**
+ * Asset Paths and CDN
+ */
 
-$language: '' !default;
+// This is the path to your asset folders. Uncomment and set to override the
+// default. By default, it is set to look for assets one director up from the
+// distributed stylesheet '../' ex;
+//
+// $cdn: 'path/to/assets/';
 
-/********************
- * Custom Properties
- ********************/
+// The CDN can be set to another local path, or, it can be set to the 'cdn'
+// within the $tokens map. This default uses jsDelivr to pull the assets
+// from the patterns GitHub repository and the tag of the installed version. ex;
+//
+// @use 'config/tokens' as *;
+// $cdn: map-get($tokens, 'cdn');
+
+// These are the default paths to the different asset types within the asset
+// folder. Uncomment and set to override their defaults.
+//
+// $path-to-fonts: 'fonts/';
+// $path-to-images: 'images/';
+// $path-to-svg: 'svg/';
+
+/**
+ * Fonts
+ */
+
+// If @font-face is used it needs to be imported before all other declarations.
+
+@forward '@nycopportunity/working-patterns/src/utilities/fonts/fonts';
+
+/**
+ * External Dependencies
+ */
+
+// Any external dependency can be included here. It may also make sense to
+// include it within specific component and object styles if it is a dependency.
+// Be sure to add 'node_modules' to your include paths if you are using npm to
+// manage dependencies (recommended). Dependency examples include Bootstrap,
+// Material Components Web, etc.
+
+// @use 'node_modules/...';
+
+/**
+ * Main
+ */
 
 @forward 'tokens';
 
-/*****************************
- * Import WNYC Pattern Blocks
- *****************************/
+@forward '@nycopportunity/working-patterns/src/scss/elements';
+@forward '@nycopportunity/working-patterns/src/scss/components';
+@forward '@nycopportunity/working-patterns/src/scss/objects';
 
-@forward '@nycopportunity/working-patterns/src/utilities/fonts/fonts';     // If @font-face is used it needs to be imported before all other declarations.
-@forward '@nycopportunity/working-patterns/src/scss/elements';             // All Elements
-@forward '@nycopportunity/working-patterns/src/scss/components';           // All Components
+/**
+ * Base elements that need to be included after other patterns to take effect
+ */
 
-/**********
- * Objects
- **********/
+@forward '@nycopportunity/working-patterns/src/scss/utilities';
 
-@forward '@nycopportunity/working-patterns/src/objects/banner/banner';
-@forward '@nycopportunity/working-patterns/src/objects/header/header';
-@forward '@nycopportunity/working-patterns/src/objects/footer/footer';
-@forward '@nycopportunity/working-patterns/src/objects/search/search';
-@forward '@nycopportunity/working-patterns/src/objects/text-controller/text-controller';
+@forward '@nycopportunity/working-patterns/src/elements/base/first-last';
 
-/******************
- * Pattern Modules
- ******************/
 
-@forward '@nycopportunity/pattern-attribution/src/attribution';
-@forward '@nycopportunity/pattern-menu/src/menu';
-@forward '@nycopportunity/pattern-navigation/src/navigation';
+// @charset 'utf-8';
 
-@forward '@nycopportunity/working-patterns/src/elements/base/first-last';  // Base elements that need to be included after other patterns to take effect
-@forward '@nycopportunity/working-patterns/src/scss/utilities';            // All Utilities
-@forward '@nycopportunity/working-patterns/dist/styles/_tailwindcss.scss'; // Tailwindcss
-@forward '@nycopportunity/working-patterns/src/utilities/color/color';     // Since we don't need a separate stylesheet for color, currently. If using a theme switcher, these could go into separate stylesheets in a similar format to languages
+// /***********
+//  * Defaults
+//  ***********/
 
-@forward 'utilities';
+// $language: '' !default;
 
-hr {
-  border-color: var(--color-scale-4)
-}
+// /********************
+//  * Custom Properties
+//  ********************/
+
+// @forward 'tokens';
+
+// @forward '@nycopportunity/working-patterns/src/scss/
+
+// /*****************************
+//  * Import WNYC Pattern Blocks
+//  *****************************/
+
+// @forward '@nycopportunity/working-patterns/src/utilities/fonts/fonts';     // If @font-face is used it needs to be imported before all other declarations.
+// @forward '@nycopportunity/working-patterns/src/scss/elements';             // All Elements
+// @forward '@nycopportunity/working-patterns/src/scss/components';           // All Components
+
+// /**********
+//  * Objects
+//  **********/
+
+// @forward '@nycopportunity/working-patterns/src/objects/banner/banner';
+// @forward '@nycopportunity/working-patterns/src/objects/header/header';
+// @forward '@nycopportunity/working-patterns/src/objects/footer/footer';
+// @forward '@nycopportunity/working-patterns/src/objects/search/search';
+// @forward '@nycopportunity/working-patterns/src/objects/text-controller/text-controller';
+
+// /******************
+//  * Pattern Modules
+//  ******************/
+
+// @forward '@nycopportunity/pattern-attribution/src/attribution';
+// @forward '@nycopportunity/pattern-menu/src/menu';
+// @forward '@nycopportunity/pattern-navigation/src/navigation';
+
+// @forward '@nycopportunity/working-patterns/src/elements/base/first-last';  // Base elements that need to be included after other patterns to take effect
+// @forward '@nycopportunity/working-patterns/src/scss/utilities';            // All Utilities
+// @forward '@nycopportunity/working-patterns/dist/styles/_tailwindcss.scss'; // Tailwindcss
+// @forward '@nycopportunity/working-patterns/src/utilities/color/color';     // Since we don't need a separate stylesheet for color, currently. If using a theme switcher, these could go into separate stylesheets in a similar format to languages
+
+// @forward 'utilities';
+
+// hr {
+//   border-color: var(--color-scale-4)
+// }

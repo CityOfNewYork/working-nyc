@@ -1,21 +1,8 @@
+@forward '@nycopportunity/working-patterns/dist/styles/tokens.css';
+
 @forward '@nycopportunity/pattern-attribution/src/tokens';
 @forward '@nycopportunity/pattern-menu/src/tokens';
 @forward '@nycopportunity/pattern-navigation/src/tokens';
 
-@use '@nycopportunity/working-patterns/src/config/tokens';
-@use '@nycopportunity/working-patterns/src/config/media';
-
-:root {
-  --grid: #{map-get(tokens.$tokens, 'grid')};
-  --o-navigation-font-size: #{map-get(map-get(tokens.$tokens, 'font-size'), 'small')};
-  --o-navigation-item-font-weight: bold;
-  --o-navigation-item-text-decoration: underline;
-  --o-navigation-menu-item-font-size: inherit;
-  --o-attribution-section-borders: 1px solid var(--color-scale-4);
-}
-
-@include media.screen-and-min-width('tablet') {
-  :root {
-    --o-navigation-position: static;
-  }
-}
+@forward '@nycopportunity/working-patterns/dist/styles/tokens-default.css';
+@forward '@nycopportunity/working-patterns/dist/styles/tokens-light.css';
