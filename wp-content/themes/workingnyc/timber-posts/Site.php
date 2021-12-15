@@ -12,12 +12,15 @@ use TimberSite;
 use TimberMenu;
 
 class Site extends TimberSite {
-  function __construct() {
+  /**
+   * Extends TimberSite constructor
+   */
+  public function __construct() {
     add_theme_support('title-tag');
 
     add_theme_support('menus');
 
-    add_filter('timber_context', array($this, 'add_to_context'));
+    add_filter('timber_context', array($this, 'addToContext'));
 
     parent::__construct();
   }
@@ -25,10 +28,14 @@ class Site extends TimberSite {
   /**
    * Timber Context Object
    */
-  function add_to_context($context) {
+  public function addToContext($context) {
     $context['language_code'] = ICL_LANGUAGE_CODE;
-    $context['newsletter_link'] = ICL_LANGUAGE_CODE == 'en'? '/newsletter' : '/'.ICL_LANGUAGE_CODE.'/newsletter';
-    $context['direction'] = (ICL_LANGUAGE_CODE === 'ar' || ICL_LANGUAGE_CODE === 'ur') ? 'rtl' : 'ltr';
+    $context['newsletter_link'] = (ICL_LANGUAGE_CODE === 'en') ?
+      '/newsletter' : '/'.ICL_LANGUAGE_CODE.'/newsletter';
+
+    $context['direction'] = (ICL_LANGUAGE_CODE === 'ar' || ICL_LANGUAGE_CODE === 'ur') ?
+      'rtl' : 'ltr';
+
     $context['site'] = $this;
 
     $context['programs_archive'] = get_post_type_archive_link('programs');

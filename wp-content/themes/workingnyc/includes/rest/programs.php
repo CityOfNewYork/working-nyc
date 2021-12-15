@@ -1,56 +1,57 @@
-<?php 
+<?php
 /**
- * Programs WP Rest API
+ * Programs WordPress REST API
+ *
+ * @author NYC Opportunity
  */
 
- /**
-  * Register routes and fields for programs rest endpoint
-  */
-add_action( 'rest_api_init', 'register_rest_programs' );
-add_filter( 'rest_programs_collection_params', 'filter_add_rest_orderby_params', 10, 1 );
-
-function register_rest_programs() {
-  $taxonomies = get_object_taxonomies( 'programs' );
+/**
+ * Register routes and fields for Programs REST endpoint
+ *
+ * @author NYC Opportunity
+ */
+add_action('rest_api_init', function() {
+  $taxonomies = get_object_taxonomies('programs');
 
   foreach ($taxonomies as &$taxonomy) {
-    register_rest_field( 'programs', $taxonomy, array(
-     'get_callback'    => 'get_rest_programs_terms',
-     'schema'          => null,
+    register_rest_field('programs', $taxonomy, array(
+      'get_callback' => function($object, $taxonomy) {
+        $post_id = $object['id'];
+
+        $terms = wp_get_post_terms($post_id, $taxonomy);
+
+        // Decode HTML characters
+        $terms = array_map(function($term) {
+          $term->name = htmlspecialchars_decode($term->name);
+
+          return $term;
+        }, $terms);
+
+        return $terms;
+      },
+      'schema' => null,
     ));
   }
 
-  register_rest_field( 'programs', 'title', array(
-   'get_callback'    => 'get_rest_program_title',
-   'schema'          => null,
-	));
-}
+  register_rest_field('programs', 'title', array(
+    'get_callback' => function($object) {
+      $post_title = html_entity_decode($object['title']['rendered']);
+
+      return $post_title;
+    },
+    'schema' => null,
+  ));
+});
 
 /**
- * Decode HTML characters
+ * Add order by parameter to programs.
+ *
+ * @param   Array  $params  Program params
+ *
+ * @return  Array           $params
  */
-function decode_html($terms) {
-  foreach ($terms as &$term) { 
-	  $term->name = htmlspecialchars_decode($term->name);
-  }
+add_filter('rest_programs_collection_params', function($params) {
+  $params['orderby']['enum'][] = 'menu_order';
 
-  return $terms;
-}
-
-/**
- * Returns the terms in taxonomy
- */
-function get_rest_programs_terms( $object, $taxonomy ) {
-  $post_id = $object['id'];
-
-  $terms = wp_get_post_terms( $post_id, $taxonomy );
-
-  $terms = decode_html($terms);
- 
-  return $terms;
-}
-
-function get_rest_program_title( $object ) { 
-  $post_title = html_entity_decode($object['title']['rendered']);
-   
-  return $post_title;
-}
+  return $params;
+}, 10, 1);

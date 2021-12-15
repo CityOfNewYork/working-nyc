@@ -7,7 +7,7 @@
  */
 
 add_action('init', function() {
-  if( function_exists('acf_add_options_page') ) {
+  if (function_exists('acf_add_options_page')) {
     acf_add_options_page(array(
       'page_title'  => 'WNYC General Settings',
       'menu_title'  => 'WNYC Settings',

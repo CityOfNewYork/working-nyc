@@ -106,7 +106,6 @@ function get_post_type($path) {
   $post_type = get_field_object(POST_TYPE, get_controller_id($path));
 
   return array_keys($post_type['choices'])[0];
-
 }
 
 /**
@@ -117,13 +116,12 @@ function get_filters($path) {
   $arr = get_field(FILTERS, get_controller_id($path));
   $filters = array_column($arr, 'filter_name');
 
-  foreach ($filters as $index=>$filter) {
+  foreach ($filters as $index => $filter) {
     $filters[$index] = $filter.':'.get_taxonomy($filter)->label;
   }
   $filters = implode(",", $filters);
 
   return $filters;
-
 }
 
 /**
@@ -133,7 +131,7 @@ function get_filters($path) {
 function get_filter_label($path) {
   $label = get_field(FILTERS_LABEL, get_controller_id($path));
 
-  if($label ==''){
+  if ($label == '') {
     $label = __('Filters', 'WNYC-Date');
   }
 

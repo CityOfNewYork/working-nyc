@@ -29,7 +29,7 @@ function parse_fields($str){
   // loop through all of the fields
   $array_objs = [];
   $fieldset_group = '';
-  foreach($fields as $field){
+  foreach ($fields as $field) {
     $new_field = new stdClass();
     $new_fieldset = new stdClass();
 
@@ -41,13 +41,10 @@ function parse_fields($str){
     $label = $field->parentNode->nodeValue;
 
     if ($type != 'checkbox') {
-    
       $new_field = create_obj($value, $name, $type, $id, $label, $class);
       
       array_push($array_objs, $new_field);
-
     } else {
-
       preg_match('/\[(.*?)\]/', $id, $matches);
       $group = $matches[1];
 
@@ -59,7 +56,7 @@ function parse_fields($str){
         $labels = explode(PHP_EOL, $labels);
 
         // get the label of the fieldset
-        foreach($labels as $fl){
+        foreach ($labels as $fl) {
           if ($fl != '') {
             $field_label = $fl;
             break;
@@ -72,13 +69,12 @@ function parse_fields($str){
         $new_field->fields = array();
         $fieldset_group = $group;
 
-        $nested_field=create_obj($value, $name, $type, $id, $label, $class);
+        $nested_field = create_obj($value, $name, $type, $id, $label, $class);
         
         array_push($new_field->fields, $nested_field);
         array_push($array_objs, $new_field);
-        
       } else {
-        $nested_field=create_obj($value, $name, $type, $id, $label, $class);
+        $nested_field = create_obj($value, $name, $type, $id, $label, $class);
         
         $last_index = count($array_objs) - 1;
         
@@ -110,5 +106,4 @@ function create_obj($value, $name, $type, $id, $label, $class) {
   }
 
   return $obj;
-  
 }

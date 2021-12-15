@@ -78,7 +78,7 @@ add_filter('mce_buttons_2', function ($buttons) {
     'undo',
     'redo',
     'wp_help'
-   );
+  );
   array_unshift($buttons, 'styleselect');
 
   return array_diff($buttons, $remove);

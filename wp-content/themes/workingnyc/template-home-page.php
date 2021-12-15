@@ -38,12 +38,12 @@ $context['post'] = $post;
 
 $context['announcements'] = array_map(function($post) {
     return new WorkingNYC\Announcement($post);
-  }, Timber::get_posts(array(
-    'posts_per_page' => 4,
-    'post_type' => 'announcements',
-    'orderby' => 'menu_order',
-    'order' => 'ASC',
-  )));
+}, Timber::get_posts(array(
+  'posts_per_page' => 4,
+  'post_type' => 'announcements',
+  'orderby' => 'menu_order',
+  'order' => 'ASC',
+)));
 
 $context['meta'] = new WorkingNYC\Meta($post->ID);
 
@@ -60,7 +60,8 @@ $context['questionnaire_qs'] = Templating\get_questionnaire_qs($post->ID);
 
 $schemas = array();
 
-array_push($schemas,
+array_push(
+  $schemas,
   WNYCSchema\website(),
   WNYCSchema\organization()
 );

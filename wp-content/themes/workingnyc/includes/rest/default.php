@@ -1,12 +1,12 @@
 <?php
 
 /**
- * add orderby filter for rest api
+ * Add orderby filter for REST API
+ *
+ * @author NYC Opportunity
  */
-add_filter( 'rest_post_collection_params', 'filter_add_rest_orderby_params', 10, 1 );
+add_filter('rest_post_collection_params', function($params) {
+    $params['orderby']['enum'][] = 'menu_order';
 
-function filter_add_rest_orderby_params( $params ) {
-	$params['orderby']['enum'][] = 'menu_order';
-
-	return $params;
-}
+    return $params;
+}, 10, 1);

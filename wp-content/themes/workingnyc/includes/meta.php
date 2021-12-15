@@ -49,7 +49,7 @@ class Meta {
    *
    * @return  String  The meta description
    */
-  function getDescription() {
+  public function getDescription() {
     if (is_page_template('template-home-page.php') || is_front_page()) {
       return get_bloginfo('description');
     }
@@ -70,7 +70,7 @@ class Meta {
    *
    * @return  String  The meta keywords
    */
-  function getKeywords() {
+  public function getKeywords() {
     return get_field(self::FIELD_KEYWORDS, $this->id);
   }
 

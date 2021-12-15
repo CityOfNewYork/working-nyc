@@ -51,10 +51,12 @@ class Announcement extends Timber\Post {
    * @return  String  The announcement URL
    */
   public function getLink() {
-    if ($this->announcement_is_external === 'Yes'){
+    if ($this->announcement_is_external === 'Yes') {
       return $this->announcement_url;
     } else {
-      $anchor = ($this->announcement_content_anchor) ? '#' . str_replace(' ', '-', strtolower(($this->announcement_content_anchor))): '';
+      $anchor = ($this->announcement_content_anchor) ?
+        '#' . str_replace(' ', '-', strtolower(($this->announcement_content_anchor))) : '';
+
       return get_permalink($this->announcement_content). $anchor;
     }
   }

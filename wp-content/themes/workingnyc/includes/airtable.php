@@ -10,22 +10,17 @@ namespace Airtable;
  * Returns the user's browser
  */
 function get_current_browser() {
-  if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== FALSE){
+  if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false) {
     return 'Internet+Explorer';
-  }
-  else if(strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== FALSE){
+  } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident') !== false) {
     return 'Internet+Explorer';
-  }
-  else if(strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== FALSE){
+  } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox') !== false) {
     return 'Firefox';
-  }
-  else if(strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== FALSE){
+  } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Chrome') !== false) {
     return 'Chrome';
-  }
-  else if(strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== FALSE){
+  } elseif (strpos($_SERVER['HTTP_USER_AGENT'], 'Safari') !== false) {
     return "Safari";
-  }
-  else{
+  } else {
     return 'Other';
   }
 }
@@ -34,10 +29,9 @@ function get_current_browser() {
  * Returns Mobile or Desktop
  */
 function get_mobile_desktop(){
-  if (wp_is_mobile()){
+  if (wp_is_mobile()) {
     return 'Mobile';
-  }
-  else {
+  } else {
     return 'Desktop';
   }
 }
@@ -48,7 +42,8 @@ function get_mobile_desktop(){
 function get_language_name(){
   global $sitepress;
   $details = $sitepress->get_language_details(ICL_LANGUAGE_CODE);
-  $language_name = preg_replace('/[[:space:]]+/', '+', $details['english_name']);;
+  $language_name = preg_replace('/[[:space:]]+/', '+', $details['english_name']);
+  ;
   return $language_name;
 }
 
@@ -64,5 +59,4 @@ function get_formatted_string($question){
  */
 function prefill($question){
   return 'prefill_'.$question.'=';
-  
 }

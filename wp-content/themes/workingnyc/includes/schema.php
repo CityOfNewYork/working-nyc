@@ -46,14 +46,11 @@ function government_service($program = null) {
     ->name($program->program_title)
     ->serviceType(implode(', ', $program->terms('services')))
     ->serviceOperator(Schema::governmentOrganization()
-      ->name($program->program_agency)
-    )
+      ->name($program->program_agency))
     ->areaServed(Schema::administrativeArea()
-      ->name('New York')
-    )
+      ->name('New York'))
     ->audience(Schema::Audience()
-      ->name(implode(', ', $program->terms('populations')))
-);
+      ->name(implode(', ', $program->terms('populations'))));
 
   return $schema->toArray();
 }
@@ -63,7 +60,7 @@ function government_service($program = null) {
  */
 function educational_organization($program = null) {
   $schema = Schema::educationalOrganization()
-    ->name($program->program_agency !=''? $program->program_agency: $program->program_provider);
+    ->name($program->program_agency != '' ? $program->program_agency : $program->program_provider);
 
   return $schema->toArray();
 }
