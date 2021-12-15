@@ -9,7 +9,7 @@
         <svg class="icon-wnyc-ui" role="img">
           <title>{{ __('Hide', 'wnyc') }}</title>
 
-          <use xlink:href="#feather-chevron-down"></use>
+          <use href="#feather-chevron-down"></use>
         </svg>
       </span>
 
@@ -17,7 +17,7 @@
         <svg class="icon-wnyc-ui" role="img">
           <title>{{ __('Expand', 'wnyc') }}</title>
 
-          <use xlink:href="#feather-chevron-up"></use>
+          <use href="#feather-chevron-up"></use>
         </svg>
       </span>
     </button>
@@ -31,13 +31,13 @@
       <p class="print:hidden">
         <a class="btn btn-secondary btn-next w-full" href="{{ this.cta.href }}" {% if this.cta.target %}target="{{ this.cta.target }}"{% endif %} {% if this.cta.rel %}rel="{{ this.cta.rel }}"{% endif %} {% if this.active == false %}tabindex="-1"{% endif %}>
           <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip" {% if this.active == false %}tabindex="-1"{% endif %}>
-            <use xlink:href="#feather-arrow-left"></use>
+            <use href="#feather-arrow-left"></use>
           </svg>
 
           {{ this.cta.text }}
 
           <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip" {% if this.active == false %}tabindex="-1"{% endif %}>
-            <use xlink:href="#feather-arrow-right"></use>
+            <use href="#feather-arrow-right"></use>
           </svg>
         </a>
       </p>
