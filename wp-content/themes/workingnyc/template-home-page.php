@@ -16,6 +16,7 @@ require_once WorkingNYC\timber_post('Announcement');
 
 add_action('wp_enqueue_scripts', function() {
   enqueue_inline('animate-on-scroll');
+  enqueue_script('template-home-page');
 });
 
 /**
@@ -65,5 +66,11 @@ array_push($schemas,
 );
 
 $context['schema'] = json_encode($schemas, JSON_UNESCAPED_SLASHES);
+
+/**
+ * Render the view
+ *
+ * @author NYC Opportunity
+ */
 
 Timber::render('home.twig', $context);

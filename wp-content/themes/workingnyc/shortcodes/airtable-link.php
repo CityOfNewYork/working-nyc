@@ -71,13 +71,13 @@ class AirtableLink extends Shortcode {
       array_push($params, $lang);
     }
 
-    if (!empty($atts['program_name'])) {
+    if (!empty($atts['program_name']) && isset($post)) {
       $program_name = Airtable\prefill(Airtable\get_formatted_string($atts['program_name'])) . Airtable\get_formatted_string($post->post_title);
 
       array_push($params, $program_name);
     }
 
-    if (!empty($atts['program_link'])) {
+    if (!empty($atts['program_link']) && isset($post)) {
       $program_link = Airtable\prefill(Airtable\get_formatted_string($atts['program_link'])) . get_permalink($post->id);
 
       array_push($params, $program_link);
@@ -85,10 +85,10 @@ class AirtableLink extends Shortcode {
 
     $url = $atts['url'] . '?' . implode('&', $params);
 
-    return '<a class="'. $atts['class'] . '" href="'. $url . '" target="_blank">' .
+    return '<a class="link-icon '. $atts['class'] . '" href="'. $url . '" target="_blank">' .
       '<span>' . $atts['text'] . '</span>' .
-      '<svg aria-hidden="true" class="icon-wnyc-ui" style="margin-left: 5px;">' .
-        '<use xlink:href="#external-link"></use>' .
+      '<svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">' .
+        '<use href="#feather-external-link"></use>' .
       '</svg>' .
     '</a>';
   }

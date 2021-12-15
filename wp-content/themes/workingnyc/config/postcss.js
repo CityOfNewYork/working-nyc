@@ -2,9 +2,6 @@
  * Dependencies
  */
 
-const alerts = require('@nycopportunity/pttrn/config/alerts');
-const cnsl = require('@nycopportunity/pttrn/bin/util/console');
-
 let postCssConfig = require('@nycopportunity/working-patterns/config/postcss');
 let tailwindcssConfig = require('@nycopportunity/working-patterns/config/tailwindcss');
 
@@ -17,7 +14,8 @@ postCssConfig.plugins = postCssConfig.plugins.map(p => {
   if (p.postcssPlugin === 'tailwindcss') {
     tailwindcssConfig.mode = 'jit';
     tailwindcssConfig.purge = [
-      './views/**/*.twig'
+      './views/**/*.twig',
+      './shortcodes/**/*.php'
     ];
 
     return require('tailwindcss')(tailwindcssConfig);
@@ -25,7 +23,5 @@ postCssConfig.plugins = postCssConfig.plugins.map(p => {
 
   return p;
 });
-
-cnsl.describe(`${alerts.package} Mirroring PostCSS configuration ${alerts.str.path('@nycopportunity/working-patterns/config/postcss')} with production Tailwindcss build.`);
 
 module.exports = postCssConfig;

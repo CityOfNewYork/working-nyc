@@ -49,11 +49,11 @@ class Programs {
         updateScroll: Programs.updateScroll,
       },
       created: function() {
-
         /**
          * Get the taxonomies
          */
-        let vals = this.getTax()
+        let vals = this.getTax();
+
         axios.all(vals.map(l => axios.get(l)))
           .then(axios.spread((...res) => {
             this.filters = res.map(value => value.data)
@@ -75,7 +75,7 @@ class Programs {
         combineStr: function (arr, tax, bool) {
           if (!arr) {return}
           if (bool) {
-            let names = arr.map(value => `<b class="text-alt" data-program="taxonomy.${tax}">${value.name}</b>`);
+            let names = arr.map(value => `<b class="text-em" data-program="taxonomy.${tax}">${value.name}</b>`);
             let joined = names.join(', ').replace(/, ([^,]*)$/, ', and $1');
             return joined;
           } else {

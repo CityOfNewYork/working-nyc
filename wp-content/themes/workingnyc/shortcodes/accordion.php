@@ -50,10 +50,10 @@ class Accordion extends Shortcode {
       array(
         'this' => array(
           'id' => $id,
-          'classes' => 'mb-4',
+          'classes' => 'shadow-up mb-4',
           'active' => in_array('active', $atts),
           'header' => $atts['header'],
-          'body' => $content,
+          'body' => do_shortcode($content),
           'cta' => ($atts['call-to-action']) ?
             array(
               'href' => $atts['call-to-action'],

@@ -12,7 +12,7 @@
 
         {% if this.target == '_blank' %}
         <svg aria-hidden="true" class="icon-wnyc-ui">
-          <use xlink:href="#external-link"></use>
+          <use href="#feather-external-link"></use>
         </svg>
         {% endif %}
       </a>
@@ -26,12 +26,14 @@
 
     <ul class="c-card__features">
       <li class="flex items-center">
-        <svg aria-hidden="true" class="icon-wnyc-ui me-1">
-          <use xlink:href="#alert-triangle"></use>
+        <svg class="icon-wnyc-ui mie-1" role="img">
+          <title>{{ __('Last Updated', 'WNYC') }}</title>
+
+          <use href="#feather-alert-triangle"></use>
         </svg>
 
         <span>
-          {{ __('Updated ', 'WNYC') }}
+          {{ __('Updated', 'WNYC') }}
           {{ this.date|date(fn('get_option', 'date_format')) }}
           {{ this.date|date(fn('get_option', 'time_format')) }}
         </span>

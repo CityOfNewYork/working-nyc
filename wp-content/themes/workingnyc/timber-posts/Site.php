@@ -41,9 +41,12 @@ class Site extends TimberSite {
     // WNYC Settings
     $context['options'] = get_fields('options');
 
-    // Icons path
-    $matches = glob(get_template_directory().'/assets/svg/icons-*');
-    $context['icons_path'] = strstr($matches[0], '/wp-content');
+    // SVG Sprite Paths
+    $context['sprites'] = array(
+      'wnyc' => strstr(glob(get_template_directory() . '/assets/svg/icons-*')[0], '/wp-content'),
+      'feather' => strstr(glob(get_template_directory() . '/assets/svg/feather-*')[0], '/wp-content'),
+      'favicon' => strstr(glob(get_template_directory() . '/assets/svg/favicon-*')[0], '/wp-content')
+    );
 
     // A/B testing variant
     $context['variant'] = get_query_var('wnyc_v', false);

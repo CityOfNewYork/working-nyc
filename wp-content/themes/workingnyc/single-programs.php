@@ -1,7 +1,16 @@
 <?php
+
 /**
-* Single entry template. Used for posts and other individual content items.
-*/
+ * Single entry template. Used for posts and other individual content items.
+ *
+ * @author NYC Opportunity
+ */
+
+/**
+ * Set the Timber view context
+ *
+ * @author NYC Opportunity
+ */
 
 $context = Timber::get_context();
 $post = Timber::get_post();
@@ -12,8 +21,12 @@ $context['meta'] = new WorkingNYC\Meta($post->ID);
 
 /**
  * Generate schema for page
+ *
+ * @author NYC Opportunity
  */
+
 $schemas = array();
+
 $arr_ed = array('University', 'College');
 
 foreach ($arr_ed as $value) {
@@ -23,13 +36,13 @@ foreach ($arr_ed as $value) {
   }
 }
 
-if ($ed == true){
+if ($ed == true) {
   array_push($schemas,
     WNYCSchema\educational_organization($post)
   );
 }
 
-if ($ed == false && $post->program_agency != ''){
+if ($ed == false && $post->program_agency != '') {
   array_push($schemas,
     WNYCSchema\government_service($post),
     WNYCSchema\government_organization($post)
@@ -38,5 +51,12 @@ if ($ed == false && $post->program_agency != ''){
 
 $context['schema'] = json_encode($schemas, JSON_UNESCAPED_SLASHES);
 
+/**
+ * Render the view
+ *
+ * @author NYC Opportunity
+ */
+
 $template = 'programs/single.twig';
-Timber::render( $template, $context );
+
+Timber::render($template, $context);

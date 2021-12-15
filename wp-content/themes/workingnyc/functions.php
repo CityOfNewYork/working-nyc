@@ -39,6 +39,7 @@ WorkingNYC\require_shortcodes();
 
 new Shortcode\Accordion();
 new Shortcode\AirtableLink();
+new Shortcode\Alert();
 new Shortcode\Blockquote();
 new Shortcode\Card();
 new Shortcode\Icon();
@@ -51,6 +52,11 @@ new Shortcode\Program();
  */
 
 add_action('wp_enqueue_scripts', function() {
+  if (!is_admin())
+    enqueue_language_style('site-default');
+
+  enqueue_script('global');
+
   enqueue_inline('data-layer');
   enqueue_inline('google-optimize');
   enqueue_inline('google-analytics');
@@ -60,7 +66,10 @@ add_action('wp_enqueue_scripts', function() {
     enqueue_inline('google-translate-element');
   }
 
-  enqueue_inline('ie11-custom-properties');
+  if (SUPPORT_IE_11 && is_IE()) {
+    enqueue_inline('ie11-custom-properties');
+    enqueue_script('polyfills');
+  }
 });
 
 /**

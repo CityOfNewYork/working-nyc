@@ -1,15 +1,19 @@
-<section class="layout-content bg-scale-2" data-js="feedback">
-  <div class="tablet:p-3">
-    <article class="c-alert color-status-primary" data-js="alert-warning">
-      <div class="c-alert__graphic">
-        <svg aria-hidden="true" class="icon-wnyc-ui">
-          <use xlink:href="#help-circle"></use>
-        </svg>
-      </div>
+<section class="z-10 sticky o-navigation-spacing-bottom" data-js="feedback">
+  <div class="layout-content bg-scale-2">
+    <div class="tablet:px-3 tablet:py-2">
+      <article class="c-alert status-primary" data-js="alert-warning">
+        <div class="c-alert__graphic">
+          <svg aria-hidden="true" class="icon-wnyc-ui">
+            <use href="#feather-help-circle"></use>
+          </svg>
+        </div>
 
-      <div class="c-alert__body">
-        <p data-js-alert="text">{{ options.feedback | striptags('<a><svg><title><use>') }}</p>
-      </div>
-    </article>
+        <div class="c-alert__body py-2 pe-2">
+          <p data-js-alert="text">
+            {{ options.feedback | striptags('<a><svg><title><use>') }}
+          </p>
+        </div>
+      </article>
+    </div>
   </div>
 </section>

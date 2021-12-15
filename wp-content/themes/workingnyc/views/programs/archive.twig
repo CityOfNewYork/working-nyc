@@ -1,145 +1,163 @@
 {% extends "base.twig" %}
 
 {% block content %}
-  <div class="bg-scale-2">
-    <main class="bg-scale-1" id="content">
-
-      <div id="vue-{{post_type}}" data-filters="{{filters}}">
-
-        <div class="c-dropdown layout-content sticky top-0 bg-scale-1 z-10">
-          {% include ['components/utility-nav.twig'] with {
-            return: {
-              'label': __('Home', 'Program'),
-              'link': site.url
-            },
-            has_filters: true
-          } %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1" id="content">
+    <div id="vue-{{ post_type }}" data-filters="{{ filters }}">
+      <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-20">
+        {% include ['components/utility-nav.twig'] with {
+          return: {
+            'label': __('Home', 'Program'),
+            'link': site.url
+          },
+          has_filters: true
+        } %}
 
         {% include 'components/filters.twig' %}
-        </div>
+      </div>
 
-        <div class="layout-content">
-          <div class="page-max">
-            <header class="o-header">
-              <div>
-                <h1 class="o-header__title">{{page_title}}</h1>
-                <h2 class="o-header__subtitle">{{page_tagline}}</h2>
+      <div class="layout-content">
+        <div class="page-max">
+          <header class="o-header">
+            <div>
+              <h1 class="o-header__title">{{ page_title }}</h1>
 
-                {% include 'components/breadcrumbs.twig' with {
-                  crumbs: [
-                    {
-                      'label': 'Programs',
-                      'link': ''
-                    }
-                  ]
-                }%}
-              </div>
-            </header>
-          </div>
-        </div>
+              <h2 class="o-header__subtitle" v-if="checkedFilters.length">Exploring <span v-for="f, i in checkedFilters"><span v-if="checkedFilters.length > 1 && i == checkedFilters.length - 1">and </span>v{ f.name }<span v-if="checkedFilters.length > 2 && i < checkedFilters.length - 1">,</span><span v-if="i == checkedFilters.length - 1">.</span><span v-else>&nbsp;</span></span></h2>
 
-        <section class="page-max desktop:px-6" id="programs">
-          {# TODO: [WK-246] [Programs Archive] Loading Spinner #}
-          <div class="wrap desktop:px-6 layout-rows-gutter tablet:layout-col-2-gap-1-1 desktop:layout-col-2-gap-2-2">
+              {% if page_content %}{{ page_content }}{% endif %}
 
-            <p data-alert="text" aria-live="polite" class="sr-only" v-if="posts!=null">Showing results v{ posts.length } of v{ totalPosts }.</p>
-
-            <article class="c-card" v-for="post in posts">
-              <header class="c-card__header">
-                <h2 class="c-card__title mt-0 mb-2">
-                  <a :href="postUrl(post.slug)">
-                    <span data-program="plain-language-name" v-html="post.acf.program_title"></span>
-                  </a>
-                </h2>
-                <h3 class="c-card__subtitle text-alt mb-1">
-                <b data-program="title" v-html="post.title"></b><span data-program="title"> {{ __('by', 'WNYC-Programs') }} </span><span data-program="title" v-html="post.acf.program_agency"></span>
-                </h3>
-              </header>
-              <div class="c-card__body">
-                <p class="c-card__status flex items-center" v-if="post.recruitment_status.length > 0 && post.recruitment_status[0].slug=='actively-recruiting'">
-                  <mark class="badge status-alt me-2" data-program="recruiting">
-                    v{ post.recruitment_status[0].name }
-                  </mark>
-                </p>
-
-                <div class="c-card__summary">
-                  <p>
-                    <span data-program="summary">v{ post.acf.program_intro.replace('—', '') | stripHtml }</span>
-
-                    <span v-if="post.populations.length > 0">{{ __('For', 'WNYC-Programs') }}
-                      <span v-html="$options.filters.combineStr(post.populations, 'populations', true)"></span>.</span>
-                  </p>
-                </div>
-                <ul class="c-card__features">
-                    <li class="flex items-center" v-if="post.services.length > 0">
-                      <svg aria-hidden="true" class="icon-wnyc-ui me-1">
-                        <use xlink:href="#award"></use>
-                      </svg>
-
-                      <span v-html="$options.filters.combineStr(post.services, 'services', false)"></span>
-                    </li>
-
-                    <li class="flex items-center" v-if="(post.duration.length > 0) || (post.schedule.length > 0)">
-                      <svg aria-hidden="true" class="icon-wnyc-ui me-1">
-                        <use xlink:href="#calendar"></use>
-                      </svg>
-                      <span v-if="post.duration.length > 0 && post.schedule.length > 0">
-                        <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }, </span>
-                        <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
-                      </span>
-                      <span v-else>
-                        <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }</span>
-                        <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
-                      </span>
-                    </li>
-
-                </ul>
-                <a class="c-card__cta btn btn-secondary btn-next" :href="postUrl(post.slug)">
-                  <svg aria-hidden="true" class="icon-wnyc-ui">
-                    <use xlink:href="#arrow-left"></use>
-                  </svg>
-                  <span>{{ __('Learn more', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} <span data-program="plain-language-name">v{ post.acf.program_title }</span>
-                    </span>
-                  </span>
-                  <svg aria-hidden="true" class="icon-wnyc-ui">
-                    <use xlink:href="#arrow-right"></use>
-                  </svg>
-                </a>
-              </div>
-            </article>
-
-            {# Suggest #}
-            <article class="c-card border-l-4 border-mid-0">
-              <div class="c-alert items-center h-full w-full" data-js="alert-help" v-if="totalVisible > 0 && totalVisible == totalPosts">
-                <div class="c-alert__graphic border-l-0">
-                  <svg aria-hidden="true" class="icon-wnyc-ui">
-                    <use xlink:href="#help-circle"></use>
-                  </svg>
-                </div>
-
-                <div class="c-alert__body">
-                  <b class="text-alt mb-1">
-                    {{options.new_program_heading}}
-                  </b>
-
-                  <p data-js-alert="text">{{options.new_program_body | striptags('<a><svg><title><use>') }}</p>
-                </div>
-              </div>
-            </article>
-            {# Suggest end #}
-
-            <article aria-hidden="true"> </article>
-          </div>
-        </section>
-
-        <div class="bg-scale-1 page-max layout-content">
-          <div class="py-2 wrap">
-            <button id="pagination" class="btn btn-tertiary w-full" v-if="totalVisible < totalPosts"v-on:click="page += 1; updateScroll();">{{ __('Show more', 'WNYC')}}</button>
-          </div>
+              {% include 'components/breadcrumbs.twig' with {
+                crumbs: [
+                  {
+                    'label': 'Programs',
+                    'link': ''
+                  }
+                ]
+              }%}
+            </div>
+          </header>
         </div>
       </div>
-    </main>
-  </div>
 
+      <section class="page-max desktop:px-6" id="programs">
+        {# TODO: [WK-246] [Programs Archive] Loading Spinner #}
+        <div class="wrap desktop:px-6 grid gap-3 tablet:grid-cols-2 desktop:gap-5">
+          <p data-alert="text" aria-live="polite" class="sr-only" v-if="posts!=null">Showing results v{ posts.length } of v{ totalPosts }.</p>
+
+          <article class="c-card" v-for="post in posts">
+            <header class="c-card__header">
+              <h3 class="c-card__title mt-0 mb-2">
+                <a :href="postUrl(post.slug)">
+                  <span data-program="plain-language-name" v-html="post.acf.program_title"></span>
+                </a>
+              </h3>
+
+              <h4 class="c-card__subtitle text-alt mb-1">
+                <b data-program="title" v-html="post.title"></b><span data-program="title"> {{ __('by', 'WNYC-Programs') }} </span><span data-program="title" v-html="post.acf.program_agency"></span>
+              </h4>
+            </header>
+
+            <div class="c-card__body">
+              <p class="c-card__status flex items-center" v-if="post.recruitment_status.length > 0 && post.recruitment_status[0].slug=='actively-recruiting'">
+                <mark class="badge mie-2" data-program="recruiting">
+                  v{ post.recruitment_status[0].name }
+                </mark>
+              </p>
+
+              <div class="c-card__summary">
+                <p>
+                  <span data-program="summary">v{ post.acf.program_intro.replace('—', '') | stripHtml }</span>
+
+                  <span v-if="post.populations.length > 0">
+                    {{ __('For', 'WNYC-Programs') }}
+
+                    <span v-html="$options.filters.combineStr(post.populations, 'populations', true)"></span>.
+                  </span>
+                </p>
+              </div>
+
+              <ul class="c-card__features">
+                <li class="flex items-center" v-if="post.services.length > 0">
+                  <svg class="icon-wnyc-ui mie-1" role="img">
+                    <title>{{ __('Services', 'WNYC') }}</title>
+
+                    <use href="#feather-award"></use>
+                  </svg>
+
+                  <span v-html="$options.filters.combineStr(post.services, 'services', false)"></span>
+                </li>
+
+                <li class="flex items-center" v-if="(post.duration.length > 0) || (post.schedule.length > 0)">
+                  <svg class="icon-wnyc-ui mie-1" role="img">
+                    <title>{{ __('Schedule', 'WNYC') }}</title>
+
+                    <use href="#feather-calendar"></use>
+                  </svg>
+
+                  <span v-if="post.duration.length > 0 && post.schedule.length > 0">
+                    <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }, </span>
+                    <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
+                  </span>
+
+                  <span v-else>
+                    <span data-program="taxonomy.duration" v-if="post.duration.length > 0">v{ post.duration[0].name }</span>
+                    <span data-program="taxonomy.schedule" v-if="post.schedule.length > 0">v{ post.schedule[0].name }</span>
+                  </span>
+                </li>
+              </ul>
+
+              <a class="c-card__cta" :href="postUrl(post.slug)">
+                <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+                  <use href="#feather-arrow-left"></use>
+                </svg>
+
+                <span>
+                  {{ __('Learn more', 'WNYC-Programs') }} <span class="sr-only">{{ __('about', 'WNYC-Programs') }} <span data-program="plain-language-name">v{ post.acf.program_title }</span></span>
+                </span>
+
+                <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+                  <use href="#feather-arrow-right"></use>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          {# Suggest #}
+          <article class="c-alert items-center" data-js="alert-help" v-if="totalVisible > 0 && totalVisible == totalPosts">
+            <div class="c-alert__graphic h-full">
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use href="#feather-help-circle"></use>
+              </svg>
+            </div>
+
+            <div class="c-alert__body">
+              <b class="text-alt mb-1">
+                {{ options.new_program_heading }}
+              </b>
+
+              <p data-js-alert="text">{{ options.new_program_body | striptags('<a><svg><title><use>') }}</p>
+            </div>
+          </article>
+          {# Suggest end #}
+
+          {# <article aria-hidden="true"></article> #}
+        </div>
+      </section>
+
+      <div class="layout-content py-6 pb-8 mb-4">
+        <div class="wrap">
+          <button id="pagination" class="btn btn-primary w-full" v-if="totalVisible < totalPosts" v-on:click="page += 1; updateScroll();">{{ __('Show more', 'WNYC')}}</button>
+        </div>
+      </div>
+    </div>
+
+    {% if options.feedback is defined %}
+    {% include 'objects/feedback.twig' %}
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
+  </main>
+</div>
 {% endblock %}
-

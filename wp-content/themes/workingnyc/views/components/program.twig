@@ -1,31 +1,33 @@
 <article class="c-card h-full {{ post.classes }}">
   <header class="c-card__header">
-    <h2 class="c-card__title mt-0 mb-2">
-      <a href="{{post.link}}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
-        <span data-program="plain-language-name">{{post.program_title}}</span>
+    <h3 class="c-card__title mt-0 mb-2">
+      <a href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
+        <span data-program="plain-language-name">{{ post.program_title }}</span>
       </a>
-    </h2>
-    <h3 class="c-card__subtitle text-alt mb-1">
-      <b>{{post.title}}</b> {{ __('by', 'WNYC-Programs')}} {{post.program_agency}}
     </h3>
+
+    <h4 class="c-card__subtitle text-alt mb-1">
+      <b>{{ post.title }}</b> {{ __('by', 'WNYC-Programs')}} {{ post.program_agency }}
+    </h4>
   </header>
+
   <div class="c-card__body">
     {% if post.terms('recruitment_status')[0].slug == 'actively-recruiting' %}
     <p class="c-card__status flex items-center">
-      <mark class="badge status-alt me-2" data-program="recruiting">
+      <mark class="badge mie-2" data-program="recruiting">
         {{ post.terms('recruitment_status')[0] }}
       </mark>
 
       {# <span class="flex me-2" data-program="accessible">
         <svg aria-hidden="true" class="icon text-alt">
-          <use xlink:href="#icon-wnyc-accessible"></use>
+          <use href="#icon-wnyc-accessible"></use>
         </svg>
 
         <span class="sr-only">Accommodates Disabilities</span>
       </span>
       <span class="flex me-2" data-program="multilingual">
         <svg aria-hidden="true" class="icon-wnyc-ui text-alt">
-          <use xlink:href="#icon-wnyc-translate"></use>
+          <use href="#icon-wnyc-translate"></use>
         </svg>
 
         <span class="sr-only">Accommodates Multiple Languages</span>
@@ -35,43 +37,46 @@
 
     <div class="c-card__summary">
       <p>
-        <span data-program="summary">{{post.program_intro|replace({'[blockquote text=\"': '', '\"]':''})|striptags}}</span> {% if post.terms('populations')%}{{ __('For', 'WNYC')}} {{ post.terms('populations')|map(s => "<b class='text-alt' data-program='taxonomy.population'>#{s.name}</b>")|join(', ') }}.
-        {% endif %}
+        <span data-program="summary">{{ post.program_intro|replace({'[blockquote text=\"': '', '\"]':''})|striptags }}</span>
+        {% if post.terms('populations') %}{{ __('For', 'WNYC') }} {{ post.terms('populations')|map(s => "<b class='text-em' data-program='taxonomy.population'>#{s.name}</b>")|join(', ') }}.{% endif %}
       </p>
     </div>
+
     <ul class="c-card__features">
       {% if post.terms('services') %}
-        <li class="flex items-center">
-          <svg aria-hidden="true" class="icon-wnyc-ui me-1">
-            <use xlink:href="#award"></use>
-          </svg>
-          <span>
-            {{ post.terms('services')|map(s => "<span data-program='taxonomy.service'>#{s.name}</span>")|join(', ') }}
-          </span>
-        </li>
+      <li class="flex items-center">
+        <svg class="icon-wnyc-ui mie-1" role="img">
+          <title>{{ __('Services', 'WNYC') }}</title>
+
+          <use href="#feather-award"></use>
+        </svg>
+
+        <span>{{ post.terms('services')|map(s => "<span data-program='taxonomy.service'>#{s.name}</span>")|join(', ') }}</span>
+      </li>
       {% endif %}
 
       {% if post.terms('duration') or post.terms('schedule') %}
-        <li class="flex items-center">
-          <svg aria-hidden="true" class="icon-wnyc-ui me-1">
-            <use xlink:href="#calendar"></use>
-          </svg>
-          <span>
-            {% if post.terms('duration')%}<span data-program="taxonomy.duration">{{post.terms('duration')[0]}}</span>, {% endif %}{% if post.terms('schedule')%}<span data-program="taxonomy.schedule">{{post.terms('schedule')[0]}}</span>{% endif %}
-          </span>
-        </li>
+      <li class="flex items-center">
+        <svg class="icon-wnyc-ui mie-1" role="img">
+          <title>{{ __('Schedule', 'WNYC') }}</title>
+
+          <use href="#feather-calendar"></use>
+        </svg>
+
+        <span>{% if post.terms('duration') %}<span data-program="taxonomy.duration">{{ post.terms('duration')[0] }}</span>, {% endif %}{% if post.terms('schedule') %}<span data-program="taxonomy.schedule">{{ post.terms('schedule')[0] }}</span>{% endif %}</span>
+      </li>
       {% endif %}
     </ul>
 
-    <a class="c-card__cta btn btn-secondary btn-next" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
-      <svg aria-hidden="true" class="icon-wnyc-ui">
-        <use xlink:href="#arrow-left"></use>
+    <a class="c-card__cta" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
+      <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+        <use href="#feather-arrow-left"></use>
       </svg>
-      <span>{{ __('Learn more', 'WNYC')}} <span class="sr-only">{{ __('about', 'WNYC')}} <span data-program="plain-language-name">{{ post.program_title}}</span>
-        </span>
-      </span>
-      <svg aria-hidden="true" class="icon-wnyc-ui">
-        <use xlink:href="#arrow-right"></use>
+
+      <span>{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span data-program="plain-language-name">{{ post.program_title }}</span></span></span>
+
+      <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+        <use href="#feather-arrow-right"></use>
       </svg>
     </a>
   </div>

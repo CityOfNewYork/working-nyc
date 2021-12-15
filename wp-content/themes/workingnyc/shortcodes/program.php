@@ -45,7 +45,7 @@ class Program extends Shortcode {
       $post->link_target = '_blank';
     }
 
-    $post->classes = 'static mb-4';
+    $post->classes = 'mb-4';
 
     return (null === $post->id) ?
       "<!-- A post with the ID $post->ID does not exist -->" :

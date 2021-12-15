@@ -1,120 +1,102 @@
 {% extends "base.twig" %}
 
 {% block content %}
-  <div class="bg-scale-1 bg-shape-wnyc-abc bg-fixed">
-    <header class="o-banner page-max desktop:px-6">
-      <div class="py-7 desktop:px-6 tablet:layout-col-2-gap-0-2">
-        <div class="pb-6 hidden tablet:flex"></div>
+<div class="bg-scale-1 bg-shape-wnyc-abc bg-fixed">
+  <header class="o-banner page-max desktop:px-6">
+    <div class="py-7 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
+      <div class="pb-6 hidden tablet:flex"></div>
 
-        <div class="pb-6 hidden tablet:flex"></div>
+      <div class="pb-6 hidden tablet:flex"></div>
 
-        <div>
-          <div class="tablet:pe-4 tablet:py-4 tablet:sticky desktop:py-8 top-0">
-            <h1 class="sr-only">Working N Y C</h1>
+      <div>
+        <div class="tablet:pe-4 pt-1">
+          <h1 class="sr-only">Working N Y C</h1>
 
-            <svg aria-hidden="true" class="icon-logo-homepage fill-white text-blue-l-2">
-              <use xlink:href="#logo-wnyc-standard"></use>
-            </svg>
+          <svg aria-hidden="true" class="icon-logo-homepage fill-text text-brand">
+            <use href="#logo-wnyc-standard"></use>
+          </svg>
 
-            <h2 class="h4 tablet:font-normal tablet:text-h3 font-bold text-alt mb-5">{{ post.post_content|striptags }}</h2>
-            {# <p class="mb-5 text-center tablet:text-start">
-              <a class="btn btn-link btn-secondary font-secondary" href="#answer-a-few-questions">Answer a few questions to get started</a>
-              <br class="tablet:hidden" />or
-              <br />ls
-              <a class="btn btn-link btn-secondary font-secondary block tablet:inline-flex" href="#content">
-                <span>Scroll to browse programs</span>
-                <br class="tablet:hidden" />
-                <svg aria-hidden="true" class="icon-wnyc-ui m-0 mt-1">
-                  <use xlink:href="#chevron-down"></use>
-                </svg>
-              </a>
-            </p> #}
-          </div>
+          <h2 class="h4 font-primary tablet:font-normal tablet:text-h3 font-bold text-alt mb-5 tablet:mb-0">{{ post.post_content|striptags }}</h2>
         </div>
-
-        {% include 'components/questionnaire.twig' %}
       </div>
-    </header>
 
-    <main id="content">
-      {# Programs #}
-      {% if featured_posts %}
-        {% for section in featured_posts %}
-          <section class="page-max py-4" id="{{section.featured_posts_heading|lower|replace({' ':'-'}) }}">
-            <div>
-              <div class="layout-content">
-                <div class="wrap">
-                  <h2 class="h4 font-normal text-alt mt-0">{{ section.featured_posts_heading }}</h2>
+      {% include 'components/questionnaire.twig' %}
+    </div>
+  </header>
 
-                  <p>{{ section.featured_posts_description }}</p>
-                </div>
-              </div>
-
-              <div class="desktop:px-6">
-                <div class="scroll py-3 scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:pb-0 tablet:layout-col-2-gap-1-1 desktop:layout-col-2-gap-2-2 desktop:px-6 wrap">
-                  {% for featured in section.featured_posts_objects %}
-                    {% set featured = TimberPost(featured) %}
-
-                    <div class="wrap-start transform-none tablet:p-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-                      {% include ['components/program.twig'] with {
-                        post: featured
-                      } %}
-                    </div>
-                  {% endfor %}
-
-                  <div class="wrap relative tablet:hidden">
-                    <a class="btn btn-secondary btn-next flex w-full h-full" href="{{ programs_archive }}">
-                      <svg aria-hidden="true" class="icon-wnyc-ui">
-                        <use xlink:href="#arrow-left"></use>
-                      </svg>
-
-                      <span>{{ __('See all programs', 'WNYC')}}</span>
-
-                      <svg aria-hidden="true" class="icon-wnyc-ui">
-                        <use xlink:href="#arrow-right"></use>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="layout-content">
-                <div class="wrap tablet:py-6">
-                  <a class="btn btn-secondary btn-next flex w-full" href="{{ programs_archive }}">
-                    <svg aria-hidden="true" class="icon-wnyc-ui">
-                      <use xlink:href="#arrow-left"></use>
-                    </svg>
-
-                    <span>{{ __('See all programs', 'WNYC') }}</span>
-
-                    <svg aria-hidden="true" class="icon-wnyc-ui">
-                      <use xlink:href="#arrow-right"></use>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </section>
-        {% endfor %}
-      {% endif %}
-
-      {% if announcements %}
-      <section class="page-max py-4" id="announcements">
+  <main id="content">
+    {# Programs #}
+    {% if featured_posts %}
+    {% for section in featured_posts %}
+    <section class="page-max pb-8 mb-8" id="{{ section.featured_posts_heading|lower|replace({' ':'-'}) }}">
+      <div>
         <div class="layout-content">
-          <div class="wrap pb-2">
-            <h2 class="h4 font-normal text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
+          <div class="wrap">
+            <h2 class="h4 font-normal text-alt mt-0">{{ section.featured_posts_heading }}</h2>
 
-            <div class="py-4 layout-rows-gutter tablet:layout-col-2-gap-1-2">
-              {% for announcement in announcements %}
-              <div class="transform-none aos-init aos-animate mb-3 tablet:mb-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-                {% include 'components/announcement.twig' with {this: announcement} only %}
-              </div>
-              {% endfor %}
-            </div>
+            <p>{{ section.featured_posts_description }}</p>
           </div>
         </div>
-      </section>
-      {% endif %}
-    </main>
-  </div>
+
+        <div class="desktop:px-6">
+          <div class="scroll py-3 scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:pb-0 tablet:grid tablet:grid-cols-2 tablet:gap-3 desktop:gap-5 desktop:px-6 wrap">
+            {% for featured in section.featured_posts_objects %}
+              {% set featured = TimberPost(featured) %}
+
+              <div class="wrap-start transform-none tablet:p-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+                {% include ['components/program.twig'] with {
+                  post: featured
+                } %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="layout-content">
+          <div class="wrap tablet:py-6">
+            <a class="btn btn-secondary light:btn-primary btn-next flex w-full" href="{{ programs_archive }}">
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use href="#feather-arrow-left"></use>
+              </svg>
+
+              <span>{{ __('See all programs', 'WNYC') }}</span>
+
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use href="#feather-arrow-right"></use>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endfor %}
+    {% endif %}
+
+    {% if announcements %}
+    <section class="page-max pb-8 mb-8" id="announcements">
+      <div class="layout-content">
+        <div class="wrap pb-2">
+          <h2 class="h4 font-normal text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
+
+          <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
+            {% for announcement in announcements %}
+            <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+              {% include 'components/announcement.twig' with {this: announcement} only %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    {% if options.feedback is defined %}
+    {% include 'objects/feedback.twig' %}
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
+  </main>
+</div>
 {% endblock %}

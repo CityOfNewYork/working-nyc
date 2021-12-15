@@ -16,8 +16,7 @@
     <div class="layout-content">
       <header class="o-header">
         <div>
-          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC')}}{% else %}{{ post.title }}{% endif %}
-          </h1>
+          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
 
           {% include 'components/breadcrumbs.twig' with
             {
@@ -31,7 +30,6 @@
           %}
         </div>
       </header>
-
     </div>
 
     <section class="bg-scale-2 layout-content">
@@ -44,6 +42,13 @@
       </div>
     </section>
 
+    {% if options.feedback is defined %}
+    {% include 'objects/feedback.twig' %}
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
   </main>
 </div>
 {% endblock %}

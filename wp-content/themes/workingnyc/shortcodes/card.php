@@ -44,8 +44,8 @@ class Card extends Shortcode {
 
     $card = array(
       'id' => $id,
-      'classes' => 'static mb-4',
-      'body' => $content
+      'classes' => 'mb-4',
+      'body' => do_shortcode($content)
     );
 
     return Timber::compile(

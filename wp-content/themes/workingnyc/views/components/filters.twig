@@ -1,35 +1,37 @@
 <div aria-hidden="true" class="layout-content hidden" id="aria-c-filter">
-	<div class="wrap">
-		<div class="text-end relative z-20">
-			<button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-primary btn-small" data-dropdown="close" data-js="dropdown" tabindex="-1">
-				<svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-					<use xlink:href="#x"></use>
-				</svg>
-				<span>{{__('Close', 'WNYC - Navigation')}}</span>
-				<span class="sr-only">{{__('and return to site', 'WNYC - Navigation')}}</span>
-			</button>
-		</div>
+  <div>
+    <div class="wrap text-end relative z-20">
+      <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-primary btn-small" data-dialog="close" data-js="dialog" tabindex="-1">
+        <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
+          <use href="#feather-x"></use>
+        </svg>
 
-		<form class="layout-rows-gutter" tabindex="-1">
+        <span>{{ __('Close', 'WNYC - Navigation') }}</span>
+      </button>
+    </div>
 
-    	<fieldset tabindex="-1" v-for="(filter, index) in filters">
-				<legend class="h4 block w-full m-0 py-2 ps-2 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">v{ labels[index] }</legend>
-				<div class="layout-rows tablet:layout-col-2-gap-1-1">
-          <label class="option w-full mb-3 tablet:mb-0" tabindex="-1" v-for="term in filter" gtm-data="test">
-						<input type="checkbox" :id="term.slug" :value="term" tabindex="-1" v-model="checkedFilters">
-						<span class="option__base">
-							<svg aria-hidden="true" class="option__graphic">
-								<use xlink:href="#option-wnyc-checkbox"></use>
-							</svg>
-							<span class="option__label">v{ term.name }</span>
-						</span>
-					</label>
-				</div>
-			</fieldset>
+    <form tabindex="-1">
+      <fieldset tabindex="-1" v-for="(filter, index) in filters">
+        <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">v{ labels[index] }</legend>
 
-			<div class="py-2 sticky bottom-0 z-10 text-center bg-scale-1">
-				<button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dropdown" tabindex="-1">{{ __('Close and see', 'WNYC-Programs') }} v{ totalPosts } {{ __('programs', 'WNYC-Programs') }}</button>
-			</div>
-		</form>
-	</div>
+        <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
+          <label class="option w-full m-0" tabindex="-1" v-for="term in filter" gtm-data="test">
+            <input type="checkbox" :id="term.slug" :value="term" tabindex="-1" v-model="checkedFilters">
+
+            <span class="option__base">
+              <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                <use href="#option-wnyc-checkbox"></use>
+              </svg>
+
+              <span class="option__label">v{ term.name }</span>
+            </span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div class="wrap py-2 pb-8 sticky bottom-0 z-10 text-center bg-scale-1">
+        <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1">{{ __('Close and see', 'WNYC-Programs') }} v{ totalPosts } {{ __('programs', 'WNYC-Programs') }}</button>
+      </div>
+    </form>
+  </div>
 </div>

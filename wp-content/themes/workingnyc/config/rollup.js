@@ -5,7 +5,7 @@
 const nodeResolve = require('@rollup/plugin-node-resolve'); // Locate modules using the Node resolution algorithm, for using third party modules in node_modules
 const commonjs = require('@rollup/plugin-commonjs');        // Include CommonJS packages in Rollup bundles
 const replace = require('@rollup/plugin-replace');          // Replace content while bundling
-const vue = require('rollup-plugin-vue');
+const vue = require('rollup-plugin-vue');                   // Roll up Vue single file components (SFCs)
 
 // import babel from '@rollup/plugin-babel';
 // import vue from 'rollup-plugin-vue';
@@ -37,10 +37,10 @@ const plugins = [
   replace({
     'preventAssignment': true,
     'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
-    'SCREEN_DESKTOP': 960,
-    'SCREEN_TABLET': 768,
-    'SCREEN_MOBILE': 480,
-    'SCREEM_SM_MOBILE': 400
+    // 'SCREEN_DESKTOP': 960,
+    // 'SCREEN_TABLET': 768,
+    // 'SCREEN_MOBILE': 480,
+    // 'SCREEM_SM_MOBILE': 400
   }),
   // babel({
   //   exclude: 'node_modules/**'// ,
@@ -57,51 +57,72 @@ module.exports = [
   {
     input: './src/js/global.js',
     output: [{
-      file: './assets/js/global.js',
+      file: './assets/js/global-development.js',
       format: rollup.format,
       sourcemap: rollup.sourcemap,
       strict: rollup.strict
     }],
     plugins: plugins,
-  },
-  {
-    input: './src/js/polyfills.js',
-    output: [{
-      file: './assets/js/polyfills.js',
-      format: rollup.format,
-      sourcemap: rollup.sourcemap,
-      strict: rollup.strict
-    }],
-    plugins: plugins,
+    cache: true,
+    devModule: true
   },
   {
     input: './src/js/archive.js',
     output: [{
-      file: './assets/js/archive.js',
+      file: './assets/js/archive-development.js',
       format: rollup.format,
       sourcemap: rollup.sourcemap,
       strict: rollup.strict
     }],
     plugins: plugins,
+    cache: true,
+    devModule: true
+  },
+  {
+    input: './src/js/newsletter.js',
+    output: [{
+      file: './assets/js/newsletter-development.js',
+      format: rollup.format,
+      sourcemap: rollup.sourcemap,
+      strict: rollup.strict
+    }],
+    plugins: plugins,
+    cache: true,
+    devModule: true
   },
   {
     input: './src/js/template-generic-page.js',
     output: [{
-      file: './assets/js/template-generic-page.js',
+      file: './assets/js/template-generic-page-development.js',
       format: rollup.format,
       sourcemap: rollup.sourcemap,
       strict: rollup.strict
     }],
     plugins: plugins,
+    cache: true,
+    devModule: true
   },
   {
     input: './src/js/template-home-page.js',
     output: [{
-      file: './assets/js/template-home-page.js',
+      file: './assets/js/template-home-page-development.js',
       format: rollup.format,
       sourcemap: rollup.sourcemap,
       strict: rollup.strict
     }],
     plugins: plugins,
+    cache: true,
+    devModule: true
+  },
+  {
+    input: './src/js/polyfills.js',
+    output: [{
+      file: './assets/js/polyfills-development.js',
+      format: rollup.format,
+      sourcemap: rollup.sourcemap,
+      strict: rollup.strict
+    }],
+    plugins: plugins,
+    cache: true
   }
 ];
