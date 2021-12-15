@@ -1,36 +1,39 @@
 <div>
-  <h2 class="h3">{{ __('General Navigation', 'WNYC')}}</h2>
-  <ul>
-  {% for menu_item in footer_menu.get_items %}
-    <li><a class="block" href="{{menu_item.link}}">{{menu_item.title}}</a></li>
-  {% endfor %}
-  </ul>
-</div>
+  <h2 class="h3">{{ __('General Navigation', 'WNYC') }}</h2>
 
-<div>
-	<h2 class="h3">{{ __('Programs', 'WNYC')}}</h2>
   <ul>
-    {% for program in programs %}
-      <li>
-        <a class="block" href="{{programs_archive}}{{program.post_name}}">{{program.post_title}}</a>
-      </li>
+    {% for menu_item in footer_menu.get_items %}
+    <li><a class="block" href="{{ menu_item.link }}">{{ menu_item.title }}</a></li>
     {% endfor %}
   </ul>
 </div>
 
 <div>
-	<h2 class="h3">{{ __('About WorkingNYC', 'WNYC')}}</h2>
+  <h2 class="h3">{{ __('Programs', 'WNYC') }}</h2>
+
+  <ul>
+    {% for program in programs %}
+    <li>
+      <a class="block" href="{{ programs_archive }}{{ program.post_name }}">{{ program.post_title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div>
+  <h2 class="h3">{{ __('About Working NYC', 'WNYC') }}</h2>
+
   <ul>
     {% for menu_item in footer_menu_secondary.get_items %}
-      <li>
-        <a href="{{menu_item.link}}" rel="nofollow noopener" target="_blank">{{menu_item.title}}</a>
-      </li>
+    <li>
+      <a href="{{ menu_item.link }}" rel="nofollow noopener" target="_blank">{{ menu_item.title }}</a>
+    </li>
     {% endfor %}
 
     {% for menu_item in footer_menu_tertiary.get_items %}
-      <li>
-        <a href="{{menu_item.link}}" rel="nofollow noopener" target="_blank">{{menu_item.title}}</a>
-      </li>
+    <li>
+      <a href="{{ menu_item.link }}" rel="nofollow noopener" target="_blank">{{ menu_item.title }}</a>
+    </li>
     {% endfor %}
   </ul>
 </div>

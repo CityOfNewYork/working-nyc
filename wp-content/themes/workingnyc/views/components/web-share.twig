@@ -1,9 +1,9 @@
 {% set id = (this.id) ? this.id : fn('uniqid') %}
 
-<div class='c-web-share {{ this.class }}'>
+<div class='c-web-share'>
   <button aria-controls="aria-c-web-share-fallback-{{ id }}" aria-expanded="false" class="btn btn-small btn-primary m-0" data-js="web-share" data-web-share='{{ this.share|json_encode }}'>
     <svg class="c-web-share__icon icon-wnyc-ui">
-      <use xlink:href="#share-2"></use>
+      <use href="#feather-share-2"></use>
     </svg>
 
     <span>{{__('Share', 'WNYC')}}</span>
@@ -14,41 +14,43 @@
       <div class="flex mb-1 items-center flex-row-reverse">
         <button aria-controls="aria-c-web-share-fallback-{{ id }}" aria-expanded="false" class="btn btn-primary btn-small m-0" data-js="web-share" tabindex="-1">
           <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-            <use xlink:href="#x"></use>
+            <use href="#feather-x"></use>
           </svg>
+
           <span>{{__('Close', 'WNYC')}}</span>
         </button>
+
         <label class="c-web-share__label flex-1" for="web-share-url-{{ id }}" tabindex="-1">{{__('Share this URL', 'WNYC')}}</label>
       </div>
 
       <div class="c-web-share__input input">
-        <input data-copy-target="web-share-url-{{ id }}" id="web-share-url-{{ id }}" name="web-share-url-{{ id }}" tabindex="-1" type="text" value="{{this.share.url}}" />
+        <input data-copy-target="web-share-url-{{ id }}" id="web-share-url-{{ id }}" name="web-share-url-{{ id }}" tabindex="-1" type="text" value="{{ this.share.url }}" />
       </div>
 
       <div class="c-web-share__items">
         <button aria-pressed="false" class="c-web-share__item c-web-share__copy btn btn-small btn-primary mx-0" data-copy="web-share-url-{{ id }}" data-js="copy" tabindex="-1">
           <svg class="icon icon-wnyc-ui">
-            <use xlink:href="#copy"></use>
+            <use href="#feather-copy"></use>
           </svg>
 
-          <svg class="icon-pressed icon-wnyc-ui me-1">
-            <use xlink:href="#check"></use>
+          <svg class="icon-pressed icon-wnyc-ui mie-1">
+            <use href="#feather-check"></use>
           </svg>
 
           <span>{{ __('Copy URL', 'WNYC') }}</span>
         </button>
 
-        <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://www.facebook.com/sharer/sharer.php?u={{this.share.url|url_encode}}" tabindex="-1" target="_blank">
+        <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://www.facebook.com/sharer/sharer.php?u={{ this.share.url|url_encode }}" tabindex="-1" target="_blank">
           <svg class="icon-wnyc-ui">
-            <use xlink:href="#facebook"></use>
+            <use href="#feather-facebook"></use>
           </svg>
 
           <span>{{ __('Facebook', 'WNYC') }}</span>
         </a>
 
-        <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://twitter.com/intent/tweet?text={{this.share.text|url_encode}}%20{{this.share.url|url_encode}}" tabindex="-1" target="_blank">
+        <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://twitter.com/intent/tweet?text={{ this.share.text|url_encode }}%20{{ this.share.url|url_encode }}" tabindex="-1" target="_blank">
           <svg class="icon-wnyc-ui">
-            <use xlink:href="#twitter"></use>
+            <use href="#feather-twitter"></use>
           </svg>
 
           <span>{{ __('Twitter', 'WNYC') }}</span>

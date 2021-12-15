@@ -5,13 +5,13 @@
         <a class="uppercase text-small no-underline tablet:inline-flex tablet:p-0" href="{{ fn('get_home_url') }}">
           <span class="sr-only">Working N Y C</span>
 
-          <svg aria-hidden="true" class="icon-logo-standard-menu-item fill-white text-blue-l-2">
-            <use xlink:href="#logo-wnyc-standard"></use>
+          <svg aria-hidden="true" class="icon-logo-standard-menu-item fill-text text-brand">
+            <use href="#logo-wnyc-standard"></use>
           </svg>
         </a>
 
         {% for m in footer_menu.get_items %}
-        <a class="tablet:inline-flex tablet:p-0" href="{{ m.link }}"
+        <a class="o-footer__item" href="{{ m.link }}"
           {% if m.attr_title %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
           {% if m.target %}target="{{ m.target }}"{% endif %}
           {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
@@ -23,7 +23,7 @@
       <div class="o-attribution__flex o-footer__divider">
         <div class="text-blue-dark">
           <p class="o-attribution__byline">
-            {{ __('WorkingNYC is maintained by the <span class="sr-only">The Mayor\'s Office for Economic Opportunity and The Mayor\'s Office of Workforce Development</span>', 'WNYC') }}
+            {{ __('Working NYC is maintained by the <span class="sr-only">The Mayor\'s Office for Economic Opportunity and The Mayor\'s Office of Workforce Development</span>', 'WNYC') }}
           </p>
 
           <svg style="max-width: 100%" width="487" height="63" viewBox="0 0 1323 171" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -48,7 +48,7 @@
 
         <nav class="nav-block tablet:nav-inline tablet:flex items-center" aria-label="Footer Tertiary Navigation">
           {% for m in footer_menu_tertiary.get_items %}
-          <a class="tablet:inline-flex tablet:p-0" href="{{ m.link }}"
+          <a class="o-footer__item" href="{{ m.link }}"
             {% if m.attr_title %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
             {% if m.target %}target="{{ m.target }}"{% endif %}
             {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>

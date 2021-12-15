@@ -1,7 +1,7 @@
 <?php
 
 use NYCO\WpAssets as WpAssets;
- 
+
 /**
  * Enqueue a hashed style based on it's name and language prefix.
  * @param  [string] $name the name of the stylesheet source
@@ -10,12 +10,12 @@ use NYCO\WpAssets as WpAssets;
 function enqueue_language_style($name) {
   $WpAssets = new WpAssets();
 
-  $languages = array('ar', 'es', 'ko', 'ur', 'zh-hant');
-  $lang = (!in_array(ICL_LANGUAGE_CODE, $languages))
-    ? 'default' : ICL_LANGUAGE_CODE;
+  // $languages = array('ar', 'es', 'ko', 'ur', 'zh-hant');
+  // $lang = (!in_array(ICL_LANGUAGE_CODE, $languages))
+    // ? 'default' : ICL_LANGUAGE_CODE;
 
-  $style = $WpAssets->addStyle("$name-$lang", true, [], null, 'all', '');
-
+  // $style = $WpAssets->addStyle("$name-$lang", true, [], null, 'all', '');
+  $style = $WpAssets->addStyle($name, true, [], null, 'all', '');
 }
 
 /**

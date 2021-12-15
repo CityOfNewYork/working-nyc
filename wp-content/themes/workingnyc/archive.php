@@ -11,6 +11,16 @@
 require_once WorkingNYC\timber_post('Page');
 
 /**
+ * Enqueue
+ *
+ * @author NYC Opportunity
+ */
+
+add_action('wp_enqueue_scripts', function() {
+  enqueue_script('archive');
+});
+
+/**
  * Get corresponding page ID
  *
  * @author NYC Opportunity
@@ -33,7 +43,7 @@ $page = new WorkingNYC\Page($ID);
 $context = Timber::get_context();
 
 $context['page_title'] = Templating\get_title($path);
-$context['page_tagline'] = Templating\get_tagline($path);
+$context['page_content'] = Templating\get_content($path);
 $context['post_type'] = Templating\get_post_type($path);
 
 $context['filters'] = Templating\get_filters($path);

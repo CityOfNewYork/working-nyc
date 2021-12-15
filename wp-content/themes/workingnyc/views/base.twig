@@ -23,13 +23,11 @@
     {% if meta.twitter_card_type %}<meta name="twitter:card" content="{{ meta.twitter_card_type }}" />{% endif %}
     {% if meta.twitter_site %}<meta name="twitter:site" content="{{ meta.twitter_site }}" />{% endif %}
 
-    <link rel="manifest" href="{{theme.path}}/manifest.json">
-    <link href="{{ theme.path }}/favicons/favicon@32x32.png" rel="icon" sizes="32x32" type="image/png" />
-    <link href="{{ theme.path }}/favicons/apple@180x180.png" rel="apple-touch-icon" sizes="180x180" />
+    <link rel="manifest" href="{{ theme.path }}/manifest.json">
+
+    <link href="{{ sprites.favicon }}" rel="icon" type="image/x-icon">
 
     <script type="application/ld+json">{{ schema }}</script>
-
-    {{ function('enqueue_language_style', 'style') }}
 
     {% block head_extras %}{% endblock %}
 
@@ -47,37 +45,32 @@
 
     {% block header %}
       {% include 'objects/navigation.twig' %}
+      {% include 'objects/menu.twig' %}
       {% include 'objects/text-controller.twig' %}
     {% endblock %}
 
-    {% if fn('defined', 'SUPPORT_IE_11') %}
+    {% if fn('constant', 'SUPPORT_IE_11') and fn('is_IE') %}
       {% include 'objects/ie-warning.twig' %}
     {% endif %}
 
     {% block content %}{% endblock %}
 
-    {% if options.feedback is defined %}
-      {% if variant == 'fa' %}
-        {% include 'objects/feedback-a.twig' %}
-      {% elseif variant == 'fb' %}
-        {% include 'objects/feedback-b.twig' %}
-      {% else %}
-        {% include 'objects/feedback.twig' %}
-      {% endif %}
+    {# {% if options.feedback is defined %}
+      {% include 'objects/feedback.twig' %}
     {% endif %}
 
     {% if show_newsletter is not defined %}
       {% include 'objects/newsletter.twig' %}
-    {% endif %}
+    {% endif %} #}
 
     {% block footer %}
       {% include 'objects/footer.twig' %}
     {% endblock %}
 
-    {# Icons Path #}
-    <div id="icons" class="hidden" aria-hidden="true" style="display:none;">{{icons_path}}</div>
+    {# SVG Sprite Paths #}
+    <div data-js="sprites" data-wnyc="{{ sprites.wnyc }}" data-feather="{{ sprites.feather }}" aria-hidden="true" style="display: none;"></div>
 
-    {{ function('enqueue_script', 'source') }}
+    {# {{ function('enqueue_script', 'global') }} #}
 
     {{ wp_footer }}
 

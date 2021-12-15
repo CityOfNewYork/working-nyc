@@ -28,7 +28,6 @@ const QUESTIONNAIRE_QS = 'field_5f2a0535594d6';
  * @return array The collection of sections for the post.
  */
 function get_sections($id = null) {
-  
   $sections = get_field(SECTION_ID, $id);
 
   return $sections;
@@ -39,7 +38,6 @@ function get_sections($id = null) {
  * @return array The collection of featured posts.
  */
 function get_featured_posts($id = null) {
-  
   $featured = get_field(FEATURED_POSTS_ID, $id);
 
   return $featured;
@@ -50,7 +48,6 @@ function get_featured_posts($id = null) {
  * @return string post type slug.
  */
 function get_questionnaire_post_type($id = null) {
-  
   $post_type = get_field(QUESTIONNAIRE_POST_TYPE, $id);
 
   return $post_type;
@@ -61,7 +58,6 @@ function get_questionnaire_post_type($id = null) {
  * @return integer min number of posts.
  */
 function get_questionnaire_threshold($id = null) {
-  
   $threshold = get_field(QUESTIONNAIRE_THRESHOLD, $id);
 
   return $threshold;
@@ -72,7 +68,6 @@ function get_questionnaire_threshold($id = null) {
  * @return array The collection of questions.
  */
 function get_questionnaire_qs($id = null) {
-  
   $questions = get_field(QUESTIONNAIRE_QS, $id);
 
   return $questions;
@@ -91,7 +86,7 @@ function get_controller_id($path) {
  * Get the tagline from the post/page content
  * @return string The page tagline
  */
-function get_tagline($path) {
+function get_content($path) {
   return get_post_field('post_content', get_controller_id($path));
 }
 
@@ -109,7 +104,7 @@ function get_title($path) {
  */
 function get_post_type($path) {
   $post_type = get_field_object(POST_TYPE, get_controller_id($path));
-  
+
   return array_keys($post_type['choices'])[0];
 
 }
@@ -121,7 +116,7 @@ function get_post_type($path) {
 function get_filters($path) {
   $arr = get_field(FILTERS, get_controller_id($path));
   $filters = array_column($arr, 'filter_name');
-  
+
   foreach ($filters as $index=>$filter) {
     $filters[$index] = $filter.':'.get_taxonomy($filter)->label;
   }
@@ -137,7 +132,7 @@ function get_filters($path) {
  */
 function get_filter_label($path) {
   $label = get_field(FILTERS_LABEL, get_controller_id($path));
-  
+
   if($label ==''){
     $label = __('Filters', 'WNYC-Date');
   }

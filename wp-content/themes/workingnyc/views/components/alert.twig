@@ -1,0 +1,11 @@
+<article class="c-alert {{ this.status }} {{ this.classes }}" id="{{ this.id }}">
+  <div class="c-alert__graphic">
+    <svg aria-hidden="true" class="icon-wnyc-ui">
+      <use href="#feather-{{ this.icon }}"></use>
+    </svg>
+  </div>
+
+  {% if this.body %}<div class="c-alert__body">
+    <p>{{ this.body }}</p>
+  </div>{% endif %}
+</article>

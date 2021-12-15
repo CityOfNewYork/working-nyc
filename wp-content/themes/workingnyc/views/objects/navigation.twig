@@ -1,13 +1,13 @@
 <nav aria-label="Navigation" class="o-navigation bg-scale-2 o-navigation-fixed" role="navigation" data-js="navigation">
-  <a class="o-navigation__logo o-navigation__menu-item bg-scale-1 tablet:bg-transparent" href="{{site.url}}">
+  <a class="o-navigation__logo o-navigation__menu-item bg-scale-1 tablet:bg-transparent tablet:p-0" href="{{ site.url }}">
     <span class="sr-only">Working N Y C</span>
 
-    <svg aria-hidden="true" class="hidden tablet:inline icon-logo-standard-menu-item fill-white text-blue-l-2">
-      <use xlink:href="#logo-wnyc-standard"></use>
+    <svg aria-hidden="true" class="hidden tablet:inline icon-logo-standard-menu-item fill-text text-brand">
+      <use href="#logo-wnyc-standard"></use>
     </svg>
 
-    <svg aria-hidden="true" class="tablet:hidden icon-logo-stacked-menu-item fill-white text-blue-l-2">
-      <use xlink:href="#logo-wnyc-stacked"></use>
+    <svg aria-hidden="true" class="tablet:hidden icon-logo-stacked-menu-item fill-text text-brand">
+      <use href="#logo-wnyc-stacked"></use>
     </svg>
   </a>
 
@@ -17,69 +17,32 @@
 
   {# <button aria-controls="aria-c-search" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-js="search">
     <svg class="o-navigation__menu-icon icon-wnyc-ui">
-      <use xlink:href="#search"></use>
+      <use href="#search"></use>
     </svg>
     <span class="o-navigation__menu-label">{{__('Search', 'WNYC - Navigation')}}</span>
   </button> #}
 
-  <button aria-controls="aria-c-text-controller" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-dropdown="open" data-dropdown-lock="true" data-js="dropdown">
+  <button class="o-navigation__item" data-js="themes">
     <svg class="o-navigation__menu-icon icon-wnyc-ui">
-      <use xlink:href="#icon-wnyc-translate"></use>
+      <use data-js-themes="icon" href="#feather-sun"></use>
+    </svg>
+
+    <span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC - Navigation') }}</span>
+  </button>
+
+  <button aria-controls="aria-c-text-controller" aria-expanded="false" class="o-navigation__menu-item desktop:m-0" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <svg class="o-navigation__menu-icon icon-wnyc-ui">
+      <use href="#icon-wnyc-translate"></use>
     </svg>
 
     <span class="o-navigation__menu-label">{{ __('Translate', 'WNYC - Navigation') }}</span>
   </button>
 
-  <button aria-haspopup="menu" aria-controls="aria-c-menu" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:hidden mie-0" data-js="menu" data-js-menu="open">
+  <button aria-haspopup="menu" aria-controls="aria-c-menu" aria-expanded="false" class="o-navigation__menu-item desktop:hidden mie-0" data-js="menu" data-js-menu="open">
     <svg class="o-navigation__menu-icon icon-wnyc-ui">
-      <use xlink:href="#menu"></use>
+      <use href="#feather-menu"></use>
     </svg>
 
     <span class="o-navigation__menu-label">{{ __('Menu', 'WNYC - Navigation') }}</span>
   </button>
 </nav>
-
-{# Mobile Nav #}
-<aside aria-hidden="true" class="o-menu o-menu-fixed color-modal hidden" id="aria-c-menu" role="menu">
-  <nav aria-label="mobile menu" class="o-menu__nav border-b pb-2">
-    <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC - Navigation') }}</a>
-
-    {% for menu_item in header_menu.get_items %}
-    <a class="o-menu__nav-item" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
-    {% endfor %}
-  </nav>
-
-  <div class="pt-3">
-    <button aria-haspopup="menu" aria-controls="aria-c-menu" aria-expanded="false" class="btn-link" data-js="menu" data-js-menu="close" tabindex="-1">
-      <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-        <use xlink:href="#x"></use>
-      </svg>
-
-      <span>{{ __('Close', 'WNYC - Navigation') }}</span> <span class="sr-only">{{ __('and return to site', 'WNYC - Navigation') }}</span>
-    </button>
-  </div>
-</aside>
-
-{# Search Box #}
-{# <div aria-hidden="true" class="o-search o-search-fixed hidden" id="aria-c-search">
-	<div class="o-search__close">
-			<button aria-controls="aria-c-search" aria-expanded="false" class="btn-link" data-js="toggle" tabindex="-1"> <svg class="icon-wnyc-ui">
-				<use xlink:href="#x"></use>
-			</svg>
-			<span>Close</span>
-		</button>
-	</div>
-	<form class="o-search__form" tabindex="-1">
-		<label class="label" for="search-field" tabindex="-1">Search for programs and occupations</label>
-		<div
-			class="input-search">
-			<input
-			data-js="search__input" id="search-field" name="s" placeholder="Search" type="text" value="" tabindex="-1">
-			<button class="btn-link input-search__submit" type="submit" tabindex="-1">
-				<svg class="icon-wnyc-ui icon-4">
-					<use xlink:href="#search"></use>
-				</svg>
-			</button>
-		</div>
-	</form>
-</div> #}

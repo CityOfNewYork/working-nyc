@@ -37,6 +37,6 @@ class Icon extends Shortcode {
       return;
     }
 
-    return '<svg aria-hidden="true" class="icon-wnyc-ui"><use xlink:href="#' . $atts['name'] . '"></use></svg>';
+    return '<svg aria-hidden="true" class="icon-wnyc-ui"><use href="#' . $atts['name'] . '"></use></svg>';
   }
 }
