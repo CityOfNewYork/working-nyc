@@ -37,13 +37,15 @@ foreach ($arr_ed as $value) {
 }
 
 if ($ed == true) {
-  array_push($schemas,
+  array_push(
+    $schemas,
     WNYCSchema\educational_organization($post)
   );
 }
 
 if ($ed == false && $post->program_agency != '') {
-  array_push($schemas,
+  array_push(
+    $schemas,
     WNYCSchema\government_service($post),
     WNYCSchema\government_organization($post)
   );

@@ -16,13 +16,13 @@ use DateTime;
  */
 function modified_date_formatted($id) {
 
-  $mod_date = new DateTime(get_the_modified_date( 'Y-m-d', $id ));
+  $mod_date = new DateTime(get_the_modified_date('Y-m-d', $id));
   $cur_date = new DateTime(date("Y-m-d"));
   $interval = $mod_date->diff($cur_date);
 
-  if ($interval->d == 0){
+  if ($interval->d == 0) {
     return __('today');
-  } else if ($interval->d < 5){
+  } elseif ($interval->d < 5) {
     if ($interval->d == 1) {
       return $interval->d.__(' day ago', 'WNYC-Date');
     } else {

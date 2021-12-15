@@ -49,6 +49,6 @@ class Program extends Shortcode {
 
     return (null === $post->id) ?
       "<!-- A post with the ID $post->ID does not exist -->" :
-      Timber::compile($this->template, array('post' =>  $post));
+      Timber::compile($this->template, array('post' => $post));
   }
 }

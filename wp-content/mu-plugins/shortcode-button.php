@@ -6,6 +6,8 @@
  * Author: Blue State Digital
  */
 
-if (file_exists(WPMU_PLUGIN_DIR . '/bsd-shortcode-button/bsd-shortcode-button.php')) {
-  require_once WPMU_PLUGIN_DIR . '/bsd-shortcode-button/bsd-shortcode-button.php';
+if (file_exists(WPMU_PLUGIN_DIR . '/shortcode-button/shortcode-button.php')) {
+  require_once WPMU_PLUGIN_DIR . '/shortcode-button/shortcode-button.php';
+
+  new BSD\ShortCodeButton();
 }

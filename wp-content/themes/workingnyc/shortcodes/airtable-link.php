@@ -31,15 +31,15 @@ class AirtableLink extends Shortcode {
    */
   public function shortcode($atts, $content, $shortcode_tag) {
     $atts = shortcode_atts(array(
-        'url' => null,
-        'text' => null,
-        'device' => null,
-        'browser' => null,
-        'lang' => null,
-        'program_name' => null,
-        'program_link' => null,
-        'class' => null
-      ), $atts);
+      'url' => null,
+      'text' => null,
+      'device' => null,
+      'browser' => null,
+      'lang' => null,
+      'program_name' => null,
+      'program_link' => null,
+      'class' => null
+    ), $atts);
 
     // If name is missing, don't return anything
     if (empty($atts['url']) || empty($atts['text'])) {
@@ -54,31 +54,36 @@ class AirtableLink extends Shortcode {
     $params = array();
 
     if (!empty($atts['device'])) {
-      $device = Airtable\prefill(Airtable\get_formatted_string($atts['device'])) . Airtable\get_mobile_desktop();
+      $device = Airtable\prefill(Airtable\get_formatted_string($atts['device']))
+        . Airtable\get_mobile_desktop();
 
       array_push($params, $device);
     }
 
     if (!empty($atts['browser'])) {
-      $browser = Airtable\prefill(Airtable\get_formatted_string($atts['browser'])) . Airtable\get_current_browser();
+      $browser = Airtable\prefill(Airtable\get_formatted_string($atts['browser']))
+        . Airtable\get_current_browser();
 
       array_push($params, $browser);
     }
 
     if (!empty($atts['lang'])) {
-      $lang = Airtable\prefill(Airtable\get_formatted_string($atts['lang'])) . Airtable\get_language_name();
+      $lang = Airtable\prefill(Airtable\get_formatted_string($atts['lang']))
+        . Airtable\get_language_name();
 
       array_push($params, $lang);
     }
 
     if (!empty($atts['program_name']) && isset($post)) {
-      $program_name = Airtable\prefill(Airtable\get_formatted_string($atts['program_name'])) . Airtable\get_formatted_string($post->post_title);
+      $program_name = Airtable\prefill(Airtable\get_formatted_string($atts['program_name']))
+        . Airtable\get_formatted_string($post->post_title);
 
       array_push($params, $program_name);
     }
 
     if (!empty($atts['program_link']) && isset($post)) {
-      $program_link = Airtable\prefill(Airtable\get_formatted_string($atts['program_link'])) . get_permalink($post->id);
+      $program_link = Airtable\prefill(Airtable\get_formatted_string($atts['program_link']))
+        . get_permalink($post->id);
 
       array_push($params, $program_link);
     }

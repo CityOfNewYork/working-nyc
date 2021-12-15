@@ -52,8 +52,9 @@ new Shortcode\Program();
  */
 
 add_action('wp_enqueue_scripts', function() {
-  if (!is_admin())
+  if (!is_admin()) {
     enqueue_language_style('site-default');
+  }
 
   enqueue_script('global');
 

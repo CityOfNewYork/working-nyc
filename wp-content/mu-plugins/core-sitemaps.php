@@ -15,9 +15,10 @@
  *
  * @param array $providers Array of WP_Sitemaps_Provider objects.
  */
-add_filter('wp_sitemaps_add_provider', 
-  function( $provider, $name ) {
-    if ( 'users' === $name ) {
+add_filter(
+  'wp_sitemaps_add_provider',
+  function($provider, $name) {
+    if ('users' === $name) {
       return false;
     }
 
