@@ -70,6 +70,7 @@
 
           {% if post.terms('populations') %}
           <p class="small flex items-center">
+            {% if post.get_field('program_eligibility') %}
             <a class="link-anchor inline-flex mie-1" href="#eligibility">
               <svg class="icon-wnyc-ui icon-2" role="img">
                 <title>{{ __('Eligibility', 'Program') }}</title>
@@ -77,6 +78,13 @@
                 <use href="#feather-users"></use>
               </svg>
             </a>
+            {% else %}
+            <svg class="icon-wnyc-ui icon-2 mie-1" role="img">
+              <title>{{ __('Eligibility', 'Program') }}</title>
+
+              <use href="#feather-users"></use>
+            </svg>
+            {% endif %}
 
             <span>{{ post.terms('populations')|map(s => "#{s.name}")|join(', ') }}</span>
           </p>
@@ -84,6 +92,7 @@
 
           {% if post.terms('duration') or post.terms('schedule') %}
           <p class="small flex items-center">
+            {% if post.get_field('program_schedule') %}
             <a class="link-anchor inline-flex mie-1" href="#schedule">
               <svg class="icon-wnyc-ui icon-2" role="img">
                 <title>{{ __('Schedule', 'Program') }}</title>
@@ -91,6 +100,14 @@
                 <use href="#feather-calendar"></use>
               </svg>
             </a>
+            {% else %}
+            <svg class="icon-wnyc-ui icon-2 mie-1" role="img">
+              <title>{{ __('Schedule', 'Program') }}</title>
+
+              <use href="#feather-calendar"></use>
+            </svg>
+            {% endif %}
+
 
             <span>{% if post.terms('duration') %}{{ post.terms('duration')[0] }}{% endif %}{% if post.terms('duration') and post.terms('schedule') %}, {% endif %}{% if post.terms('schedule') %}{{ post.terms('schedule')[0] }}{% endif %}</span>
           </p>
