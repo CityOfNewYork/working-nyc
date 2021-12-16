@@ -41,8 +41,12 @@
 
       <section class="page-max desktop:px-6" id="programs">
         {# TODO: [WK-246] [Programs Archive] Loading Spinner #}
+        <div v-if="posts == null" class="flex items-center justify-center">
+          {% include 'utilities/spinner.twig' with {this: {class: 'icon-4 text-yellow block mie-1'}} only %} {{ __('Loading programs', 'Program') }}
+        </div>
+
         <div class="wrap desktop:px-6 grid gap-3 tablet:grid-cols-2 desktop:gap-5">
-          <p data-alert="text" aria-live="polite" class="sr-only" v-if="posts!=null">Showing results v{ posts.length } of v{ totalPosts }.</p>
+          <p data-alert="text" aria-live="polite" class="sr-only" v-if="posts != null">Showing results v{ posts.length } of v{ totalPosts }.</p>
 
           <article class="c-card" v-for="post in posts">
             <header class="c-card__header">

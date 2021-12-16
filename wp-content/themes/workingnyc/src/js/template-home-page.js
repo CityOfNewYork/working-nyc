@@ -14,10 +14,6 @@ import Questionnaire from './modules/questionnaire';
  * Init
  */
 
-(function (window) {
-  'use strict';
-
-  if (document.querySelector('[id*=answer-a-few-questions]')) {
-    new Questionnaire();
-  }
-})(window);
+if (document.querySelector('[id*=answer-a-few-questions]')) {
+  new Questionnaire();
+}
