@@ -41,8 +41,6 @@
         <div class="desktop:px-6">
           <div class="scroll py-3 scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:pb-0 tablet:grid tablet:grid-cols-2 tablet:gap-3 desktop:gap-5 tablet:px-3 desktop:px-6">
             {% for featured in section.featured_posts_objects %}
-            {% set featured = TimberPost(featured) %}
-
             <div class="wrap-start {% if loop.last %}wrap-end{% endif %} transform-none tablet:p-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
               {% include ['components/program.twig'] with {
                 post: featured

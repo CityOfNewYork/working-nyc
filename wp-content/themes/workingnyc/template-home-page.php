@@ -7,6 +7,7 @@
  */
 
 require_once WorkingNYC\timber_post('Announcement');
+require_once WorkingNYC\timber_post('Program');
 
 /**
  * Enqueue
@@ -47,7 +48,14 @@ $context['announcements'] = array_map(function($post) {
 
 $context['meta'] = new WorkingNYC\Meta($post->ID);
 
-$context['featured_posts'] = Templating\get_featured_posts($post->ID);
+$context['featured_posts'] = array_map(function($section) {
+  $section['featured_posts_objects'] = array_map(function($post) {
+    return new WorkingNYC\Program($post);
+  }, $section['featured_posts_objects']);
+
+  return $section;
+}, Templating\get_featured_posts($post->ID));
+
 $context['questionnaire_post_type'] = Templating\get_questionnaire_post_type($post->ID);
 $context['questionnaire_threshold'] = Templating\get_questionnaire_threshold($post->ID);
 $context['questionnaire_qs'] = Templating\get_questionnaire_qs($post->ID);

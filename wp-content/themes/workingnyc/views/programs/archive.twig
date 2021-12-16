@@ -40,7 +40,6 @@
       </div>
 
       <section class="page-max desktop:px-6" id="programs">
-        {# TODO: [WK-246] [Programs Archive] Loading Spinner #}
         <div v-if="posts == null" class="flex items-center justify-center">
           {% include 'utilities/spinner.twig' with {this: {class: 'icon-4 text-yellow block mie-1'}} only %} {{ __('Loading programs', 'Program') }}
         </div>
@@ -62,10 +61,26 @@
             </header>
 
             <div class="c-card__body">
-              <p class="c-card__status flex items-center" v-if="post.recruitment_status.length > 0 && post.recruitment_status[0].slug=='actively-recruiting'">
-                <mark class="badge mie-2" data-program="recruiting">
+              <p class="c-card__status flex items-center" v-if="post.status">
+                <mark class="badge mie-2" data-program="recruiting" v-if="post.status.activelyRecruiting">
                   v{ post.recruitment_status[0].name }
                 </mark>
+
+                <span class="flex mie-2" title="{{ __('Disability accommodation details are avaiable.', 'WNYC-Programs') }}" data-program="accessible" v-if="post.status.disabilityInfo">
+                  <svg aria-hidden="true" class="icon text-alt">
+                    <use href="#icon-wnyc-accessible"></use>
+                  </svg>
+
+                  <span class="sr-only">{{ __('Disability accommodation details are avaiable.', 'WNYC-Programs') }}</span>
+                </span>
+
+                <span class="flex me-2" title="{{ __('Language access details are avaiable.', 'WNYC-Programs') }}" data-program="multilingual" v-if="post.status.languageAccessInfo">
+                  <svg aria-hidden="true" class="icon-wnyc-ui text-alt">
+                    <use href="#icon-wnyc-translate"></use>
+                  </svg>
+
+                  <span class="sr-only">{{ __('Language access details are avaiable.', 'WNYC-Programs') }}</span>
+                </span>
               </p>
 
               <div class="c-card__summary">
@@ -82,7 +97,7 @@
 
               <ul class="c-card__features">
                 <li class="flex items-center" v-if="post.services.length > 0">
-                  <svg class="icon-wnyc-ui mie-1" role="img">
+                  <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
                     <title>{{ __('Services', 'WNYC') }}</title>
 
                     <use href="#feather-award"></use>
@@ -92,7 +107,7 @@
                 </li>
 
                 <li class="flex items-center" v-if="(post.duration.length > 0) || (post.schedule.length > 0)">
-                  <svg class="icon-wnyc-ui mie-1" role="img">
+                  <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
                     <title>{{ __('Schedule', 'WNYC') }}</title>
 
                     <use href="#feather-calendar"></use>

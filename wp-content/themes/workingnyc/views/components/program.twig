@@ -12,28 +12,28 @@
   </header>
 
   <div class="c-card__body">
-    {% if post.terms('recruitment_status')[0].slug == 'actively-recruiting' %}
-    <p class="c-card__status flex items-center">
-      <mark class="badge mie-2" data-program="recruiting">
+    {% if post.status %}<p class="c-card__status flex items-center">
+      {% if post.status.actively_recruiting %}<mark class="badge mie-2" data-program="recruiting">
         {{ post.terms('recruitment_status')[0] }}
-      </mark>
+      </mark>{% endif %}
 
-      {# <span class="flex me-2" data-program="accessible">
+      {% if post.status.disability_info %}<span class="flex mie-2" data-program="accessible" title="{{ __('Disability accommodation details are avaiable.', 'WNYC-Programs') }}>
         <svg aria-hidden="true" class="icon text-alt">
           <use href="#icon-wnyc-accessible"></use>
         </svg>
 
-        <span class="sr-only">Accommodates Disabilities</span>
-      </span>
-      <span class="flex me-2" data-program="multilingual">
+        <span class="sr-only">{{ __('Disability accommodation details are avaiable.', 'WNYC-Programs') }}</span>
+      </span>{% endif %}
+
+      {% if post.status.language_access_info %}<span class="flex me-2" data-program="multilingual" title="{{ __('Language access details are avaiable.', 'WNYC-Programs') }}">
         <svg aria-hidden="true" class="icon-wnyc-ui text-alt">
           <use href="#icon-wnyc-translate"></use>
         </svg>
 
-        <span class="sr-only">Accommodates Multiple Languages</span>
-      </span>  #}
-    </p>
-    {% endif %}
+        <span class="sr-only">{{ __('Language access details are avaiable.', 'WNYC-Programs') }}</span>
+      </span>{% endif %}
+    </p>{% endif %}
+
 
     <div class="c-card__summary">
       <p>
@@ -45,7 +45,7 @@
     <ul class="c-card__features">
       {% if post.terms('services') %}
       <li class="flex items-center">
-        <svg class="icon-wnyc-ui mie-1" role="img">
+        <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
           <title>{{ __('Services', 'WNYC') }}</title>
 
           <use href="#feather-award"></use>
@@ -57,7 +57,7 @@
 
       {% if post.terms('duration') or post.terms('schedule') %}
       <li class="flex items-center">
-        <svg class="icon-wnyc-ui mie-1" role="img">
+        <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
           <title>{{ __('Schedule', 'WNYC') }}</title>
 
           <use href="#feather-calendar"></use>

@@ -5,7 +5,6 @@ import axios from 'axios/dist/axios';
 import router from './router';
 
 class Programs {
-
   constructor() {
     const baseUrl = window.location.origin + '/wp-json/wp/v2/';
     const lang = document.documentElement.lang;
@@ -34,6 +33,11 @@ class Programs {
         perPage: 12,
         page: 1
       },
+      computed: {
+        status: function(p) {
+          return false;
+        }
+      },
       watch: {
         // checkedFilters: 'getPrograms',
         checkedFilters: function() {
@@ -56,16 +60,16 @@ class Programs {
 
         axios.all(vals.map(l => axios.get(l)))
           .then(axios.spread((...res) => {
-            this.filters = res.map(value => value.data)
+            this.filters = res.map(value => value.data);
 
-            if (Object.keys(this.$route.query).length > 0){
-              Programs.parseQuery(this)
+            if (Object.keys(this.$route.query).length > 0) {
+              Programs.parseQuery(this);
             }
           }));
       },
       mounted: function () {
         if (Object.keys(this.$route.query).length == 0) {
-          this.getPrograms()
+          this.getPrograms();
         }
       },
       filters: {
@@ -97,7 +101,6 @@ class Programs {
  * @param {object} obj
  */
 Programs.generateFilters = function(obj) {
-
   let checked = obj.checkedFilters
 
   obj.totalFilters = checked.length
@@ -105,8 +108,10 @@ Programs.generateFilters = function(obj) {
   // generate the query params
   var params = {};
   var ids = {};
-  checked.forEach(function (term) {
+
+  checked.forEach(function(term) {
     var key = term.taxonomy;
+
     params[key] = params[key] || [];
     params[key] = params[key].concat(term.slug);
     ids[key] = ids[key] || [];
@@ -119,31 +124,33 @@ Programs.generateFilters = function(obj) {
   }
 
   // generate the string for the api call
-  let combinedFilter = []
-  Object.keys(ids).forEach(function (key) {
+  let combinedFilter = [];
+
+  Object.keys(ids).forEach(function(key) {
     combinedFilter.push(`${key}[]=${ids[key].join(`&${key}[]=`)}`)
-  })
-  combinedFilter = combinedFilter.join('&')
+  });
+
+  combinedFilter = combinedFilter.join('&');
 
   return combinedFilter;
-
 }
 
 /**
  * Extracts the filters in the URL and updates the checkedFilters
+ *
  * @param {object} obj
  */
-Programs.parseQuery = function(obj){
+Programs.parseQuery = function(obj) {
   let query = obj.$route.query;
-  const filters = obj.filters
+  const filters = obj.filters;
 
   // find the slugs in the taxonomies and add them to checkedFilters
-  let checked = []
+  let checked = [];
   let terms = [].concat.apply([], filters);
-  Object.keys(query).forEach(function (key) {
 
-    if (Array.isArray(query[key])){
-      query[key].forEach(function(term){
+  Object.keys(query).forEach(function(key) {
+    if (Array.isArray(query[key])) {
+      query[key].forEach(function(term) {
         checked.push(terms.filter(x => x.slug === term)[0])
       })
     } else {
@@ -157,47 +164,65 @@ Programs.parseQuery = function(obj){
 
 /**
  * Request to get the programs and update router
- **/
-Programs.getPrograms = function () {
-
-  let filters =  Programs.generateFilters(this)
-
+ */
+Programs.getPrograms = function() {
+  let filters =  Programs.generateFilters(this);
   let url = `${this.programsURL}&per_page=${this.perPage}&page=${this.page}&${filters}`;
 
-  axios
-    .get(url)
+  axios.get(url)
     .then(response => {
-      this.totalPosts = response.headers['x-wp-total']
-      if (this.posts != null && this.page > 1){
+      this.totalPosts = response.headers['x-wp-total'];
+
+      if (this.posts != null && this.page > 1) {
         this.posts = this.posts.concat(response.data);
       } else {
-        this.posts = response.data
+        this.posts = response.data;
       }
-      this.totalVisible = this.posts.length
+
+      /**
+       * Transform post data
+       */
+      this.posts.map(p => {
+        let s = {
+          'activelyRecruiting': (p.recruitment_status.find(s => s.slug === 'actively-recruiting')),
+          'disabilityInfo': (p.acf.program_disability != ''),
+          'languageAccessInfo': (p.acf.program_language_access != '')
+        }
+
+        p.status = (s.activelyRecruiting || s.disabilityInfo || s.languageAccessInfo) ? s : false;
+
+        return p
+      });
+
+      this.totalVisible = this.posts.length;
     })
     .catch(error => {
-      console.log('Error on request: ' + error)
+      console.log('Error on request: ' + error);
     });
 }
 
 /**
  * Creates an object with keys that will be populated when the user filters
  * OR creates an array of labels
+ *
  * @param {string} str
  * @param {boolean} labels
  */
 Programs.setTaxObj = function(str, labels) {
+  const arr = str.split(',');
 
-  const arr = str.split(',')
+  let taxonomies = [];
 
-  let taxonomies = []
-  arr.map(function (i) {
-    let arrStr = i.split(':')
-    if (labels){
-      taxonomies.push(arrStr[1])
+  arr.map(function(i) {
+    let arrStr = i.split(':');
+
+    if (labels) {
+      taxonomies.push(arrStr[1]);
     } else {
       let obj = {};
+
       obj[arrStr[0]] = null;
+
       taxonomies.push(obj)
     }
   });
@@ -209,18 +234,16 @@ Programs.setTaxObj = function(str, labels) {
  * Creates the array of URLS to get the taxonomies
  */
 Programs.getTax = function() {
-
   let promises = this.taxonomies.map(x => `${this.baseUrl}${Object.keys(x)[0]}?hide_empty=true&per_page=100`);
 
-  return promises
-
+  return promises;
 }
 
 /**
  * Returns the correct url for the programs detail
  * @param {string} slug
  */
-Programs.postUrl = function(slug){
+Programs.postUrl = function(slug) {
   let url = '';
 
   if (this.lang != 'en') {
@@ -230,20 +253,17 @@ Programs.postUrl = function(slug){
   }
 
   return '/' + url;
-
 }
 
 /**
  * Update location of scroll on Show ore
  */
-Programs.updateScroll = function () {
+Programs.updateScroll = function() {
   let cur = window.pageYOffset;
 
-  window.setTimeout(function () {
+  window.setTimeout(function() {
     window.scrollTo(0, cur);
   }, 1000);
 }
 
 export default Programs;
-
-
