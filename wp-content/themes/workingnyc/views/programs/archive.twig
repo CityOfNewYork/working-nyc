@@ -40,8 +40,8 @@
       </div>
 
       <section class="page-max desktop:px-6" id="programs">
-        <div v-if="posts == null" class="flex items-center justify-center">
-          {% include 'utilities/spinner.twig' with {this: {class: 'icon-4 text-yellow block mie-1'}} only %} {{ __('Loading programs', 'Program') }}
+        <div v-if="posts == null" class="flex items-center text-em justify-center py-4">
+          {% include 'utilities/spinner.twig' with {this: {class: 'icon-4 block mie-2'}} only %} {{ __('Loading programs', 'Program') }}
         </div>
 
         <div class="wrap desktop:px-6 grid gap-3 tablet:grid-cols-2 desktop:gap-5">
@@ -67,7 +67,7 @@
                 </mark>
 
                 <span class="flex mie-2" title="{{ __('Disability accommodation details are avaiable.', 'WNYC-Programs') }}" data-program="accessible" v-if="post.status.disabilityInfo">
-                  <svg aria-hidden="true" class="icon text-alt">
+                  <svg aria-hidden="true" class="icon text-em">
                     <use href="#icon-wnyc-accessible"></use>
                   </svg>
 
@@ -75,7 +75,7 @@
                 </span>
 
                 <span class="flex me-2" title="{{ __('Language access details are avaiable.', 'WNYC-Programs') }}" data-program="multilingual" v-if="post.status.languageAccessInfo">
-                  <svg aria-hidden="true" class="icon-wnyc-ui text-alt">
+                  <svg aria-hidden="true" class="icon-wnyc-ui text-em">
                     <use href="#icon-wnyc-translate"></use>
                   </svg>
 
