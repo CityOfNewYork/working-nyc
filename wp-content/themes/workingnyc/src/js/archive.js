@@ -14,10 +14,6 @@ import Programs from './modules/programs';
  * Init
  */
 
-(function (window) {
-  'use strict';
-
-  if (document.querySelector('[id*=vue]')) {
-    new Programs();
-  }
-})(window);
+if (document.querySelector('[id*=vue]')) {
+  new Programs();
+}

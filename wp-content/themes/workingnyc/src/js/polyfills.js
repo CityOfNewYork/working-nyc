@@ -3,7 +3,7 @@
  */
 
 import 'core-js/stable';
-// import 'regenerator-runtime/runtime'; ???
+import 'regenerator-runtime/runtime';
 import 'core-js/features/promise';
 import 'core-js/features/array/for-each';
 import 'core-js/features/object/assign';

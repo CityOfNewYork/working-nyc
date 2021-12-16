@@ -12,11 +12,11 @@
   {% endfor %}
 
   {% if web_share %}
-  {% include 'components/web-share.twig' with {this: {share: web_share, class: 'shadow-up right-0'}} only %}
+  {% include 'components/web-share.twig' with {this: {share: web_share, class: 'z-30 right-0'}} only %}
   {% endif %}
 
   {% if has_filters %}
-  <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+  <button :disabled="filters.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="true" data-js="dialog">
     <span class="mie-1">{{ filters_label }}</span>
 
     <span class="badge badge-small status-secondary light:status-primary">v{ totalFilters }</span>

@@ -52,6 +52,11 @@ new Shortcode\Program();
  */
 
 add_action('wp_enqueue_scripts', function() {
+  if (SUPPORT_IE_11 && is_IE()) {
+    enqueue_inline('ie11-custom-properties');
+    enqueue_script('polyfills');
+  }
+
   if (!is_admin()) {
     enqueue_language_style('site-default');
   }
@@ -65,11 +70,6 @@ add_action('wp_enqueue_scripts', function() {
 
   if ('en' !== ICL_LANGUAGE_CODE) {
     enqueue_inline('google-translate-element');
-  }
-
-  if (SUPPORT_IE_11 && is_IE()) {
-    enqueue_inline('ie11-custom-properties');
-    enqueue_script('polyfills');
   }
 });
 

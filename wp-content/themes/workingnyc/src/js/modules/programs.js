@@ -31,7 +31,7 @@ class Programs {
         totalFilters: 0,
         totalPosts: 0,
         totalVisible: 0,
-        perPage: 6,
+        perPage: 12,
         page: 1
       },
       watch: {
@@ -74,13 +74,16 @@ class Programs {
         },
         combineStr: function (arr, tax, bool) {
           if (!arr) {return}
+
           if (bool) {
             let names = arr.map(value => `<b class="text-em" data-program="taxonomy.${tax}">${value.name}</b>`);
             let joined = names.join(', ').replace(/, ([^,]*)$/, ', and $1');
+
             return joined;
           } else {
             let names = arr.map(value => `<span data-program="taxonomy.${tax}">${value.name}</span>`);
             let joined = names.join(', ');
+
             return joined;
           }
         }
