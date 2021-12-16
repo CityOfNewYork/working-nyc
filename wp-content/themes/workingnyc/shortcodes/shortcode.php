@@ -8,6 +8,8 @@
 
 namespace Shortcode;
 
+require_once get_stylesheet_directory() . '/includes/paths.php';
+
 /**
  * Class
  */

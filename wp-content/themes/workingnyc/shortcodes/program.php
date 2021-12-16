@@ -10,7 +10,10 @@
 
 namespace Shortcode;
 
+use WorkingNYC;
 use Timber;
+
+require_once WorkingNYC\timber_post('Program');
 
 /**
  * Class
@@ -35,7 +38,7 @@ class Program extends Shortcode {
    * @return  String                  A compiled component string
    */
   public function shortcode($atts, $content, $shortcode_tag) {
-    $post = new Timber\Post($atts['id']);
+    $post = new \WorkingNYC\Program($atts['id']);
 
     if (isset($atts['learn-more'])) {
       $post->link = $atts['learn-more'];

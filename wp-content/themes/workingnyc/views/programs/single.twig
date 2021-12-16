@@ -56,7 +56,7 @@
 
           {% if post.terms('services') %}
           <p class="small flex items-center">
-            <a class="link-anchor inline-flex mie-1" href="#more-information">
+            <a class="link-anchor inline-flex flex-shrink-0 mie-1" href="#more-information">
               <svg class="icon-wnyc-ui icon-2" role="img">
                 <title>{{ __('Services', 'Program') }}</title>
 
@@ -71,7 +71,7 @@
           {% if post.terms('populations') %}
           <p class="small flex items-center">
             {% if post.get_field('program_eligibility') %}
-            <a class="link-anchor inline-flex mie-1" href="#eligibility">
+            <a class="link-anchor inline-flex flex-shrink-0 mie-1" href="#eligibility">
               <svg class="icon-wnyc-ui icon-2" role="img">
                 <title>{{ __('Eligibility', 'Program') }}</title>
 
@@ -79,7 +79,7 @@
               </svg>
             </a>
             {% else %}
-            <svg class="icon-wnyc-ui icon-2 mie-1" role="img">
+            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Eligibility', 'Program') }}</title>
 
               <use href="#feather-users"></use>
@@ -93,7 +93,7 @@
           {% if post.terms('duration') or post.terms('schedule') %}
           <p class="small flex items-center">
             {% if post.get_field('program_schedule') %}
-            <a class="link-anchor inline-flex mie-1" href="#schedule">
+            <a class="link-anchor inline-flex flex-shrink-0 mie-1" href="#schedule">
               <svg class="icon-wnyc-ui icon-2" role="img">
                 <title>{{ __('Schedule', 'Program') }}</title>
 
@@ -115,7 +115,7 @@
 
           {% if post.get_field('program_disability') %}
           <p class="small flex items-center">
-            <a class="link-anchor inline-flex mie-1" href="#disability-accommodation">
+            <a class="link-anchor inline-flex flex-shrink-0 mie-1" href="#disability-accommodation">
               <svg class="icon icon-2" role="img">
                 <title>{{ __('Disability Accommodation', 'Program') }}</title>
 
@@ -129,7 +129,7 @@
 
           {% if post.get_field('program_language_access') %}
           <p class="small flex items-center">
-            <a class="link-anchor inline-flex mie-1" href="#language-access">
+            <a class="link-anchor inline-flex flex-shrink-0 mie-1" href="#language-access">
               <svg class="icon-wnyc-ui icon-2" role="img">
                 <title>{{ __('Language Access', 'Program') }}</title>
 
@@ -171,7 +171,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="eligibility">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex mie-1" href="#eligibility">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#eligibility">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Who it\'s for', 'Program') }}</title>
 
@@ -191,7 +191,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="schedule">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex mie-1" href="#schedule">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#schedule">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Schedule', 'Program') }}</title>
 
@@ -211,7 +211,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="disability-accommodation">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex mie-1" href="#disability-accommodation">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#disability-accommodation">
                 <svg class="icon" role="img">
                   <title>{{ __('Disability Accommodation', 'Program') }}</title>
 
@@ -231,7 +231,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="language-access">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex mie-1" href="#language-access">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#language-access">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Language Access', 'Program') }}</title>
 
