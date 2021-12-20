@@ -3,7 +3,7 @@
   "version": "1.7.0",
   "description": "Connecting NYC job seekers to workforce services.",
   "author": "Mayor's Office for Economic Opportunity",
-  "license": "ISC",
+  "private": "true",
   "scripts": {
     "start": "npm run development && cross-env NODE_ENV=development concurrently \"pttrn -w\" -p \"none\"",
     "development": "pttrn clean && pttrn && pttrn rename",
