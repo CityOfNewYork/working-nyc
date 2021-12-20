@@ -8,8 +8,6 @@
 
 namespace Shortcode;
 
-require_once get_stylesheet_directory() . '/includes/paths.php';
-
 /**
  * Class
  */
@@ -30,6 +28,8 @@ class Shortcode {
    * Constructor
    */
   public function __construct() {
+    require_once get_stylesheet_directory() . '/includes/paths.php';
+
     $this->shortcode = $this->prefix . $this->tag;
 
     add_shortcode($this->shortcode, [$this, 'shortcode']);
