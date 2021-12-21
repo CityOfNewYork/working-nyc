@@ -1,3 +1,18 @@
+- handle: rollbar
+  name: Rollbar
+  instructions: Integration for JavaScript exception handling via Rollbar.
+  path: https://cdn.jsdelivr.net/gh/rollbar/rollbar.js@2.24.0/dist/rollbar.snippet.js
+  dep: ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN
+  localize:
+    - ROLLBAR_CLIENT_SIDE_ACCESS_TOKEN
+    - WP_ENV
+  in_footer: false
+  inline:
+    path: config/integrations/scripts/rollbar.js
+    position: before
+  attrs:
+    async: true
+
 - handle: data-layer
   name: Data Layer
   instructions: Required. This is required at the top level for Google Analytics, Tag Manager, and Optimize integrations.
