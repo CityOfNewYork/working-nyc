@@ -1,0 +1,39 @@
+# WP_OPTION_ADMIN_EMAIL:
+WP_OPTION_BLOG_PUBLIC: false
+WP_POST_REVISIONS: 5
+
+# MAILCHIMP_ACCOUNT:
+# MAILCHIMP_AUDIENCE_ID:
+
+DATA_LAYER: true
+# GOOGLE_ANALYTICS:
+# GOOGLE_OPTIMIZE_ID:
+# GOOGLE_TAG_MANAGER:
+# GOOGLE_TAG_MANAGER_AUTH:
+# GOOGLE_TAG_MANAGER_PREVIEW:
+GOOGLE_TAG_MANAGER_COOKIES: x
+
+SUPPORT_IE_11: true
+
+# WPSCAN_API_TOKEN:
+# WP_OPTION_WPSCAN_MAIL:
+# WP_OPTION_WPSCAN_INTERVAL: 1
+
+META_OG_TYPE: website
+# META_TWITTER_SITE: '@'
+
+WP_HEADERS_DNS_PREFETCH_CONTROL: 'on'
+WP_HEADERS_CSP_STYLE: "* 'unsafe-inline'" # CSS, allow all and inline CSS
+WP_HEADERS_CSP_FONT: https://fonts.gstatic.com # Fonts, allow from self and gstatic.com (for Google Maps)
+WP_HEADERS_CSP_IMG: "* data: 'unsafe-inline'" # Images, allow all, data attribute, and inline images
+WP_HEADERS_CSP_SCRIPT: www1.nyc.gov s.webtrends.com donot.usevalid.dom https://www.google.com https://www.google-analytics.com https://www.googletagmanager.com https://maps.googleapis.com https://cdnjs.cloudflare.com # JS, allow specific scripts with nonce and their scripts At the time of deployment 'strict-dynamic' was not supported for iOS so explicit sources need to be added
+WP_HEADERS_CSP_CONNECT: hm.webtrends.com https://www.google-analytics.com https://stats.g.doubleclick.net https://api.rollbar.com # Allow XMLHttpRequests (AJAX)
+WP_HEADERS_CSP_FRAME: https://www.google.com https://www.google-analytics.com https://www.googletagmanager.com https://optimize.google.com # iFrames, Google only
+WP_HEADERS_CSP_SEND: false
+WP_HEADERS_CSP_REPORTING: /csp-reporting/
+WP_HEADERS_SAMEORIGIN: true # Prevent web pages from being loaded inside iFrame
+WP_HEADERS_NOSNIFF: true # Prevent MIME Type sniffing
+
+# development:
+
+# testing:
