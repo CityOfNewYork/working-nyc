@@ -192,7 +192,11 @@ PHP is linted using [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSnif
 composer run lint
 ```
 
-PHP Code Sniffer can attempt to fix violations using `composer run fix` but it is not recommended for multiple files or large scripts as it can fail and leave malformed PHP files.
+PHP Code Sniffer can attempt to fix violations. Run the following command in a clean git directory. Occasionally, with multiple files and large scripts it can fail and leave malformed PHP files.
+
+```shell
+composer run fix
+```
 
 ## Security
 
