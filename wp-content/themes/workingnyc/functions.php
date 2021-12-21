@@ -63,6 +63,7 @@ add_action('wp_enqueue_scripts', function() {
 
   enqueue_script('global');
 
+  enqueue_inline('rollbar');
   enqueue_inline('data-layer');
   enqueue_inline('google-optimize');
   enqueue_inline('google-analytics');

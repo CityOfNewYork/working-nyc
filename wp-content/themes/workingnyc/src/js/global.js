@@ -10,6 +10,7 @@ import Toggle from '@nycopportunity/pttrn-scripts/src/toggle/toggle';
 import Track from '@nycopportunity/pttrn-scripts/src/track/track';
 import WebShare from '@nycopportunity/pttrn-scripts/src/web-share/web-share';
 import WindowVh from '@nycopportunity/pttrn-scripts/src/window-vh/window-vh';
+import RollbarConfigure from './modules/rollbar-configure';
 
 /**
  * Components
@@ -26,6 +27,12 @@ import Menu from '@nycopportunity/pattern-menu/src/menu';
 
 /**
  * Init
+ */
+
+new RollbarConfigure();
+
+/**
+ * Patterns
  */
 
 new Accordion();
