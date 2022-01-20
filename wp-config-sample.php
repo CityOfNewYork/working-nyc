@@ -73,87 +73,11 @@ $table_prefix = 'wp_';
  * in their development environments.
  *
  * For information on other constants that can be used for debugging,
- * visit the Codex.
+ * visit the documentation.
  *
- * @link https://codex.wordpress.org/Debugging_in_WordPress
- *
- * WP_DEBUG_DISPLAY is another companion to WP_DEBUG that controls whether debug
- * messages are shown inside the HTML of pages or not. The default is ‘true’
- * which shows errors and warnings as they are generated. Setting this to false
- * will hide all errors. This should be used in conjunction with WP_DEBUG_LOG so
- * that errors can be reviewed later.
- *
- * @link https://wordpress.org/support/article/debugging-in-wordpress/#wp_debug_display
- *
- * WP_DEBUG_LOG is a companion to WP_DEBUG that causes all errors to also be
- * saved to a debug.log log file This is useful if you want to review all
- * notices later or need to view notices generated off-screen (e.g. during an
- * AJAX request or wp-cron run).
- *
- * @link https://wordpress.org/support/article/debugging-in-wordpress/#wp_debug_log
- *
- * SCRIPT_DEBUG is a related constant that will force WordPress to use the “dev”
- * versions of scripts and stylesheets in wp-includes/js, wp-includes/css,
- * wp-admin/js, and wp-admin/css will be loaded instead of the .min.css and
- * .min.js versions.. If you are planning on modifying some of WordPress’
- * built-in JavaScript or Cascading Style Sheets, you should add the following
- * code to your config file:
- *
- * @link https://wordpress.org/support/article/editing-wp-config-php/#script_debug
+ * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-
-define('WP_DEBUG', true);
-
-define('WP_DEBUG_DISPLAY', false);
-
-define('WP_DEBUG_LOG', WP_DEBUG); // wp-content/debug.log
-
-define('SCRIPT_DEBUG', WP_DEBUG);
-
-/**
- * WP_SITEURL allows the WordPress address (URL) to be defined. The value
- * defined is the address where your WordPress core files reside.
- *
- * WP_HOME overrides the wp_options table value for home but does not change
- * it in the database. home is the address you want people to type in their
- * browser to reach your WordPress site.
- *
- * @link https://codex.wordpress.org/Changing_The_Site_URL
- */
-
-define('WP_SITEURL', 'http://localhost:8080');
-
-define('WP_HOME', WP_SITEURL);
-
-/**
- * Set our WordPress environment variable
- */
-
-define('WP_ENV', 'development');
-
-// define('WP_ENV', 'testing');
-
-/**
- * Occasionally you may wish to disable the plugin or theme editor to prevent
- * overzealous users from being able to edit sensitive files and potentially
- * crash the site. Disabling these also provides an additional layer of security
- * if a hacker gains access to a well-privileged user account.
- *
- * @link https://wordpress.org/support/article/editing-wp-config-php/#disable-the-plugin-and-theme-editor
- */
-
-define('DISALLOW_FILE_EDIT', true);
-
-/**
- * WordPress Query Monitor Plugin Configuration. Enabling the capabilities panel
- * for Query Monitor
- *
- * @link https://wordpress.org/plugins/query-monitor/
- */
-
-define('QM_ENABLE_CAPS_PANEL', WP_DEBUG);
-
-define('QM_DARK_MODE', true);
+define( 'WP_DEBUG', false );
 
 /* That's all, stop editing! Happy publishing. */
 
