@@ -2309,6 +2309,27 @@
             "install-path": "../../wp-content/plugins/wp-auto-login"
         },
         {
+            "name": "wpackagist-plugin/wp-bitly",
+            "version": "2.6.0",
+            "version_normalized": "2.6.0.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-bitly/",
+                "reference": "trunk"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-bitly.zip?timestamp=1612992318"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "installation-source": "dist",
+            "homepage": "https://wordpress.org/plugins/wp-bitly/",
+            "install-path": "../../wp-content/plugins/wp-bitly"
+        },
+        {
             "name": "wpackagist-plugin/wp-crontrol",
             "version": "1.10.0",
             "version_normalized": "1.10.0.0",

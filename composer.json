@@ -36,6 +36,7 @@
     "wpackagist-plugin/wordpress-importer": "^0.7.0",
     "wpackagist-plugin/wp-all-export": "^1.2",
     "wpackagist-plugin/wp-all-import": "^3.5",
+    "wpackagist-plugin/wp-bitly": "*",
     "wpackagist-plugin/wp-security-questions": "^1.0",
     "wpackagist-plugin/wps-hide-login": "^1.5.2.1",
     "wpackagist-plugin/wpscan": "^1.15"

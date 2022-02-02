@@ -5384,7 +5384,6 @@
 	});
 
 	class Programs {
-
 	  constructor() {
 	    const baseUrl = window.location.origin + '/wp-json/wp/v2/';
 	    const lang = document.documentElement.lang;

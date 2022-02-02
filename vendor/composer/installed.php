@@ -460,6 +460,15 @@
             'reference' => 'tags/1.0.1',
             'dev_requirement' => true,
         ),
+        'wpackagist-plugin/wp-bitly' => array(
+            'pretty_version' => '2.6.0',
+            'version' => '2.6.0.0',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../wp-content/plugins/wp-bitly',
+            'aliases' => array(),
+            'reference' => 'trunk',
+            'dev_requirement' => false,
+        ),
         'wpackagist-plugin/wp-crontrol' => array(
             'pretty_version' => '1.10.0',
             'version' => '1.10.0.0',

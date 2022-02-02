@@ -3,6 +3,20 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
+    <div class="layout-content bg-scale-1">
+      {% include ['components/utility-nav.twig'] with {
+        return: {
+          'label': __('Home', 'WNYC'),
+          'link': '/'
+        },
+        web_share: {
+          'title': post.title,
+          'text': (post.web_share_text) ? post.web_share_text,
+          'url': fn('wp_get_shortlink')
+        }
+      } %}
+    </div>
+
     {# Header Section #}
     <div class="layout-content">
       <header class="o-header">
