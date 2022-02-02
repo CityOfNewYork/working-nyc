@@ -1,0 +1,61 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1" id="content">
+    <div class="layout-content sticky top-0 bg-scale-1 z-10">
+      {% include ['components/utility-nav.twig'] with {
+        return: {
+          'label': __('Home', 'WNYC'),
+          'link': '/'
+        },
+        web_share: {
+          'title': post.title,
+          'text': (post.web_share_text) ? post.web_share_text,
+          'url': fn('wp_get_shortlink')
+        }
+      } %}
+    </div>
+
+    {# Header Section #}
+    <div class="layout-content">
+      <header class="o-header">
+        <div>
+          <h1 class="o-header__title">{{ post.title }}</h1>
+
+          {{ post.announcement_details|wpautop }}
+
+          <p class="small flex items-center">
+            <svg class="icon-wnyc-ui mie-1 icon-2" role="img">
+              <title>{{ __('Last updated', 'WNYC-Date') }}</title>
+
+              <use href="#feather-alert-triangle"></use>
+            </svg>
+
+            {{ __('Last updated', 'WNYC-Date') }}
+
+            {{ post.date|date(fn('get_option', 'date_format')) }}
+            {{ post.date|date(fn('get_option', 'time_format')) }}
+          </p>
+        </div>
+      </header>
+    </div>
+
+    <section class="bg-scale-2 clearfix">
+      <div class="layout-content pt-utility-anchor pb-8 mb-8">
+        <div class="py-4 wrap">
+          {% if post.content %}{{ post.content }}{% endif %}
+        </div>
+      </div>
+    </section>
+
+    {% if options.feedback is defined %}
+    {% include 'objects/feedback.twig' %}
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
+  </main>
+</div>
+{% endblock %}
