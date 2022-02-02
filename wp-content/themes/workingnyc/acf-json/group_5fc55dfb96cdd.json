@@ -26,7 +26,7 @@
             "label": "Announcement Details",
             "name": "announcement_details",
             "type": "wysiwyg",
-            "instructions": "",
+            "instructions": "This is the short description for the announcement. It will appear on the homepage and underneath the page title if it to a dedictated page with the announcement details.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -45,7 +45,7 @@
             "label": "External URL",
             "name": "announcement_is_external",
             "type": "radio",
-            "instructions": "Is this link to an external website?",
+            "instructions": "Is this link to an external website? Select \"No\" to link to existing site content. Select self to link to a dedictated page with the announcement details.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -55,7 +55,8 @@
             },
             "choices": {
                 "Yes": "Yes",
-                "No": "No"
+                "No": "No",
+                "Self": "Self"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -115,33 +116,6 @@
             "multiple": 0,
             "return_format": "object",
             "ui": 1
-        },
-        {
-            "key": "field_601ad4694007f",
-            "label": "Content Anchor",
-            "name": "announcement_content_anchor",
-            "type": "text",
-            "instructions": "Enter the section name you would like this link to anchor to.",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_5fc55e91cfdea",
-                        "operator": "==",
-                        "value": "No"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
         }
     ],
     "location": [
@@ -160,5 +134,6 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "modified": 1643828916
 }

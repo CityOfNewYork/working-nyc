@@ -3,8 +3,8 @@
 // phpcs:disable
 /**
  * Plugin Name: Pre-get Document Title
- * Description: Adds the description defined in the WordPress Admin settings to the description meta tag in the head for the homepage only.
- * Plugin URI: https://github.com/cityofnewyork/nyco-wp-docker-boilerplate/wp/wp-content/mu-plugins/add-meta-description-to-head.php
+ * Description: Removes tagline from title tag for the homepage.
+ * Plugin URI: https://github.com/cityofnewyork/nyco-wp-docker-boilerplate/wp/wp-content/mu-plugins/pre-document-get-title.php
  * Author: NYC Opportunity
  * Author URI: nyc.gov/opportunity
  */

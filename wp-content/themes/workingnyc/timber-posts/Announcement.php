@@ -51,14 +51,25 @@ class Announcement extends Timber\Post {
    * @return  String  The announcement URL
    */
   public function getLink() {
-    if ($this->announcement_is_external === 'Yes') {
-      return $this->announcement_url;
-    } else {
-      $anchor = ($this->announcement_content_anchor) ?
-        '#' . str_replace(' ', '-', strtolower(($this->announcement_content_anchor))) : '';
+    $href = '';
 
-      return get_permalink($this->announcement_content). $anchor;
+    switch ($this->announcement_is_external) {
+      case 'Yes':
+        $href = $this->announcement_url;
+        break;
+
+      case 'No':
+        $anchor = ($this->announcement_content_anchor) ?
+          '#' . str_replace(' ', '-', strtolower(($this->announcement_content_anchor))) : '';
+
+        $href = get_permalink($this->announcement_content) . $anchor;
+        break;
+
+      default:
+        $href = get_permalink($this->ID);
     }
+
+    return $href;
   }
 
   /**
@@ -67,8 +78,20 @@ class Announcement extends Timber\Post {
    * @return  String  The announcement short link
    */
   public function getShortLink() {
-    return ($this->announcement_is_external === 'Yes')
-      ? $this->announcement_url : wp_get_shortlink($this->announcement_content);
+    switch ($this->announcement_is_external) {
+      case 'Yes':
+        $href = $this->announcement_url;
+        break;
+
+      case 'No':
+        $href = wp_get_shortlink($this->announcement_content);
+        break;
+
+      default:
+        $href = wp_get_shortlink($this->ID);
+    }
+
+    return $href;
   }
 
   /**
