@@ -11,6 +11,7 @@
  *
  * @var int
  */
+global $block_core_latest_posts_excerpt_length;
 $block_core_latest_posts_excerpt_length = 0;
 
 /**
@@ -58,6 +59,7 @@ function render_block_core_latest_posts( $attributes ) {
 	$list_items_markup = '';
 
 	foreach ( $recent_posts as $post ) {
+		$post_link = esc_url( get_permalink( $post ) );
 
 		$list_items_markup .= '<li>';
 
@@ -75,16 +77,24 @@ function render_block_core_latest_posts( $attributes ) {
 				$image_classes .= ' align' . $attributes['featuredImageAlign'];
 			}
 
+			$featured_image = get_the_post_thumbnail(
+				$post,
+				$attributes['featuredImageSizeSlug'],
+				array(
+					'style' => $image_style,
+				)
+			);
+			if ( $attributes['addLinkToFeaturedImage'] ) {
+				$featured_image = sprintf(
+					'<a href="%1$s">%2$s</a>',
+					$post_link,
+					$featured_image
+				);
+			}
 			$list_items_markup .= sprintf(
 				'<div class="%1$s">%2$s</div>',
 				$image_classes,
-				get_the_post_thumbnail(
-					$post,
-					$attributes['featuredImageSizeSlug'],
-					array(
-						'style' => $image_style,
-					)
-				)
+				$featured_image
 			);
 		}
 
@@ -94,7 +104,7 @@ function render_block_core_latest_posts( $attributes ) {
 		}
 		$list_items_markup .= sprintf(
 			'<a href="%1$s">%2$s</a>',
-			esc_url( get_permalink( $post ) ),
+			$post_link,
 			$title
 		);
 
@@ -155,10 +165,7 @@ function render_block_core_latest_posts( $attributes ) {
 
 	remove_filter( 'excerpt_length', 'block_core_latest_posts_get_excerpt_length', 20 );
 
-	$class = 'wp-block-latest-posts wp-block-latest-posts__list';
-	if ( isset( $attributes['align'] ) ) {
-		$class .= ' align' . $attributes['align'];
-	}
+	$class = 'wp-block-latest-posts__list';
 
 	if ( isset( $attributes['postLayout'] ) && 'grid' === $attributes['postLayout'] ) {
 		$class .= ' is-grid';
@@ -176,13 +183,11 @@ function render_block_core_latest_posts( $attributes ) {
 		$class .= ' has-author';
 	}
 
-	if ( isset( $attributes['className'] ) ) {
-		$class .= ' ' . $attributes['className'];
-	}
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $class ) );
 
 	return sprintf(
-		'<ul class="%1$s">%2$s</ul>',
-		esc_attr( $class ),
+		'<ul %1$s>%2$s</ul>',
+		$wrapper_attributes,
 		$list_items_markup
 	);
 }
