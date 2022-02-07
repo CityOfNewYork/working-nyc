@@ -3,8 +3,8 @@
 Contributors: johnbillion, scompt  
 Tags: cron, wp-cron, crontrol, debug  
 Requires at least: 4.2  
-Tested up to: 5.7  
-Stable tag: 1.10.0  
+Tested up to: 5.8  
+Stable tag: 1.12.0  
 Requires PHP: 5.3  
 Donate link: https://github.com/sponsors/johnbillion
 
@@ -19,6 +19,7 @@ WP Crontrol enables you to view and control what's happening in the WP-Cron syst
  * Add new cron events.
  * Bulk delete cron events.
  * Add and remove custom cron schedules.
+ * Export cron event lists as a CSV file.
 
 WP Crontrol is aware of timezones, will alert you to events that have no actions or that have missed their schedule, and will show you a warning message if your cron system doesn't appear to be working (for example if your server can't connect to itself to fire scheduled cron events).
 
@@ -84,9 +85,17 @@ Please see the "Which users can manage PHP cron events?" FAQ for information abo
 
 [You can read all about problems with editing cron events here](https://github.com/johnbillion/wp-crontrol/wiki/Problems-adding-or-editing-WP-Cron-events).
 
+### Can I export a list of cron events?
+
+Yes, a CSV file of the event list can be exported via the "Export" button on the cron event listing screen. This file can be opened in any spreadsheet application.
+
 ### Can I see a historical log of all the cron events that ran on my site?
 
 Not yet, but I hope to add this functionality soon.
+
+### Can I see a historical log of edits, additions, and deletions of cron events and schedules?
+
+Yes. The excellent <a href="https://wordpress.org/plugins/simple-history/">Simple History plugin</a> has built-in support for logging actions performed via WP Crontrol.
 
 ### What's the use of adding new cron schedules?
 
@@ -116,6 +125,8 @@ The next step is to write your function. Here's a simple example:
 
 In the Tools → Cron Events admin panel, click on "Add New". In the form that appears, select "PHP Cron Event" and enter the schedule and next run time. The event schedule is how often your event will be executed. If you don't see a good interval, then add one in the Settings → Cron Schedules admin panel. In the "Hook code" area, enter the PHP code that should be run when your cron event is executed. You don't need to provide the PHP opening tag (`<?php`).
 
+Please see the "Which users can manage PHP cron events?" FAQ for information about which users can create PHP cron events.
+
 ### Which users can manage cron events and schedules?
 
 Only users with the `manage_options` capability can manage cron events and schedules. By default, only Administrators have this capability.
@@ -132,6 +143,10 @@ Therefore, the user access level required to execute arbitrary PHP code does not
 
 The cron commands which were previously included in WP Crontrol are now part of WP-CLI (since 0.16), so this plugin no longer provides any WP-CLI commands. See `wp help cron` for more info.
 
+### Who took the photo in the plugin header image?
+
+The photo was taken by <a href="https://www.flickr.com/photos/michaelpardo/21453119315">Michael Pardo</a> and is in the public domain.
+
 ## Screenshots
 
 1. Cron events can be modified, deleted, and executed<br>![](.wordpress-org/screenshot-1.png)
@@ -141,6 +156,19 @@ The cron commands which were previously included in WP Crontrol are now part of 
 3. New cron schedules can be added, giving plugin developers more options when scheduling events<br>![](.wordpress-org/screenshot-3.png)
 
 ## Changelog ##
+
+### 1.12.0 ###
+
+* Fix the PHP cron event management.
+* More "namespacing" of query variables to avoid conflicts with other cron management plugins.
+
+### 1.11.0 ###
+
+* Introduced an `Export` feature to the event listing screen for exporting the list of events as a CSV file.
+* Added the timezone offset to the date displayed for events that are due to run after the next DST change, for extra clarity.
+* Introduced the `crontrol/filter-types` and `crontrol/filtered-events` filters for adjusting the available event filters on the event listing screen.
+* Lots of code quality improvements (thanks, PHPStan!).
+
 
 ### 1.10.0 ###
 
@@ -251,12 +279,6 @@ The cron commands which were previously included in WP Crontrol are now part of 
 - Add the ability for a PHP cron event to be given an optional display name.
 - Better UX for users who cannot edit files and therefore cannot add or edit PHP cron events.
 - Terminology and i18n improvements.
-
-
-### 1.3.1 ###
-
-- Display a less scary looking message when `DISABLE_WP_CRON` is defined.
-- Correct the example code for cron event arguments.
 
 
 ### 1.3 ###

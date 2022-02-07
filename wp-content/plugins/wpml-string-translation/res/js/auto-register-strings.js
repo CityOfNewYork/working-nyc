@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(function () {
     WPML_String_Translation.AutoRegisterStrings.init(jQuery('.wpml-st-auto-register-strings'));
 });
 

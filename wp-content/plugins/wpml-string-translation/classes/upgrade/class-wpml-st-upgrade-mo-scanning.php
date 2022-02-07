@@ -1,7 +1,7 @@
 <?php
 
 class WPML_ST_Upgrade_MO_Scanning implements IWPML_St_Upgrade_Command {
-	/** @var WPDB $wpdb */
+	/** @var wpdb $wpdb */
 	private $wpdb;
 
 	private static $sql = "
@@ -20,9 +20,9 @@ class WPML_ST_Upgrade_MO_Scanning implements IWPML_St_Upgrade_Command {
 	";
 
 	/**
-	 * @param WPDB $wpdb
+	 * @param wpdb $wpdb
 	 */
-	public function __construct( WPDB $wpdb ) {
+	public function __construct( wpdb $wpdb ) {
 		$this->wpdb = $wpdb;
 	}
 

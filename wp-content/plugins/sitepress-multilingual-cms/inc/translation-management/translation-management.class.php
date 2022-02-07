@@ -3,10 +3,21 @@
  * @package wpml-core
  */
 
-use \WPML\FP\Maybe;
-use \WPML\FP\Fns;
-use function \WPML\Container\make;
-use function \WPML\FP\invoke;
+use WPML\FP\Fns;
+use WPML\FP\Maybe;
+use WPML\FP\Obj;
+use WPML\FP\Relation;
+use WPML\TM\API\Batch;
+use WPML\TM\Jobs\Dispatch\BatchBuilder;
+use WPML\TM\Jobs\Dispatch\Posts;
+use WPML\TM\Jobs\Dispatch\Packages;
+use WPML\TM\Jobs\Dispatch\Messages;
+use WPML\TM\API\Basket;
+use WPML\UIPage;
+use function WPML\Container\make;
+use function WPML\FP\invoke;
+use WPML\Setup\Option;
+use function WPML\FP\partialRight;
 
 /**
  * Class TranslationManagement
@@ -47,8 +58,17 @@ class TranslationManagement {
 	 * @access private
 	 */
 	private $message_ids = array( 'add_translator', 'edit_translator', 'remove_translator', 'save_notification_settings', 'cancel_jobs' );
+	/**
+	 * @var \WPML_Translation_Management_Filters_And_Actions
+	 */
+	private $filters_and_actions;
 
-	function __construct() {
+	/**
+	 * @var \WPML_Cookie
+	 */
+	private $wpml_cookie;
+
+	function __construct( WPML_Cookie $wpml_cookie = null ) {
 
 		global $sitepress, $wpml_cache_factory;
 
@@ -61,8 +81,8 @@ class TranslationManagement {
 		add_action( 'init', array( $this, 'init' ), self::INIT_PRIORITY );
 		add_action( 'wp_loaded', array( $this, 'wp_loaded' ) );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		add_action( 'delete_post', array( $this, 'delete_post_actions' ), 1, 1 ); // Calling *before* the Sitepress actions.
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 10, 0 );
+		add_action( 'delete_post', array( $this, 'delete_post_actions' ), 1, 1 ); // Calling *before* the SitePress actions.
 		add_action( 'icl_ajx_custom_call', array( $this, 'ajax_calls' ), 10, 2 );
 		add_action( 'wpml_tm_basket_add_message', array( $this, 'add_basket_message' ), 10, 3 );
 
@@ -81,7 +101,8 @@ class TranslationManagement {
 
 		add_action( 'display_basket_notification', array( $this, 'display_basket_notification' ), 10, 1 );
 		Fns::each(
-			function( $type ) { add_action( "wpml_tm_send_{$type}_jobs", [ $this, 'send_jobs' ], 10, 2 ); },
+			function( $type ) {
+				add_action( "wpml_tm_send_{$type}_jobs", [ $this, 'send_jobs' ], 10, 3 ); },
 			[ 'post', 'package', 'st-batch' ]
 		);
 		$this->init_comments_synchronization();
@@ -89,11 +110,13 @@ class TranslationManagement {
 
 		/**
 		 * @api
-		 * @use \TranslationManagement::get_translation_job_id
+		 * @uses \TranslationManagement::get_translation_job_id
 		 */
 		add_filter( 'wpml_translation_job_id', array( $this, 'get_translation_job_id_filter' ), 10, 2 );
 
 		$this->filters_and_actions = new WPML_Translation_Management_Filters_And_Actions( $this, $sitepress );
+
+		$this->wpml_cookie = $wpml_cookie ?: new WPML_Cookie();
 	}
 
 	public function wpml_loaded_action() {
@@ -153,7 +176,7 @@ class TranslationManagement {
 	}
 
 	/**
-	 * @param $code
+	 * @param string $code
 	 *
 	 * @return bool
 	 */
@@ -236,6 +259,7 @@ class TranslationManagement {
 	}
 
 	public function get_settings() {
+		$this->load_settings_if_required();
 		return $this->settings;
 	}
 
@@ -258,52 +282,32 @@ class TranslationManagement {
 		}
 	}
 
-	public function admin_enqueue_scripts( $hook ) {
+	public function admin_enqueue_scripts() {
 		if ( ! defined( 'WPML_TM_FOLDER' ) ) {
 			return;
 		}
 
-		$menus_default_tab = array(
-			'wpml_page_' . WPML_TM_FOLDER . '/menu/main'     => 'dashboard',
-			'wpml_page_' . WPML_TM_FOLDER . '/menu/settings' => 'mcsetup',
-		);
-
-		$submenu = filter_input( INPUT_GET, 'sm' );
-		if ( ! array_key_exists( $hook, $menus_default_tab ) && ! $submenu ) {
-			return;
-		}
-		if ( ! $submenu ) {
-			$submenu = $menus_default_tab[ $hook ];
-		}
-
-		switch ( $submenu ) {
-			case 'jobs':
-				wp_register_script( 'translation-remote-jobs', WPML_TM_URL . '/dist/js/jobs/app.js', array(), false, true );
-				wp_enqueue_script( 'translation-remote-jobs' );
-				wp_register_style( 'translation-remote-jobs', WPML_TM_URL . '/res/css/translation-jobs.css', array(), WPML_TM_VERSION );
-				wp_enqueue_style( 'translation-remote-jobs' );
-				wp_enqueue_script( OTGS_Assets_Handles::POPOVER_TOOLTIP );
-				wp_enqueue_style( OTGS_Assets_Handles::POPOVER_TOOLTIP );
-				break;
-			case 'basket':
-				wp_register_style( 'translation-basket', WPML_TM_URL . '/res/css/translation-basket.css', array(), WPML_TM_VERSION );
-				wp_enqueue_style( 'translation-basket' );
-				break;
-
-			case 'translators':
-				wp_register_style( 'translation-translators', WPML_TM_URL . '/res/css/translation-translators.css', array( 'otgs-ico' ), WPML_TM_VERSION );
-				wp_enqueue_style( 'translation-translators' );
-				break;
-
-			case 'mcsetup':
-				wp_register_style( 'sitepress-translation-options', ICL_PLUGIN_URL . '/res/css/translation-options.css', array(), WPML_TM_VERSION );
-				wp_enqueue_style( 'sitepress-translation-options' );
-				break;
-			default:
-				wp_register_style( 'translation-dashboard', WPML_TM_URL . '/res/css/translation-dashboard.css', array(), WPML_TM_VERSION );
-				wp_enqueue_style( 'translation-dashboard' );
-				wp_register_style( 'translation-translators', WPML_TM_URL . '/res/css/translation-translators.css', array( 'otgs-ico' ), WPML_TM_VERSION );
-				wp_enqueue_style( 'translation-translators' );
+		if ( UIPage::isTMJobs( $_GET ) ) {
+			wp_register_script( 'translation-remote-jobs', WPML_TM_URL . '/dist/js/jobs/app.js', array(), false, true );
+			wp_enqueue_script( 'translation-remote-jobs' );
+			wp_register_style( 'translation-remote-jobs', WPML_TM_URL . '/res/css/translation-jobs.css', array(), WPML_TM_VERSION );
+			wp_enqueue_style( 'translation-remote-jobs' );
+			wp_enqueue_script( OTGS_Assets_Handles::POPOVER_TOOLTIP );
+			wp_enqueue_style( OTGS_Assets_Handles::POPOVER_TOOLTIP );
+		} elseif ( UIPage::isTMBasket( $_GET ) ) {
+			wp_register_style( 'translation-basket', WPML_TM_URL . '/res/css/translation-basket.css', array(), WPML_TM_VERSION );
+			wp_enqueue_style( 'translation-basket' );
+		} elseif ( UIPage::isTMTranslators( $_GET ) ) {
+			wp_register_style( 'translation-translators', WPML_TM_URL . '/res/css/translation-translators.css', array( 'otgs-ico' ), WPML_TM_VERSION );
+			wp_enqueue_style( 'translation-translators' );
+		} elseif ( UIPage::isSettings( $_GET ) ) {
+			wp_register_style( 'sitepress-translation-options', ICL_PLUGIN_URL . '/res/css/translation-options.css', array(), WPML_TM_VERSION );
+			wp_enqueue_style( 'sitepress-translation-options' );
+		} elseif ( UIPage::isTMDashboard( $_GET ) ) {
+			wp_register_style( 'translation-dashboard', WPML_TM_URL . '/res/css/translation-dashboard.css', array(), WPML_TM_VERSION );
+			wp_enqueue_style( 'translation-dashboard' );
+			wp_register_style( 'translation-translators', WPML_TM_URL . '/res/css/translation-translators.css', array( 'otgs-ico' ), WPML_TM_VERSION );
+			wp_enqueue_style( 'translation-translators' );
 		}
 	}
 
@@ -417,7 +421,7 @@ class TranslationManagement {
 				$this->selected_translator->ID = intval( $data['user_id'] );
 				break;
 			case 'dashboard_filter':
-				$cookie_data = http_build_query( $data['filter'] );
+				$cookie_data = filter_var( http_build_query( $data['filter'] ), FILTER_SANITIZE_URL );
 				$this->set_cookie( 'wp-translation_dashboard_filter', $cookie_data, time() + HOUR_IN_SECONDS );
 				wp_safe_redirect( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=dashboard', 302, 'WPML' );
 				break;
@@ -426,25 +430,47 @@ class TranslationManagement {
 				$this->set_cookie( 'wp-translation_dashboard_filter', '', time() - HOUR_IN_SECONDS );
 				break;
 			case 'sort':
+				$cookie_data = $this->get_cookie( 'wp-translation_dashboard_filter' );
+
 				if ( isset( $data['sort_by'] ) ) {
-					$_SESSION['wp-translation_dashboard_filter']['sort_by'] = $data['sort_by'];
+					$cookie_data['sort_by'] = $data['sort_by'];
 				}
 				if ( isset( $data['sort_order'] ) ) {
-					$_SESSION['wp-translation_dashboard_filter']['sort_order'] = $data['sort_order'];
+					$cookie_data['sort_order'] = $data['sort_order'];
 				}
+
+				$cookie_data = filter_var( http_build_query( $cookie_data ), FILTER_SANITIZE_URL );
+				$this->set_cookie( 'wp-translation_dashboard_filter', $cookie_data, time() + HOUR_IN_SECONDS );
+				wp_safe_redirect( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=dashboard', 302, 'WPML' );
 				break;
 			case 'add_jobs':
 				if ( isset( $data['iclnonce'] ) && wp_verify_nonce( $data['iclnonce'], 'pro-translation-icl' ) ) {
-					TranslationProxy_Basket::add_posts_to_basket( $data );
-					do_action( 'wpml_tm_add_to_basket', $data );
+					if ( Basket::shouldUse() ) {
+						TranslationProxy_Basket::add_posts_to_basket( $data );
+						do_action( 'wpml_tm_add_to_basket', $data );
+					} elseif( Obj::prop( 'post', $data ) ) {
+						$this->displayMessageThatJobsCreated();
+
+						Posts::dispatch(
+							Batch::class . '::sendPosts',
+							new Messages(),
+							BatchBuilder::buildPostsBatch(),
+							$data
+						);
+					} elseif( Obj::prop( 'package', $data ) && Obj::prop('tr_action', $data) ) {
+						$this->displayMessageThatJobsCreated();
+
+						Packages::dispatch(
+							Batch::class . '::sendPosts',
+							new Messages(),
+							BatchBuilder::buildPostsBatch(),
+							$data
+						);
+					}
 				}
 				break;
-			case 'jobs_filter':
-				$_SESSION['translation_jobs_filter'] = $data['filter'];
-				wp_safe_redirect( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=jobs', 302, 'WPML' );
-				break;
 			case 'ujobs_filter':
-				$cookie_data                         = http_build_query( $data['filter'] );
+				$cookie_data                            = filter_var( http_build_query( $data['filter'] ), FILTER_SANITIZE_URL );
 				$_COOKIE['wp-translation_ujobs_filter'] = $cookie_data;
 				$this->set_cookie( 'wp-translation_ujobs_filter', $cookie_data, time() + HOUR_IN_SECONDS );
 				wp_safe_redirect( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php', 302, 'WPML' );
@@ -452,7 +478,7 @@ class TranslationManagement {
 			case 'save_translation':
 				if ( ! empty( $data['resign'] ) ) {
 					$this->resign_translator( $data['job_id'] );
-					if( wp_safe_redirect( admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php&resigned=' . $data['job_id'] ), 302, 'WPML' ) ) {
+					if ( wp_safe_redirect( admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php&resigned=' . $data['job_id'] ), 302, 'WPML' ) ) {
 						exit;
 					}
 				} else {
@@ -474,7 +500,23 @@ class TranslationManagement {
 	 * @param int    $expiration
 	 */
 	private function set_cookie( $name, $value, $expiration ) {
-		setcookie( $name, $value, $expiration, COOKIEPATH, COOKIE_DOMAIN );
+		$this->wpml_cookie->set_cookie( $name, $value, $expiration, COOKIEPATH, COOKIE_DOMAIN );
+	}
+
+	/**
+	 * @param string $name
+	 *
+	 * @return array
+	 */
+	private function get_cookie( $name ) {
+		$result = [];
+
+		$cookie = new WPML_Cookie();
+		$value  = $cookie->get_cookie( $name );
+
+		parse_str( $value, $result );
+
+		return $result;
 	}
 
 	function ajax_calls( $call, $data ) {
@@ -490,14 +532,15 @@ class TranslationManagement {
 					if ( $translator_id ) {
 						if ( $service_id == TranslationProxy::get_current_service_id() ) {
 							$job = $this->get_translation_job( $data['job_id'] );
-							/** @var $ICL_Pro_Translation WPML_Pro_Translation */
+							/** @var WPML_Pro_Translation $ICL_Pro_Translation */
 							global $ICL_Pro_Translation;
 							$ICL_Pro_Translation->send_post( $job->original_doc_id, array( $job->language_code ), $translator_id, $data['job_id'] );
 							$project = TranslationProxy::get_current_project();
 
 							$translator_edit_link =
 								TranslationProxy_Popup::get_link(
-									$project->translator_contact_iframe_url( $translator_id ), array(
+									$project->translator_contact_iframe_url( $translator_id ),
+									array(
 										'title'     => __( 'Contact the translator', 'sitepress' ),
 										'unload_cb' => 'icl_thickbox_refresh',
 									)
@@ -554,9 +597,10 @@ class TranslationManagement {
 				echo '1|';
 				break;
 			case 'icl_doc_translation_method':
-				$this->settings['doc_translation_method'] = $data['t_method'];
-				$sitepress->set_setting( 'doc_translation_method', $this->settings['doc_translation_method'] );
-				$sitepress->save_settings( array( 'hide_how_to_translate' => empty( $data['how_to_translate'] ) ) );
+				if ( Obj::prop( 't_method', $data ) ) {
+					$this->settings['doc_translation_method'] = Obj::prop( 't_method', $data );
+					$sitepress->set_setting( 'doc_translation_method', $this->settings['doc_translation_method'] );
+				}
 
 				if ( isset( $data['tm_block_retranslating_terms'] ) ) {
 					$sitepress->set_setting( 'tm_block_retranslating_terms', $data['tm_block_retranslating_terms'] );
@@ -581,7 +625,7 @@ class TranslationManagement {
 	}
 
 	/**
-	 * @param $element_type_full
+	 * @param string $element_type_full
 	 *
 	 * @return mixed
 	 */
@@ -608,7 +652,7 @@ class TranslationManagement {
 	}
 
 	/**
-	 * @param $job
+	 * @param \stdClass $job
 	 *
 	 * @return mixed
 	 */
@@ -790,7 +834,8 @@ class TranslationManagement {
 					"SELECT comment_id
 														   FROM {$wpdb->commentmeta}
 														   WHERE meta_key='_icl_duplicate_of'
-														   AND meta_value=%d", $comment_id
+														   AND meta_value=%d",
+					$comment_id
 				)
 			);
 			foreach ( $duplicates as $dup ) {
@@ -917,7 +962,7 @@ class TranslationManagement {
 
 		if ( ! empty( $post_type ) ) {
 			$trid_subquery = $wpdb->prepare(
-				"SELECT trid FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s",
+				"SELECT trid FROM {$wpdb->prefix}icl_translations WHERE element_id=%d AND element_type=%s AND source_language_code IS NULL",
 				$post_id,
 				'post_' . $post_type
 			);
@@ -983,7 +1028,9 @@ class TranslationManagement {
 				FROM {$wpdb->prefix}icl_translations tr
 				JOIN {$wpdb->prefix}icl_translation_status ts ON tr.translation_id = ts.translation_id
 				WHERE tr.trid=%d AND tr.language_code= %s
-			", $trid, $language
+			",
+					$trid,
+					$language
 				)
 			);
 		}
@@ -1004,7 +1051,8 @@ class TranslationManagement {
 				FROM {$wpdb->prefix}icl_translations tr
 				JOIN {$wpdb->prefix}icl_translation_status ts ON tr.translation_id = ts.translation_id
 				WHERE tr.trid=%d {$service}
-			", $trid
+			",
+					$trid
 				)
 			);
 			foreach ( $translations as $k => $v ) {
@@ -1021,12 +1069,15 @@ class TranslationManagement {
 	 *
 	 * @param int $status
 	 * @param int $needs_update
+	 * @param bool $needs_review
 	 *
 	 * @return string
 	 */
-	public function status2icon_class( $status, $needs_update = 0 ) {
+	public function status2icon_class( $status, $needs_update = 0, $needs_review = false ) {
 		if ( $needs_update ) {
 			$icon_class = 'otgs-ico-needs-update';
+		} elseif($needs_review) {
+			$icon_class = 'otgs-ico-needs-review';
 		} else {
 			switch ( $status ) {
 				case ICL_TM_NOT_TRANSLATED:
@@ -1037,6 +1088,7 @@ class TranslationManagement {
 					break;
 				case ICL_TM_IN_PROGRESS:
 				case ICL_TM_TRANSLATION_READY_TO_DOWNLOAD:
+				case ICL_TM_ATE_NEEDS_RETRY:
 					$icon_class = 'otgs-ico-in-progress';
 					break;
 				case ICL_TM_IN_BASKET:
@@ -1081,6 +1133,9 @@ class TranslationManagement {
 				break;
 			case ICL_TM_TRANSLATION_READY_TO_DOWNLOAD:
 				$text = __( 'Translation ready to download', 'sitepress' );
+				break;
+			case ICL_TM_ATE_NEEDS_RETRY:
+				$text = __( 'In progress - needs retry', 'sitepress' );
 				break;
 			default:
 				$text = '';
@@ -1201,11 +1256,12 @@ class TranslationManagement {
 
 	/**
 	 * @param \WPML_TM_Translation_Batch $batch
-	 * @param string                     $type
+	 * @param string $type
+	 * @param int|null $sendFrom
 	 *
 	 * @return array
 	 */
-	function send_jobs( $batch, $type = 'post' ) {
+	function send_jobs( $batch, $type = 'post', $sendFrom = null ) {
 
 		/**
 		 * `\TranslationManagement::send_jobs` is in Core, and requires an instance of \WPML_TM_Translation_Batch
@@ -1250,7 +1306,6 @@ class TranslationManagement {
 				 * @param  \WP_Post
 				 *
 				 * @since 4.3.16
-				 *
 				 */
 				do_action( 'wpml_pb_register_all_strings_for_translation', $post );
 			}
@@ -1360,7 +1415,7 @@ class TranslationManagement {
 			}
 		}
 
-		do_action( 'wpml_added_translation_jobs', $added_jobs );
+		do_action( 'wpml_added_translation_jobs', $added_jobs, $sendFrom );
 
 		icl_cache_clear();
 		do_action( 'wpml_tm_empty_mail_queue' );
@@ -1420,7 +1475,8 @@ class TranslationManagement {
 													FROM {$wpdb->prefix}icl_translation_status
 													WHERE translation_id = %d",
 				$translation_id
-			), ARRAY_A
+			),
+			ARRAY_A
 		);
 
 		return isset( $data[0] ) ? $data[0] : array();
@@ -1443,7 +1499,7 @@ class TranslationManagement {
 			SELECT j.job_id
 			FROM {$wpdb->prefix}icl_translate_job j
 			INNER JOIN {$wpdb->prefix}icl_translation_status ts ON ts.rid = j.rid
-			WHERE ts.translation_id = %d AND ts.status = %s 
+			WHERE ts.translation_id = %d AND ts.status = %s
 			ORDER BY job_id DESC
 		";
 
@@ -1458,10 +1514,10 @@ class TranslationManagement {
 	/**
 	 * Adds a translation job record in icl_translate_job
 	 *
-	 * @param mixed $rid
-	 * @param mixed $translator_id
-	 * @param       $translation_package
-	 * @param array $batch_options
+	 * @param mixed                                     $rid
+	 * @param mixed                                     $translator_id
+	 * @param array<string,string|array<string,string>> $translation_package
+	 * @param array                                     $batch_options
 	 *
 	 * @return bool|int
 	 */
@@ -1684,7 +1740,6 @@ class TranslationManagement {
 	 *
 	 * @hook wpml_save_job_fields_from_post
 	 * @deprecated since WPML 3.2.3 use the action hook wpml_save_job_fields_from_post
-	 *
 	 */
 	function save_job_fields_from_post( $job_id ) {
 		do_action( 'wpml_save_job_fields_from_post', $job_id );
@@ -1697,19 +1752,45 @@ class TranslationManagement {
 		do_action( 'wpml_tm_empty_mail_queue' );
 	}
 
-	function resign_translator( $job_id ) {
+	function resign_translator( $job_id, $skip_notification = false ) {
 		global $wpdb;
 		list( $translator_id, $rid ) = $wpdb->get_row( $wpdb->prepare( "SELECT translator_id, rid FROM {$wpdb->prefix}icl_translate_job WHERE job_id=%d", $job_id ), ARRAY_N );
-		if ( ! empty( $translator_id ) && $this->settings['notification']['resigned'] != ICL_TM_NOTIFICATION_NONE && $job_id ) {
+		if ( ! $skip_notification && ! empty( $translator_id ) && $this->settings['notification']['resigned'] != ICL_TM_NOTIFICATION_NONE && $job_id ) {
 			do_action( 'wpml_tm_resign_job_notification', $translator_id, $job_id );
 		}
 		$wpdb->update( $wpdb->prefix . 'icl_translate_job', array( 'translator_id' => 0 ), array( 'job_id' => $job_id ) );
 		$wpdb->update(
-			$wpdb->prefix . 'icl_translation_status', array(
-			'translator_id' => 0,
-			'status'        => ICL_TM_WAITING_FOR_TRANSLATOR,
-		), array( 'rid' => $rid )
+			$wpdb->prefix . 'icl_translation_status',
+			array(
+				'translator_id' => 0,
+				'status'        => ICL_TM_WAITING_FOR_TRANSLATOR,
+			),
+			array( 'rid' => $rid )
 		);
+	}
+
+	/**
+	 * Resign the given translator from all unfinished translation jobs.
+	 *
+	 * @param WP_User $translator
+	 */
+	public function resign_translator_from_unfinished_jobs( WP_User $translator ) {
+		global $wpdb;
+
+		$unfinished_job_ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT job_id 
+				FROM {$wpdb->prefix}icl_translate_job 
+				WHERE translator_id = %d AND translated = 0",
+				$translator->ID
+			)
+		);
+
+		$remove_job_without_notification = partialRight( [ $this, 'resign_translator' ], true );
+
+		// Very unexpected to have a long list here, so it's fine deleting jobs one by one
+		// instead of introducing new logic for resign.
+		array_map( $remove_job_without_notification, $unfinished_job_ids );
 	}
 
 	function remove_translation_job( $job_id, $new_translation_status = ICL_TM_WAITING_FOR_TRANSLATOR, $new_translator_id = 0 ) {
@@ -1721,10 +1802,12 @@ class TranslationManagement {
 
 		$wpdb->update( $wpdb->prefix . 'icl_translate_job', array( 'translator_id' => $new_translator_id ), array( 'job_id' => $job_id ) );
 		$wpdb->update(
-			$wpdb->prefix . 'icl_translate', array(
-			'field_data_translated' => '',
-			'field_finished'        => 0,
-		), array( 'job_id' => $job_id )
+			$wpdb->prefix . 'icl_translate',
+			array(
+				'field_data_translated' => '',
+				'field_finished'        => 0,
+			),
+			array( 'job_id' => $job_id )
 		);
 
 		if ( $rid ) {
@@ -1788,8 +1871,12 @@ class TranslationManagement {
 					"SELECT rid, translator_id
                      FROM {$wpdb->prefix}icl_translation_status
                      WHERE translation_id=%d
-                       AND ( status = %d OR status = %d )", $translation_id, ICL_TM_WAITING_FOR_TRANSLATOR, ICL_TM_IN_PROGRESS
-				), ARRAY_N
+                       AND ( status = %d OR status = %d )",
+					$translation_id,
+					ICL_TM_WAITING_FOR_TRANSLATOR,
+					ICL_TM_IN_PROGRESS
+				),
+				ARRAY_N
 			);
 			if ( ! $rid ) {
 				return;
@@ -1797,14 +1884,14 @@ class TranslationManagement {
 			$job_id = $wpdb->get_var( $wpdb->prepare( "SELECT job_id FROM {$wpdb->prefix}icl_translate_job WHERE rid=%d AND revision IS NULL ", $rid ) );
 
 			if ( isset( $this->settings['notification']['resigned'] )
-				 && $this->settings['notification']['resigned'] == ICL_TM_NOTIFICATION_IMMEDIATELY && ! empty( $translator_id ) ) {
+			     && $this->settings['notification']['resigned'] == ICL_TM_NOTIFICATION_IMMEDIATELY && ! empty( $translator_id ) ) {
 				do_action( 'wpml_tm_remove_job_notification', $translator_id, $job_id );
 			}
 
 			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}icl_translate_job WHERE job_id=%d", $job_id ) );
 			$wpdb->query( $wpdb->prepare( "DELETE FROM {$wpdb->prefix}icl_translate WHERE job_id=%d", $job_id ) );
 
-			$max_job_id = $wpdb->get_var( $wpdb->prepare( "SELECT MAX(job_id) FROM {$wpdb->prefix}icl_translate_job WHERE rid=%d", $rid ) );
+			$max_job_id = \WPML\TM\API\Job\Map::fromRid( $rid );
 			if ( $max_job_id ) {
 				$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->prefix}icl_translate_job SET revision = NULL WHERE job_id=%d", $max_job_id ) );
 				$previous_state = $wpdb->get_var( $wpdb->prepare( "SELECT _prevstate FROM {$wpdb->prefix}icl_translation_status WHERE translation_id = %d", $translation_id ) );
@@ -1988,7 +2075,11 @@ class TranslationManagement {
 						SELECT ID FROM {$wpdb->posts} p
 						JOIN {$wpdb->prefix}icl_translations t ON p.ID = t.element_id
 						WHERE ID <> %d AND t.element_type = %s AND t.language_code = %s AND p.post_name = %s
-						", $post_id, 'post_' . $post->post_type, $translation_row->language_code, $post_name_to_be
+						",
+							$post_id,
+							'post_' . $post->post_type,
+							$translation_row->language_code,
+							$post_name_to_be
 						)
 					);
 					if ( $taken ) {
@@ -2005,12 +2096,12 @@ class TranslationManagement {
 	}
 
 	/**
-	 * @deprecated since 4.2.8 Use directly `wpml_get_create_post_helper()` instead.
-	 *
-	 * @param $postarr
-	 * @param $lang
+	 * @param array<string,mixed> $postarr
+	 * @param string              $lang
 	 *
 	 * @return int|WP_Error
+	 * @deprecated since 4.2.8 Use directly `wpml_get_create_post_helper()` instead.
+	 *
 	 */
 	public function icl_insert_post( $postarr, $lang ) {
 		$create_post_helper = wpml_get_create_post_helper();
@@ -2173,7 +2264,7 @@ class TranslationManagement {
 	}
 
 	/**
-	 * @param $type
+	 * @param string $type
 	 *
 	 * @return bool
 	 */
@@ -2383,5 +2474,36 @@ class TranslationManagement {
 
 	private function is_unlocked_type( $type, $unlocked_options ) {
 		return isset( $unlocked_options[ $type ] ) && $unlocked_options[ $type ];
+	}
+
+	private function displayMessageThatJobsCreated() {
+		if ( Option::getTranslateEverything() ) {
+			return;
+		}
+		$translationsText = esc_html__(
+			'WPML → Translations',
+			'wpml-translation-management'
+		);
+
+		$automaticTranslationTabText = esc_html__(
+			'Automatic Translation',
+			'wpml-translation-management'
+		);
+
+		$translationsLink            = '<a href="' . admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/translations-queue.php' ) . '">' . $translationsText . '</a>';
+		$automaticTranslationTabLink = '<a href="' . admin_url( 'admin.php?page=' . WPML_TM_FOLDER . '/menu/main.php&sm=ate-ams' ) . '">' . $automaticTranslationTabText . '</a>';
+
+		$messageText = sprintf( __( 'To translate your content, go to %1$s. Or, go to the %2$s tab to automatically translate your content in bulk.', 'wpml-translation-management' ), $translationsLink, $automaticTranslationTabLink );
+
+		$message = [
+			'id'            => 'icl_tm_message_translation_confirmation',
+			'type'          => 'updated',
+			'text'          => $messageText,
+			'admin_notice'  => true,
+			'show_once'     => true,
+			'limit_to_page' => [ WPML_TM_FOLDER . '/menu/main.php' ],
+		];
+
+		ICL_AdminNotifier::add_message( $message );
 	}
 }

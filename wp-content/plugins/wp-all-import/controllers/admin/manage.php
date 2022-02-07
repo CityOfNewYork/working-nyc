@@ -43,15 +43,13 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 		}
 		
 		$list = new PMXI_Import_List();
-		$post = new PMXI_Post_Record();
 		$by = array('parent_import_id' => 0);
 		if ('' != $s) {
 			$like = '%' . preg_replace('%\s+%', '%', preg_replace('/[%?]/', '\\\\$0', $s)) . '%';
 			$by[] = array(array('name LIKE' => $like, 'type LIKE' => $like, 'path LIKE' => $like, 'friendly_name LIKE' => $like), 'OR');
 		}
 		
-		$this->data['list'] = $list->join($post->getTable(), $list->getTable() . '.id = ' . $post->getTable() . '.import_id', 'LEFT')
-			->setColumns(
+		$this->data['list'] = $list->setColumns(
 				$list->getTable() . '.*'
 			)
 			->getBy($by, "$order_by $order", $pagenum, $perPage, $list->getTable() . '.id');
@@ -153,7 +151,7 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 	}
 
 	public function get_template(){
-		$nonce = (!empty($_REQUEST['_wpnonce'])) ? $_REQUEST['_wpnonce'] : '';
+		$nonce = (!empty($_REQUEST['_wpnonce'])) ? wp_unslash($_REQUEST['_wpnonce']) : '';
 		if ( ! wp_verify_nonce( $nonce, '_wpnonce-download_template' ) ) {		    
 		    die( __('Security check', 'wp_all_import_plugin') ); 
 		} else {	
@@ -196,7 +194,7 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 	 */
 	public function bundle(){				
 
-		$nonce = (!empty($_REQUEST['_wpnonce'])) ? $_REQUEST['_wpnonce'] : '';
+		$nonce = (!empty($_REQUEST['_wpnonce'])) ? wp_unslash($_REQUEST['_wpnonce']) : '';
 		if ( ! wp_verify_nonce( $nonce, '_wpnonce-download_bundle' ) ) {		    
 		    die( __('Security check', 'wp_all_import_plugin') ); 
 		} else {
@@ -310,7 +308,7 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 	 */
 	public function cancel(){
 
-		$nonce = (!empty($_REQUEST['_wpnonce'])) ? $_REQUEST['_wpnonce'] : '';
+		$nonce = (!empty($_REQUEST['_wpnonce'])) ? wp_unslash($_REQUEST['_wpnonce']) : '';
 		if ( ! wp_verify_nonce( $nonce, '_wpnonce-cancel_import' ) ) {		    
 		    die( __('Security check', 'wp_all_import_plugin') ); 
 		} else {
@@ -453,23 +451,20 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 					!$key and $filePath = $path;					
 				}				
 
-				if (empty($chunks))
-				{
-					if ($item->options['is_delete_missing'])
-					{
+				if (empty($chunks)) {
+					if ($item->options['is_delete_missing']) {
 						$chunks = 1;
-					}
-					else
-					{
+					} else {
+						$item->set(array(
+							'registered_on' => date('Y-m-d H:i:s')
+						))->update();
 						$this->errors->add('root-element-validation', __('No matching elements found for Root element and XPath expression specified', 'wp_all_import_plugin'));						
 					}
-				}													   							
-
+				}
 			}
-			
-			if ( $chunks ) { // xml is valid						
-				
-				if ( ! PMXI_Plugin::is_ajax() and empty(PMXI_Plugin::$session->chunk_number)){					
+
+			if ( $chunks ) { // xml is valid
+				if ( ! PMXI_Plugin::is_ajax() and empty(PMXI_Plugin::$session->chunk_number)) {
 					// compose data to look like result of wizard steps				
 					$sesson_data = array(						
 						'filePath' => $filePath,
@@ -498,26 +493,20 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 						'action' => (!empty($action_type) and $action_type == 'continue') ? 'continue' : 'update',	
 						'nonce' => wp_create_nonce( 'import' ),
 						'deligate' => false				
-					);										
-					
+					);
 					foreach ($sesson_data as $key => $value) {
 						PMXI_Plugin::$session->set($key, $value);
 					}
-
 					PMXI_Plugin::$session->save_data();
-					
 				}
-
 				$item->set(array('canceled' => 0, 'failed' => 0))->update();
-
 				// deligate operation to other controller
 				$controller = new PMXI_Admin_Import();
 				$controller->data['update_previous'] = $item;
 				$controller->process();
 				return;
 			}
-		}		
-
+		}
 		$this->render('admin/import/confirm');
 	}
 
@@ -527,7 +516,7 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 	 */
 	public function feed(){
 
-		$nonce = (!empty($_REQUEST['_wpnonce'])) ? $_REQUEST['_wpnonce'] : '';
+		$nonce = (!empty($_REQUEST['_wpnonce'])) ? wp_unslash($_REQUEST['_wpnonce']) : '';
 		if ( ! wp_verify_nonce( $nonce, '_wpnonce-download_feed' ) ) {		    
 		    die( __('Security check', 'wp_all_import_plugin') ); 
 		} else {			

@@ -3,8 +3,8 @@ Contributors: webdevstudios, pluginize, tw2113, vegasgeek, modemlooper, williams
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3084056
 Tags: custom post types, CPT, CMS, post, types, post type, taxonomy, tax, custom, content types, post types
 Requires at least: 5.5
-Tested up to: 5.5.1
-Stable tag: 1.8.1
+Tested up to: 5.9.0
+Stable tag: 1.10.2
 License: GPL-2.0+
 Requires PHP: 5.6
 
@@ -31,89 +31,69 @@ Official development of Custom Post Type UI is on GitHub, with official stable r
 
 == Changelog ==
 
-= 1.8.1 - 2020-09-21 =
-* Fixed: Issues with WP-CLI importing.
-* Added: Menu icon preview that should have been in 1.8.0, but was missed. Props @glebkema
+= 1.10.2 - 2022-01-28 =
+* Updated: Confirmed compatibility with WordPress 5.9
 
-= 1.8.0 - 2020-08-14 =
-* Added: support for default terms with a custom taxonomy.
-* Updated: Removed the forcing of underscores for post type slugs. Taxonomies are still forced.
-* Fixed: jQuery compatibility issue with WordPress 5.5.0
+= 1.10.1 - 2021-12-07 =
+* Added: Filter to our PHP Global sanitization function for Extended usage.
 
-= 1.7.5 - 2020-08-11 =
-* Updated: Addressed UI issues with WordPress 5.5.0
-* Updated: Moved required minimum WordPress version to 5.5.0
+= 1.10.0 - 2021-10-04 =
+* Added: Dashicon picker with popup. - Props arshidkv12
+* Added: Tag Cloud widget support for custom taxonomies.
+* Added: Filters that allow developers to override the data fetched from our options, if they choose to.
+* Added: Ability to clear all filled in label values.
+* Fixed: Hardened up various parts of our code to ensure security.
+* Fixed: Incorrectly referenced variable from post types instead of taxonomies, for the rest_controller_class property.
 
-= 1.7.4 - 2020-03-17 =
-* Added: Nonce admin verification for import functionality.
-* Added: Extra escaping of markup and output for "Get Code" areas.
+= 1.9.2 - 2021-06-16 =
+* Added: "date" as a reserved taxonomy slug.
+* Fixed: duplicate "show_in_graphql" attribute output in "Get Code" output.
+* Updated: image optimization for smaller file sizes.
+* Updated: removed duplicate taxonomy labels.
 
-= 1.7.3 - 2020-02-05 =
-* Updated: styles and appearance to better match WordPress core.
-* Updated: Change newsletter service integration. Hey, sign up for our newsletter! Props @Oceas
+= 1.9.1 - 2021-04-19 =
+* Fixed: missed WPGraphQL settings in our Get Tools/Export functionality.
+* Updated: note about needing a published item to set parent/child relationships in post types.
 
-= 1.7.2 - 2020-01-08 =
-* Fixed: Duplicate entries for "delete_with_user" in get code.
-* Fixed: Delete button for post types and taxonomies at bottom of page did not trigger dialog prompt.
-
-= 1.7.1 - 2019-11-06 =
-* Fixed: Random-ish redirects to the "Add new" tab for post types or taxonomies
-* Fixed: JavaScript error when trying to delete a taxonomy.
-
-= 1.7.0 - 2019-11-06 =
-* Actually added this time: Delete with user support for post types. Managed to miss the code with 1.6.0 which was a long time ago.
-* Added: Ability to disable registration of post types or taxonomies, via code filter, without deleting them completely from settings.
-* Added: New post type labels introduced in WordPress 5.0.0.
-* Added: Link to Dashicon documentation for when editing menu icon. Props @juliekuehl
-* Added: Ability to automatically fill in additional labels based on chosen plural and singular label text.
-* Updated: Added post type templates documentation to help section.
-* Updated: Redirect user to the "add" tab if deleting the last post type or taxonomy created.
-* Updated: Touched up tab markup to match semantic improvements provided by WordPress 5.2.0.
-* Fixed: potential duplicate output of "parent_item_colon" with "Get Code" output.
-* Misc: Added code of conduct file to github repo. Props GaryJones.
+= 1.9.0 - 2021-03-30 =
+* Added: WPGraphQL Support when WPGraphQL is installed and active.
+* Fixed: Better handling of code in post_format based helper functions.
+* Updated: Cleaned up unused CSS.
+* Updated: Added `types` to disallowed taxonomy slugs.
+* Updated: Amended some helper text on the listings page regarding templates. Props @tarecord
 
 == Upgrade Notice ==
 
-= 1.8.1 - 2020-09-21 =
-* Fixed: Issues with WP-CLI importing.
-* Added: Menu icon preview that should have been in 1.8.0, but was missed. Props @glebkema
+= 1.10.2 - 2022-01-28 =
+* Updated: Confirmed compatibility with WordPress 5.9
 
-= 1.8.0 - 2020-08-14 =
-* Added: support for default terms with a custom taxonomy.
-* Updated: Removed the forcing of underscores for post type slugs. Taxonomies are still forced.
-* Fixed: jQuery compatibility issue with WordPress 5.5.0
+= 1.10.1 - 2021-12-07 =
+* Added: Filter to our PHP Global sanitization function for Extended usage.
 
-= 1.7.5 - 2020-08-11 =
-* Updated: Addressed UI issues with WordPress 5.5.0
-* Updated: Moved required minimum WordPress version to 5.5.0
+= 1.10.0 - 2021-10-04 =
+* Added: Dashicon picker with popup. - Props arshidkv12
+* Added: Tag Cloud widget support for custom taxonomies.
+* Added: Filters that allow developers to override the data fetched from our options, if they choose to.
+* Added: Ability to clear all filled in label values.
+* Fixed: Hardened up various parts of our code to ensure security.
+* Fixed: Incorrectly referenced variable from post types instead of taxonomies, for the rest_controller_class property.
 
-= 1.7.4 - 2020-03-17 =
-* Added: Nonce admin verification for import functionality.
-* Added: Extra escaping of markup and output for "Get Code" areas.
+= 1.9.2 - 2021-06-16 =
+* Added: "date" as a reserved taxonomy slug.
+* Fixed: duplicate "show_in_graphql" attribute output in "Get Code" output.
+* Updated: image optimization for smaller file sizes.
+* Updated: removed duplicate taxonomy labels.
 
-= 1.7.3 - 2020-02-05 =
-* Updated: styles and appearance to better match WordPress core.
-* Updated: Change newsletter service integration. Hey, sign up for our newsletter! Props @Oceas
+= 1.9.1 - 2021-04-19 =
+* Fixed: missed WPGraphQL settings in our Get Tools/Export functionality.
+* Updated: note about needing a published item to set parent/child relationships in post types.
 
-= 1.7.2 - 2020-01-08 =
-* Fixed: Duplicate entries for "delete_with_user" in get code.
-* Fixed: Delete button for post types and taxonomies at bottom of page did not trigger dialog prompt.
-
-= 1.7.1 - 2019-11-06 =
-* Fixed: Random-ish redirects to the "Add new" tab for post types or taxonomies
-* Fixed: JavaScript error when trying to delete a taxonomy.
-
-= 1.7.0 - 2019-11-06 =
-* Actually added this time: Delete with user support for post types. Managed to miss the code with 1.6.0 which was a long time ago.
-* Added: Ability to disable registration of post types or taxonomies, via code filter, without deleting them completely from settings.
-* Added: New post type labels introduced in WordPress 5.0.0.
-* Added: Link to Dashicon documentation for when editing menu icon. Props @juliekuehl
-* Added: Ability to automatically fill in additional labels based on chosen plural and singular label text.
-* Updated: Added post type templates documentation to help section.
-* Updated: Redirect user to the "add" tab if deleting the last post type or taxonomy created.
-* Updated: Touched up tab markup to match semantic improvements provided by WordPress 5.2.0.
-* Fixed: potential duplicate output of "parent_item_colon" with "Get Code" output.
-* Misc: Added code of conduct file to github repo. Props GaryJones.
+= 1.9.0 - 2021-03-30 =
+* Added: WPGraphQL Support when WPGraphQL is installed and active.
+* Fixed: Better handling of code in post_format based helper functions.
+* Updated: Cleaned up unused CSS.
+* Updated: Added `types` to disallowed taxonomy slugs.
+* Updated: Amended some helper text on the listings page regarding templates. Props @tarecord
 
 == Installation ==
 

@@ -16,10 +16,10 @@ global $sitepress, $sitepress_settings;
 			<p>
 				<label>
 					<input type="checkbox" id="login_page_translation"
-					       name="login_page_translation"
-						<?php checked( get_option( \WPML\UrlHandling\WPLoginUrlConverter::SETTINGS_KEY, false ) ) ?>
+						   name="login_page_translation"
+						<?php checked( get_option( \WPML\UrlHandling\WPLoginUrlConverter::SETTINGS_KEY, false ) ); ?>
 						   value="1"/>
-					<?php esc_html_e( 'Allow translating the login and registration pages', 'sitepress' ) ?>
+					<?php esc_html_e( 'Allow translating the login and registration pages', 'sitepress' ); ?>
 				</label>
 				<br/>
 				<a href="<?php esc_attr_e( $login_page_documentation_url ); ?>" target="_blank"
@@ -36,8 +36,8 @@ global $sitepress, $sitepress_settings;
 
 					/* translators: "server requirements for sites that use nginx" is a link added to the end of "Read more about the"  */
 					$link_to_documentation = '<a class="wpml-external-link" target="_blank" href="' . $nginx_documentation_url . '">'
-					                         . esc_html__( 'server requirements for sites that use nginx', 'sitepress' )
-					                         . '</a>';
+											 . esc_html__( 'server requirements for sites that use nginx', 'sitepress' )
+											 . '</a>';
 
 					/* translators: $s: a link with "server requirements for sites that use nginx" as a text  */
 					echo sprintf( esc_html__( ' Read more about the %s.', 'sitepress' ), $link_to_documentation );
@@ -48,8 +48,8 @@ global $sitepress, $sitepress_settings;
 			<div class="wpml-section-content-inner">
 				<p class="buttons-wrap">
 					<span class="icl_ajx_response" id="icl_ajx_response_login"></span>
-					<input class="button button-primary" name="save" value="<?php esc_attr_e( 'Save', 'sitepress' ) ?>"
-					       type="submit"/>
+					<input class="button button-primary" name="save" value="<?php esc_attr_e( 'Save', 'sitepress' ); ?>"
+						   type="submit"/>
 				</p>
 			</div>
 

@@ -28,37 +28,36 @@ class WPML_ST_Strings {
 
 		$extra_cond = '';
 
-		$active_languages      = $this->sitepress->get_active_languages();
+		$active_languages = $this->sitepress->get_active_languages();
 
-		$status_filter = isset( $_GET['status'] ) ? (int) $_GET['status']  : false;
+		$status_filter = isset( $_GET['status'] ) ? (int) $_GET['status'] : false;
 
-		$translation_priority  = isset( $_GET[ 'translation-priority' ] ) ? $_GET[ 'translation-priority' ] : false;
+		$translation_priority = isset( $_GET['translation-priority'] ) ? $_GET['translation-priority'] : false;
 
 		if ( $status_filter !== false ) {
 			if ( $status_filter == ICL_TM_COMPLETE ) {
-				$extra_cond .= " AND s.status = " . ICL_TM_COMPLETE;
+				$extra_cond .= ' AND s.status = ' . ICL_TM_COMPLETE;
 			} elseif ( $status_filter == ICL_STRING_TRANSLATION_PARTIAL ) {
-				$extra_cond .= " AND s.status = " . ICL_STRING_TRANSLATION_PARTIAL;
+				$extra_cond .= ' AND s.status = ' . ICL_STRING_TRANSLATION_PARTIAL;
 			} elseif ( $status_filter != ICL_TM_WAITING_FOR_TRANSLATOR ) {
-				$extra_cond .= " AND s.status IN (" . ICL_STRING_TRANSLATION_PARTIAL . "," . ICL_TM_NEEDS_UPDATE . "," . ICL_TM_NOT_TRANSLATED . "," . ICL_TM_WAITING_FOR_TRANSLATOR . ")";
+				$extra_cond .= ' AND s.status IN (' . ICL_STRING_TRANSLATION_PARTIAL . ',' . ICL_TM_NEEDS_UPDATE . ',' . ICL_TM_NOT_TRANSLATED . ',' . ICL_TM_WAITING_FOR_TRANSLATOR . ')';
 			}
 		}
 
 		if ( $translation_priority != false ) {
-			if( $translation_priority === __( 'Optional', 'sitepress' ) ){
+			if ( $translation_priority === __( 'Optional', 'sitepress' ) ) {
 				$extra_cond .= " AND s.translation_priority IN ( '" . esc_sql( $translation_priority ) . "', '' ) ";
-			}else{
+			} else {
 				$extra_cond .= " AND s.translation_priority = '" . esc_sql( $translation_priority ) . "' ";
 			}
 		}
 
-		if( array_key_exists( 'context', $_GET ) ) {
+		if ( array_key_exists( 'context', $_GET ) ) {
 			$context = filter_var( $_GET['context'], FILTER_SANITIZE_STRING );
 
 			if ( self::EMPTY_CONTEXT_LABEL === $context ) {
 				$context = '';
 			}
-
 		}
 
 		if ( isset( $context ) ) {
@@ -76,30 +75,36 @@ class WPML_ST_Strings {
 
 		$search_filter = $this->get_search_filter();
 
-		$joins = [];
+		$joins     = [];
 		$sql_query = ' WHERE 1 ';
 		if ( $status_filter === ICL_TM_WAITING_FOR_TRANSLATOR ) {
 			$sql_query .= ' AND s.status = ' . ICL_TM_WAITING_FOR_TRANSLATOR;
 		} elseif ( $active_languages && $search_filter && ! $this->must_show_all_results() ) {
 			$sql_query .= ' AND ' . $this->get_value_search_query();
-			$joins[] = "LEFT JOIN {$this->wpdb->prefix}icl_string_translations str ON str.string_id = s.id";
+			$joins[]    = "LEFT JOIN {$this->wpdb->prefix}icl_string_translations str ON str.string_id = s.id";
 		}
 		$res = $this->get_results( $sql_query, $extra_cond, $offset, $limit, $joins );
 
 		if ( $res ) {
 			$extra_cond = '';
-			if ( isset( $_GET[ 'translation_language' ] ) ) {
-				$extra_cond .= " AND language='" . esc_sql( $_GET[ 'translation_language' ] ) . "'";
+			if ( isset( $_GET['translation_language'] ) ) {
+				$extra_cond .= " AND language='" . esc_sql( $_GET['translation_language'] ) . "'";
 			}
 
 			foreach ( $res as $row ) {
 				$string_translations[ $row['string_id'] ] = $row;
 
-				$tr = $this->wpdb->get_results( $this->wpdb->prepare( "
+				$tr = $this->wpdb->get_results(
+					$this->wpdb->prepare(
+						"
                     SELECT id, language, status, value, mo_string, translator_id, translation_date  
                     FROM {$this->wpdb->prefix}icl_string_translations 
                     WHERE string_id=%d {$extra_cond}
-                ", $row['string_id'] ), ARRAY_A );
+                ",
+						$row['string_id']
+					),
+					ARRAY_A
+				);
 
 				if ( $tr ) {
 					foreach ( $tr as $t ) {
@@ -116,12 +121,14 @@ class WPML_ST_Strings {
 	 * @return string
 	 */
 	private function get_value_search_query() {
-		$language_where = wpml_collect( [
-			$this->get_original_value_filter_sql(),
-			$this->get_name_filter_sql(),
-			$this->get_context_filter_sql()
+		$language_where = wpml_collect(
+			[
+				$this->get_original_value_filter_sql(),
+				$this->get_name_filter_sql(),
+				$this->get_context_filter_sql(),
 
-		] );
+			]
+		);
 
 		$search_context = $this->get_search_context_filter();
 
@@ -132,7 +139,7 @@ class WPML_ST_Strings {
 			$language_where->push( $this->get_mo_file_value_filter_sql() );
 		}
 
-		return sprintf( "((%s))", $language_where->implode( ') OR (' ) );
+		return sprintf( '((%s))', $language_where->implode( ') OR (' ) );
 	}
 
 	/**
@@ -186,9 +193,10 @@ class WPML_ST_Strings {
 			array( '{column}', '{value}' ),
 			array(
 				esc_sql( $column ),
-				esc_sql( $search_filter )
+				esc_sql( str_replace( "'", "&#039;", $search_filter ) ),
 			),
-			$pattern );
+			$pattern
+		);
 	}
 
 	public function get_per_domain_counts( $status ) {
@@ -196,18 +204,20 @@ class WPML_ST_Strings {
 
 		if ( $status !== false ) {
 			if ( $status == ICL_TM_COMPLETE ) {
-				$extra_cond .= " AND s.status = " . ICL_TM_COMPLETE;
+				$extra_cond .= ' AND s.status = ' . ICL_TM_COMPLETE;
 			} else {
-				$extra_cond .= " AND s.status IN (" . ICL_STRING_TRANSLATION_PARTIAL . "," . ICL_TM_NEEDS_UPDATE . "," . ICL_TM_NOT_TRANSLATED . ")";
+				$extra_cond .= ' AND s.status IN (' . ICL_STRING_TRANSLATION_PARTIAL . ',' . ICL_TM_NEEDS_UPDATE . ',' . ICL_TM_NOT_TRANSLATED . ')';
 			}
 		}
 
-		$results = $this->wpdb->get_results( "
+		$results = $this->wpdb->get_results(
+			"
         SELECT context, COUNT(context) AS c
         FROM {$this->wpdb->prefix}icl_strings s
         WHERE 1 {$extra_cond} AND TRIM(s.value) <> ''
         GROUP BY context
-        ORDER BY context ASC" );
+        ORDER BY context ASC"
+		);
 
 		return $results;
 	}
@@ -220,12 +230,12 @@ class WPML_ST_Strings {
 	}
 
 	private function get_results( $where_snippet, $extra_cond, $offset, $limit, $joins = array(), $selects = array() ) {
-		$query = $this->build_sql_start( $selects, $joins );
+		$query  = $this->build_sql_start( $selects, $joins );
 		$query .= $where_snippet;
 		$query .= " {$extra_cond} ";
 		$query .= $this->filter_empty_order_snippet( $offset, $limit );
 
-		$res   = $this->wpdb->get_results( $query, ARRAY_A );
+		$res = $this->wpdb->get_results( $query, ARRAY_A );
 		$this->set_pagination_counts( $limit );
 
 		return $res;
@@ -238,14 +248,14 @@ class WPML_ST_Strings {
 
 	private function set_pagination_counts( $limit ) {
 		if ( ! is_null( $this->wp_query ) ) {
-			$this->wp_query->found_posts                  = $this->wpdb->get_var( "SELECT FOUND_ROWS()" );
+			$this->wp_query->found_posts                  = $this->wpdb->get_var( 'SELECT FOUND_ROWS()' );
 			$this->wp_query->query_vars['posts_per_page'] = $limit;
 			$this->wp_query->max_num_pages                = ceil( $this->wp_query->found_posts / $limit );
 		}
 	}
 
 	private function build_sql_start( $selects = array(), $joins = array() ) {
-		array_unshift( $selects, "SQL_CALC_FOUND_ROWS DISTINCT(s.id) AS string_id, s.language AS string_language, s.string_package_id, s.context, s.gettext_context, s.name, s.value, s.status AS status, s.translation_priority" );
+		array_unshift( $selects, 'SQL_CALC_FOUND_ROWS DISTINCT(s.id) AS string_id, s.language AS string_language, s.string_package_id, s.context, s.gettext_context, s.name, s.value, s.status AS status, s.translation_priority' );
 
 		return 'SELECT ' . implode( ', ', $selects ) . " FROM {$this->wpdb->prefix}icl_strings s " . implode( PHP_EOL, $joins ) . ' ';
 	}
@@ -255,7 +265,7 @@ class WPML_ST_Strings {
 	 */
 	private function get_search_filter() {
 		if ( array_key_exists( 'search', $_GET ) ) {
-			return $_GET['search'];
+			return stripcslashes( $_GET['search'] );
 		}
 
 		return false;

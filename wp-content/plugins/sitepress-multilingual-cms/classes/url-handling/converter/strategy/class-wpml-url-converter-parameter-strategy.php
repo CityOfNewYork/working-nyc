@@ -2,6 +2,15 @@
 
 class WPML_URL_Converter_Parameter_Strategy extends WPML_URL_Converter_Abstract_Strategy {
 
+	public function add_hooks() {
+
+	}
+
+	public function remove_hooks() {
+
+	}
+
+
 	public function get_lang_from_url_string( $url ) {
 		return $this->lang_param->lang_by_param( $url, false );
 	}

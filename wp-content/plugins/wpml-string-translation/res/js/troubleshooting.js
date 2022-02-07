@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+jQuery(function () {
     jQuery('.js-wpml-st-troubleshooting-action').click(function () {
         var self = jQuery(this);
         var nonce = self.data('nonce');
@@ -7,8 +7,8 @@ jQuery(document).ready(function () {
         self.prop('disabled', true);
         self.after(icl_ajxloaderimg);
         jQuery.ajax({
-            type : "post",
-            url : ajaxurl,
+                        type: "post",
+                        url : ajaxurl,
             data : {
                 action: self.data('action'),
                 nonce: nonce

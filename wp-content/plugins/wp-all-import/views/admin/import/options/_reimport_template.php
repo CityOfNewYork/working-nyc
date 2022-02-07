@@ -25,7 +25,7 @@
 					else
 					{
 						?>
-						<h3 style="padding-left:0;"><?php printf(__('WP All Import will create new %s for each unique record in your file.','wp_all_import_plugin'), $custom_type->labels->name);?></h3>	
+						<h3 style="padding-left:0;"><?php printf(__('WP All Import will create new %s for each unique record in your file.','wp_all_import_plugin'), esc_attr($custom_type->labels->name));?></h3>
 						<?php 
 					}
 				} 
@@ -38,7 +38,7 @@
 							<td>
 								<input type="hidden" name="duplicate_matching" value="auto"/>										
 								<?php if ( ! $this->isWizard ):?>												 
-								<h4><?php printf(__('WP All Import will associate records in your file with %s it has already created from previous runs of this import based on the Unique Identifier.','wp_all_import_plugin'), $custom_type->labels->name);?></h4>
+								<h4><?php printf(__('WP All Import will associate records in your file with %s it has already created from previous runs of this import based on the Unique Identifier.','wp_all_import_plugin'), esc_attr($custom_type->labels->name));?></h4>
 								<?php endif; ?>
 								<div class="wpallimport-unique-key-wrapper" <?php if (!empty(PMXI_Plugin::$session->deligate)):?>style="display:none;"<?php endif; ?>>
 									<label style="font-weight: bold;"><?php _e("Unique Identifier", "pmxi_plugin"); ?></label>										
@@ -52,8 +52,8 @@
 										<?php if ( ! empty($post['unique_key']) ): ?>
 										<a href="javascript:void(0);" class="wpallimport-change-unique-key"><?php _e('Edit', 'wp_all_import_plugin'); ?></a>
 										<div id="dialog-confirm" title="<?php _e('Warning: Are you sure you want to edit the Unique Identifier?','wp_all_import_plugin');?>" style="display:none;">
-											<p><?php printf(__('It is recommended you delete all %s associated with this import before editing the unique identifier.', 'wp_all_import_plugin'), strtolower($custom_type->labels->name)); ?></p>
-											<p><?php printf(__('Editing the unique identifier will dissociate all existing %s linked to this import. Future runs of the import will result in duplicates, as WP All Import will no longer be able to update these %s.', 'wp_all_import_plugin'), strtolower($custom_type->labels->name), strtolower($custom_type->labels->name)); ?></p>
+											<p><?php printf(__('It is recommended you delete all %s associated with this import before editing the unique identifier.', 'wp_all_import_plugin'), esc_attr(strtolower($custom_type->labels->name))); ?></p>
+											<p><?php printf(__('Editing the unique identifier will dissociate all existing %s linked to this import. Future runs of the import will result in duplicates, as WP All Import will no longer be able to update these %s.', 'wp_all_import_plugin'), esc_attr(strtolower($custom_type->labels->name)), esc_attr(strtolower($custom_type->labels->name))); ?></p>
 											<p><?php _e('You really should just re-create your import, and pick the right unique identifier to start with.', 'wp_all_import_plugin'); ?></p>
 										</div>
 										<?php else:?>
@@ -65,8 +65,8 @@
 									<p>&nbsp;</p>
 									<?php if ( $this->isWizard ):?>
 										<p class="drag_an_element_ico"><?php _e('Drag an element, or combo of elements, to the box above. The Unique Identifier should be unique for each record in your file, and should stay the same even if your file is updated. Things like product IDs, titles, and SKUs are good Unique Identifiers because they probably won\'t change. Don\'t use a description or price, since that might be changed.', 'wp_all_import_plugin'); ?></p>
-										<p class="info_ico"><?php printf(__('If you run this import again with an updated file, the Unique Identifier allows WP All Import to correctly link the records in your updated file with the %s it will create right now. If multiple records in this file have the same Unique Identifier, only the first will be created. The others will be detected as duplicates.', 'wp_all_import_plugin'), $custom_type->labels->name); ?></p>
-										<p class="new_element_ico"><?php printf(__('In Step 1 you selected New Items. So, if you run this import again WP All Import will only try to update records that were created by this import. It will never update, modify, or remove %s that were not created by this import. If you want to match records in your file to records that already exist on this site, select Existing Items in Step 1.', 'wp_all_import_plugin'), $custom_type->labels->name); ?></p>
+										<p class="info_ico"><?php printf(__('If you run this import again with an updated file, the Unique Identifier allows WP All Import to correctly link the records in your updated file with the %s it will create right now. If multiple records in this file have the same Unique Identifier, only the first will be created. The others will be detected as duplicates.', 'wp_all_import_plugin'), esc_attr($custom_type->labels->name)); ?></p>
+										<p class="new_element_ico"><?php printf(__('In Step 1 you selected New Items. So, if you run this import again WP All Import will only try to update records that were created by this import. It will never update, modify, or remove %s that were not created by this import. If you want to match records in your file to records that already exist on this site, select Existing Items in Step 1.', 'wp_all_import_plugin'), esc_attr($custom_type->labels->name)); ?></p>
 									<?php endif; ?>
 								</div>													
 								
@@ -81,7 +81,7 @@
 			<?php if ( ! $this->isWizard ):?>
 				<h3><?php _e('Record Matching', 'wp_all_import_plugin'); ?></h3>					
 			<?php else: ?>
-				<h3 style="padding-left:0;"><?php printf(__('WP All Import will merge data into existing %s.','wp_all_import_plugin'), $custom_type->labels->name);?></h3>	
+				<h3 style="padding-left:0;"><?php printf(__('WP All Import will merge data into existing %s.','wp_all_import_plugin'), esc_attr($custom_type->labels->name));?></h3>
 			<?php endif; ?>
 			</div>
 			<div class="wpallimport-collapsed-content" style="padding:0;">				
@@ -91,7 +91,7 @@
 							<td>						
 								<div class="input" style="margin-bottom:15px; position:relative;">					
 									<input type="hidden" name="duplicate_matching" value="manual"/>
-									<h4><?php printf(__('Records in your file will be matched with %ss on your site based on...', 'wp_all_import_plugin' ), $custom_type->labels->singular_name);?></h4>
+									<h4><?php printf(__('Records in your file will be matched with %ss on your site based on...', 'wp_all_import_plugin' ), esc_attr($custom_type->labels->singular_name));?></h4>
 									<div style="margin-left: -4px;">
 										<div class="input">						
 											

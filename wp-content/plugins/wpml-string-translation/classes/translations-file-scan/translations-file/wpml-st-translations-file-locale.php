@@ -59,9 +59,12 @@ class WPML_ST_Translations_File_Locale {
 	 */
 	private function get_from_mo_file( $filepath ) {
 		return $this->get_locales()
-		            ->first( function ( $locale ) use ( $filepath ) {
-			            return strpos( $filepath, $locale . '.mo' );
-		            }, '' );
+					->first(
+						function ( $locale ) use ( $filepath ) {
+							return strpos( $filepath, $locale . '.mo' );
+						},
+						''
+					);
 	}
 
 	/**
@@ -75,7 +78,7 @@ class WPML_ST_Translations_File_Locale {
 		$domain_replace  = 'default' === $original_domain ? '' : $original_domain . '-';
 		$locales         = $this->get_locales()->implode( '|' );
 
-		$searches['native-file'] = '#'. $domain_replace . '(' . $locales . ')-[-_a-z0-9]+\.json$#i';
+		$searches['native-file'] = '#' . $domain_replace . '(' . $locales . ')-[-_a-z0-9]+\.json$#i';
 		$searches['wpml-file']   = '#' . $domain . '-(' . $locales . ').json#i';
 
 		foreach ( $searches as $search ) {
@@ -83,7 +86,6 @@ class WPML_ST_Translations_File_Locale {
 				return $matches[1];
 			}
 		}
-
 
 		return '';
 	}

@@ -6,10 +6,10 @@ use WPML\LIB\WP\App\Resources;
 use WPML\LIB\WP\Nonce;
 
 class Dialog implements \IWPML_Backend_Action {
-	const ACCEPTED = 'accepted';
-	const USER_META = 'wpml-browser-redirect-dialog';
+	const ACCEPTED      = 'accepted';
+	const USER_META     = 'wpml-browser-redirect-dialog';
 	const ACCEPT_ACTION = 'accept_wpml_browser_language_redirect_message';
-	const NONCE_KEY = 'wpml-browser-language-redirect-message';
+	const NONCE_KEY     = 'wpml-browser-language-redirect-message';
 
 	public function add_hooks() {
 		add_action( 'admin_notices', [ $this, 'print_dialog_container' ] );

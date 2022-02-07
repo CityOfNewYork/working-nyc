@@ -17,7 +17,7 @@ function pmxi_admin_head(){
 	if ($get_params['id']){
 		?>
 		<script type="text/javascript">
-			var import_id = '<?php echo $get_params["id"]; ?>';			
+			var import_id = '<?php echo intval($get_params["id"]); ?>';
 		</script>
 		<?php
 	}
@@ -33,8 +33,8 @@ function pmxi_admin_head(){
 	?>
 	<script type="text/javascript">
 		var ajaxurl = '<?php echo admin_url( "admin-ajax.php" ); ?>';
-		var import_action = '<?php echo $get_params["action"]; ?>';
-		var wp_all_import_security = '<?php echo $wp_all_import_ajax_nonce; ?>';
+		var import_action = '<?php echo esc_js($get_params["action"]); ?>';
+		var wp_all_import_security = '<?php echo wp_unslash($wp_all_import_ajax_nonce); ?>';
 	</script>
 	<?php
 }

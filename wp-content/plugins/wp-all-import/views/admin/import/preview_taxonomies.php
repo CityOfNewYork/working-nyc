@@ -3,7 +3,7 @@
 	<div class="title">
 		<div class="navigation">			
 			<?php if ($tagno > 1): ?><a href="#prev" class="previous_element">&nbsp;</a><?php else: ?><span class="previous_element">&nbsp;</span><?php endif ?>
-			<?php printf(__('<strong><input type="text" value="%s" name="tagno" class="tagno"/></strong><span class="out_of"> of <strong class="pmxi_count">%s</strong></span>', 'wp_all_import_plugin'), $tagno, PMXI_Plugin::$session->count); ?>
+			<?php printf(__('<strong><input type="text" value="%s" name="tagno" class="tagno"/></strong><span class="out_of"> of <strong class="pmxi_count">%s</strong></span>', 'wp_all_import_plugin'), intval($tagno), intval(PMXI_Plugin::$session->count)); ?>
 			<?php if ($tagno < PMXI_Plugin::$session->count): ?><a href="#next" class="next_element">&nbsp;</a><?php else: ?><span class="next_element">&nbsp;</span><?php endif ?>			
 		</div>
 	</div>
@@ -20,10 +20,12 @@
 			foreach ($tax_hierarchical as $ctx => $terms_arr): 
 				$tax_info = get_taxonomy($ctx);			
 				?>
-				<p><?php echo $tax_info->labels->name; ?></p>
+				<p><?php echo esc_html($tax_info->labels->name); ?></p>
 				<?php						
 				if (!empty($terms_arr) and is_array($terms_arr)){
 					foreach ($terms_arr as $terms) {
+
+						$terms = wp_all_import_filter_html_kses($terms);
 
 						// Apply mapping before splitting via separator symbol
 						if (! empty($post['tax_enable_mapping'][$ctx]) and !empty($post['tax_logic_mapping'][$ctx])){
@@ -55,14 +57,14 @@
 								}
 								if (!empty($term)) {
 									?>
-									<p><?php echo str_pad(trim($term), strlen(trim($term)) + $lvl, "-", STR_PAD_LEFT); ?></p>
+									<p><?php echo esc_html(str_pad(trim($term), strlen(trim($term)) + $lvl, "-", STR_PAD_LEFT)); ?></p>
 									<?php
 								}
 							}
 						}
 						else{
 							?>
-							<p><?php echo $terms_a; ?></p>
+							<p><?php echo esc_html($terms_a); ?></p>
 							<?php
 						}
 					}

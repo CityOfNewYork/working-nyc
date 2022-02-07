@@ -7,7 +7,6 @@
  *
  * NOTE: Don't use this class to process a large amount of strings as it doesn't
  * do any caching, etc.
- *
  */
 class WPML_ST_String {
 
@@ -25,7 +24,7 @@ class WPML_ST_String {
 	private $string_properties;
 
 	/**
-	 * @param int $string_id
+	 * @param int  $string_id
 	 * @param wpdb $wpdb
 	 */
 	public function __construct( $string_id, wpdb $wpdb ) {
@@ -49,7 +48,8 @@ class WPML_ST_String {
 		$this->language = $this->language
 			? $this->language
 			: $this->wpdb->get_var(
-				"SELECT language " . $this->from_where_snippet() . " LIMIT 1" );
+				'SELECT language ' . $this->from_where_snippet() . ' LIMIT 1'
+			);
 
 		return $this->language;
 	}
@@ -59,7 +59,7 @@ class WPML_ST_String {
 	 */
 
 	public function get_value() {
-		return $this->wpdb->get_var( "SELECT value " . $this->from_where_snippet() . " LIMIT 1" );
+		return $this->wpdb->get_var( 'SELECT value ' . $this->from_where_snippet() . ' LIMIT 1' );
 	}
 
 	/**
@@ -70,7 +70,8 @@ class WPML_ST_String {
 		$this->status = $this->status !== null
 			? $this->status
 			: (int) $this->wpdb->get_var(
-				"SELECT status " . $this->from_where_snippet() . " LIMIT 1" );
+				'SELECT status ' . $this->from_where_snippet() . ' LIMIT 1'
+			);
 
 		return $this->status;
 	}
@@ -91,7 +92,8 @@ class WPML_ST_String {
 	 */
 	public function get_translation_statuses() {
 
-		$statuses = $this->wpdb->get_results( "SELECT language, status, mo_string " . $this->from_where_snippet( true ) );
+		/** @var array<\stdClass> $statuses */
+		$statuses = $this->wpdb->get_results( 'SELECT language, status, mo_string ' . $this->from_where_snippet( true ) );
 		foreach ( $statuses as &$status ) {
 			if ( ! empty( $status->mo_string ) ) {
 				$status->status = ICL_TM_COMPLETE;
@@ -104,11 +106,12 @@ class WPML_ST_String {
 
 	public function get_translations() {
 
-		return $this->wpdb->get_results( "SELECT * " . $this->from_where_snippet( true ) );
+		return $this->wpdb->get_results( 'SELECT * ' . $this->from_where_snippet( true ) );
 	}
 
 	/**
 	 * For a bulk update of all strings:
+	 *
 	 * @see WPML_ST_Bulk_Update_Strings_Status::run
 	 */
 	public function update_status() {
@@ -156,7 +159,7 @@ class WPML_ST_String {
 		}
 		if ( $status !== $this->get_status() ) {
 			$this->status = $status;
-		$this->set_property( 'status', $status );
+			$this->set_property( 'status', $status );
 		}
 
 		return $status;
@@ -193,9 +196,15 @@ class WPML_ST_String {
 		/** @var $ICL_Pro_Translation WPML_Pro_Translation */
 		global $ICL_Pro_Translation;
 
-		$res          = $this->wpdb->get_row( $this->wpdb->prepare( "SELECT id, value, status
-                                          " . $this->from_where_snippet( true )
-		                                                            . " AND language=%s", $language ) );
+		/** @var \stdClass $res */
+		$res = $this->wpdb->get_row(
+			$this->wpdb->prepare(
+				'SELECT id, value, status
+                                          ' . $this->from_where_snippet( true )
+																	. ' AND language=%s',
+				$language
+			)
+		);
 
 		if (
 			isset( $res->status ) &&
@@ -238,11 +247,14 @@ class WPML_ST_String {
 				);
 			}
 		} else {
-			$translation_data = array_merge( $translation_data, array(
-				'string_id'        => $this->string_id,
-				'language'         => $language,
-				'status'           => ( $status ? $status : ICL_TM_NOT_TRANSLATED ),
-			) );
+			$translation_data = array_merge(
+				$translation_data,
+				array(
+					'string_id' => $this->string_id,
+					'language'  => $language,
+					'status'    => ( $status ? $status : ICL_TM_NOT_TRANSLATED ),
+				)
+			);
 
 			$this->wpdb->insert( $this->wpdb->prefix . 'icl_string_translations', $translation_data );
 			$st_id = $this->wpdb->insert_id;
@@ -270,7 +282,7 @@ class WPML_ST_String {
 	 * Set string wrap tag.
 	 * Used for SEO significance, can contain values as h1 ... h6, etc.
 	 *
-	 * @param string $wrap Wrap tag.
+	 * @param string $wrap_tag Wrap tag.
 	 */
 	public function set_wrap_tag( $wrap_tag ) {
 		$this->set_property( 'wrap_tag', $wrap_tag );
@@ -326,7 +338,7 @@ class WPML_ST_String {
 	private function get_string_properties() {
 
 		if ( ! $this->string_properties ) {
-			$row = $this->wpdb->get_row( "SELECT name, context, gettext_context " . $this->from_where_snippet() . " LIMIT 1" );
+			$row = $this->wpdb->get_row( 'SELECT name, context, gettext_context ' . $this->from_where_snippet() . ' LIMIT 1' );
 
 			$this->string_properties = $row ? $row : (object) [
 				'name'            => null,

@@ -33,43 +33,7 @@ class Commands extends WP_CLI_Command {
     public function status() {
         $roc = Plugin::instance();
 
-        require_once __DIR__ . '/../ui/diagnostics.php';
-    }
-
-    /**
-     * Show the Redis object cache status and (when possible) client.
-     *
-     * ## EXAMPLES
-     *
-     *     wp redis metrics
-     */
-    public function metrics() {
-        global $wp_object_cache;
-
-        if ( defined( 'WP_REDIS_DISABLE_METRICS' ) && WP_REDIS_DISABLE_METRICS ) {
-            WP_CLI::error( __( 'Enable object cache to collect data.', 'redis-cache' ) );
-
-            return;
-        }
-
-        if ( ! method_exists( $wp_object_cache, 'redis_instance' ) ) {
-            return;
-        }
-
-        try {
-            $metrics = $wp_object_cache->redis_instance()->zrangebyscore(
-                $wp_object_cache->build_key( 'metrics', 'redis-cache' ),
-                time() - ( MINUTE_IN_SECONDS * 30 ),
-                time() - MINUTE_IN_SECONDS,
-                [ 'withscores' => true ]
-            );
-
-            wp_localize_script( 'redis-cache', 'rediscache_metrics', $metrics );
-        } catch ( Exception $exception ) {
-            error_log( $exception ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-        }
-
-        var_dump($metrics);
+        require_once __DIR__ . '/../diagnostics.php';
     }
 
     /**

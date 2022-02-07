@@ -3,16 +3,16 @@
 /** @namespace troubleshooting_data.nonce.icl_restore_notifications */
 /** @namespace troubleshooting_data.nonce.icl_remove_notifications */
 
-jQuery(document).ready(function () {
+jQuery(function () {
 
-	var remove_notifications_button = jQuery('#icl_remove_notifications');
-	var restore_notifications_button = jQuery('#icl_restore_notifications');
-	var restore_notifications_all_users = jQuery('#icl_restore_notifications_all_users');
-	var sync_posts_taxonomies_button = jQuery('#wpml_sync_posts_taxonomies');
-	remove_notifications_button.off('click');
-	remove_notifications_button.bind('click', remove_all_notifications);
-	restore_notifications_button.off('click');
-	restore_notifications_button.bind('click', restore_notifications);
+    var remove_notifications_button = jQuery('#icl_remove_notifications');
+    var restore_notifications_button = jQuery('#icl_restore_notifications');
+    var restore_notifications_all_users = jQuery('#icl_restore_notifications_all_users');
+    var sync_posts_taxonomies_button = jQuery('#wpml_sync_posts_taxonomies');
+    remove_notifications_button.off('click');
+    remove_notifications_button.on('click', remove_all_notifications);
+    restore_notifications_button.off('click');
+    restore_notifications_button.on('click', restore_notifications);
 
 	function remove_all_notifications() {
 		if (typeof(event.preventDefault) !== 'undefined') {
@@ -152,7 +152,7 @@ jQuery(document).ready(function () {
 
 		jQuery.each(selectedTermRows, function (index, selectedRow) {
 			selectedRow = jQuery(selectedRow);
-			if(selectedRow.is(':checked') && selectedRow.val() && selectedRow.attr('name') && jQuery.trim(selectedRow.attr('name')) !== ''){
+			if(selectedRow.is(':checked') && selectedRow.val() && selectedRow.attr('name') && selectedRow.attr('name').trim() !== ''){
 				selectedIDs[selectedRow.val().toString()] = selectedRow.attr('name');
 			}
 		});

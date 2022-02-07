@@ -7,7 +7,7 @@
 		<input type="hidden" name="items[]" value="<?php echo esc_attr($id) ?>" />
 	<?php endforeach ?>
 	
-	<p><?php printf(__('Are you sure you want to delete <strong>%s</strong> selected %s?', 'wp_all_import_plugin'), $items->count(), _n('import', 'imports', $items->count(), 'wp_all_import_plugin')) ?></p>
+	<p><?php printf(__('Are you sure you want to delete <strong>%s</strong> selected %s?', 'wp_all_import_plugin'), intval($items->count()), _n('import', 'imports', $items->count(), 'wp_all_import_plugin')) ?></p>
 	<div class="input">
 		<input type="checkbox" id="is_delete_posts" name="is_delete_posts" class="switcher"/> <label for="is_delete_posts"><?php _e('Delete associated posts as well','wp_all_import_plugin');?> </label>
 		<div class="switcher-target-is_delete_posts" style="padding: 5px 17px;">
@@ -28,7 +28,7 @@
 					$export = new PMXE_Export_Record();
 					$export->getById($item->options['export_id']);
 					if ( ! $export->isEmpty() ){
-						printf(__('<p class="wpallimport-delete-posts-warning"><strong>Important</strong>: this import was created automatically by WP All Export. All posts exported by the "%s" export job have been automatically associated with this import.</p>', 'wp_all_export_plugin'), $export->friendly_name );
+						printf(__('<p class="wpallimport-delete-posts-warning"><strong>Important</strong>: this import was created automatically by WP All Export. All posts exported by the "%s" export job have been automatically associated with this import.</p>', 'wp_all_export_plugin'), esc_attr($export->friendly_name) );
 					}
 				?>
 			<?php endif; ?>

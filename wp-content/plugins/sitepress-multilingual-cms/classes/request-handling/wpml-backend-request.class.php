@@ -14,7 +14,7 @@ class WPML_Backend_Request extends WPML_Request {
 	/** @var Backend */
 	private $backend;
 
-	public function __construct( $url_converter, $active_languages, $default_language, $cookieLanguage, $wp_api ) {
+	public function __construct( $url_converter, $active_languages, $default_language, $cookieLanguage ) {
 		parent::__construct( $url_converter, $active_languages, $default_language, $cookieLanguage );
 		$this->backend = new Backend(
 			$url_converter,

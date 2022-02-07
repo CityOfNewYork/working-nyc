@@ -22,7 +22,7 @@ class Model {
 		$is_st_page,
 		$is_network_admin
 	) {
-		return function () use ( $files_to_scan, $domains_to_pre_generate_count, $is_st_page, $is_network_admin ) {
+		return function () use ( $files_to_scan, $domains_to_pre_generate_count, $is_st_page ) {
 			return [
 				'files_to_scan'                 => [
 					'count'   => $files_to_scan->count(),

@@ -20,11 +20,22 @@ use WPML\Collect\Support\Arr;
  * @method static callable|array zipObj( ...$a, ...$b ) - Curried :: [a] → [b] → [a => b]
  * @method static callable|array zipWith( ...$f, ...$a, ...$b ) - Curried :: ( ( a, b ) → c ) → [a] → [b] → [c]
  * @method static callable|string join( ...$glue, ...$array ) - Curried :: string → [a] → string
+ * @method static callable|string joinWithCommasAndAnd( ...$array ) - Curried :: [a] → string
  * @method static callable|array concat( ...$a, ...$b ) - Curried :: [a] → [a] → [a]
  * @method static callable|array|null find( ...$predicate, ...$array ) - Curried :: ( a → bool ) → [a] → a | null
  * @method static callable|array flattenToDepth( ...$depth, ...$array ) - Curried :: int → [[a]] → [a]
  * @method static callable|array flatten( ...$array ) - Curried :: [[a]] → [a]
  * @method static callable|bool includes( ...$val, ...$array ) - Curried :: a → [a] → bool
+ * @method static callable|bool includesAll( ...$values, ...$array ) - Curried :: [a] → [a] → bool
+ *
+ * Determines if all the values are in the given array
+ *
+ * ```
+ * $includes10and20 = Lst::includesAll( [ 10, 20 ] );
+ *
+ * $this->assertTrue( $includes10and20( [ 5, 10, 15, 20 ] ) );
+ * $this->assertFalse( $includes10and20( [ 5, 15, 20 ] ) );
+ * ```
  * @method static callable|bool nth( ...$n, ...$array ) - Curried :: int → [a] → a | null
  * @method static callable|bool last( ...$array ) - Curried :: [a] → a | null
  * @method static callable|int length( ...$array ) - Curried :: [a] → int
@@ -65,6 +76,9 @@ class Lst {
 
 	use Macroable;
 
+	/**
+	 * @return void
+	 */
 	public static function init() {
 
 		self::macro( 'append', curryN( 2, function ( $newItem, array $data ) {
@@ -85,7 +99,7 @@ class Lst {
 
 		self::macro( 'toObj', curryN( 1, function ( array $data ) { return (object) $data; } ) );
 
-		self::macro( 'pluck', curryN( 2, function ( $prop, array $data ) {
+		self::macro( 'pluck', curryN( 2, function ( $prop, $data ) {
 			return Fns::map( Obj::prop( $prop ), $data );
 		} ) );
 
@@ -145,6 +159,21 @@ class Lst {
 
 		self::macro( 'join', curryN( 2, 'implode' ) );
 
+		self::macro( 'joinWithCommasAndAnd', curryN( 1, function ( $array ) {
+			$last = Lst::last( $array );
+			if ( $last ) {
+				if ( Lst::length( $array ) > 1 ) {
+					return str_replace( '  ', ' ', Lst::join( ', ', Lst::dropLast( 1, $array ) ) . ' ' . __( ' and ', 'sitepress' ) . ' ' . $last );
+					// TODO Replace above with following (after 4.5.0 release to get 'and' translated):
+					// return Lst::join( ', ', Lst::dropLast( 1, $array ) ) . ' ' . __( 'and', 'sitepress' ) . ' ' . $last;
+				} else {
+					return $last;
+				}
+			} else {
+				return '';
+			}
+		} ) );
+
 		self::macro( 'concat', curryN( 2, 'array_merge' ) );
 
 		self::macro( 'find', curryN( 2, function ( $predicate, $array ) {
@@ -163,6 +192,15 @@ class Lst {
 
 		self::macro( 'includes', curryN( 2, function ( $val, $array ) {
 			return in_array( $val, $array, true );
+		} ) );
+
+		self::macro( 'includesAll', curryN( 2, function ( $values, $array ) {
+			foreach ( $values as $val ) {
+				if ( ! in_array( $val, $array, true ) ) {
+					return false;
+				}
+			}
+			return true;
 		} ) );
 
 		self::macro( 'nth', curryN( 2, function ( $n, $array ) {
@@ -233,7 +271,98 @@ class Lst {
 		self::macro( 'reverse', curryN( 1, 'array_reverse' ) );
 	}
 
+	/**
+	 * Curried function that keys the array by the given key
+	 *
+	 * keyBy :: string -> array -> array
+	 *
+	 * ```
+	 * $data = [
+	 *    [ 'x' => 'a', 'y' => 123 ],
+	 *    [ 'x' => 'b', 'y' => 456 ],
+	 * ];
+	 *
+	 * Lst::keyBy( 'x', $data );
+	 * [
+	 *    'a' => [ 'x' => 'a', 'y' => 123 ],
+	 *    'b' => [ 'x' => 'b', 'y' => 456 ],
+	 * ],
+	 * ```
+	 *
+	 * @param string $key
+	 * @param mixed[]  $array
+	 *
+	 * @return mixed[]|callable
+	 */
+	public static function keyBy( $key = null, $array = null ) {
+		$keyBy = function ( $key, $array ) {
+			$apply = Fns::converge( Lst::zipObj(), [ Lst::pluck( $key ), Fns::identity() ] );
 
+			return $apply( $array );
+		};
+
+		return call_user_func_array( curryN( 2, $keyBy ), func_get_args() );
+	}
+
+	/**
+	 * Curried function that wraps each item in array with pair: [$key => $item1]
+	 *
+	 * keyWith :: string -> array -> array
+	 *
+	 * ```
+	 * $data = [ 1, 2.3, 'some data', - 2, 'a' ];
+	 *
+	 * Lst::keyWith('myKey', $data);
+	 * [ [ 'myKey' => 1 ], [ 'myKey' => 2.3 ], [ 'myKey' => 'some data' ], [ 'myKey' => - 2 ], [ 'myKey' => 'a' ] ]
+	 * ```
+	 *
+	 * @param string $key
+	 * @param mixed[] $array
+	 *
+	 * @return mixed[]|callable
+	 */
+	public static function keyWith( $key = null, $array = null ) {
+		$keyWith = function ( $key, $array ) {
+			return Fns::map( function ( $item ) use ( $key ) {
+				return [ $key => $item ];
+			}, $array );
+		};
+
+		return call_user_func_array( curryN( 2, $keyWith ), func_get_args() );
+	}
+
+	/**
+	 * This method will return the values in the original collection that are not present in the given collection:
+	 *
+	 * @param array|Collection $array1
+	 * @param array|Collection $array2
+	 *
+	 * @return callable|Collection|array
+	 */
+	public static function diff( $array1 = null, $array2 = null ) {
+		$diff = function( $array1, $array2){
+			if ( is_object( $array1)) {
+				return $array1->diff($array2);
+			} else {
+				return array_diff( $array1, $array2 );
+			}
+		};
+		return call_user_func_array( curryN(2, $diff), func_get_args());
+	}
+
+	/**
+	 * It returns array of $val elements repeated $times times.
+	 *
+	 * @param mixed $val
+	 * @param int $times
+	 *
+	 * @return callable|array[mixed]
+	 */
+	public static function repeat( $val = null, $times = null ) {
+		$repeat = flip( partial( 'array_fill', 0 ) );
+
+		return call_user_func_array( curryN( 2, $repeat ), func_get_args() );
+	}
 }
 
 Lst::init();

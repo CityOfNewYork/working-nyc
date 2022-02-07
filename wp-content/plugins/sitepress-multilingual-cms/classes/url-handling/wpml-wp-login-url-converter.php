@@ -9,7 +9,7 @@ use WPML\FP\Str;
 
 class WPLoginUrlConverter implements \IWPML_Action {
 	const PRIORITY_AFTER_URL_FILTERS = 100;
-	const SETTINGS_KEY = 'wpml_login_page_translation';
+	const SETTINGS_KEY               = 'wpml_login_page_translation';
 
 	private $rewrite_rule_not_found;
 
@@ -21,7 +21,7 @@ class WPLoginUrlConverter implements \IWPML_Action {
 
 	/**
 	 * @param \WPML_URL_Converter $url_converter
-	 * @param \SitePress $sitepress
+	 * @param \SitePress          $sitepress
 	 */
 	public function __construct( $sitepress, $url_converter ) {
 		$this->rewrite_rule_not_found = false;
@@ -36,10 +36,15 @@ class WPLoginUrlConverter implements \IWPML_Action {
 		add_filter( 'register_url', [ $this, 'convert_url' ] );
 		add_filter( 'lostpassword_url', [ $this, 'convert_url' ] );
 		add_filter( 'request', [ $this, 'on_request' ] );
-		add_filter( 'wpml_get_language_from_url', [
-			$this,
-			'wpml_login_page_language_from_url'
-		], self::PRIORITY_AFTER_URL_FILTERS, 2 );
+		add_filter(
+			'wpml_get_language_from_url',
+			[
+				$this,
+				'wpml_login_page_language_from_url',
+			],
+			self::PRIORITY_AFTER_URL_FILTERS,
+			2
+		);
 		add_filter( 'registration_redirect', [ $this, 'filter_redirect_with_lang' ] );
 		add_filter( 'lostpassword_redirect', [ $this, 'filter_redirect_with_lang' ] );
 
@@ -72,9 +77,11 @@ class WPLoginUrlConverter implements \IWPML_Action {
 	public function generate_rewrite_rules() {
 		global $wp_rewrite;
 
-		$language_rules = wpml_collect( Languages::getActive() )->mapWithKeys( function ( $lang ) {
-			return [ $lang['code'] . '/wp-login.php' => 'wp-login.php' ];
-		} );
+		$language_rules = wpml_collect( Languages::getActive() )->mapWithKeys(
+			function ( $lang ) {
+				return [ $lang['code'] . '/wp-login.php' => 'wp-login.php' ];
+			}
+		);
 
 		$wp_rewrite->non_wp_rules = array_merge( $language_rules->toArray(), $wp_rewrite->non_wp_rules );
 	}
@@ -145,24 +152,26 @@ class WPLoginUrlConverter implements \IWPML_Action {
 
 	private function is_wp_login_url( $url ) {
 		return Str::includes( 'wp-login.php', $url )
-		       || Str::includes( 'wp-signup.php', $url )
-		       || Str::includes( 'wp-activate.php', $url );
+			   || Str::includes( 'wp-signup.php', $url )
+			   || Str::includes( 'wp-activate.php', $url );
 
 	}
 
 	private function is_wp_login_action() {
-		$actions = wpml_collect( [
-			'confirm_admin_email',
-			'postpass',
-			'logout',
-			'lostpassword',
-			'retrievepassword',
-			'resetpass',
-			'rp',
-			'register',
-			'login',
-			'confirmaction',
-		] );
+		$actions = wpml_collect(
+			[
+				'confirm_admin_email',
+				'postpass',
+				'logout',
+				'lostpassword',
+				'retrievepassword',
+				'resetpass',
+				'rp',
+				'register',
+				'login',
+				'confirmaction',
+			]
+		);
 
 		return $actions->contains( Obj::prop( 'action', $_GET ) );
 	}
@@ -186,7 +195,7 @@ class WPLoginUrlConverter implements \IWPML_Action {
 	}
 
 	private function remove_language_directory_from_url( $url ) {
-		$lang = $this->get_language_param_for_convert_url();
+		$lang      = $this->get_language_param_for_convert_url();
 		$url_parts = wpml_parse_url( $url );
 		if ( $lang && Str::includes( '/' . $lang . '/', $url_parts['path'] ) ) {
 			$url = Str::replace( '/' . $lang . '/', '/', $url );

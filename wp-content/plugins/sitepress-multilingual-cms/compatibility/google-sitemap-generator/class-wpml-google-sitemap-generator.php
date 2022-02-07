@@ -24,7 +24,7 @@ class WPML_Google_Sitemap_Generator {
 	 * @param wpdb $wpdb
 	 */
 	public function __construct( wpdb $wpdb, SitePress $sitepress ) {
-		$this->wpdb = $wpdb;
+		$this->wpdb      = $wpdb;
 		$this->sitepress = $sitepress;
 	}
 
@@ -49,13 +49,13 @@ class WPML_Google_Sitemap_Generator {
 	 * Filter sitemap urls to apply the correct URL format.
 	 *
 	 * @param string      $permalink The URL to filter.
-	 * @param WP_Post|int $post_id   The post id it belongs to.
+	 * @param WP_Post|int $post      The post id it belongs to.
 	 *
 	 * @return string
 	 */
 	public function permalink_filter( $permalink, $post ) {
-		$post_id = $post instanceof WP_Post ? $post->ID : $post;
-		$language_code =  $this->sitepress->get_language_for_element( $post_id, 'post_' . get_post_type( $post_id ) );
+		$post_id       = $post instanceof WP_Post ? $post->ID : $post;
+		$language_code = $this->sitepress->get_language_for_element( $post_id, 'post_' . get_post_type( $post_id ) );
 
 		return $this->sitepress->convert_url( $permalink, $language_code );
 	}

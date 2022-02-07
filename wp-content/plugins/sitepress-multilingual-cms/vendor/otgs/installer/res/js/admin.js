@@ -45,7 +45,7 @@
     },
 
     getQueryParameters : function(str) {
-        return (str || document.location.search).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
+        return (str || WPML_core.sanitize(window.location.search)).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
     },
 
     reset_errors: function(){
@@ -393,7 +393,7 @@
 
     scroll_to_repository: function(){
 
-        var ref = window.location.hash.replace('#', '');
+        var ref = WPML_core.sanitize(window.location.hash).replace('#', '');
 
         if(ref) {
             var split = ref.split('/');
@@ -441,7 +441,7 @@
 
     maybe_register: function(){
         var getQueryStringValue = function (key) {
-            return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
+            return decodeURIComponent(WPML_core.sanitize(window.location.search).replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
         };
         if( getQueryStringValue('action') === 'register' ) {
             var repo = getQueryStringValue('repository'),

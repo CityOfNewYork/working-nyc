@@ -5,8 +5,7 @@
 	<div class="wpallimport-header">
 		<div class="wpallimport-logo"></div>
 		<div class="wpallimport-title">
-			<p><?php _e('WP All Import', 'wp_all_import_plugin'); ?></p>
-			<h2><?php _e('Import XML / CSV', 'wp_all_import_plugin'); ?></h2>					
+			<h2><?php _e('Review Import File', 'wp_all_import_plugin'); ?></h2>
 		</div>
 		<div class="wpallimport-links">
 			<a href="http://www.wpallimport.com/support/?utm_source=import-plugin-free&utm_medium=help&utm_campaign=premium-support" target="_blank"><?php _e('Support', 'wp_all_import_plugin'); ?></a> | <a href="http://www.wpallimport.com/documentation/?utm_source=import-plugin-free&utm_medium=help&utm_campaign=premium-docs" target="_blank"><?php _e('Documentation', 'wp_all_import_plugin'); ?></a>
@@ -38,9 +37,9 @@
 					if ( ! empty($elements_cloud) and ! $is_csv ){												
 						foreach ($elements_cloud as $tag => $count){
 							?>
-							<a href="javascript:void(0);" rel="<?php echo $tag;?>" class="wpallimport-change-root-element <?php if (PMXI_Plugin::$session->source['root_element'] == $tag) echo 'selected';?>">
-								<span class="tag_name"><?php echo strtolower($tag); ?></span>
-								<span class="tag_count"><?php echo $count; ?></span>
+							<a href="javascript:void(0);" rel="<?php echo esc_attr($tag);?>" class="wpallimport-change-root-element <?php if (PMXI_Plugin::$session->source['root_element'] == $tag) echo 'selected';?>">
+								<span class="tag_name"><?php echo strtolower(esc_html($tag)); ?></span>
+								<span class="tag_count"><?php echo esc_html($count); ?></span>
 							</a>
 							<?php
 						}						
@@ -58,11 +57,11 @@
 								<td class="txt_center">
 
 									<p class="wpallimport-root-element">
-										<?php echo PMXI_Plugin::$session->source['root_element'];?>
+										<?php echo wp_kses_post(PMXI_Plugin::$session->source['root_element']);?>
 									</p>								
 									<input type="text" id="goto_element" value="1"/>
 									<span class="wpallimport-elements-information">
-										<?php printf(__('of <span class="wpallimport-elements-count-info">%s</span>','wp_all_import_plugin'), PMXI_Plugin::$session->count);?> 
+										<?php printf(__('of <span class="wpallimport-elements-count-info">%s</span>','wp_all_import_plugin'), intval(PMXI_Plugin::$session->count));?>
 									</span>																	
 
 								</td>
@@ -82,7 +81,7 @@
 									<label>
 										<?php _e("Set delimiter for CSV fields:", "pmxi_plugin"); ?>
 									</label>									
-									<input type="text" name="delimiter" value="<?php echo $is_csv;?>"/> 
+									<input type="text" name="delimiter" value="<?php echo esc_attr($is_csv);?>"/>
 									<input type="button" name="apply_delimiter" class="rad4" value="<?php _e('Apply', 'wp_all_import_plugin'); ?>"/>									
 								</div>							
 
@@ -101,11 +100,11 @@
 					<div class="import_information">
 						<?php if (PMXI_Plugin::$session->wizard_type == 'new') :?>
 						<h3>
-							<?php printf(__('Each <span>&lt;<span class="root_element">%s</span>&gt;</span> element will be imported into a <span>New %s</span>'), PMXI_Plugin::$session->source['root_element'], $custom_type->labels->singular_name); ?>
+							<?php printf(__('Each <span>&lt;<span class="root_element">%s</span>&gt;</span> element will be imported into a <span>New %s</span>'), esc_attr(PMXI_Plugin::$session->source['root_element']), esc_attr($custom_type->labels->singular_name)); ?>
 						</h3>
 						<?php else: ?>
 						<h3>
-							<?php printf(__('Data in <span>&lt;<span class="root_element">%s</span>&gt;</span> elements will be imported to <span>%s</span>'), PMXI_Plugin::$session->source['root_element'], $custom_type->labels->name); ?>
+							<?php printf(__('Data in <span>&lt;<span class="root_element">%s</span>&gt;</span> elements will be imported to <span>%s</span>'), esc_attr(PMXI_Plugin::$session->source['root_element']), esc_attr($custom_type->labels->name)); ?>
 						</h3>
 						<?php endif; ?>
 						
@@ -172,14 +171,14 @@
 						<td style="width:5%; font-weight:bold; color: #000;"><?php _e('XPath','wp_all_import_plugin');?></td>
 						<td style="width:95%;">
 							<input type="text" name="xpath" value="<?php echo esc_attr($post['xpath']) ?>" style="max-width:none;" />					
-							<input type="hidden" id="root_element" name="root_element" value="<?php echo PMXI_Plugin::$session->source['root_element']; ?>"/>					
+							<input type="hidden" id="root_element" name="root_element" value="<?php echo esc_attr(PMXI_Plugin::$session->source['root_element']); ?>"/>
 						</td>
 					</tr>
 				</table>				
 			</div>
 		</div>	
 		<div id="wpallimport-filters" class="wpallimport-collapsed-content" style="padding:0;">
-			<table style="width: 100%; font-weight: bold; padding: 20px;">
+			<table style="width: 100%; font-weight: bold; padding: 20px 20px 0 20px;">
 				<tr>					
 					<td style="width: 30%; padding-left: 30px;"><?php _e('Element', 'wp_all_import_plugin'); ?></td>
 					<td style="width:20%;"><?php _e('Rule', 'wp_all_import_plugin'); ?></td>
@@ -203,7 +202,7 @@
 	<hr>
 
 	<p class="wpallimport-submit-buttons" style="text-align:center;">
-		<a href="<?php echo add_query_arg('action', 'index', $this->baseUrl); ?>" class="back rad3"><?php _e('Back to Step 1','wp_all_import_plugin');?></a>
+		<a href="<?php echo esc_url(add_query_arg('action', 'index', $this->baseUrl)); ?>" class="back rad3"><?php _e('Back to Step 1','wp_all_import_plugin');?></a>
 		&nbsp;
 		<input type="hidden" name="is_submitted" value="1" />
 		<?php wp_nonce_field('choose-elements', '_wpnonce_choose-elements') ?>

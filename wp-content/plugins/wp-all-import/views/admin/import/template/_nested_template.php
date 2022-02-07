@@ -1,7 +1,7 @@
 <?php $custom_type = get_post_type_object( $post_type ); ?>
 
 <script type="text/javascript">
-	var plugin_url = '<?php echo WP_ALL_IMPORT_ROOT_URL; ?>';
+	var plugin_url = '<?php echo esc_url(WP_ALL_IMPORT_ROOT_URL); ?>';
 </script>
 
 <div class="wpallimport-collapsed closed nested_options wpallimport-section">
@@ -20,7 +20,7 @@
 										$nested_files = json_decode($post['nested_files'], true);
 										foreach ($nested_files as $key => $file) {
 										?>
-										<li rel="<?php echo $key;?>"><?php echo $file;?> <a href="javascript:void(0);" class="unmerge"><?php _e('remove', 'wp_all_import_plugin'); ?></a></li>
+										<li rel="<?php echo esc_attr($key);?>"><?php echo esc_html($file);?> <a href="javascript:void(0);" class="unmerge"><?php _e('remove', 'wp_all_import_plugin'); ?></a></li>
 										<?php
 									}?>
 								<?php endif; ?>

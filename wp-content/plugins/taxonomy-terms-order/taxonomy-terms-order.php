@@ -3,9 +3,9 @@
 Plugin Name: Category Order and Taxonomy Terms Order
 Plugin URI: http://www.nsp-code.com
 Description: Order Categories and all custom taxonomies terms (hierarchically) and child terms using a Drag and Drop Sortable javascript capability. 
-Version: 1.5.7.3
+Version: 1.5.9
 Author: Nsp-Code
-Author URI: http://www.nsp-code.com
+Author URI: https://www.nsp-code.com
 Author Email: electronice_delphi@yahoo.com
 Text Domain: taxonomy-terms-order
 Domain Path: /languages/ 
@@ -138,14 +138,14 @@ Domain Path: /languages/
                     if (isset($_GET['orderby']) && $_GET['orderby'] !=  'term_order')
                         return $clauses;
                     
-                    if ($options['adminsort'] == "1")
+                    if ( $options['adminsort'] == "1" &&  (!isset($args['ignore_term_order']) ||  (isset($args['ignore_term_order'])  &&  $args['ignore_term_order']  !== TRUE) ) )
                         $clauses['orderby'] =   'ORDER BY t.term_order';
                         
                     return $clauses;    
                 }
             
             //if autosort, then force the menu_order
-            if ($options['autosort'] == 1   &&  (!isset($args['ignore_term_order']) ||  (isset($args['ignore_term_order'])  &&  $args['ignore_term_order']  !== TRUE) ))
+            if ($options['autosort'] == "1"   &&  (!isset($args['ignore_term_order']) ||  (isset($args['ignore_term_order'])  &&  $args['ignore_term_order']  !== TRUE) ) )
                 {
                     $clauses['orderby'] =   'ORDER BY t.term_order';
                 }
@@ -189,9 +189,12 @@ Domain Path: /languages/
                         }
                     
                     if (is_array($items) && count($items) > 0)
-                    foreach( $items as $item_key => $term_id ) 
                         {
-                            $wpdb->update( $wpdb->terms, array('term_order' => ($item_key + 1)), array('term_id' => $term_id) );
+                            foreach( $items as $item_key => $term_id ) 
+                                {
+                                    $wpdb->update( $wpdb->terms, array('term_order' => ($item_key + 1)), array('term_id' => $term_id) );
+                                }
+                            clean_term_cache($items);
                         } 
                 }
                 

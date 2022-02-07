@@ -16,11 +16,11 @@
 				<?php if (empty($post['custom_name'])): ?>
 				<div class="input cf_welcome">
 					<?php if ( ! empty($meta_keys) ):?>
-						<h1 style="font-size:23px; color:#40acad;"><?php printf(__('Your website is using Custom Fields to store data for %s.', 'wp_all_import_plugin'), $custom_type->labels->name); ?></h1>
+						<h1 style="font-size:23px; color:#40acad;"><?php printf(__('Your website is using Custom Fields to store data for %s.', 'wp_all_import_plugin'), esc_attr($custom_type->labels->name)); ?></h1>
 						<a class="autodetect_cf auto_detect_cf" href="javascript:void(0);" rel="auto_detect_cf"><?php _e('See Detected Fields', 'wp_all_import_plugin'); ?></a>
 					<?php else: ?>
-						<h1 style="font-size:23px; color:#40acad;"><?php printf(__('No Custom Fields are present in your database for %s.', 'wp_all_import_plugin'), $custom_type->labels->name); ?></h1>
-						<p class="wpallimport-note"><?php printf(__('Manually create a %s, and fill out each field you want to import data to. WP All Import will then display these fields as available for import below.', 'wp_all_import_plugin'), $custom_type->labels->singular_name); ?></p>
+						<h1 style="font-size:23px; color:#40acad;"><?php printf(__('No Custom Fields are present in your database for %s.', 'wp_all_import_plugin'), esc_attr($custom_type->labels->name)); ?></h1>
+						<p class="wpallimport-note"><?php printf(__('Manually create a %s, and fill out each field you want to import data to. WP All Import will then display these fields as available for import below.', 'wp_all_import_plugin'), esc_attr($custom_type->labels->singular_name)); ?></p>
 					<?php endif;?>
 					<a href="javascript:void(0);" class="wpallimport-dismiss-cf-welcome"><?php _e('Hide Notice', 'wp_all_import_plugin'); ?></a>				
 				</div>
@@ -29,7 +29,7 @@
 						<span class="cf_detected"></span> 
 						<a class="autodetect_cf clear_detected_cf" href="javascript:void(0);" rel="clear_detected_cf"><?php _e('Clear All Fields', 'wp_all_import_plugin'); ?></a>
 					</h1>
-					<p class="wpallimport-note"><?php printf(__('If not all fields were detected, manually create a %s, and fill out each field you want to import data to. Then create a new import, and WP All Import will display these fields as available for import below.', 'wp_all_import_plugin'), $custom_type->labels->singular_name); ?></p>
+					<p class="wpallimport-note"><?php printf(__('If not all fields were detected, manually create a %s, and fill out each field you want to import data to. Then create a new import, and WP All Import will display these fields as available for import below.', 'wp_all_import_plugin'), esc_attr($custom_type->labels->singular_name)); ?></p>
 					<a href="javascript:void(0);" class="wpallimport-dismiss-cf-welcome"><?php _e('Hide Notice', 'wp_all_import_plugin'); ?></a>				
 				</div>			
 				<?php endif; ?>
@@ -55,23 +55,23 @@
 												</td>
 												<td class="action">
 													<div class="custom_type" rel="default">
-														<textarea name="custom_value[]" class="widefat" <?php echo ( ! empty($post['custom_format'][$i]) ) ? 'style="display:none;"' : ''; ?>><?php echo esc_html($post['custom_value'][$i]) ?></textarea>
-														<a class="specify_cf pmxi_cf_pointer" rel="serialized_<?php echo $i; ?>" href="javascript:void(0);" <?php echo ( empty($post['custom_format'][$i]) ) ? 'style="display:none;"' : ''; ?>><?php _e('Click to specify', 'wp_all_import_plugin'); ?></a>
+														<textarea name="custom_value[]" class="widefat" <?php echo ( ! empty($post['custom_format'][$i]) ) ? 'style="display:none;"' : ''; ?>><?php echo esc_textarea($post['custom_value'][$i]) ?></textarea>
+														<a class="specify_cf pmxi_cf_pointer" rel="serialized_<?php echo esc_attr($i); ?>" href="javascript:void(0);" <?php echo ( empty($post['custom_format'][$i]) ) ? 'style="display:none;"' : ''; ?>><?php _e('Click to specify', 'wp_all_import_plugin'); ?></a>
 														<div class="input wpallimport-custom-fields-actions">
 															<a href="javascript:void(0);" class="wpallimport-cf-options"><?php _e('Field Options...', 'wp_all_import_plugin'); ?></a>
-															<ul id="wpallimport-cf-menu-<?php echo $i;?>" class="wpallimport-cf-menu">
+															<ul id="wpallimport-cf-menu-<?php echo esc_attr($i);?>" class="wpallimport-cf-menu">
 																<li class="<?php echo ( ! empty($post['custom_format'][$i]) ) ? 'active' : ''; ?>">
 																	<a href="javascript:void(0);" class="set_serialize"><?php _e('Serialized', 'wp_all_import_plugin'); ?></a>
 																</li>
 																<li class="<?php echo ( ! empty($custom_mapping_rules) ) ? 'active' : ''; ?>">
-																	<a href="javascript:void(0);" class="set_mapping pmxi_cf_mapping" rel="cf_mapping_<?php echo $i; ?>"><?php _e('Mapping', 'wp_all_import_plugin'); ?></a>
+																	<a href="javascript:void(0);" class="set_mapping pmxi_cf_mapping" rel="cf_mapping_<?php echo esc_attr($i); ?>"><?php _e('Mapping', 'wp_all_import_plugin'); ?></a>
 																</li>
 															</ul>														
 														</div>
 													</div>
-													<div id="serialized_<?php echo $i; ?>" class="custom_type" rel="serialized" style="display:none;">
+													<div id="serialized_<?php echo esc_attr($i); ?>" class="custom_type" rel="serialized" style="display:none;">
 														<fieldset>
-															<table cellpadding="0" cellspacing="5" class="cf-form-table" rel="serialized_<?php echo $i; ?>">
+															<table cellpadding="0" cellspacing="5" class="cf-form-table" rel="serialized_<?php echo esc_attr($i); ?>">
 																<thead>
 																	<tr>
 																		<td><?php _e('Key', 'wp_all_import_plugin') ?></td>
@@ -104,7 +104,7 @@
 																				?>
 																				<tr class="form-field">
 																					<td>
-																						<input type="text" class="serialized_key widefat" value="<?php echo $k; ?>">
+																						<input type="text" class="serialized_key widefat" value="<?php echo esc_attr($k); ?>">
 																					</td>
 																					<td>
 																						<input type="text" class="serialized_value widefat" value="<?php echo esc_html((is_array($value)) ? $value[$k] : $value); ?>">
@@ -166,9 +166,9 @@
 														</fieldset>
 													</div>
 
-													<div id="cf_mapping_<?php echo $i; ?>" class="custom_type" rel="mapping" style="display:none;">
+													<div id="cf_mapping_<?php echo esc_attr($i); ?>" class="custom_type" rel="mapping" style="display:none;">
 														<fieldset>
-															<table cellpadding="0" cellspacing="5" class="cf-form-table" rel="cf_mapping_<?php echo $i; ?>">
+															<table cellpadding="0" cellspacing="5" class="cf-form-table" rel="cf_mapping_<?php echo esc_attr($i); ?>">
 																<thead>
 																	<tr>
 																		<td><?php _e('In Your File', 'wp_all_import_plugin') ?></td>
@@ -193,10 +193,10 @@
 																				?>
 																				<tr class="form-field">
 																					<td>
-																						<input type="text" class="mapping_from widefat" value="<?php echo $k; ?>">
+																						<input type="text" class="mapping_from widefat" value="<?php echo esc_attr($k); ?>">
 																					</td>
 																					<td>
-																						<input type="text" class="mapping_to widefat" value="<?php echo (is_array($value)) ? $value[$k] : $value; ?>">
+																						<input type="text" class="mapping_to widefat" value="<?php echo esc_attr((is_array($value)) ? $value[$k] : $value); ?>">
 																					</td>
 																					<td class="action remove">
 																						<a href="#remove" style="right:-10px;"></a>

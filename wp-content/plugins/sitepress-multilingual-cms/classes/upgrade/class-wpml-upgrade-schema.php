@@ -83,12 +83,12 @@ class WPML_Upgrade_Schema {
 
 	/**
 	 * @param string $table_name
-	 * @param array $key_columns
+	 * @param array  $key_columns
 	 *
 	 * @return false|int
 	 */
 	public function add_primary_key( $table_name, $key_columns ) {
-		return $this->wpdb->query( "ALTER TABLE {$this->wpdb->prefix}{$table_name} ADD PRIMARY KEY (`".implode("`, `", $key_columns) . "`)" );
+		return $this->wpdb->query( "ALTER TABLE {$this->wpdb->prefix}{$table_name} ADD PRIMARY KEY (`" . implode( '`, `', $key_columns ) . '`)' );
 	}
 
 	/**

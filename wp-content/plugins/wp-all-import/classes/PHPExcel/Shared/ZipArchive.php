@@ -3,7 +3,7 @@
 if (!defined('PCLZIP_TEMPORARY_DIR')) {
     define('PCLZIP_TEMPORARY_DIR', PHPExcel_Shared_File::sys_get_temp_dir() . DIRECTORY_SEPARATOR);
 }
-require_once PHPEXCEL_ROOT . 'PHPExcel/Shared/PCLZip/pclzip.lib.php';
+require_once ABSPATH . 'wp-admin/includes/class-pclzip.php';
 
 /**
  * PHPExcel_Shared_ZipArchive

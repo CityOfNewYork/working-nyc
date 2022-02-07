@@ -1,9 +1,9 @@
 <!-- Preload Images -->
 
-<img src="<?php echo PMXI_Plugin::ROOT_URL . '/static/img/soflyy-logo.png'; ?>" class="wpallimport-preload-image"/>
+<img src="<?php echo esc_url(PMXI_Plugin::ROOT_URL . '/static/img/soflyy-logo.svg'); ?>" class="wpallimport-preload-image"/>
 
 <script type="text/javascript">
-	var plugin_url = '<?php echo WP_ALL_IMPORT_ROOT_URL; ?>';
+	var plugin_url = '<?php echo esc_url(WP_ALL_IMPORT_ROOT_URL); ?>';
 </script>
 
 <table class="wpallimport-layout wpallimport-step-1">
@@ -14,8 +14,7 @@
 				<div class="wpallimport-header">
 					<div class="wpallimport-logo"></div>
 					<div class="wpallimport-title">
-						<p><?php _e('WP All Import', 'wp_all_import_plugin'); ?></p>
-						<h2><?php _e('Import XML / CSV', 'wp_all_import_plugin'); ?></h2>					
+						<h2><?php _e('New Import', 'wp_all_import_plugin'); ?></h2>
 					</div>
 					<div class="wpallimport-links">
 						<a href="http://www.wpallimport.com/support/?utm_source=import-plugin-free&utm_medium=help&utm_campaign=premium-support" target="_blank"><?php _e('Support', 'wp_all_import_plugin'); ?></a> | <a href="http://www.wpallimport.com/documentation/?utm_source=import-plugin-free&utm_medium=help&utm_campaign=docs" target="_blank"><?php _e('Documentation', 'wp_all_import_plugin'); ?></a>
@@ -59,16 +58,16 @@
 							</a>
 						</div>
 						
-						<input type="hidden" value="<?php echo $post['type']; ?>" name="type"/>
+						<input type="hidden" value="<?php echo esc_attr($post['type']); ?>" name="type"/>
 
 						<div class="wpallimport-upload-type-container" rel="upload_type">						
 							<div id="plupload-ui" class="wpallimport-file-type-options">
 					            <div>				                
-					                <input type="hidden" name="filepath" value="<?php echo $post['filepath'] ?>" id="filepath"/>
+					                <input type="hidden" name="filepath" value="<?php echo esc_attr($post['filepath']) ?>" id="filepath"/>
 					                <a id="select-files" href="javascript:void(0);" <?php if (empty($post['filepath'])):?>style="display:none;"<?php endif; ?> /><?php _e('Click here to select file from your computer...', 'wp_all_import_plugin'); ?></a>
 					                <div id="progressbar" class="wpallimport-progressbar">
 					                	<?php if (!empty($post['filepath'])):?>
-					                	<span><?php _e('Upload Complete', 'wp_all_import_plugin');?></span> - <?php echo basename($post['filepath']); ?>
+					                	<span><?php _e('Upload Complete', 'wp_all_import_plugin');?></span> - <?php echo esc_attr(basename($post['filepath'])); ?>
 					                	<?php endif; ?>
 					                </div>
 					                <div id="progress" class="wpallimport-progress" <?php if (!empty($post['filepath'])):?>style="visibility: visible; display: block;"<?php endif; ?>>
@@ -111,7 +110,7 @@
 								<input type="hidden" name="file" value="<?php echo esc_attr($post['file']); ?>"/>									
 								
 								<div class="wpallimport-note" style="margin: 0 auto; font-size: 13px;">
-									<?php printf(__('Files uploaded to <strong>%s</strong> will appear in this list.', 'wp_all_import_plugin'), $upload_dir['basedir'] . '/wpallimport/files') ?>
+									<?php printf(__('Files uploaded to <strong>%s</strong> will appear in this list.', 'wp_all_import_plugin'), esc_attr($upload_dir['basedir'] . '/wpallimport/files')) ?>
 									<div class="wpallimport-free-edition-notice">									
 										<a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707176&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=upgrade-notice&utm_campaign=use-existing-file" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to Use Existing Files', 'wp_all_import_plugin');?></a>
 										<p><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
@@ -224,7 +223,7 @@
                             <div class="wpallimport-upload-resource-step-two">
                                 <div class="wpallimport-choose-post-type">
 
-                                    <input type="hidden" name="wizard_type" value="<?php echo $post['wizard_type']; ?>"/>
+                                    <input type="hidden" name="wizard_type" value="<?php echo esc_attr($post['wizard_type']); ?>"/>
 
                                     <h2 style="margin-top:0;"><?php _e('Import data from this file into...', 'wp_all_import_plugin'); ?></h2>
 
@@ -381,7 +380,7 @@
 
                                                 ?>
 
-                                                <option value="<?php echo $cpt; ?>" data-imagesrc="<?php echo $img_to_echo; ?>" <?php if ( $custom_selected_post === true ):?>selected="selected"<?php else: if ( $cpt == $post['custom_type'] ):?>selected="selected"<?php endif; endif; ?>><?php echo $cpt_label; ?></option>
+                                                <option value="<?php echo esc_attr($cpt); ?>" data-imagesrc="<?php echo esc_attr($img_to_echo); ?>" <?php if ( $custom_selected_post === true ):?>selected="selected"<?php else: if ( $cpt == $post['custom_type'] ):?>selected="selected"<?php endif; endif; ?>><?php echo esc_html($cpt_label); ?></option>
                                                 <?php
                                             }
                                         }
@@ -475,7 +474,7 @@
 									<?php 
 									if ( ! empty($upload_validation) ): 										
 										$file_type = strtoupper(pmxi_getExtension($post['file']));
-										printf(__('Please verify that the file you using is a valid %s file.', 'wp_all_import_plugin'), $file_type); 
+										printf(__('Please verify that the file you using is a valid %s file.', 'wp_all_import_plugin'), esc_attr($file_type));
 									endif;
 									?>
 								</h4>
@@ -485,7 +484,7 @@
 					</div>
 
 					<p class="wpallimport-submit-buttons">
-						<input type="hidden" name="custom_type" value="<?php echo $post['custom_type'];?>">
+						<input type="hidden" name="custom_type" value="<?php echo esc_attr($post['custom_type']);?>">
 						<input type="hidden" name="is_submitted" value="1" />
 						<input type="hidden" name="auto_generate" value="0" />
 

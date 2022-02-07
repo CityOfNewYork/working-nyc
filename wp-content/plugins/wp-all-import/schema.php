@@ -93,8 +93,8 @@ CREATE TABLE {$table_prefix}files (
 CREATE TABLE {$table_prefix}images (
 	id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,	
 	attachment_id BIGINT(20) UNSIGNED NOT NULL,
-	image_url VARCHAR(600) NOT NULL DEFAULT '',
-	image_filename VARCHAR(600) NOT NULL DEFAULT '',	
+	image_url VARCHAR(900) NOT NULL DEFAULT '',
+	image_filename VARCHAR(900) NOT NULL DEFAULT '',	
 	PRIMARY KEY  (id)
 ) $charset_collate;
 CREATE TABLE {$table_prefix}history (

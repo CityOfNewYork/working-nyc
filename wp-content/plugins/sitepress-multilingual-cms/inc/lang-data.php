@@ -268,6 +268,7 @@ function icl_get_languages_locales() {
 			'nn'      => 'nn_NO',
 			'ni'      => 'ni_ID',
 			'nl'      => 'nl_NL',
+			'pa'      => 'pa_IN',
 			'pl'      => 'pl_PL',
 			'pt-br'   => 'pt_BR',
 			'pt-pt'   => 'pt_PT',

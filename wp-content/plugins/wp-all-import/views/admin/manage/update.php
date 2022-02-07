@@ -6,8 +6,8 @@
 
 <?php if ($item->path): ?>
 	<form method="post">
-		<p><?php printf(__('Are you sure you want to update <strong>%s</strong> import?', 'wp_all_import_plugin'), $item->name) ?></p>
-		<p><?php printf(__('Source path is <strong>%s</strong>', 'wp_all_import_plugin'), $item->path) ?></p>
+		<p><?php printf(__('Are you sure you want to update <strong>%s</strong> import?', 'wp_all_import_plugin'), esc_attr($item->name)) ?></p>
+		<p><?php printf(__('Source path is <strong>%s</strong>', 'wp_all_import_plugin'), esc_attr($item->path)) ?></p>
 		
 		<p class="submit">
 			<?php wp_nonce_field('update-import', '_wpnonce_update-import') ?>

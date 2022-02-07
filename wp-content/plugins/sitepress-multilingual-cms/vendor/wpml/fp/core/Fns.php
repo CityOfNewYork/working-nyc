@@ -83,6 +83,7 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static callable|object makeN( ...$argCount, ...$className ) - Curried :: int → string → object
  * @method static callable unary( ...$fn ) - Curried:: ( * → b ) → ( a → b )
  * @method static callable|mixed memorizeWith( ...$cacheKeyFn, ...$fn ) - Curried :: ( *… → String ) → ( *… → a ) → ( *… → a )
+ * @method static callable|mixed memorize( ...$fn ) - Curried :: ( *… → a ) → ( *… → a )
  * @method static callable|mixed once( ...$fn ) - Curried :: ( *… → a ) → ( *… → a )
  * @method static callable|mixed withNamedLock( ...$name, ...$returnFn, ...$fn ) - Curried :: String → ( *… → String ) → ( *… → a ) → ( *… → a )
  *
@@ -134,6 +135,9 @@ class Fns {
 
 	const __ = '__CURRIED_PLACEHOLDER__';
 
+	/**
+	 * @return void
+	 */
 	public static function init() {
 		self::macro( 'always', function ( $value ) {
 			return function () use ( $value ) { return $value; };
@@ -148,15 +152,17 @@ class Fns {
 		} ) );
 
 		self::macro( 'map', curryN( 2, function ( $fn, $target ) {
+			if ( ! Logic::isMappable( $target ) ) {
+				throw( new \InvalidArgumentException( 'target should be an object with map method or an array' ) );
+			}
+
 			if ( is_object( $target ) ) {
 				return $target->map( $fn );
-			}
-			if ( is_array( $target ) ) {
+			} else {
 				$keys = array_keys( $target );
 
 				return array_combine( $keys, array_map( $fn, $target, $keys ) );
 			}
-			throw( new \InvalidArgumentException( 'target should be an object with map method or an array' ) );
 		} ) );
 
 		self::macro( 'each', curryN( 2, function ( $fn, $target ) {
@@ -308,7 +314,7 @@ class Fns {
 
 				$args = func_get_args();
 				$key  = call_user_func_array( $cacheKeyFn, $args );
-				if ( isset( $cache[ $key ] ) ) {
+				if ( array_key_exists( $key, $cache ) ) {
 					return $cache[ $key ];
 				}
 
@@ -318,6 +324,11 @@ class Fns {
 				return $result;
 			};
 		} ) );
+
+		self::macro(
+			'memorize',
+			self::memorizeWith( gatherArgs( pipe( Fns::map( 'json_encode'), Lst::join('|') ) ) )
+		);
 
 		self::macro( 'once', curryN( 1, function ( $fn ) {
 			return function () use ( $fn ) {
@@ -400,6 +411,9 @@ class Fns {
 		} ) );
 	}
 
+	/**
+	 * @return \Closure
+	 */
 	public static function noop() {
 		return function () { };
 	}

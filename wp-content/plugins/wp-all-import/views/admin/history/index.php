@@ -1,8 +1,8 @@
 <h4>
 	<?php if ($import->friendly_name): ?>
-		<em><?php printf(__('%s - ID: %s Import History', 'wp_all_import_plugin'), $import->friendly_name, $import->id); ?></em>
+		<em><?php printf(__('%s - ID: %s Import History', 'wp_all_import_plugin'), esc_attr($import->friendly_name), intval($import->id)); ?></em>
 		<?php else: ?>
-		<em><?php printf(__('%s - ID: %s Import History', 'wp_all_import_plugin'), $import->name, $import->id); ?></em>
+		<em><?php printf(__('%s - ID: %s Import History', 'wp_all_import_plugin'), esc_attr($import->name), intval($import->id)); ?></em>
 	<?php endif ?>	
 </h4>
 
@@ -26,7 +26,7 @@ $columns = array(
 	<p> <strong><?php _e('Scheduling Status', 'wp_all_import_plugin'); ?>:</strong> <?php _e('triggered'); ?> <?php if ($import->processing) _e('and processing', 'wp_all_import_plugin'); ?>...</p>
 <?php endif; ?>
 
-<form method="post" id="import-list" action="<?php echo remove_query_arg('pmxi_nt') ?>">
+<form method="post" id="import-list" action="<?php echo esc_url(remove_query_arg('pmxi_nt')); ?>">
 	<input type="hidden" name="action" value="bulk" />
 	<?php wp_nonce_field('bulk-imports', '_wpnonce_bulk-imports') ?>
 
@@ -46,7 +46,7 @@ $columns = array(
 					number_format_i18n(($pagenum - 1) * $perPage + 1),
 					number_format_i18n(min($pagenum * $perPage, $list->total())),
 					number_format_i18n($list->total()),
-					$page_links
+					wp_kses_post($page_links)
 				) ?>
 			</div>
 		<?php endif ?>
@@ -74,7 +74,7 @@ $columns = array(
 				}
 				else $col_html .= '<th scope="col" class="column-' . $column_id . '">' . $column_display_name . '</th>';
 			}
-			echo $col_html;
+			echo wp_kses_post($col_html);
 			?>
 		</tr>
 		</thead>
@@ -83,7 +83,7 @@ $columns = array(
 			<th class="manage-column column-cb check-column" scope="col" style="padding: 8px 10px;">
 				<input type="checkbox" />
 			</th>
-			<?php echo $col_html; ?>
+			<?php echo wp_kses_post($col_html); ?>
 		</tr>
 		</tfoot>
 		<tbody id="the-pmxi-admin-import-list" class="list:pmxi-admin-imports">
@@ -97,9 +97,9 @@ $columns = array(
 			?>
 			<?php foreach ($list as $item): ?>
 				<?php $class = ('alternate' == $class) ? '' : 'alternate'; ?>
-				<tr class="<?php echo $class; ?>" valign="middle">					
+				<tr class="<?php echo esc_attr($class); ?>" valign="middle">
 					<th scope="row" class="check-column" style="vertical-align: middle; padding: 8px 10px;">
-						<input type="checkbox" id="item_<?php echo $item['id'] ?>" name="items[]" value="<?php echo esc_attr($item['id']) ?>" />
+						<input type="checkbox" id="item_<?php echo esc_attr($item['id']); ?>" name="items[]" value="<?php echo esc_attr($item['id']) ?>" />
 					</th>
 					<?php foreach ($columns as $column_id => $column_display_name): ?>
 						<?php
@@ -107,7 +107,7 @@ $columns = array(
 							case 'id':
 								?>
 								<th valign="top" scope="row" style="vertical-align: middle;">
-									<?php echo $item['id'] ?>
+									<?php echo esc_html($item['id']); ?>
 								</th>
 								<?php
 								break;
@@ -132,7 +132,7 @@ $columns = array(
 							case 'summary':
 								?>
 								<td style="vertical-align: middle;">
-									<?php echo $item['summary'];?>
+									<?php echo esc_html($item['summary']);?>
 								</td>
 								<?php
 								break;
@@ -170,7 +170,7 @@ $columns = array(
 										$log_file = wp_all_import_secure_file( $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::LOGS_DIRECTORY, $item['id'], false, false ) . DIRECTORY_SEPARATOR . $item['id'] . '.html';
 										if (file_exists($log_file)){
 											?>											
-											<a href="<?php echo add_query_arg(array('id' => $import->id, 'action' => 'log', 'history_id' => $item['id'], '_wpnonce' => wp_create_nonce( '_wpnonce-download_log' )), $this->baseUrl); ?>"><?php _e('Download Log', 'wp_all_import_plugin'); ?></a>
+											<a href="<?php echo esc_url(add_query_arg(array('id' => $import->id, 'action' => 'log', 'history_id' => $item['id'], '_wpnonce' => wp_create_nonce( '_wpnonce-download_log' )), $this->baseUrl)); ?>"><?php _e('Download Log', 'wp_all_import_plugin'); ?></a>
 											<?php
 										} 
 										else { 
@@ -189,7 +189,7 @@ $columns = array(
 							default:
 								?>
 								<td>
-									<?php echo $item[$column_id]; ?>
+									<?php echo esc_html($item[$column_id]); ?>
 								</td>
 								<?php
 								break;
@@ -203,7 +203,7 @@ $columns = array(
 	</table>
 
 	<div class="tablenav">
-		<?php if ($page_links): ?><div class="tablenav-pages"><?php echo $page_links_html ?></div><?php endif ?>
+		<?php if ($page_links): ?><div class="tablenav-pages"><?php echo wp_kses_post($page_links_html); ?></div><?php endif ?>
 
 		<div class="alignleft actions">
 			<select name="bulk-action2">

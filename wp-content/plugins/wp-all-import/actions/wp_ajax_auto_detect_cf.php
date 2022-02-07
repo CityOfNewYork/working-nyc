@@ -105,7 +105,7 @@ function pmxi_wp_ajax_auto_detect_cf(){
                 $custom_type = get_post_type_object( $post_type );
                 break;
         }
-        $msg = sprintf(__('No Custom Fields are present in your database for %s', 'wp_all_import_plugin'), $custom_type->labels->name);
+        $msg = sprintf(__('No Custom Fields are present in your database for %s', 'wp_all_import_plugin'), esc_attr($custom_type->labels->name));
     }
     elseif (count($result) === 1)
         $msg = sprintf(__('%s field was automatically detected.', 'wp_all_import_plugin'), count($result));

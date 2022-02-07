@@ -8,9 +8,9 @@ class WPML_URL_Converter_Domain_Strategy extends WPML_URL_Converter_Abstract_Str
 	private $domains = array();
 
 	/**
-	 * @param array       $domains
-	 * @param string      $default_language
-	 * @param array       $active_languages
+	 * @param array  $domains
+	 * @param string $default_language
+	 * @param array  $active_languages
 	 */
 	public function __construct(
 		$domains,
@@ -25,13 +25,16 @@ class WPML_URL_Converter_Domain_Strategy extends WPML_URL_Converter_Abstract_Str
 		if ( isset( $this->domains[ $default_language ] ) ) {
 			unset( $this->domains[ $default_language ] );
 		}
-
-		$this->add_hooks();
 	}
 
 	public function add_hooks() {
 		add_filter( 'rest_url', [ $this, 'convertRestUrlToCurrentDomain' ], 10, 4 );
 	}
+
+	public function remove_hooks() {
+		remove_filter( 'rest_url', [ $this, 'convertRestUrlToCurrentDomain' ] );
+	}
+
 
 	/**
 	 * Filter REST url to avoid CORS error in Gutenberg.
@@ -42,7 +45,7 @@ class WPML_URL_Converter_Domain_Strategy extends WPML_URL_Converter_Abstract_Str
 	 * @param int    $blog_id Blog ID.
 	 * @param string $scheme  Sanitization scheme.
 	 *
-	 * @return mixed|void
+	 * @return string
 	 */
 	public function convertRestUrlToCurrentDomain( $url, $path, $blog_id, $scheme ) {
 		$url_parts         = $this->parse_domain_and_subdir( $url );
@@ -61,7 +64,7 @@ class WPML_URL_Converter_Domain_Strategy extends WPML_URL_Converter_Abstract_Str
 		}
 
 		foreach ( $this->domains as $code => $domain ) {
-			if ( strpos( trailingslashit( $url ), trailingslashit( $domain ) ) === 0 ) {
+			if ( $domain && strpos( trailingslashit( $url ), trailingslashit( $domain ) ) === 0 ) {
 				return $code;
 			}
 		}
@@ -108,7 +111,10 @@ class WPML_URL_Converter_Domain_Strategy extends WPML_URL_Converter_Abstract_Str
 	 */
 	private function parse_domain_and_subdir( $base_url ) {
 		$url_parts = wpml_parse_url( $base_url );
-		return $this->slash_helper->parse_missing_host_from_path( $url_parts );
+
+		return is_array( $url_parts ) ?
+			$this->slash_helper->parse_missing_host_from_path( $url_parts ) :
+			[];
 	}
 
 	/**
@@ -128,8 +134,13 @@ class WPML_URL_Converter_Domain_Strategy extends WPML_URL_Converter_Abstract_Str
 	 */
 	private function strip_protocol( $url ) {
 		$url_parts = wpml_parse_url( $url );
-		$url_parts = $this->slash_helper->parse_missing_host_from_path( $url_parts );
-		unset( $url_parts['scheme'] );
-		return http_build_url( $url_parts );
+		if ( is_array( $url_parts ) ) {
+			$url_parts = $this->slash_helper->parse_missing_host_from_path( $url_parts );
+			unset( $url_parts['scheme'] );
+
+			return http_build_url( $url_parts );
+		} else {
+			return preg_replace( '/^https?:\/\//', '', $url );
+		}
 	}
 }

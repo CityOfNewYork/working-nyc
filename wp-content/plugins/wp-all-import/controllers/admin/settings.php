@@ -59,7 +59,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 
 				PMXI_Plugin::getInstance()->updateOption($post);
 
-				if (empty($_POST['pmxi_license_activate']) and empty($_POST['pmxi_license_deactivate'])) {
+				if (!empty($this->data['addons']) && empty($_POST['pmxi_license_activate']) and empty($_POST['pmxi_license_deactivate'])) {
 					foreach ($this->data['addons'] as $class => $addon) {
 						$post['statuses'][$class] = $this->check_license($class);
 					}					
@@ -89,9 +89,9 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 			if ($this->input->post('import_templates')){
 
 				if (!empty($_FILES)){
-					$file_name = $_FILES['template_file']['name'];
-					$file_size = $_FILES['template_file']['size'];
-					$tmp_name  = $_FILES['template_file']['tmp_name'];										
+					$file_name = sanitize_file_name($_FILES['template_file']['name']);
+					$file_size = intval($_FILES['template_file']['size']);
+					$tmp_name  = realpath($_FILES['template_file']['tmp_name']);
 					
 					if(isset($file_name)) 
 					{				
@@ -407,7 +407,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 
 		global $wpdb;
 
-		$meta_key = $_POST['key'];
+		$meta_key = sanitize_key($_POST['key']);
 
 		$r = $wpdb->get_results("
 			SELECT DISTINCT postmeta.meta_value
@@ -471,7 +471,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 		// Get parameters
 		$chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
 		$chunks = isset($_REQUEST["chunks"]) ? intval($_REQUEST["chunks"]) : 0;
-		$fileName = isset($_REQUEST["name"]) ? $_REQUEST["name"] : '';
+		$fileName = isset($_REQUEST["name"]) ? sanitize_file_name($_REQUEST["name"]) : '';
 
 		// Clean the fileName for security reasons
 		$fileName = preg_replace('/[^\w\._]+/', '_', $fileName);
@@ -526,12 +526,12 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 
 		// Handle non multipart uploads older WebKit versions didn't support multipart in HTML5
 		if (strpos($contentType, "multipart") !== false) {
-			if (isset($_FILES['async-upload']['tmp_name']) && is_uploaded_file($_FILES['async-upload']['tmp_name'])) {
+			if (isset($_FILES['async-upload']['tmp_name']) && is_uploaded_file(realpath($_FILES['async-upload']['tmp_name']))) {
 				// Open temp file
 				$out = fopen("{$filePath}.part", $chunk == 0 ? "wb" : "ab");
 				if ($out) {
 					// Read binary input stream and append it to temp file
-					$in = fopen($_FILES['async-upload']['tmp_name'], "rb");
+					$in = fopen(realpath($_FILES['async-upload']['tmp_name']), "rb");
 
 					if ($in) {
 						while ($buff = fread($in, 4096))
@@ -542,7 +542,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 					}
 					fclose($in);
 					fclose($out);
-					@unlink($_FILES['async-upload']['tmp_name']);
+					@unlink(realpath($_FILES['async-upload']['tmp_name']));
 				} else{
 					delete_transient( self::$upload_transient );					
 					exit(json_encode(array("jsonrpc" => "2.0", "error" => array("code" => 102, "message" => __("Failed to open output stream.", "wp_all_import_plugin")), "id" => "id")));
@@ -604,7 +604,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 				ob_start();
 				?>
 				<?php foreach ($msgs as $msg): ?>
-					<p><?php echo $msg ?></p>
+					<p><?php echo wp_kses_post($msg); ?></p>
 				<?php endforeach ?>
 				<?php
 				$response = ob_get_clean();
@@ -767,7 +767,7 @@ class PMXI_Admin_Settings extends PMXI_Controller_Admin {
 
 						$file_type = strtoupper(pmxi_getExtension($upload_result['source']['path']));
 
-						$error_message = sprintf(__("Please verify that the file you uploading is a valid %s file.", "wp_all_import_plugin"), $file_type);
+						$error_message = sprintf(__("Please verify that the file you uploading is a valid %s file.", "wp_all_import_plugin"), esc_attr($file_type));
 
 						exit(json_encode(array("jsonrpc" => "2.0", "error" => array("code" => 102, "message" => $error_message), "is_valid" => false, "id" => "id")));
 					

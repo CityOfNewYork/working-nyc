@@ -17,7 +17,7 @@
 <div class="input">
 	<input type="hidden" name="create_new_records" value="0" />
 	<input type="checkbox" id="create_new_records" name="create_new_records" value="1" <?php echo $post['create_new_records'] ? 'checked="checked"' : '' ?> />
-	<label for="create_new_records"><?php printf(__('Create new %s from records newly present in your file', 'wp_all_import_plugin'), $cpt_name) ?></label>
+	<label for="create_new_records"><?php printf(__('Create new %s from records newly present in your file', 'wp_all_import_plugin'), esc_attr($cpt_name)) ?></label>
 	<?php if ( ! empty(PMXI_Plugin::$session->deligate) and PMXI_Plugin::$session->deligate == 'wpallexport' ): ?>
 	<a href="#help" class="wpallimport-help" title="<?php _e('New posts will only be created when ID column is present and value in ID column is unique.', 'wp_all_import_plugin') ?>" style="top: -1px;">?</a>
 	<?php endif; ?>
@@ -26,7 +26,7 @@
 	<div class="input">
 		<input type="hidden" name="is_delete_missing" value="0" />
 		<input type="checkbox" id="is_delete_missing" name="is_delete_missing" value="1" <?php echo $post['is_delete_missing'] ? 'checked="checked"': '' ?> class="switcher" <?php if ( "new" != $post['wizard_type']): ?>disabled="disabled"<?php endif; ?>/>
-		<label for="is_delete_missing" <?php if ( "new" != $post['wizard_type']): ?>style="color:#ccc;"<?php endif; ?>><?php printf(__('Delete %s that are no longer present in your file', 'wp_all_import_plugin'), $cpt_name) ?></label>
+		<label for="is_delete_missing" <?php if ( "new" != $post['wizard_type']): ?>style="color:#ccc;"<?php endif; ?>><?php printf(__('Delete %s that are no longer present in your file', 'wp_all_import_plugin'), esc_attr($cpt_name)) ?></label>
 		<?php if ( "new" != $post['wizard_type']): ?>
 		<a href="#help" class="wpallimport-help" title="<?php _e('Records removed from the import file can only be deleted when importing into New Items. This feature cannot be enabled when importing into Existing Items.', 'wp_all_import_plugin') ?>" style="position:relative; top: -1px;">?</a>
 		<?php endif; ?>	
@@ -65,11 +65,25 @@
 <div class="input">
 	<input type="hidden" id="is_keep_former_posts" name="is_keep_former_posts" value="yes" />				
 	<input type="checkbox" id="is_not_keep_former_posts" name="is_keep_former_posts" value="no" <?php echo "yes" != $post['is_keep_former_posts'] ? 'checked="checked"': '' ?> class="switcher" />
-	<label for="is_not_keep_former_posts"><?php printf(__('Update existing %s with changed data in your file', 'wp_all_import_plugin'), $cpt_name) ?></label>
+	<label for="is_not_keep_former_posts"><?php printf(__('Update existing %s with changed data in your file', 'wp_all_import_plugin'), esc_attr($cpt_name)) ?></label>
 	<?php if ( $this->isWizard and "new" == $post['wizard_type'] and empty(PMXI_Plugin::$session->deligate)): ?>
-	<a href="#help" class="wpallimport-help" style="position: relative; top: -2px;" title="<?php printf(__('These options will only be used if you run this import again later. All data is imported the first time you run an import.<br/><br/>Note that WP All Import will only update/remove %s created by this import. If you want to match to %s that already exist on this site, use Existing Items in Step 1.', 'wp_all_import_plugin'), $cpt_name, $cpt_name) ?>">?</a>
+	<a href="#help" class="wpallimport-help" style="position: relative; top: -2px;" title="<?php printf(__('These options will only be used if you run this import again later. All data is imported the first time you run an import.<br/><br/>Note that WP All Import will only update/remove %s created by this import. If you want to match to %s that already exist on this site, use Existing Items in Step 1.', 'wp_all_import_plugin'), esc_attr($cpt_name), esc_attr($cpt_name)) ?>">?</a>
 	<?php endif; ?>
 	<div class="switcher-target-is_not_keep_former_posts" style="padding-left:17px;">
+
+        <div class="input" style="margin-left: 4px;">
+            <input type="hidden" name="is_selective_hashing" value="0" />
+            <input type="checkbox" id="is_selective_hashing" name="is_selective_hashing" value="1" <?php echo $post['is_selective_hashing'] ? 'checked="checked"': '' ?> class="switcher"/>
+            <label for="is_selective_hashing"><?php printf(__('Skip %s if their data in your file has not changed', 'wp_all_import_plugin'), esc_attr(strtolower($custom_type->labels->name))); ?></label>
+            <a href="#help" class="wpallimport-help" style="position: relative; top: -2px;" title="<?php _e('When enabled, WP All Import will keep track of every post\'s data as it is imported. When the import is run again, posts will be skipped if their data in the import file has not changed since the last run.<br/><br/>Posts will not be skipped if the import template or settings change, or if you make changes to the custom code in the Function Editor.', 'wp_all_import_plugin') ?>">?</a>
+            <div class="switcher-target-is_selective_hashing" style="padding-left:17px;">
+                <div class="wpallimport-free-edition-notice" style="margin: 20px 0;">
+                    <a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&amp;download_id=2707176&amp;edd_options%5Bprice_id%5D=1&amp;utm_source=import-plugin-free&amp;utm_medium=upgrade-notice&amp;utm_campaign=download-from-url" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to use this option', 'wp_all_import_plugin'); ?></a>
+                    <p style="margin-top:16px;"><?php _e('If you already own it, remove the free edition and install the Pro edition.', 'wp_all_import_plugin'); ?></p>
+                </div>
+            </div>
+        </div>
+
 		<input type="radio" id="update_all_data" class="switcher" name="update_all_data" value="yes" <?php echo 'no' != $post['update_all_data'] ? 'checked="checked"': '' ?>/>
 		<label for="update_all_data"><?php _e('Update all data', 'wp_all_import_plugin' )?></label><br>
 		
@@ -130,6 +144,13 @@
 				<input type="checkbox" id="is_update_post_type" name="is_update_post_type" value="1" <?php echo $post['is_update_post_type'] ? 'checked="checked"': '' ?> />
 				<label for="is_update_post_type"><?php _e('Post type', 'wp_all_import_plugin') ?></label>
 			</div>
+			<?php if ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type, 'post-formats' ) ): ?>
+            <div class="input">
+                <input type="hidden" name="is_update_post_format" value="0" />
+                <input type="checkbox" id="is_update_post_format" name="is_update_post_format" value="1" <?php echo $post['is_update_post_format'] ? 'checked="checked"': '' ?> />
+                <label for="is_update_post_format"><?php _e('Post format', 'wp_all_import_plugin') ?></label>
+            </div>
+            <?php endif; ?>
 			<div class="input">
 				<input type="hidden" name="is_update_comment_status" value="0" />
 				<input type="checkbox" id="is_update_comment_status" name="is_update_comment_status" value="1" <?php echo $post['is_update_comment_status'] ? 'checked="checked"': '' ?> />

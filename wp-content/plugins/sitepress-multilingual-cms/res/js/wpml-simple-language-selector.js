@@ -4,10 +4,10 @@ WPML_Core.SimpleLanguageSelector = function () {
 	var self         = this;
 
 	var init = function () {
-		jQuery(document).ready(function() {
+        jQuery(function () {
             self.initialize_select2();
-		});
-	};
+        });
+    };
 
     var add_flags = function ( state ) {
         if (!state.id) { return state.text; }
@@ -21,7 +21,7 @@ WPML_Core.SimpleLanguageSelector = function () {
     };
 
     self.initialize_select2 = function () {
-        jQuery('.js-simple-lang-selector-flags').select2({
+        jQuery('.js-simple-lang-selector-flags').wpml_select2({
             formatResult:       add_flags,
             formatSelection:    add_flags,
             width:              'auto',
@@ -32,7 +32,7 @@ WPML_Core.SimpleLanguageSelector = function () {
         var lang_selector_flags = jQuery('.js-simple-lang-selector-flags');
 
         if (lang_selector_flags.is(':disabled')) {
-            lang_selector_flags.find('.select2-choice').addClass('button button-secondary').attr('disabled', 'true');
+            lang_selector_flags.find('.wpml_select2-choice').addClass('button button-secondary').attr('disabled', 'true');
         }
 	};
 

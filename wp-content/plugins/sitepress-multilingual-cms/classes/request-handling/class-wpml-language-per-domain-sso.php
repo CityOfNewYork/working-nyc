@@ -7,15 +7,15 @@ class WPML_Language_Per_Domain_SSO {
 
 	const SSO_NONCE = 'wpml_sso';
 
-	const TRANSIENT_SSO_STARTED = 'wpml_sso_started';
-	const TRANSIENT_DOMAIN = 'wpml_sso_domain_';
-	const TRANSIENT_USER = 'wpml_sso_user_';
+	const TRANSIENT_SSO_STARTED   = 'wpml_sso_started';
+	const TRANSIENT_DOMAIN        = 'wpml_sso_domain_';
+	const TRANSIENT_USER          = 'wpml_sso_user_';
 	const TRANSIENT_SESSION_TOKEN = 'wpml_sso_session_';
 
-	const IFRAME_USER_TOKEN_KEY = 'wpml_sso_token';
+	const IFRAME_USER_TOKEN_KEY            = 'wpml_sso_token';
 	const IFRAME_USER_TOKEN_KEY_FOR_DOMAIN = 'wpml_sso_token_domain';
-	const IFRAME_DOMAIN_HASH_KEY = 'wpml_sso_iframe_hash';
-	const IFRAME_USER_STATUS_KEY = 'wpml_sso_user_status';
+	const IFRAME_DOMAIN_HASH_KEY           = 'wpml_sso_iframe_hash';
+	const IFRAME_USER_STATUS_KEY           = 'wpml_sso_user_status';
 
 	const SSO_TIMEOUT = MINUTE_IN_SECONDS;
 
@@ -24,6 +24,9 @@ class WPML_Language_Per_Domain_SSO {
 
 	/** @var WPML_PHP_Functions $php_functions */
 	private $php_functions;
+
+	/** @var WPML_Cookie  */
+	private $wpml_cookie;
 
 	/** @var string */
 	private $site_url;
@@ -34,9 +37,10 @@ class WPML_Language_Per_Domain_SSO {
 	/** @var int $current_user_id */
 	private $current_user_id;
 
-	public function __construct( SitePress $sitepress, WPML_PHP_Functions $php_functions ) {
+	public function __construct( SitePress $sitepress, WPML_PHP_Functions $php_functions, WPML_Cookie $wpml_cookie ) {
 		$this->sitepress     = $sitepress;
 		$this->php_functions = $php_functions;
+		$this->wpml_cookie = $wpml_cookie;
 		$this->site_url      = $this->sitepress->convert_url( get_home_url(), $this->sitepress->get_default_language() );
 		$this->domains       = $this->get_domains();
 	}
@@ -64,7 +68,7 @@ class WPML_Language_Per_Domain_SSO {
 	}
 
 	/**
-	 * @param string $user_login
+	 * @param string  $user_login
 	 * @param WP_User $user
 	 */
 	public function wp_login_action( $user_login, WP_User $user ) {
@@ -72,8 +76,8 @@ class WPML_Language_Per_Domain_SSO {
 	}
 
 	/**
-	 * @param string $redirect_to
-	 * @param string $requested_redirect_to
+	 * @param string           $redirect_to
+	 * @param string           $requested_redirect_to
 	 * @param WP_User|WP_Error $user
 	 *
 	 * @return string
@@ -100,9 +104,9 @@ class WPML_Language_Per_Domain_SSO {
 
 				$iframe_url = add_query_arg(
 					[
-						self::IFRAME_DOMAIN_HASH_KEY           => $this->get_hash( $domain ),
-						self::IFRAME_USER_STATUS_KEY           => $is_user_logged_in ? 'wpml_user_signed_in' : 'wpml_user_signed_out',
-						self::IFRAME_USER_TOKEN_KEY_FOR_DOMAIN => $this->create_user_token_for_domains( $this->current_user_id )
+						self::IFRAME_DOMAIN_HASH_KEY => $this->get_hash( $domain ),
+						self::IFRAME_USER_STATUS_KEY => $is_user_logged_in ? 'wpml_user_signed_in' : 'wpml_user_signed_out',
+						self::IFRAME_USER_TOKEN_KEY_FOR_DOMAIN => $this->create_user_token_for_domains( $this->current_user_id ),
 					],
 					trailingslashit( $domain )
 				);
@@ -137,12 +141,19 @@ class WPML_Language_Per_Domain_SSO {
 				if ( $user !== false ) {
 					wp_set_current_user( $this->current_user_id );
 
-					wp_set_auth_cookie(
-						$this->current_user_id,
-						false,
-						'',
-						$this->get_session_token( $this->current_user_id )
-					);
+					if ( is_ssl() ) {
+						$this->set_auth_cookie(
+							$this->current_user_id,
+							$this->get_session_token( $this->current_user_id )
+						);
+					} else {
+						wp_set_auth_cookie(
+							$this->current_user_id,
+							false,
+							'',
+							$this->get_session_token( $this->current_user_id )
+						);
+					}
 					do_action( 'wp_login', $user->user_login, $user );
 				}
 			} else {
@@ -158,7 +169,7 @@ class WPML_Language_Per_Domain_SSO {
 	/** @return bool */
 	private function validate_user_sign_request() {
 		return isset( $_GET[ self::IFRAME_USER_STATUS_KEY ] )
-		       && $this->is_sso_started_for_domain( $this->get_current_domain() );
+			   && $this->is_sso_started_for_domain( $this->get_current_domain() );
 	}
 
 	/** @return int */
@@ -207,24 +218,28 @@ class WPML_Language_Per_Domain_SSO {
 	 * @param string $domain
 	 */
 	private function finish_sso_for_domain( $domain ) {
-		delete_transient( $this->create_transient_key(
-			self::TRANSIENT_DOMAIN,
-			$domain,
-			$this->current_user_id
-		) );
+		delete_transient(
+			$this->create_transient_key(
+				self::TRANSIENT_DOMAIN,
+				$domain,
+				$this->current_user_id
+			)
+		);
 	}
 
 	/**
-	 * @param $domain
+	 * @param string $domain
 	 *
 	 * @return bool
 	 */
 	private function is_sso_started_for_domain( $domain ) {
-		return (bool) get_transient( $this->create_transient_key(
-			self::TRANSIENT_DOMAIN,
-			$domain,
-			$this->current_user_id
-		) );
+		return (bool) get_transient(
+			$this->create_transient_key(
+				self::TRANSIENT_DOMAIN,
+				$domain,
+				$this->current_user_id
+			)
+		);
 	}
 
 	/**
@@ -270,9 +285,9 @@ class WPML_Language_Per_Domain_SSO {
 	 */
 	private function is_iframe_request() {
 		return isset( $_GET[ self::IFRAME_DOMAIN_HASH_KEY ] )
-		       && ! wpml_is_ajax()
-		       && $this->is_sso_started_for_domain( $this->get_current_domain() )
-		       && $this->get_hash( $this->get_current_domain() ) === $_GET[ self::IFRAME_DOMAIN_HASH_KEY ];
+			   && ! wpml_is_ajax()
+			   && $this->is_sso_started_for_domain( $this->get_current_domain() )
+			   && $this->get_hash( $this->get_current_domain() ) === $_GET[ self::IFRAME_DOMAIN_HASH_KEY ];
 	}
 
 	/**
@@ -320,7 +335,7 @@ class WPML_Language_Per_Domain_SSO {
 
 	/**
 	 * @param string $session_token
-	 * @param int $user_id
+	 * @param int    $user_id
 	 */
 	private function save_session_token( $session_token, $user_id ) {
 		set_transient(
@@ -340,7 +355,7 @@ class WPML_Language_Per_Domain_SSO {
 	}
 
 	/**
-	 * @param string $prefix
+	 * @param string      $prefix
 	 * @param string|null $domain
 	 * @param string|null $token
 	 *
@@ -357,5 +372,50 @@ class WPML_Language_Per_Domain_SSO {
 	 */
 	private function get_hash( $value ) {
 		return hash( 'sha256', self::SSO_NONCE . $value );
+	}
+
+
+	/**
+	 * As the WP doesn't support "SameSite" parameter in cookies, we have to write our own
+	 * function for saving authentication cookies to work with iframes.
+	 *
+	 * @param int $user_id
+	 * @param string $token
+	 */
+	private function set_auth_cookie( $user_id, $token = '' ) {
+		$expiration = time() + apply_filters( 'auth_cookie_expiration', 2 * DAY_IN_SECONDS, $user_id, false );
+		$expire     = 0;
+		$secure     = apply_filters( 'secure_auth_cookie', is_ssl(), $user_id );
+
+		if ( $secure ) {
+			$auth_cookie_name = SECURE_AUTH_COOKIE;
+			$scheme           = 'secure_auth';
+		} else {
+			$auth_cookie_name = AUTH_COOKIE;
+			$scheme           = 'auth';
+		}
+
+		if ( '' === $token ) {
+			$manager = WP_Session_Tokens::get_instance( $user_id );
+			$token   = $manager->create( $expiration );
+		}
+
+		$auth_cookie      = wp_generate_auth_cookie( $user_id, $expiration, $scheme, $token );
+		$logged_in_cookie = wp_generate_auth_cookie( $user_id, $expiration, 'logged_in', $token );
+
+		do_action( 'set_auth_cookie', $auth_cookie, $expire, $expiration, $user_id, $scheme, $token );
+		do_action( 'set_logged_in_cookie', $logged_in_cookie, $expire, $expiration, $user_id, 'logged_in', $token );
+
+		if ( ! apply_filters( 'send_auth_cookies', true ) ) {
+			return;
+		}
+
+		$this->wpml_cookie->set_cookie( $auth_cookie_name, $auth_cookie, $expire, PLUGINS_COOKIE_PATH, COOKIE_DOMAIN, true, 'None' );
+		$this->wpml_cookie->set_cookie( $auth_cookie_name, $auth_cookie, $expire, ADMIN_COOKIE_PATH, COOKIE_DOMAIN, true, 'None' );
+		$this->wpml_cookie->set_cookie( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, COOKIEPATH, COOKIE_DOMAIN, true, 'None' );
+
+		if ( COOKIEPATH != SITECOOKIEPATH ) {
+			$this->wpml_cookie->set_cookie( LOGGED_IN_COOKIE, $logged_in_cookie, $expire, SITECOOKIEPATH, COOKIE_DOMAIN, true, 'None' );
+		}
 	}
 }

@@ -8,7 +8,7 @@
 class WPML_API_Hook_Links implements IWPML_Action {
 
 	const POST_TRANSLATION_SETTINGS_PRIORITY = 10;
-	const LINK_TO_TRANSLATION_PRIORITY = 9;
+	const LINK_TO_TRANSLATION_PRIORITY       = 9;
 
 	/** @var WPML_Post_Status_Display_Factory */
 	private $post_status_display_factory;
@@ -20,15 +20,25 @@ class WPML_API_Hook_Links implements IWPML_Action {
 	}
 
 	public function add_hooks() {
-		add_filter( 'wpml_get_post_translation_settings_link', array(
-			$this,
-			'get_post_translation_settings_link'
-		), self::POST_TRANSLATION_SETTINGS_PRIORITY, 1 );
+		add_filter(
+			'wpml_get_post_translation_settings_link',
+			array(
+				$this,
+				'get_post_translation_settings_link',
+			),
+			self::POST_TRANSLATION_SETTINGS_PRIORITY,
+			1
+		);
 
-		add_filter( 'wpml_get_link_to_edit_translation', array(
-			$this,
-			'get_link_to_edit_translation'
-		), self::LINK_TO_TRANSLATION_PRIORITY, 3 );
+		add_filter(
+			'wpml_get_link_to_edit_translation',
+			array(
+				$this,
+				'get_link_to_edit_translation',
+			),
+			self::LINK_TO_TRANSLATION_PRIORITY,
+			3
+		);
 	}
 
 	public function get_post_translation_settings_link( $link ) {

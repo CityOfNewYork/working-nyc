@@ -85,12 +85,8 @@ function cptui_settings() {
 		<div class="changelog about-integrations">
 			<div class="cptui-feature feature-section col three-col">
 				<div class="col">
-					<h2><?php esc_html_e( 'Ability to set a default term for a custom taxonomy.', 'custom-post-type-ui' ); ?></h2>
-					<p><?php esc_html_e( 'WordPress 5.5 added the ability to set a default term to your custom taxonomy, and now you do not have to worry about extra coding for that with Custom Post Type UI.', 'custom-post-type-ui' ); ?></p>
-				</div>
-				<div class="col last-feature">
-					<h2><?php esc_html_e( 'Removed forced underscores for post type slugs.', 'custom-post-type-ui' ); ?></h2>
-					<p><?php esc_html_e( 'Post types are actually able to have dashes in their slug/name value, so we have removed the forcing of underscores for them. Taxonomies do still need underscores, until told otherwise.', 'custom-post-type-ui' ); ?></p>
+					<h2><?php esc_html_e( 'Dashicon Picker UI', 'custom-post-type-ui' ); ?></h2>
+					<p><?php esc_html_e( 'You no longer have to know the Dashicon class values ahead of time or look them up in the WordPress Developer Documentation. We now provide a visual picker that shows them all for you. All you have to do is choose one.', 'custom-post-type-ui' ); ?></p>
 				</div>
 			</div>
 		</div>

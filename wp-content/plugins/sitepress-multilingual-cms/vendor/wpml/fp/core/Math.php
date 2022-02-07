@@ -13,6 +13,9 @@ class Math {
 
 	use Macroable;
 
+	/**
+	 * @return void
+	 */
 	public static function init() {
 
 		self::macro( 'multiply', curryN( 2, function ( $a, $b ) { return $a * $b; } ) );

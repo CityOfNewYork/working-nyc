@@ -177,7 +177,7 @@ $.fn.wplupload  = function($options) {
 			$('#advanced_upload').show();
 		});
 		
-		$('#cancel-upload').click(function() {
+		$('#cancel-upload').on('click', function() {
 			var i, file;
 			
 			$up.stop();		

@@ -2,13 +2,12 @@
 
 namespace WPML\ST\PackageTranslation;
 
-
 class Assign {
 	/**
 	 * Assign all strings from specified domain to existing package.
 	 *
-	 * @param  string  $domainName
-	 * @param  int  $packageId
+	 * @param  string $domainName
+	 * @param  int    $packageId
 	 *
 	 * @since 3.1.0
 	 */
@@ -25,7 +24,7 @@ class Assign {
 	/**
 	 * Assign all strings from specified domain to new package which is created on fly.
 	 *
-	 * @param  string  $domainName
+	 * @param  string $domainName
 	 * @param  array  $packageData  {
 	 *
 	 * @type string $kind_slug e.g. toolset_forms

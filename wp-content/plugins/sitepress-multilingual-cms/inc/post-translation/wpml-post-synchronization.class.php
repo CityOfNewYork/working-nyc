@@ -15,30 +15,34 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 
 	/** @var bool[] */
 	private $sync_parent_cpt = array();
-	/** @var $sync_parent bool */
+	/** @var bool $sync_parent */
 	private $sync_parent;
-	/** @var $sync_delete bool */
+	/** @var bool $sync_delete */
 	private $sync_delete;
-	/** @var $sync_ping_status bool */
+	/** @var bool $sync_ping_status */
 	private $sync_ping_status;
-	/** @var $sync_post_date bool */
+	/** @var bool $sync_post_date */
 	private $sync_post_date;
-	/** @var $sync_post_format bool */
+	/** @var bool $sync_post_format */
 	private $sync_post_format;
-	/** @var $sync_comment_status bool */
+	/** @var bool $sync_comment_status */
 	private $sync_comment_status;
-	/** @var $sync_page_template bool */
+	/** @var bool $sync_page_template */
 	private $sync_page_template;
 	/** @var bool $sync_menu_order */
 	private $sync_menu_order;
-	/** @var $sync_password bool */
+	/** @var bool $sync_password */
 	private $sync_password;
-	/** @var $sync_private_flag bool */
+	/** @var bool $sync_private_flag */
 	private $sync_private_flag;
 	/** @var bool $is_deleting_all_translations */
 	private $is_deleting_all_translations = false;
 	/** @var array $deleted_post_types */
 	private $deleted_post_types = array();
+	/**
+	 * @var int
+	 */
+	private $sync_document_status;
 
 	/**
 	 * @param array                 $settings
@@ -101,6 +105,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 			return;
 		}
 
+		$trid = null;
 		if ( ! $this->is_deleting_all_translations ) {
 			$this->is_deleting_all_translations = ! $this->post_translation->get_original_element( $post_id, true );
 			$trid                               = $this->post_translation->get_element_trid( $post_id );
@@ -112,7 +117,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 		if ( ! $keep_db_entries ) {
 			$this->post_translation->delete_post_translation_entry( $post_id );
 
-			if ( ! $this->is_deleting_all_translations ) {
+			if ( $trid && ! $this->is_deleting_all_translations ) {
 				$lang_code = $this->post_translation->get_element_lang_code( $post_id );
 				$this->set_new_original( $trid, $lang_code );
 			}
@@ -298,7 +303,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 	 * The function `get_post_status` does not return the raw status for attachments.
 	 * As we are running direct DB updates here, we need the actual DB value.
 	 *
-	 * @param $post_id
+	 * @param int $post_id
 	 *
 	 * @return string|false
 	 */

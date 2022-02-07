@@ -172,7 +172,7 @@ class WPML_Package {
 	}
 
 	/**
-	 * @param $result
+	 * @param \stdClass $result
 	 *
 	 * @return string
 	 */
@@ -359,7 +359,7 @@ class WPML_Package {
 	private function set_package_from_db() {
 		$package = false;
 		if ( $this->package_id_exists() ) {
-			$package = $this->get_package_from_id( $this->ID );
+			$package = $this->get_package_from_id();
 		} elseif ( $this->package_name_and_kind_exists() ) {
 			$package = $this->get_package_from_name_and_kind();
 		}
@@ -450,7 +450,7 @@ class WPML_Package {
 	}
 
 	/**
-	 * @param $package
+	 * @param \stdClass $package
 	 */
 	private function object_to_package( $package ) {
 		$this->ID        = $package->ID;
@@ -464,14 +464,16 @@ class WPML_Package {
 
 	private function get_kind_from_slug() {
 		global $wpdb;
-		$kinds_query    = "SELECT kind FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug=%s GROUP BY kind";
-		$kinds_prepared = $wpdb->prepare( $kinds_query, $this->kind_slug );
-		$kinds          = $wpdb->get_col( $kinds_prepared );
-		if ( count( $kinds ) > 1 ) {
-			throw new WPML_Package_Exception( 'error', 'Package contains multiple kinds' );
-		}
-		if ( $kinds ) {
-			return $kinds[0];
+		if ( $this->kind_slug ) {
+			$kinds_query    = "SELECT kind FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug=%s GROUP BY kind";
+			$kinds_prepared = $wpdb->prepare( $kinds_query, $this->kind_slug );
+			$kinds          = $wpdb->get_col( $kinds_prepared );
+			if ( count( $kinds ) > 1 ) {
+				throw new WPML_Package_Exception( 'error', 'Package contains multiple kinds' );
+			}
+			if ( $kinds ) {
+				return $kinds[0];
+			}
 		}
 		return null;
 	}
@@ -489,6 +491,9 @@ class WPML_Package {
 		return 'package_' . $this->kind_slug;
 	}
 
+	/**
+	 * @return string|null
+	 */
 	public function get_package_language() {
 		global $sitepress;
 

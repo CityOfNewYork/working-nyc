@@ -19,12 +19,12 @@ abstract class WPML_Redirection extends WPML_URL_Converter_User {
 		$this->lang_resolution = $lang_resolution;
 	}
 
-	public abstract function get_redirect_target();
+	abstract public function get_redirect_target();
 
 	protected function redirect_hidden_home() {
 		$target = false;
 		if ( $this->lang_resolution->is_language_hidden( $this->request_handler->get_request_uri_lang() )
-		     && ! $this->request_handler->show_hidden()
+			 && ! $this->request_handler->show_hidden()
 		) {
 			$target = $this->url_converter->get_abs_home();
 		}

@@ -72,9 +72,11 @@ class UpdateHooks implements \IWPML_Action {
 		$outdated_entities        = $this->domains_locales_mapper->get_from_translation_ids( $this->updated_translation_ids );
 		$this->entities_to_update = $this->entities_to_update->merge( $outdated_entities );
 
-		$this->entities_to_update->each( function( $entity ) {
-			$this->update_file( $entity->domain, $entity->locale );
-		} );
+		$this->entities_to_update->each(
+			function( $entity ) {
+				$this->update_file( $entity->domain, $entity->locale );
+			}
+		);
 
 		return $this->entities_to_update->toArray();
 	}
@@ -106,7 +108,8 @@ class UpdateHooks implements \IWPML_Action {
 	 */
 	public function refresh_domain( $domain ) {
 		$outdated_entities        = $this->domains_locales_mapper->get_from_domain(
-			[ Languages::class, 'getActive' ], $domain
+			[ Languages::class, 'getActive' ],
+			$domain
 		);
 		$this->entities_to_update = $this->entities_to_update->merge( $outdated_entities );
 		$this->add_shutdown_action();

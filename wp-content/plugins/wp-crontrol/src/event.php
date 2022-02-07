@@ -21,7 +21,8 @@ use WP_Error;
  * @return true|WP_Error True if the execution was successful, WP_Error if not.
  */
 function run( $hookname, $sig ) {
-	$crons = _get_cron_array();
+	$crons = get_core_cron_array();
+
 	foreach ( $crons as $time => $cron ) {
 		if ( isset( $cron[ $hookname ][ $sig ] ) ) {
 			$event = $cron[ $hookname ][ $sig ];
@@ -50,7 +51,7 @@ function run( $hookname, $sig ) {
 			/**
 			 * Fires after a cron event is scheduled to run manually.
 			 *
-			 * @param object $event {
+			 * @param stdClass $event {
 			 *     An object containing the event's data.
 			 *
 			 *     @type string       $hook      Action hook to execute when the event is run.
@@ -81,8 +82,8 @@ function run( $hookname, $sig ) {
  *
  * This is used instead of `wp_schedule_single_event()` to avoid the duplicate check that's otherwise performed.
  *
- * @param string $hook Action hook to execute when the event is run.
- * @param array  $args Optional. Array containing each separate argument to pass to the hook's callback function.
+ * @param string  $hook Action hook to execute when the event is run.
+ * @param mixed[] $args Optional. Array containing each separate argument to pass to the hook's callback function.
  * @return true|WP_Error True if event successfully scheduled. WP_Error on failure.
  */
 function force_schedule_single_event( $hook, $args = array() ) {
@@ -92,7 +93,7 @@ function force_schedule_single_event( $hook, $args = array() ) {
 		'schedule'  => false,
 		'args'      => $args,
 	);
-	$crons = (array) _get_cron_array();
+	$crons = get_core_cron_array();
 	$key   = md5( serialize( $event->args ) );
 
 	$crons[ $event->timestamp ][ $event->hook ][ $key ] = array(
@@ -121,14 +122,18 @@ function force_schedule_single_event( $hook, $args = array() ) {
 /**
  * Adds a new cron event.
  *
- * @param string $next_run_local The time that the event should be run at, in the site's timezone.
- * @param string $schedule       The recurrence of the cron event.
- * @param string $hook           The name of the hook to execute.
- * @param array  $args           Arguments to add to the cron event.
+ * @param string  $next_run_local The time that the event should be run at, in the site's timezone.
+ * @param string  $schedule       The recurrence of the cron event.
+ * @param string  $hook           The name of the hook to execute.
+ * @param mixed[] $args           Arguments to add to the cron event.
  * @return true|WP_error True if the addition was successful, WP_Error otherwise.
  */
 function add( $next_run_local, $schedule, $hook, array $args ) {
-	$next_run_local = strtotime( $next_run_local, current_time( 'timestamp' ) );
+	/**
+	 * @var int
+	 */
+	$current_time = current_time( 'timestamp' );
+	$next_run_local = strtotime( $next_run_local, $current_time );
 
 	if ( false === $next_run_local ) {
 		return new WP_Error(
@@ -137,7 +142,7 @@ function add( $next_run_local, $schedule, $hook, array $args ) {
 		);
 	}
 
-	$next_run_utc = get_gmt_from_date( gmdate( 'Y-m-d H:i:s', $next_run_local ), 'U' );
+	$next_run_utc = (int) get_gmt_from_date( gmdate( 'Y-m-d H:i:s', $next_run_local ), 'U' );
 
 	if ( ! is_array( $args ) ) {
 		$args = array();
@@ -157,7 +162,7 @@ function add( $next_run_local, $schedule, $hook, array $args ) {
 		}
 	}
 
-	if ( '_oneoff' === $schedule ) {
+	if ( '_oneoff' === $schedule || '' === $schedule ) {
 		$result = wp_schedule_single_event( $next_run_utc, $hook, $args, true );
 	} else {
 		$result = wp_schedule_event( $next_run_utc, $schedule, $hook, $args, true );
@@ -235,10 +240,10 @@ function delete( $hook, $sig, $next_run_utc ) {
 /**
  * Returns a flattened array of cron events.
  *
- * @return object[] An array of cron event objects.
+ * @return stdClass[] An array of cron event objects.
  */
 function get() {
-	$crons  = _get_cron_array();
+	$crons  = get_core_cron_array();
 	$events = array();
 
 	if ( empty( $crons ) ) {
@@ -273,13 +278,15 @@ function get() {
 /**
  * Gets a single cron event.
  *
- * @param string $hook         The hook name of the event.
- * @param string $sig          The event signature.
- * @param string $next_run_utc The UTC time that the event would be run at.
- * @return object|WP_Error A cron event object, or a WP_Error if it's not found.
+ * @param string     $hook         The hook name of the event.
+ * @param string     $sig          The event signature.
+ * @param string|int $next_run_utc The UTC time that the event would be run at.
+ * @return stdClass|WP_Error A cron event object, or a WP_Error if it's not found.
  */
 function get_single( $hook, $sig, $next_run_utc ) {
-	$crons = _get_cron_array();
+	$crons = get_core_cron_array();
+	$next_run_utc = (int) $next_run_utc;
+
 	if ( isset( $crons[ $next_run_utc ][ $hook ][ $sig ] ) ) {
 		$event = $crons[ $next_run_utc ][ $hook ][ $sig ];
 
@@ -304,10 +311,10 @@ function get_single( $hook, $sig, $next_run_utc ) {
 /**
  * Returns an array of the number of events for each hook.
  *
- * @return int[] Array of number of events for each hook, keyed by the hook name.
+ * @return array<string,int> Array of number of events for each hook, keyed by the hook name.
  */
 function count_by_hook() {
-	$crons  = _get_cron_array();
+	$crons  = get_core_cron_array();
 	$events = array();
 
 	if ( empty( $crons ) ) {
@@ -402,32 +409,55 @@ function get_list_table() {
  * The comparison function returns an integer less than, equal to, or greater than zero if the first argument is
  * considered to be respectively less than, equal to, or greater than the second.
  *
- * @param object $a The first event to compare.
- * @param object $b The second event to compare.
+ * @param stdClass $a The first event to compare.
+ * @param stdClass $b The second event to compare.
  * @return int
  */
 function uasort_order_events( $a, $b ) {
 	$orderby = ( ! empty( $_GET['orderby'] ) ) ? sanitize_text_field( $_GET['orderby'] ) : 'crontrol_next';
 	$order   = ( ! empty( $_GET['order'] ) ) ? sanitize_text_field( $_GET['order'] ) : 'desc';
+	$compare = 0;
 
 	switch ( $orderby ) {
 		case 'crontrol_hook':
 			if ( 'desc' === $order ) {
-				return strcmp( $a->hook, $b->hook );
+				$compare = strcmp( $a->hook, $b->hook );
 			} else {
-				return strcmp( $b->hook, $a->hook );
+				$compare = strcmp( $b->hook, $a->hook );
 			}
 			break;
 		default:
 			if ( $a->time === $b->time ) {
-				return 0;
+				$compare = 0;
 			} else {
 				if ( 'desc' === $order ) {
-					return ( $a->time > $b->time ) ? 1 : -1;
+					$compare = ( $a->time > $b->time ) ? 1 : -1;
 				} else {
-					return ( $a->time < $b->time ) ? 1 : -1;
+					$compare = ( $a->time < $b->time ) ? 1 : -1;
 				}
 			}
 			break;
 	}
+
+	return $compare;
+}
+
+/**
+ * Fetches the list of cron events from WordPress core.
+ *
+ * @return array<int,array<string,array<string,array<string,mixed[]>>>>
+ * @phpstan-return array<int,array<string,array<string,array<string,array{
+ *     args: mixed[],
+ *     schedule: string|false,
+ *     interval?: int,
+ * }>>>>
+ */
+function get_core_cron_array() {
+	$crons = _get_cron_array();
+
+	if ( empty( $crons ) ) {
+		$crons = array();
+	}
+
+	return $crons;
 }

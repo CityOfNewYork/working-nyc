@@ -108,14 +108,14 @@ function cptui_footer( $original = '' ) {
 		__( '%s version %s by %s', 'custom-post-type-ui' ),
 		__( 'Custom Post Type UI', 'custom-post-type-ui' ),
 		CPTUI_VERSION,
-		'<a href="https://webdevstudios.com" target="_blank">WebDevStudios</a>'
+		'<a href="https://webdevstudios.com" target="_blank" rel="noopener">WebDevStudios</a>'
 	) . ' - ' .
 	sprintf(
-		'<a href="http://wordpress.org/support/plugin/custom-post-type-ui" target="_blank">%s</a>',
+		'<a href="http://wordpress.org/support/plugin/custom-post-type-ui" target="_blank" rel="noopener">%s</a>',
 		__( 'Support forums', 'custom-post-type-ui' )
 	) . ' - ' .
 	sprintf(
-		'<a href="https://wordpress.org/plugins/custom-post-type-ui/reviews/" target="_blank">%s</a>',
+		'<a href="https://wordpress.org/plugins/custom-post-type-ui/reviews/" target="_blank" rel="noopener">%s</a>',
 		sprintf(
 			// translators: Placeholder will hold `<abbr>` tag for CPTUI.
 			__( 'Review %s', 'custom-post-type-ui' ),
@@ -129,7 +129,7 @@ function cptui_footer( $original = '' ) {
 	__( 'Follow on Twitter:', 'custom-post-type-ui' ) .
 	sprintf(
 		' %s',
-		'<a href="https://twitter.com/webdevstudios" target="_blank">WebDevStudios</a>'
+		'<a href="https://twitter.com/webdevstudios" target="_blank" rel="noopener">WebDevStudios</a>'
 	);
 }
 add_filter( 'admin_footer_text', 'cptui_footer' );
@@ -395,7 +395,7 @@ function cptui_newsletter_form() {
             <input type="hidden"
                name="successRedirectUrl"
                value="">
-            <button type="submit">Subscribe</button>
+            <button type="submit" class="button button-secondary">Subscribe</button>
         </div>
     </form>
 </div>
@@ -571,11 +571,17 @@ function cptui_admin_notices_helper( $message = '', $success = true ) {
  */
 function cptui_get_object_from_post_global() {
 	if ( isset( $_POST['cpt_custom_post_type']['name'] ) ) {
-		return sanitize_text_field( $_POST['cpt_custom_post_type']['name'] );
+		$type_item = filter_input( INPUT_POST, 'cpt_custom_post_type', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY );
+		if ( $type_item ) {
+			return sanitize_text_field( $type_item['name'] );
+		}
 	}
 
 	if ( isset( $_POST['cpt_custom_tax']['name'] ) ) {
-		return sanitize_text_field( $_POST['cpt_custom_tax']['name'] );
+		$tax_item = filter_input( INPUT_POST, 'cpt_custom_tax', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY );
+		if ( $tax_item ) {
+			return sanitize_text_field( $tax_item['name'] );
+		}
 	}
 
 	return esc_html__( 'Object', 'custom-post-type-ui' );
@@ -745,9 +751,21 @@ function cptui_empty_cpt_on_taxonomy() {
  * @return string
  */
 function cptui_slug_matches_page() {
+	$slug = cptui_get_object_from_post_global();
+	$matched_slug = get_page_by_path(
+		cptui_get_object_from_post_global()
+	);
+	if ( $matched_slug instanceof WP_Post ) {
+		$slug = sprintf(
+			'<a href="%s">%s</a>',
+			get_edit_post_link( $matched_slug->ID ),
+			cptui_get_object_from_post_global()
+		);
+	}
+
 	return sprintf(
 		esc_html__( 'Please choose a different post type name. %s matches an existing page slug, which can cause conflicts.', 'custom-post-type-ui' ),
-		cptui_get_object_from_post_global()
+		$slug
 	);
 }
 
@@ -860,7 +878,7 @@ function cptui_get_cptui_post_type_object( $post_type = '' ) {
 	if ( array_key_exists( $post_type, $post_types ) ) {
 		return $post_types[ $post_type ];
 	}
-	return '';
+	return [];
 }
 
 /**
@@ -877,7 +895,7 @@ function cptui_get_cptui_taxonomy_object( $taxonomy = '' ) {
 	if ( array_key_exists( $taxonomy, $taxonomies ) ) {
 		return $taxonomies[ $taxonomy ];
 	}
-	return '';
+	return [];
 }
 
 /**
@@ -915,6 +933,10 @@ function cptui_post_type_supports( $post_type, $feature ) {
  * @param array $post_types Array of CPTUI post types.
  */
 function cptui_published_post_format_fix( $post_types ) {
+	if ( empty( $post_types ) || ! is_array( $post_types ) ) {
+		return;
+	}
+
 	foreach ( $post_types as $type ) {
 		if ( in_array( 'post-formats', $type['supports'], true ) ) {
 			add_post_type_support( $type['name'], 'post-formats' );

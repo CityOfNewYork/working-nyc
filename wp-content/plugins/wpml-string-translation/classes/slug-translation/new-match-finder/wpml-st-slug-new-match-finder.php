@@ -79,7 +79,10 @@ class WPML_ST_Slug_New_Match_Finder {
 			&& preg_match( '#^[^/]*/?\(?' . preg_quote( $slug ) . '\)?/#', $match )
 			&& $slug !== $slug_translation
 		) {
-			$match = preg_replace( '#^(\(?)(' . preg_quote( addslashes( $slug ) ) . ')(\)?)/#', '$1' . $slug_translation . '$3/', $match );
+			$replace = function( $match ) use ( $slug, $slug_translation ) {
+				return str_replace( $slug, $slug_translation, $match[0]);
+			};
+			$match = preg_replace_callback( '#^\(?' . preg_quote( addslashes( $slug ) ) . '\)?/#', $replace, $match );
 		}
 
 		return $match;

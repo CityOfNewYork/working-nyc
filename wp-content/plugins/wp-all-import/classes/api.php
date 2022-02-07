@@ -36,7 +36,7 @@ class PMXI_API
 		ob_start();
 		if ($label != "" and $field_type != "accordion"){
 			?>
-			<label for="<?php echo sanitize_title($params['field_name']); ?>"><?php echo $label;?></label>			
+			<label for="<?php echo esc_attr($params['field_name']); ?>"><?php echo wp_kses_post($label);?></label>
 			<?php
 		}
 		if ( ! empty($params['tooltip'])){
@@ -55,15 +55,15 @@ class PMXI_API
 
 			case 'simple':
 				?>
-				<input type="text" name="<?php echo $params['field_name']; ?>" id="<?php echo sanitize_title($params['field_name']); ?>" value="<?php echo esc_attr($params['field_value']); ?>" style="width:100%;"/>
+				<input type="text" name="<?php echo esc_attr($params['field_name']); ?>" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>" value="<?php echo esc_attr($params['field_value']); ?>" style="width:100%;"/>
 				<?php
 				break;
 			case 'enum':				
 
 				$is_set_with_xpath_visible = true;
 				foreach ($params['enum_values'] as $key => $value): ?>
-					<div class="form-field wpallimport-radio-field wpallimport-<?php echo sanitize_title($params['field_name']); ?>_<?php echo sanitize_title($key); ?>">
-						<input type="radio" id="<?php echo sanitize_title($params['field_name']); ?>_<?php echo sanitize_title($key); ?>" class="switcher" name="<?php echo $params['field_name']; ?>" value="<?php echo $key; ?>" <?php echo $key == $params['field_value'] ? 'checked="checked"': '' ?>/>
+					<div class="form-field wpallimport-radio-field wpallimport-<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_<?php echo sanitize_title(esc_attr($key)); ?>">
+						<input type="radio" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_<?php echo sanitize_title(esc_attr($key)); ?>" class="switcher" name="<?php echo esc_attr($params['field_name']); ?>" value="<?php echo esc_attr($key); ?>" <?php echo $key == $params['field_value'] ? 'checked="checked"': '' ?>/>
 						<?php  
 							$label = '';
 							$tooltip = '';
@@ -74,7 +74,7 @@ class PMXI_API
 								$label = $value;
 							}
 						?>
-						<label for="<?php echo sanitize_title($params['field_name']); ?>_<?php echo sanitize_title($key); ?>"><?php echo $label; ?></label>
+						<label for="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_<?php echo sanitize_title(esc_attr($key)); ?>"><?php echo wp_kses_post($label); ?></label>
 						<?php 
 							if (is_array($value) and ! empty($value)){
 								foreach ($value as $k => $p) {
@@ -90,7 +90,7 @@ class PMXI_API
 						<?php
 							if (! empty($params['sub_fields'][$key])){
 								?>
-								<div class="switcher-target-<?php echo sanitize_title($params['field_name']); ?>_<?php echo $key; ?>">
+								<div class="switcher-target-<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_<?php echo esc_attr($key); ?>">
 									<div class="input sub_input">
 										<?php
 										foreach ($params['sub_fields'][$key] as $sub_field) {												
@@ -107,16 +107,16 @@ class PMXI_API
 					</div>
 				<?php endforeach;?>		
 				<?php if ( $is_set_with_xpath_visible ): ?>
-				<div class="form-field wpallimport-radio-field wpallimport-<?php echo sanitize_title($params['field_name']); ?>_xpath">
-					<input type="radio" id="<?php echo sanitize_title($params['field_name']); ?>_xpath" class="switcher" name="<?php echo $params['field_name']; ?>" value="xpath" <?php echo 'xpath' === $params['field_value'] ? 'checked="checked"': '' ?>/>
-					<label for="<?php echo sanitize_title($params['field_name']); ?>_xpath"><?php _e('Set with XPath', 'wp_all_import_plugin' )?></label>
+				<div class="form-field wpallimport-radio-field wpallimport-<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_xpath">
+					<input type="radio" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_xpath" class="switcher" name="<?php echo esc_attr($params['field_name']); ?>" value="xpath" <?php echo 'xpath' === $params['field_value'] ? 'checked="checked"': '' ?>/>
+					<label for="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_xpath"><?php _e('Set with XPath', 'wp_all_import_plugin' )?></label>
 					<span class="wpallimport-clear"></span>
-					<div class="switcher-target-<?php echo sanitize_title($params['field_name']); ?>_xpath set_with_xpath">
+					<div class="switcher-target-<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_xpath set_with_xpath">
 						<span class="wpallimport-slide-content" style="padding-left:0px;">
 							<table class="form-table custom-params" style="max-width:none; border:none;">
 								<tr class="form-field">
 									<td class="wpallimport-enum-input-wrapper">
-										<input type="text" class="smaller-text" name="<?php echo $params['addon_prefix'];?>[xpaths][<?php echo $params['field_key']; ?>]" value="<?php echo esc_attr($params['xpath']) ?>"/>	
+										<input type="text" class="smaller-text" name="<?php echo esc_attr($params['addon_prefix']);?>[xpaths][<?php echo esc_attr($params['field_key']); ?>]" value="<?php echo esc_attr($params['xpath']) ?>"/>
 									</td>
 									<td class="action">
 
@@ -126,15 +126,15 @@ class PMXI_API
 											
 											<div class="input wpallimport-custom-fields-actions">
 												<a href="javascript:void(0);" class="wpallimport-cf-options"><?php _e('Field Options...', 'wp_all_import_plugin'); ?></a>
-												<ul id="wpallimport-cf-menu-<?php echo sanitize_title($params['field_name']);?>" class="wpallimport-cf-menu">						
+												<ul id="wpallimport-cf-menu-<?php echo sanitize_title(esc_attr($params['field_name']));?>" class="wpallimport-cf-menu">
 													<li class="<?php echo ( ! empty($custom_mapping_rules) ) ? 'active' : ''; ?>">
-														<a href="javascript:void(0);" class="set_mapping pmxi_cf_mapping" rel="cf_mapping_<?php echo sanitize_title($params['field_name']); ?>"><?php _e('Mapping', 'wp_all_import_plugin'); ?></a>
+														<a href="javascript:void(0);" class="set_mapping pmxi_cf_mapping" rel="cf_mapping_<?php echo sanitize_title(esc_attr($params['field_name'])); ?>"><?php _e('Mapping', 'wp_all_import_plugin'); ?></a>
 													</li>
 												</ul>														
 											</div>
-											<div id="cf_mapping_<?php echo sanitize_title($params['field_name']); ?>" class="custom_type" rel="mapping" style="display:none;">
+											<div id="cf_mapping_<?php echo sanitize_title(esc_attr($params['field_name'])); ?>" class="custom_type" rel="mapping" style="display:none;">
 												<fieldset>
-													<table cellpadding="0" cellspacing="5" class="cf-form-table" rel="cf_mapping_<?php echo sanitize_title($params['field_name']); ?>">
+													<table cellpadding="0" cellspacing="5" class="cf-form-table" rel="cf_mapping_<?php echo sanitize_title(esc_attr($params['field_name'])); ?>">
 														<thead>
 															<tr>
 																<td><?php _e('In Your File', 'wp_all_import_plugin') ?></td>
@@ -179,7 +179,7 @@ class PMXI_API
 																				<input type="text" class="mapping_from widefat">
 																			</td>
 																			<td>
-																				<input type="text" class="mapping_to widefat" value="<?php echo $key; ?>">
+																				<input type="text" class="mapping_to widefat" value="<?php echo esc_attr($key); ?>">
 																			</td>
 																			<td class="action remove">
 																				<a href="#remove" style="right:-10px;"></a>
@@ -229,7 +229,7 @@ class PMXI_API
 															</tr>
 														</tbody>
 													</table>
-													<input type="hidden" class="pmre_mapping_rules" name="<?php echo $params['addon_prefix'];?>[mapping][<?php echo $params['field_key']; ?>]" value="<?php if (!empty($params['mapping_rules'])) echo esc_html($params['mapping_rules']); ?>"/>
+													<input type="hidden" class="pmre_mapping_rules" name="<?php echo esc_attr($params['addon_prefix']);?>[mapping][<?php echo esc_attr($params['field_key']); ?>]" value="<?php if (!empty($params['mapping_rules'])) echo esc_attr($params['mapping_rules']); ?>"/>
 												</fieldset>
 											</div>
 										<?php endif; ?>
@@ -245,17 +245,17 @@ class PMXI_API
 
 			case 'textarea':
 				?>
-				<textarea name="<?php echo $params['field_name']; ?>" id="<?php echo sanitize_title($params['field_name']); ?>" class="rad4 newline" style="height: 70px;margin: 5px 0;padding-top: 5px;width: 70%;"><?php echo esc_attr($params['field_value']); ?></textarea>
+				<textarea name="<?php echo esc_attr($params['field_name']); ?>" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>" class="rad4 newline" style="height: 70px;margin: 5px 0;padding-top: 5px;width: 70%;"><?php echo esc_attr($params['field_value']); ?></textarea>
 				<?php
 				break;
 
 			case 'wp_editor':
 				?>
-				<div id="<?php echo ( user_can_richedit() ? 'postdivrich' : 'postdiv' ) . sanitize_title($params['field_name']); ?>" class="postarea">
-					<?php wp_editor( empty($params['field_value']) ? '' : $params['field_value'], sanitize_title($params['field_name']), array(
+				<div id="<?php echo ( user_can_richedit() ? 'postdivrich' : 'postdiv' ) . sanitize_title(esc_attr($params['field_name'])); ?>" class="postarea">
+					<?php wp_editor( empty($params['field_value']) ? '' : esc_textarea($params['field_value']), sanitize_title(esc_attr($params['field_name'])), array(
 						'teeny' => true,
 						'media_buttons' => false,
-						'textarea_name' => $params['field_name'],
+						'textarea_name' => esc_attr($params['field_name']),
 						'editor_height' => 200));
 					?>
 				</div>
@@ -266,17 +266,17 @@ class PMXI_API
 				?>
 				<div class="input">
 					<div class="input" style="margin: 0px;">
-						<input type="radio" name="<?php echo $params['addon_prefix'];?>[download_image][<?php echo $params['field_key'];?>]" value="yes" id="<?php echo sanitize_title($params['field_name']); ?>_yes" <?php echo ("yes" == $params['download_image']) ? 'checked="checked"' : '';?>/>
-						<label for="<?php echo sanitize_title($params['field_name']); ?>_yes"><?php _e('Download image hosted elsewhere'); ?></label>
+						<input type="radio" name="<?php echo esc_attr($params['addon_prefix']);?>[download_image][<?php echo esc_attr($params['field_key']);?>]" value="yes" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_yes" <?php echo ("yes" == $params['download_image']) ? 'checked="checked"' : '';?>/>
+						<label for="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_yes"><?php _e('Download image hosted elsewhere'); ?></label>
 						<a href="#help" class="wpallimport-help" title="<?php _e('http:// or https://', 'wp_all_import_plugin') ?>" style="position: relative; top: -2px;">?</a>
 					</div>
 					<div class="input" style="margin: 0px;">
 						<?php $wp_uploads = wp_upload_dir(); ?>																					
-						<input type="radio" name="<?php echo $params['addon_prefix'];?>[download_image][<?php echo $params['field_key'];?>]" value="no" id="<?php echo sanitize_title($params['field_name']); ?>_no" <?php echo ("yes" != $params['download_image']) ? 'checked="checked"' : '';?>/>
-						<label for="<?php echo sanitize_title($params['field_name']); ?>_no"><?php printf(__('Use image(s) currently uploaded in %s', 'wp_all_import_plugin'), $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR); ?></label>
+						<input type="radio" name="<?php echo esc_attr($params['addon_prefix']);?>[download_image][<?php echo esc_attr($params['field_key']);?>]" value="no" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_no" <?php echo ("yes" != $params['download_image']) ? 'checked="checked"' : '';?>/>
+						<label for="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_no"><?php printf(__('Use image(s) currently uploaded in %s', 'wp_all_import_plugin'), esc_url($wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR)); ?></label>
 					</div>						
 					<div class="input">						
-						<input type="text" name="<?php echo $params['field_name']; ?>" style="width:100%;" placeholder="" value="<?php echo esc_attr($params['field_value']); ?>"/>
+						<input type="text" name="<?php echo esc_attr($params['field_name']); ?>" style="width:100%;" placeholder="" value="<?php echo esc_attr($params['field_value']); ?>"/>
 					</div>										
 				</div>
 				<?php
@@ -286,17 +286,17 @@ class PMXI_API
 				?>
 				<div class="input">
 					<div class="input" style="margin: 0px;">
-						<input type="radio" name="<?php echo $params['addon_prefix'];?>[download_image][<?php echo $params['field_key'];?>]" value="yes" id="<?php echo sanitize_title($params['field_name']); ?>_yes" <?php echo ("yes" == $params['download_image']) ? 'checked="checked"' : '';?>/>
-						<label for="<?php echo sanitize_title($params['field_name']); ?>_yes"><?php _e('Download file hosted elsewhere'); ?></label>
+						<input type="radio" name="<?php echo esc_attr($params['addon_prefix']);?>[download_image][<?php echo esc_attr($params['field_key']);?>]" value="yes" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_yes" <?php echo ("yes" == $params['download_image']) ? 'checked="checked"' : '';?>/>
+						<label for="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_yes"><?php _e('Download file hosted elsewhere'); ?></label>
 						<a href="#help" class="wpallimport-help" title="<?php _e('http:// or https://', 'wp_all_import_plugin') ?>" style="position: relative; top: -2px;">?</a>
 					</div>
 					<div class="input" style="margin: 0px;">
 						<?php $wp_uploads = wp_upload_dir(); ?>																					
-						<input type="radio" name="<?php echo $params['addon_prefix'];?>[download_image][<?php echo $params['field_key'];?>]" value="no" id="<?php echo sanitize_title($params['field_name']); ?>_no" <?php echo ("yes" != $params['download_image']) ? 'checked="checked"' : '';?>/>
-						<label for="<?php echo sanitize_title($params['field_name']); ?>_no"><?php printf(__('Use file(s) currently uploaded in %s', 'wp_all_import_plugin'), $wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR); ?></label>
+						<input type="radio" name="<?php echo esc_attr($params['addon_prefix']);?>[download_image][<?php echo esc_attr($params['field_key']);?>]" value="no" id="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_no" <?php echo ("yes" != $params['download_image']) ? 'checked="checked"' : '';?>/>
+						<label for="<?php echo sanitize_title(esc_attr($params['field_name'])); ?>_no"><?php printf(__('Use file(s) currently uploaded in %s', 'wp_all_import_plugin'), esc_url($wp_uploads['basedir'] . DIRECTORY_SEPARATOR . PMXI_Plugin::FILES_DIRECTORY . DIRECTORY_SEPARATOR)); ?></label>
 					</div>						
 					<div class="input">						
-						<input type="text" name="<?php echo $params['field_name']; ?>" style="width:100%;" placeholder="" value="<?php echo esc_attr($params['field_value']); ?>"/>
+						<input type="text" name="<?php echo esc_attr($params['field_name']); ?>" style="width:100%;" placeholder="" value="<?php echo esc_attr($params['field_value']); ?>"/>
 					</div>										
 				</div>
 				<?php
@@ -322,10 +322,10 @@ class PMXI_API
 				if ( ! $in_the_bottom and $is_full_width ) $styles = 'wpallimport-full-with-not-bottom';
 				
 				?>				
-				<div class="wpallimport-collapsed closed wpallimport-section <?php echo (($in_the_bottom and $is_full_width) ? 'wpallimport-sub-options-full-width' : 'wpallimport-sub-options'); echo ((!$is_full_width) ? ' wpallimport-dependent-options' : '');?> <?php echo $styles; ?>">
+				<div class="wpallimport-collapsed closed wpallimport-section <?php echo (($in_the_bottom and $is_full_width) ? 'wpallimport-sub-options-full-width' : 'wpallimport-sub-options'); echo ((!$is_full_width) ? ' wpallimport-dependent-options' : '');?> <?php echo esc_attr($styles); ?>">
 					<div class="wpallimport-content-section <?php echo (($is_full_width and !$in_the_bottom) ? 'rad4' : 'wpallimport-bottom-radius');?>">
 						<div class="wpallimport-collapsed-header">
-							<h3 style="color:#40acad;"><?php echo $label; ?></h3>	
+							<h3 style="color:#40acad;"><?php echo wp_kses_post($label); ?></h3>
 						</div>
 						<div class="wpallimport-collapsed-content" style="padding: 0;">										
 							<div class="wpallimport-collapsed-content-inner">	
@@ -478,7 +478,7 @@ class PMXI_API
 					$logger and call_user_func($logger, __('- found base64_encoded image', 'wp_all_import_plugin'));
 					$image_filepath = $targetDir . '/' . $image_filename;
 					imagejpeg($img, $image_filepath);
-					if ( ! ($image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath)) or ! in_array($image_info[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+					if ( ! ($image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath)) or ! in_array($image_info[2], wp_all_import_supported_image_types())) {
 						$logger and call_user_func($logger, sprintf(__('- <b>WARNING</b>: File %s is not a valid image and cannot be set as featured one', 'wp_all_import_plugin'), $image_filepath));
 					} else {
 						$result = true;
@@ -514,7 +514,7 @@ class PMXI_API
 				}	
 				// Validate import images.
 				elseif ($file_type == 'images') {
-					if ( preg_match('%\W(svg)$%i', wp_all_import_basename($image_filepath)) or $image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath) and in_array($image_info[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+					if ( preg_match('%\W(svg)$%i', wp_all_import_basename($image_filepath)) or $image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath) and in_array($image_info[2], wp_all_import_supported_image_types())) {
                         $logger and call_user_func($logger, sprintf(__('- Image `%s` has been successfully found', 'wp_all_import_plugin'), $wpai_image_path));
                         $result = true;
 					} else {
@@ -545,7 +545,7 @@ class PMXI_API
 			} else {
 					
 				if ($file_type == 'images') {
-					if ( preg_match('%\W(svg)$%i', wp_all_import_basename($image_filepath)) or $image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath) and in_array($image_info[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+					if ( preg_match('%\W(svg)$%i', wp_all_import_basename($image_filepath)) or $image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath) and in_array($image_info[2], wp_all_import_supported_image_types())) {
 						$result = true;		
 						$logger and call_user_func($logger, sprintf(__('- Image `%s` has been successfully downloaded', 'wp_all_import_plugin'), $url));									
 					}
@@ -568,7 +568,7 @@ class PMXI_API
 				} else {
 					
 					if ($file_type == 'images') {
-						if ( preg_match('%\W(svg)$%i', wp_all_import_basename($image_filepath)) or $image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath) and in_array($image_info[2], array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+						if ( preg_match('%\W(svg)$%i', wp_all_import_basename($image_filepath)) or $image_info = apply_filters('pmxi_getimagesize', @getimagesize($image_filepath), $image_filepath) and in_array($image_info[2], wp_all_import_supported_image_types())) {
                             $result = true;
                             $logger and call_user_func($logger, sprintf(__('- Image `%s` has been successfully downloaded', 'wp_all_import_plugin'), $url));
 						} else {

@@ -16,7 +16,7 @@ class Factory implements \IWPML_Backend_Action_Loader, \IWPML_Frontend_Action_Lo
 	 * Create hooks.
 	 *
 	 * @return IWPML_Action[]
-	 * @throws \Auryn\InjectionException Auryn Exception.
+	 * @throws \WPML\Auryn\InjectionException Auryn Exception.
 	 */
 	public function create() {
 		$manager = ManagerFactory::create();

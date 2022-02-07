@@ -2,10 +2,17 @@
 
 class WPML_Redirect_By_Param extends WPML_Redirection {
 
-	private $post_like_params = array( 'p' => 1, 'page_id' => 1 );
-	private $term_like_params  = array( 'cat_ID' => 1, 'cat' => 1, 'tag' => 1 );
+	private $post_like_params = array(
+		'p'       => 1,
+		'page_id' => 1,
+	);
+	private $term_like_params = array(
+		'cat_ID' => 1,
+		'cat'    => 1,
+		'tag'    => 1,
+	);
 
-	/** @var Sitepress */
+	/** @var SitePress */
 	private $sitepress;
 
 	/**
@@ -13,7 +20,7 @@ class WPML_Redirect_By_Param extends WPML_Redirection {
 	 * @param WPML_URL_Converter       $url_converter
 	 * @param WPML_Request             $request_handler
 	 * @param WPML_Language_Resolution $lang_resolution
-	 * @param Sitepress                $sitepress
+	 * @param SitePress                $sitepress
 	 */
 	public function __construct( $tax_sync_option, &$url_converter, &$request_handler, &$lang_resolution, &$sitepress ) {
 		parent::__construct( $url_converter, $request_handler, $lang_resolution );
@@ -49,22 +56,24 @@ class WPML_Redirect_By_Param extends WPML_Redirection {
 		return $target;
 	}
 
-	private function find_potential_translation( $query_params, $lang_code ){
-		if ( count ( $translatable_params = array_intersect_key ( $query_params, $this->post_like_params ) ) === 1 ) {
+	private function find_potential_translation( $query_params, $lang_code ) {
+		if ( count( $translatable_params = array_intersect_key( $query_params, $this->post_like_params ) ) === 1 ) {
 			/** @var WPML_Post_Translation $wpml_post_translations */
 			global $wpml_post_translations;
-			$potential_translation = $wpml_post_translations->element_id_in (
-				$query_params[ ( $parameter = key($translatable_params) ) ],
-				$lang_code );
-		} elseif( count ( $translatable_params = array_intersect_key ( $query_params, $this->term_like_params ) ) === 1 ) {
+			$potential_translation = $wpml_post_translations->element_id_in(
+				$query_params[ ( $parameter = key( $translatable_params ) ) ],
+				$lang_code
+			);
+		} elseif ( count( $translatable_params = array_intersect_key( $query_params, $this->term_like_params ) ) === 1 ) {
 			/** @var WPML_Term_Translation $wpml_term_translations */
 			global $wpml_term_translations;
 			$potential_translation = $wpml_term_translations->term_id_in(
-				$query_params[ ( $parameter = key($translatable_params) ) ],
-				$lang_code );
+				$query_params[ ( $parameter = key( $translatable_params ) ) ],
+				$lang_code
+			);
 		}
 		/** @var String $parameter */
-		return isset($potential_translation) ? array($parameter, $potential_translation) : false;
+		return isset( $potential_translation, $parameter ) ? array( $parameter, $potential_translation ) : false;
 	}
 
 	/**
@@ -92,8 +101,8 @@ class WPML_Redirect_By_Param extends WPML_Redirection {
 		}
 
 		if ( ( $potential_translation = $this->find_potential_translation( $query_params, $lang_code ) ) !== false
-		     && (int) $query_params[ $potential_translation[0] ] !== (int) $potential_translation[1]
-		     && ! $element_lang
+			 && (int) $query_params[ $potential_translation[0] ] !== (int) $potential_translation[1]
+			 && ! $element_lang
 		) {
 			$query_params[ $potential_translation[0] ] = $potential_translation[1];
 			$changed                                   = true;
@@ -107,8 +116,9 @@ class WPML_Redirect_By_Param extends WPML_Redirection {
 		$qs_parts         = explode( '?', $raw_query_string );
 		$query_string     = array_pop( $qs_parts );
 
-		$query_params_new = $this->needs_redirect( $query_string,
-		                                           $this->url_converter->get_language_from_url( $raw_query_string )
+		$query_params_new = $this->needs_redirect(
+			$query_string,
+			$this->url_converter->get_language_from_url( $raw_query_string )
 		);
 
 		return $query_params_new !== false ? rawurldecode( http_build_query( $query_params_new ) ) : false;
@@ -120,7 +130,7 @@ class WPML_Redirect_By_Param extends WPML_Redirection {
 	 * @return null|string
 	 */
 	private function get_element_language( $query_params_string ) {
-		$language = '';
+		$language                          = '';
 		list( $element_id, $element_type ) = $this->get_element_details( $query_params_string );
 
 		if ( $element_id && $element_type ) {
@@ -157,8 +167,8 @@ class WPML_Redirect_By_Param extends WPML_Redirection {
 	 */
 	public function template_redirect_action() {
 		if ( $this->sitepress->get_wp_api()->is_front_page()
-		     && $this->sitepress->get_wp_api()->get_query_var('page')
-		     && $this->sitepress->get_default_language() !== $this->sitepress->get_current_language()
+			 && $this->sitepress->get_wp_api()->get_query_var( 'page' )
+			 && $this->sitepress->get_default_language() !== $this->sitepress->get_current_language()
 		) {
 			remove_action( 'template_redirect', 'redirect_canonical' );
 		}

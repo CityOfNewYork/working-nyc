@@ -24,7 +24,7 @@ class WPML_Verify_SitePress_Settings {
 		$default_settings = [
 			'interview_translators'              => 1,
 			'existing_content_language_verified' => 0,
-			'language_negotiation_type'          => 3,
+			'language_negotiation_type'          => 1,
 			'icl_lso_link_empty'                 => 0,
 			'sync_page_ordering'                 => 1,
 			'sync_page_parent'                   => 1,
@@ -81,7 +81,7 @@ class WPML_Verify_SitePress_Settings {
 			'tm_block_retranslating_terms'       => 1,
 		];
 
-		//configured for three levels
+		// configured for three levels
 		$update_settings = false;
 		foreach ( $default_settings as $key => $value ) {
 			if ( is_array( $value ) ) {

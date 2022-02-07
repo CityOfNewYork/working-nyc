@@ -24,6 +24,9 @@ use function WPML\FP\curryN;
 class Version {
 	use Macroable;
 
+	/**
+	 * @return void
+	 */
 	public static function init() {
 
 		self::macro( 'firstInstallation', [ '\WPML_Installation', 'getStartVersion' ] );

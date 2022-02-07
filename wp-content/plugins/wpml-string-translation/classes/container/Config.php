@@ -7,8 +7,9 @@ namespace WPML\ST\Container;
 
 class Config {
 
-	static public function getSharedClasses() {
+	public static function getSharedClasses() {
 		return [
+			\WPML\ST\StringsCleanup\UntranslatedStrings::class,
 			\WPML\ST\Gettext\AutoRegisterSettings::class,
 			\WPML\ST\Gettext\Hooks::class,
 			\WPML\ST\Gettext\Settings::class,
@@ -29,15 +30,16 @@ class Config {
 		];
 	}
 
-	static public function getAliases() {
+	public static function getAliases() {
 		return [
 			\WPML_ST_Translations_File_Dictionary_Storage::class => \WPML_ST_Translations_File_Dictionary_Storage_Table::class,
 		];
 	}
 
-	static public function getDelegated() {
+	public static function getDelegated() {
 		return [
-			\WPML_Admin_Texts::class => function() { return wpml_st_load_admin_texts(); },
+			\WPML_Admin_Texts::class => function() {
+				return wpml_st_load_admin_texts(); },
 		];
 	}
 

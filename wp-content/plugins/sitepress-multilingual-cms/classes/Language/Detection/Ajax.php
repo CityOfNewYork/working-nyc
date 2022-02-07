@@ -13,12 +13,14 @@ class Ajax extends WPML_Request {
 
 	public function get_requested_lang() {
 		return Maybe::of( $_POST )
-		            ->map( Obj::prop( 'lang' ) )
-		            ->filter( Lst::includes( Fns::__, $this->active_languages ) )
-		            ->map( 'sanitize_text_field' )
-		            ->getOrElse( function () {
-			            return $this->get_cookie_lang();
-		            } );
+					->map( Obj::prop( 'lang' ) )
+					->filter( Lst::includes( Fns::__, $this->active_languages ) )
+					->map( 'sanitize_text_field' )
+					->getOrElse(
+						function () {
+							return $this->get_cookie_lang();
+						}
+					);
 	}
 
 	protected function get_cookie_name() {
@@ -30,8 +32,8 @@ class Ajax extends WPML_Request {
 	 */
 	private function is_admin_action_from_referer() {
 		return (bool) Maybe::of( $_SERVER )
-		                   ->map( Obj::prop( 'HTTP_REFERER' ) )
-		                   ->map( Str::pos( '/wp-admin/' ) )
-		                   ->getOrElse( false );
+						   ->map( Obj::prop( 'HTTP_REFERER' ) )
+						   ->map( Str::pos( '/wp-admin/' ) )
+						   ->getOrElse( false );
 	}
 }

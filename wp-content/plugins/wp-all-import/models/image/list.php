@@ -50,8 +50,7 @@ class PMXI_Image_List extends PMXI_Model_List {
                 $attch = get_post($attid);
                 if ($attch) {
                     break;
-                }
-                else{
+                } else {
                     $imageRecord->delete();
                 }
             }

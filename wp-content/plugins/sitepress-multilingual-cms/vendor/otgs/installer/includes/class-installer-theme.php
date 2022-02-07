@@ -161,7 +161,11 @@ class Installer_Theme_Class {
             }
 
             if ( !(empty($js_array)) ) {
-                wp_enqueue_script( 'installer-theme-install', WP_Installer()->res_url() . '/res/js/installer_theme_install.js', array('jquery', 'installer-admin'), WP_Installer()->version() );
+	            wp_register_script( 'otgs-purify', WP_Installer()->res_url() . '/dist/js/domPurify/app.js', [], WP_Installer()->version() );
+	            wp_enqueue_script( 'installer-theme-install', WP_Installer()->res_url() . '/res/js/installer_theme_install.js', [
+		            'jquery',
+		            'otgs-purify'
+	            ], WP_Installer()->version() );
                 $installer_ajax_url = admin_url( 'admin-ajax.php' );
 
                 if ( is_ssl() ) {

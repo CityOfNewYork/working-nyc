@@ -3,21 +3,19 @@
 class WPML_Package_Helper {
 	const PREFIX_BATCH_STRING = 'batch-string-';
 
-	private   $default_language;
-	private   $last_registered_string_id;
+	private $default_language;
+	private $last_registered_string_id;
 	protected $registered_strings;
-	private   $package_cleanup;
-	private   $package_factory;
+	private $package_cleanup;
+	private $package_factory;
 
 	private $cache_group;
 
 	function __construct() {
-		global $wpdb;
-
 		$this->registered_strings = array();
 		$this->cache_group        = 'string_package';
-		$this->package_cleanup = new WPML_ST_Package_Cleanup( $wpdb );
-		$this->package_factory = new WPML_ST_Package_Factory();
+		$this->package_cleanup    = new WPML_ST_Package_Cleanup();
+		$this->package_factory    = new WPML_ST_Package_Factory();
 	}
 
 	public function set_package_factory( WPML_ST_Package_Factory $factory ) {
@@ -25,7 +23,7 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param $package_id
+	 * @param int $package_id
 	 */
 	protected function delete_package( $package_id ) {
 		// delete the strings and the translations
@@ -43,7 +41,7 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param $package_id
+	 * @param int $package_id
 	 *
 	 * @return array
 	 */
@@ -57,7 +55,7 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param $package_id
+	 * @param int $package_id
 	 */
 	protected function delete_package_strings( $package_id ) {
 		$strings = $this->get_strings_ids_from_package_id( $package_id );
@@ -85,10 +83,10 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param $default
-	 * @param $package
-	 * @param $string_name
-	 * @param $string_value
+	 * @param int                               $default
+	 * @param \stdClass|\WPML_Package|array|int $package
+	 * @param string                            $string_name
+	 * @param string                            $string_value
 	 *
 	 * @return bool|int|mixed
 	 */
@@ -174,7 +172,7 @@ class WPML_Package_Helper {
 
 		if ( $string_id ) {
 			$package_storage = new WPML_ST_Package_Storage( $package->ID, $wpdb );
-			$did_update = $package_storage->update( $string_title, $string_type, $string_value, $string_id );
+			$did_update      = $package_storage->update( $string_title, $string_type, $string_value, $string_id );
 
 			if ( $did_update ) {
 				$this->flush_cache();
@@ -239,9 +237,9 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param  WPML_Package  $item
-	 * @param  int|WP_Post|WPML_Package  $package
-	 * @param  string  $type
+	 * @param  WPML_Package             $item
+	 * @param  int|WP_Post|WPML_Package $package
+	 * @param  string                   $type
 	 *
 	 * @return bool|WPML_Package
 	 */
@@ -289,7 +287,7 @@ class WPML_Package_Helper {
 	 * @param string $batch_string_name
 	 *
 	 * @return WPML_ST_String|null
-	 * @throws \Auryn\InjectionException
+	 * @throws \WPML\Auryn\InjectionException
 	 */
 	private function get_st_string_by_batch_name( $batch_string_name ) {
 		$string_id = (int) \WPML\FP\Str::replace( self::PREFIX_BATCH_STRING, '', $batch_string_name );
@@ -349,10 +347,10 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param              $language_for_element
-	 * @param WPML_Package $current_document
+	 * @param string        $language_for_element
+	 * @param \WPML_Package $current_document
 	 *
-	 * @return mixed
+	 * @return null|string
 	 */
 	final public function get_language_for_element( $language_for_element, $current_document ) {
 		if ( $this->is_a_package( $current_document ) ) {
@@ -373,7 +371,7 @@ class WPML_Package_Helper {
 		if ( ! $this->verify_ajax_call( 'wpml_package_nonce' ) ) {
 			die( 'verification failed' );
 		}
-		$packages_ids = $_POST[ 'packages' ];
+		$packages_ids = $_POST['packages'];
 
 		$this->delete_packages( $packages_ids );
 
@@ -381,10 +379,10 @@ class WPML_Package_Helper {
 	}
 
 	final function delete_package_action( $name, $kind ) {
-		$package_data[ 'name' ] = $name;
-		$package_data[ 'kind' ] = $kind;
+		$package_data['name'] = $name;
+		$package_data['kind'] = $kind;
 
-		$package                = $this->package_factory->create( $package_data );
+		$package = $this->package_factory->create( $package_data );
 		if ( $package && $package->ID && $this->is_a_package( $package ) ) {
 			$this->delete_package( $package->ID );
 			$this->flush_cache();
@@ -420,35 +418,36 @@ class WPML_Package_Helper {
 			die( 'verification failed' );
 		}
 
-		$package_id = $_POST[ 'package_id' ];
+		$package_id = $_POST['package_id'];
 
 		$package = $this->package_factory->create( $package_id );
-		$package->set_strings_language( $_POST[ 'package_lang' ] );
+		$package->set_strings_language( $_POST['package_lang'] );
 
 		$package_job = new WPML_Package_TM( $package );
-		$package_job->set_language_details( $_POST[ 'package_lang' ] );
+		$package_job->set_language_details( $_POST['package_lang'] );
 
-		$args = json_decode( base64_decode( $_POST[ 'args' ] ) );
+		$args = filter_var_array( json_decode( base64_decode( $_POST['args'] ) ), FILTER_SANITIZE_STRING );
 
 		$package_metabox = new WPML_Package_Translation_Metabox( $package, $wpdb, $sitepress, $args );
-		$response = array( 'metabox' => $package_metabox->get_metabox_status(),
-						   'lang'    => $package_metabox->get_package_language_name()
-						 );
+		$response        = array(
+			'metabox' => $package_metabox->get_metabox_status(),
+			'lang'    => $package_metabox->get_package_language_name(),
+		);
 
 		wp_send_json( $response );
 	}
 
 	/**
-	 * @param $string_name
-	 * @param $package_id
-	 * @param $column
+	 * @param string $string_name
+	 * @param int    $package_id
+	 * @param string $column
 	 *
-	 * @return mixed
+	 * @return string
 	 */
-	final private function get_editor_string_element( $string_name, $package_id, $column ) {
+	private function get_editor_string_element( $string_name, $package_id, $column ) {
 		global $wpdb;
 
-		$element_query    = "SELECT " . $column . "
+		$element_query    = 'SELECT ' . $column . "
 						FROM {$wpdb->prefix}icl_strings
 						WHERE string_package_id=%d AND name=%s";
 		$element_prepared = $wpdb->prepare( $element_query, array( $package_id, $string_name ) );
@@ -457,7 +456,7 @@ class WPML_Package_Helper {
 		return $element;
 	}
 
-	final private function flush_cache() {
+	private function flush_cache() {
 		// delete the cache key we use
 		wp_cache_delete( 'get_all_packages', $this->cache_group );
 	}
@@ -478,37 +477,37 @@ class WPML_Package_Helper {
 	}
 
 	/**
-	 * @param $package_id
+	 * @param int $package_id
 	 */
-	final private function init_package_registered_strings( $package_id ) {
+	private function init_package_registered_strings( $package_id ) {
 		if ( ! isset( $this->registered_strings[ $package_id ] ) ) {
 			$this->registered_strings[ $package_id ] = array( 'strings' => array() );
 		}
 	}
 
 	/**
-	 * @param $package_id
-	 * @param $string_type
-	 * @param $string_title
-	 * @param $string_name
-	 * @param $string_value
+	 * @param int    $package_id
+	 * @param string $string_type
+	 * @param string $string_title
+	 * @param string $string_name
+	 * @param string $string_value
 	 */
-	final private function set_package_registered_strings( $package_id, $string_type, $string_title, $string_name, $string_value ) {
-		$this->registered_strings[ $package_id ][ 'strings' ][ $string_name ] = array(
+	private function set_package_registered_strings( $package_id, $string_type, $string_title, $string_name, $string_value ) {
+		$this->registered_strings[ $package_id ]['strings'][ $string_name ] = array(
 			'title' => $string_title,
 			'kind'  => $string_type,
-			'value' => $string_value
+			'value' => $string_value,
 		);
 	}
 
 	/**
-	 * @param $package
-	 * @param $string_name
-	 * @param $string_value
+	 * @param \stdClass|\WPML_Package|array|int $package
+	 * @param string                            $string_name
+	 * @param string                            $string_value
 	 *
 	 * @return bool|int|mixed
 	 */
-	final private function get_string_id_from_package( $package, $string_name, $string_value ) {
+	private function get_string_id_from_package( $package, $string_name, $string_value ) {
 		if ( ! $package instanceof WPML_Package ) {
 			$package = $this->package_factory->create( $package );
 		}
@@ -517,11 +516,11 @@ class WPML_Package_Helper {
 	}
 
 	final function get_external_id_from_package( $package ) {
-		return 'external_' . $package[ 'kind_slug' ] . '_' . $package[ 'ID' ];
+		return 'external_' . $package['kind_slug'] . '_' . $package['ID'];
 	}
 
 	final function get_string_context( $package ) {
-		return sanitize_title_with_dashes( $package[ 'kind_slug' ] . '-' . $package[ 'name' ] );
+		return sanitize_title_with_dashes( $package['kind_slug'] . '-' . $package['name'] );
 	}
 
 	final function get_package_id( $package, $from_cache = true ) {
@@ -535,7 +534,7 @@ class WPML_Package_Helper {
 		$key = $this->get_string_context( $package );
 		if ( ! $from_cache || ! array_key_exists( $key, $cache ) ) {
 			$package_id_query   = "SELECT ID FROM {$wpdb->prefix}icl_string_packages WHERE kind_slug = %s AND name = %s";
-			$package_id_prepare = $wpdb->prepare( $package_id_query, array( $package[ 'kind_slug' ], $package[ 'name' ] ) );
+			$package_id_prepare = $wpdb->prepare( $package_id_query, array( $package['kind_slug'], $package['name'] ) );
 			$package_id         = $wpdb->get_var( $package_id_prepare );
 			if ( ! $package_id ) {
 				return false;
@@ -574,7 +573,7 @@ class WPML_Package_Helper {
 	}
 
 	protected function verify_ajax_call( $ajax_action ) {
-		return isset( $_POST[ 'wpnonce' ] ) && wp_verify_nonce( $_POST[ 'wpnonce' ], $ajax_action );
+		return isset( $_POST['wpnonce'] ) && wp_verify_nonce( $_POST['wpnonce'], $ajax_action );
 	}
 
 	protected function sanitize_string_name( $string_name ) {
@@ -585,7 +584,7 @@ class WPML_Package_Helper {
 
 	public function refresh_packages() {
 
-		//TODO: deprecated.
+		// TODO: deprecated.
 		// This is required to support Layouts 1.0
 		do_action( 'WPML_register_string_packages', 'layout', array() );
 		// TODO: END deprecated.
@@ -608,12 +607,12 @@ class WPML_Package_Helper {
 
 		$all_ok = true;
 
-		$strings_in = implode(',', $strings);
+		$strings_in = implode( ',', $strings );
 
-		$string_packages_query   = "SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE id IN ($strings_in)";
-		$package_ids             = $wpdb->get_col( $string_packages_query );
+		$string_packages_query = "SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE id IN ($strings_in)";
+		$package_ids           = $wpdb->get_col( $string_packages_query );
 
-		foreach( $package_ids as $package_id ) {
+		foreach ( $package_ids as $package_id ) {
 			if ( $package_id ) {
 				$package = $this->package_factory->create( $package_id );
 				if ( ! $package->are_all_strings_included( $strings ) ) {
@@ -627,10 +626,10 @@ class WPML_Package_Helper {
 			$this->set_packages_language( $package_ids, $lang );
 		}
 
-		$response = array();
-		$response[ 'success' ] = $all_ok;
+		$response            = array();
+		$response['success'] = $all_ok;
 		if ( ! $all_ok ) {
-			$response[ 'error' ] = __( 'Some of the strings selected belong to packages. You can only change the language of these strings if all strings in the packages are selected.', 'wpml-string-translation');
+			$response['error'] = __( 'Some of the strings selected belong to packages. You can only change the language of these strings if all strings in the packages are selected.', 'wpml-string-translation' );
 		}
 
 		return $response;
@@ -640,14 +639,14 @@ class WPML_Package_Helper {
 		global $wpdb;
 
 		if ( ! empty( $langs ) ) {
-			foreach( $langs as &$lang ) {
+			foreach ( $langs as &$lang ) {
 				$lang = "'" . $lang . "'";
 			}
-			$langs = implode(',', $langs);
+			$langs = implode( ',', $langs );
 
-			$string_packages_query   = "SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE context='%s' AND language IN ($langs)";
-			$string_packages_query   = $wpdb->prepare( $string_packages_query, $domain );
-			$package_ids             = $wpdb->get_col( $string_packages_query );
+			$string_packages_query = "SELECT DISTINCT string_package_id FROM {$wpdb->prefix}icl_strings WHERE context='%s' AND language IN ($langs)";
+			$string_packages_query = $wpdb->prepare( $string_packages_query, $domain );
+			$package_ids           = $wpdb->get_col( $string_packages_query );
 
 			$this->set_packages_language( $package_ids, $to_lang );
 		}
@@ -655,7 +654,7 @@ class WPML_Package_Helper {
 	}
 
 	private function set_packages_language( $package_ids, $lang ) {
-		foreach( $package_ids as $package_id ) {
+		foreach ( $package_ids as $package_id ) {
 			if ( $package_id ) {
 				$package = $this->package_factory->create( $package_id );
 				$package->set_strings_language( $lang );
