@@ -28,6 +28,7 @@ $context['meta'] = new WorkingNYC\Meta($post->ID);
 $schemas = array();
 
 $arr_ed = array('University', 'College');
+$ed = false;
 
 foreach ($arr_ed as $value) {
   if (strpos($post->program_agency, $value) !== false || strpos($post->program_provider, $value) !== false) {

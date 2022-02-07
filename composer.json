@@ -50,10 +50,10 @@
   },
   "scripts": {
     "development": [
-      "composer dump-autoload"
+      "composer dump-autoload --ignore-platform-req=php"
     ],
     "production": [
-      "composer dump-autoload --no-dev --optimize"
+      "composer dump-autoload --no-dev --optimize --ignore-platform-req=php"
     ],
     "predeploy": [
       "@development",
@@ -67,7 +67,7 @@
       "vendor/bin/phpcbf --standard=phpcs.xml"
     ],
     "version": [
-      "composer update nothing --ignore-platform-reqs",
+      "composer update nothing --ignore-platform-req=php",
       "@production"
     ],
     "deps": [
