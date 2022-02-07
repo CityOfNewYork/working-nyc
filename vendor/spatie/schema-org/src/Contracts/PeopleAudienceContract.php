@@ -16,6 +16,8 @@ interface PeopleAudienceContract
 
     public function geographicArea($geographicArea);
 
+    public function healthCondition($healthCondition);
+
     public function identifier($identifier);
 
     public function image($image);
@@ -36,9 +38,13 @@ interface PeopleAudienceContract
 
     public function subjectOf($subjectOf);
 
+    public function suggestedAge($suggestedAge);
+
     public function suggestedGender($suggestedGender);
 
     public function suggestedMaxAge($suggestedMaxAge);
+
+    public function suggestedMeasurement($suggestedMeasurement);
 
     public function suggestedMinAge($suggestedMinAge);
 

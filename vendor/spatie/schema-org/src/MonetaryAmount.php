@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\MonetaryAmountContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -13,10 +14,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * salary, etc. It is recommended to use [[PriceSpecification]] Types to
  * describe the price of an Offer, Invoice, etc.
  *
- * @see http://schema.org/MonetaryAmount
+ * @see https://schema.org/MonetaryAmount
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO
  *
  */
-class MonetaryAmount extends BaseType implements IntangibleContract, StructuredValueContract, ThingContract
+class MonetaryAmount extends BaseType implements MonetaryAmountContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -30,7 +32,7 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -44,7 +46,7 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -66,7 +68,8 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/currency
+     * @see https://schema.org/currency
+     * @link https://github.com/schemaorg/schemaorg/issues/1253
      */
     public function currency($currency)
     {
@@ -80,7 +83,7 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -97,7 +100,7 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -111,11 +114,11 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -126,11 +129,11 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -142,11 +145,11 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -160,7 +163,8 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/maxValue
+     * @see https://schema.org/maxValue
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function maxValue($maxValue)
     {
@@ -174,7 +178,8 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/minValue
+     * @see https://schema.org/minValue
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function minValue($minValue)
     {
@@ -188,7 +193,7 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -199,11 +204,11 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -219,7 +224,7 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -229,11 +234,12 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -247,11 +253,42 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
         return $this->setProperty('url', $url);
+    }
+
+    /**
+     * The date when the item becomes valid.
+     *
+     * @param \DateTimeInterface|\DateTimeInterface[] $validFrom
+     *
+     * @return static
+     *
+     * @see https://schema.org/validFrom
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
+     */
+    public function validFrom($validFrom)
+    {
+        return $this->setProperty('validFrom', $validFrom);
+    }
+
+    /**
+     * The date after when the item is not valid. For example the end of an
+     * offer, salary period, or a period of opening hours.
+     *
+     * @param \DateTimeInterface|\DateTimeInterface[] $validThrough
+     *
+     * @return static
+     *
+     * @see https://schema.org/validThrough
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
+     */
+    public function validThrough($validThrough)
+    {
+        return $this->setProperty('validThrough', $validThrough);
     }
 
     /**
@@ -266,11 +303,12 @@ class MonetaryAmount extends BaseType implements IntangibleContract, StructuredV
      * * Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a
      * decimal point. Avoid using these symbols as a readability separator.
      *
-     * @param StructuredValue|StructuredValue[]|bool|bool[]|float|float[]|int|int[]|string|string[] $value
+     * @param \Spatie\SchemaOrg\Contracts\StructuredValueContract|\Spatie\SchemaOrg\Contracts\StructuredValueContract[]|bool|bool[]|float|float[]|int|int[]|string|string[] $value
      *
      * @return static
      *
-     * @see http://schema.org/value
+     * @see https://schema.org/value
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function value($value)
     {

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\ParentAudienceContract;
 use \Spatie\SchemaOrg\Contracts\AudienceContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\PeopleAudienceContract;
@@ -11,10 +12,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * A set of characteristics describing parents, who can be interested in viewing
  * some content.
  *
- * @see http://schema.org/ParentAudience
+ * @see https://schema.org/ParentAudience
  *
  */
-class ParentAudience extends BaseType implements AudienceContract, IntangibleContract, PeopleAudienceContract, ThingContract
+class ParentAudience extends BaseType implements ParentAudienceContract, AudienceContract, IntangibleContract, PeopleAudienceContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -28,7 +29,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -42,7 +43,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -57,7 +58,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/audienceType
+     * @see https://schema.org/audienceType
      */
     public function audienceType($audienceType)
     {
@@ -71,7 +72,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/childMaxAge
+     * @see https://schema.org/childMaxAge
      */
     public function childMaxAge($childMaxAge)
     {
@@ -85,7 +86,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/childMinAge
+     * @see https://schema.org/childMinAge
      */
     public function childMinAge($childMinAge)
     {
@@ -99,7 +100,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -116,7 +117,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -126,15 +127,31 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
     /**
      * The geographic area associated with the audience.
      *
-     * @param AdministrativeArea|AdministrativeArea[] $geographicArea
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[] $geographicArea
      *
      * @return static
      *
-     * @see http://schema.org/geographicArea
+     * @see https://schema.org/geographicArea
      */
     public function geographicArea($geographicArea)
     {
         return $this->setProperty('geographicArea', $geographicArea);
+    }
+
+    /**
+     * Specifying the health condition(s) of a patient, medical study, or other
+     * target audience.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\MedicalConditionContract|\Spatie\SchemaOrg\Contracts\MedicalConditionContract[] $healthCondition
+     *
+     * @return static
+     *
+     * @see https://schema.org/healthCondition
+     * @see https://health-lifesci.schema.org
+     */
+    public function healthCondition($healthCondition)
+    {
+        return $this->setProperty('healthCondition', $healthCondition);
     }
 
     /**
@@ -144,11 +161,11 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -159,11 +176,11 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -175,11 +192,11 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -193,7 +210,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -204,11 +221,11 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -222,7 +239,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/requiredGender
+     * @see https://schema.org/requiredGender
      */
     public function requiredGender($requiredGender)
     {
@@ -236,7 +253,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/requiredMaxAge
+     * @see https://schema.org/requiredMaxAge
      */
     public function requiredMaxAge($requiredMaxAge)
     {
@@ -250,7 +267,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/requiredMinAge
+     * @see https://schema.org/requiredMinAge
      */
     public function requiredMinAge($requiredMinAge)
     {
@@ -266,7 +283,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -276,11 +293,12 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -288,13 +306,31 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
     }
 
     /**
-     * The gender of the person or audience.
+     * The age or age range for the intended audience or person, for example
+     * 3-12 months for infants, 1-5 years for toddlers.
      *
-     * @param string|string[] $suggestedGender
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $suggestedAge
      *
      * @return static
      *
-     * @see http://schema.org/suggestedGender
+     * @see https://schema.org/suggestedAge
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2811
+     */
+    public function suggestedAge($suggestedAge)
+    {
+        return $this->setProperty('suggestedAge', $suggestedAge);
+    }
+
+    /**
+     * The suggested gender of the intended person or audience, for example
+     * "male", "female", or "unisex".
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GenderTypeContract|\Spatie\SchemaOrg\Contracts\GenderTypeContract[]|string|string[] $suggestedGender
+     *
+     * @return static
+     *
+     * @see https://schema.org/suggestedGender
      */
     public function suggestedGender($suggestedGender)
     {
@@ -302,13 +338,13 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
     }
 
     /**
-     * Maximal age recommended for viewing content.
+     * Maximum recommended age in years for the audience or user.
      *
      * @param float|float[]|int|int[] $suggestedMaxAge
      *
      * @return static
      *
-     * @see http://schema.org/suggestedMaxAge
+     * @see https://schema.org/suggestedMaxAge
      */
     public function suggestedMaxAge($suggestedMaxAge)
     {
@@ -316,13 +352,31 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
     }
 
     /**
-     * Minimal age recommended for viewing content.
+     * A suggested range of body measurements for the intended audience or
+     * person, for example inseam between 32 and 34 inches or height between 170
+     * and 190 cm. Typically found on a size chart for wearable products.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $suggestedMeasurement
+     *
+     * @return static
+     *
+     * @see https://schema.org/suggestedMeasurement
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2811
+     */
+    public function suggestedMeasurement($suggestedMeasurement)
+    {
+        return $this->setProperty('suggestedMeasurement', $suggestedMeasurement);
+    }
+
+    /**
+     * Minimum recommended age in years for the audience or user.
      *
      * @param float|float[]|int|int[] $suggestedMinAge
      *
      * @return static
      *
-     * @see http://schema.org/suggestedMinAge
+     * @see https://schema.org/suggestedMinAge
      */
     public function suggestedMinAge($suggestedMinAge)
     {
@@ -336,7 +390,7 @@ class ParentAudience extends BaseType implements AudienceContract, IntangibleCon
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

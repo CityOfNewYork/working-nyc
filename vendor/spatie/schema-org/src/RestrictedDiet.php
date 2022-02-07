@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\RestrictedDietContract;
 use \Spatie\SchemaOrg\Contracts\EnumerationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,87 +11,88 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * A diet restricted to certain foods or preparations for cultural, religious,
  * health or lifestyle reasons.
  *
- * @see http://schema.org/RestrictedDiet
+ * @see https://schema.org/RestrictedDiet
  *
+ * @method static supersededBy($supersededBy) The value should be instance of pending types Class|Class[]|Enumeration|Enumeration[]|Property|Property[]
  */
-class RestrictedDiet extends BaseType implements EnumerationContract, IntangibleContract, ThingContract
+class RestrictedDiet extends BaseType implements RestrictedDietContract, EnumerationContract, IntangibleContract, ThingContract
 {
     /**
      * A diet appropriate for people with diabetes.
      *
-     * @see http://schema.org/DiabeticDiet
+     * @see https://schema.org/DiabeticDiet
      */
-     const DiabeticDiet = 'http://schema.org/DiabeticDiet';
+     const DiabeticDiet = 'https://schema.org/DiabeticDiet';
 
     /**
      * A diet exclusive of gluten.
      *
-     * @see http://schema.org/GlutenFreeDiet
+     * @see https://schema.org/GlutenFreeDiet
      */
-     const GlutenFreeDiet = 'http://schema.org/GlutenFreeDiet';
+     const GlutenFreeDiet = 'https://schema.org/GlutenFreeDiet';
 
     /**
      * A diet conforming to Islamic dietary practices.
      *
-     * @see http://schema.org/HalalDiet
+     * @see https://schema.org/HalalDiet
      */
-     const HalalDiet = 'http://schema.org/HalalDiet';
+     const HalalDiet = 'https://schema.org/HalalDiet';
 
     /**
      * A diet conforming to Hindu dietary practices, in particular, beef-free.
      *
-     * @see http://schema.org/HinduDiet
+     * @see https://schema.org/HinduDiet
      */
-     const HinduDiet = 'http://schema.org/HinduDiet';
+     const HinduDiet = 'https://schema.org/HinduDiet';
 
     /**
      * A diet conforming to Jewish dietary practices.
      *
-     * @see http://schema.org/KosherDiet
+     * @see https://schema.org/KosherDiet
      */
-     const KosherDiet = 'http://schema.org/KosherDiet';
+     const KosherDiet = 'https://schema.org/KosherDiet';
 
     /**
      * A diet focused on reduced calorie intake.
      *
-     * @see http://schema.org/LowCalorieDiet
+     * @see https://schema.org/LowCalorieDiet
      */
-     const LowCalorieDiet = 'http://schema.org/LowCalorieDiet';
+     const LowCalorieDiet = 'https://schema.org/LowCalorieDiet';
 
     /**
      * A diet focused on reduced fat and cholesterol intake.
      *
-     * @see http://schema.org/LowFatDiet
+     * @see https://schema.org/LowFatDiet
      */
-     const LowFatDiet = 'http://schema.org/LowFatDiet';
+     const LowFatDiet = 'https://schema.org/LowFatDiet';
 
     /**
      * A diet appropriate for people with lactose intolerance.
      *
-     * @see http://schema.org/LowLactoseDiet
+     * @see https://schema.org/LowLactoseDiet
      */
-     const LowLactoseDiet = 'http://schema.org/LowLactoseDiet';
+     const LowLactoseDiet = 'https://schema.org/LowLactoseDiet';
 
     /**
      * A diet focused on reduced sodium intake.
      *
-     * @see http://schema.org/LowSaltDiet
+     * @see https://schema.org/LowSaltDiet
      */
-     const LowSaltDiet = 'http://schema.org/LowSaltDiet';
+     const LowSaltDiet = 'https://schema.org/LowSaltDiet';
 
     /**
      * A diet exclusive of all animal products.
      *
-     * @see http://schema.org/VeganDiet
+     * @see https://schema.org/VeganDiet
      */
-     const VeganDiet = 'http://schema.org/VeganDiet';
+     const VeganDiet = 'https://schema.org/VeganDiet';
 
     /**
      * A diet exclusive of animal meat.
      *
-     * @see http://schema.org/VegetarianDiet
+     * @see https://schema.org/VegetarianDiet
      */
-     const VegetarianDiet = 'http://schema.org/VegetarianDiet';
+     const VegetarianDiet = 'https://schema.org/VegetarianDiet';
 
     /**
      * An additional type for the item, typically used for adding more specific
@@ -104,7 +106,7 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -118,7 +120,7 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -132,7 +134,7 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -149,7 +151,7 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -163,11 +165,11 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -178,11 +180,11 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -194,11 +196,11 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -212,7 +214,7 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -223,11 +225,11 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -243,7 +245,7 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -253,11 +255,12 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -271,7 +274,7 @@ class RestrictedDiet extends BaseType implements EnumerationContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

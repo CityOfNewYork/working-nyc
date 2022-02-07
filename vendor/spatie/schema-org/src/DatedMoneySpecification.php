@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\DatedMoneySpecificationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -12,10 +13,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * specific period of time. __Note:__ This type has been superseded by
  * [[MonetaryAmount]] use of that type is recommended
  *
- * @see http://schema.org/DatedMoneySpecification
+ * @see https://schema.org/DatedMoneySpecification
  *
  */
-class DatedMoneySpecification extends BaseType implements IntangibleContract, StructuredValueContract, ThingContract
+class DatedMoneySpecification extends BaseType implements DatedMoneySpecificationContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -29,7 +30,7 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -43,7 +44,7 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -53,11 +54,11 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
     /**
      * The amount of money.
      *
-     * @param MonetaryAmount|MonetaryAmount[]|float|float[]|int|int[] $amount
+     * @param \Spatie\SchemaOrg\Contracts\MonetaryAmountContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountContract[]|float|float[]|int|int[] $amount
      *
      * @return static
      *
-     * @see http://schema.org/amount
+     * @see https://schema.org/amount
      */
     public function amount($amount)
     {
@@ -79,7 +80,8 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/currency
+     * @see https://schema.org/currency
+     * @link https://github.com/schemaorg/schemaorg/issues/1253
      */
     public function currency($currency)
     {
@@ -93,7 +95,7 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -110,11 +112,27 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
         return $this->setProperty('disambiguatingDescription', $disambiguatingDescription);
+    }
+
+    /**
+     * The end date and time of the item (in [ISO 8601 date
+     * format](http://en.wikipedia.org/wiki/ISO_8601)).
+     *
+     * @param \DateTimeInterface|\DateTimeInterface[] $endDate
+     *
+     * @return static
+     *
+     * @see https://schema.org/endDate
+     * @link https://github.com/schemaorg/schemaorg/issues/2486
+     */
+    public function endDate($endDate)
+    {
+        return $this->setProperty('endDate', $endDate);
     }
 
     /**
@@ -124,11 +142,11 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -139,11 +157,11 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -155,11 +173,11 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -173,7 +191,7 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -184,11 +202,11 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -204,7 +222,7 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -212,13 +230,30 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
     }
 
     /**
-     * A CreativeWork or Event about this Thing.
+     * The start date and time of the item (in [ISO 8601 date
+     * format](http://en.wikipedia.org/wiki/ISO_8601)).
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \DateTimeInterface|\DateTimeInterface[] $startDate
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/startDate
+     * @link https://github.com/schemaorg/schemaorg/issues/2486
+     */
+    public function startDate($startDate)
+    {
+        return $this->setProperty('startDate', $startDate);
+    }
+
+    /**
+     * A CreativeWork or Event about this Thing.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
+     *
+     * @return static
+     *
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -232,7 +267,7 @@ class DatedMoneySpecification extends BaseType implements IntangibleContract, St
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

@@ -2,11 +2,11 @@
 
 namespace Spatie\SchemaOrg;
 
-use DateTime;
 use ArrayAccess;
-use ReflectionClass;
-use JsonSerializable;
+use DateTime;
 use DateTimeInterface;
+use JsonSerializable;
+use ReflectionClass;
 use Spatie\SchemaOrg\Exceptions\InvalidProperty;
 
 abstract class BaseType implements Type, ArrayAccess, JsonSerializable
@@ -26,7 +26,7 @@ abstract class BaseType implements Type, ArrayAccess, JsonSerializable
 
     public function setProperty(string $property, $value)
     {
-        if ($value !== null) {
+        if ($value !== null && $value !== '') {
             $this->properties[$property] = $value;
         }
 
@@ -59,6 +59,14 @@ abstract class BaseType implements Type, ArrayAccess, JsonSerializable
     public function getProperties(): array
     {
         return $this->properties;
+    }
+
+    /**
+     * @return ReferencedType|static
+     */
+    public function referenced()
+    {
+        return new ReferencedType($this);
     }
 
     public function offsetExists($offset)
@@ -107,7 +115,7 @@ abstract class BaseType implements Type, ArrayAccess, JsonSerializable
             $property = $property->format(DateTime::ATOM);
         }
 
-        if (method_exists($property, '__toString')) {
+        if (is_object($property) && method_exists($property, '__toString')) {
             $property = (string) $property;
         }
 
@@ -120,7 +128,10 @@ abstract class BaseType implements Type, ArrayAccess, JsonSerializable
 
     protected function serializeIdentifier()
     {
-        if (isset($this['identifier'])) {
+        if (
+            isset($this['identifier'])
+            && ! $this['identifier'] instanceof Type
+        ) {
             $this->setProperty('@id', $this['identifier']);
             unset($this['identifier']);
         }

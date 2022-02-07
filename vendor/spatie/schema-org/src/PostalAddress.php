@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\PostalAddressContract;
 use \Spatie\SchemaOrg\Contracts\ContactPointContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
@@ -10,10 +11,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * The mailing address.
  *
- * @see http://schema.org/PostalAddress
+ * @see https://schema.org/PostalAddress
  *
  */
-class PostalAddress extends BaseType implements ContactPointContract, IntangibleContract, StructuredValueContract, ThingContract
+class PostalAddress extends BaseType implements PostalAddressContract, ContactPointContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -27,7 +28,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -38,11 +39,12 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * The country. For example, USA. You can also provide the two-letter [ISO
      * 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1).
      *
-     * @param Country|Country[]|string|string[] $addressCountry
+     * @param \Spatie\SchemaOrg\Contracts\CountryContract|\Spatie\SchemaOrg\Contracts\CountryContract[]|string|string[] $addressCountry
      *
      * @return static
      *
-     * @see http://schema.org/addressCountry
+     * @see https://schema.org/addressCountry
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
      */
     public function addressCountry($addressCountry)
     {
@@ -57,7 +59,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/addressLocality
+     * @see https://schema.org/addressLocality
      */
     public function addressLocality($addressLocality)
     {
@@ -73,7 +75,8 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/addressRegion
+     * @see https://schema.org/addressRegion
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
      */
     public function addressRegion($addressRegion)
     {
@@ -87,7 +90,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -97,11 +100,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
     /**
      * The geographic area where a service or offered item is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[]|string|string[] $areaServed
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $areaServed
      *
      * @return static
      *
-     * @see http://schema.org/areaServed
+     * @see https://schema.org/areaServed
      */
     public function areaServed($areaServed)
     {
@@ -113,11 +116,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * use one of the language codes from the [IETF BCP 47
      * standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]
      *
-     * @param Language|Language[]|string|string[] $availableLanguage
+     * @param \Spatie\SchemaOrg\Contracts\LanguageContract|\Spatie\SchemaOrg\Contracts\LanguageContract[]|string|string[] $availableLanguage
      *
      * @return static
      *
-     * @see http://schema.org/availableLanguage
+     * @see https://schema.org/availableLanguage
      */
     public function availableLanguage($availableLanguage)
     {
@@ -128,11 +131,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * An option available on this contact point (e.g. a toll-free number or
      * support for hearing-impaired callers).
      *
-     * @param ContactPointOption|ContactPointOption[] $contactOption
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointOptionContract|\Spatie\SchemaOrg\Contracts\ContactPointOptionContract[] $contactOption
      *
      * @return static
      *
-     * @see http://schema.org/contactOption
+     * @see https://schema.org/contactOption
      */
     public function contactOption($contactOption)
     {
@@ -148,7 +151,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/contactType
+     * @see https://schema.org/contactType
      */
     public function contactType($contactType)
     {
@@ -162,7 +165,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -179,7 +182,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -193,7 +196,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/email
+     * @see https://schema.org/email
      */
     public function email($email)
     {
@@ -207,7 +210,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/faxNumber
+     * @see https://schema.org/faxNumber
      */
     public function faxNumber($faxNumber)
     {
@@ -217,11 +220,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
     /**
      * The hours during which this service or contact is available.
      *
-     * @param OpeningHoursSpecification|OpeningHoursSpecification[] $hoursAvailable
+     * @param \Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract|\Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract[] $hoursAvailable
      *
      * @return static
      *
-     * @see http://schema.org/hoursAvailable
+     * @see https://schema.org/hoursAvailable
      */
     public function hoursAvailable($hoursAvailable)
     {
@@ -235,11 +238,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -250,11 +253,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -266,11 +269,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -284,7 +287,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -298,7 +301,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/postOfficeBoxNumber
+     * @see https://schema.org/postOfficeBoxNumber
      */
     public function postOfficeBoxNumber($postOfficeBoxNumber)
     {
@@ -312,7 +315,8 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/postalCode
+     * @see https://schema.org/postalCode
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
      */
     public function postalCode($postalCode)
     {
@@ -323,11 +327,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -340,11 +344,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      * product or product line (e.g. "iPhone") or a general category of products
      * or services (e.g. "smartphones").
      *
-     * @param Product|Product[]|string|string[] $productSupported
+     * @param \Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|string|string[] $productSupported
      *
      * @return static
      *
-     * @see http://schema.org/productSupported
+     * @see https://schema.org/productSupported
      */
     public function productSupported($productSupported)
     {
@@ -360,7 +364,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -370,11 +374,11 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
     /**
      * The geographic area where the service is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[] $serviceArea
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $serviceArea
      *
      * @return static
      *
-     * @see http://schema.org/serviceArea
+     * @see https://schema.org/serviceArea
      */
     public function serviceArea($serviceArea)
     {
@@ -388,7 +392,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/streetAddress
+     * @see https://schema.org/streetAddress
      */
     public function streetAddress($streetAddress)
     {
@@ -398,11 +402,12 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -416,7 +421,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/telephone
+     * @see https://schema.org/telephone
      */
     public function telephone($telephone)
     {
@@ -430,7 +435,7 @@ class PostalAddress extends BaseType implements ContactPointContract, Intangible
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

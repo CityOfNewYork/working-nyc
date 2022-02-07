@@ -2,16 +2,17 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\TicketContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
 /**
  * Used to describe a ticket to an event, a flight, a bus ride, etc.
  *
- * @see http://schema.org/Ticket
+ * @see https://schema.org/Ticket
  *
  */
-class Ticket extends BaseType implements IntangibleContract, ThingContract
+class Ticket extends BaseType implements TicketContract, IntangibleContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -25,7 +26,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -39,7 +40,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -53,7 +54,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/dateIssued
+     * @see https://schema.org/dateIssued
      */
     public function dateIssued($dateIssued)
     {
@@ -67,7 +68,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -84,7 +85,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -98,11 +99,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -113,11 +114,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -127,11 +128,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
     /**
      * The organization issuing the ticket or permit.
      *
-     * @param Organization|Organization[] $issuedBy
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $issuedBy
      *
      * @return static
      *
-     * @see http://schema.org/issuedBy
+     * @see https://schema.org/issuedBy
      */
     public function issuedBy($issuedBy)
     {
@@ -143,11 +144,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -161,7 +162,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -172,11 +173,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -199,7 +200,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/priceCurrency
+     * @see https://schema.org/priceCurrency
      */
     public function priceCurrency($priceCurrency)
     {
@@ -215,7 +216,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -225,11 +226,12 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -243,7 +245,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/ticketNumber
+     * @see https://schema.org/ticketNumber
      */
     public function ticketNumber($ticketNumber)
     {
@@ -258,7 +260,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/ticketToken
+     * @see https://schema.org/ticketToken
      */
     public function ticketToken($ticketToken)
     {
@@ -268,11 +270,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
     /**
      * The seat associated with the ticket.
      *
-     * @param Seat|Seat[] $ticketedSeat
+     * @param \Spatie\SchemaOrg\Contracts\SeatContract|\Spatie\SchemaOrg\Contracts\SeatContract[] $ticketedSeat
      *
      * @return static
      *
-     * @see http://schema.org/ticketedSeat
+     * @see https://schema.org/ticketedSeat
      */
     public function ticketedSeat($ticketedSeat)
     {
@@ -290,11 +292,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      * * Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a
      * decimal point. Avoid using these symbols as a readability separator.
      *
-     * @param PriceSpecification|PriceSpecification[]|float|float[]|int|int[]|string|string[] $totalPrice
+     * @param \Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[]|float|float[]|int|int[]|string|string[] $totalPrice
      *
      * @return static
      *
-     * @see http://schema.org/totalPrice
+     * @see https://schema.org/totalPrice
      */
     public function totalPrice($totalPrice)
     {
@@ -304,11 +306,11 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
     /**
      * The person or organization the reservation or ticket is for.
      *
-     * @param Organization|Organization[]|Person|Person[] $underName
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $underName
      *
      * @return static
      *
-     * @see http://schema.org/underName
+     * @see https://schema.org/underName
      */
     public function underName($underName)
     {
@@ -322,7 +324,7 @@ class Ticket extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

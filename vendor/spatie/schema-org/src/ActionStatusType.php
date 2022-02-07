@@ -2,47 +2,50 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\ActionStatusTypeContract;
 use \Spatie\SchemaOrg\Contracts\EnumerationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
+use \Spatie\SchemaOrg\Contracts\StatusEnumerationContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
 /**
  * The status of an Action.
  *
- * @see http://schema.org/ActionStatusType
+ * @see https://schema.org/ActionStatusType
  *
+ * @method static supersededBy($supersededBy) The value should be instance of pending types Class|Class[]|Enumeration|Enumeration[]|Property|Property[]
  */
-class ActionStatusType extends BaseType implements EnumerationContract, IntangibleContract, ThingContract
+class ActionStatusType extends BaseType implements ActionStatusTypeContract, EnumerationContract, IntangibleContract, StatusEnumerationContract, ThingContract
 {
     /**
      * An in-progress action (e.g, while watching the movie, or driving to a
      * location).
      *
-     * @see http://schema.org/ActiveActionStatus
+     * @see https://schema.org/ActiveActionStatus
      */
-     const ActiveActionStatus = 'http://schema.org/ActiveActionStatus';
+     const ActiveActionStatus = 'https://schema.org/ActiveActionStatus';
 
     /**
      * An action that has already taken place.
      *
-     * @see http://schema.org/CompletedActionStatus
+     * @see https://schema.org/CompletedActionStatus
      */
-     const CompletedActionStatus = 'http://schema.org/CompletedActionStatus';
+     const CompletedActionStatus = 'https://schema.org/CompletedActionStatus';
 
     /**
      * An action that failed to complete. The action's error property and the
      * HTTP return code contain more information about the failure.
      *
-     * @see http://schema.org/FailedActionStatus
+     * @see https://schema.org/FailedActionStatus
      */
-     const FailedActionStatus = 'http://schema.org/FailedActionStatus';
+     const FailedActionStatus = 'https://schema.org/FailedActionStatus';
 
     /**
      * A description of an action that is supported.
      *
-     * @see http://schema.org/PotentialActionStatus
+     * @see https://schema.org/PotentialActionStatus
      */
-     const PotentialActionStatus = 'http://schema.org/PotentialActionStatus';
+     const PotentialActionStatus = 'https://schema.org/PotentialActionStatus';
 
     /**
      * An additional type for the item, typically used for adding more specific
@@ -56,7 +59,7 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -70,7 +73,7 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -84,7 +87,7 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -101,7 +104,7 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -115,11 +118,11 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -130,11 +133,11 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -146,11 +149,11 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -164,7 +167,7 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -175,11 +178,11 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -195,7 +198,7 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -205,11 +208,12 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -223,7 +227,7 @@ class ActionStatusType extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

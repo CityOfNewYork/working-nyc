@@ -72,6 +72,8 @@ interface TaxiContract
 
     public function subjectOf($subjectOf);
 
+    public function termsOfService($termsOfService);
+
     public function url($url);
 
 }

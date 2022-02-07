@@ -26,6 +26,8 @@ interface PersonContract
 
     public function brand($brand);
 
+    public function callSign($callSign);
+
     public function children($children);
 
     public function colleague($colleague);
@@ -62,6 +64,8 @@ interface PersonContract
 
     public function globalLocationNumber($globalLocationNumber);
 
+    public function hasCredential($hasCredential);
+
     public function hasOccupation($hasOccupation);
 
     public function hasOfferCatalog($hasOfferCatalog);
@@ -80,11 +84,17 @@ interface PersonContract
 
     public function image($image);
 
+    public function interactionStatistic($interactionStatistic);
+
     public function isicV4($isicV4);
 
     public function jobTitle($jobTitle);
 
     public function knows($knows);
+
+    public function knowsAbout($knowsAbout);
+
+    public function knowsLanguage($knowsLanguage);
 
     public function mainEntityOfPage($mainEntityOfPage);
 

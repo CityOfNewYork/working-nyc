@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\DayOfWeekContract;
 use \Spatie\SchemaOrg\Contracts\EnumerationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -15,24 +16,26 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * [[Saturday]], [[Sunday]] plus a special entry for [[PublicHolidays]]); these
  * have now been integrated directly into schema.org.
  *
- * @see http://schema.org/DayOfWeek
+ * @see https://schema.org/DayOfWeek
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass
  *
+ * @method static supersededBy($supersededBy) The value should be instance of pending types Class|Class[]|Enumeration|Enumeration[]|Property|Property[]
  */
-class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContract, ThingContract
+class DayOfWeek extends BaseType implements DayOfWeekContract, EnumerationContract, IntangibleContract, ThingContract
 {
     /**
      * The day of the week between Thursday and Saturday.
      *
-     * @see http://schema.org/Friday
+     * @see https://schema.org/Friday
      */
-     const Friday = 'http://schema.org/Friday';
+     const Friday = 'https://schema.org/Friday';
 
     /**
      * The day of the week between Sunday and Tuesday.
      *
-     * @see http://schema.org/Monday
+     * @see https://schema.org/Monday
      */
-     const Monday = 'http://schema.org/Monday';
+     const Monday = 'https://schema.org/Monday';
 
     /**
      * This stands for any day that is a public holiday; it is a placeholder for
@@ -43,44 +46,45 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      * holidays, overriding general opening hours for the day of the week on
      * which a public holiday occurs.
      *
-     * @see http://schema.org/PublicHolidays
+     * @see https://schema.org/PublicHolidays
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass
      */
-     const PublicHolidays = 'http://schema.org/PublicHolidays';
+     const PublicHolidays = 'https://schema.org/PublicHolidays';
 
     /**
      * The day of the week between Friday and Sunday.
      *
-     * @see http://schema.org/Saturday
+     * @see https://schema.org/Saturday
      */
-     const Saturday = 'http://schema.org/Saturday';
+     const Saturday = 'https://schema.org/Saturday';
 
     /**
      * The day of the week between Saturday and Monday.
      *
-     * @see http://schema.org/Sunday
+     * @see https://schema.org/Sunday
      */
-     const Sunday = 'http://schema.org/Sunday';
+     const Sunday = 'https://schema.org/Sunday';
 
     /**
      * The day of the week between Wednesday and Friday.
      *
-     * @see http://schema.org/Thursday
+     * @see https://schema.org/Thursday
      */
-     const Thursday = 'http://schema.org/Thursday';
+     const Thursday = 'https://schema.org/Thursday';
 
     /**
      * The day of the week between Monday and Wednesday.
      *
-     * @see http://schema.org/Tuesday
+     * @see https://schema.org/Tuesday
      */
-     const Tuesday = 'http://schema.org/Tuesday';
+     const Tuesday = 'https://schema.org/Tuesday';
 
     /**
      * The day of the week between Tuesday and Thursday.
      *
-     * @see http://schema.org/Wednesday
+     * @see https://schema.org/Wednesday
      */
-     const Wednesday = 'http://schema.org/Wednesday';
+     const Wednesday = 'https://schema.org/Wednesday';
 
     /**
      * An additional type for the item, typically used for adding more specific
@@ -94,7 +98,7 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -108,7 +112,7 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -122,7 +126,7 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -139,7 +143,7 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -153,11 +157,11 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -168,11 +172,11 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -184,11 +188,11 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -202,7 +206,7 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -213,11 +217,11 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -233,7 +237,7 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -243,11 +247,12 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -261,7 +266,7 @@ class DayOfWeek extends BaseType implements EnumerationContract, IntangibleContr
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

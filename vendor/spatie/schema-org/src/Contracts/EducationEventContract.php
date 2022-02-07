@@ -14,6 +14,8 @@ interface EducationEventContract
 
     public function alternateName($alternateName);
 
+    public function assesses($assesses);
+
     public function attendee($attendee);
 
     public function attendees($attendees);
@@ -34,7 +36,13 @@ interface EducationEventContract
 
     public function duration($duration);
 
+    public function educationalLevel($educationalLevel);
+
     public function endDate($endDate);
+
+    public function eventAttendanceMode($eventAttendanceMode);
+
+    public function eventSchedule($eventSchedule);
 
     public function eventStatus($eventStatus);
 
@@ -53,6 +61,10 @@ interface EducationEventContract
     public function mainEntityOfPage($mainEntityOfPage);
 
     public function maximumAttendeeCapacity($maximumAttendeeCapacity);
+
+    public function maximumPhysicalAttendeeCapacity($maximumPhysicalAttendeeCapacity);
+
+    public function maximumVirtualAttendeeCapacity($maximumVirtualAttendeeCapacity);
 
     public function name($name);
 
@@ -87,6 +99,8 @@ interface EducationEventContract
     public function subjectOf($subjectOf);
 
     public function superEvent($superEvent);
+
+    public function teaches($teaches);
 
     public function translator($translator);
 

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\QuantitativeValueDistributionContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -9,10 +10,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * A statistical distribution of values.
  *
- * @see http://schema.org/QuantitativeValueDistribution
+ * @see https://schema.org/QuantitativeValueDistribution
+ * @link https://github.com/schemaorg/schemaorg/issues/1698
  *
  */
-class QuantitativeValueDistribution extends BaseType implements IntangibleContract, StructuredValueContract, ThingContract
+class QuantitativeValueDistribution extends BaseType implements QuantitativeValueDistributionContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -26,7 +28,7 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -40,7 +42,7 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -54,7 +56,7 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -71,11 +73,26 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
         return $this->setProperty('disambiguatingDescription', $disambiguatingDescription);
+    }
+
+    /**
+     * The duration of the item (movie, audio recording, event, etc.) in [ISO
+     * 8601 date format](http://en.wikipedia.org/wiki/ISO_8601).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DurationContract|\Spatie\SchemaOrg\Contracts\DurationContract[] $duration
+     *
+     * @return static
+     *
+     * @see https://schema.org/duration
+     */
+    public function duration($duration)
+    {
+        return $this->setProperty('duration', $duration);
     }
 
     /**
@@ -85,11 +102,11 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -100,11 +117,11 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -116,11 +133,11 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -134,7 +151,8 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/median
+     * @see https://schema.org/median
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function median($median)
     {
@@ -148,7 +166,7 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -162,7 +180,8 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/percentile10
+     * @see https://schema.org/percentile10
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function percentile10($percentile10)
     {
@@ -176,7 +195,8 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/percentile25
+     * @see https://schema.org/percentile25
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function percentile25($percentile25)
     {
@@ -190,7 +210,8 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/percentile75
+     * @see https://schema.org/percentile75
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function percentile75($percentile75)
     {
@@ -204,7 +225,8 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/percentile90
+     * @see https://schema.org/percentile90
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function percentile90($percentile90)
     {
@@ -215,11 +237,11 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -235,7 +257,7 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -245,11 +267,12 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -263,7 +286,7 @@ class QuantitativeValueDistribution extends BaseType implements IntangibleContra
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\MapCategoryTypeContract;
 use \Spatie\SchemaOrg\Contracts\EnumerationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -9,38 +10,39 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * An enumeration of several kinds of Map.
  *
- * @see http://schema.org/MapCategoryType
+ * @see https://schema.org/MapCategoryType
  *
+ * @method static supersededBy($supersededBy) The value should be instance of pending types Class|Class[]|Enumeration|Enumeration[]|Property|Property[]
  */
-class MapCategoryType extends BaseType implements EnumerationContract, IntangibleContract, ThingContract
+class MapCategoryType extends BaseType implements MapCategoryTypeContract, EnumerationContract, IntangibleContract, ThingContract
 {
     /**
      * A parking map.
      *
-     * @see http://schema.org/ParkingMap
+     * @see https://schema.org/ParkingMap
      */
-     const ParkingMap = 'http://schema.org/ParkingMap';
+     const ParkingMap = 'https://schema.org/ParkingMap';
 
     /**
      * A seating map.
      *
-     * @see http://schema.org/SeatingMap
+     * @see https://schema.org/SeatingMap
      */
-     const SeatingMap = 'http://schema.org/SeatingMap';
+     const SeatingMap = 'https://schema.org/SeatingMap';
 
     /**
      * A transit map.
      *
-     * @see http://schema.org/TransitMap
+     * @see https://schema.org/TransitMap
      */
-     const TransitMap = 'http://schema.org/TransitMap';
+     const TransitMap = 'https://schema.org/TransitMap';
 
     /**
      * A venue map (e.g. for malls, auditoriums, museums, etc.).
      *
-     * @see http://schema.org/VenueMap
+     * @see https://schema.org/VenueMap
      */
-     const VenueMap = 'http://schema.org/VenueMap';
+     const VenueMap = 'https://schema.org/VenueMap';
 
     /**
      * An additional type for the item, typically used for adding more specific
@@ -54,7 +56,7 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -68,7 +70,7 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -82,7 +84,7 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -99,7 +101,7 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -113,11 +115,11 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -128,11 +130,11 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -144,11 +146,11 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -162,7 +164,7 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -173,11 +175,11 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -193,7 +195,7 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -203,11 +205,12 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -221,7 +224,7 @@ class MapCategoryType extends BaseType implements EnumerationContract, Intangibl
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

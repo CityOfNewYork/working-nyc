@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\CookActionContract;
 use \Spatie\SchemaOrg\Contracts\ActionContract;
 use \Spatie\SchemaOrg\Contracts\CreateActionContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -9,19 +10,19 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * The act of producing/preparing food.
  *
- * @see http://schema.org/CookAction
+ * @see https://schema.org/CookAction
  *
  */
-class CookAction extends BaseType implements ActionContract, CreateActionContract, ThingContract
+class CookAction extends BaseType implements CookActionContract, ActionContract, CreateActionContract, ThingContract
 {
     /**
      * Indicates the current disposition of the Action.
      *
-     * @param ActionStatusType|ActionStatusType[] $actionStatus
+     * @param \Spatie\SchemaOrg\Contracts\ActionStatusTypeContract|\Spatie\SchemaOrg\Contracts\ActionStatusTypeContract[] $actionStatus
      *
      * @return static
      *
-     * @see http://schema.org/actionStatus
+     * @see https://schema.org/actionStatus
      */
     public function actionStatus($actionStatus)
     {
@@ -40,7 +41,7 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -51,11 +52,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * The direct performer or driver of the action (animate or inanimate). e.g.
      * *John* wrote a book.
      *
-     * @param Organization|Organization[]|Person|Person[] $agent
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $agent
      *
      * @return static
      *
-     * @see http://schema.org/agent
+     * @see https://schema.org/agent
      */
     public function agent($agent)
     {
@@ -69,7 +70,7 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -83,7 +84,7 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -100,7 +101,7 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -123,7 +124,8 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/endTime
+     * @see https://schema.org/endTime
+     * @link https://github.com/schemaorg/schemaorg/issues/2493
      */
     public function endTime($endTime)
     {
@@ -133,11 +135,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
     /**
      * For failed actions, more information on the cause of the failure.
      *
-     * @param Thing|Thing[] $error
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $error
      *
      * @return static
      *
-     * @see http://schema.org/error
+     * @see https://schema.org/error
      */
     public function error($error)
     {
@@ -148,11 +150,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * A sub property of location. The specific food establishment where the
      * action occurred.
      *
-     * @param FoodEstablishment|FoodEstablishment[]|Place|Place[] $foodEstablishment
+     * @param \Spatie\SchemaOrg\Contracts\FoodEstablishmentContract|\Spatie\SchemaOrg\Contracts\FoodEstablishmentContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $foodEstablishment
      *
      * @return static
      *
-     * @see http://schema.org/foodEstablishment
+     * @see https://schema.org/foodEstablishment
      */
     public function foodEstablishment($foodEstablishment)
     {
@@ -163,11 +165,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * A sub property of location. The specific food event where the action
      * occurred.
      *
-     * @param FoodEvent|FoodEvent[] $foodEvent
+     * @param \Spatie\SchemaOrg\Contracts\FoodEventContract|\Spatie\SchemaOrg\Contracts\FoodEventContract[] $foodEvent
      *
      * @return static
      *
-     * @see http://schema.org/foodEvent
+     * @see https://schema.org/foodEvent
      */
     public function foodEvent($foodEvent)
     {
@@ -181,11 +183,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -196,11 +198,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -211,11 +213,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * The object that helped the agent perform the action. e.g. John wrote a
      * book with *a pen*.
      *
-     * @param Thing|Thing[] $instrument
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $instrument
      *
      * @return static
      *
-     * @see http://schema.org/instrument
+     * @see https://schema.org/instrument
      */
     public function instrument($instrument)
     {
@@ -223,14 +225,14 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
     }
 
     /**
-     * The location of for example where the event is happening, an organization
-     * is located, or where an action takes place.
+     * The location of, for example, where an event is happening, where an
+     * organization is located, or where an action takes place.
      *
-     * @param Place|Place[]|PostalAddress|PostalAddress[]|string|string[] $location
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|\Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|\Spatie\SchemaOrg\Contracts\VirtualLocationContract|\Spatie\SchemaOrg\Contracts\VirtualLocationContract[]|string|string[] $location
      *
      * @return static
      *
-     * @see http://schema.org/location
+     * @see https://schema.org/location
      */
     public function location($location)
     {
@@ -242,11 +244,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -260,7 +262,7 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -273,11 +275,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * undergoer (which change their state) or theme (which doesn't). e.g. John
      * read *a book*.
      *
-     * @param Thing|Thing[] $object
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $object
      *
      * @return static
      *
-     * @see http://schema.org/object
+     * @see https://schema.org/object
      */
     public function object($object)
     {
@@ -288,11 +290,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * Other co-agents that participated in the action indirectly. e.g. John
      * wrote a book with *Steve*.
      *
-     * @param Organization|Organization[]|Person|Person[] $participant
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $participant
      *
      * @return static
      *
-     * @see http://schema.org/participant
+     * @see https://schema.org/participant
      */
     public function participant($participant)
     {
@@ -303,11 +305,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -318,11 +320,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      * A sub property of instrument. The recipe/instructions used to perform the
      * action.
      *
-     * @param Recipe|Recipe[] $recipe
+     * @param \Spatie\SchemaOrg\Contracts\RecipeContract|\Spatie\SchemaOrg\Contracts\RecipeContract[] $recipe
      *
      * @return static
      *
-     * @see http://schema.org/recipe
+     * @see https://schema.org/recipe
      */
     public function recipe($recipe)
     {
@@ -332,11 +334,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
     /**
      * The result produced in the action. e.g. John wrote *a book*.
      *
-     * @param Thing|Thing[] $result
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $result
      *
      * @return static
      *
-     * @see http://schema.org/result
+     * @see https://schema.org/result
      */
     public function result($result)
     {
@@ -352,7 +354,7 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -375,7 +377,8 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/startTime
+     * @see https://schema.org/startTime
+     * @link https://github.com/schemaorg/schemaorg/issues/2493
      */
     public function startTime($startTime)
     {
@@ -385,11 +388,12 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -399,11 +403,11 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
     /**
      * Indicates a target EntryPoint for an Action.
      *
-     * @param EntryPoint|EntryPoint[] $target
+     * @param \Spatie\SchemaOrg\Contracts\EntryPointContract|\Spatie\SchemaOrg\Contracts\EntryPointContract[] $target
      *
      * @return static
      *
-     * @see http://schema.org/target
+     * @see https://schema.org/target
      */
     public function target($target)
     {
@@ -417,7 +421,7 @@ class CookAction extends BaseType implements ActionContract, CreateActionContrac
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

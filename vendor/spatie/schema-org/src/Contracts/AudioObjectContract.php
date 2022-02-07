@@ -6,6 +6,8 @@ interface AudioObjectContract
 {
     public function about($about);
 
+    public function abstract($abstract);
+
     public function accessMode($accessMode);
 
     public function accessModeSufficient($accessModeSufficient);
@@ -22,6 +24,8 @@ interface AudioObjectContract
 
     public function accountablePerson($accountablePerson);
 
+    public function acquireLicensePage($acquireLicensePage);
+
     public function additionalType($additionalType);
 
     public function aggregateRating($aggregateRating);
@@ -29,6 +33,10 @@ interface AudioObjectContract
     public function alternateName($alternateName);
 
     public function alternativeHeadline($alternativeHeadline);
+
+    public function archivedAt($archivedAt);
+
+    public function assesses($assesses);
 
     public function associatedArticle($associatedArticle);
 
@@ -56,9 +64,13 @@ interface AudioObjectContract
 
     public function commentCount($commentCount);
 
+    public function conditionsOfAccess($conditionsOfAccess);
+
     public function contentLocation($contentLocation);
 
     public function contentRating($contentRating);
+
+    public function contentReferenceTime($contentReferenceTime);
 
     public function contentSize($contentSize);
 
@@ -68,9 +80,19 @@ interface AudioObjectContract
 
     public function copyrightHolder($copyrightHolder);
 
+    public function copyrightNotice($copyrightNotice);
+
     public function copyrightYear($copyrightYear);
 
+    public function correction($correction);
+
+    public function countryOfOrigin($countryOfOrigin);
+
+    public function creativeWorkStatus($creativeWorkStatus);
+
     public function creator($creator);
+
+    public function creditText($creditText);
 
     public function dateCreated($dateCreated);
 
@@ -86,13 +108,19 @@ interface AudioObjectContract
 
     public function duration($duration);
 
+    public function editEIDR($editEIDR);
+
     public function editor($editor);
 
     public function educationalAlignment($educationalAlignment);
 
+    public function educationalLevel($educationalLevel);
+
     public function educationalUse($educationalUse);
 
     public function embedUrl($embedUrl);
+
+    public function embeddedTextCaption($embeddedTextCaption);
 
     public function encodesCreativeWork($encodesCreativeWork);
 
@@ -126,9 +154,13 @@ interface AudioObjectContract
 
     public function inLanguage($inLanguage);
 
+    public function ineligibleRegion($ineligibleRegion);
+
     public function interactionStatistic($interactionStatistic);
 
     public function interactivityType($interactivityType);
+
+    public function interpretedAsClaim($interpretedAsClaim);
 
     public function isAccessibleForFree($isAccessibleForFree);
 
@@ -152,13 +184,19 @@ interface AudioObjectContract
 
     public function mainEntityOfPage($mainEntityOfPage);
 
+    public function maintainer($maintainer);
+
     public function material($material);
+
+    public function materialExtent($materialExtent);
 
     public function mentions($mentions);
 
     public function name($name);
 
     public function offers($offers);
+
+    public function pattern($pattern);
 
     public function playerType($playerType);
 
@@ -175,6 +213,8 @@ interface AudioObjectContract
     public function publication($publication);
 
     public function publisher($publisher);
+
+    public function publisherImprint($publisherImprint);
 
     public function publishingPrinciples($publishingPrinciples);
 
@@ -194,6 +234,16 @@ interface AudioObjectContract
 
     public function schemaVersion($schemaVersion);
 
+    public function sdDatePublished($sdDatePublished);
+
+    public function sdLicense($sdLicense);
+
+    public function sdPublisher($sdPublisher);
+
+    public function sha256($sha256);
+
+    public function size($size);
+
     public function sourceOrganization($sourceOrganization);
 
     public function spatial($spatial);
@@ -205,6 +255,8 @@ interface AudioObjectContract
     public function startTime($startTime);
 
     public function subjectOf($subjectOf);
+
+    public function teaches($teaches);
 
     public function temporal($temporal);
 
@@ -218,6 +270,8 @@ interface AudioObjectContract
 
     public function transcript($transcript);
 
+    public function translationOfWork($translationOfWork);
+
     public function translator($translator);
 
     public function typicalAgeRange($typicalAgeRange);
@@ -226,6 +280,8 @@ interface AudioObjectContract
 
     public function url($url);
 
+    public function usageInfo($usageInfo);
+
     public function version($version);
 
     public function video($video);
@@ -233,5 +289,7 @@ interface AudioObjectContract
     public function width($width);
 
     public function workExample($workExample);
+
+    public function workTranslation($workTranslation);
 
 }

@@ -24,13 +24,19 @@ interface PaymentCardContract
 
     public function broker($broker);
 
+    public function cashBack($cashBack);
+
     public function category($category);
+
+    public function contactlessPayment($contactlessPayment);
 
     public function description($description);
 
     public function disambiguatingDescription($disambiguatingDescription);
 
     public function feesAndCommissionsSpecification($feesAndCommissionsSpecification);
+
+    public function floorLimit($floorLimit);
 
     public function hasOfferCatalog($hasOfferCatalog);
 
@@ -49,6 +55,8 @@ interface PaymentCardContract
     public function logo($logo);
 
     public function mainEntityOfPage($mainEntityOfPage);
+
+    public function monthlyMinimumRepaymentAmount($monthlyMinimumRepaymentAmount);
 
     public function name($name);
 
@@ -77,6 +85,8 @@ interface PaymentCardContract
     public function slogan($slogan);
 
     public function subjectOf($subjectOf);
+
+    public function termsOfService($termsOfService);
 
     public function url($url);
 

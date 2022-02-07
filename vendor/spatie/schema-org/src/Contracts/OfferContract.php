@@ -48,6 +48,8 @@ interface OfferContract
 
     public function eligibleTransactionVolume($eligibleTransactionVolume);
 
+    public function gtin($gtin);
+
     public function gtin12($gtin12);
 
     public function gtin13($gtin13);
@@ -55,6 +57,10 @@ interface OfferContract
     public function gtin14($gtin14);
 
     public function gtin8($gtin8);
+
+    public function hasMeasurement($hasMeasurement);
+
+    public function hasMerchantReturnPolicy($hasMerchantReturnPolicy);
 
     public function identifier($identifier);
 
@@ -70,11 +76,15 @@ interface OfferContract
 
     public function itemOffered($itemOffered);
 
+    public function leaseLength($leaseLength);
+
     public function mainEntityOfPage($mainEntityOfPage);
 
     public function mpn($mpn);
 
     public function name($name);
+
+    public function offeredBy($offeredBy);
 
     public function potentialAction($potentialAction);
 
@@ -95,6 +105,8 @@ interface OfferContract
     public function seller($seller);
 
     public function serialNumber($serialNumber);
+
+    public function shippingDetails($shippingDetails);
 
     public function sku($sku);
 

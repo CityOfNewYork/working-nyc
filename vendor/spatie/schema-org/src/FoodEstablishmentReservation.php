@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\FoodEstablishmentReservationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ReservationContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -13,10 +14,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * confirmation emails or HTML pages with individual confirmations of
  * reservations.
  *
- * @see http://schema.org/FoodEstablishmentReservation
+ * @see https://schema.org/FoodEstablishmentReservation
  *
  */
-class FoodEstablishmentReservation extends BaseType implements IntangibleContract, ReservationContract, ThingContract
+class FoodEstablishmentReservation extends BaseType implements FoodEstablishmentReservationContract, IntangibleContract, ReservationContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -30,7 +31,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -44,7 +45,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -55,11 +56,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * 'bookingAgent' is an out-dated term indicating a 'broker' that serves as
      * a booking agent.
      *
-     * @param Organization|Organization[]|Person|Person[] $bookingAgent
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $bookingAgent
      *
      * @return static
      *
-     * @see http://schema.org/bookingAgent
+     * @see https://schema.org/bookingAgent
      */
     public function bookingAgent($bookingAgent)
     {
@@ -73,7 +74,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/bookingTime
+     * @see https://schema.org/bookingTime
      */
     public function bookingTime($bookingTime)
     {
@@ -86,11 +87,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * service involved in an exchange.  If it is not clear whether an entity is
      * a broker, seller, or buyer, the latter two terms are preferred.
      *
-     * @param Organization|Organization[]|Person|Person[] $broker
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $broker
      *
      * @return static
      *
-     * @see http://schema.org/broker
+     * @see https://schema.org/broker
      */
     public function broker($broker)
     {
@@ -104,7 +105,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -121,7 +122,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -144,7 +145,8 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/endTime
+     * @see https://schema.org/endTime
+     * @link https://github.com/schemaorg/schemaorg/issues/2493
      */
     public function endTime($endTime)
     {
@@ -158,11 +160,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -173,11 +175,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -189,11 +191,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -207,7 +209,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/modifiedTime
+     * @see https://schema.org/modifiedTime
      */
     public function modifiedTime($modifiedTime)
     {
@@ -221,7 +223,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -231,11 +233,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
     /**
      * Number of people the reservation should accommodate.
      *
-     * @param QuantitativeValue|QuantitativeValue[]|int|int[] $partySize
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[]|int|int[] $partySize
      *
      * @return static
      *
-     * @see http://schema.org/partySize
+     * @see https://schema.org/partySize
      */
     public function partySize($partySize)
     {
@@ -246,11 +248,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -273,7 +275,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/priceCurrency
+     * @see https://schema.org/priceCurrency
      */
     public function priceCurrency($priceCurrency)
     {
@@ -284,11 +286,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * Any membership in a frequent flyer, hotel loyalty program, etc. being
      * applied to the reservation.
      *
-     * @param ProgramMembership|ProgramMembership[] $programMembershipUsed
+     * @param \Spatie\SchemaOrg\Contracts\ProgramMembershipContract|\Spatie\SchemaOrg\Contracts\ProgramMembershipContract[] $programMembershipUsed
      *
      * @return static
      *
-     * @see http://schema.org/programMembershipUsed
+     * @see https://schema.org/programMembershipUsed
      */
     public function programMembershipUsed($programMembershipUsed)
     {
@@ -300,11 +302,12 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * producer. Another party (a seller) may offer those services or goods on
      * behalf of the provider. A provider may also serve as the seller.
      *
-     * @param Organization|Organization[]|Person|Person[] $provider
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $provider
      *
      * @return static
      *
-     * @see http://schema.org/provider
+     * @see https://schema.org/provider
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
      */
     public function provider($provider)
     {
@@ -314,11 +317,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
     /**
      * The thing -- flight, event, restaurant,etc. being reserved.
      *
-     * @param Thing|Thing[] $reservationFor
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $reservationFor
      *
      * @return static
      *
-     * @see http://schema.org/reservationFor
+     * @see https://schema.org/reservationFor
      */
     public function reservationFor($reservationFor)
     {
@@ -332,7 +335,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/reservationId
+     * @see https://schema.org/reservationId
      */
     public function reservationId($reservationId)
     {
@@ -342,11 +345,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
     /**
      * The current status of the reservation.
      *
-     * @param ReservationStatusType|ReservationStatusType[] $reservationStatus
+     * @param \Spatie\SchemaOrg\Contracts\ReservationStatusTypeContract|\Spatie\SchemaOrg\Contracts\ReservationStatusTypeContract[] $reservationStatus
      *
      * @return static
      *
-     * @see http://schema.org/reservationStatus
+     * @see https://schema.org/reservationStatus
      */
     public function reservationStatus($reservationStatus)
     {
@@ -356,11 +359,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
     /**
      * A ticket associated with the reservation.
      *
-     * @param Ticket|Ticket[] $reservedTicket
+     * @param \Spatie\SchemaOrg\Contracts\TicketContract|\Spatie\SchemaOrg\Contracts\TicketContract[] $reservedTicket
      *
      * @return static
      *
-     * @see http://schema.org/reservedTicket
+     * @see https://schema.org/reservedTicket
      */
     public function reservedTicket($reservedTicket)
     {
@@ -376,7 +379,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -399,7 +402,8 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/startTime
+     * @see https://schema.org/startTime
+     * @link https://github.com/schemaorg/schemaorg/issues/2493
      */
     public function startTime($startTime)
     {
@@ -409,11 +413,12 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -431,11 +436,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      * * Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a
      * decimal point. Avoid using these symbols as a readability separator.
      *
-     * @param PriceSpecification|PriceSpecification[]|float|float[]|int|int[]|string|string[] $totalPrice
+     * @param \Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[]|float|float[]|int|int[]|string|string[] $totalPrice
      *
      * @return static
      *
-     * @see http://schema.org/totalPrice
+     * @see https://schema.org/totalPrice
      */
     public function totalPrice($totalPrice)
     {
@@ -445,11 +450,11 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
     /**
      * The person or organization the reservation or ticket is for.
      *
-     * @param Organization|Organization[]|Person|Person[] $underName
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $underName
      *
      * @return static
      *
-     * @see http://schema.org/underName
+     * @see https://schema.org/underName
      */
     public function underName($underName)
     {
@@ -463,7 +468,7 @@ class FoodEstablishmentReservation extends BaseType implements IntangibleContrac
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

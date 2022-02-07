@@ -18,6 +18,8 @@ interface ExerciseActionContract
 
     public function description($description);
 
+    public function diet($diet);
+
     public function disambiguatingDescription($disambiguatingDescription);
 
     public function distance($distance);
@@ -29,6 +31,12 @@ interface ExerciseActionContract
     public function event($event);
 
     public function exerciseCourse($exerciseCourse);
+
+    public function exercisePlan($exercisePlan);
+
+    public function exerciseRelatedDiet($exerciseRelatedDiet);
+
+    public function exerciseType($exerciseType);
 
     public function fromLocation($fromLocation);
 

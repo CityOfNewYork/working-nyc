@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\GeoCircleContract;
 use \Spatie\SchemaOrg\Contracts\GeoShapeContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
@@ -15,10 +16,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  *           The center of the circle can be indicated via the 'geoMidpoint'
  * property, or more approximately using 'address', 'postalCode'.
  *
- * @see http://schema.org/GeoCircle
+ * @see https://schema.org/GeoCircle
  *
  */
-class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract, StructuredValueContract, ThingContract
+class GeoCircle extends BaseType implements GeoCircleContract, GeoShapeContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -32,7 +33,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -42,11 +43,11 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
     /**
      * Physical address of the item.
      *
-     * @param PostalAddress|PostalAddress[]|string|string[] $address
+     * @param \Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|string|string[] $address
      *
      * @return static
      *
-     * @see http://schema.org/address
+     * @see https://schema.org/address
      */
     public function address($address)
     {
@@ -57,11 +58,12 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      * The country. For example, USA. You can also provide the two-letter [ISO
      * 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1).
      *
-     * @param Country|Country[]|string|string[] $addressCountry
+     * @param \Spatie\SchemaOrg\Contracts\CountryContract|\Spatie\SchemaOrg\Contracts\CountryContract[]|string|string[] $addressCountry
      *
      * @return static
      *
-     * @see http://schema.org/addressCountry
+     * @see https://schema.org/addressCountry
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
      */
     public function addressCountry($addressCountry)
     {
@@ -75,7 +77,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -91,7 +93,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/box
+     * @see https://schema.org/box
      */
     public function box($box)
     {
@@ -107,7 +109,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/circle
+     * @see https://schema.org/circle
      */
     public function circle($circle)
     {
@@ -121,7 +123,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -138,7 +140,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -155,7 +157,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/elevation
+     * @see https://schema.org/elevation
      */
     public function elevation($elevation)
     {
@@ -165,11 +167,11 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
     /**
      * Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.
      *
-     * @param GeoCoordinates|GeoCoordinates[] $geoMidpoint
+     * @param \Spatie\SchemaOrg\Contracts\GeoCoordinatesContract|\Spatie\SchemaOrg\Contracts\GeoCoordinatesContract[] $geoMidpoint
      *
      * @return static
      *
-     * @see http://schema.org/geoMidpoint
+     * @see https://schema.org/geoMidpoint
      */
     public function geoMidpoint($geoMidpoint)
     {
@@ -180,11 +182,11 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      * Indicates the approximate radius of a GeoCircle (metres unless indicated
      * otherwise via Distance notation).
      *
-     * @param Distance|Distance[]|float|float[]|int|int[]|string|string[] $geoRadius
+     * @param \Spatie\SchemaOrg\Contracts\DistanceContract|\Spatie\SchemaOrg\Contracts\DistanceContract[]|float|float[]|int|int[]|string|string[] $geoRadius
      *
      * @return static
      *
-     * @see http://schema.org/geoRadius
+     * @see https://schema.org/geoRadius
      */
     public function geoRadius($geoRadius)
     {
@@ -198,11 +200,11 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -213,11 +215,11 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -232,7 +234,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/line
+     * @see https://schema.org/line
      */
     public function line($line)
     {
@@ -244,11 +246,11 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -262,7 +264,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -279,7 +281,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/polygon
+     * @see https://schema.org/polygon
      */
     public function polygon($polygon)
     {
@@ -293,7 +295,8 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/postalCode
+     * @see https://schema.org/postalCode
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
      */
     public function postalCode($postalCode)
     {
@@ -304,11 +307,11 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -324,7 +327,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -334,11 +337,12 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -352,7 +356,7 @@ class GeoCircle extends BaseType implements GeoShapeContract, IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

@@ -4,6 +4,10 @@ namespace Spatie\SchemaOrg\Contracts;
 
 interface DepositAccountContract
 {
+    public function accountMinimumInflow($accountMinimumInflow);
+
+    public function accountOverdraftLimit($accountOverdraftLimit);
+
     public function additionalType($additionalType);
 
     public function aggregateRating($aggregateRating);
@@ -21,6 +25,8 @@ interface DepositAccountContract
     public function availableChannel($availableChannel);
 
     public function award($award);
+
+    public function bankAccountType($bankAccountType);
 
     public function brand($brand);
 
@@ -79,6 +85,8 @@ interface DepositAccountContract
     public function slogan($slogan);
 
     public function subjectOf($subjectOf);
+
+    public function termsOfService($termsOfService);
 
     public function url($url);
 
