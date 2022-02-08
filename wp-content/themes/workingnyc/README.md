@@ -82,7 +82,14 @@ $context['programs'] = array_map(function($post) {
 
 ### Using NPM
 
-NPM is used to manage the assets in the theme. Install dependencies to get started with modifying the front-end
+NPM is used to manage the assets in the theme. Install dependencies to get started with modifying the front-end. One of the packages is installed from the GitHub package repository (`@hail2u`) so you will need a personal access token configured for NPM as well as the GitHub package manager in your **.npmrc**.
+
+```dotfile
+//registry.npmjs.org/:_authToken={{ NPM Personal Access Token }}
+//npm.pkg.github.com/:_authToken={{ GitHub Personal Access Token }}
+```
+
+Once configured, run `npm install`.
 
 <!-- If using NVM, the **.nvmrc** will set the supported Node version for you by running the following command: -->
 
