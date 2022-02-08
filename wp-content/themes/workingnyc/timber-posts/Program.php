@@ -40,8 +40,8 @@ class Program extends Timber\Post {
   public function getStatus() {
     $s = array(
       'actively_recruiting' => ($this->terms('recruitment_status')[0]->slug === 'actively-recruiting'),
-      'disability_info' => ($this->custom->program_disability != ''),
-      'language_access_info' => ($this->custom->program_language_access != '')
+      'disability_info' => ($this->custom['program_disability'] != ''),
+      'language_access_info' => ($this->custom['program_language_access'] != '')
     );
 
     return ($s['actively_recruiting'] || $s['disability_info'] || $s['language_access_info']) ? $s : false;

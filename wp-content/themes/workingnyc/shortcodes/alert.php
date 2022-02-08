@@ -44,19 +44,20 @@ class Alert extends Shortcode {
    * @return  String                  A compiled component string
    */
   public function shortcode($atts, $content, $shortcode_tag) {
-    $id = $this->tag . '-' . uniqid();
-
-    $alert = array(
-      'id' => $id,
+    $atts = shortcode_atts(array(
+      'id' => $this->tag . '-' . uniqid(),
       'classes' => 'mb-4',
-      'status' => (isset($atts['status'])) ? 'status-' . $atts['status'] : '',
-      'icon' => (isset($atts['status'])) ? $atts['icon'] : 'info',
+      'status' => null,
+      'icon' => 'info',
       'body' => do_shortcode($content)
-    );
+    ), $atts);
+
+    // Add the status class prefix to desired type
+    $atts['status'] = (isset($atts['status'])) ? 'status-' . $atts['status'] : '';
 
     return Timber::compile(
       $this->template, array(
-        'this' => array_merge($alert, $atts)
+        'this' => $atts
       )
     );
   }
