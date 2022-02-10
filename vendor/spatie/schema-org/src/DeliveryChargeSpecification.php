@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\DeliveryChargeSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\PriceSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
@@ -10,10 +11,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * The price for the delivery of an offer using a particular delivery method.
  *
- * @see http://schema.org/DeliveryChargeSpecification
+ * @see https://schema.org/DeliveryChargeSpecification
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass
  *
  */
-class DeliveryChargeSpecification extends BaseType implements IntangibleContract, PriceSpecificationContract, StructuredValueContract, ThingContract
+class DeliveryChargeSpecification extends BaseType implements DeliveryChargeSpecificationContract, IntangibleContract, PriceSpecificationContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -27,7 +29,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -41,7 +43,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -52,11 +54,12 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * The delivery method(s) to which the delivery charge or payment charge
      * specification applies.
      *
-     * @param DeliveryMethod|DeliveryMethod[] $appliesToDeliveryMethod
+     * @param \Spatie\SchemaOrg\Contracts\DeliveryMethodContract|\Spatie\SchemaOrg\Contracts\DeliveryMethodContract[] $appliesToDeliveryMethod
      *
      * @return static
      *
-     * @see http://schema.org/appliesToDeliveryMethod
+     * @see https://schema.org/appliesToDeliveryMethod
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function appliesToDeliveryMethod($appliesToDeliveryMethod)
     {
@@ -66,11 +69,11 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
     /**
      * The geographic area where a service or offered item is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[]|string|string[] $areaServed
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $areaServed
      *
      * @return static
      *
-     * @see http://schema.org/areaServed
+     * @see https://schema.org/areaServed
      */
     public function areaServed($areaServed)
     {
@@ -84,7 +87,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -101,7 +104,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -113,11 +116,12 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * offer or price specification is valid. This allows e.g. specifying that a
      * certain freight charge is valid only for a certain quantity.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $eligibleQuantity
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $eligibleQuantity
      *
      * @return static
      *
-     * @see http://schema.org/eligibleQuantity
+     * @see https://schema.org/eligibleQuantity
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleQuantity($eligibleQuantity)
     {
@@ -131,11 +135,11 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * 
      * See also [[ineligibleRegion]].
      *
-     * @param GeoShape|GeoShape[]|Place|Place[]|string|string[] $eligibleRegion
+     * @param \Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $eligibleRegion
      *
      * @return static
      *
-     * @see http://schema.org/eligibleRegion
+     * @see https://schema.org/eligibleRegion
      */
     public function eligibleRegion($eligibleRegion)
     {
@@ -148,11 +152,12 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * to express free shipping above a certain order volume, or to limit the
      * acceptance of credit cards to purchases to a certain minimal amount.
      *
-     * @param PriceSpecification|PriceSpecification[] $eligibleTransactionVolume
+     * @param \Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[] $eligibleTransactionVolume
      *
      * @return static
      *
-     * @see http://schema.org/eligibleTransactionVolume
+     * @see https://schema.org/eligibleTransactionVolume
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleTransactionVolume($eligibleTransactionVolume)
     {
@@ -166,11 +171,11 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -181,11 +186,11 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -200,11 +205,13 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * 
      * See also [[eligibleRegion]].
      *
-     * @param GeoShape|GeoShape[]|Place|Place[]|string|string[] $ineligibleRegion
+     * @param \Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $ineligibleRegion
      *
      * @return static
      *
-     * @see http://schema.org/ineligibleRegion
+     * @see https://schema.org/ineligibleRegion
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2242
      */
     public function ineligibleRegion($ineligibleRegion)
     {
@@ -216,11 +223,11 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -234,7 +241,8 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/maxPrice
+     * @see https://schema.org/maxPrice
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function maxPrice($maxPrice)
     {
@@ -248,7 +256,8 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/minPrice
+     * @see https://schema.org/minPrice
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function minPrice($minPrice)
     {
@@ -262,7 +271,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -273,11 +282,11 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -314,7 +323,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/price
+     * @see https://schema.org/price
      */
     public function price($price)
     {
@@ -337,7 +346,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/priceCurrency
+     * @see https://schema.org/priceCurrency
      */
     public function priceCurrency($priceCurrency)
     {
@@ -353,7 +362,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -363,11 +372,12 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -381,7 +391,7 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -395,7 +405,8 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/validFrom
+     * @see https://schema.org/validFrom
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validFrom($validFrom)
     {
@@ -410,7 +421,8 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/validThrough
+     * @see https://schema.org/validThrough
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validThrough($validThrough)
     {
@@ -425,7 +437,8 @@ class DeliveryChargeSpecification extends BaseType implements IntangibleContract
      *
      * @return static
      *
-     * @see http://schema.org/valueAddedTaxIncluded
+     * @see https://schema.org/valueAddedTaxIncluded
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function valueAddedTaxIncluded($valueAddedTaxIncluded)
     {

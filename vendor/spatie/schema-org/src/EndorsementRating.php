@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\EndorsementRatingContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\RatingContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -21,10 +22,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * endorsement rating is particularly useful in the absence of numeric scales as
  * it helps consumers understand that the rating is broadly positive.
  *
- * @see http://schema.org/EndorsementRating
+ * @see https://schema.org/EndorsementRating
+ * @link https://github.com/schemaorg/schemaorg/issues/1293
  *
  */
-class EndorsementRating extends BaseType implements IntangibleContract, RatingContract, ThingContract
+class EndorsementRating extends BaseType implements EndorsementRatingContract, IntangibleContract, RatingContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -38,7 +40,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -52,7 +54,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -64,11 +66,11 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      * in that HTML 5 provides a special mechanism for indicating authorship via
      * the rel tag. That is equivalent to this and may be used interchangeably.
      *
-     * @param Organization|Organization[]|Person|Person[] $author
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $author
      *
      * @return static
      *
-     * @see http://schema.org/author
+     * @see https://schema.org/author
      */
     public function author($author)
     {
@@ -83,7 +85,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/bestRating
+     * @see https://schema.org/bestRating
      */
     public function bestRating($bestRating)
     {
@@ -97,7 +99,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -114,7 +116,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -128,11 +130,11 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -143,11 +145,11 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -159,11 +161,11 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -177,7 +179,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -188,15 +190,34 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
         return $this->setProperty('potentialAction', $potentialAction);
+    }
+
+    /**
+     * A short explanation (e.g. one to two sentences) providing background
+     * context and other information that led to the conclusion expressed in the
+     * rating. This is particularly applicable to ratings associated with "fact
+     * check" markup using [[ClaimReview]].
+     *
+     * @param string|string[] $ratingExplanation
+     *
+     * @return static
+     *
+     * @see https://schema.org/ratingExplanation
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2300
+     */
+    public function ratingExplanation($ratingExplanation)
+    {
+        return $this->setProperty('ratingExplanation', $ratingExplanation);
     }
 
     /**
@@ -213,7 +234,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/ratingValue
+     * @see https://schema.org/ratingValue
      */
     public function ratingValue($ratingValue)
     {
@@ -228,7 +249,8 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/reviewAspect
+     * @see https://schema.org/reviewAspect
+     * @link https://github.com/schemaorg/schemaorg/issues/1689
      */
     public function reviewAspect($reviewAspect)
     {
@@ -244,7 +266,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -254,11 +276,12 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -272,7 +295,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -287,7 +310,7 @@ class EndorsementRating extends BaseType implements IntangibleContract, RatingCo
      *
      * @return static
      *
-     * @see http://schema.org/worstRating
+     * @see https://schema.org/worstRating
      */
     public function worstRating($worstRating)
     {

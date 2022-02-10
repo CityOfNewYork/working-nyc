@@ -4,6 +4,8 @@ namespace Spatie\SchemaOrg\Contracts;
 
 interface AirlineContract
 {
+    public function actionableFeedbackPolicy($actionableFeedbackPolicy);
+
     public function additionalType($additionalType);
 
     public function address($address);
@@ -11,6 +13,8 @@ interface AirlineContract
     public function aggregateRating($aggregateRating);
 
     public function alternateName($alternateName);
+
+    public function alumni($alumni);
 
     public function areaServed($areaServed);
 
@@ -26,6 +30,8 @@ interface AirlineContract
 
     public function contactPoints($contactPoints);
 
+    public function correctionsPolicy($correctionsPolicy);
+
     public function department($department);
 
     public function description($description);
@@ -34,6 +40,10 @@ interface AirlineContract
 
     public function dissolutionDate($dissolutionDate);
 
+    public function diversityPolicy($diversityPolicy);
+
+    public function diversityStaffingReport($diversityStaffingReport);
+
     public function duns($duns);
 
     public function email($email);
@@ -41,6 +51,8 @@ interface AirlineContract
     public function employee($employee);
 
     public function employees($employees);
+
+    public function ethicsPolicy($ethicsPolicy);
 
     public function event($event);
 
@@ -60,9 +72,15 @@ interface AirlineContract
 
     public function globalLocationNumber($globalLocationNumber);
 
+    public function hasCredential($hasCredential);
+
+    public function hasMerchantReturnPolicy($hasMerchantReturnPolicy);
+
     public function hasOfferCatalog($hasOfferCatalog);
 
     public function hasPOS($hasPOS);
+
+    public function hasProductReturnPolicy($hasProductReturnPolicy);
 
     public function iataCode($iataCode);
 
@@ -70,7 +88,13 @@ interface AirlineContract
 
     public function image($image);
 
+    public function interactionStatistic($interactionStatistic);
+
     public function isicV4($isicV4);
+
+    public function knowsAbout($knowsAbout);
+
+    public function knowsLanguage($knowsLanguage);
 
     public function legalName($legalName);
 
@@ -94,9 +118,11 @@ interface AirlineContract
 
     public function name($name);
 
+    public function nonprofitStatus($nonprofitStatus);
+
     public function numberOfEmployees($numberOfEmployees);
 
-    public function offeredBy($offeredBy);
+    public function ownershipFundingInfo($ownershipFundingInfo);
 
     public function owns($owns);
 
@@ -127,6 +153,8 @@ interface AirlineContract
     public function taxID($taxID);
 
     public function telephone($telephone);
+
+    public function unnamedSourcesPolicy($unnamedSourcesPolicy);
 
     public function url($url);
 

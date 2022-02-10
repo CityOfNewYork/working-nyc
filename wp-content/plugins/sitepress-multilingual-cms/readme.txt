@@ -1,2 +1,2 @@
 === SitePress Multilingual CMS ===
-Stable tag: 4.4.3
+Stable tag: 4.5.2

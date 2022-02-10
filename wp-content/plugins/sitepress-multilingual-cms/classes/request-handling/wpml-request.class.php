@@ -22,10 +22,10 @@ abstract class WPML_Request {
 	protected $cookieLanguage;
 
 	/**
-	 * @param  WPML_URL_Converter  $url_converter
-	 * @param  array  $active_languages
-	 * @param  string  $default_language
-	 * @param  CookieLanguage  $cookieLanguage
+	 * @param  WPML_URL_Converter $url_converter
+	 * @param  array              $active_languages
+	 * @param  string             $default_language
+	 * @param  CookieLanguage     $cookieLanguage
 	 */
 	public function __construct(
 		WPML_URL_Converter $url_converter,
@@ -33,10 +33,10 @@ abstract class WPML_Request {
 		$default_language,
 		CookieLanguage $cookieLanguage
 	) {
-		$this->url_converter = $url_converter;
+		$this->url_converter    = $url_converter;
 		$this->active_languages = $active_languages;
 		$this->default_language = $default_language;
-		$this->cookieLanguage = $cookieLanguage;
+		$this->cookieLanguage   = $cookieLanguage;
 	}
 
 	abstract protected function get_cookie_name();
@@ -96,7 +96,7 @@ abstract class WPML_Request {
 
 		return ! did_action( 'init' )
 			   || ( get_user_meta( get_current_user_id(), 'icl_show_hidden_languages', true )
-					|| ( is_admin() && current_user_can( 'manage_options' ) ) );
+					|| ( ( is_admin() || wpml_is_rest_request() ) && current_user_can( 'manage_options' ) ) );
 	}
 
 	/**

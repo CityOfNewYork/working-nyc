@@ -12,6 +12,7 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static callable|string concat( ...$a, ...$b ) - Curried :: string → string → string
  * @method static callable|string sub( ...$start, ...$str ) - Curried :: int → string → string
  * @method static callable|string startsWith( ...$test, ...$str ) - Curried :: string → string → bool
+ * @method static callable|string endsWith( ...$test, ...$str ) - Curried :: string → string → bool
  * @method static callable|string pos( ...$test, ...$str ) - Curried :: string → string → int
  * @method static callable|string len( ...$str ) - Curried :: string → int
  * @method static callable|string replace( ...$find, ...$replace, ...$str ) - Curried :: string → string → string → string
@@ -19,6 +20,8 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static callable|string match( ...$pattern, ...$str ) - Curried :: string → string → array
  * @method static callable|string matchAll( ...$pattern, ...$str ) - Curried :: string → string → array
  * @method static callable|string wrap( ...$before, ...$after, ...$str ) - Curried :: string → string → string
+ * @method static callable|string toUpper( string ...$str ) - Curried :: string → string
+ * @method static callable|string toLower( string ...$str ) - Curried :: string → string
  *
  * Wraps a string inside 2 other strings
  *
@@ -31,6 +34,9 @@ use WPML\Collect\Support\Traits\Macroable;
 class Str {
 	use Macroable;
 
+	/**
+	 * @return void
+	 */
 	public static function init() {
 
 		self::macro( 'split', curryN( 2, 'explode' ) );
@@ -41,17 +47,21 @@ class Str {
 			return $a . $b;
 		} ) );
 
-		self::macro( 'sub', curryN( 2, flip( 'substr' ) ) );
+		self::macro( 'sub', curryN( 2, flip( function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr' ) ) );
 
-		self::macro( 'tail', self::sub( 1 ));
+		self::macro( 'tail', self::sub( 1 ) );
 
-		self::macro( 'pos', curryN( 2, flip( 'strpos' ) ) );
+		self::macro( 'pos', curryN( 2, flip( function_exists( 'mb_strpos' ) ? 'mb_strpos' : 'strpos' ) ) );
 
 		self::macro( 'startsWith', curryN( 2, pipe( self::pos(), Relation::equals( 0 ) ) ) );
 
+		self::macro( 'endsWith', curryN( 2, function ( $find, $s ) {
+			return self::sub( - self::len( $find ), $s ) === $find;
+		} ) );
+
 		self::macro( 'includes', curryN( 2, pipe( self::pos(), Logic::complement( Relation::equals( false ) ) ) ) );
 
-		self::macro( 'len', curryN( 1, 'strlen' ) );
+		self::macro( 'len', curryN( 1, function_exists( 'mb_strlen' ) ? 'mb_strlen' : 'strlen' ) );
 
 
 		self::macro( 'replace', curryN( 3, function ( $search, $replace, $subject ) {
@@ -77,6 +87,10 @@ class Str {
 		self::macro( 'wrap', curryN( 3, function ( $before, $after, $string ) {
 			return $before . $string . $after;
 		} ) );
+
+		self::macro( 'toUpper', curryN( 1, 'strtoupper' ) );
+
+		self::macro( 'toLower', curryN( 1, 'strtolower' ) );
 	}
 }
 

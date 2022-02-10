@@ -22,11 +22,15 @@ class Hooks {
 			->then( spreadArgs( Obj::set( Obj::lensProp( 'st-batch' ), 'core' ) ) );
 
 		WPHooks::onFilter( 'wpml_is_external', 10, 2 )
-			->then( spreadArgs( function ( $state, $type ) {
-				return $state
-				       || ( is_object( $type ) && Obj::prop( 'post_type', $type ) === 'strings' )
-				       || $type === 'st-batch';
-			} ) );
+			->then(
+				spreadArgs(
+					function ( $state, $type ) {
+						return $state
+						  || ( is_object( $type ) && Obj::prop( 'post_type', $type ) === 'strings' )
+						  || $type === 'st-batch';
+					}
+				)
+			);
 
 		WPHooks::onFilter( 'wpml_get_translatable_item', 10, 3 )
 			->then( spreadArgs( Strings::get( $getBatchRecord, $getString ) ) );

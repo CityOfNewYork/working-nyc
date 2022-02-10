@@ -11,7 +11,7 @@ if ( ! function_exists('wp_all_import_template_notifications') )
 			{
 				if (class_exists($key)) continue;
 
-				$notifications[] = sprintf(__('The import template you are using requires the %s. If you continue without it your data may import incorrectly.<br/><br/><a href="%s" target="_blank">' . ($addon['paid'] ? 'Purchase' : 'Download') . ' the %s</a>.', 'wp_all_import_plugin'), $addon['name'], $addon['url'], $addon['name']);							
+				$notifications[] = sprintf(__('The import template you are using requires the %s. If you continue without it your data may import incorrectly.<br/><br/><a href="%s" target="_blank">' . ($addon['paid'] ? 'Purchase' : 'Download') . ' the %s</a>.', 'wp_all_import_plugin'), esc_attr($addon['name']), esc_url($addon['url']), esc_attr($addon['name']));
 			}
 		}				
 		else // Custom Import Template
@@ -103,7 +103,7 @@ if ( ! function_exists('wp_all_import_template_notifications') )
 				{
 					?>
 					<div class="error inline">
-						<p><?php printf(__('<strong>Warning:</strong>', 'wp_all_import_plugin') . ' %s', $notification);?></p>
+						<p><?php printf(__('<strong>Warning:</strong>', 'wp_all_import_plugin') . ' %s', wp_kses_post($notification));?></p>
 					</div>
 					<?php
 				}
@@ -111,7 +111,7 @@ if ( ! function_exists('wp_all_import_template_notifications') )
 				{
 					?>
 					<div class="wpallimport-free-edition-notice" style="text-align:center; margin-top:0; margin-bottom: 20px;">
-						<p class="upgrade_link"><?php echo $notification;?></p>
+						<p class="upgrade_link"><?php echo wp_kses_post($notification);?></p>
 					</div>
 					<?php
 				}

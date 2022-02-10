@@ -37,9 +37,9 @@ class Frontend extends WPML_Request {
 	 */
 	private function get_comment_language() {
 		return Maybe::of( $_POST )
-		            ->map( Obj::prop( WPML_WP_Comments::LANG_CODE_FIELD ) )
-		            ->map( filterVar( FILTER_SANITIZE_SPECIAL_CHARS ) )
-		            ->getOrElse( $this->default_language );
+					->map( Obj::prop( WPML_WP_Comments::LANG_CODE_FIELD ) )
+					->map( filterVar( FILTER_SANITIZE_SPECIAL_CHARS ) )
+					->getOrElse( $this->default_language );
 
 	}
 

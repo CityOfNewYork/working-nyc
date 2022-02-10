@@ -1,5 +1,5 @@
 <script type="text/javascript">
-	var plugin_url = '<?php echo WP_ALL_IMPORT_ROOT_URL; ?>';
+	var plugin_url = '<?php echo esc_url(WP_ALL_IMPORT_ROOT_URL); ?>';
 </script>
 
 <div class="change_file">
@@ -22,7 +22,7 @@
 					<?php 
 					if ( ! empty($upload_validation) ): 										
 						$file_type = strtoupper(pmxi_getExtension($post['file']));
-						printf(__('Please verify that the file you using is a valid %s file.', 'wp_all_import_plugin'), $file_type); 
+						printf(__('This %s file has errors and is not valid.', 'wp_all_import_plugin'), esc_attr($file_type));
 					endif;
 					?>
 				</h4>
@@ -62,7 +62,7 @@
 						<div class="wpallimport-upload-type-container" rel="upload_type">							
 							<div id="plupload-ui" class="wpallimport-file-type-options">
 					            <div>				                
-					                <input type="hidden" name="filepath" value="<?php if ('upload' == $import->type) echo $import->path; ?>" id="filepath"/>
+					                <input type="hidden" name="filepath" value="<?php if ('upload' == $import->type) echo esc_attr($import->path); ?>" id="filepath"/>
 					                <a id="select-files" href="javascript:void(0);"/><?php _e('Click here to select file from your computer...', 'wp_all_import_plugin'); ?></a>
 					                <div id="progressbar" class="wpallimport-progressbar">
 					                	<?php if ('upload' == $import->type) _e( '<span>Upload Complete</span> - '.basename($import->path).' 100%', 'wp_all_import_plugin'); ?>
@@ -102,7 +102,7 @@
 								<input type="hidden" name="file" value="<?php if ('file' == $import->type) echo esc_attr($import->path); ?>"/>	
 								
 								<div class="wpallimport-note" style="margin: 0 auto; ">
-									<?php printf(__('Files uploaded to <strong>%s</strong> will appear in this list.', 'wp_all_import_plugin'), $upload_dir['basedir'] . '/wpallimport/files'); ?>									
+									<?php printf(__('Files uploaded to <strong>%s</strong> will appear in this list.', 'wp_all_import_plugin'), esc_attr($upload_dir['basedir'] . '/wpallimport/files')); ?>
 								</div>
 								<div class="wpallimport-free-edition-notice">									
 									<a href="https://www.wpallimport.com/checkout/?edd_action=add_to_cart&download_id=2707176&edd_options%5Bprice_id%5D=1&utm_source=import-plugin-free&utm_medium=error&utm_campaign=use-existing-file" target="_blank" class="upgrade_link"><?php _e('Upgrade to the Pro edition of WP All Import to Use Existing Files', 'wp_all_import_plugin');?></a>

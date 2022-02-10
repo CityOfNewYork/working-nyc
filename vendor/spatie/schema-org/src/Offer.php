@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\OfferContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
@@ -11,6 +12,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * stream a TV show over the internet, to repair a motorcycle, or to loan a
  * book.
  * 
+ * Note: As the [[businessFunction]] property, which identifies the form of
+ * offer (e.g. sell, lease, repair, dispose), defaults to
+ * http://purl.org/goodrelations/v1#Sell; an Offer without a defined
+ * businessFunction value can be assumed to be an offer to sell.
+ * 
  * For [GTIN](http://www.gs1.org/barcodes/technical/idkeys/gtin)-related fields,
  * see [Check Digit
  * calculator](http://www.gs1.org/barcodes/support/check_digit_calculator) and
@@ -18,19 +24,21 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * guide](http://www.gs1us.org/resources/standards/gtin-validation-guide) from
  * [GS1](http://www.gs1.org/).
  *
- * @see http://schema.org/Offer
+ * @see https://schema.org/Offer
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
  *
  */
-class Offer extends BaseType implements IntangibleContract, ThingContract
+class Offer extends BaseType implements OfferContract, IntangibleContract, ThingContract
 {
     /**
      * The payment method(s) accepted by seller for this offer.
      *
-     * @param LoanOrCredit|LoanOrCredit[]|PaymentMethod|PaymentMethod[] $acceptedPaymentMethod
+     * @param \Spatie\SchemaOrg\Contracts\LoanOrCreditContract|\Spatie\SchemaOrg\Contracts\LoanOrCreditContract[]|\Spatie\SchemaOrg\Contracts\PaymentMethodContract|\Spatie\SchemaOrg\Contracts\PaymentMethodContract[] $acceptedPaymentMethod
      *
      * @return static
      *
-     * @see http://schema.org/acceptedPaymentMethod
+     * @see https://schema.org/acceptedPaymentMethod
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function acceptedPaymentMethod($acceptedPaymentMethod)
     {
@@ -42,11 +50,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * first base offer (e.g. supplements and extensions that are available for
      * a surcharge).
      *
-     * @param Offer|Offer[] $addOn
+     * @param \Spatie\SchemaOrg\Contracts\OfferContract|\Spatie\SchemaOrg\Contracts\OfferContract[] $addOn
      *
      * @return static
      *
-     * @see http://schema.org/addOn
+     * @see https://schema.org/addOn
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function addOn($addOn)
     {
@@ -65,7 +74,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -76,11 +85,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * The amount of time that is required between accepting the offer and the
      * actual usage of the resource or service.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $advanceBookingRequirement
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $advanceBookingRequirement
      *
      * @return static
      *
-     * @see http://schema.org/advanceBookingRequirement
+     * @see https://schema.org/advanceBookingRequirement
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function advanceBookingRequirement($advanceBookingRequirement)
     {
@@ -91,11 +101,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * The overall rating, based on a collection of reviews or ratings, of the
      * item.
      *
-     * @param AggregateRating|AggregateRating[] $aggregateRating
+     * @param \Spatie\SchemaOrg\Contracts\AggregateRatingContract|\Spatie\SchemaOrg\Contracts\AggregateRatingContract[] $aggregateRating
      *
      * @return static
      *
-     * @see http://schema.org/aggregateRating
+     * @see https://schema.org/aggregateRating
      */
     public function aggregateRating($aggregateRating)
     {
@@ -109,7 +119,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -119,11 +129,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * The geographic area where a service or offered item is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[]|string|string[] $areaServed
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $areaServed
      *
      * @return static
      *
-     * @see http://schema.org/areaServed
+     * @see https://schema.org/areaServed
      */
     public function areaServed($areaServed)
     {
@@ -134,11 +144,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * The availability of this item&#x2014;for example In stock, Out of stock,
      * Pre-order, etc.
      *
-     * @param ItemAvailability|ItemAvailability[] $availability
+     * @param \Spatie\SchemaOrg\Contracts\ItemAvailabilityContract|\Spatie\SchemaOrg\Contracts\ItemAvailabilityContract[] $availability
      *
      * @return static
      *
-     * @see http://schema.org/availability
+     * @see https://schema.org/availability
      */
     public function availability($availability)
     {
@@ -153,7 +163,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/availabilityEnds
+     * @see https://schema.org/availabilityEnds
      */
     public function availabilityEnds($availabilityEnds)
     {
@@ -168,7 +178,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/availabilityStarts
+     * @see https://schema.org/availabilityStarts
      */
     public function availabilityStarts($availabilityStarts)
     {
@@ -178,11 +188,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * The place(s) from which the offer can be obtained (e.g. store locations).
      *
-     * @param Place|Place[] $availableAtOrFrom
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $availableAtOrFrom
      *
      * @return static
      *
-     * @see http://schema.org/availableAtOrFrom
+     * @see https://schema.org/availableAtOrFrom
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function availableAtOrFrom($availableAtOrFrom)
     {
@@ -192,11 +203,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * The delivery method(s) available for this offer.
      *
-     * @param DeliveryMethod|DeliveryMethod[] $availableDeliveryMethod
+     * @param \Spatie\SchemaOrg\Contracts\DeliveryMethodContract|\Spatie\SchemaOrg\Contracts\DeliveryMethodContract[] $availableDeliveryMethod
      *
      * @return static
      *
-     * @see http://schema.org/availableDeliveryMethod
+     * @see https://schema.org/availableDeliveryMethod
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function availableDeliveryMethod($availableDeliveryMethod)
     {
@@ -208,11 +220,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * component of a bundle (TypeAndQuantityNode). The default is
      * http://purl.org/goodrelations/v1#Sell.
      *
-     * @param BusinessFunction|BusinessFunction[] $businessFunction
+     * @param \Spatie\SchemaOrg\Contracts\BusinessFunctionContract|\Spatie\SchemaOrg\Contracts\BusinessFunctionContract[] $businessFunction
      *
      * @return static
      *
-     * @see http://schema.org/businessFunction
+     * @see https://schema.org/businessFunction
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function businessFunction($businessFunction)
     {
@@ -223,11 +236,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * A category for the item. Greater signs or slashes can be used to
      * informally indicate a category hierarchy.
      *
-     * @param Thing|Thing[]|string|string[] $category
+     * @param \Spatie\SchemaOrg\Contracts\PhysicalActivityCategoryContract|\Spatie\SchemaOrg\Contracts\PhysicalActivityCategoryContract[]|\Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[]|string|string[] $category
      *
      * @return static
      *
-     * @see http://schema.org/category
+     * @see https://schema.org/category
      */
     public function category($category)
     {
@@ -239,11 +252,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * leaving the warehouse or being prepared for pickup, in case the delivery
      * method is on site pickup.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $deliveryLeadTime
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $deliveryLeadTime
      *
      * @return static
      *
-     * @see http://schema.org/deliveryLeadTime
+     * @see https://schema.org/deliveryLeadTime
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function deliveryLeadTime($deliveryLeadTime)
     {
@@ -257,7 +271,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -274,7 +288,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -284,11 +298,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * The type(s) of customers for which the given offer is valid.
      *
-     * @param BusinessEntityType|BusinessEntityType[] $eligibleCustomerType
+     * @param \Spatie\SchemaOrg\Contracts\BusinessEntityTypeContract|\Spatie\SchemaOrg\Contracts\BusinessEntityTypeContract[] $eligibleCustomerType
      *
      * @return static
      *
-     * @see http://schema.org/eligibleCustomerType
+     * @see https://schema.org/eligibleCustomerType
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleCustomerType($eligibleCustomerType)
     {
@@ -298,11 +313,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * The duration for which the given offer is valid.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $eligibleDuration
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $eligibleDuration
      *
      * @return static
      *
-     * @see http://schema.org/eligibleDuration
+     * @see https://schema.org/eligibleDuration
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleDuration($eligibleDuration)
     {
@@ -314,11 +330,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * offer or price specification is valid. This allows e.g. specifying that a
      * certain freight charge is valid only for a certain quantity.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $eligibleQuantity
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $eligibleQuantity
      *
      * @return static
      *
-     * @see http://schema.org/eligibleQuantity
+     * @see https://schema.org/eligibleQuantity
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleQuantity($eligibleQuantity)
     {
@@ -332,11 +349,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * 
      * See also [[ineligibleRegion]].
      *
-     * @param GeoShape|GeoShape[]|Place|Place[]|string|string[] $eligibleRegion
+     * @param \Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $eligibleRegion
      *
      * @return static
      *
-     * @see http://schema.org/eligibleRegion
+     * @see https://schema.org/eligibleRegion
      */
     public function eligibleRegion($eligibleRegion)
     {
@@ -349,15 +366,48 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * to express free shipping above a certain order volume, or to limit the
      * acceptance of credit cards to purchases to a certain minimal amount.
      *
-     * @param PriceSpecification|PriceSpecification[] $eligibleTransactionVolume
+     * @param \Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[] $eligibleTransactionVolume
      *
      * @return static
      *
-     * @see http://schema.org/eligibleTransactionVolume
+     * @see https://schema.org/eligibleTransactionVolume
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleTransactionVolume($eligibleTransactionVolume)
     {
         return $this->setProperty('eligibleTransactionVolume', $eligibleTransactionVolume);
+    }
+
+    /**
+     * A Global Trade Item Number
+     * ([GTIN](https://www.gs1.org/standards/id-keys/gtin)). GTINs identify
+     * trade items, including products and services, using numeric
+     * identification codes. The [[gtin]] property generalizes the earlier
+     * [[gtin8]], [[gtin12]], [[gtin13]], and [[gtin14]] properties. The GS1
+     * [digital link
+     * specifications](https://www.gs1.org/standards/Digital-Link/) express
+     * GTINs as URLs. A correct [[gtin]] value should be a valid GTIN, which
+     * means that it should be an all-numeric string of either 8, 12, 13 or 14
+     * digits, or a "GS1 Digital Link" URL based on such a string. The numeric
+     * component should also have a [valid GS1 check
+     * digit](https://www.gs1.org/services/check-digit-calculator) and meet the
+     * other rules for valid GTINs. See also [GS1's GTIN
+     * Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) and
+     * [Wikipedia](https://en.wikipedia.org/wiki/Global_Trade_Item_Number) for
+     * more details. Left-padding of the gtin values is not required or
+     * encouraged.
+     *
+     * @param string|string[] $gtin
+     *
+     * @return static
+     *
+     * @see https://schema.org/gtin
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2288
+     */
+    public function gtin($gtin)
+    {
+        return $this->setProperty('gtin', $gtin);
     }
 
     /**
@@ -372,7 +422,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/gtin12
+     * @see https://schema.org/gtin12
      */
     public function gtin12($gtin12)
     {
@@ -383,7 +433,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * The GTIN-13 code of the product, or the product to which the offer
      * refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former
      * 12-digit UPC codes can be converted into a GTIN-13 code by simply adding
-     * a preceeding zero. See [GS1 GTIN
+     * a preceding zero. See [GS1 GTIN
      * Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
      * details.
      *
@@ -391,7 +441,8 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/gtin13
+     * @see https://schema.org/gtin13
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function gtin13($gtin13)
     {
@@ -408,7 +459,8 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/gtin14
+     * @see https://schema.org/gtin14
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function gtin14($gtin14)
     {
@@ -416,9 +468,8 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * The [GTIN-8](http://apps.gs1.org/GDD/glossary/Pages/GTIN-8.aspx) code of
-     * the product, or the product to which the offer refers. This code is also
-     * known as EAN/UCC-8 or 8-digit EAN. See [GS1 GTIN
+     * The GTIN-8 code of the product, or the product to which the offer refers.
+     * This code is also known as EAN/UCC-8 or 8-digit EAN. See [GS1 GTIN
      * Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more
      * details.
      *
@@ -426,11 +477,47 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/gtin8
+     * @see https://schema.org/gtin8
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function gtin8($gtin8)
     {
         return $this->setProperty('gtin8', $gtin8);
+    }
+
+    /**
+     * A product measurement, for example the inseam of pants, the wheel size of
+     * a bicycle, or the gauge of a screw. Usually an exact measurement, but can
+     * also be a range of measurements for adjustable products, for example
+     * belts and ski bindings.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $hasMeasurement
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasMeasurement
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2811
+     */
+    public function hasMeasurement($hasMeasurement)
+    {
+        return $this->setProperty('hasMeasurement', $hasMeasurement);
+    }
+
+    /**
+     * Specifies a MerchantReturnPolicy that may be applicable.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\MerchantReturnPolicyContract|\Spatie\SchemaOrg\Contracts\MerchantReturnPolicyContract[] $hasMerchantReturnPolicy
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasMerchantReturnPolicy
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2288
+     */
+    public function hasMerchantReturnPolicy($hasMerchantReturnPolicy)
+    {
+        return $this->setProperty('hasMerchantReturnPolicy', $hasMerchantReturnPolicy);
     }
 
     /**
@@ -440,11 +527,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -455,11 +542,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -468,13 +555,14 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
 
     /**
      * This links to a node or nodes indicating the exact quantity of the
-     * products included in the offer.
+     * products included in  an [[Offer]] or [[ProductCollection]].
      *
-     * @param TypeAndQuantityNode|TypeAndQuantityNode[] $includesObject
+     * @param \Spatie\SchemaOrg\Contracts\TypeAndQuantityNodeContract|\Spatie\SchemaOrg\Contracts\TypeAndQuantityNodeContract[] $includesObject
      *
      * @return static
      *
-     * @see http://schema.org/includesObject
+     * @see https://schema.org/includesObject
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function includesObject($includesObject)
     {
@@ -489,11 +577,13 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * 
      * See also [[eligibleRegion]].
      *
-     * @param GeoShape|GeoShape[]|Place|Place[]|string|string[] $ineligibleRegion
+     * @param \Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $ineligibleRegion
      *
      * @return static
      *
-     * @see http://schema.org/ineligibleRegion
+     * @see https://schema.org/ineligibleRegion
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2242
      */
     public function ineligibleRegion($ineligibleRegion)
     {
@@ -503,11 +593,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * The current approximate inventory level for the item or items.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $inventoryLevel
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $inventoryLevel
      *
      * @return static
      *
-     * @see http://schema.org/inventoryLevel
+     * @see https://schema.org/inventoryLevel
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function inventoryLevel($inventoryLevel)
     {
@@ -515,15 +606,16 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * A predefined value from OfferItemCondition or a textual description of
-     * the condition of the product or service, or the products or services
-     * included in the offer.
+     * A predefined value from OfferItemCondition specifying the condition of
+     * the product or service, or the products or services included in the
+     * offer. Also used for product return policies to specify the condition of
+     * products accepted for returns.
      *
-     * @param OfferItemCondition|OfferItemCondition[] $itemCondition
+     * @param \Spatie\SchemaOrg\Contracts\OfferItemConditionContract|\Spatie\SchemaOrg\Contracts\OfferItemConditionContract[] $itemCondition
      *
      * @return static
      *
-     * @see http://schema.org/itemCondition
+     * @see https://schema.org/itemCondition
      */
     public function itemCondition($itemCondition)
     {
@@ -531,13 +623,17 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * The item being offered.
+     * An item being offered (or demanded). The transactional nature of the
+     * offer or demand is documented using [[businessFunction]], e.g. sell,
+     * lease etc. While several common expected types are listed explicitly in
+     * this definition, others can be used. Using a second type, such as Product
+     * or a subtype of Product, can clarify the nature of the offer.
      *
-     * @param Product|Product[]|Service|Service[] $itemOffered
+     * @param \Spatie\SchemaOrg\Contracts\AggregateOfferContract|\Spatie\SchemaOrg\Contracts\AggregateOfferContract[]|\Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[]|\Spatie\SchemaOrg\Contracts\MenuItemContract|\Spatie\SchemaOrg\Contracts\MenuItemContract[]|\Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|\Spatie\SchemaOrg\Contracts\ServiceContract|\Spatie\SchemaOrg\Contracts\ServiceContract[]|\Spatie\SchemaOrg\Contracts\TripContract|\Spatie\SchemaOrg\Contracts\TripContract[] $itemOffered
      *
      * @return static
      *
-     * @see http://schema.org/itemOffered
+     * @see https://schema.org/itemOffered
      */
     public function itemOffered($itemOffered)
     {
@@ -545,15 +641,32 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
+     * Length of the lease for some [[Accommodation]], either particular to some
+     * [[Offer]] or in some cases intrinsic to the property.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DurationContract|\Spatie\SchemaOrg\Contracts\DurationContract[]|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $leaseLength
+     *
+     * @return static
+     *
+     * @see https://schema.org/leaseLength
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2373
+     */
+    public function leaseLength($leaseLength)
+    {
+        return $this->setProperty('leaseLength', $leaseLength);
+    }
+
+    /**
      * Indicates a page (or other CreativeWork) for which this thing is the main
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -568,7 +681,8 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/mpn
+     * @see https://schema.org/mpn
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function mpn($mpn)
     {
@@ -582,7 +696,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -590,14 +704,28 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * Indicates a potential Action, which describes an idealized action in
-     * which this thing would play an 'object' role.
+     * A pointer to the organization or person making the offer.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $offeredBy
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/offeredBy
+     */
+    public function offeredBy($offeredBy)
+    {
+        return $this->setProperty('offeredBy', $offeredBy);
+    }
+
+    /**
+     * Indicates a potential Action, which describes an idealized action in
+     * which this thing would play an 'object' role.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
+     *
+     * @return static
+     *
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -634,7 +762,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/price
+     * @see https://schema.org/price
      */
     public function price($price)
     {
@@ -657,7 +785,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/priceCurrency
+     * @see https://schema.org/priceCurrency
      */
     public function priceCurrency($priceCurrency)
     {
@@ -668,11 +796,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * One or more detailed price specifications, indicating the unit price and
      * delivery or payment charges.
      *
-     * @param PriceSpecification|PriceSpecification[] $priceSpecification
+     * @param \Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[] $priceSpecification
      *
      * @return static
      *
-     * @see http://schema.org/priceSpecification
+     * @see https://schema.org/priceSpecification
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function priceSpecification($priceSpecification)
     {
@@ -686,7 +815,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/priceValidUntil
+     * @see https://schema.org/priceValidUntil
      */
     public function priceValidUntil($priceValidUntil)
     {
@@ -696,11 +825,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * A review of the item.
      *
-     * @param Review|Review[] $review
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $review
      *
      * @return static
      *
-     * @see http://schema.org/review
+     * @see https://schema.org/review
      */
     public function review($review)
     {
@@ -710,11 +839,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * Review of the item.
      *
-     * @param Review|Review[] $reviews
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $reviews
      *
      * @return static
      *
-     * @see http://schema.org/reviews
+     * @see https://schema.org/reviews
      */
     public function reviews($reviews)
     {
@@ -730,7 +859,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -741,11 +870,11 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      * An entity which offers (sells / leases / lends / loans) the services /
      * goods.  A seller may also be a provider.
      *
-     * @param Organization|Organization[]|Person|Person[] $seller
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $seller
      *
      * @return static
      *
-     * @see http://schema.org/seller
+     * @see https://schema.org/seller
      */
     public function seller($seller)
     {
@@ -761,11 +890,29 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/serialNumber
+     * @see https://schema.org/serialNumber
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function serialNumber($serialNumber)
     {
         return $this->setProperty('serialNumber', $serialNumber);
+    }
+
+    /**
+     * Indicates information about the shipping policies and options associated
+     * with an [[Offer]].
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OfferShippingDetailsContract|\Spatie\SchemaOrg\Contracts\OfferShippingDetailsContract[] $shippingDetails
+     *
+     * @return static
+     *
+     * @see https://schema.org/shippingDetails
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
+     */
+    public function shippingDetails($shippingDetails)
+    {
+        return $this->setProperty('shippingDetails', $shippingDetails);
     }
 
     /**
@@ -776,7 +923,8 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sku
+     * @see https://schema.org/sku
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function sku($sku)
     {
@@ -786,11 +934,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -804,7 +953,7 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -818,7 +967,8 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/validFrom
+     * @see https://schema.org/validFrom
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validFrom($validFrom)
     {
@@ -833,7 +983,8 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/validThrough
+     * @see https://schema.org/validThrough
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validThrough($validThrough)
     {
@@ -843,11 +994,12 @@ class Offer extends BaseType implements IntangibleContract, ThingContract
     /**
      * The warranty promise(s) included in the offer.
      *
-     * @param WarrantyPromise|WarrantyPromise[] $warranty
+     * @param \Spatie\SchemaOrg\Contracts\WarrantyPromiseContract|\Spatie\SchemaOrg\Contracts\WarrantyPromiseContract[] $warranty
      *
      * @return static
      *
-     * @see http://schema.org/warranty
+     * @see https://schema.org/warranty
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function warranty($warranty)
     {

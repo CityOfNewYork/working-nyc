@@ -40,6 +40,8 @@ interface GovernmentServiceContract
 
     public function isSimilarTo($isSimilarTo);
 
+    public function jurisdiction($jurisdiction);
+
     public function logo($logo);
 
     public function mainEntityOfPage($mainEntityOfPage);
@@ -73,6 +75,8 @@ interface GovernmentServiceContract
     public function slogan($slogan);
 
     public function subjectOf($subjectOf);
+
+    public function termsOfService($termsOfService);
 
     public function url($url);
 

@@ -420,9 +420,6 @@ abstract class WPML_Post_Translation extends WPML_Element_Translation {
 		return $post_vars;
 	}
 
-	/**
-	 * @param bool $defer
-	 */
 	protected function defer_term_counting() {
 		if ( ! self::$defer_term_counting ) {
 			self::$defer_term_counting = true;

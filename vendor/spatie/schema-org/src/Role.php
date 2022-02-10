@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\RoleContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
@@ -15,10 +16,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * 
  * See also [blog post](http://blog.schema.org/2014/06/introducing-role.html).
  *
- * @see http://schema.org/Role
+ * @see https://schema.org/Role
  *
  */
-class Role extends BaseType implements IntangibleContract, ThingContract
+class Role extends BaseType implements RoleContract, IntangibleContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -32,7 +33,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -46,7 +47,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -60,7 +61,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -77,7 +78,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -92,7 +93,8 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/endDate
+     * @see https://schema.org/endDate
+     * @link https://github.com/schemaorg/schemaorg/issues/2486
      */
     public function endDate($endDate)
     {
@@ -106,11 +108,11 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -121,11 +123,11 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -137,11 +139,11 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -155,7 +157,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -171,7 +173,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/namedPosition
+     * @see https://schema.org/namedPosition
      */
     public function namedPosition($namedPosition)
     {
@@ -182,11 +184,11 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -203,7 +205,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/roleName
+     * @see https://schema.org/roleName
      */
     public function roleName($roleName)
     {
@@ -219,7 +221,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -234,7 +236,8 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/startDate
+     * @see https://schema.org/startDate
+     * @link https://github.com/schemaorg/schemaorg/issues/2486
      */
     public function startDate($startDate)
     {
@@ -244,11 +247,12 @@ class Role extends BaseType implements IntangibleContract, ThingContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -262,7 +266,7 @@ class Role extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

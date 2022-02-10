@@ -102,6 +102,8 @@ class WP_oEmbed {
 			'#https?://www\.someecards\.com/usercards/viewcard/.+#i' => array( 'https://www.someecards.com/v2/oembed/', true ),
 			'#https?://some\.ly\/.+#i'                     => array( 'https://www.someecards.com/v2/oembed/', true ),
 			'#https?://(www\.)?tiktok\.com/.*/video/.*#i'  => array( 'https://www.tiktok.com/oembed', true ),
+			'#https?://([a-z]{2}|www)\.pinterest\.com(\.(au|mx))?/.*#i' => array( 'https://www.pinterest.com/oembed.json', true ),
+			'#https?://(www\.)?wolframcloud\.com/obj/.+#i' => array( 'https://www.wolframcloud.com/oembed', true ),
 		);
 
 		if ( ! empty( self::$early_providers['add'] ) ) {
@@ -179,6 +181,8 @@ class WP_oEmbed {
 		 * | Someecards   | some.ly                                   | 4.9.0   |
 		 * | Crowdsignal  | survey.fm                                 | 5.1.0   |
 		 * | TikTok       | tiktok.com                                | 5.4.0   |
+		 * | Pinterest    | pinterest.com                             | 5.9.0   |
+		 * | WolframCloud | wolframcloud.com                          | 5.9.0   |
 		 *
 		 * No longer supported providers:
 		 *
@@ -220,7 +224,7 @@ class WP_oEmbed {
 	 *
 	 * @param string $name      Method to call.
 	 * @param array  $arguments Arguments to pass when calling.
-	 * @return mixed|bool Return value of the callback, false otherwise.
+	 * @return mixed|false Return value of the callback, false otherwise.
 	 */
 	public function __call( $name, $arguments ) {
 		if ( in_array( $name, $this->compat_methods, true ) ) {
@@ -237,7 +241,13 @@ class WP_oEmbed {
 	 * @see WP_oEmbed::discover()
 	 *
 	 * @param string       $url  The URL to the content.
-	 * @param string|array $args Optional provider arguments.
+	 * @param string|array $args {
+	 *     Optional. Additional provider arguments. Default empty.
+	 *
+	 *     @type bool $discover Optional. Determines whether to attempt to discover link tags
+	 *                          at the given URL for an oEmbed provider when the provider URL
+	 *                          is not found in the built-in providers list. Default true.
+	 * }
 	 * @return string|false The oEmbed provider URL on success, false on failure.
 	 */
 	public function get_provider( $url, $args = '' ) {
@@ -328,7 +338,8 @@ class WP_oEmbed {
 	 * @since 4.8.0
 	 *
 	 * @param string       $url  The URL to the content that should be attempted to be embedded.
-	 * @param array|string $args Optional. Arguments, usually passed from a shortcode. Default empty.
+	 * @param string|array $args Optional. Additional arguments for retrieving embed HTML.
+	 *                           See wp_oembed_get() for accepted arguments. Default empty.
 	 * @return object|false The result in the form of an object on success, false on failure.
 	 */
 	public function get_data( $url, $args = '' ) {
@@ -358,9 +369,10 @@ class WP_oEmbed {
 	 * @since 2.9.0
 	 *
 	 * @param string       $url  The URL to the content that should be attempted to be embedded.
-	 * @param array|string $args Optional. Arguments, usually passed from a shortcode. Default empty.
-	 * @return string|false The UNSANITIZED (and potentially unsafe) HTML that should be used to embed on success,
-	 *                      false on failure.
+	 * @param string|array $args Optional. Additional arguments for retrieving embed HTML.
+	 *                           See wp_oembed_get() for accepted arguments. Default empty.
+	 * @return string|false The UNSANITIZED (and potentially unsafe) HTML that should be used to embed
+	 *                      on success, false on failure.
 	 */
 	public function get_html( $url, $args = '' ) {
 		/**
@@ -374,10 +386,11 @@ class WP_oEmbed {
 		 *
 		 * @since 4.5.3
 		 *
-		 * @param null|string $result The UNSANITIZED (and potentially unsafe) HTML that should be used to embed.
-		 *                            Default null to continue retrieving the result.
-		 * @param string      $url    The URL to the content that should be attempted to be embedded.
-		 * @param array       $args   Optional. Arguments, usually passed from a shortcode. Default empty.
+		 * @param null|string  $result The UNSANITIZED (and potentially unsafe) HTML that should be used to embed.
+		 *                             Default null to continue retrieving the result.
+		 * @param string       $url    The URL to the content that should be attempted to be embedded.
+		 * @param string|array $args   Optional. Additional arguments for retrieving embed HTML.
+		 *                             See wp_oembed_get() for accepted arguments. Default empty.
 		 */
 		$pre = apply_filters( 'pre_oembed_result', null, $url, $args );
 
@@ -398,7 +411,8 @@ class WP_oEmbed {
 		 *
 		 * @param string|false $data The returned oEmbed HTML (false if unsafe).
 		 * @param string       $url  URL of the content to be embedded.
-		 * @param array        $args Optional arguments, usually passed from a shortcode.
+		 * @param string|array $args Optional. Additional arguments for retrieving embed HTML.
+		 *                           See wp_oembed_get() for accepted arguments. Default empty.
 		 */
 		return apply_filters( 'oembed_result', $this->data2html( $data, $url ), $url, $args );
 	}
@@ -500,7 +514,8 @@ class WP_oEmbed {
 	 *
 	 * @param string       $provider The URL to the oEmbed provider.
 	 * @param string       $url      The URL to the content that is desired to be embedded.
-	 * @param array|string $args     Optional. Arguments, usually passed from a shortcode. Default empty.
+	 * @param string|array $args     Optional. Additional arguments for retrieving embed HTML.
+	 *                               See wp_oembed_get() for accepted arguments. Default empty.
 	 * @return object|false The result in the form of an object on success, false on failure.
 	 */
 	public function fetch( $provider, $url, $args = '' ) {
@@ -519,7 +534,8 @@ class WP_oEmbed {
 		 *
 		 * @param string $provider URL of the oEmbed provider.
 		 * @param string $url      URL of the content to be embedded.
-		 * @param array  $args     Optional arguments, usually passed from a shortcode.
+		 * @param array  $args     Optional. Additional arguments for retrieving embed HTML.
+		 *                         See wp_oembed_get() for accepted arguments. Default empty.
 		 */
 		$provider = apply_filters( 'oembed_fetch_url', $provider, $url, $args );
 
@@ -586,13 +602,23 @@ class WP_oEmbed {
 			return false;
 		}
 
-		$loader = libxml_disable_entity_loader( true );
+		if ( PHP_VERSION_ID < 80000 ) {
+			// This function has been deprecated in PHP 8.0 because in libxml 2.9.0, external entity loading
+			// is disabled by default, so this function is no longer needed to protect against XXE attacks.
+			// phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.libxml_disable_entity_loaderDeprecated
+			$loader = libxml_disable_entity_loader( true );
+		}
+
 		$errors = libxml_use_internal_errors( true );
 
 		$return = $this->_parse_xml_body( $response_body );
 
 		libxml_use_internal_errors( $errors );
-		libxml_disable_entity_loader( $loader );
+
+		if ( PHP_VERSION_ID < 80000 && isset( $loader ) ) {
+			// phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.libxml_disable_entity_loaderDeprecated
+			libxml_disable_entity_loader( $loader );
+		}
 
 		return $return;
 	}

@@ -2,7 +2,6 @@
 
 namespace WPML\ST\Shortcode;
 
-
 use WPML\FP\Fns;
 use WPML\FP\Lst;
 use WPML\FP\Obj;
@@ -38,20 +37,28 @@ class LensFactory {
 		$set = function ( array $translations, \WPML_TP_Translation_Collection $tpTranslations ) use ( $getTranslations ) {
 			$buildNewTranslations = pipe(
 				$getTranslations,
-				Fns::map( function ( $translation, $index ) use ( $translations ) {
-					return make( '\WPML_TP_Translation', [
-						':field'  => $translation['field'],
-						':source' => $translation['source'],
-						':target' => $translations[ $index ],
-					] );
-				} )
+				Fns::map(
+					function ( $translation, $index ) use ( $translations ) {
+						return make(
+							'\WPML_TP_Translation',
+							[
+								':field'  => $translation['field'],
+								':source' => $translation['source'],
+								':target' => $translations[ $index ],
+							]
+						);
+					}
+				)
 			);
 
-			return make( '\WPML_TP_Translation_Collection', [
-				':translations'    => $buildNewTranslations( $tpTranslations ),
-				':source_language' => $tpTranslations->get_source_language(),
-				':target_language' => $tpTranslations->get_target_language(),
-			] );
+			return make(
+				'\WPML_TP_Translation_Collection',
+				[
+					':translations'    => $buildNewTranslations( $tpTranslations ),
+					':source_language' => $tpTranslations->get_source_language(),
+					':target_language' => $tpTranslations->get_target_language(),
+				]
+			);
 		};
 
 		return Obj::lens( $get, $set );

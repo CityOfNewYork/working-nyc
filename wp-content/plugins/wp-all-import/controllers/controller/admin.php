@@ -74,8 +74,6 @@ abstract class PMXI_Controller_Admin extends PMXI_Controller {
 		wp_enqueue_style('jquery-select2', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/css/select2/select2-bootstrap.css');
         wp_enqueue_style('jquery-chosen', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/css/chosen/chosen.css');
 		add_editor_style( WP_ALL_IMPORT_ROOT_URL . '/static/css/custom-editor-style.css' );
-        //wp_deregister_style('wp-codemirror');
-		wp_enqueue_style('jquery-codemirror', WP_ALL_IMPORT_ROOT_URL . '/static/css/codemirror.css', array(), PMXI_VERSION);
 
         wp_enqueue_style('jquery-timepicker', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/css/timepicker/jquery.timepicker.css', array(), PMXI_VERSION);
 
@@ -98,10 +96,8 @@ abstract class PMXI_Controller_Admin extends PMXI_Controller {
 		}
 	
 		wp_enqueue_script('jquery-ui-datepicker', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/ui.datepicker.js', 'jquery-ui-core');
-		//wp_enqueue_script('wp-all-import-autocomplete', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/ui.autocomplete.js', array('jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position'));
-		wp_enqueue_script('jquery-tipsy', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/jquery.tipsy.js', 'jquery');
+		wp_enqueue_script('tipsy', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/jquery.tipsy.js', 'jquery', PMXI_VERSION);
 		wp_enqueue_script('jquery-nestable', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/jquery.mjs.nestedSortable.js', array('jquery', 'jquery-ui-dialog', 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-tabs', 'jquery-ui-progressbar'));
-		wp_enqueue_script('jquery-moment', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/moment.js', 'jquery', PMXI_VERSION);		
 		wp_enqueue_script('jquery-select2', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/select2.min.js', 'jquery');
         wp_enqueue_script('jquery-chosen', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/chosen.jquery.min.js', 'jquery');
 		wp_enqueue_script('jquery-ddslick', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/jquery.ddslick.min.js', 'jquery');
@@ -120,7 +116,7 @@ abstract class PMXI_Controller_Admin extends PMXI_Controller {
 
 		wp_enqueue_script('jquery-plupload', WP_ALL_IMPORT_ROOT_URL . '/static/js/plupload/wplupload.js', array('plupload', 'jquery'));
 
-		wp_enqueue_script('pmxi-admin-script', WP_ALL_IMPORT_ROOT_URL . '/static/js/admin.js', array('jquery', 'jquery-ui-dialog', 'jquery-ui-datepicker', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-autocomplete', 'wp-theme-plugin-editor'), PMXI_VERSION);
+		wp_enqueue_script('pmxi-admin-script', WP_ALL_IMPORT_ROOT_URL . '/static/js/admin.js', array('jquery', 'jquery-ui-dialog', 'jquery-ui-datepicker', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-position', 'jquery-ui-autocomplete', 'wp-theme-plugin-editor', 'moment'), PMXI_VERSION);
 							
 	}
 
@@ -137,29 +133,12 @@ abstract class PMXI_Controller_Admin extends PMXI_Controller {
 	/**
 	 * @see Controller::render()
 	 */
-	protected function render($viewPath = NULL)
-	{
+	protected function render($viewPath = NULL) {
 		// assume template file name depending on calling function
 		if (is_null($viewPath)) {
 			$trace = debug_backtrace();
 			$viewPath = str_replace('_', '/', preg_replace('%^' . preg_quote(PMXI_Plugin::PREFIX, '%') . '%', '', strtolower($trace[1]['class']))) . '/' . $trace[1]['function'];
 		}
-		
-		// render contextual help automatically
-		$viewHelpPath = $viewPath;
-		// append file extension if not specified
-		if ( ! preg_match('%\.php$%', $viewHelpPath)) {
-			$viewHelpPath .= '.php';
-		}
-		$viewHelpPath = preg_replace('%\.php$%', '-help.php', $viewHelpPath);
-		$fileHelpPath = PMXI_Plugin::ROOT_DIR . '/views/' . $viewHelpPath;
-				
-		if (is_file($fileHelpPath)) { // there is help file defined
-			ob_start();
-			include $fileHelpPath;
-			add_contextual_help(PMXI_Plugin::getInstance()->getAdminCurrentScreen()->id, ob_get_clean());
-		}
-		
 		parent::render($viewPath);
 	}
 	

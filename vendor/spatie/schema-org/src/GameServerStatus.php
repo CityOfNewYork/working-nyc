@@ -2,48 +2,51 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\GameServerStatusContract;
 use \Spatie\SchemaOrg\Contracts\EnumerationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
+use \Spatie\SchemaOrg\Contracts\StatusEnumerationContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
 /**
  * Status of a game server.
  *
- * @see http://schema.org/GameServerStatus
+ * @see https://schema.org/GameServerStatus
  *
+ * @method static supersededBy($supersededBy) The value should be instance of pending types Class|Class[]|Enumeration|Enumeration[]|Property|Property[]
  */
-class GameServerStatus extends BaseType implements EnumerationContract, IntangibleContract, ThingContract
+class GameServerStatus extends BaseType implements GameServerStatusContract, EnumerationContract, IntangibleContract, StatusEnumerationContract, ThingContract
 {
     /**
      * Game server status: OfflinePermanently. Server is offline and not
      * available.
      *
-     * @see http://schema.org/OfflinePermanently
+     * @see https://schema.org/OfflinePermanently
      */
-     const OfflinePermanently = 'http://schema.org/OfflinePermanently';
+     const OfflinePermanently = 'https://schema.org/OfflinePermanently';
 
     /**
      * Game server status: OfflineTemporarily. Server is offline now but it can
      * be online soon.
      *
-     * @see http://schema.org/OfflineTemporarily
+     * @see https://schema.org/OfflineTemporarily
      */
-     const OfflineTemporarily = 'http://schema.org/OfflineTemporarily';
+     const OfflineTemporarily = 'https://schema.org/OfflineTemporarily';
 
     /**
      * Game server status: Online. Server is available.
      *
-     * @see http://schema.org/Online
+     * @see https://schema.org/Online
      */
-     const Online = 'http://schema.org/Online';
+     const Online = 'https://schema.org/Online';
 
     /**
      * Game server status: OnlineFull. Server is online but unavailable. The
      * maximum number of players has reached.
      *
-     * @see http://schema.org/OnlineFull
+     * @see https://schema.org/OnlineFull
      */
-     const OnlineFull = 'http://schema.org/OnlineFull';
+     const OnlineFull = 'https://schema.org/OnlineFull';
 
     /**
      * An additional type for the item, typically used for adding more specific
@@ -57,7 +60,7 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -71,7 +74,7 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -85,7 +88,7 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -102,7 +105,7 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -116,11 +119,11 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -131,11 +134,11 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -147,11 +150,11 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -165,7 +168,7 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -176,11 +179,11 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -196,7 +199,7 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -206,11 +209,12 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -224,7 +228,7 @@ class GameServerStatus extends BaseType implements EnumerationContract, Intangib
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

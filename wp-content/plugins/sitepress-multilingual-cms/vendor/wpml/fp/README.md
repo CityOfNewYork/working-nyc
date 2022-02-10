@@ -38,8 +38,10 @@
     * [liftA2](#lifta2)
     * [liftA3](#lifta3)
     * [liftN](#liftn)
+    * [until](#until)
     * [init](#init)
     * [noop](#noop)
+    * [maybeToEither](#maybetoeither)
 * [Logic](#logic)
     * [not](#not)
     * [isNotNull](#isnotnull)
@@ -91,6 +93,7 @@
     * [prepend](#prepend)
     * [reverse](#reverse)
     * [init](#init-2)
+    * [keyBy](#keyby)
 * [Math](#math)
     * [multiply](#multiply)
     * [add](#add)
@@ -1018,6 +1021,42 @@ Fns::liftN( mixed $...$n, mixed $...$fn, mixed $...$monad ): callable|mixed
 
 ---
 
+### until
+
+
+
+```php
+Fns::until( mixed $...$predicate, mixed $...$fns ): callable|mixed
+```
+
+- Curried :: ( b → bool ) → [( a → b )] → a → b
+
+Executes consecutive functions until their $predicate($fn(...$args)) is true. When a result fulfils predicate then it is returned.
+
+```
+      $fns = [
+        $add(1),
+        $add(5),
+        $add(10),
+        $add(23),
+     ];
+
+     $this->assertSame( 20, Fns::until( Relation::gt( Fns::__, 18 ), $fns )( 10 ) );
+```
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$...$predicate` | **mixed** |  |
+| `$...$fns` | **mixed** |  |
+
+
+
+
+---
+
 ### init
 
 
@@ -1045,6 +1084,29 @@ Fns::noop(  )
 
 
 * This method is **static**.
+
+
+
+---
+
+### maybeToEither
+
+Curried function that transforms a Maybe into an Either.
+
+```php
+Fns::maybeToEither( mixed|null $or = null, \WPML\FP\Maybe|null $maybe = null ): callable|\WPML\FP\Either
+```
+
+
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$or` | **mixed&#124;null** |  |
+| `$maybe` | **\WPML\FP\Maybe&#124;null** |  |
+
 
 
 
@@ -2167,6 +2229,42 @@ Lst::init(  )
 
 
 * This method is **static**.
+
+
+
+---
+
+### keyBy
+
+Curried function that keys the array by the given key
+
+```php
+Lst::keyBy( string $key = null, array $array = null ): array|callable
+```
+
+keyBy :: string -> array -> array
+
+```
+$data = [
+   [ 'x' => 'a', 'y' => 123 ],
+   [ 'x' => 'b', 'y' => 456 ],
+];
+
+Lst::keyBy( 'x', $data );
+[
+   'a' => [ 'x' => 'a', 'y' => 123 ],
+   'b' => [ 'x' => 'b', 'y' => 456 ],
+],
+```
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$key` | **string** |  |
+| `$array` | **array** |  |
+
 
 
 
@@ -3420,4 +3518,4 @@ Str::init(  )
 
 
 --------
-> This document was automatically generated from source code comments on 2020-06-10 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)
+> This document was automatically generated from source code comments on 2020-09-19 using [phpDocumentor](http://www.phpdoc.org/) and [cvuorinen/phpdoc-markdown-public](https://github.com/cvuorinen/phpdoc-markdown-public)

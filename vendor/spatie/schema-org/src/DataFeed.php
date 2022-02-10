@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\DataFeedContract;
 use \Spatie\SchemaOrg\Contracts\CreativeWorkContract;
 use \Spatie\SchemaOrg\Contracts\DatasetContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,23 +11,40 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * A single feed providing structured information about one or more entities or
  * topics.
  *
- * @see http://schema.org/DataFeed
+ * @see https://schema.org/DataFeed
  *
  */
-class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract, ThingContract
+class DataFeed extends BaseType implements DataFeedContract, CreativeWorkContract, DatasetContract, ThingContract
 {
     /**
      * The subject matter of the content.
      *
-     * @param Thing|Thing[] $about
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $about
      *
      * @return static
      *
-     * @see http://schema.org/about
+     * @see https://schema.org/about
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function about($about)
     {
         return $this->setProperty('about', $about);
+    }
+
+    /**
+     * An abstract is a short description that summarizes a [[CreativeWork]].
+     *
+     * @param string|string[] $abstract
+     *
+     * @return static
+     *
+     * @see https://schema.org/abstract
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/276
+     */
+    public function abstract($abstract)
+    {
+        return $this->setProperty('abstract', $abstract);
     }
 
     /**
@@ -39,7 +57,8 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/accessMode
+     * @see https://schema.org/accessMode
+     * @link https://github.com/schemaorg/schemaorg/issues/1100
      */
     public function accessMode($accessMode)
     {
@@ -51,11 +70,12 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * understand all the intellectual content of a resource. Expected values
      * include:  auditory, tactile, textual, visual.
      *
-     * @param ItemList|ItemList[] $accessModeSufficient
+     * @param \Spatie\SchemaOrg\Contracts\ItemListContract|\Spatie\SchemaOrg\Contracts\ItemListContract[] $accessModeSufficient
      *
      * @return static
      *
-     * @see http://schema.org/accessModeSufficient
+     * @see https://schema.org/accessModeSufficient
+     * @link https://github.com/schemaorg/schemaorg/issues/1100
      */
     public function accessModeSufficient($accessModeSufficient)
     {
@@ -71,7 +91,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/accessibilityAPI
+     * @see https://schema.org/accessibilityAPI
      */
     public function accessibilityAPI($accessibilityAPI)
     {
@@ -87,7 +107,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/accessibilityControl
+     * @see https://schema.org/accessibilityControl
      */
     public function accessibilityControl($accessibilityControl)
     {
@@ -103,7 +123,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/accessibilityFeature
+     * @see https://schema.org/accessibilityFeature
      */
     public function accessibilityFeature($accessibilityFeature)
     {
@@ -120,7 +140,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/accessibilityHazard
+     * @see https://schema.org/accessibilityHazard
      */
     public function accessibilityHazard($accessibilityHazard)
     {
@@ -138,7 +158,8 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/accessibilitySummary
+     * @see https://schema.org/accessibilitySummary
+     * @link https://github.com/schemaorg/schemaorg/issues/1100
      */
     public function accessibilitySummary($accessibilitySummary)
     {
@@ -148,15 +169,32 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * Specifies the Person that is legally accountable for the CreativeWork.
      *
-     * @param Person|Person[] $accountablePerson
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $accountablePerson
      *
      * @return static
      *
-     * @see http://schema.org/accountablePerson
+     * @see https://schema.org/accountablePerson
      */
     public function accountablePerson($accountablePerson)
     {
         return $this->setProperty('accountablePerson', $accountablePerson);
+    }
+
+    /**
+     * Indicates a page documenting how licenses can be purchased or otherwise
+     * acquired, for the current item.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $acquireLicensePage
+     *
+     * @return static
+     *
+     * @see https://schema.org/acquireLicensePage
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2454
+     */
+    public function acquireLicensePage($acquireLicensePage)
+    {
+        return $this->setProperty('acquireLicensePage', $acquireLicensePage);
     }
 
     /**
@@ -171,7 +209,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -182,11 +220,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * The overall rating, based on a collection of reviews or ratings, of the
      * item.
      *
-     * @param AggregateRating|AggregateRating[] $aggregateRating
+     * @param \Spatie\SchemaOrg\Contracts\AggregateRatingContract|\Spatie\SchemaOrg\Contracts\AggregateRatingContract[] $aggregateRating
      *
      * @return static
      *
-     * @see http://schema.org/aggregateRating
+     * @see https://schema.org/aggregateRating
      */
     public function aggregateRating($aggregateRating)
     {
@@ -200,7 +238,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -214,7 +252,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/alternativeHeadline
+     * @see https://schema.org/alternativeHeadline
      */
     public function alternativeHeadline($alternativeHeadline)
     {
@@ -222,14 +260,51 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * A media object that encodes this CreativeWork. This property is a synonym
-     * for encoding.
+     * Indicates a page or other link involved in archival of a
+     * [[CreativeWork]]. In the case of [[MediaReview]], the items in a
+     * [[MediaReviewItem]] may often become inaccessible, but be archived by
+     * archival, journalistic, activist, or law enforcement organizations. In
+     * such cases, the referenced page may not directly publish the content.
      *
-     * @param MediaObject|MediaObject[] $associatedMedia
+     * @param \Spatie\SchemaOrg\Contracts\WebPageContract|\Spatie\SchemaOrg\Contracts\WebPageContract[]|string|string[] $archivedAt
      *
      * @return static
      *
-     * @see http://schema.org/associatedMedia
+     * @see https://schema.org/archivedAt
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2450
+     */
+    public function archivedAt($archivedAt)
+    {
+        return $this->setProperty('archivedAt', $archivedAt);
+    }
+
+    /**
+     * The item being described is intended to assess the competency or learning
+     * outcome defined by the referenced term.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $assesses
+     *
+     * @return static
+     *
+     * @see https://schema.org/assesses
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2427
+     */
+    public function assesses($assesses)
+    {
+        return $this->setProperty('assesses', $assesses);
+    }
+
+    /**
+     * A media object that encodes this CreativeWork. This property is a synonym
+     * for encoding.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\MediaObjectContract|\Spatie\SchemaOrg\Contracts\MediaObjectContract[] $associatedMedia
+     *
+     * @return static
+     *
+     * @see https://schema.org/associatedMedia
      */
     public function associatedMedia($associatedMedia)
     {
@@ -239,11 +314,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * An intended audience, i.e. a group for whom something was created.
      *
-     * @param Audience|Audience[] $audience
+     * @param \Spatie\SchemaOrg\Contracts\AudienceContract|\Spatie\SchemaOrg\Contracts\AudienceContract[] $audience
      *
      * @return static
      *
-     * @see http://schema.org/audience
+     * @see https://schema.org/audience
      */
     public function audience($audience)
     {
@@ -253,11 +328,12 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * An embedded audio object.
      *
-     * @param AudioObject|AudioObject[]|Clip|Clip[] $audio
+     * @param \Spatie\SchemaOrg\Contracts\AudioObjectContract|\Spatie\SchemaOrg\Contracts\AudioObjectContract[]|\Spatie\SchemaOrg\Contracts\ClipContract|\Spatie\SchemaOrg\Contracts\ClipContract[]|\Spatie\SchemaOrg\Contracts\MusicRecordingContract|\Spatie\SchemaOrg\Contracts\MusicRecordingContract[] $audio
      *
      * @return static
      *
-     * @see http://schema.org/audio
+     * @see https://schema.org/audio
+     * @link https://github.com/schemaorg/schemaorg/issues/2420
      */
     public function audio($audio)
     {
@@ -269,11 +345,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * in that HTML 5 provides a special mechanism for indicating authorship via
      * the rel tag. That is equivalent to this and may be used interchangeably.
      *
-     * @param Organization|Organization[]|Person|Person[] $author
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $author
      *
      * @return static
      *
-     * @see http://schema.org/author
+     * @see https://schema.org/author
      */
     public function author($author)
     {
@@ -287,7 +363,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/award
+     * @see https://schema.org/award
      */
     public function award($award)
     {
@@ -301,7 +377,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/awards
+     * @see https://schema.org/awards
      */
     public function awards($awards)
     {
@@ -311,11 +387,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * A data catalog which contains this dataset.
      *
-     * @param DataCatalog|DataCatalog[] $catalog
+     * @param \Spatie\SchemaOrg\Contracts\DataCatalogContract|\Spatie\SchemaOrg\Contracts\DataCatalogContract[] $catalog
      *
      * @return static
      *
-     * @see http://schema.org/catalog
+     * @see https://schema.org/catalog
      */
     public function catalog($catalog)
     {
@@ -325,11 +401,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * Fictional person connected with a creative work.
      *
-     * @param Person|Person[] $character
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $character
      *
      * @return static
      *
-     * @see http://schema.org/character
+     * @see https://schema.org/character
      */
     public function character($character)
     {
@@ -340,11 +416,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A citation or reference to another creative work, such as another
      * publication, web page, scholarly article, etc.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $citation
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $citation
      *
      * @return static
      *
-     * @see http://schema.org/citation
+     * @see https://schema.org/citation
      */
     public function citation($citation)
     {
@@ -354,11 +430,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * Comments, typically from users.
      *
-     * @param Comment|Comment[] $comment
+     * @param \Spatie\SchemaOrg\Contracts\CommentContract|\Spatie\SchemaOrg\Contracts\CommentContract[] $comment
      *
      * @return static
      *
-     * @see http://schema.org/comment
+     * @see https://schema.org/comment
      */
     public function comment($comment)
     {
@@ -374,7 +450,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/commentCount
+     * @see https://schema.org/commentCount
      */
     public function commentCount($commentCount)
     {
@@ -382,14 +458,37 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * The location depicted or described in the content. For example, the
-     * location in a photograph or painting.
+     * Conditions that affect the availability of, or method(s) of access to, an
+     * item. Typically used for real world items such as an [[ArchiveComponent]]
+     * held by an [[ArchiveOrganization]]. This property is not suitable for use
+     * as a general Web access control mechanism. It is expressed only in
+     * natural language.
+     * 
+     * For example "Available by appointment from the Reading Room" or
+     * "Accessible only from logged-in accounts ".
      *
-     * @param Place|Place[] $contentLocation
+     * @param string|string[] $conditionsOfAccess
      *
      * @return static
      *
-     * @see http://schema.org/contentLocation
+     * @see https://schema.org/conditionsOfAccess
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2173
+     */
+    public function conditionsOfAccess($conditionsOfAccess)
+    {
+        return $this->setProperty('conditionsOfAccess', $conditionsOfAccess);
+    }
+
+    /**
+     * The location depicted or described in the content. For example, the
+     * location in a photograph or painting.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $contentLocation
+     *
+     * @return static
+     *
+     * @see https://schema.org/contentLocation
      */
     public function contentLocation($contentLocation)
     {
@@ -399,11 +498,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * Official rating of a piece of content&#x2014;for example,'MPAA PG-13'.
      *
-     * @param Rating|Rating[]|string|string[] $contentRating
+     * @param \Spatie\SchemaOrg\Contracts\RatingContract|\Spatie\SchemaOrg\Contracts\RatingContract[]|string|string[] $contentRating
      *
      * @return static
      *
-     * @see http://schema.org/contentRating
+     * @see https://schema.org/contentRating
      */
     public function contentRating($contentRating)
     {
@@ -411,13 +510,30 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * A secondary contributor to the CreativeWork or Event.
+     * The specific time described by a creative work, for works (e.g. articles,
+     * video objects etc.) that emphasise a particular moment within an Event.
      *
-     * @param Organization|Organization[]|Person|Person[] $contributor
+     * @param \DateTimeInterface|\DateTimeInterface[] $contentReferenceTime
      *
      * @return static
      *
-     * @see http://schema.org/contributor
+     * @see https://schema.org/contentReferenceTime
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1050
+     */
+    public function contentReferenceTime($contentReferenceTime)
+    {
+        return $this->setProperty('contentReferenceTime', $contentReferenceTime);
+    }
+
+    /**
+     * A secondary contributor to the CreativeWork or Event.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $contributor
+     *
+     * @return static
+     *
+     * @see https://schema.org/contributor
      */
     public function contributor($contributor)
     {
@@ -427,15 +543,33 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * The party holding the legal copyright to the CreativeWork.
      *
-     * @param Organization|Organization[]|Person|Person[] $copyrightHolder
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $copyrightHolder
      *
      * @return static
      *
-     * @see http://schema.org/copyrightHolder
+     * @see https://schema.org/copyrightHolder
      */
     public function copyrightHolder($copyrightHolder)
     {
         return $this->setProperty('copyrightHolder', $copyrightHolder);
+    }
+
+    /**
+     * Text of a notice appropriate for describing the copyright aspects of this
+     * Creative Work, ideally indicating the owner of the copyright for the
+     * Work.
+     *
+     * @param string|string[] $copyrightNotice
+     *
+     * @return static
+     *
+     * @see https://schema.org/copyrightNotice
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2659
+     */
+    public function copyrightNotice($copyrightNotice)
+    {
+        return $this->setProperty('copyrightNotice', $copyrightNotice);
     }
 
     /**
@@ -446,7 +580,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/copyrightYear
+     * @see https://schema.org/copyrightYear
      */
     public function copyrightYear($copyrightYear)
     {
@@ -454,14 +588,74 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * The creator/author of this CreativeWork. This is the same as the Author
-     * property for CreativeWork.
+     * Indicates a correction to a [[CreativeWork]], either via a
+     * [[CorrectionComment]], textually or in another document.
      *
-     * @param Organization|Organization[]|Person|Person[] $creator
+     * @param \Spatie\SchemaOrg\Contracts\CorrectionCommentContract|\Spatie\SchemaOrg\Contracts\CorrectionCommentContract[]|string|string[] $correction
      *
      * @return static
      *
-     * @see http://schema.org/creator
+     * @see https://schema.org/correction
+     * @see https://pending.schema.org
+     */
+    public function correction($correction)
+    {
+        return $this->setProperty('correction', $correction);
+    }
+
+    /**
+     * The country of origin of something, including products as well as
+     * creative  works such as movie and TV content.
+     * 
+     * In the case of TV and movie, this would be the country of the principle
+     * offices of the production company or individual responsible for the
+     * movie. For other kinds of [[CreativeWork]] it is difficult to provide
+     * fully general guidance, and properties such as [[contentLocation]] and
+     * [[locationCreated]] may be more applicable.
+     * 
+     * In the case of products, the country of origin of the product. The exact
+     * interpretation of this may vary by context and product type, and cannot
+     * be fully enumerated here.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CountryContract|\Spatie\SchemaOrg\Contracts\CountryContract[] $countryOfOrigin
+     *
+     * @return static
+     *
+     * @see https://schema.org/countryOfOrigin
+     */
+    public function countryOfOrigin($countryOfOrigin)
+    {
+        return $this->setProperty('countryOfOrigin', $countryOfOrigin);
+    }
+
+    /**
+     * The status of a creative work in terms of its stage in a lifecycle.
+     * Example terms include Incomplete, Draft, Published, Obsolete. Some
+     * organizations define a set of terms for the stages of their publication
+     * lifecycle.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $creativeWorkStatus
+     *
+     * @return static
+     *
+     * @see https://schema.org/creativeWorkStatus
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/987
+     */
+    public function creativeWorkStatus($creativeWorkStatus)
+    {
+        return $this->setProperty('creativeWorkStatus', $creativeWorkStatus);
+    }
+
+    /**
+     * The creator/author of this CreativeWork. This is the same as the Author
+     * property for CreativeWork.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $creator
+     *
+     * @return static
+     *
+     * @see https://schema.org/creator
      */
     public function creator($creator)
     {
@@ -469,13 +663,30 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * An item within in a data feed. Data feeds may have many elements.
+     * Text that can be used to credit person(s) and/or organization(s)
+     * associated with a published Creative Work.
      *
-     * @param DataFeedItem|DataFeedItem[]|Thing|Thing[]|string|string[] $dataFeedElement
+     * @param string|string[] $creditText
      *
      * @return static
      *
-     * @see http://schema.org/dataFeedElement
+     * @see https://schema.org/creditText
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2659
+     */
+    public function creditText($creditText)
+    {
+        return $this->setProperty('creditText', $creditText);
+    }
+
+    /**
+     * An item within in a data feed. Data feeds may have many elements.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DataFeedItemContract|\Spatie\SchemaOrg\Contracts\DataFeedItemContract[]|\Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[]|string|string[] $dataFeedElement
+     *
+     * @return static
+     *
+     * @see https://schema.org/dataFeedElement
      */
     public function dataFeedElement($dataFeedElement)
     {
@@ -490,7 +701,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/datasetTimeInterval
+     * @see https://schema.org/datasetTimeInterval
      */
     public function datasetTimeInterval($datasetTimeInterval)
     {
@@ -505,7 +716,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/dateCreated
+     * @see https://schema.org/dateCreated
      */
     public function dateCreated($dateCreated)
     {
@@ -520,7 +731,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/dateModified
+     * @see https://schema.org/dateModified
      */
     public function dateModified($dateModified)
     {
@@ -534,7 +745,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/datePublished
+     * @see https://schema.org/datePublished
      */
     public function datePublished($datePublished)
     {
@@ -548,7 +759,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -565,7 +776,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -579,7 +790,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/discussionUrl
+     * @see https://schema.org/discussionUrl
      */
     public function discussionUrl($discussionUrl)
     {
@@ -590,11 +801,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A downloadable form of this dataset, at a specific location, in a
      * specific format.
      *
-     * @param DataDownload|DataDownload[] $distribution
+     * @param \Spatie\SchemaOrg\Contracts\DataDownloadContract|\Spatie\SchemaOrg\Contracts\DataDownloadContract[] $distribution
      *
      * @return static
      *
-     * @see http://schema.org/distribution
+     * @see https://schema.org/distribution
      */
     public function distribution($distribution)
     {
@@ -602,13 +813,41 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * Specifies the Person who edited the CreativeWork.
+     * An [EIDR](https://eidr.org/) (Entertainment Identifier Registry)
+     * [[identifier]] representing a specific edit / edition for a work of film
+     * or television.
+     * 
+     * For example, the motion picture known as "Ghostbusters" whose
+     * [[titleEIDR]] is "10.5240/7EC7-228A-510A-053E-CBB8-J", has several edits
+     * e.g. "10.5240/1F2A-E1C5-680A-14C6-E76B-I" and
+     * "10.5240/8A35-3BEE-6497-5D12-9E4F-3".
+     * 
+     * Since schema.org types like [[Movie]] and [[TVEpisode]] can be used for
+     * both works and their multiple expressions, it is possible to use
+     * [[titleEIDR]] alone (for a general description), or alongside
+     * [[editEIDR]] for a more edit-specific description.
      *
-     * @param Person|Person[] $editor
+     * @param string|string[] $editEIDR
      *
      * @return static
      *
-     * @see http://schema.org/editor
+     * @see https://schema.org/editEIDR
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2469
+     */
+    public function editEIDR($editEIDR)
+    {
+        return $this->setProperty('editEIDR', $editEIDR);
+    }
+
+    /**
+     * Specifies the Person who edited the CreativeWork.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $editor
+     *
+     * @return static
+     *
+     * @see https://schema.org/editor
      */
     public function editor($editor)
     {
@@ -617,12 +856,16 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
 
     /**
      * An alignment to an established educational framework.
+     * 
+     * This property should not be used where the nature of the alignment can be
+     * described using a simple property, for example to express that a resource
+     * [[teaches]] or [[assesses]] a competency.
      *
-     * @param AlignmentObject|AlignmentObject[] $educationalAlignment
+     * @param \Spatie\SchemaOrg\Contracts\AlignmentObjectContract|\Spatie\SchemaOrg\Contracts\AlignmentObjectContract[] $educationalAlignment
      *
      * @return static
      *
-     * @see http://schema.org/educationalAlignment
+     * @see https://schema.org/educationalAlignment
      */
     public function educationalAlignment($educationalAlignment)
     {
@@ -630,14 +873,32 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * The purpose of a work in the context of education; for example,
-     * 'assignment', 'group work'.
+     * The level in terms of progression through an educational or training
+     * context. Examples of educational levels include 'beginner',
+     * 'intermediate' or 'advanced', and formal sets of level indicators.
      *
-     * @param string|string[] $educationalUse
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $educationalLevel
      *
      * @return static
      *
-     * @see http://schema.org/educationalUse
+     * @see https://schema.org/educationalLevel
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1779
+     */
+    public function educationalLevel($educationalLevel)
+    {
+        return $this->setProperty('educationalLevel', $educationalLevel);
+    }
+
+    /**
+     * The purpose of a work in the context of education; for example,
+     * 'assignment', 'group work'.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $educationalUse
+     *
+     * @return static
+     *
+     * @see https://schema.org/educationalUse
      */
     public function educationalUse($educationalUse)
     {
@@ -648,11 +909,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A media object that encodes this CreativeWork. This property is a synonym
      * for associatedMedia.
      *
-     * @param MediaObject|MediaObject[] $encoding
+     * @param \Spatie\SchemaOrg\Contracts\MediaObjectContract|\Spatie\SchemaOrg\Contracts\MediaObjectContract[] $encoding
      *
      * @return static
      *
-     * @see http://schema.org/encoding
+     * @see https://schema.org/encoding
      */
     public function encoding($encoding)
     {
@@ -679,7 +940,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/encodingFormat
+     * @see https://schema.org/encodingFormat
      */
     public function encodingFormat($encodingFormat)
     {
@@ -689,11 +950,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * A media object that encodes this CreativeWork.
      *
-     * @param MediaObject|MediaObject[] $encodings
+     * @param \Spatie\SchemaOrg\Contracts\MediaObjectContract|\Spatie\SchemaOrg\Contracts\MediaObjectContract[] $encodings
      *
      * @return static
      *
-     * @see http://schema.org/encodings
+     * @see https://schema.org/encodings
      */
     public function encodings($encodings)
     {
@@ -704,11 +965,12 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A creative work that this work is an
      * example/instance/realization/derivation of.
      *
-     * @param CreativeWork|CreativeWork[] $exampleOfWork
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $exampleOfWork
      *
      * @return static
      *
-     * @see http://schema.org/exampleOfWork
+     * @see https://schema.org/exampleOfWork
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex
      */
     public function exampleOfWork($exampleOfWork)
     {
@@ -726,7 +988,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/expires
+     * @see https://schema.org/expires
      */
     public function expires($expires)
     {
@@ -747,7 +1009,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/fileFormat
+     * @see https://schema.org/fileFormat
      */
     public function fileFormat($fileFormat)
     {
@@ -758,11 +1020,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A person or organization that supports (sponsors) something through some
      * kind of financial contribution.
      *
-     * @param Organization|Organization[]|Person|Person[] $funder
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $funder
      *
      * @return static
      *
-     * @see http://schema.org/funder
+     * @see https://schema.org/funder
      */
     public function funder($funder)
     {
@@ -776,7 +1038,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/genre
+     * @see https://schema.org/genre
      */
     public function genre($genre)
     {
@@ -787,11 +1049,12 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * Indicates an item or CreativeWork that is part of this item, or
      * CreativeWork (in some sense).
      *
-     * @param CreativeWork|CreativeWork[] $hasPart
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $hasPart
      *
      * @return static
      *
-     * @see http://schema.org/hasPart
+     * @see https://schema.org/hasPart
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex
      */
     public function hasPart($hasPart)
     {
@@ -805,7 +1068,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/headline
+     * @see https://schema.org/headline
      */
     public function headline($headline)
     {
@@ -819,11 +1082,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -834,11 +1097,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -851,11 +1114,12 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * standard](http://tools.ietf.org/html/bcp47). See also
      * [[availableLanguage]].
      *
-     * @param Language|Language[]|string|string[] $inLanguage
+     * @param \Spatie\SchemaOrg\Contracts\LanguageContract|\Spatie\SchemaOrg\Contracts\LanguageContract[]|string|string[] $inLanguage
      *
      * @return static
      *
-     * @see http://schema.org/inLanguage
+     * @see https://schema.org/inLanguage
+     * @link https://github.com/schemaorg/schemaorg/issues/2382
      */
     public function inLanguage($inLanguage)
     {
@@ -866,11 +1130,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A data catalog which contains this dataset (this property was previously
      * 'catalog', preferred name is now 'includedInDataCatalog').
      *
-     * @param DataCatalog|DataCatalog[] $includedDataCatalog
+     * @param \Spatie\SchemaOrg\Contracts\DataCatalogContract|\Spatie\SchemaOrg\Contracts\DataCatalogContract[] $includedDataCatalog
      *
      * @return static
      *
-     * @see http://schema.org/includedDataCatalog
+     * @see https://schema.org/includedDataCatalog
      */
     public function includedDataCatalog($includedDataCatalog)
     {
@@ -880,11 +1144,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * A data catalog which contains this dataset.
      *
-     * @param DataCatalog|DataCatalog[] $includedInDataCatalog
+     * @param \Spatie\SchemaOrg\Contracts\DataCatalogContract|\Spatie\SchemaOrg\Contracts\DataCatalogContract[] $includedInDataCatalog
      *
      * @return static
      *
-     * @see http://schema.org/includedInDataCatalog
+     * @see https://schema.org/includedInDataCatalog
      */
     public function includedInDataCatalog($includedInDataCatalog)
     {
@@ -896,11 +1160,12 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * SoftwareApplication. The most specific child type of InteractionCounter
      * should be used.
      *
-     * @param InteractionCounter|InteractionCounter[] $interactionStatistic
+     * @param \Spatie\SchemaOrg\Contracts\InteractionCounterContract|\Spatie\SchemaOrg\Contracts\InteractionCounterContract[] $interactionStatistic
      *
      * @return static
      *
-     * @see http://schema.org/interactionStatistic
+     * @see https://schema.org/interactionStatistic
+     * @link https://github.com/schemaorg/schemaorg/issues/2421
      */
     public function interactionStatistic($interactionStatistic)
     {
@@ -915,11 +1180,29 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/interactivityType
+     * @see https://schema.org/interactivityType
      */
     public function interactivityType($interactivityType)
     {
         return $this->setProperty('interactivityType', $interactivityType);
+    }
+
+    /**
+     * Used to indicate a specific claim contained, implied, translated or
+     * refined from the content of a [[MediaObject]] or other [[CreativeWork]].
+     * The interpreting party can be indicated using [[claimInterpreter]].
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ClaimContract|\Spatie\SchemaOrg\Contracts\ClaimContract[] $interpretedAsClaim
+     *
+     * @return static
+     *
+     * @see https://schema.org/interpretedAsClaim
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2450
+     */
+    public function interpretedAsClaim($interpretedAsClaim)
+    {
+        return $this->setProperty('interpretedAsClaim', $interpretedAsClaim);
     }
 
     /**
@@ -929,7 +1212,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/isAccessibleForFree
+     * @see https://schema.org/isAccessibleForFree
      */
     public function isAccessibleForFree($isAccessibleForFree)
     {
@@ -940,11 +1223,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A resource from which this work is derived or from which it is a
      * modification or adaption.
      *
-     * @param CreativeWork|CreativeWork[]|Product|Product[]|string|string[] $isBasedOn
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|string|string[] $isBasedOn
      *
      * @return static
      *
-     * @see http://schema.org/isBasedOn
+     * @see https://schema.org/isBasedOn
      */
     public function isBasedOn($isBasedOn)
     {
@@ -956,11 +1239,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * be repeated for multiple sources. For example,
      * http://example.com/great-multiplication-intro.html.
      *
-     * @param CreativeWork|CreativeWork[]|Product|Product[]|string|string[] $isBasedOnUrl
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|string|string[] $isBasedOnUrl
      *
      * @return static
      *
-     * @see http://schema.org/isBasedOnUrl
+     * @see https://schema.org/isBasedOnUrl
      */
     public function isBasedOnUrl($isBasedOnUrl)
     {
@@ -974,7 +1257,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/isFamilyFriendly
+     * @see https://schema.org/isFamilyFriendly
      */
     public function isFamilyFriendly($isFamilyFriendly)
     {
@@ -985,11 +1268,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * Indicates an item or CreativeWork that this item, or CreativeWork (in
      * some sense), is part of.
      *
-     * @param CreativeWork|CreativeWork[] $isPartOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $isPartOf
      *
      * @return static
      *
-     * @see http://schema.org/isPartOf
+     * @see https://schema.org/isPartOf
      */
     public function isPartOf($isPartOf)
     {
@@ -1005,7 +1288,8 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/issn
+     * @see https://schema.org/issn
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex
      */
     public function issn($issn)
     {
@@ -1016,11 +1300,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * Keywords or tags used to describe this content. Multiple entries in a
      * keywords list are typically delimited by commas.
      *
-     * @param string|string[] $keywords
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $keywords
      *
      * @return static
      *
-     * @see http://schema.org/keywords
+     * @see https://schema.org/keywords
      */
     public function keywords($keywords)
     {
@@ -1031,11 +1315,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * The predominant type or kind characterizing the learning resource. For
      * example, 'presentation', 'handout'.
      *
-     * @param string|string[] $learningResourceType
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $learningResourceType
      *
      * @return static
      *
-     * @see http://schema.org/learningResourceType
+     * @see https://schema.org/learningResourceType
      */
     public function learningResourceType($learningResourceType)
     {
@@ -1046,11 +1330,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * A license document that applies to this content, typically indicated by
      * URL.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $license
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $license
      *
      * @return static
      *
-     * @see http://schema.org/license
+     * @see https://schema.org/license
      */
     public function license($license)
     {
@@ -1061,11 +1345,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * The location where the CreativeWork was created, which may not be the
      * same as the location depicted in the CreativeWork.
      *
-     * @param Place|Place[] $locationCreated
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $locationCreated
      *
      * @return static
      *
-     * @see http://schema.org/locationCreated
+     * @see https://schema.org/locationCreated
      */
     public function locationCreated($locationCreated)
     {
@@ -1076,11 +1360,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * Indicates the primary entity described in some page or other
      * CreativeWork.
      *
-     * @param Thing|Thing[] $mainEntity
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $mainEntity
      *
      * @return static
      *
-     * @see http://schema.org/mainEntity
+     * @see https://schema.org/mainEntity
      */
     public function mainEntity($mainEntity)
     {
@@ -1092,11 +1376,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -1104,14 +1388,42 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * A material that something is made from, e.g. leather, wool, cotton,
-     * paper.
+     * A maintainer of a [[Dataset]], software package
+     * ([[SoftwareApplication]]), or other [[Project]]. A maintainer is a
+     * [[Person]] or [[Organization]] that manages contributions to, and/or
+     * publication of, some (typically complex) artifact. It is common for
+     * distributions of software and data to be based on "upstream" sources.
+     * When [[maintainer]] is applied to a specific version of something e.g. a
+     * particular version or packaging of a [[Dataset]], it is always  possible
+     * that the upstream source has a different maintainer. The [[isBasedOn]]
+     * property can be used to indicate such relationships between datasets to
+     * make the different maintenance roles clear. Similarly in the case of
+     * software, a package may have dedicated maintainers working on integration
+     * into software distributions such as Ubuntu, as well as upstream
+     * maintainers of the underlying work.
      *
-     * @param Product|Product[]|string|string[] $material
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $maintainer
      *
      * @return static
      *
-     * @see http://schema.org/material
+     * @see https://schema.org/maintainer
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2311
+     */
+    public function maintainer($maintainer)
+    {
+        return $this->setProperty('maintainer', $maintainer);
+    }
+
+    /**
+     * A material that something is made from, e.g. leather, wool, cotton,
+     * paper.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|string|string[] $material
+     *
+     * @return static
+     *
+     * @see https://schema.org/material
      */
     public function material($material)
     {
@@ -1119,14 +1431,65 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * Indicates that the CreativeWork contains a reference to, but is not
-     * necessarily about a concept.
+     * The quantity of the materials being described or an expression of the
+     * physical space they occupy.
      *
-     * @param Thing|Thing[] $mentions
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[]|string|string[] $materialExtent
      *
      * @return static
      *
-     * @see http://schema.org/mentions
+     * @see https://schema.org/materialExtent
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1759
+     */
+    public function materialExtent($materialExtent)
+    {
+        return $this->setProperty('materialExtent', $materialExtent);
+    }
+
+    /**
+     * A technique or technology used in a [[Dataset]] (or [[DataDownload]],
+     * [[DataCatalog]]),
+     * corresponding to the method used for measuring the corresponding
+     * variable(s) (described using [[variableMeasured]]). This is oriented
+     * towards scientific and scholarly dataset publication but may have broader
+     * applicability; it is not intended as a full representation of
+     * measurement, but rather as a high level summary for dataset discovery.
+     * 
+     * For example, if [[variableMeasured]] is: molecule concentration,
+     * [[measurementTechnique]] could be: "mass spectrometry" or "nmr
+     * spectroscopy" or "colorimetry" or "immunofluorescence".
+     * 
+     * If the [[variableMeasured]] is "depression rating", the
+     * [[measurementTechnique]] could be "Zung Scale" or "HAM-D" or "Beck
+     * Depression Inventory".
+     * 
+     * If there are several [[variableMeasured]] properties recorded for some
+     * given data object, use a [[PropertyValue]] for each [[variableMeasured]]
+     * and attach the corresponding [[measurementTechnique]].
+     *
+     * @param string|string[] $measurementTechnique
+     *
+     * @return static
+     *
+     * @see https://schema.org/measurementTechnique
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1425
+     */
+    public function measurementTechnique($measurementTechnique)
+    {
+        return $this->setProperty('measurementTechnique', $measurementTechnique);
+    }
+
+    /**
+     * Indicates that the CreativeWork contains a reference to, but is not
+     * necessarily about a concept.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $mentions
+     *
+     * @return static
+     *
+     * @see https://schema.org/mentions
      */
     public function mentions($mentions)
     {
@@ -1140,7 +1503,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -1150,17 +1513,41 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * An offer to provide this item&#x2014;for example, an offer to sell a
      * product, rent the DVD of a movie, perform a service, or give away tickets
-     * to an event.
+     * to an event. Use [[businessFunction]] to indicate the kind of transaction
+     * offered, i.e. sell, lease, etc. This property can also be used to
+     * describe a [[Demand]]. While this property is listed as expected on a
+     * number of common types, it can be used in others. In that case, using a
+     * second type, such as Product or a subtype of Product, can clarify the
+     * nature of the offer.
      *
-     * @param Offer|Offer[] $offers
+     * @param \Spatie\SchemaOrg\Contracts\DemandContract|\Spatie\SchemaOrg\Contracts\DemandContract[]|\Spatie\SchemaOrg\Contracts\OfferContract|\Spatie\SchemaOrg\Contracts\OfferContract[] $offers
      *
      * @return static
      *
-     * @see http://schema.org/offers
+     * @see https://schema.org/offers
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
      */
     public function offers($offers)
     {
         return $this->setProperty('offers', $offers);
+    }
+
+    /**
+     * A pattern that something has, for example 'polka dot', 'striped',
+     * 'Canadian flag'. Values are typically expressed as text, although links
+     * to controlled value schemes are also supported.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $pattern
+     *
+     * @return static
+     *
+     * @see https://schema.org/pattern
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1797
+     */
+    public function pattern($pattern)
+    {
+        return $this->setProperty('pattern', $pattern);
     }
 
     /**
@@ -1170,7 +1557,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/position
+     * @see https://schema.org/position
      */
     public function position($position)
     {
@@ -1181,11 +1568,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -1196,11 +1583,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * The person or organization who produced the work (e.g. music album,
      * movie, tv/radio series etc.).
      *
-     * @param Organization|Organization[]|Person|Person[] $producer
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $producer
      *
      * @return static
      *
-     * @see http://schema.org/producer
+     * @see https://schema.org/producer
      */
     public function producer($producer)
     {
@@ -1212,11 +1599,12 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * producer. Another party (a seller) may offer those services or goods on
      * behalf of the provider. A provider may also serve as the seller.
      *
-     * @param Organization|Organization[]|Person|Person[] $provider
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $provider
      *
      * @return static
      *
-     * @see http://schema.org/provider
+     * @see https://schema.org/provider
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
      */
     public function provider($provider)
     {
@@ -1226,11 +1614,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * A publication event associated with the item.
      *
-     * @param PublicationEvent|PublicationEvent[] $publication
+     * @param \Spatie\SchemaOrg\Contracts\PublicationEventContract|\Spatie\SchemaOrg\Contracts\PublicationEventContract[] $publication
      *
      * @return static
      *
-     * @see http://schema.org/publication
+     * @see https://schema.org/publication
      */
     public function publication($publication)
     {
@@ -1240,15 +1628,30 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * The publisher of the creative work.
      *
-     * @param Organization|Organization[]|Person|Person[] $publisher
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $publisher
      *
      * @return static
      *
-     * @see http://schema.org/publisher
+     * @see https://schema.org/publisher
      */
     public function publisher($publisher)
     {
         return $this->setProperty('publisher', $publisher);
+    }
+
+    /**
+     * The publishing division which published the comic.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $publisherImprint
+     *
+     * @return static
+     *
+     * @see https://schema.org/publisherImprint
+     * @see https://bib.schema.org
+     */
+    public function publisherImprint($publisherImprint)
+    {
+        return $this->setProperty('publisherImprint', $publisherImprint);
     }
 
     /**
@@ -1264,11 +1667,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * sometimes related information (e.g. indicating a [[funder]]) can be
      * expressed using schema.org terminology.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $publishingPrinciples
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $publishingPrinciples
      *
      * @return static
      *
-     * @see http://schema.org/publishingPrinciples
+     * @see https://schema.org/publishingPrinciples
      */
     public function publishingPrinciples($publishingPrinciples)
     {
@@ -1279,11 +1682,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * The Event where the CreativeWork was recorded. The CreativeWork may
      * capture all or part of the event.
      *
-     * @param Event|Event[] $recordedAt
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $recordedAt
      *
      * @return static
      *
-     * @see http://schema.org/recordedAt
+     * @see https://schema.org/recordedAt
      */
     public function recordedAt($recordedAt)
     {
@@ -1294,11 +1697,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * The place and time the release was issued, expressed as a
      * PublicationEvent.
      *
-     * @param PublicationEvent|PublicationEvent[] $releasedEvent
+     * @param \Spatie\SchemaOrg\Contracts\PublicationEventContract|\Spatie\SchemaOrg\Contracts\PublicationEventContract[] $releasedEvent
      *
      * @return static
      *
-     * @see http://schema.org/releasedEvent
+     * @see https://schema.org/releasedEvent
      */
     public function releasedEvent($releasedEvent)
     {
@@ -1308,11 +1711,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * A review of the item.
      *
-     * @param Review|Review[] $review
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $review
      *
      * @return static
      *
-     * @see http://schema.org/review
+     * @see https://schema.org/review
      */
     public function review($review)
     {
@@ -1322,11 +1725,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * Review of the item.
      *
-     * @param Review|Review[] $reviews
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $reviews
      *
      * @return static
      *
-     * @see http://schema.org/reviews
+     * @see https://schema.org/reviews
      */
     public function reviews($reviews)
     {
@@ -1342,7 +1745,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -1351,15 +1754,20 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
 
     /**
      * Indicates (by URL or string) a particular version of a schema used in
-     * some CreativeWork. For example, a document could declare a schemaVersion
-     * using an URL such as http://schema.org/version/2.0/ if precise indication
-     * of schema version was required by some application.
+     * some CreativeWork. This property was created primarily to
+     *     indicate the use of a specific schema.org release, e.g. ```10.0``` as
+     * a simple string, or more explicitly via URL,
+     * ```https://schema.org/docs/releases.html#v10.0```. There may be
+     * situations in which other schemas might usefully be referenced this way,
+     * e.g.
+     * ```http://dublincore.org/specifications/dublin-core/dces/1999-07-02/```
+     * but this has not been carefully explored in the community.
      *
      * @param string|string[] $schemaVersion
      *
      * @return static
      *
-     * @see http://schema.org/schemaVersion
+     * @see https://schema.org/schemaVersion
      */
     public function schemaVersion($schemaVersion)
     {
@@ -1367,13 +1775,89 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
-     * The Organization on whose behalf the creator was working.
+     * Indicates the date on which the current structured data was generated /
+     * published. Typically used alongside [[sdPublisher]]
      *
-     * @param Organization|Organization[] $sourceOrganization
+     * @param \DateTimeInterface|\DateTimeInterface[] $sdDatePublished
      *
      * @return static
      *
-     * @see http://schema.org/sourceOrganization
+     * @see https://schema.org/sdDatePublished
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1886
+     */
+    public function sdDatePublished($sdDatePublished)
+    {
+        return $this->setProperty('sdDatePublished', $sdDatePublished);
+    }
+
+    /**
+     * A license document that applies to this structured data, typically
+     * indicated by URL.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $sdLicense
+     *
+     * @return static
+     *
+     * @see https://schema.org/sdLicense
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1886
+     */
+    public function sdLicense($sdLicense)
+    {
+        return $this->setProperty('sdLicense', $sdLicense);
+    }
+
+    /**
+     * Indicates the party responsible for generating and publishing the current
+     * structured data markup, typically in cases where the structured data is
+     * derived automatically from existing published content but published on a
+     * different site. For example, student projects and open data initiatives
+     * often re-publish existing content with more explicitly structured
+     * metadata. The
+     * [[sdPublisher]] property helps make such practices more explicit.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $sdPublisher
+     *
+     * @return static
+     *
+     * @see https://schema.org/sdPublisher
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1886
+     */
+    public function sdPublisher($sdPublisher)
+    {
+        return $this->setProperty('sdPublisher', $sdPublisher);
+    }
+
+    /**
+     * A standardized size of a product or creative work, specified either
+     * through a simple textual string (for example 'XL', '32Wx34L'), a 
+     * QuantitativeValue with a unitCode, or a comprehensive and structured
+     * [[SizeSpecification]]; in other cases, the [[width]], [[height]],
+     * [[depth]] and [[weight]] properties may be more applicable.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[]|\Spatie\SchemaOrg\Contracts\SizeSpecificationContract|\Spatie\SchemaOrg\Contracts\SizeSpecificationContract[]|string|string[] $size
+     *
+     * @return static
+     *
+     * @see https://schema.org/size
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1797
+     */
+    public function size($size)
+    {
+        return $this->setProperty('size', $size);
+    }
+
+    /**
+     * The Organization on whose behalf the creator was working.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $sourceOrganization
+     *
+     * @return static
+     *
+     * @see https://schema.org/sourceOrganization
      */
     public function sourceOrganization($sourceOrganization)
     {
@@ -1385,11 +1869,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * (e.g. [[locationCreated]], [[spatialCoverage]], [[contentLocation]]) are
      * not known to be appropriate.
      *
-     * @param Place|Place[] $spatial
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $spatial
      *
      * @return static
      *
-     * @see http://schema.org/spatial
+     * @see https://schema.org/spatial
      */
     public function spatial($spatial)
     {
@@ -1404,11 +1888,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *       areas that the dataset describes: a dataset of New York weather
      * would have spatialCoverage which was the place: the state of New York.
      *
-     * @param Place|Place[] $spatialCoverage
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $spatialCoverage
      *
      * @return static
      *
-     * @see http://schema.org/spatialCoverage
+     * @see https://schema.org/spatialCoverage
      */
     public function spatialCoverage($spatialCoverage)
     {
@@ -1420,11 +1904,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * or financial contribution. e.g. a sponsor of a Medical Study or a
      * corporate sponsor of an event.
      *
-     * @param Organization|Organization[]|Person|Person[] $sponsor
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $sponsor
      *
      * @return static
      *
-     * @see http://schema.org/sponsor
+     * @see https://schema.org/sponsor
      */
     public function sponsor($sponsor)
     {
@@ -1434,15 +1918,33 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
         return $this->setProperty('subjectOf', $subjectOf);
+    }
+
+    /**
+     * The item being described is intended to help a person learn the
+     * competency or learning outcome defined by the referenced term.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $teaches
+     *
+     * @return static
+     *
+     * @see https://schema.org/teaches
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2427
+     */
+    public function teaches($teaches)
+    {
+        return $this->setProperty('teaches', $teaches);
     }
 
     /**
@@ -1455,7 +1957,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/temporal
+     * @see https://schema.org/temporal
      */
     public function temporal($temporal)
     {
@@ -1485,7 +1987,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/temporalCoverage
+     * @see https://schema.org/temporalCoverage
      */
     public function temporalCoverage($temporalCoverage)
     {
@@ -1499,7 +2001,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/text
+     * @see https://schema.org/text
      */
     public function text($text)
     {
@@ -1513,7 +2015,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/thumbnailUrl
+     * @see https://schema.org/thumbnailUrl
      */
     public function thumbnailUrl($thumbnailUrl)
     {
@@ -1525,11 +2027,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * learning resource for the typical intended target audience, e.g. 'PT30M',
      * 'PT1H25M'.
      *
-     * @param Duration|Duration[] $timeRequired
+     * @param \Spatie\SchemaOrg\Contracts\DurationContract|\Spatie\SchemaOrg\Contracts\DurationContract[] $timeRequired
      *
      * @return static
      *
-     * @see http://schema.org/timeRequired
+     * @see https://schema.org/timeRequired
      */
     public function timeRequired($timeRequired)
     {
@@ -1537,15 +2039,31 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     }
 
     /**
+     * The work that this work has been translated from. e.g. 物种起源 is a
+     * translationOf “On the Origin of Species”
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $translationOfWork
+     *
+     * @return static
+     *
+     * @see https://schema.org/translationOfWork
+     * @see https://bib.schema.org
+     */
+    public function translationOfWork($translationOfWork)
+    {
+        return $this->setProperty('translationOfWork', $translationOfWork);
+    }
+
+    /**
      * Organization or person who adapts a creative work to different languages,
      * regional differences and technical requirements of a target market, or
      * that translates during some event.
      *
-     * @param Organization|Organization[]|Person|Person[] $translator
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $translator
      *
      * @return static
      *
-     * @see http://schema.org/translator
+     * @see https://schema.org/translator
      */
     public function translator($translator)
     {
@@ -1559,7 +2077,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/typicalAgeRange
+     * @see https://schema.org/typicalAgeRange
      */
     public function typicalAgeRange($typicalAgeRange)
     {
@@ -1573,11 +2091,75 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
         return $this->setProperty('url', $url);
+    }
+
+    /**
+     * The schema.org [[usageInfo]] property indicates further information about
+     * a [[CreativeWork]]. This property is applicable both to works that are
+     * freely available and to those that require payment or other transactions.
+     * It can reference additional information e.g. community expectations on
+     * preferred linking and citation conventions, as well as purchasing
+     * details. For something that can be commercially licensed, usageInfo can
+     * provide detailed, resource-specific information about licensing options.
+     * 
+     * This property can be used alongside the license property which indicates
+     * license(s) applicable to some piece of content. The usageInfo property
+     * can provide information about other licensing options, e.g. acquiring
+     * commercial usage rights for an image that is also available under
+     * non-commercial creative commons licenses.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $usageInfo
+     *
+     * @return static
+     *
+     * @see https://schema.org/usageInfo
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2454
+     */
+    public function usageInfo($usageInfo)
+    {
+        return $this->setProperty('usageInfo', $usageInfo);
+    }
+
+    /**
+     * The variableMeasured property can indicate (repeated as necessary) the 
+     * variables that are measured in some dataset, either described as text or
+     * as pairs of identifier and description using PropertyValue.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $variableMeasured
+     *
+     * @return static
+     *
+     * @see https://schema.org/variableMeasured
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1083
+     */
+    public function variableMeasured($variableMeasured)
+    {
+        return $this->setProperty('variableMeasured', $variableMeasured);
+    }
+
+    /**
+     * Originally named [[variablesMeasured]], The [[variableMeasured]] property
+     * can indicate (repeated as necessary) the  variables that are measured in
+     * some dataset, either described as text or as pairs of identifier and
+     * description using PropertyValue.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $variablesMeasured
+     *
+     * @return static
+     *
+     * @see https://schema.org/variablesMeasured
+     * @see https://attic.schema.org
+     */
+    public function variablesMeasured($variablesMeasured)
+    {
+        return $this->setProperty('variablesMeasured', $variablesMeasured);
     }
 
     /**
@@ -1587,7 +2169,7 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      *
      * @return static
      *
-     * @see http://schema.org/version
+     * @see https://schema.org/version
      */
     public function version($version)
     {
@@ -1597,11 +2179,11 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
     /**
      * An embedded video object.
      *
-     * @param Clip|Clip[]|VideoObject|VideoObject[] $video
+     * @param \Spatie\SchemaOrg\Contracts\ClipContract|\Spatie\SchemaOrg\Contracts\ClipContract[]|\Spatie\SchemaOrg\Contracts\VideoObjectContract|\Spatie\SchemaOrg\Contracts\VideoObjectContract[] $video
      *
      * @return static
      *
-     * @see http://schema.org/video
+     * @see https://schema.org/video
      */
     public function video($video)
     {
@@ -1612,15 +2194,34 @@ class DataFeed extends BaseType implements CreativeWorkContract, DatasetContract
      * Example/instance/realization/derivation of the concept of this creative
      * work. eg. The paperback edition, first edition, or eBook.
      *
-     * @param CreativeWork|CreativeWork[] $workExample
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $workExample
      *
      * @return static
      *
-     * @see http://schema.org/workExample
+     * @see https://schema.org/workExample
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_bibex
      */
     public function workExample($workExample)
     {
         return $this->setProperty('workExample', $workExample);
+    }
+
+    /**
+     * A work that is a translation of the content of this work. e.g. 西遊記
+     * has an English workTranslation “Journey to the West”,a German
+     * workTranslation “Monkeys Pilgerfahrt” and a Vietnamese  translation
+     * Tây du ký bình khảo.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $workTranslation
+     *
+     * @return static
+     *
+     * @see https://schema.org/workTranslation
+     * @see https://bib.schema.org
+     */
+    public function workTranslation($workTranslation)
+    {
+        return $this->setProperty('workTranslation', $workTranslation);
     }
 
 }

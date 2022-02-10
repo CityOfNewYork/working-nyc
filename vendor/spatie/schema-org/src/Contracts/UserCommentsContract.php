@@ -44,6 +44,10 @@ interface UserCommentsContract
 
     public function endDate($endDate);
 
+    public function eventAttendanceMode($eventAttendanceMode);
+
+    public function eventSchedule($eventSchedule);
+
     public function eventStatus($eventStatus);
 
     public function funder($funder);
@@ -61,6 +65,10 @@ interface UserCommentsContract
     public function mainEntityOfPage($mainEntityOfPage);
 
     public function maximumAttendeeCapacity($maximumAttendeeCapacity);
+
+    public function maximumPhysicalAttendeeCapacity($maximumPhysicalAttendeeCapacity);
+
+    public function maximumVirtualAttendeeCapacity($maximumVirtualAttendeeCapacity);
 
     public function name($name);
 

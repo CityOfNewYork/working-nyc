@@ -5,15 +5,15 @@ $custom_type = get_post_type_object( $post_type );
 <div class="wpallimport-collapsed closed wpallimport-section ">
 	<div class="wpallimport-content-section ">
 		<div class="wpallimport-collapsed-header">
-			<h3><?php printf(__('Other %s Options','wp_all_import_plugin'), $custom_type->labels->singular_name);?></h3>	
+			<h3><?php printf(__('Other %s Options','wp_all_import_plugin'), esc_attr($custom_type->labels->singular_name));?></h3>
 		</div>
 		<div class="wpallimport-collapsed-content" style="padding: 0;">
 			<div class="wpallimport-collapsed-content-inner">
 				<table class="form-table" style="max-width:none;">
 					<tr>
 						<td>					
-							<input type="hidden" name="encoding" value="<?php echo ($this->isWizard) ? PMXI_Plugin::$session->encoding : $post['encoding']; ?>"/>
-							<input type="hidden" name="delimiter" value="<?php echo ($this->isWizard) ? PMXI_Plugin::$session->is_csv : $post['delimiter']; ?>"/>
+							<input type="hidden" name="encoding" value="<?php echo ($this->isWizard) ? esc_attr(PMXI_Plugin::$session->encoding) : esc_attr($post['encoding']); ?>"/>
+							<input type="hidden" name="delimiter" value="<?php echo ($this->isWizard) ? esc_attr(PMXI_Plugin::$session->is_csv) : esc_attr($post['delimiter']); ?>"/>
 
 							<?php $is_support_post_format = ( current_theme_supports( 'post-formats' ) && post_type_supports( $post_type, 'post-formats' ) ) ? true : false; ?>
 							
@@ -128,10 +128,10 @@ $custom_type = get_post_type_object( $post_type );
 					</tr>	
 					<tr>
 						<td>
-							<h4 style="float:left;"><?php _e('Download & Import Attachments', 'wp_all_import_plugin') ?></h4>
-							<div style="clear:both;">
-								<input type="text" name="attachments" style="width:87%;" value="<?php echo esc_attr($post['attachments']) ?>" />
-								<input type="text" class="small" name="atch_delim" value="<?php echo esc_attr($post['atch_delim']) ?>" style="width:5%; text-align:center; float:right;"/>
+							<h4><?php _e('Download & Import Attachments', 'wp_all_import_plugin') ?></h4>
+							<div class="delimiter-field">
+								<input type="text" name="attachments" value="<?php echo esc_attr($post['attachments']) ?>" />
+								<input type="text" class="small" name="atch_delim" value="<?php echo esc_attr($post['atch_delim']) ?>" />
 							</div>			
 							<div class="input" style="margin:3px;">
 								<input type="hidden" name="is_search_existing_attach" value="0" />
@@ -148,8 +148,8 @@ $custom_type = get_post_type_object( $post_type );
 								<?php $post_formats = get_theme_support( 'post-formats' ); ?>
 
 								<div class="input">
-									<input type="radio" id="post_format_<?php echo "standart_" . $post_type; ?>" name="post_format" value="0" <?php echo (empty($post['post_format']) or ( empty($post_formats) )) ? 'checked="checked"' : '' ?> />
-									<label for="post_format_<?php echo "standart_" . $post_type; ?>"><?php _e( "Standard", 'wp_all_import_plugin') ?></label>
+									<input type="radio" id="post_format_<?php echo "standart_" . esc_attr($post_type); ?>" name="post_format" value="0" <?php echo (empty($post['post_format']) or ( empty($post_formats) )) ? 'checked="checked"' : '' ?> />
+									<label for="post_format_<?php echo "standart_" . esc_attr($post_type); ?>"><?php _e( "Standard", 'wp_all_import_plugin') ?></label>
 								</div>
 
 								<?php								
@@ -157,8 +157,8 @@ $custom_type = get_post_type_object( $post_type );
 										foreach ($post_formats[0] as $post_format) {
 											?>
 											<div class="input">
-												<input type="radio" id="post_format_<?php echo $post_format; ?>" name="post_format" value="<?php echo $post_format; ?>" <?php echo $post_format == $post['post_format'] ? 'checked="checked"' : '' ?> />
-												<label for="post_format_<?php echo $post_format; ?>"><?php _e( ucfirst($post_format), 'wp_all_import_plugin') ?></label>
+												<input type="radio" id="post_format_<?php echo esc_attr($post_format); ?>" name="post_format" value="<?php echo esc_attr($post_format); ?>" <?php echo $post_format == $post['post_format'] ? 'checked="checked"' : '' ?> />
+												<label for="post_format_<?php echo esc_attr($post_format); ?>"><?php _e( ucfirst(esc_attr($post_format)), 'wp_all_import_plugin') ?></label>
 											</div>
 											<?php
 										}

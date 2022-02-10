@@ -1,5 +1,5 @@
 <div class="wrap">
-	<h2><?php echo __( 'Admin Texts Translation', 'wpml-string-translation' ) ?></h2>
+	<h2><?php echo __( 'Admin Texts Translation', 'wpml-string-translation' ); ?></h2>
 
 	<div id="icl_st_option_writes">
 		<div id="wpml-admin-text-options"/>

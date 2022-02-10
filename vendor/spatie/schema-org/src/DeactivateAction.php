@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\DeactivateActionContract;
 use \Spatie\SchemaOrg\Contracts\ActionContract;
 use \Spatie\SchemaOrg\Contracts\ControlActionContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,19 +11,19 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * The act of stopping or deactivating a device or application (e.g. stopping a
  * timer or turning off a flashlight).
  *
- * @see http://schema.org/DeactivateAction
+ * @see https://schema.org/DeactivateAction
  *
  */
-class DeactivateAction extends BaseType implements ActionContract, ControlActionContract, ThingContract
+class DeactivateAction extends BaseType implements DeactivateActionContract, ActionContract, ControlActionContract, ThingContract
 {
     /**
      * Indicates the current disposition of the Action.
      *
-     * @param ActionStatusType|ActionStatusType[] $actionStatus
+     * @param \Spatie\SchemaOrg\Contracts\ActionStatusTypeContract|\Spatie\SchemaOrg\Contracts\ActionStatusTypeContract[] $actionStatus
      *
      * @return static
      *
-     * @see http://schema.org/actionStatus
+     * @see https://schema.org/actionStatus
      */
     public function actionStatus($actionStatus)
     {
@@ -41,7 +42,7 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -52,11 +53,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * The direct performer or driver of the action (animate or inanimate). e.g.
      * *John* wrote a book.
      *
-     * @param Organization|Organization[]|Person|Person[] $agent
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $agent
      *
      * @return static
      *
-     * @see http://schema.org/agent
+     * @see https://schema.org/agent
      */
     public function agent($agent)
     {
@@ -70,7 +71,7 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -84,7 +85,7 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -101,7 +102,7 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -124,7 +125,8 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/endTime
+     * @see https://schema.org/endTime
+     * @link https://github.com/schemaorg/schemaorg/issues/2493
      */
     public function endTime($endTime)
     {
@@ -134,11 +136,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
     /**
      * For failed actions, more information on the cause of the failure.
      *
-     * @param Thing|Thing[] $error
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $error
      *
      * @return static
      *
-     * @see http://schema.org/error
+     * @see https://schema.org/error
      */
     public function error($error)
     {
@@ -152,11 +154,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -167,11 +169,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -182,11 +184,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * The object that helped the agent perform the action. e.g. John wrote a
      * book with *a pen*.
      *
-     * @param Thing|Thing[] $instrument
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $instrument
      *
      * @return static
      *
-     * @see http://schema.org/instrument
+     * @see https://schema.org/instrument
      */
     public function instrument($instrument)
     {
@@ -194,14 +196,14 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
     }
 
     /**
-     * The location of for example where the event is happening, an organization
-     * is located, or where an action takes place.
+     * The location of, for example, where an event is happening, where an
+     * organization is located, or where an action takes place.
      *
-     * @param Place|Place[]|PostalAddress|PostalAddress[]|string|string[] $location
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|\Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|\Spatie\SchemaOrg\Contracts\VirtualLocationContract|\Spatie\SchemaOrg\Contracts\VirtualLocationContract[]|string|string[] $location
      *
      * @return static
      *
-     * @see http://schema.org/location
+     * @see https://schema.org/location
      */
     public function location($location)
     {
@@ -213,11 +215,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -231,7 +233,7 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -244,11 +246,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * undergoer (which change their state) or theme (which doesn't). e.g. John
      * read *a book*.
      *
-     * @param Thing|Thing[] $object
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $object
      *
      * @return static
      *
-     * @see http://schema.org/object
+     * @see https://schema.org/object
      */
     public function object($object)
     {
@@ -259,11 +261,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * Other co-agents that participated in the action indirectly. e.g. John
      * wrote a book with *Steve*.
      *
-     * @param Organization|Organization[]|Person|Person[] $participant
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $participant
      *
      * @return static
      *
-     * @see http://schema.org/participant
+     * @see https://schema.org/participant
      */
     public function participant($participant)
     {
@@ -274,11 +276,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -288,11 +290,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
     /**
      * The result produced in the action. e.g. John wrote *a book*.
      *
-     * @param Thing|Thing[] $result
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $result
      *
      * @return static
      *
-     * @see http://schema.org/result
+     * @see https://schema.org/result
      */
     public function result($result)
     {
@@ -308,7 +310,7 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -331,7 +333,8 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/startTime
+     * @see https://schema.org/startTime
+     * @link https://github.com/schemaorg/schemaorg/issues/2493
      */
     public function startTime($startTime)
     {
@@ -341,11 +344,12 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -355,11 +359,11 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
     /**
      * Indicates a target EntryPoint for an Action.
      *
-     * @param EntryPoint|EntryPoint[] $target
+     * @param \Spatie\SchemaOrg\Contracts\EntryPointContract|\Spatie\SchemaOrg\Contracts\EntryPointContract[] $target
      *
      * @return static
      *
-     * @see http://schema.org/target
+     * @see https://schema.org/target
      */
     public function target($target)
     {
@@ -373,7 +377,7 @@ class DeactivateAction extends BaseType implements ActionContract, ControlAction
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

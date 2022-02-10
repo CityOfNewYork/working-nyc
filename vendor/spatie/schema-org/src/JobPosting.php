@@ -2,16 +2,17 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\JobPostingContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
 /**
  * A listing that describes a job opening in a certain organization.
  *
- * @see http://schema.org/JobPosting
+ * @see https://schema.org/JobPosting
  *
  */
-class JobPosting extends BaseType implements IntangibleContract, ThingContract
+class JobPosting extends BaseType implements JobPostingContract, IntangibleContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -25,7 +26,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -39,7 +40,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -47,13 +48,48 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * The base salary of the job or of an employee in an EmployeeRole.
+     * The location(s) applicants can apply from. This is usually used for
+     * telecommuting jobs where the applicant does not need to be in a physical
+     * office. Note: This should not be used for citizenship or work visa
+     * requirements.
      *
-     * @param MonetaryAmount|MonetaryAmount[]|PriceSpecification|PriceSpecification[]|float|float[]|int|int[] $baseSalary
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[] $applicantLocationRequirements
      *
      * @return static
      *
-     * @see http://schema.org/baseSalary
+     * @see https://schema.org/applicantLocationRequirements
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2083
+     */
+    public function applicantLocationRequirements($applicantLocationRequirements)
+    {
+        return $this->setProperty('applicantLocationRequirements', $applicantLocationRequirements);
+    }
+
+    /**
+     * Contact details for further information relevant to this job posting.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[] $applicationContact
+     *
+     * @return static
+     *
+     * @see https://schema.org/applicationContact
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2396
+     */
+    public function applicationContact($applicationContact)
+    {
+        return $this->setProperty('applicationContact', $applicationContact);
+    }
+
+    /**
+     * The base salary of the job or of an employee in an EmployeeRole.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\MonetaryAmountContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountContract[]|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[]|float|float[]|int|int[] $baseSalary
+     *
+     * @return static
+     *
+     * @see https://schema.org/baseSalary
      */
     public function baseSalary($baseSalary)
     {
@@ -67,7 +103,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/benefits
+     * @see https://schema.org/benefits
      */
     public function benefits($benefits)
     {
@@ -75,13 +111,13 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * Publication date for the job posting.
+     * Publication date of an online listing.
      *
      * @param \DateTimeInterface|\DateTimeInterface[] $datePosted
      *
      * @return static
      *
-     * @see http://schema.org/datePosted
+     * @see https://schema.org/datePosted
      */
     public function datePosted($datePosted)
     {
@@ -95,11 +131,34 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
         return $this->setProperty('description', $description);
+    }
+
+    /**
+     * Indicates whether an [[url]] that is associated with a [[JobPosting]]
+     * enables direct application for the job, via the posting website. A job
+     * posting is considered to have directApply of [[True]] if an application
+     * process for the specified job can be directly initiated via the url(s)
+     * given (noting that e.g. multiple internet domains might nevertheless be
+     * involved at an implementation level). A value of [[False]] is appropriate
+     * if there is no clear path to applying directly online for the specified
+     * job, navigating directly from the JobPosting url(s) supplied.
+     *
+     * @param bool|bool[] $directApply
+     *
+     * @return static
+     *
+     * @see https://schema.org/directApply
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2907
+     */
+    public function directApply($directApply)
+    {
+        return $this->setProperty('directApply', $directApply);
     }
 
     /**
@@ -112,7 +171,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -122,15 +181,50 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     /**
      * Educational background needed for the position or Occupation.
      *
-     * @param string|string[] $educationRequirements
+     * @param \Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract|\Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract[]|string|string[] $educationRequirements
      *
      * @return static
      *
-     * @see http://schema.org/educationRequirements
+     * @see https://schema.org/educationRequirements
+     * @see https://pending.schema.org
      */
     public function educationRequirements($educationRequirements)
     {
         return $this->setProperty('educationRequirements', $educationRequirements);
+    }
+
+    /**
+     * The legal requirements such as citizenship, visa and other documentation
+     * required for an applicant to this job.
+     *
+     * @param string|string[] $eligibilityToWorkRequirement
+     *
+     * @return static
+     *
+     * @see https://schema.org/eligibilityToWorkRequirement
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2384
+     */
+    public function eligibilityToWorkRequirement($eligibilityToWorkRequirement)
+    {
+        return $this->setProperty('eligibilityToWorkRequirement', $eligibilityToWorkRequirement);
+    }
+
+    /**
+     * A description of the employer, career opportunities and work environment
+     * for this position.
+     *
+     * @param string|string[] $employerOverview
+     *
+     * @return static
+     *
+     * @see https://schema.org/employerOverview
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2396
+     */
+    public function employerOverview($employerOverview)
+    {
+        return $this->setProperty('employerOverview', $employerOverview);
     }
 
     /**
@@ -141,11 +235,28 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/employmentType
+     * @see https://schema.org/employmentType
      */
     public function employmentType($employmentType)
     {
         return $this->setProperty('employmentType', $employmentType);
+    }
+
+    /**
+     * Indicates the department, unit and/or facility where the employee reports
+     * and/or in which the job is to be performed.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $employmentUnit
+     *
+     * @return static
+     *
+     * @see https://schema.org/employmentUnit
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2296
+     */
+    public function employmentUnit($employmentUnit)
+    {
+        return $this->setProperty('employmentUnit', $employmentUnit);
     }
 
     /**
@@ -155,11 +266,12 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      * rather than the hiring organization, who may not have committed to the
      * estimated value.
      *
-     * @param MonetaryAmount|MonetaryAmountDistribution|MonetaryAmountDistribution[]|MonetaryAmount[]|float|float[]|int|int[] $estimatedSalary
+     * @param \Spatie\SchemaOrg\Contracts\MonetaryAmountContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountDistributionContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountDistributionContract[]|\Spatie\SchemaOrg\Contracts\MonetaryAmountContract[]|float|float[]|int|int[] $estimatedSalary
      *
      * @return static
      *
-     * @see http://schema.org/estimatedSalary
+     * @see https://schema.org/estimatedSalary
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function estimatedSalary($estimatedSalary)
     {
@@ -167,14 +279,35 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * Description of skills and experience needed for the position or
-     * Occupation.
+     * Indicates whether a [[JobPosting]] will accept experience (as indicated
+     * by [[OccupationalExperienceRequirements]]) in place of its formal
+     * educational qualifications (as indicated by [[educationRequirements]]).
+     * If true, indicates that satisfying one of these requirements is
+     * sufficient.
      *
-     * @param string|string[] $experienceRequirements
+     * @param bool|bool[] $experienceInPlaceOfEducation
      *
      * @return static
      *
-     * @see http://schema.org/experienceRequirements
+     * @see https://schema.org/experienceInPlaceOfEducation
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2681
+     */
+    public function experienceInPlaceOfEducation($experienceInPlaceOfEducation)
+    {
+        return $this->setProperty('experienceInPlaceOfEducation', $experienceInPlaceOfEducation);
+    }
+
+    /**
+     * Description of skills and experience needed for the position or
+     * Occupation.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OccupationalExperienceRequirementsContract|\Spatie\SchemaOrg\Contracts\OccupationalExperienceRequirementsContract[]|string|string[] $experienceRequirements
+     *
+     * @return static
+     *
+     * @see https://schema.org/experienceRequirements
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function experienceRequirements($experienceRequirements)
     {
@@ -184,11 +317,11 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     /**
      * Organization offering the job position.
      *
-     * @param Organization|Organization[] $hiringOrganization
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $hiringOrganization
      *
      * @return static
      *
-     * @see http://schema.org/hiringOrganization
+     * @see https://schema.org/hiringOrganization
      */
     public function hiringOrganization($hiringOrganization)
     {
@@ -202,11 +335,11 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -217,11 +350,11 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -235,7 +368,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/incentiveCompensation
+     * @see https://schema.org/incentiveCompensation
      */
     public function incentiveCompensation($incentiveCompensation)
     {
@@ -249,7 +382,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/incentives
+     * @see https://schema.org/incentives
      */
     public function incentives($incentives)
     {
@@ -259,11 +392,11 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     /**
      * The industry associated with the job position.
      *
-     * @param string|string[] $industry
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $industry
      *
      * @return static
      *
-     * @see http://schema.org/industry
+     * @see https://schema.org/industry
      */
     public function industry($industry)
     {
@@ -277,7 +410,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/jobBenefits
+     * @see https://schema.org/jobBenefits
      */
     public function jobBenefits($jobBenefits)
     {
@@ -285,14 +418,31 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * A (typically single) geographic location associated with the job
-     * position.
+     * An indicator as to whether a position is available for an immediate
+     * start.
      *
-     * @param Place|Place[] $jobLocation
+     * @param bool|bool[] $jobImmediateStart
      *
      * @return static
      *
-     * @see http://schema.org/jobLocation
+     * @see https://schema.org/jobImmediateStart
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2244
+     */
+    public function jobImmediateStart($jobImmediateStart)
+    {
+        return $this->setProperty('jobImmediateStart', $jobImmediateStart);
+    }
+
+    /**
+     * A (typically single) geographic location associated with the job
+     * position.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $jobLocation
+     *
+     * @return static
+     *
+     * @see https://schema.org/jobLocation
      */
     public function jobLocation($jobLocation)
     {
@@ -300,15 +450,50 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
+     * A description of the job location (e.g TELECOMMUTE for telecommute jobs).
+     *
+     * @param string|string[] $jobLocationType
+     *
+     * @return static
+     *
+     * @see https://schema.org/jobLocationType
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1591
+     */
+    public function jobLocationType($jobLocationType)
+    {
+        return $this->setProperty('jobLocationType', $jobLocationType);
+    }
+
+    /**
+     * The date on which a successful applicant for this job would be expected
+     * to start work. Choose a specific date in the future or use the
+     * jobImmediateStart property to indicate the position is to be filled as
+     * soon as possible.
+     *
+     * @param \DateTimeInterface|\DateTimeInterface[]|string|string[] $jobStartDate
+     *
+     * @return static
+     *
+     * @see https://schema.org/jobStartDate
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2244
+     */
+    public function jobStartDate($jobStartDate)
+    {
+        return $this->setProperty('jobStartDate', $jobStartDate);
+    }
+
+    /**
      * Indicates a page (or other CreativeWork) for which this thing is the main
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -322,7 +507,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -340,11 +525,12 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      * Note: for historical reasons, any textual label and formal code provided
      * as a literal may be assumed to be from O*NET-SOC.
      *
-     * @param string|string[] $occupationalCategory
+     * @param \Spatie\SchemaOrg\Contracts\CategoryCodeContract|\Spatie\SchemaOrg\Contracts\CategoryCodeContract[]|string|string[] $occupationalCategory
      *
      * @return static
      *
-     * @see http://schema.org/occupationalCategory
+     * @see https://schema.org/occupationalCategory
+     * @see https://pending.schema.org
      */
     public function occupationalCategory($occupationalCategory)
     {
@@ -352,14 +538,33 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * Indicates a potential Action, which describes an idealized action in
-     * which this thing would play an 'object' role.
+     * A description of the types of physical activity associated with the job.
+     * Defined terms such as those in O*net may be used, but note that there is
+     * no way to specify the level of ability as well as its nature when using a
+     * defined term.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $physicalRequirement
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/physicalRequirement
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2384
+     */
+    public function physicalRequirement($physicalRequirement)
+    {
+        return $this->setProperty('physicalRequirement', $physicalRequirement);
+    }
+
+    /**
+     * Indicates a potential Action, which describes an idealized action in
+     * which this thing would play an 'object' role.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
+     *
+     * @return static
+     *
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -369,11 +574,12 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     /**
      * Specific qualifications required for this role or Occupation.
      *
-     * @param string|string[] $qualifications
+     * @param \Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract|\Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract[]|string|string[] $qualifications
      *
      * @return static
      *
-     * @see http://schema.org/qualifications
+     * @see https://schema.org/qualifications
+     * @see https://pending.schema.org
      */
     public function qualifications($qualifications)
     {
@@ -383,11 +589,12 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     /**
      * The Occupation for the JobPosting.
      *
-     * @param Occupation|Occupation[] $relevantOccupation
+     * @param \Spatie\SchemaOrg\Contracts\OccupationContract|\Spatie\SchemaOrg\Contracts\OccupationContract[] $relevantOccupation
      *
      * @return static
      *
-     * @see http://schema.org/relevantOccupation
+     * @see https://schema.org/relevantOccupation
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function relevantOccupation($relevantOccupation)
     {
@@ -401,7 +608,8 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/responsibilities
+     * @see https://schema.org/responsibilities
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function responsibilities($responsibilities)
     {
@@ -417,7 +625,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/salaryCurrency
+     * @see https://schema.org/salaryCurrency
      */
     public function salaryCurrency($salaryCurrency)
     {
@@ -433,7 +641,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -441,13 +649,50 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * Skills required to fulfill this role or in this Occupation.
+     * A description of any security clearance requirements of the job.
      *
-     * @param string|string[] $skills
+     * @param string|string[] $securityClearanceRequirement
      *
      * @return static
      *
-     * @see http://schema.org/skills
+     * @see https://schema.org/securityClearanceRequirement
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2384
+     */
+    public function securityClearanceRequirement($securityClearanceRequirement)
+    {
+        return $this->setProperty('securityClearanceRequirement', $securityClearanceRequirement);
+    }
+
+    /**
+     * A description of any sensory requirements and levels necessary to
+     * function on the job, including hearing and vision. Defined terms such as
+     * those in O*net may be used, but note that there is no way to specify the
+     * level of ability as well as its nature when using a defined term.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $sensoryRequirement
+     *
+     * @return static
+     *
+     * @see https://schema.org/sensoryRequirement
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2384
+     */
+    public function sensoryRequirement($sensoryRequirement)
+    {
+        return $this->setProperty('sensoryRequirement', $sensoryRequirement);
+    }
+
+    /**
+     * A statement of knowledge, skill, ability, task or any other assertion
+     * expressing a competency that is desired or required to fulfill this role
+     * or to work in this occupation.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $skills
+     *
+     * @return static
+     *
+     * @see https://schema.org/skills
      */
     public function skills($skills)
     {
@@ -462,7 +707,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/specialCommitments
+     * @see https://schema.org/specialCommitments
      */
     public function specialCommitments($specialCommitments)
     {
@@ -472,11 +717,12 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -490,11 +736,28 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/title
+     * @see https://schema.org/title
      */
     public function title($title)
     {
         return $this->setProperty('title', $title);
+    }
+
+    /**
+     * The number of positions open for this job posting. Use a positive
+     * integer. Do not use if the number of positions is unclear or not known.
+     *
+     * @param int|int[] $totalJobOpenings
+     *
+     * @return static
+     *
+     * @see https://schema.org/totalJobOpenings
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2329
+     */
+    public function totalJobOpenings($totalJobOpenings)
+    {
+        return $this->setProperty('totalJobOpenings', $totalJobOpenings);
     }
 
     /**
@@ -504,7 +767,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -519,7 +782,8 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/validThrough
+     * @see https://schema.org/validThrough
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validThrough($validThrough)
     {
@@ -534,7 +798,7 @@ class JobPosting extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/workHours
+     * @see https://schema.org/workHours
      */
     public function workHours($workHours)
     {

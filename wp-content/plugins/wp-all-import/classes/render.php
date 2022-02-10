@@ -47,10 +47,10 @@ if ( ! class_exists('PMXI_Render')){
 				$path .= "[$ind]";
 			}		
 			
-			echo '<div class="xml-element csv_element lvl-' . $lvl . ' lvl-mod4-' . ($lvl % 4) . '" title="' . $path . '">';
+			echo '<div class="xml-element csv_element lvl-' . esc_attr($lvl) . ' lvl-mod4-' . ($lvl % 4) . '" title="' . esc_attr($path) . '">';
 			if ($el->hasChildNodes()) {
 				$is_render_collapsed = $ind > 1;			
-				if ($lvl) echo '<div class="csv-tag opening"><span class="csv-tag-name">' . $el->nodeName . '</span>'; echo '</div>';
+				if ($lvl) echo '<div class="csv-tag opening"><span class="csv-tag-name">' . esc_html($el->nodeName) . '</span>'; echo '</div>';
 				if (1 == $el->childNodes->length and $el->childNodes->item(0) instanceof DOMText) {
 					$child = $el->childNodes->item(0);
 					if (!empty($child->wholeText)){
@@ -79,7 +79,7 @@ if ( ! class_exists('PMXI_Render')){
 				}
 				//echo '<div class="xml-tag closing"><span class="xml-tag-name">' . $el->nodeName . '</span></div>';
 			} else {
-				echo '<div class="xml-tag opening empty"><span class="xml-tag-name">' . $el->nodeName . '</span>'; self::render_xml_attributes($el); echo '</div>';
+				echo '<div class="xml-tag opening empty"><span class="xml-tag-name">' . wp_kses_post($el->nodeName) . '</span>'; self::render_xml_attributes($el); echo '</div>';
 			}
 			echo '</div>';
 		}
@@ -102,7 +102,7 @@ if ( ! class_exists('PMXI_Render')){
 			$is_short = strlen($text) <= 40;
 			$newtext = htmlspecialchars($text); 
 			//$newtext = preg_replace('%(?<!\s)\b(?!\s|\W[\w\s])|\w{20}%', '$0&#8203;', $newtext); // put explicit breaks for xml content to wrap
-			echo '<div class="xml-content textonly' . ($is_short ? ' short' : '') . ($is_render_collapsed ? ' collapsed' : '') . ' '. (is_numeric($text) ? 'is_numeric' : '') .'">' . $newtext . $more . '</div>';
+			echo '<div class="xml-content textonly' . ($is_short ? ' short' : '') . ($is_render_collapsed ? ' collapsed' : '') . ' '. (is_numeric($text) ? 'is_numeric' : '') .'">' . wp_kses_post($newtext . $more) . '</div>';
 		}
 		public static $option_paths = array();
 		public static function render_xml_elements_for_filtring(DOMElement $el, $originPath ='', $lvl = 0){
@@ -113,16 +113,16 @@ if ( ! class_exists('PMXI_Render')){
 					self::$option_paths[$path] = 1;
 				else
 					self::$option_paths[$path]++;
-				echo '<option value="'.$path.'['. self::$option_paths[$path] .']">' .$path . '['. self::$option_paths[$path] .']</option>';
+				echo '<option value="'. esc_attr($path) .'['. esc_attr(self::$option_paths[$path]) .']">' . esc_html($path) . '['. esc_html(self::$option_paths[$path]) .']</option>';
 			}
 			else $path = $el->nodeName;		
 					
 			foreach ($el->attributes as $attr) {
 				if (empty($originPath)){
-					echo '<option value="@' . $attr->nodeName.'">@' . $attr->nodeName . '</option>';
+					echo '<option value="@' . esc_attr($attr->nodeName).'">@' . esc_html($attr->nodeName) . '</option>';
 				}
 				else{
-					echo '<option value="'.$path .'['. self::$option_paths[$path] .']'. '/@' . $attr->nodeName.'">'. $path .'['. self::$option_paths[$path] .']'. '@' . $attr->nodeName . '</option>';
+					echo '<option value="'. esc_attr($path) .'['. esc_attr(self::$option_paths[$path]) .']'. '/@' . esc_attr($attr->nodeName).'">'. esc_html($path) .'['. esc_html(self::$option_paths[$path]) .']'. '@' . esc_html($attr->nodeName) . '</option>';
 				}
 			}
 			if ($el->hasChildNodes()) {
@@ -143,7 +143,7 @@ if ( ! class_exists('PMXI_Render')){
 				$path .= "[$ind]";
 			}		
 			
-			echo '<div class="xml-element lvl-' . $lvl . ' lvl-mod4-' . ($lvl % 4) . '" title="' . $path . '">';
+			echo '<div class="xml-element lvl-' . esc_attr($lvl) . ' lvl-mod4-' . esc_attr($lvl % 4) . '" title="' . esc_attr($path) . '">';
 			//if ($el->hasAttributes()){
 				echo '<div class="xml-element-xpaths">'; self::render_element_xpaths($el, $alternativePath, $ind, $lvl); echo '</div>';
 			//}
@@ -152,7 +152,7 @@ if ( ! class_exists('PMXI_Render')){
 				if ($el->childNodes->length > 1 or ! $el->childNodes->item(0) instanceof DOMText or strlen(trim($el->childNodes->item(0)->wholeText)) > 40) {
 					echo '<div class="xml-expander">' . ($is_render_collapsed ? '+' : '-') . '</div>';
 				}
-				echo '<div class="xml-tag opening">&lt;<span class="xml-tag-name">' . $el->nodeName . '</span>'; self::render_xml_attributes($el, $path . '/'); echo '&gt;</div>';
+				echo '<div class="xml-tag opening">&lt;<span class="xml-tag-name">' . esc_html($el->nodeName) . '</span>'; self::render_xml_attributes($el, $path . '/'); echo '&gt;</div>';
 				if (1 == $el->childNodes->length and $el->childNodes->item(0) instanceof DOMText) {
 					$item = $el->childNodes->item(0);
 					if (!empty($item->wholeText)){
@@ -191,9 +191,9 @@ if ( ! class_exists('PMXI_Render')){
 					}
 					echo '</div>';
 				}
-				echo '<div class="xml-tag closing">&lt;/<span class="xml-tag-name">' . $el->nodeName . '</span>&gt;</div>';
+				echo '<div class="xml-tag closing">&lt;/<span class="xml-tag-name">' . esc_html($el->nodeName) . '</span>&gt;</div>';
 			} else {
-				echo '<div class="xml-tag opening empty">&lt;<span class="xml-tag-name">' . $el->nodeName . '</span>'; self::render_xml_attributes($el); echo '/&gt;</div>';
+				echo '<div class="xml-tag opening empty">&lt;<span class="xml-tag-name">' . esc_html($el->nodeName) . '</span>'; self::render_xml_attributes($el); echo '/&gt;</div>';
 			}
 			echo '</div>';
 		}
@@ -219,7 +219,7 @@ if ( ! class_exists('PMXI_Render')){
 				$text = "<span class='wpallimport-cdata'>" . htmlspecialchars("<![CDATA[") . "</span> " . $text . " <span class='wpallimport-cdata'>" . htmlspecialchars("]]>") . "</span>";
 			}			
 			//$text = preg_replace('%(?<!\s)\b(?!\s|\W[\w\s])|\w{20}%', '$0&#8203;', $text); // put explicit breaks for xml content to wrap
-			echo '<div class="xml-content textonly' . ($is_short ? ' short' : '') . ($is_render_collapsed ? ' collapsed' : '') . '">' . $text . $more . '</div>';
+			echo '<div class="xml-content textonly' . ($is_short ? ' short' : '') . ($is_render_collapsed ? ' collapsed' : '') . '">' . esc_html($text . $more) . '</div>';
 		}
 
 		public static function get_xml_path(DOMElement $el, DOMXPath $xpath)
@@ -238,7 +238,7 @@ if ( ! class_exists('PMXI_Render')){
 		protected static function render_xml_attributes(DOMElement $el, $path = '/')
 		{
 			foreach ($el->attributes as $attr) {
-				echo ' <span class="xml-attr" title="' . $path . '@' . $attr->nodeName . '"><span class="xml-attr-name">' . $attr->nodeName . '</span>=<span class="xml-attr-value">"' . esc_attr($attr->value) . '"</span></span>';
+				echo ' <span class="xml-attr" title="' . esc_attr($path) . '@' . esc_attr($attr->nodeName) . '"><span class="xml-attr-name">' . esc_html($attr->nodeName) . '</span>=<span class="xml-attr-value">"' . esc_attr($attr->value) . '"</span></span>';
 			}
 		}	
 
@@ -246,11 +246,11 @@ if ( ! class_exists('PMXI_Render')){
 			?>
 			<ul id="menu-<?php echo str_replace('/', '-', esc_attr($path)); ?>" class="ui-helper-hidden">
 				<?php foreach ($el->attributes as $attr) : if ( empty($attr->value) ) continue; ?>
-			    <li data-command="action1" title="<?php echo esc_attr($path . '[@'. $attr->nodeName .' = "' . esc_attr($attr->value) . '"]'); ?>">
-			    	<a href="#"><?php echo $path . '[@'. $attr->nodeName .' = "' . esc_attr($attr->value) . '"]'; ?></a>
+			    <li data-command="action1" title="<?php echo esc_attr($path . '[@'. $attr->nodeName .' = "' . $attr->value . '"]'); ?>">
+			    	<a href="#"><?php echo wp_kses_post($path . '[@'. $attr->nodeName .' = "' . $attr->value) . '"]'; ?></a>
 			    </li>
-			    <li data-command="action2" title="<?php echo esc_attr($path . '[@'. $attr->nodeName .'[contains(.,"' . esc_attr($attr->value) . '")]]'); ?>">
-			    	<a href="#"><?php echo $path . '[@'. $attr->nodeName .'[contains(.,"' . esc_attr($attr->value) . '")]]'; ?></a>
+			    <li data-command="action2" title="<?php echo esc_attr($path . '[@'. $attr->nodeName .'[contains(.,"' . $attr->value . '")]]'); ?>">
+			    	<a href="#"><?php echo wp_kses_post($path . '[@'. $attr->nodeName .'[contains(.,"' . $attr->value) . '")]]'; ?></a>
 			    </li>
 				<?php endforeach; ?>
 				<?php 
@@ -299,8 +299,8 @@ if ( ! class_exists('PMXI_Render')){
 							array_pop($pathArgs);		
 							$vpath = esc_attr(implode('/', $pathArgs) . '/' . $parentNode->nodeName . '[contains('. $altNode->nodeName .',"' . esc_attr($altNodeText->wholeText) . '")]/' . $el->nodeName);				
 							?>
-							<li data-command="action3" title="<?php echo $vpath; ?>">
-						    	<a href="#"><?php echo $vpath; ?></a>
+							<li data-command="action3" title="<?php echo esc_attr($vpath); ?>">
+						    	<a href="#"><?php echo esc_html($vpath); ?></a>
 						    </li>						
 						    <?php
 

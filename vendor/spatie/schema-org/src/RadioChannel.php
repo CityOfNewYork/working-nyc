@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\RadioChannelContract;
 use \Spatie\SchemaOrg\Contracts\BroadcastChannelContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,10 +11,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * A unique instance of a radio BroadcastService on a CableOrSatelliteService
  * lineup.
  *
- * @see http://schema.org/RadioChannel
+ * @see https://schema.org/RadioChannel
  *
  */
-class RadioChannel extends BaseType implements BroadcastChannelContract, IntangibleContract, ThingContract
+class RadioChannel extends BaseType implements RadioChannelContract, BroadcastChannelContract, IntangibleContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -27,7 +28,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -41,7 +42,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -56,7 +57,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/broadcastChannelId
+     * @see https://schema.org/broadcastChannelId
      */
     public function broadcastChannelId($broadcastChannelId)
     {
@@ -68,11 +69,12 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      * ranges e.g. 87-99. In addition a shortcut idiom is supported for
      * frequences of AM and FM radio channels, e.g. "87 FM".
      *
-     * @param BroadcastFrequencySpecification|BroadcastFrequencySpecification[]|string|string[] $broadcastFrequency
+     * @param \Spatie\SchemaOrg\Contracts\BroadcastFrequencySpecificationContract|\Spatie\SchemaOrg\Contracts\BroadcastFrequencySpecificationContract[]|string|string[] $broadcastFrequency
      *
      * @return static
      *
-     * @see http://schema.org/broadcastFrequency
+     * @see https://schema.org/broadcastFrequency
+     * @link https://github.com/schemaorg/schemaorg/issues/1004
      */
     public function broadcastFrequency($broadcastFrequency)
     {
@@ -87,7 +89,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/broadcastServiceTier
+     * @see https://schema.org/broadcastServiceTier
      */
     public function broadcastServiceTier($broadcastServiceTier)
     {
@@ -101,7 +103,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -118,7 +120,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -132,7 +134,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/genre
+     * @see https://schema.org/genre
      */
     public function genre($genre)
     {
@@ -146,11 +148,11 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -161,11 +163,11 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -175,11 +177,11 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
     /**
      * The CableOrSatelliteService offering the channel.
      *
-     * @param CableOrSatelliteService|CableOrSatelliteService[] $inBroadcastLineup
+     * @param \Spatie\SchemaOrg\Contracts\CableOrSatelliteServiceContract|\Spatie\SchemaOrg\Contracts\CableOrSatelliteServiceContract[] $inBroadcastLineup
      *
      * @return static
      *
-     * @see http://schema.org/inBroadcastLineup
+     * @see https://schema.org/inBroadcastLineup
      */
     public function inBroadcastLineup($inBroadcastLineup)
     {
@@ -191,11 +193,11 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -209,7 +211,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -220,11 +222,11 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -234,11 +236,11 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
     /**
      * The BroadcastService offered on this channel.
      *
-     * @param BroadcastService|BroadcastService[] $providesBroadcastService
+     * @param \Spatie\SchemaOrg\Contracts\BroadcastServiceContract|\Spatie\SchemaOrg\Contracts\BroadcastServiceContract[] $providesBroadcastService
      *
      * @return static
      *
-     * @see http://schema.org/providesBroadcastService
+     * @see https://schema.org/providesBroadcastService
      */
     public function providesBroadcastService($providesBroadcastService)
     {
@@ -254,7 +256,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -264,11 +266,12 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -282,7 +285,7 @@ class RadioChannel extends BaseType implements BroadcastChannelContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

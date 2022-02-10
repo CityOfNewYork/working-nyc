@@ -17,7 +17,7 @@ class Status {
 		foreach ( $translations as $id => $string ) {
 			foreach ( Obj::propOr( [], 'translations', $string ) as $lang => $data ) {
 				$status = Obj::pathOr( null, [ $id, $lang ], $statuses );
-				if( $status ) {
+				if ( $status ) {
 					$translations[ $id ]['translations'][ $lang ]['status'] = $status;
 				}
 			}
@@ -50,10 +50,13 @@ class Status {
 				"SELECT status, translation_id FROM {$wpdb->prefix}icl_translation_status WHERE translation_id IN ({$in})"
 			);
 
-			$keyByTranslationId = Fns::converge( Lst::zipObj(), [
-				Lst::pluck( 'translation_id' ),
-				Lst::pluck( 'status' )
-			] );
+			$keyByTranslationId = Fns::converge(
+				Lst::zipObj(),
+				[
+					Lst::pluck( 'translation_id' ),
+					Lst::pluck( 'status' ),
+				]
+			);
 			$statuses           = $keyByTranslationId( $statuses );
 
 			$keyByTrid = Fns::converge( Lst::zipObj(), [ Lst::pluck( 'trid' ), Fns::identity() ] );
@@ -61,9 +64,11 @@ class Status {
 			return wpml_collect( $batches )
 				->map( Obj::prop( Fns::__, $trids ) )
 				->map( Obj::prop( Fns::__, $keyByTrid( $transIds ) ) )
-				->map( function ( $item ) use ( $statuses ) {
-					return [ $item->language_code => Obj::prop( $item->translation_id, $statuses ) ];
-				} )
+				->map(
+					function ( $item ) use ( $statuses ) {
+						return [ $item->language_code => Obj::prop( $item->translation_id, $statuses ) ];
+					}
+				)
 				->toArray();
 		} else {
 			return [];
@@ -71,7 +76,7 @@ class Status {
 	}
 
 	public static function getStatusesOfBatch( \wpdb $wpdb, $batchId ) {
-		$statuses = Status::getStatuses( $wpdb, [ $batchId ] );
+		$statuses = self::getStatuses( $wpdb, [ $batchId ] );
 
 		return count( $statuses ) ? current( $statuses ) : [];
 	}

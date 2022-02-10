@@ -1,7 +1,7 @@
 {
   "name": "nyco/working-nyc",
   "description": "Find and connect to services and resources that can help you prepare for and get a job.",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "authors": [
     {
       "name": "NYC Opportunity",
@@ -17,32 +17,30 @@
   ],
   "require": {
     "nyco/wp-assets": "^1.4",
-    "nyco/wp-config": "1.0.3",
-    "spatie/schema-org": "^2.8",
-    "timber/timber": "^1.16",
-    "wpackagist-plugin/acf-to-rest-api": "^3.3",
-    "wpackagist-plugin/adminimize": "^1.11",
-    "wpackagist-plugin/aryo-activity-log": "^2.5",
-    "wpackagist-plugin/custom-post-type-ui": "^1.7",
-    "wpackagist-plugin/duplicate-post": "^3.2",
-    "wpackagist-plugin/gathercontent-import": "^3.1",
-    "wpackagist-plugin/google-authenticator": "^0.52.0",
-    "wpackagist-plugin/limit-login-attempts-reloaded": "^2.9",
-    "wpackagist-plugin/loggedin": "^1.2",
-    "wpackagist-plugin/members": "^3.1",
-    "wpackagist-plugin/rollbar": "^2.6",
-    "wpackagist-plugin/simple-custom-post-order": "^2.5",
-    "wpackagist-plugin/taxonomy-terms-order": "^1.5",
-    "wpackagist-plugin/wordpress-importer": "^0.7.0",
-    "wpackagist-plugin/wp-all-export": "^1.2",
-    "wpackagist-plugin/wp-all-import": "^3.5",
-    "wpackagist-plugin/wp-security-questions": "^1.0",
-    "wpackagist-plugin/wps-hide-login": "^1.5.2.1",
-    "wpackagist-plugin/wpscan": "^1.15"
+    "nyco/wp-config": "^1",
+    "spatie/schema-org": "^3",
+    "timber/timber": "^1",
+    "wpackagist-plugin/acf-to-rest-api": "*",
+    "wpackagist-plugin/adminimize": "*",
+    "wpackagist-plugin/aryo-activity-log": "*",
+    "wpackagist-plugin/custom-post-type-ui": "*",
+    "wpackagist-plugin/gathercontent-import": "3.1.14",
+    "wpackagist-plugin/google-authenticator": "*",
+    "wpackagist-plugin/limit-login-attempts-reloaded": "*",
+    "wpackagist-plugin/loggedin": "*",
+    "wpackagist-plugin/members": "*",
+    "wpackagist-plugin/rollbar": "*",
+    "wpackagist-plugin/simple-custom-post-order": "*",
+    "wpackagist-plugin/taxonomy-terms-order": "*",
+    "wpackagist-plugin/wp-all-export": "*",
+    "wpackagist-plugin/wp-all-import": "*",
+    "wpackagist-plugin/wp-bitly": "*",
+    "wpackagist-plugin/wp-security-questions": "*",
+    "wpackagist-plugin/wps-hide-login": "*",
+    "wpackagist-plugin/wpscan": "*"
   },
   "require-dev": {
     "filp/whoops": "*",
-    "nielsdeblaauw/query-monitor-twig-profile": "*",
     "squizlabs/php_codesniffer": "*",
     "whoops/soap": "*",
     "wpackagist-plugin/query-monitor": "*",
@@ -52,10 +50,10 @@
   },
   "scripts": {
     "development": [
-      "composer dump-autoload"
+      "composer dump-autoload --ignore-platform-req=php"
     ],
     "production": [
-      "composer dump-autoload --no-dev --optimize"
+      "composer dump-autoload --no-dev --optimize --ignore-platform-req=php"
     ],
     "predeploy": [
       "@development",
@@ -69,7 +67,7 @@
       "vendor/bin/phpcbf --standard=phpcs.xml"
     ],
     "version": [
-      "composer update nothing --ignore-platform-reqs",
+      "composer update nothing --ignore-platform-req=php",
       "@production"
     ],
     "deps": [

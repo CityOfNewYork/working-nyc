@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\UnitPriceSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\PriceSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
@@ -10,10 +11,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * The price asked for a given offer by the respective organization or person.
  *
- * @see http://schema.org/UnitPriceSpecification
+ * @see https://schema.org/UnitPriceSpecification
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass
  *
  */
-class UnitPriceSpecification extends BaseType implements IntangibleContract, PriceSpecificationContract, StructuredValueContract, ThingContract
+class UnitPriceSpecification extends BaseType implements UnitPriceSpecificationContract, IntangibleContract, PriceSpecificationContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -27,7 +29,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -41,11 +43,31 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
         return $this->setProperty('alternateName', $alternateName);
+    }
+
+    /**
+     * Specifies for how long this price (or price component) will be billed.
+     * Can be used, for example, to model the contractual duration of a
+     * subscription or payment plan. Type can be either a Duration or a Number
+     * (in which case the unit of measurement, for example month, is specified
+     * by the unitCode property).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\DurationContract|\Spatie\SchemaOrg\Contracts\DurationContract[]|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[]|float|float[]|int|int[] $billingDuration
+     *
+     * @return static
+     *
+     * @see https://schema.org/billingDuration
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2689
+     */
+    public function billingDuration($billingDuration)
+    {
+        return $this->setProperty('billingDuration', $billingDuration);
     }
 
     /**
@@ -57,11 +79,31 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/billingIncrement
+     * @see https://schema.org/billingIncrement
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function billingIncrement($billingIncrement)
     {
         return $this->setProperty('billingIncrement', $billingIncrement);
+    }
+
+    /**
+     * Specifies after how much time this price (or price component) becomes
+     * valid and billing starts. Can be used, for example, to model a price
+     * increase after the first year of a subscription. The unit of measurement
+     * is specified by the unitCode property.
+     *
+     * @param float|float[]|int|int[] $billingStart
+     *
+     * @return static
+     *
+     * @see https://schema.org/billingStart
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2689
+     */
+    public function billingStart($billingStart)
+    {
+        return $this->setProperty('billingStart', $billingStart);
     }
 
     /**
@@ -71,7 +113,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -88,7 +130,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -100,11 +142,12 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      * offer or price specification is valid. This allows e.g. specifying that a
      * certain freight charge is valid only for a certain quantity.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $eligibleQuantity
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $eligibleQuantity
      *
      * @return static
      *
-     * @see http://schema.org/eligibleQuantity
+     * @see https://schema.org/eligibleQuantity
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleQuantity($eligibleQuantity)
     {
@@ -117,11 +160,12 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      * to express free shipping above a certain order volume, or to limit the
      * acceptance of credit cards to purchases to a certain minimal amount.
      *
-     * @param PriceSpecification|PriceSpecification[] $eligibleTransactionVolume
+     * @param \Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[] $eligibleTransactionVolume
      *
      * @return static
      *
-     * @see http://schema.org/eligibleTransactionVolume
+     * @see https://schema.org/eligibleTransactionVolume
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleTransactionVolume($eligibleTransactionVolume)
     {
@@ -135,11 +179,11 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -150,11 +194,11 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -166,11 +210,11 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -184,7 +228,8 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/maxPrice
+     * @see https://schema.org/maxPrice
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function maxPrice($maxPrice)
     {
@@ -198,7 +243,8 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/minPrice
+     * @see https://schema.org/minPrice
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function minPrice($minPrice)
     {
@@ -212,7 +258,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -223,11 +269,11 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -264,11 +310,28 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/price
+     * @see https://schema.org/price
      */
     public function price($price)
     {
         return $this->setProperty('price', $price);
+    }
+
+    /**
+     * Identifies a price component (for example, a line item on an invoice),
+     * part of the total price for an offer.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PriceComponentTypeEnumerationContract|\Spatie\SchemaOrg\Contracts\PriceComponentTypeEnumerationContract[] $priceComponentType
+     *
+     * @return static
+     *
+     * @see https://schema.org/priceComponentType
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2689
+     */
+    public function priceComponentType($priceComponentType)
+    {
+        return $this->setProperty('priceComponentType', $priceComponentType);
     }
 
     /**
@@ -287,7 +350,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/priceCurrency
+     * @see https://schema.org/priceCurrency
      */
     public function priceCurrency($priceCurrency)
     {
@@ -295,15 +358,20 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
     }
 
     /**
-     * A short text or acronym indicating multiple price specifications for the
-     * same offer, e.g. SRP for the suggested retail price or INVOICE for the
-     * invoice price, mostly used in the car industry.
+     * Defines the type of a price specified for an offered product, for example
+     * a list price, a (temporary) sale price or a manufacturer suggested retail
+     * price. If multiple prices are specified for an offer the [[priceType]]
+     * property can be used to identify the type of each such specified price.
+     * The value of priceType can be specified as a value from enumeration
+     * PriceTypeEnumeration or as a free form text string for price types that
+     * are not already predefined in PriceTypeEnumeration.
      *
-     * @param string|string[] $priceType
+     * @param \Spatie\SchemaOrg\Contracts\PriceTypeEnumerationContract|\Spatie\SchemaOrg\Contracts\PriceTypeEnumerationContract[]|string|string[] $priceType
      *
      * @return static
      *
-     * @see http://schema.org/priceType
+     * @see https://schema.org/priceType
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function priceType($priceType)
     {
@@ -316,11 +384,11 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      * unitOfMeasurement for the advanced cases where the price does not relate
      * to a standard unit.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $referenceQuantity
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $referenceQuantity
      *
      * @return static
      *
-     * @see http://schema.org/referenceQuantity
+     * @see https://schema.org/referenceQuantity
      */
     public function referenceQuantity($referenceQuantity)
     {
@@ -336,7 +404,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -346,11 +414,12 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -366,7 +435,8 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/unitCode
+     * @see https://schema.org/unitCode
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function unitCode($unitCode)
     {
@@ -382,7 +452,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/unitText
+     * @see https://schema.org/unitText
      */
     public function unitText($unitText)
     {
@@ -396,7 +466,7 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -410,7 +480,8 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/validFrom
+     * @see https://schema.org/validFrom
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validFrom($validFrom)
     {
@@ -425,7 +496,8 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/validThrough
+     * @see https://schema.org/validThrough
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validThrough($validThrough)
     {
@@ -440,7 +512,8 @@ class UnitPriceSpecification extends BaseType implements IntangibleContract, Pri
      *
      * @return static
      *
-     * @see http://schema.org/valueAddedTaxIncluded
+     * @see https://schema.org/valueAddedTaxIncluded
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function valueAddedTaxIncluded($valueAddedTaxIncluded)
     {

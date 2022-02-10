@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\HealthAndBeautyBusinessContract;
 use \Spatie\SchemaOrg\Contracts\LocalBusinessContract;
 use \Spatie\SchemaOrg\Contracts\OrganizationContract;
 use \Spatie\SchemaOrg\Contracts\PlaceContract;
@@ -10,27 +11,45 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * Health and beauty.
  *
- * @see http://schema.org/HealthAndBeautyBusiness
+ * @see https://schema.org/HealthAndBeautyBusiness
  *
  */
-class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract, OrganizationContract, PlaceContract, ThingContract
+class HealthAndBeautyBusiness extends BaseType implements HealthAndBeautyBusinessContract, LocalBusinessContract, OrganizationContract, PlaceContract, ThingContract
 {
+    /**
+     * For a [[NewsMediaOrganization]] or other news-related [[Organization]], a
+     * statement about public engagement activities (for news media, the
+     * newsroom’s), including involving the public - digitally or otherwise --
+     * in coverage decisions, reporting and activities after publication.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $actionableFeedbackPolicy
+     *
+     * @return static
+     *
+     * @see https://schema.org/actionableFeedbackPolicy
+     * @see https://pending.schema.org
+     */
+    public function actionableFeedbackPolicy($actionableFeedbackPolicy)
+    {
+        return $this->setProperty('actionableFeedbackPolicy', $actionableFeedbackPolicy);
+    }
+
     /**
      * A property-value pair representing an additional characteristics of the
      * entitity, e.g. a product feature or another characteristic for which
      * there is no matching property in schema.org.
      * 
      * Note: Publishers should be aware that applications designed to use
-     * specific schema.org properties (e.g. http://schema.org/width,
-     * http://schema.org/color, http://schema.org/gtin13, ...) will typically
+     * specific schema.org properties (e.g. https://schema.org/width,
+     * https://schema.org/color, https://schema.org/gtin13, ...) will typically
      * expect such data to be provided using those properties, rather than using
      * the generic property/value mechanism.
      *
-     * @param PropertyValue|PropertyValue[] $additionalProperty
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[] $additionalProperty
      *
      * @return static
      *
-     * @see http://schema.org/additionalProperty
+     * @see https://schema.org/additionalProperty
      */
     public function additionalProperty($additionalProperty)
     {
@@ -49,7 +68,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -59,11 +78,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * Physical address of the item.
      *
-     * @param PostalAddress|PostalAddress[]|string|string[] $address
+     * @param \Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|string|string[] $address
      *
      * @return static
      *
-     * @see http://schema.org/address
+     * @see https://schema.org/address
      */
     public function address($address)
     {
@@ -74,11 +93,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * The overall rating, based on a collection of reviews or ratings, of the
      * item.
      *
-     * @param AggregateRating|AggregateRating[] $aggregateRating
+     * @param \Spatie\SchemaOrg\Contracts\AggregateRatingContract|\Spatie\SchemaOrg\Contracts\AggregateRatingContract[] $aggregateRating
      *
      * @return static
      *
-     * @see http://schema.org/aggregateRating
+     * @see https://schema.org/aggregateRating
      */
     public function aggregateRating($aggregateRating)
     {
@@ -92,11 +111,25 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
         return $this->setProperty('alternateName', $alternateName);
+    }
+
+    /**
+     * Alumni of an organization.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $alumni
+     *
+     * @return static
+     *
+     * @see https://schema.org/alumni
+     */
+    public function alumni($alumni)
+    {
+        return $this->setProperty('alumni', $alumni);
     }
 
     /**
@@ -105,11 +138,12 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * whether the feature is included in an offer for the main accommodation or
      * available at extra costs.
      *
-     * @param LocationFeatureSpecification|LocationFeatureSpecification[] $amenityFeature
+     * @param \Spatie\SchemaOrg\Contracts\LocationFeatureSpecificationContract|\Spatie\SchemaOrg\Contracts\LocationFeatureSpecificationContract[] $amenityFeature
      *
      * @return static
      *
-     * @see http://schema.org/amenityFeature
+     * @see https://schema.org/amenityFeature
+     * @link https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology
      */
     public function amenityFeature($amenityFeature)
     {
@@ -119,11 +153,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * The geographic area where a service or offered item is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[]|string|string[] $areaServed
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $areaServed
      *
      * @return static
      *
-     * @see http://schema.org/areaServed
+     * @see https://schema.org/areaServed
      */
     public function areaServed($areaServed)
     {
@@ -137,7 +171,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/award
+     * @see https://schema.org/award
      */
     public function award($award)
     {
@@ -151,7 +185,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/awards
+     * @see https://schema.org/awards
      */
     public function awards($awards)
     {
@@ -171,7 +205,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/branchCode
+     * @see https://schema.org/branchCode
      */
     public function branchCode($branchCode)
     {
@@ -182,11 +216,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * The larger organization that this local business is a branch of, if any.
      * Not to be confused with (anatomical)[[branch]].
      *
-     * @param Organization|Organization[] $branchOf
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $branchOf
      *
      * @return static
      *
-     * @see http://schema.org/branchOf
+     * @see https://schema.org/branchOf
      */
     public function branchOf($branchOf)
     {
@@ -197,11 +231,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * The brand(s) associated with a product or service, or the brand(s)
      * maintained by an organization or business person.
      *
-     * @param Brand|Brand[]|Organization|Organization[] $brand
+     * @param \Spatie\SchemaOrg\Contracts\BrandContract|\Spatie\SchemaOrg\Contracts\BrandContract[]|\Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $brand
      *
      * @return static
      *
-     * @see http://schema.org/brand
+     * @see https://schema.org/brand
      */
     public function brand($brand)
     {
@@ -211,11 +245,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A contact point for a person or organization.
      *
-     * @param ContactPoint|ContactPoint[] $contactPoint
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[] $contactPoint
      *
      * @return static
      *
-     * @see http://schema.org/contactPoint
+     * @see https://schema.org/contactPoint
      */
     public function contactPoint($contactPoint)
     {
@@ -225,11 +259,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A contact point for a person or organization.
      *
-     * @param ContactPoint|ContactPoint[] $contactPoints
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[] $contactPoints
      *
      * @return static
      *
-     * @see http://schema.org/contactPoints
+     * @see https://schema.org/contactPoints
      */
     public function contactPoints($contactPoints)
     {
@@ -239,11 +273,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * The basic containment relation between a place and one that contains it.
      *
-     * @param Place|Place[] $containedIn
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $containedIn
      *
      * @return static
      *
-     * @see http://schema.org/containedIn
+     * @see https://schema.org/containedIn
      */
     public function containedIn($containedIn)
     {
@@ -253,11 +287,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * The basic containment relation between a place and one that contains it.
      *
-     * @param Place|Place[] $containedInPlace
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $containedInPlace
      *
      * @return static
      *
-     * @see http://schema.org/containedInPlace
+     * @see https://schema.org/containedInPlace
      */
     public function containedInPlace($containedInPlace)
     {
@@ -268,15 +302,32 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * The basic containment relation between a place and another that it
      * contains.
      *
-     * @param Place|Place[] $containsPlace
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $containsPlace
      *
      * @return static
      *
-     * @see http://schema.org/containsPlace
+     * @see https://schema.org/containsPlace
      */
     public function containsPlace($containsPlace)
     {
         return $this->setProperty('containsPlace', $containsPlace);
+    }
+
+    /**
+     * For an [[Organization]] (e.g. [[NewsMediaOrganization]]), a statement
+     * describing (in news media, the newsroom’s) disclosure and correction
+     * policy for errors.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $correctionsPolicy
+     *
+     * @return static
+     *
+     * @see https://schema.org/correctionsPolicy
+     * @see https://pending.schema.org
+     */
+    public function correctionsPolicy($correctionsPolicy)
+    {
+        return $this->setProperty('correctionsPolicy', $correctionsPolicy);
     }
 
     /**
@@ -294,7 +345,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/currenciesAccepted
+     * @see https://schema.org/currenciesAccepted
      */
     public function currenciesAccepted($currenciesAccepted)
     {
@@ -307,11 +358,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * logos, opening hours). For example: a store with a pharmacy, or a bakery
      * with a cafe.
      *
-     * @param Organization|Organization[] $department
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $department
      *
      * @return static
      *
-     * @see http://schema.org/department
+     * @see https://schema.org/department
      */
     public function department($department)
     {
@@ -325,7 +376,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -342,7 +393,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -356,11 +407,47 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/dissolutionDate
+     * @see https://schema.org/dissolutionDate
      */
     public function dissolutionDate($dissolutionDate)
     {
         return $this->setProperty('dissolutionDate', $dissolutionDate);
+    }
+
+    /**
+     * Statement on diversity policy by an [[Organization]] e.g. a
+     * [[NewsMediaOrganization]]. For a [[NewsMediaOrganization]], a statement
+     * describing the newsroom’s diversity policy on both staffing and
+     * sources, typically providing staffing data.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $diversityPolicy
+     *
+     * @return static
+     *
+     * @see https://schema.org/diversityPolicy
+     * @see https://pending.schema.org
+     */
+    public function diversityPolicy($diversityPolicy)
+    {
+        return $this->setProperty('diversityPolicy', $diversityPolicy);
+    }
+
+    /**
+     * For an [[Organization]] (often but not necessarily a
+     * [[NewsMediaOrganization]]), a report on staffing diversity issues. In a
+     * news context this might be for example ASNE or RTDNA (US) reports, or
+     * self-reported.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ArticleContract|\Spatie\SchemaOrg\Contracts\ArticleContract[]|string|string[] $diversityStaffingReport
+     *
+     * @return static
+     *
+     * @see https://schema.org/diversityStaffingReport
+     * @see https://pending.schema.org
+     */
+    public function diversityStaffingReport($diversityStaffingReport)
+    {
+        return $this->setProperty('diversityStaffingReport', $diversityStaffingReport);
     }
 
     /**
@@ -371,7 +458,8 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/duns
+     * @see https://schema.org/duns
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function duns($duns)
     {
@@ -385,7 +473,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/email
+     * @see https://schema.org/email
      */
     public function email($email)
     {
@@ -395,11 +483,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * Someone working for this organization.
      *
-     * @param Person|Person[] $employee
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $employee
      *
      * @return static
      *
-     * @see http://schema.org/employee
+     * @see https://schema.org/employee
      */
     public function employee($employee)
     {
@@ -409,11 +497,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * People working for this organization.
      *
-     * @param Person|Person[] $employees
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $employees
      *
      * @return static
      *
-     * @see http://schema.org/employees
+     * @see https://schema.org/employees
      */
     public function employees($employees)
     {
@@ -421,14 +509,35 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     }
 
     /**
-     * Upcoming or past event associated with this place, organization, or
-     * action.
+     * Statement about ethics policy, e.g. of a [[NewsMediaOrganization]]
+     * regarding journalistic and publishing practices, or of a [[Restaurant]],
+     * a page describing food source policies. In the case of a
+     * [[NewsMediaOrganization]], an ethicsPolicy is typically a statement
+     * describing the personal, organizational, and corporate standards of
+     * behavior expected by the organization.
      *
-     * @param Event|Event[] $event
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $ethicsPolicy
      *
      * @return static
      *
-     * @see http://schema.org/event
+     * @see https://schema.org/ethicsPolicy
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1525
+     */
+    public function ethicsPolicy($ethicsPolicy)
+    {
+        return $this->setProperty('ethicsPolicy', $ethicsPolicy);
+    }
+
+    /**
+     * Upcoming or past event associated with this place, organization, or
+     * action.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $event
+     *
+     * @return static
+     *
+     * @see https://schema.org/event
      */
     public function event($event)
     {
@@ -438,11 +547,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * Upcoming or past events associated with this place or organization.
      *
-     * @param Event|Event[] $events
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $events
      *
      * @return static
      *
-     * @see http://schema.org/events
+     * @see https://schema.org/events
      */
     public function events($events)
     {
@@ -456,7 +565,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/faxNumber
+     * @see https://schema.org/faxNumber
      */
     public function faxNumber($faxNumber)
     {
@@ -466,11 +575,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A person who founded this organization.
      *
-     * @param Person|Person[] $founder
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $founder
      *
      * @return static
      *
-     * @see http://schema.org/founder
+     * @see https://schema.org/founder
      */
     public function founder($founder)
     {
@@ -480,11 +589,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A person who founded this organization.
      *
-     * @param Person|Person[] $founders
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $founders
      *
      * @return static
      *
-     * @see http://schema.org/founders
+     * @see https://schema.org/founders
      */
     public function founders($founders)
     {
@@ -498,7 +607,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/foundingDate
+     * @see https://schema.org/foundingDate
      */
     public function foundingDate($foundingDate)
     {
@@ -508,11 +617,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * The place where the Organization was founded.
      *
-     * @param Place|Place[] $foundingLocation
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $foundingLocation
      *
      * @return static
      *
-     * @see http://schema.org/foundingLocation
+     * @see https://schema.org/foundingLocation
      */
     public function foundingLocation($foundingLocation)
     {
@@ -523,11 +632,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * A person or organization that supports (sponsors) something through some
      * kind of financial contribution.
      *
-     * @param Organization|Organization[]|Person|Person[] $funder
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $funder
      *
      * @return static
      *
-     * @see http://schema.org/funder
+     * @see https://schema.org/funder
      */
     public function funder($funder)
     {
@@ -537,15 +646,187 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * The geo coordinates of the place.
      *
-     * @param GeoCoordinates|GeoCoordinates[]|GeoShape|GeoShape[] $geo
+     * @param \Spatie\SchemaOrg\Contracts\GeoCoordinatesContract|\Spatie\SchemaOrg\Contracts\GeoCoordinatesContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[] $geo
      *
      * @return static
      *
-     * @see http://schema.org/geo
+     * @see https://schema.org/geo
      */
     public function geo($geo)
     {
         return $this->setProperty('geo', $geo);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a containing geometry to a contained geometry. "a
+     * contains b iff no points of b lie in the exterior of a, and at least one
+     * point of the interior of b lies in the interior of a". As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoContains
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoContains
+     */
+    public function geoContains($geoContains)
+    {
+        return $this->setProperty('geoContains', $geoContains);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to another that covers it. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoCoveredBy
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoCoveredBy
+     */
+    public function geoCoveredBy($geoCoveredBy)
+    {
+        return $this->setProperty('geoCoveredBy', $geoCoveredBy);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a covering geometry to a covered geometry. "Every
+     * point of b is a point of (the interior or boundary of) a". As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoCovers
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoCovers
+     */
+    public function geoCovers($geoCovers)
+    {
+        return $this->setProperty('geoCovers', $geoCovers);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to another that crosses it: "a crosses b:
+     * they have some but not all interior points in common, and the dimension
+     * of the intersection is less than that of at least one of them". As
+     * defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoCrosses
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoCrosses
+     */
+    public function geoCrosses($geoCrosses)
+    {
+        return $this->setProperty('geoCrosses', $geoCrosses);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) are topologically disjoint: they have no point in common. They
+     * form a set of disconnected geometries." (a symmetric relationship, as
+     * defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM))
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoDisjoint
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoDisjoint
+     */
+    public function geoDisjoint($geoDisjoint)
+    {
+        return $this->setProperty('geoDisjoint', $geoDisjoint);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) are topologically equal, as defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). "Two geometries are
+     * topologically equal if their interiors intersect and no part of the
+     * interior or boundary of one geometry intersects the exterior of the
+     * other" (a symmetric relationship)
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoEquals
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoEquals
+     */
+    public function geoEquals($geoEquals)
+    {
+        return $this->setProperty('geoEquals', $geoEquals);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) have at least one point in common. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoIntersects
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoIntersects
+     */
+    public function geoIntersects($geoIntersects)
+    {
+        return $this->setProperty('geoIntersects', $geoIntersects);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to another that geospatially overlaps it,
+     * i.e. they have some but not all points in common. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoOverlaps
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoOverlaps
+     */
+    public function geoOverlaps($geoOverlaps)
+    {
+        return $this->setProperty('geoOverlaps', $geoOverlaps);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) touch: they have at least one boundary point in common, but no
+     * interior points." (a symmetric relationship, as defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) )
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoTouches
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoTouches
+     */
+    public function geoTouches($geoTouches)
+    {
+        return $this->setProperty('geoTouches', $geoTouches);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to one that contains it, i.e. it is
+     * inside (i.e. within) its interior. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoWithin
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoWithin
+     */
+    public function geoWithin($geoWithin)
+    {
+        return $this->setProperty('geoWithin', $geoWithin);
     }
 
     /**
@@ -558,7 +839,8 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/globalLocationNumber
+     * @see https://schema.org/globalLocationNumber
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function globalLocationNumber($globalLocationNumber)
     {
@@ -566,13 +848,49 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     }
 
     /**
-     * A URL to a map of the place.
+     * A credential awarded to the Person or Organization.
      *
-     * @param Map|Map[]|string|string[] $hasMap
+     * @param \Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract|\Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract[] $hasCredential
      *
      * @return static
      *
-     * @see http://schema.org/hasMap
+     * @see https://schema.org/hasCredential
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
+     */
+    public function hasCredential($hasCredential)
+    {
+        return $this->setProperty('hasCredential', $hasCredential);
+    }
+
+    /**
+     * Indicates whether some facility (e.g. [[FoodEstablishment]],
+     * [[CovidTestingFacility]]) offers a service that can be used by driving
+     * through in a car. In the case of [[CovidTestingFacility]] such facilities
+     * could potentially help with social distancing from other
+     * potentially-infected users.
+     *
+     * @param bool|bool[] $hasDriveThroughService
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasDriveThroughService
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2490
+     */
+    public function hasDriveThroughService($hasDriveThroughService)
+    {
+        return $this->setProperty('hasDriveThroughService', $hasDriveThroughService);
+    }
+
+    /**
+     * A URL to a map of the place.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\MapContract|\Spatie\SchemaOrg\Contracts\MapContract[]|string|string[] $hasMap
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasMap
      */
     public function hasMap($hasMap)
     {
@@ -580,14 +898,30 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     }
 
     /**
-     * Indicates an OfferCatalog listing for this Organization, Person, or
-     * Service.
+     * Specifies a MerchantReturnPolicy that may be applicable.
      *
-     * @param OfferCatalog|OfferCatalog[] $hasOfferCatalog
+     * @param \Spatie\SchemaOrg\Contracts\MerchantReturnPolicyContract|\Spatie\SchemaOrg\Contracts\MerchantReturnPolicyContract[] $hasMerchantReturnPolicy
      *
      * @return static
      *
-     * @see http://schema.org/hasOfferCatalog
+     * @see https://schema.org/hasMerchantReturnPolicy
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2288
+     */
+    public function hasMerchantReturnPolicy($hasMerchantReturnPolicy)
+    {
+        return $this->setProperty('hasMerchantReturnPolicy', $hasMerchantReturnPolicy);
+    }
+
+    /**
+     * Indicates an OfferCatalog listing for this Organization, Person, or
+     * Service.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OfferCatalogContract|\Spatie\SchemaOrg\Contracts\OfferCatalogContract[] $hasOfferCatalog
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasOfferCatalog
      */
     public function hasOfferCatalog($hasOfferCatalog)
     {
@@ -597,15 +931,32 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * Points-of-Sales operated by the organization or person.
      *
-     * @param Place|Place[] $hasPOS
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $hasPOS
      *
      * @return static
      *
-     * @see http://schema.org/hasPOS
+     * @see https://schema.org/hasPOS
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function hasPOS($hasPOS)
     {
         return $this->setProperty('hasPOS', $hasPOS);
+    }
+
+    /**
+     * Indicates a ProductReturnPolicy that may be applicable.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ProductReturnPolicyContract|\Spatie\SchemaOrg\Contracts\ProductReturnPolicyContract[] $hasProductReturnPolicy
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasProductReturnPolicy
+     * @see https://attic.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2288
+     */
+    public function hasProductReturnPolicy($hasProductReturnPolicy)
+    {
+        return $this->setProperty('hasProductReturnPolicy', $hasProductReturnPolicy);
     }
 
     /**
@@ -615,11 +966,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -630,15 +981,32 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
         return $this->setProperty('image', $image);
+    }
+
+    /**
+     * The number of interactions for the CreativeWork using the WebSite or
+     * SoftwareApplication. The most specific child type of InteractionCounter
+     * should be used.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\InteractionCounterContract|\Spatie\SchemaOrg\Contracts\InteractionCounterContract[] $interactionStatistic
+     *
+     * @return static
+     *
+     * @see https://schema.org/interactionStatistic
+     * @link https://github.com/schemaorg/schemaorg/issues/2421
+     */
+    public function interactionStatistic($interactionStatistic)
+    {
+        return $this->setProperty('interactionStatistic', $interactionStatistic);
     }
 
     /**
@@ -648,7 +1016,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/isAccessibleForFree
+     * @see https://schema.org/isAccessibleForFree
      */
     public function isAccessibleForFree($isAccessibleForFree)
     {
@@ -664,11 +1032,48 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/isicV4
+     * @see https://schema.org/isicV4
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function isicV4($isicV4)
     {
         return $this->setProperty('isicV4', $isicV4);
+    }
+
+    /**
+     * Of a [[Person]], and less typically of an [[Organization]], to indicate a
+     * topic that is known about - suggesting possible expertise but not
+     * implying it. We do not distinguish skill levels here, or relate this to
+     * educational content, events, objectives or [[JobPosting]] descriptions.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[]|string|string[] $knowsAbout
+     *
+     * @return static
+     *
+     * @see https://schema.org/knowsAbout
+     * @see https://pending.schema.org
+     */
+    public function knowsAbout($knowsAbout)
+    {
+        return $this->setProperty('knowsAbout', $knowsAbout);
+    }
+
+    /**
+     * Of a [[Person]], and less typically of an [[Organization]], to indicate a
+     * known language. We do not distinguish skill levels or
+     * reading/writing/speaking/signing here. Use language codes from the [IETF
+     * BCP 47 standard](http://tools.ietf.org/html/bcp47).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\LanguageContract|\Spatie\SchemaOrg\Contracts\LanguageContract[]|string|string[] $knowsLanguage
+     *
+     * @return static
+     *
+     * @see https://schema.org/knowsLanguage
+     * @see https://pending.schema.org
+     */
+    public function knowsLanguage($knowsLanguage)
+    {
+        return $this->setProperty('knowsLanguage', $knowsLanguage);
     }
 
     /**
@@ -679,7 +1084,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/latitude
+     * @see https://schema.org/latitude
      */
     public function latitude($latitude)
     {
@@ -693,7 +1098,8 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/legalName
+     * @see https://schema.org/legalName
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function legalName($legalName)
     {
@@ -708,7 +1114,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/leiCode
+     * @see https://schema.org/leiCode
      */
     public function leiCode($leiCode)
     {
@@ -716,14 +1122,14 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     }
 
     /**
-     * The location of for example where the event is happening, an organization
-     * is located, or where an action takes place.
+     * The location of, for example, where an event is happening, where an
+     * organization is located, or where an action takes place.
      *
-     * @param Place|Place[]|PostalAddress|PostalAddress[]|string|string[] $location
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|\Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|\Spatie\SchemaOrg\Contracts\VirtualLocationContract|\Spatie\SchemaOrg\Contracts\VirtualLocationContract[]|string|string[] $location
      *
      * @return static
      *
-     * @see http://schema.org/location
+     * @see https://schema.org/location
      */
     public function location($location)
     {
@@ -733,11 +1139,12 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * An associated logo.
      *
-     * @param ImageObject|ImageObject[]|string|string[] $logo
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $logo
      *
      * @return static
      *
-     * @see http://schema.org/logo
+     * @see https://schema.org/logo
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function logo($logo)
     {
@@ -752,7 +1159,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/longitude
+     * @see https://schema.org/longitude
      */
     public function longitude($longitude)
     {
@@ -764,11 +1171,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -778,11 +1185,12 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A pointer to products or services offered by the organization or person.
      *
-     * @param Offer|Offer[] $makesOffer
+     * @param \Spatie\SchemaOrg\Contracts\OfferContract|\Spatie\SchemaOrg\Contracts\OfferContract[] $makesOffer
      *
      * @return static
      *
-     * @see http://schema.org/makesOffer
+     * @see https://schema.org/makesOffer
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function makesOffer($makesOffer)
     {
@@ -796,7 +1204,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/map
+     * @see https://schema.org/map
      */
     public function map($map)
     {
@@ -810,7 +1218,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/maps
+     * @see https://schema.org/maps
      */
     public function maps($maps)
     {
@@ -824,7 +1232,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/maximumAttendeeCapacity
+     * @see https://schema.org/maximumAttendeeCapacity
      */
     public function maximumAttendeeCapacity($maximumAttendeeCapacity)
     {
@@ -835,11 +1243,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * A member of an Organization or a ProgramMembership. Organizations can be
      * members of organizations; ProgramMembership is typically for individuals.
      *
-     * @param Organization|Organization[]|Person|Person[] $member
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $member
      *
      * @return static
      *
-     * @see http://schema.org/member
+     * @see https://schema.org/member
      */
     public function member($member)
     {
@@ -850,11 +1258,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * An Organization (or ProgramMembership) to which this Person or
      * Organization belongs.
      *
-     * @param Organization|Organization[]|ProgramMembership|ProgramMembership[] $memberOf
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\ProgramMembershipContract|\Spatie\SchemaOrg\Contracts\ProgramMembershipContract[] $memberOf
      *
      * @return static
      *
-     * @see http://schema.org/memberOf
+     * @see https://schema.org/memberOf
      */
     public function memberOf($memberOf)
     {
@@ -864,11 +1272,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A member of this organization.
      *
-     * @param Organization|Organization[]|Person|Person[] $members
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $members
      *
      * @return static
      *
-     * @see http://schema.org/members
+     * @see https://schema.org/members
      */
     public function members($members)
     {
@@ -883,7 +1291,8 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/naics
+     * @see https://schema.org/naics
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function naics($naics)
     {
@@ -897,7 +1306,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -905,31 +1314,34 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     }
 
     /**
-     * The number of employees in an organization e.g. business.
+     * nonprofit Status indicates the legal status of a non-profit organization
+     * in its primary place of business.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $numberOfEmployees
+     * @param \Spatie\SchemaOrg\Contracts\NonprofitTypeContract|\Spatie\SchemaOrg\Contracts\NonprofitTypeContract[] $nonprofitStatus
      *
      * @return static
      *
-     * @see http://schema.org/numberOfEmployees
+     * @see https://schema.org/nonprofitStatus
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2543
+     */
+    public function nonprofitStatus($nonprofitStatus)
+    {
+        return $this->setProperty('nonprofitStatus', $nonprofitStatus);
+    }
+
+    /**
+     * The number of employees in an organization e.g. business.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $numberOfEmployees
+     *
+     * @return static
+     *
+     * @see https://schema.org/numberOfEmployees
      */
     public function numberOfEmployees($numberOfEmployees)
     {
         return $this->setProperty('numberOfEmployees', $numberOfEmployees);
-    }
-
-    /**
-     * A pointer to the organization or person making the offer.
-     *
-     * @param Organization|Organization[]|Person|Person[] $offeredBy
-     *
-     * @return static
-     *
-     * @see http://schema.org/offeredBy
-     */
-    public function offeredBy($offeredBy)
-    {
-        return $this->setProperty('offeredBy', $offeredBy);
     }
 
     /**
@@ -940,21 +1352,19 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * 
      * * Days are specified using the following two-letter combinations:
      * ```Mo```, ```Tu```, ```We```, ```Th```, ```Fr```, ```Sa```, ```Su```.
-     * * Times are specified using 24:00 time. For example, 3pm is specified as
-     * ```15:00```. 
-     * * Here is an example: <code>&lt;time itemprop="openingHours"
-     * datetime=&quot;Tu,Th 16:00-20:00&quot;&gt;Tuesdays and Thursdays
-     * 4-8pm&lt;/time&gt;</code>.
+     * * Times are specified using 24:00 format. For example, 3pm is specified
+     * as ```15:00```, 10am as ```10:00```. 
+     * * Here is an example: ```<time itemprop="openingHours" datetime="Tu,Th
+     * 16:00-20:00">Tuesdays and Thursdays 4-8pm</time>```.
      * * If a business is open 7 days a week, then it can be specified as
-     * <code>&lt;time itemprop=&quot;openingHours&quot;
-     * datetime=&quot;Mo-Su&quot;&gt;Monday through Sunday, all
-     * day&lt;/time&gt;</code>.
+     * ```<time itemprop="openingHours" datetime="Mo-Su">Monday through Sunday,
+     * all day</time>```.
      *
      * @param string|string[] $openingHours
      *
      * @return static
      *
-     * @see http://schema.org/openingHours
+     * @see https://schema.org/openingHours
      */
     public function openingHours($openingHours)
     {
@@ -964,11 +1374,12 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * The opening hours of a certain place.
      *
-     * @param OpeningHoursSpecification|OpeningHoursSpecification[] $openingHoursSpecification
+     * @param \Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract|\Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract[] $openingHoursSpecification
      *
      * @return static
      *
-     * @see http://schema.org/openingHoursSpecification
+     * @see https://schema.org/openingHoursSpecification
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function openingHoursSpecification($openingHoursSpecification)
     {
@@ -976,13 +1387,34 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     }
 
     /**
-     * Products owned by the organization or person.
+     * For an [[Organization]] (often but not necessarily a
+     * [[NewsMediaOrganization]]), a description of organizational ownership
+     * structure; funding and grants. In a news/media setting, this is with
+     * particular reference to editorial independence.   Note that the
+     * [[funder]] is also available and can be used to make basic funder
+     * information machine-readable.
      *
-     * @param OwnershipInfo|OwnershipInfo[]|Product|Product[] $owns
+     * @param \Spatie\SchemaOrg\Contracts\AboutPageContract|\Spatie\SchemaOrg\Contracts\AboutPageContract[]|\Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $ownershipFundingInfo
      *
      * @return static
      *
-     * @see http://schema.org/owns
+     * @see https://schema.org/ownershipFundingInfo
+     * @see https://pending.schema.org
+     */
+    public function ownershipFundingInfo($ownershipFundingInfo)
+    {
+        return $this->setProperty('ownershipFundingInfo', $ownershipFundingInfo);
+    }
+
+    /**
+     * Products owned by the organization or person.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OwnershipInfoContract|\Spatie\SchemaOrg\Contracts\OwnershipInfoContract[]|\Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[] $owns
+     *
+     * @return static
+     *
+     * @see https://schema.org/owns
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function owns($owns)
     {
@@ -993,11 +1425,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * The larger organization that this organization is a [[subOrganization]]
      * of, if any.
      *
-     * @param Organization|Organization[] $parentOrganization
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $parentOrganization
      *
      * @return static
      *
-     * @see http://schema.org/parentOrganization
+     * @see https://schema.org/parentOrganization
      */
     public function parentOrganization($parentOrganization)
     {
@@ -1011,7 +1443,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/paymentAccepted
+     * @see https://schema.org/paymentAccepted
      */
     public function paymentAccepted($paymentAccepted)
     {
@@ -1021,11 +1453,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A photograph of this place.
      *
-     * @param ImageObject|ImageObject[]|Photograph|Photograph[] $photo
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|\Spatie\SchemaOrg\Contracts\PhotographContract|\Spatie\SchemaOrg\Contracts\PhotographContract[] $photo
      *
      * @return static
      *
-     * @see http://schema.org/photo
+     * @see https://schema.org/photo
      */
     public function photo($photo)
     {
@@ -1035,11 +1467,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * Photographs of this place.
      *
-     * @param ImageObject|ImageObject[]|Photograph|Photograph[] $photos
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|\Spatie\SchemaOrg\Contracts\PhotographContract|\Spatie\SchemaOrg\Contracts\PhotographContract[] $photos
      *
      * @return static
      *
-     * @see http://schema.org/photos
+     * @see https://schema.org/photos
      */
     public function photos($photos)
     {
@@ -1050,11 +1482,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -1068,7 +1500,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/priceRange
+     * @see https://schema.org/priceRange
      */
     public function priceRange($priceRange)
     {
@@ -1083,7 +1515,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/publicAccess
+     * @see https://schema.org/publicAccess
      */
     public function publicAccess($publicAccess)
     {
@@ -1103,11 +1535,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * sometimes related information (e.g. indicating a [[funder]]) can be
      * expressed using schema.org terminology.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $publishingPrinciples
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $publishingPrinciples
      *
      * @return static
      *
-     * @see http://schema.org/publishingPrinciples
+     * @see https://schema.org/publishingPrinciples
      */
     public function publishingPrinciples($publishingPrinciples)
     {
@@ -1117,11 +1549,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A review of the item.
      *
-     * @param Review|Review[] $review
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $review
      *
      * @return static
      *
-     * @see http://schema.org/review
+     * @see https://schema.org/review
      */
     public function review($review)
     {
@@ -1131,11 +1563,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * Review of the item.
      *
-     * @param Review|Review[] $reviews
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $reviews
      *
      * @return static
      *
-     * @see http://schema.org/reviews
+     * @see https://schema.org/reviews
      */
     public function reviews($reviews)
     {
@@ -1151,7 +1583,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -1162,11 +1594,12 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * A pointer to products or services sought by the organization or person
      * (demand).
      *
-     * @param Demand|Demand[] $seeks
+     * @param \Spatie\SchemaOrg\Contracts\DemandContract|\Spatie\SchemaOrg\Contracts\DemandContract[] $seeks
      *
      * @return static
      *
-     * @see http://schema.org/seeks
+     * @see https://schema.org/seeks
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function seeks($seeks)
     {
@@ -1176,11 +1609,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * The geographic area where the service is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[] $serviceArea
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $serviceArea
      *
      * @return static
      *
-     * @see http://schema.org/serviceArea
+     * @see https://schema.org/serviceArea
      */
     public function serviceArea($serviceArea)
     {
@@ -1194,7 +1627,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/slogan
+     * @see https://schema.org/slogan
      */
     public function slogan($slogan)
     {
@@ -1209,7 +1642,8 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/smokingAllowed
+     * @see https://schema.org/smokingAllowed
+     * @link https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology
      */
     public function smokingAllowed($smokingAllowed)
     {
@@ -1222,11 +1656,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * Use this to explicitly override general opening hours brought in scope by
      * [[openingHoursSpecification]] or [[openingHours]].
      *
-     * @param OpeningHoursSpecification|OpeningHoursSpecification[] $specialOpeningHoursSpecification
+     * @param \Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract|\Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract[] $specialOpeningHoursSpecification
      *
      * @return static
      *
-     * @see http://schema.org/specialOpeningHoursSpecification
+     * @see https://schema.org/specialOpeningHoursSpecification
      */
     public function specialOpeningHoursSpecification($specialOpeningHoursSpecification)
     {
@@ -1238,11 +1672,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * or financial contribution. e.g. a sponsor of a Medical Study or a
      * corporate sponsor of an event.
      *
-     * @param Organization|Organization[]|Person|Person[] $sponsor
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $sponsor
      *
      * @return static
      *
-     * @see http://schema.org/sponsor
+     * @see https://schema.org/sponsor
      */
     public function sponsor($sponsor)
     {
@@ -1254,11 +1688,11 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      * second, e.g., as a subsidiary. See also: the more specific 'department'
      * property.
      *
-     * @param Organization|Organization[] $subOrganization
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $subOrganization
      *
      * @return static
      *
-     * @see http://schema.org/subOrganization
+     * @see https://schema.org/subOrganization
      */
     public function subOrganization($subOrganization)
     {
@@ -1268,11 +1702,12 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -1287,7 +1722,8 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/taxID
+     * @see https://schema.org/taxID
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function taxID($taxID)
     {
@@ -1301,11 +1737,46 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/telephone
+     * @see https://schema.org/telephone
      */
     public function telephone($telephone)
     {
         return $this->setProperty('telephone', $telephone);
+    }
+
+    /**
+     * A page providing information on how to book a tour of some [[Place]],
+     * such as an [[Accommodation]] or [[ApartmentComplex]] in a real estate
+     * setting, as well as other kinds of tours as appropriate.
+     *
+     * @param string|string[] $tourBookingPage
+     *
+     * @return static
+     *
+     * @see https://schema.org/tourBookingPage
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2373
+     */
+    public function tourBookingPage($tourBookingPage)
+    {
+        return $this->setProperty('tourBookingPage', $tourBookingPage);
+    }
+
+    /**
+     * For an [[Organization]] (typically a [[NewsMediaOrganization]]), a
+     * statement about policy on use of unnamed sources and the decision process
+     * required.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $unnamedSourcesPolicy
+     *
+     * @return static
+     *
+     * @see https://schema.org/unnamedSourcesPolicy
+     * @see https://pending.schema.org
+     */
+    public function unnamedSourcesPolicy($unnamedSourcesPolicy)
+    {
+        return $this->setProperty('unnamedSourcesPolicy', $unnamedSourcesPolicy);
     }
 
     /**
@@ -1315,7 +1786,7 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -1329,7 +1800,8 @@ class HealthAndBeautyBusiness extends BaseType implements LocalBusinessContract,
      *
      * @return static
      *
-     * @see http://schema.org/vatID
+     * @see https://schema.org/vatID
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function vatID($vatID)
     {

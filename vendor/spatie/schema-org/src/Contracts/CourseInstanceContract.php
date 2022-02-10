@@ -26,6 +26,8 @@ interface CourseInstanceContract
 
     public function courseMode($courseMode);
 
+    public function courseWorkload($courseWorkload);
+
     public function description($description);
 
     public function director($director);
@@ -37,6 +39,10 @@ interface CourseInstanceContract
     public function duration($duration);
 
     public function endDate($endDate);
+
+    public function eventAttendanceMode($eventAttendanceMode);
+
+    public function eventSchedule($eventSchedule);
 
     public function eventStatus($eventStatus);
 
@@ -57,6 +63,10 @@ interface CourseInstanceContract
     public function mainEntityOfPage($mainEntityOfPage);
 
     public function maximumAttendeeCapacity($maximumAttendeeCapacity);
+
+    public function maximumPhysicalAttendeeCapacity($maximumPhysicalAttendeeCapacity);
+
+    public function maximumVirtualAttendeeCapacity($maximumVirtualAttendeeCapacity);
 
     public function name($name);
 

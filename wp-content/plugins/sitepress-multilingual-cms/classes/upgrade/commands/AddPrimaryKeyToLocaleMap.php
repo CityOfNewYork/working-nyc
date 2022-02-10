@@ -13,6 +13,6 @@ class AddPrimaryKeyToLocaleMap extends AddPrimaryKeyToTable {
 	}
 
 	protected function get_key_columns() {
-		return ['code', 'locale'];
+		return [ 'code', 'locale' ];
 	}
 }

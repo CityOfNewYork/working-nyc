@@ -68,6 +68,7 @@ class AAL_Settings {
 		if ( ! get_option( $this->slug ) ) {
 			update_option( $this->slug, apply_filters( 'aal_default_options', array(
 				'logs_lifespan' => '30',
+				'logs_failed_login' => 'yes',
 			) ) );
 		}
 
@@ -97,6 +98,23 @@ class AAL_Settings {
 						'type'    => 'number',
 						'sub_desc'    => __( 'days.', 'aryo-activity-log' ),
 						'desc'    => __( 'Maximum number of days to keep activity log. Leave blank to keep activity log forever (not recommended).', 'aryo-activity-log' ),
+					)
+				);
+
+				add_settings_field(
+					'logs_failed_login',
+					__( 'Keep Failed Login Logs', 'aryo-activity-log' ),
+					array( 'AAL_Settings_Fields', 'select_field' ),
+					$this->slug,
+					'general_settings_section',
+					array(
+						'id'      => 'logs_failed_login',
+						'page'    => $this->slug,
+						'type'    => 'select',
+						'options' => array(
+							'yes' => __( 'Keep', 'aryo-activity-log' ),
+							'no' => __( "Don't Keep (Not recommended)", 'aryo-activity-log' ),
+						),
 					)
 				);
 
@@ -165,7 +183,7 @@ class AAL_Settings {
 							'id'      => 'notification_transport',
 							'page'    => $this->slug,
 							'name' => "{$this->slug}[notification_handlers][{$handler_id}]",
-							'value' => (bool) ( 1 == $enabled_notification_handlers[ $handler_id ] ),
+							'value' => isset( $enabled_notification_handlers[ $handler_id ] ) && ( 1 == $enabled_notification_handlers[ $handler_id ] ),
 						)
 					);
 
@@ -194,10 +212,20 @@ class AAL_Settings {
 		$current_section = $this->get_setup_section();
 		$sections = array(
 			'general'       => __( 'General', 'aryo-activity-log' ),
-			'notifications' => __( 'Notifications', 'aryo-activity-log' ),
 		);
 
+		$enabled_notification_handlers = AAL_Main::instance()->settings->get_option( 'notification_handlers' );
+
+		// Hide notifications tab if not used before..
+		if ( ! empty( $enabled_notification_handlers ) ) {
+			$sections['notifications'] = __( 'Notifications', 'aryo-activity-log' );
+		}
+
 		$sections = apply_filters( 'aal_setup_sections', $sections );
+
+		if ( 1 >= count( $sections ) ) {
+			return;
+		}
 
 		foreach ( $sections as $section_key => $section_caption ) {
 			$active = $current_section === $section_key ? 'nav-tab-active' : '';
@@ -253,7 +281,7 @@ class AAL_Settings {
 		<script type="text/javascript">
 			jQuery( document ).ready( function( $ ) {
 				$( '#aal-delete-log-activities' ).on( 'click', function( e ) {
-					if ( ! confirm( '<?php echo __( 'Are you sure you want to do this action?', 'aryo-activity-log' ); ?>' ) ) {
+					if ( ! confirm( '<?php echo __( 'Attention: We are going to DELETE ALL ACTIVITIES from the database. Are you sure you want to do that?', 'aryo-activity-log' ); ?>' ) ) {
 						e.preventDefault();
 					}
 				} );

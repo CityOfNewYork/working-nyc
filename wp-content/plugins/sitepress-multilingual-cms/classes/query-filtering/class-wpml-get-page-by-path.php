@@ -49,7 +49,7 @@ class WPML_Get_Page_By_Path {
 
 			$where = $this->wpdb->prepare( "ID IN ( SELECT element_id FROM {$this->wpdb->prefix}icl_translations WHERE language_code = %s AND element_type LIKE 'post_%%' ) AND ", $this->language );
 
-			$query = str_replace( "WHERE ", "WHERE " . $where, $query );
+			$query = str_replace( 'WHERE ', 'WHERE ' . $where, $query );
 		}
 
 		return $query;
@@ -63,8 +63,8 @@ class WPML_Get_Page_By_Path {
 	 */
 	private function clear_cache( $page_name, $post_type ) {
 		$last_changed = wp_cache_get_last_changed( 'posts' );
-		$hash = md5( $page_name . serialize( $post_type ) );
-		$cache_key = "get_page_by_path:$hash:$last_changed";
+		$hash         = md5( $page_name . serialize( $post_type ) );
+		$cache_key    = "get_page_by_path:$hash:$last_changed";
 		wp_cache_delete( $cache_key, 'posts' );
 	}
 }

@@ -93,7 +93,7 @@ class WPML_Admin_Text_Import extends WPML_Admin_Text_Functionality {
 	}
 
 
-	private function register_string_recursive( $key, $value, $arr, $prefix = '', $suffix, $requires_upgrade, $type, $admin_text_context_old ) {
+	private function register_string_recursive( $key, $value, $arr, $prefix, $suffix, $requires_upgrade, $type, $admin_text_context_old ) {
 		if ( is_scalar( $value ) ) {
 			icl_register_string( WPML_Admin_Texts::DOMAIN_NAME_PREFIX . $suffix, $prefix . $key, $value, true );
 			if ( $requires_upgrade ) {

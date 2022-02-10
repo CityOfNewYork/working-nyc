@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\UserBlocksContract;
 use \Spatie\SchemaOrg\Contracts\EventContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 use \Spatie\SchemaOrg\Contracts\UserInteractionContract;
@@ -11,19 +12,20 @@ use \Spatie\SchemaOrg\Contracts\UserInteractionContract;
  * interacting with pages. It is generally better to use [[Action]]-based
  * vocabulary, alongside types such as [[Comment]].
  *
- * @see http://schema.org/UserBlocks
+ * @see https://schema.org/UserBlocks
  *
  */
-class UserBlocks extends BaseType implements EventContract, ThingContract, UserInteractionContract
+class UserBlocks extends BaseType implements UserBlocksContract, EventContract, ThingContract, UserInteractionContract
 {
     /**
      * The subject matter of the content.
      *
-     * @param Thing|Thing[] $about
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $about
      *
      * @return static
      *
-     * @see http://schema.org/about
+     * @see https://schema.org/about
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function about($about)
     {
@@ -35,11 +37,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * Actors can be associated with individual items or with a series, episode,
      * clip.
      *
-     * @param Person|Person[] $actor
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $actor
      *
      * @return static
      *
-     * @see http://schema.org/actor
+     * @see https://schema.org/actor
      */
     public function actor($actor)
     {
@@ -58,7 +60,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -69,11 +71,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * The overall rating, based on a collection of reviews or ratings, of the
      * item.
      *
-     * @param AggregateRating|AggregateRating[] $aggregateRating
+     * @param \Spatie\SchemaOrg\Contracts\AggregateRatingContract|\Spatie\SchemaOrg\Contracts\AggregateRatingContract[] $aggregateRating
      *
      * @return static
      *
-     * @see http://schema.org/aggregateRating
+     * @see https://schema.org/aggregateRating
      */
     public function aggregateRating($aggregateRating)
     {
@@ -87,7 +89,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -97,11 +99,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * A person or organization attending the event.
      *
-     * @param Organization|Organization[]|Person|Person[] $attendee
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $attendee
      *
      * @return static
      *
-     * @see http://schema.org/attendee
+     * @see https://schema.org/attendee
      */
     public function attendee($attendee)
     {
@@ -111,11 +113,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * A person attending the event.
      *
-     * @param Organization|Organization[]|Person|Person[] $attendees
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $attendees
      *
      * @return static
      *
-     * @see http://schema.org/attendees
+     * @see https://schema.org/attendees
      */
     public function attendees($attendees)
     {
@@ -125,11 +127,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * An intended audience, i.e. a group for whom something was created.
      *
-     * @param Audience|Audience[] $audience
+     * @param \Spatie\SchemaOrg\Contracts\AudienceContract|\Spatie\SchemaOrg\Contracts\AudienceContract[] $audience
      *
      * @return static
      *
-     * @see http://schema.org/audience
+     * @see https://schema.org/audience
      */
     public function audience($audience)
     {
@@ -140,11 +142,12 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * The person or organization who wrote a composition, or who is the
      * composer of a work performed at some event.
      *
-     * @param Organization|Organization[]|Person|Person[] $composer
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $composer
      *
      * @return static
      *
-     * @see http://schema.org/composer
+     * @see https://schema.org/composer
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
     public function composer($composer)
     {
@@ -154,11 +157,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * A secondary contributor to the CreativeWork or Event.
      *
-     * @param Organization|Organization[]|Person|Person[] $contributor
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $contributor
      *
      * @return static
      *
-     * @see http://schema.org/contributor
+     * @see https://schema.org/contributor
      */
     public function contributor($contributor)
     {
@@ -172,7 +175,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -184,11 +187,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * event. Directors can be associated with individual items or with a
      * series, episode, clip.
      *
-     * @param Person|Person[] $director
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $director
      *
      * @return static
      *
-     * @see http://schema.org/director
+     * @see https://schema.org/director
      */
     public function director($director)
     {
@@ -205,7 +208,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -219,7 +222,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/doorTime
+     * @see https://schema.org/doorTime
      */
     public function doorTime($doorTime)
     {
@@ -230,11 +233,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * The duration of the item (movie, audio recording, event, etc.) in [ISO
      * 8601 date format](http://en.wikipedia.org/wiki/ISO_8601).
      *
-     * @param Duration|Duration[] $duration
+     * @param \Spatie\SchemaOrg\Contracts\DurationContract|\Spatie\SchemaOrg\Contracts\DurationContract[] $duration
      *
      * @return static
      *
-     * @see http://schema.org/duration
+     * @see https://schema.org/duration
      */
     public function duration($duration)
     {
@@ -249,7 +252,8 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/endDate
+     * @see https://schema.org/endDate
+     * @link https://github.com/schemaorg/schemaorg/issues/2486
      */
     public function endDate($endDate)
     {
@@ -257,14 +261,61 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     }
 
     /**
-     * An eventStatus of an event represents its status; particularly useful
-     * when an event is cancelled or rescheduled.
+     * The eventAttendanceMode of an event indicates whether it occurs online,
+     * offline, or a mix.
      *
-     * @param EventStatusType|EventStatusType[] $eventStatus
+     * @param \Spatie\SchemaOrg\Contracts\EventAttendanceModeEnumerationContract|\Spatie\SchemaOrg\Contracts\EventAttendanceModeEnumerationContract[] $eventAttendanceMode
      *
      * @return static
      *
-     * @see http://schema.org/eventStatus
+     * @see https://schema.org/eventAttendanceMode
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1842
+     */
+    public function eventAttendanceMode($eventAttendanceMode)
+    {
+        return $this->setProperty('eventAttendanceMode', $eventAttendanceMode);
+    }
+
+    /**
+     * Associates an [[Event]] with a [[Schedule]]. There are circumstances
+     * where it is preferable to share a schedule for a series of
+     *       repeating events rather than data on the individual events
+     * themselves. For example, a website or application might prefer to publish
+     * a schedule for a weekly
+     *       gym class rather than provide data on every event. A schedule could
+     * be processed by applications to add forthcoming events to a calendar. An
+     * [[Event]] that
+     *       is associated with a [[Schedule]] using this property should not
+     * have [[startDate]] or [[endDate]] properties. These are instead defined
+     * within the associated
+     *       [[Schedule]], this avoids any ambiguity for clients using the data.
+     * The property might have repeated values to specify different schedules,
+     * e.g. for different months
+     *       or seasons.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ScheduleContract|\Spatie\SchemaOrg\Contracts\ScheduleContract[] $eventSchedule
+     *
+     * @return static
+     *
+     * @see https://schema.org/eventSchedule
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1457
+     */
+    public function eventSchedule($eventSchedule)
+    {
+        return $this->setProperty('eventSchedule', $eventSchedule);
+    }
+
+    /**
+     * An eventStatus of an event represents its status; particularly useful
+     * when an event is cancelled or rescheduled.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\EventStatusTypeContract|\Spatie\SchemaOrg\Contracts\EventStatusTypeContract[] $eventStatus
+     *
+     * @return static
+     *
+     * @see https://schema.org/eventStatus
      */
     public function eventStatus($eventStatus)
     {
@@ -275,11 +326,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * A person or organization that supports (sponsors) something through some
      * kind of financial contribution.
      *
-     * @param Organization|Organization[]|Person|Person[] $funder
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $funder
      *
      * @return static
      *
-     * @see http://schema.org/funder
+     * @see https://schema.org/funder
      */
     public function funder($funder)
     {
@@ -293,11 +344,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -308,11 +359,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -325,11 +376,12 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * standard](http://tools.ietf.org/html/bcp47). See also
      * [[availableLanguage]].
      *
-     * @param Language|Language[]|string|string[] $inLanguage
+     * @param \Spatie\SchemaOrg\Contracts\LanguageContract|\Spatie\SchemaOrg\Contracts\LanguageContract[]|string|string[] $inLanguage
      *
      * @return static
      *
-     * @see http://schema.org/inLanguage
+     * @see https://schema.org/inLanguage
+     * @link https://github.com/schemaorg/schemaorg/issues/2382
      */
     public function inLanguage($inLanguage)
     {
@@ -343,7 +395,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/isAccessibleForFree
+     * @see https://schema.org/isAccessibleForFree
      */
     public function isAccessibleForFree($isAccessibleForFree)
     {
@@ -351,14 +403,14 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     }
 
     /**
-     * The location of for example where the event is happening, an organization
-     * is located, or where an action takes place.
+     * The location of, for example, where an event is happening, where an
+     * organization is located, or where an action takes place.
      *
-     * @param Place|Place[]|PostalAddress|PostalAddress[]|string|string[] $location
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|\Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|\Spatie\SchemaOrg\Contracts\VirtualLocationContract|\Spatie\SchemaOrg\Contracts\VirtualLocationContract[]|string|string[] $location
      *
      * @return static
      *
-     * @see http://schema.org/location
+     * @see https://schema.org/location
      */
     public function location($location)
     {
@@ -370,11 +422,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -388,11 +440,47 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/maximumAttendeeCapacity
+     * @see https://schema.org/maximumAttendeeCapacity
      */
     public function maximumAttendeeCapacity($maximumAttendeeCapacity)
     {
         return $this->setProperty('maximumAttendeeCapacity', $maximumAttendeeCapacity);
+    }
+
+    /**
+     * The maximum physical attendee capacity of an [[Event]] whose
+     * [[eventAttendanceMode]] is [[OfflineEventAttendanceMode]] (or the offline
+     * aspects, in the case of a [[MixedEventAttendanceMode]]).
+     *
+     * @param int|int[] $maximumPhysicalAttendeeCapacity
+     *
+     * @return static
+     *
+     * @see https://schema.org/maximumPhysicalAttendeeCapacity
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1842
+     */
+    public function maximumPhysicalAttendeeCapacity($maximumPhysicalAttendeeCapacity)
+    {
+        return $this->setProperty('maximumPhysicalAttendeeCapacity', $maximumPhysicalAttendeeCapacity);
+    }
+
+    /**
+     * The maximum physical attendee capacity of an [[Event]] whose
+     * [[eventAttendanceMode]] is [[OnlineEventAttendanceMode]] (or the online
+     * aspects, in the case of a [[MixedEventAttendanceMode]]).
+     *
+     * @param int|int[] $maximumVirtualAttendeeCapacity
+     *
+     * @return static
+     *
+     * @see https://schema.org/maximumVirtualAttendeeCapacity
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1842
+     */
+    public function maximumVirtualAttendeeCapacity($maximumVirtualAttendeeCapacity)
+    {
+        return $this->setProperty('maximumVirtualAttendeeCapacity', $maximumVirtualAttendeeCapacity);
     }
 
     /**
@@ -402,7 +490,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -412,13 +500,19 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * An offer to provide this item&#x2014;for example, an offer to sell a
      * product, rent the DVD of a movie, perform a service, or give away tickets
-     * to an event.
+     * to an event. Use [[businessFunction]] to indicate the kind of transaction
+     * offered, i.e. sell, lease, etc. This property can also be used to
+     * describe a [[Demand]]. While this property is listed as expected on a
+     * number of common types, it can be used in others. In that case, using a
+     * second type, such as Product or a subtype of Product, can clarify the
+     * nature of the offer.
      *
-     * @param Offer|Offer[] $offers
+     * @param \Spatie\SchemaOrg\Contracts\DemandContract|\Spatie\SchemaOrg\Contracts\DemandContract[]|\Spatie\SchemaOrg\Contracts\OfferContract|\Spatie\SchemaOrg\Contracts\OfferContract[] $offers
      *
      * @return static
      *
-     * @see http://schema.org/offers
+     * @see https://schema.org/offers
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
      */
     public function offers($offers)
     {
@@ -428,11 +522,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * An organizer of an Event.
      *
-     * @param Organization|Organization[]|Person|Person[] $organizer
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $organizer
      *
      * @return static
      *
-     * @see http://schema.org/organizer
+     * @see https://schema.org/organizer
      */
     public function organizer($organizer)
     {
@@ -443,11 +537,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * A performer at the event&#x2014;for example, a presenter, musician,
      * musical group or actor.
      *
-     * @param Organization|Organization[]|Person|Person[] $performer
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $performer
      *
      * @return static
      *
-     * @see http://schema.org/performer
+     * @see https://schema.org/performer
      */
     public function performer($performer)
     {
@@ -458,11 +552,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * The main performer or performers of the event&#x2014;for example, a
      * presenter, musician, or actor.
      *
-     * @param Organization|Organization[]|Person|Person[] $performers
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $performers
      *
      * @return static
      *
-     * @see http://schema.org/performers
+     * @see https://schema.org/performers
      */
     public function performers($performers)
     {
@@ -473,11 +567,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -495,7 +589,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/previousStartDate
+     * @see https://schema.org/previousStartDate
      */
     public function previousStartDate($previousStartDate)
     {
@@ -505,11 +599,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * The CreativeWork that captured all or part of this Event.
      *
-     * @param CreativeWork|CreativeWork[] $recordedIn
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $recordedIn
      *
      * @return static
      *
-     * @see http://schema.org/recordedIn
+     * @see https://schema.org/recordedIn
      */
     public function recordedIn($recordedIn)
     {
@@ -523,7 +617,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/remainingAttendeeCapacity
+     * @see https://schema.org/remainingAttendeeCapacity
      */
     public function remainingAttendeeCapacity($remainingAttendeeCapacity)
     {
@@ -533,11 +627,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * A review of the item.
      *
-     * @param Review|Review[] $review
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $review
      *
      * @return static
      *
-     * @see http://schema.org/review
+     * @see https://schema.org/review
      */
     public function review($review)
     {
@@ -553,7 +647,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -565,11 +659,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * or financial contribution. e.g. a sponsor of a Medical Study or a
      * corporate sponsor of an event.
      *
-     * @param Organization|Organization[]|Person|Person[] $sponsor
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $sponsor
      *
      * @return static
      *
-     * @see http://schema.org/sponsor
+     * @see https://schema.org/sponsor
      */
     public function sponsor($sponsor)
     {
@@ -584,7 +678,8 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/startDate
+     * @see https://schema.org/startDate
+     * @link https://github.com/schemaorg/schemaorg/issues/2486
      */
     public function startDate($startDate)
     {
@@ -596,11 +691,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * includes many presentations, each of which is a subEvent of the
      * conference.
      *
-     * @param Event|Event[] $subEvent
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subEvent
      *
      * @return static
      *
-     * @see http://schema.org/subEvent
+     * @see https://schema.org/subEvent
      */
     public function subEvent($subEvent)
     {
@@ -611,11 +706,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * Events that are a part of this event. For example, a conference event
      * includes many presentations, each subEvents of the conference.
      *
-     * @param Event|Event[] $subEvents
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subEvents
      *
      * @return static
      *
-     * @see http://schema.org/subEvents
+     * @see https://schema.org/subEvents
      */
     public function subEvents($subEvents)
     {
@@ -625,11 +720,12 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -641,11 +737,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * individual music performances might each have a music festival as their
      * superEvent.
      *
-     * @param Event|Event[] $superEvent
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $superEvent
      *
      * @return static
      *
-     * @see http://schema.org/superEvent
+     * @see https://schema.org/superEvent
      */
     public function superEvent($superEvent)
     {
@@ -657,11 +753,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * regional differences and technical requirements of a target market, or
      * that translates during some event.
      *
-     * @param Organization|Organization[]|Person|Person[] $translator
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $translator
      *
      * @return static
      *
-     * @see http://schema.org/translator
+     * @see https://schema.org/translator
      */
     public function translator($translator)
     {
@@ -675,7 +771,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/typicalAgeRange
+     * @see https://schema.org/typicalAgeRange
      */
     public function typicalAgeRange($typicalAgeRange)
     {
@@ -689,7 +785,7 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -701,11 +797,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      *        Specific subproperties are available for workPerformed (e.g. a
      * play), or a workPresented (a Movie at a ScreeningEvent).
      *
-     * @param CreativeWork|CreativeWork[] $workFeatured
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $workFeatured
      *
      * @return static
      *
-     * @see http://schema.org/workFeatured
+     * @see https://schema.org/workFeatured
      */
     public function workFeatured($workFeatured)
     {
@@ -716,11 +812,11 @@ class UserBlocks extends BaseType implements EventContract, ThingContract, UserI
      * A work performed in some event, for example a play performed in a
      * TheaterEvent.
      *
-     * @param CreativeWork|CreativeWork[] $workPerformed
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[] $workPerformed
      *
      * @return static
      *
-     * @see http://schema.org/workPerformed
+     * @see https://schema.org/workPerformed
      */
     public function workPerformed($workPerformed)
     {

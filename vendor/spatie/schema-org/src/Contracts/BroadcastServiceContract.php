@@ -34,6 +34,8 @@ interface BroadcastServiceContract
 
     public function broker($broker);
 
+    public function callSign($callSign);
+
     public function category($category);
 
     public function description($description);
@@ -49,6 +51,8 @@ interface BroadcastServiceContract
     public function identifier($identifier);
 
     public function image($image);
+
+    public function inLanguage($inLanguage);
 
     public function isRelatedTo($isRelatedTo);
 
@@ -87,6 +91,8 @@ interface BroadcastServiceContract
     public function slogan($slogan);
 
     public function subjectOf($subjectOf);
+
+    public function termsOfService($termsOfService);
 
     public function url($url);
 

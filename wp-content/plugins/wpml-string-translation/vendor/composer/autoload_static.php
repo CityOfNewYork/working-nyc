@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
+class ComposerStaticInit5607db77ca28c633c55efb5618e121f1
 {
     public static $classMap = array (
         'IWPML_ST_Rewrite_Rule_Filter' => __DIR__ . '/../..' . '/classes/slug-translation/iwpml-st-rewrite-rule-filter.php',
@@ -29,6 +29,7 @@ class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
         'WPML\\ST\\DB\\Mappers\\StringTranslations' => __DIR__ . '/../..' . '/classes/db-mappers/StringTranslations.php',
         'WPML\\ST\\DB\\Mappers\\StringsRetrieve' => __DIR__ . '/../..' . '/classes/db-mappers/StringsRetrieve.php',
         'WPML\\ST\\DB\\Mappers\\Update' => __DIR__ . '/../..' . '/classes/db-mappers/Update.php',
+        'WPML\\ST\\DisplayAsTranslated\\CheckRedirect' => __DIR__ . '/../..' . '/classes/slug-translation/CheckRedirect.php',
         'WPML\\ST\\Gettext\\AutoRegisterSettings' => __DIR__ . '/../..' . '/classes/gettext-hooks/AutoRegisterSettings.php',
         'WPML\\ST\\Gettext\\Filters\\IFilter' => __DIR__ . '/../..' . '/classes/gettext-hooks/filters/IFilter.php',
         'WPML\\ST\\Gettext\\Filters\\StringHighlighting' => __DIR__ . '/../..' . '/classes/gettext-hooks/filters/StringHighlighting.php',
@@ -77,6 +78,7 @@ class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
         'WPML\\ST\\MO\\Scan\\UI\\Model' => __DIR__ . '/../..' . '/classes/translations-file-scan/UI/Model.php',
         'WPML\\ST\\MO\\Scan\\UI\\UI' => __DIR__ . '/../..' . '/classes/translations-file-scan/UI/UI.php',
         'WPML\\ST\\MO\\WPLocaleProxy' => __DIR__ . '/../..' . '/classes/MO/WPLocaleProxy.php',
+        'WPML\\ST\\Main\\Ajax\\FetchCompletedStrings' => __DIR__ . '/../..' . '/classes/string-translation-ui/ajax/FetchCompletedStrings.php',
         'WPML\\ST\\Main\\Ajax\\FetchTranslationMemory' => __DIR__ . '/../..' . '/classes/translation-memory/FetchTranslationMemory.php',
         'WPML\\ST\\Main\\Ajax\\SaveTranslation' => __DIR__ . '/../..' . '/classes/string-translation-ui/ajax/SaveTranslation.php',
         'WPML\\ST\\Main\\UI' => __DIR__ . '/../..' . '/classes/string-translation-ui/UI.php',
@@ -94,6 +96,10 @@ class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
         'WPML\\ST\\Shortcode\\TranslationHandler' => __DIR__ . '/../..' . '/classes/shortcode/TranslationHandler.php',
         'WPML\\ST\\SlugTranslation\\Hooks\\Hooks' => __DIR__ . '/../..' . '/classes/slug-translation/RewriteRules/Hooks.php',
         'WPML\\ST\\SlugTranslation\\Hooks\\HooksFactory' => __DIR__ . '/../..' . '/classes/slug-translation/RewriteRules/HooksFactory.php',
+        'WPML\\ST\\StringsCleanup\\Ajax\\InitStringsRemoving' => __DIR__ . '/../..' . '/classes/strings-cleanup/ajax/InitStringsRemoving.php',
+        'WPML\\ST\\StringsCleanup\\Ajax\\RemoveStringsFromDomains' => __DIR__ . '/../..' . '/classes/strings-cleanup/ajax/RemoveStringsFromDomains.php',
+        'WPML\\ST\\StringsCleanup\\UI' => __DIR__ . '/../..' . '/classes/strings-cleanup/UI.php',
+        'WPML\\ST\\StringsCleanup\\UntranslatedStrings' => __DIR__ . '/../..' . '/classes/strings-cleanup/UntranslatedStrings.php',
         'WPML\\ST\\StringsFilter\\Provider' => __DIR__ . '/../..' . '/classes/filters/strings-filter/Provider.php',
         'WPML\\ST\\StringsFilter\\QueryBuilder' => __DIR__ . '/../..' . '/classes/filters/strings-filter/QueryBuilder.php',
         'WPML\\ST\\StringsFilter\\StringEntity' => __DIR__ . '/../..' . '/classes/filters/strings-filter/StringEntity.php',
@@ -120,6 +126,7 @@ class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
         'WPML\\ST\\Troubleshooting\\BackendHooks' => __DIR__ . '/../..' . '/classes/Troubleshooting/BackendHooks.php',
         'WPML\\ST\\Troubleshooting\\Cleanup\\Database' => __DIR__ . '/../..' . '/classes/Troubleshooting/Cleanup/Database.php',
         'WPML\\ST\\Troubleshooting\\RequestHandle' => __DIR__ . '/../..' . '/classes/Troubleshooting/RequestHandle.php',
+        'WPML\\ST\\Upgrade\\Command\\MigrateMultilingualWidgets' => __DIR__ . '/../..' . '/classes/upgrade/Command/MigrateMultilingualWidgets.php',
         'WPML\\ST\\Upgrade\\Command\\RegenerateMoFilesWithStringNames' => __DIR__ . '/../..' . '/classes/upgrade/Command/RegenerateMoFilesWithStringNames.php',
         'WPML\\ST\\Utils\\LanguageResolution' => __DIR__ . '/../..' . '/classes/utilities/LanguageResolution.php',
         'WPML\\ST\\WP\\App\\Resources' => __DIR__ . '/../..' . '/classes/utilities/Resources.php',
@@ -168,7 +175,6 @@ class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
         'WPML_ST_Bulk_Update_Strings_Status' => __DIR__ . '/../..' . '/classes/db-mappers/class-wpml-st-bulk-update-strings-status.php',
         'WPML_ST_DB_Mappers_String_Positions' => __DIR__ . '/../..' . '/classes/db-mappers/class-wpml-st-db-mappers-string-positions.php',
         'WPML_ST_DB_Mappers_Strings' => __DIR__ . '/../..' . '/classes/db-mappers/class-wpml-st-db-mappers-strings.php',
-        'WPML_ST_DB_Troubleshooting' => __DIR__ . '/../..' . '/classes/menus/class-wpml-st-db-troubleshooting.php',
         'WPML_ST_Element_Slug_Translation_UI' => __DIR__ . '/../..' . '/classes/slug-translation/wpml-st-element-slug-translation-ui.php',
         'WPML_ST_Element_Slug_Translation_UI_Model' => __DIR__ . '/../..' . '/classes/slug-translation/wpml-st-element-slug-translation-ui-model.php',
         'WPML_ST_File_Hashing' => __DIR__ . '/../..' . '/classes/strings-scanning/class-wpml-st-file-hashing.php',
@@ -293,7 +299,6 @@ class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
         'WPML_ST_Upgrade_DB_String_Packages' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-st-upgrade-db-string-packages.php',
         'WPML_ST_Upgrade_DB_String_Packages_Word_Count' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-st-upgrade-db-string-packages-word-count.php',
         'WPML_ST_Upgrade_DB_Strings_Add_Translation_Priority_Field' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-st-upgrade-db-strings-add-translation-priority-field.php',
-        'WPML_ST_Upgrade_Db_Cache_Command' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-st-upgrade-db-cache-command.php',
         'WPML_ST_Upgrade_Display_Strings_Scan_Notices' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-st-upgrade-display-strings-scan-notices.php',
         'WPML_ST_Upgrade_MO_Scanning' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-st-upgrade-mo-scanning.php',
         'WPML_ST_Upgrade_Migrate_Originals' => __DIR__ . '/../..' . '/classes/upgrade/class-wpml-st-upgrade-migrate-originals.php',
@@ -310,20 +315,18 @@ class ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9
         'WPML_Slug_Translation_Records_Factory' => __DIR__ . '/../..' . '/classes/slug-translation/wpml-slug-translation-records-factory.php',
         'WPML_String_Scanner' => __DIR__ . '/../..' . '/inc/gettext/wpml-string-scanner.class.php',
         'WPML_String_Translation' => __DIR__ . '/../..' . '/inc/wpml-string-translation.class.php',
-        'WPML_String_Translation_MO_Import' => __DIR__ . '/../..' . '/inc/gettext/wpml-string-translation-mo-import.class.php',
         'WPML_String_Translation_Table' => __DIR__ . '/../..' . '/classes/string-translation-ui/class-wpml-string-translation-table.php',
         'WPML_Strings_Translation_Priority' => __DIR__ . '/../..' . '/classes/string-translation/class-wpml-strings-translation-priority.php',
         'WPML_TM_Filters' => __DIR__ . '/../..' . '/classes/filters/class-wpml-tm-filters.php',
         'WPML_Tax_Slug_Translation_Records' => __DIR__ . '/../..' . '/classes/slug-translation/taxonomy/wpml-tax-slug-translation-records.php',
         'WPML_Theme_String_Scanner' => __DIR__ . '/../..' . '/inc/gettext/wpml-theme-string-scanner.class.php',
         'WPML_Translation_Priority_Select' => __DIR__ . '/../..' . '/classes/string-translation-ui/class-wpml-translation-priority-select.php',
-        'WP_Widget_Text_Icl' => __DIR__ . '/../..' . '/classes/widgets/wp-widget-text-icl.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit66ff47a8a603faf2baec44d1a2bfbba9::$classMap;
+            $loader->classMap = ComposerStaticInit5607db77ca28c633c55efb5618e121f1::$classMap;
 
         }, null, ClassLoader::class);
     }

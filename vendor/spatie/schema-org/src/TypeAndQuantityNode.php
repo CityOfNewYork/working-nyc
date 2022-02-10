@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\TypeAndQuantityNodeContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,10 +11,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * A structured value indicating the quantity, unit of measurement, and business
  * function of goods included in a bundle offer.
  *
- * @see http://schema.org/TypeAndQuantityNode
+ * @see https://schema.org/TypeAndQuantityNode
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass
  *
  */
-class TypeAndQuantityNode extends BaseType implements IntangibleContract, StructuredValueContract, ThingContract
+class TypeAndQuantityNode extends BaseType implements TypeAndQuantityNodeContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -27,7 +29,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -41,7 +43,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -55,7 +57,8 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/amountOfThisGood
+     * @see https://schema.org/amountOfThisGood
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function amountOfThisGood($amountOfThisGood)
     {
@@ -67,11 +70,12 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      * component of a bundle (TypeAndQuantityNode). The default is
      * http://purl.org/goodrelations/v1#Sell.
      *
-     * @param BusinessFunction|BusinessFunction[] $businessFunction
+     * @param \Spatie\SchemaOrg\Contracts\BusinessFunctionContract|\Spatie\SchemaOrg\Contracts\BusinessFunctionContract[] $businessFunction
      *
      * @return static
      *
-     * @see http://schema.org/businessFunction
+     * @see https://schema.org/businessFunction
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function businessFunction($businessFunction)
     {
@@ -85,7 +89,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -102,7 +106,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -116,11 +120,11 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -131,11 +135,11 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -147,11 +151,11 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -165,7 +169,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -176,11 +180,11 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -196,7 +200,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -206,11 +210,12 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -220,11 +225,12 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
     /**
      * The product that this structured value is referring to.
      *
-     * @param Product|Product[]|Service|Service[] $typeOfGood
+     * @param \Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|\Spatie\SchemaOrg\Contracts\ServiceContract|\Spatie\SchemaOrg\Contracts\ServiceContract[] $typeOfGood
      *
      * @return static
      *
-     * @see http://schema.org/typeOfGood
+     * @see https://schema.org/typeOfGood
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function typeOfGood($typeOfGood)
     {
@@ -240,7 +246,8 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/unitCode
+     * @see https://schema.org/unitCode
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function unitCode($unitCode)
     {
@@ -256,7 +263,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/unitText
+     * @see https://schema.org/unitText
      */
     public function unitText($unitText)
     {
@@ -270,7 +277,7 @@ class TypeAndQuantityNode extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

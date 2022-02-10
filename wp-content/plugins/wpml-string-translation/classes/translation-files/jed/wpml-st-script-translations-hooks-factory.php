@@ -11,7 +11,7 @@ class WPML_ST_Script_Translations_Hooks_Factory implements IWPML_Backend_Action_
 	 * Create hooks.
 	 *
 	 * @return array|IWPML_Action
-	 * @throws \Auryn\InjectionException Auryn Exception.
+	 * @throws \WPML\Auryn\InjectionException Auryn Exception.
 	 */
 	public function create() {
 		$hooks = array();

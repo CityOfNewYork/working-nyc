@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\SynagogueContract;
 use \Spatie\SchemaOrg\Contracts\CivicStructureContract;
 use \Spatie\SchemaOrg\Contracts\PlaceContract;
 use \Spatie\SchemaOrg\Contracts\PlaceOfWorshipContract;
@@ -10,10 +11,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * A synagogue.
  *
- * @see http://schema.org/Synagogue
+ * @see https://schema.org/Synagogue
  *
  */
-class Synagogue extends BaseType implements CivicStructureContract, PlaceContract, PlaceOfWorshipContract, ThingContract
+class Synagogue extends BaseType implements SynagogueContract, CivicStructureContract, PlaceContract, PlaceOfWorshipContract, ThingContract
 {
     /**
      * A property-value pair representing an additional characteristics of the
@@ -21,16 +22,16 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * there is no matching property in schema.org.
      * 
      * Note: Publishers should be aware that applications designed to use
-     * specific schema.org properties (e.g. http://schema.org/width,
-     * http://schema.org/color, http://schema.org/gtin13, ...) will typically
+     * specific schema.org properties (e.g. https://schema.org/width,
+     * https://schema.org/color, https://schema.org/gtin13, ...) will typically
      * expect such data to be provided using those properties, rather than using
      * the generic property/value mechanism.
      *
-     * @param PropertyValue|PropertyValue[] $additionalProperty
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[] $additionalProperty
      *
      * @return static
      *
-     * @see http://schema.org/additionalProperty
+     * @see https://schema.org/additionalProperty
      */
     public function additionalProperty($additionalProperty)
     {
@@ -49,7 +50,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -59,11 +60,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * Physical address of the item.
      *
-     * @param PostalAddress|PostalAddress[]|string|string[] $address
+     * @param \Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|string|string[] $address
      *
      * @return static
      *
-     * @see http://schema.org/address
+     * @see https://schema.org/address
      */
     public function address($address)
     {
@@ -74,11 +75,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * The overall rating, based on a collection of reviews or ratings, of the
      * item.
      *
-     * @param AggregateRating|AggregateRating[] $aggregateRating
+     * @param \Spatie\SchemaOrg\Contracts\AggregateRatingContract|\Spatie\SchemaOrg\Contracts\AggregateRatingContract[] $aggregateRating
      *
      * @return static
      *
-     * @see http://schema.org/aggregateRating
+     * @see https://schema.org/aggregateRating
      */
     public function aggregateRating($aggregateRating)
     {
@@ -92,7 +93,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -105,11 +106,12 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * whether the feature is included in an offer for the main accommodation or
      * available at extra costs.
      *
-     * @param LocationFeatureSpecification|LocationFeatureSpecification[] $amenityFeature
+     * @param \Spatie\SchemaOrg\Contracts\LocationFeatureSpecificationContract|\Spatie\SchemaOrg\Contracts\LocationFeatureSpecificationContract[] $amenityFeature
      *
      * @return static
      *
-     * @see http://schema.org/amenityFeature
+     * @see https://schema.org/amenityFeature
+     * @link https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology
      */
     public function amenityFeature($amenityFeature)
     {
@@ -129,7 +131,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/branchCode
+     * @see https://schema.org/branchCode
      */
     public function branchCode($branchCode)
     {
@@ -139,11 +141,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * The basic containment relation between a place and one that contains it.
      *
-     * @param Place|Place[] $containedIn
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $containedIn
      *
      * @return static
      *
-     * @see http://schema.org/containedIn
+     * @see https://schema.org/containedIn
      */
     public function containedIn($containedIn)
     {
@@ -153,11 +155,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * The basic containment relation between a place and one that contains it.
      *
-     * @param Place|Place[] $containedInPlace
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $containedInPlace
      *
      * @return static
      *
-     * @see http://schema.org/containedInPlace
+     * @see https://schema.org/containedInPlace
      */
     public function containedInPlace($containedInPlace)
     {
@@ -168,11 +170,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * The basic containment relation between a place and another that it
      * contains.
      *
-     * @param Place|Place[] $containsPlace
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $containsPlace
      *
      * @return static
      *
-     * @see http://schema.org/containsPlace
+     * @see https://schema.org/containsPlace
      */
     public function containsPlace($containsPlace)
     {
@@ -186,7 +188,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -203,7 +205,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -214,11 +216,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * Upcoming or past event associated with this place, organization, or
      * action.
      *
-     * @param Event|Event[] $event
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $event
      *
      * @return static
      *
-     * @see http://schema.org/event
+     * @see https://schema.org/event
      */
     public function event($event)
     {
@@ -228,11 +230,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * Upcoming or past events associated with this place or organization.
      *
-     * @param Event|Event[] $events
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $events
      *
      * @return static
      *
-     * @see http://schema.org/events
+     * @see https://schema.org/events
      */
     public function events($events)
     {
@@ -246,7 +248,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/faxNumber
+     * @see https://schema.org/faxNumber
      */
     public function faxNumber($faxNumber)
     {
@@ -256,15 +258,187 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * The geo coordinates of the place.
      *
-     * @param GeoCoordinates|GeoCoordinates[]|GeoShape|GeoShape[] $geo
+     * @param \Spatie\SchemaOrg\Contracts\GeoCoordinatesContract|\Spatie\SchemaOrg\Contracts\GeoCoordinatesContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[] $geo
      *
      * @return static
      *
-     * @see http://schema.org/geo
+     * @see https://schema.org/geo
      */
     public function geo($geo)
     {
         return $this->setProperty('geo', $geo);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a containing geometry to a contained geometry. "a
+     * contains b iff no points of b lie in the exterior of a, and at least one
+     * point of the interior of b lies in the interior of a". As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoContains
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoContains
+     */
+    public function geoContains($geoContains)
+    {
+        return $this->setProperty('geoContains', $geoContains);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to another that covers it. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoCoveredBy
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoCoveredBy
+     */
+    public function geoCoveredBy($geoCoveredBy)
+    {
+        return $this->setProperty('geoCoveredBy', $geoCoveredBy);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a covering geometry to a covered geometry. "Every
+     * point of b is a point of (the interior or boundary of) a". As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoCovers
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoCovers
+     */
+    public function geoCovers($geoCovers)
+    {
+        return $this->setProperty('geoCovers', $geoCovers);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to another that crosses it: "a crosses b:
+     * they have some but not all interior points in common, and the dimension
+     * of the intersection is less than that of at least one of them". As
+     * defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoCrosses
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoCrosses
+     */
+    public function geoCrosses($geoCrosses)
+    {
+        return $this->setProperty('geoCrosses', $geoCrosses);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) are topologically disjoint: they have no point in common. They
+     * form a set of disconnected geometries." (a symmetric relationship, as
+     * defined in [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM))
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoDisjoint
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoDisjoint
+     */
+    public function geoDisjoint($geoDisjoint)
+    {
+        return $this->setProperty('geoDisjoint', $geoDisjoint);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) are topologically equal, as defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM). "Two geometries are
+     * topologically equal if their interiors intersect and no part of the
+     * interior or boundary of one geometry intersects the exterior of the
+     * other" (a symmetric relationship)
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoEquals
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoEquals
+     */
+    public function geoEquals($geoEquals)
+    {
+        return $this->setProperty('geoEquals', $geoEquals);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) have at least one point in common. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoIntersects
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoIntersects
+     */
+    public function geoIntersects($geoIntersects)
+    {
+        return $this->setProperty('geoIntersects', $geoIntersects);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to another that geospatially overlaps it,
+     * i.e. they have some but not all points in common. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoOverlaps
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoOverlaps
+     */
+    public function geoOverlaps($geoOverlaps)
+    {
+        return $this->setProperty('geoOverlaps', $geoOverlaps);
+    }
+
+    /**
+     * Represents spatial relations in which two geometries (or the places they
+     * represent) touch: they have at least one boundary point in common, but no
+     * interior points." (a symmetric relationship, as defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM) )
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoTouches
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoTouches
+     */
+    public function geoTouches($geoTouches)
+    {
+        return $this->setProperty('geoTouches', $geoTouches);
+    }
+
+    /**
+     * Represents a relationship between two geometries (or the places they
+     * represent), relating a geometry to one that contains it, i.e. it is
+     * inside (i.e. within) its interior. As defined in
+     * [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\GeospatialGeometryContract|\Spatie\SchemaOrg\Contracts\GeospatialGeometryContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $geoWithin
+     *
+     * @return static
+     *
+     * @see https://schema.org/geoWithin
+     */
+    public function geoWithin($geoWithin)
+    {
+        return $this->setProperty('geoWithin', $geoWithin);
     }
 
     /**
@@ -277,7 +451,8 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/globalLocationNumber
+     * @see https://schema.org/globalLocationNumber
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function globalLocationNumber($globalLocationNumber)
     {
@@ -285,13 +460,33 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     }
 
     /**
-     * A URL to a map of the place.
+     * Indicates whether some facility (e.g. [[FoodEstablishment]],
+     * [[CovidTestingFacility]]) offers a service that can be used by driving
+     * through in a car. In the case of [[CovidTestingFacility]] such facilities
+     * could potentially help with social distancing from other
+     * potentially-infected users.
      *
-     * @param Map|Map[]|string|string[] $hasMap
+     * @param bool|bool[] $hasDriveThroughService
      *
      * @return static
      *
-     * @see http://schema.org/hasMap
+     * @see https://schema.org/hasDriveThroughService
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2490
+     */
+    public function hasDriveThroughService($hasDriveThroughService)
+    {
+        return $this->setProperty('hasDriveThroughService', $hasDriveThroughService);
+    }
+
+    /**
+     * A URL to a map of the place.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\MapContract|\Spatie\SchemaOrg\Contracts\MapContract[]|string|string[] $hasMap
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasMap
      */
     public function hasMap($hasMap)
     {
@@ -305,11 +500,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -320,11 +515,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -338,7 +533,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/isAccessibleForFree
+     * @see https://schema.org/isAccessibleForFree
      */
     public function isAccessibleForFree($isAccessibleForFree)
     {
@@ -354,7 +549,8 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/isicV4
+     * @see https://schema.org/isicV4
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function isicV4($isicV4)
     {
@@ -369,7 +565,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/latitude
+     * @see https://schema.org/latitude
      */
     public function latitude($latitude)
     {
@@ -379,11 +575,12 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * An associated logo.
      *
-     * @param ImageObject|ImageObject[]|string|string[] $logo
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $logo
      *
      * @return static
      *
-     * @see http://schema.org/logo
+     * @see https://schema.org/logo
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function logo($logo)
     {
@@ -398,7 +595,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/longitude
+     * @see https://schema.org/longitude
      */
     public function longitude($longitude)
     {
@@ -410,11 +607,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -428,7 +625,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/map
+     * @see https://schema.org/map
      */
     public function map($map)
     {
@@ -442,7 +639,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/maps
+     * @see https://schema.org/maps
      */
     public function maps($maps)
     {
@@ -456,7 +653,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/maximumAttendeeCapacity
+     * @see https://schema.org/maximumAttendeeCapacity
      */
     public function maximumAttendeeCapacity($maximumAttendeeCapacity)
     {
@@ -470,7 +667,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -485,21 +682,19 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * 
      * * Days are specified using the following two-letter combinations:
      * ```Mo```, ```Tu```, ```We```, ```Th```, ```Fr```, ```Sa```, ```Su```.
-     * * Times are specified using 24:00 time. For example, 3pm is specified as
-     * ```15:00```. 
-     * * Here is an example: <code>&lt;time itemprop="openingHours"
-     * datetime=&quot;Tu,Th 16:00-20:00&quot;&gt;Tuesdays and Thursdays
-     * 4-8pm&lt;/time&gt;</code>.
+     * * Times are specified using 24:00 format. For example, 3pm is specified
+     * as ```15:00```, 10am as ```10:00```. 
+     * * Here is an example: ```<time itemprop="openingHours" datetime="Tu,Th
+     * 16:00-20:00">Tuesdays and Thursdays 4-8pm</time>```.
      * * If a business is open 7 days a week, then it can be specified as
-     * <code>&lt;time itemprop=&quot;openingHours&quot;
-     * datetime=&quot;Mo-Su&quot;&gt;Monday through Sunday, all
-     * day&lt;/time&gt;</code>.
+     * ```<time itemprop="openingHours" datetime="Mo-Su">Monday through Sunday,
+     * all day</time>```.
      *
      * @param string|string[] $openingHours
      *
      * @return static
      *
-     * @see http://schema.org/openingHours
+     * @see https://schema.org/openingHours
      */
     public function openingHours($openingHours)
     {
@@ -509,11 +704,12 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * The opening hours of a certain place.
      *
-     * @param OpeningHoursSpecification|OpeningHoursSpecification[] $openingHoursSpecification
+     * @param \Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract|\Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract[] $openingHoursSpecification
      *
      * @return static
      *
-     * @see http://schema.org/openingHoursSpecification
+     * @see https://schema.org/openingHoursSpecification
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function openingHoursSpecification($openingHoursSpecification)
     {
@@ -523,11 +719,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * A photograph of this place.
      *
-     * @param ImageObject|ImageObject[]|Photograph|Photograph[] $photo
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|\Spatie\SchemaOrg\Contracts\PhotographContract|\Spatie\SchemaOrg\Contracts\PhotographContract[] $photo
      *
      * @return static
      *
-     * @see http://schema.org/photo
+     * @see https://schema.org/photo
      */
     public function photo($photo)
     {
@@ -537,11 +733,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * Photographs of this place.
      *
-     * @param ImageObject|ImageObject[]|Photograph|Photograph[] $photos
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|\Spatie\SchemaOrg\Contracts\PhotographContract|\Spatie\SchemaOrg\Contracts\PhotographContract[] $photos
      *
      * @return static
      *
-     * @see http://schema.org/photos
+     * @see https://schema.org/photos
      */
     public function photos($photos)
     {
@@ -552,11 +748,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -571,7 +767,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/publicAccess
+     * @see https://schema.org/publicAccess
      */
     public function publicAccess($publicAccess)
     {
@@ -581,11 +777,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * A review of the item.
      *
-     * @param Review|Review[] $review
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $review
      *
      * @return static
      *
-     * @see http://schema.org/review
+     * @see https://schema.org/review
      */
     public function review($review)
     {
@@ -595,11 +791,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * Review of the item.
      *
-     * @param Review|Review[] $reviews
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $reviews
      *
      * @return static
      *
-     * @see http://schema.org/reviews
+     * @see https://schema.org/reviews
      */
     public function reviews($reviews)
     {
@@ -615,7 +811,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -629,7 +825,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/slogan
+     * @see https://schema.org/slogan
      */
     public function slogan($slogan)
     {
@@ -644,7 +840,8 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/smokingAllowed
+     * @see https://schema.org/smokingAllowed
+     * @link https://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#STI_Accommodation_Ontology
      */
     public function smokingAllowed($smokingAllowed)
     {
@@ -657,11 +854,11 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      * Use this to explicitly override general opening hours brought in scope by
      * [[openingHoursSpecification]] or [[openingHours]].
      *
-     * @param OpeningHoursSpecification|OpeningHoursSpecification[] $specialOpeningHoursSpecification
+     * @param \Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract|\Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract[] $specialOpeningHoursSpecification
      *
      * @return static
      *
-     * @see http://schema.org/specialOpeningHoursSpecification
+     * @see https://schema.org/specialOpeningHoursSpecification
      */
     public function specialOpeningHoursSpecification($specialOpeningHoursSpecification)
     {
@@ -671,11 +868,12 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -689,11 +887,29 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/telephone
+     * @see https://schema.org/telephone
      */
     public function telephone($telephone)
     {
         return $this->setProperty('telephone', $telephone);
+    }
+
+    /**
+     * A page providing information on how to book a tour of some [[Place]],
+     * such as an [[Accommodation]] or [[ApartmentComplex]] in a real estate
+     * setting, as well as other kinds of tours as appropriate.
+     *
+     * @param string|string[] $tourBookingPage
+     *
+     * @return static
+     *
+     * @see https://schema.org/tourBookingPage
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2373
+     */
+    public function tourBookingPage($tourBookingPage)
+    {
+        return $this->setProperty('tourBookingPage', $tourBookingPage);
     }
 
     /**
@@ -703,7 +919,7 @@ class Synagogue extends BaseType implements CivicStructureContract, PlaceContrac
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\OrderContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
@@ -10,20 +11,20 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * multiple line items, each represented by an Offer that has been accepted by
  * the customer.
  *
- * @see http://schema.org/Order
+ * @see https://schema.org/Order
  *
  */
-class Order extends BaseType implements IntangibleContract, ThingContract
+class Order extends BaseType implements OrderContract, IntangibleContract, ThingContract
 {
     /**
      * The offer(s) -- e.g., product, quantity and price combinations --
      * included in the order.
      *
-     * @param Offer|Offer[] $acceptedOffer
+     * @param \Spatie\SchemaOrg\Contracts\OfferContract|\Spatie\SchemaOrg\Contracts\OfferContract[] $acceptedOffer
      *
      * @return static
      *
-     * @see http://schema.org/acceptedOffer
+     * @see https://schema.org/acceptedOffer
      */
     public function acceptedOffer($acceptedOffer)
     {
@@ -42,7 +43,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -56,7 +57,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -66,11 +67,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * The billing address for the order.
      *
-     * @param PostalAddress|PostalAddress[] $billingAddress
+     * @param \Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[] $billingAddress
      *
      * @return static
      *
-     * @see http://schema.org/billingAddress
+     * @see https://schema.org/billingAddress
      */
     public function billingAddress($billingAddress)
     {
@@ -83,11 +84,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      * service involved in an exchange.  If it is not clear whether an entity is
      * a broker, seller, or buyer, the latter two terms are preferred.
      *
-     * @param Organization|Organization[]|Person|Person[] $broker
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $broker
      *
      * @return static
      *
-     * @see http://schema.org/broker
+     * @see https://schema.org/broker
      */
     public function broker($broker)
     {
@@ -101,7 +102,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/confirmationNumber
+     * @see https://schema.org/confirmationNumber
      */
     public function confirmationNumber($confirmationNumber)
     {
@@ -111,11 +112,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * Party placing the order or paying the invoice.
      *
-     * @param Organization|Organization[]|Person|Person[] $customer
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $customer
      *
      * @return static
      *
-     * @see http://schema.org/customer
+     * @see https://schema.org/customer
      */
     public function customer($customer)
     {
@@ -129,7 +130,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -146,7 +147,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -160,7 +161,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/discount
+     * @see https://schema.org/discount
      */
     public function discount($discount)
     {
@@ -174,7 +175,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/discountCode
+     * @see https://schema.org/discountCode
      */
     public function discountCode($discountCode)
     {
@@ -196,7 +197,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/discountCurrency
+     * @see https://schema.org/discountCurrency
      */
     public function discountCurrency($discountCurrency)
     {
@@ -210,11 +211,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -225,11 +226,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -243,7 +244,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/isGift
+     * @see https://schema.org/isGift
      */
     public function isGift($isGift)
     {
@@ -255,11 +256,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -269,11 +270,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * 'merchant' is an out-dated term for 'seller'.
      *
-     * @param Organization|Organization[]|Person|Person[] $merchant
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $merchant
      *
      * @return static
      *
-     * @see http://schema.org/merchant
+     * @see https://schema.org/merchant
      */
     public function merchant($merchant)
     {
@@ -287,7 +288,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -301,7 +302,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/orderDate
+     * @see https://schema.org/orderDate
      */
     public function orderDate($orderDate)
     {
@@ -311,11 +312,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * The delivery of the parcel related to this order or order item.
      *
-     * @param ParcelDelivery|ParcelDelivery[] $orderDelivery
+     * @param \Spatie\SchemaOrg\Contracts\ParcelDeliveryContract|\Spatie\SchemaOrg\Contracts\ParcelDeliveryContract[] $orderDelivery
      *
      * @return static
      *
-     * @see http://schema.org/orderDelivery
+     * @see https://schema.org/orderDelivery
      */
     public function orderDelivery($orderDelivery)
     {
@@ -329,7 +330,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/orderNumber
+     * @see https://schema.org/orderNumber
      */
     public function orderNumber($orderNumber)
     {
@@ -339,11 +340,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * The current status of the order.
      *
-     * @param OrderStatus|OrderStatus[] $orderStatus
+     * @param \Spatie\SchemaOrg\Contracts\OrderStatusContract|\Spatie\SchemaOrg\Contracts\OrderStatusContract[] $orderStatus
      *
      * @return static
      *
-     * @see http://schema.org/orderStatus
+     * @see https://schema.org/orderStatus
      */
     public function orderStatus($orderStatus)
     {
@@ -353,11 +354,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * The item ordered.
      *
-     * @param OrderItem|OrderItem[]|Product|Product[]|Service|Service[] $orderedItem
+     * @param \Spatie\SchemaOrg\Contracts\OrderItemContract|\Spatie\SchemaOrg\Contracts\OrderItemContract[]|\Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|\Spatie\SchemaOrg\Contracts\ServiceContract|\Spatie\SchemaOrg\Contracts\ServiceContract[] $orderedItem
      *
      * @return static
      *
-     * @see http://schema.org/orderedItem
+     * @see https://schema.org/orderedItem
      */
     public function orderedItem($orderedItem)
     {
@@ -367,11 +368,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * The order is being paid as part of the referenced Invoice.
      *
-     * @param Invoice|Invoice[] $partOfInvoice
+     * @param \Spatie\SchemaOrg\Contracts\InvoiceContract|\Spatie\SchemaOrg\Contracts\InvoiceContract[] $partOfInvoice
      *
      * @return static
      *
-     * @see http://schema.org/partOfInvoice
+     * @see https://schema.org/partOfInvoice
      */
     public function partOfInvoice($partOfInvoice)
     {
@@ -385,7 +386,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/paymentDue
+     * @see https://schema.org/paymentDue
      */
     public function paymentDue($paymentDue)
     {
@@ -399,7 +400,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/paymentDueDate
+     * @see https://schema.org/paymentDueDate
      */
     public function paymentDueDate($paymentDueDate)
     {
@@ -409,11 +410,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * The name of the credit card or other method of payment for the order.
      *
-     * @param PaymentMethod|PaymentMethod[] $paymentMethod
+     * @param \Spatie\SchemaOrg\Contracts\PaymentMethodContract|\Spatie\SchemaOrg\Contracts\PaymentMethodContract[] $paymentMethod
      *
      * @return static
      *
-     * @see http://schema.org/paymentMethod
+     * @see https://schema.org/paymentMethod
      */
     public function paymentMethod($paymentMethod)
     {
@@ -428,7 +429,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/paymentMethodId
+     * @see https://schema.org/paymentMethodId
      */
     public function paymentMethodId($paymentMethodId)
     {
@@ -442,7 +443,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/paymentUrl
+     * @see https://schema.org/paymentUrl
      */
     public function paymentUrl($paymentUrl)
     {
@@ -453,11 +454,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -473,7 +474,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -484,11 +485,11 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      * An entity which offers (sells / leases / lends / loans) the services /
      * goods.  A seller may also be a provider.
      *
-     * @param Organization|Organization[]|Person|Person[] $seller
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $seller
      *
      * @return static
      *
-     * @see http://schema.org/seller
+     * @see https://schema.org/seller
      */
     public function seller($seller)
     {
@@ -498,11 +499,12 @@ class Order extends BaseType implements IntangibleContract, ThingContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -516,7 +518,7 @@ class Order extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

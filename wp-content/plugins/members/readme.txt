@@ -2,11 +2,11 @@
 
 Contributors: supercleanse
 Donate link: https://memberpress.com/plugins/members
-Tags: members, memberships, users, roles, capabilities, editor, security, access, permission, protect, restrict content, blocks
+Tags: memberpress, member-type, access-control, permissions, members-only, security, membership-plan, memberships, roles, capabilities, editor, users, security, access, permission, protect, restrict content, blocks
 Requires at least: 4.7
-Tested up to: 5.6
+Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 3.1.5
+Stable tag: 3.1.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -57,7 +57,7 @@ For more info, visit the [Members plugin home page](https://memberpress.com/plug
 
 The Members plugin is a massive project with 1,000s of lines of code to maintain. A major update can take weeks or months of work. We donâ€™t make any money directly from this plugin while other, similar plugins charge substantial fees to even download them or get updates. Please consider helping the cause by:
 
-* [Upgrading to MemberPress](https://memberpress.com/?utm_source=members_plugin&utm_medium=link&utm_campaign=readme&utm_content=memberpress_upgrade).
+* [Adding MemberPress](https://memberpress.com/?utm_source=members_plugin&utm_medium=link&utm_campaign=readme&utm_content=memberpress_upgrade).
 * [Rating the plugin](https://wordpress.org/support/plugin/members/reviews/?filter=5#new-post).
 
 ### Professional Support

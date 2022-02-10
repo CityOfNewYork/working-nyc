@@ -26,13 +26,23 @@ interface CreditCardContract
 
     public function broker($broker);
 
+    public function cashBack($cashBack);
+
     public function category($category);
+
+    public function contactlessPayment($contactlessPayment);
+
+    public function currency($currency);
 
     public function description($description);
 
     public function disambiguatingDescription($disambiguatingDescription);
 
     public function feesAndCommissionsSpecification($feesAndCommissionsSpecification);
+
+    public function floorLimit($floorLimit);
+
+    public function gracePeriod($gracePeriod);
 
     public function hasOfferCatalog($hasOfferCatalog);
 
@@ -48,11 +58,17 @@ interface CreditCardContract
 
     public function isSimilarTo($isSimilarTo);
 
+    public function loanRepaymentForm($loanRepaymentForm);
+
     public function loanTerm($loanTerm);
+
+    public function loanType($loanType);
 
     public function logo($logo);
 
     public function mainEntityOfPage($mainEntityOfPage);
+
+    public function monthlyMinimumRepaymentAmount($monthlyMinimumRepaymentAmount);
 
     public function name($name);
 
@@ -65,6 +81,10 @@ interface CreditCardContract
     public function provider($provider);
 
     public function providerMobility($providerMobility);
+
+    public function recourseLoan($recourseLoan);
+
+    public function renegotiableLoan($renegotiableLoan);
 
     public function requiredCollateral($requiredCollateral);
 
@@ -83,6 +103,8 @@ interface CreditCardContract
     public function slogan($slogan);
 
     public function subjectOf($subjectOf);
+
+    public function termsOfService($termsOfService);
 
     public function url($url);
 

@@ -3,7 +3,6 @@
 
 namespace WPML\ST\Basket;
 
-
 use WPML\FP\Obj;
 
 class Status {
@@ -29,13 +28,12 @@ class Status {
 					&& $statusProvider( $id, $string['string_language'], $lang, 'string' )
 				) {
 					$translations[ $id ]['translations'][ $lang ] = [
-						'id'               => 0,
-						'language'         => $lang,
-						'in_basket'        => true,
+						'id'        => 0,
+						'language'  => $lang,
+						'in_basket' => true,
 					];
 				}
 			}
-
 		}
 
 		return $translations;

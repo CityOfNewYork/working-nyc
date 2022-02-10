@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\HowToItemContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ListItemContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,10 +11,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * An item used as either a tool or supply when performing the instructions for
  * how to to achieve a result.
  *
- * @see http://schema.org/HowToItem
+ * @see https://schema.org/HowToItem
  *
  */
-class HowToItem extends BaseType implements IntangibleContract, ListItemContract, ThingContract
+class HowToItem extends BaseType implements HowToItemContract, IntangibleContract, ListItemContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -27,7 +28,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -41,7 +42,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -55,7 +56,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -72,7 +73,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -86,11 +87,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -101,11 +102,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -116,11 +117,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      * An entity represented by an entry in a list or data feed (e.g. an
      * 'artist' in a list of 'artists')’.
      *
-     * @param Thing|Thing[] $item
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $item
      *
      * @return static
      *
-     * @see http://schema.org/item
+     * @see https://schema.org/item
      */
     public function item($item)
     {
@@ -132,11 +133,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -150,7 +151,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -160,11 +161,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
     /**
      * A link to the ListItem that follows the current one.
      *
-     * @param ListItem|ListItem[] $nextItem
+     * @param \Spatie\SchemaOrg\Contracts\ListItemContract|\Spatie\SchemaOrg\Contracts\ListItemContract[] $nextItem
      *
      * @return static
      *
-     * @see http://schema.org/nextItem
+     * @see https://schema.org/nextItem
      */
     public function nextItem($nextItem)
     {
@@ -178,7 +179,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/position
+     * @see https://schema.org/position
      */
     public function position($position)
     {
@@ -189,11 +190,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -203,11 +204,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
     /**
      * A link to the ListItem that preceeds the current one.
      *
-     * @param ListItem|ListItem[] $previousItem
+     * @param \Spatie\SchemaOrg\Contracts\ListItemContract|\Spatie\SchemaOrg\Contracts\ListItemContract[] $previousItem
      *
      * @return static
      *
-     * @see http://schema.org/previousItem
+     * @see https://schema.org/previousItem
      */
     public function previousItem($previousItem)
     {
@@ -217,11 +218,11 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
     /**
      * The required quantity of the item(s).
      *
-     * @param QuantitativeValue|QuantitativeValue[]|float|float[]|int|int[]|string|string[] $requiredQuantity
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[]|float|float[]|int|int[]|string|string[] $requiredQuantity
      *
      * @return static
      *
-     * @see http://schema.org/requiredQuantity
+     * @see https://schema.org/requiredQuantity
      */
     public function requiredQuantity($requiredQuantity)
     {
@@ -237,7 +238,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -247,11 +248,12 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -265,7 +267,7 @@ class HowToItem extends BaseType implements IntangibleContract, ListItemContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

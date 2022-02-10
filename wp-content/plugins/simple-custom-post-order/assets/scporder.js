@@ -31,7 +31,7 @@
     /****
      * Fix for table breaking
      */
-    jQuery(window).load(function () {
+    jQuery(window).on( 'load', function () {
 
         // make the array for the sizes
         var td_array = new Array();
@@ -57,7 +57,7 @@
 
         var y = 0;
 
-        // check if there are no items in the table
+        // check if there are items in the table
         if(jQuery('#the-list > tr.no-items').length == 0){
             jQuery('#the-list').parent().find('thead').find('th').each(function () {
 

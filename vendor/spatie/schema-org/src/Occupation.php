@@ -2,16 +2,18 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\OccupationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
 /**
  * A profession, may involve prolonged training and/or a formal qualification.
  *
- * @see http://schema.org/Occupation
+ * @see https://schema.org/Occupation
+ * @link https://github.com/schemaorg/schemaorg/issues/1698
  *
  */
-class Occupation extends BaseType implements IntangibleContract, ThingContract
+class Occupation extends BaseType implements OccupationContract, IntangibleContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -25,7 +27,7 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -39,7 +41,7 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -53,7 +55,7 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -70,7 +72,7 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -80,11 +82,12 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
     /**
      * Educational background needed for the position or Occupation.
      *
-     * @param string|string[] $educationRequirements
+     * @param \Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract|\Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract[]|string|string[] $educationRequirements
      *
      * @return static
      *
-     * @see http://schema.org/educationRequirements
+     * @see https://schema.org/educationRequirements
+     * @see https://pending.schema.org
      */
     public function educationRequirements($educationRequirements)
     {
@@ -98,11 +101,12 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      * rather than the hiring organization, who may not have committed to the
      * estimated value.
      *
-     * @param MonetaryAmount|MonetaryAmountDistribution|MonetaryAmountDistribution[]|MonetaryAmount[]|float|float[]|int|int[] $estimatedSalary
+     * @param \Spatie\SchemaOrg\Contracts\MonetaryAmountContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountDistributionContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountDistributionContract[]|\Spatie\SchemaOrg\Contracts\MonetaryAmountContract[]|float|float[]|int|int[] $estimatedSalary
      *
      * @return static
      *
-     * @see http://schema.org/estimatedSalary
+     * @see https://schema.org/estimatedSalary
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function estimatedSalary($estimatedSalary)
     {
@@ -113,11 +117,12 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      * Description of skills and experience needed for the position or
      * Occupation.
      *
-     * @param string|string[] $experienceRequirements
+     * @param \Spatie\SchemaOrg\Contracts\OccupationalExperienceRequirementsContract|\Spatie\SchemaOrg\Contracts\OccupationalExperienceRequirementsContract[]|string|string[] $experienceRequirements
      *
      * @return static
      *
-     * @see http://schema.org/experienceRequirements
+     * @see https://schema.org/experienceRequirements
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function experienceRequirements($experienceRequirements)
     {
@@ -131,11 +136,11 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -146,11 +151,11 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -162,11 +167,11 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -180,7 +185,7 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -188,15 +193,16 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * The region/country for which this occupational description is
+     *  The region/country for which this occupational description is
      * appropriate. Note that educational requirements and qualifications can
      * vary between jurisdictions.
      *
-     * @param AdministrativeArea|AdministrativeArea[] $occupationLocation
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[] $occupationLocation
      *
      * @return static
      *
-     * @see http://schema.org/occupationLocation
+     * @see https://schema.org/occupationLocation
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function occupationLocation($occupationLocation)
     {
@@ -214,11 +220,12 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      * Note: for historical reasons, any textual label and formal code provided
      * as a literal may be assumed to be from O*NET-SOC.
      *
-     * @param string|string[] $occupationalCategory
+     * @param \Spatie\SchemaOrg\Contracts\CategoryCodeContract|\Spatie\SchemaOrg\Contracts\CategoryCodeContract[]|string|string[] $occupationalCategory
      *
      * @return static
      *
-     * @see http://schema.org/occupationalCategory
+     * @see https://schema.org/occupationalCategory
+     * @see https://pending.schema.org
      */
     public function occupationalCategory($occupationalCategory)
     {
@@ -229,11 +236,11 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -243,11 +250,12 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
     /**
      * Specific qualifications required for this role or Occupation.
      *
-     * @param string|string[] $qualifications
+     * @param \Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract|\Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract[]|string|string[] $qualifications
      *
      * @return static
      *
-     * @see http://schema.org/qualifications
+     * @see https://schema.org/qualifications
+     * @see https://pending.schema.org
      */
     public function qualifications($qualifications)
     {
@@ -261,7 +269,8 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/responsibilities
+     * @see https://schema.org/responsibilities
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function responsibilities($responsibilities)
     {
@@ -277,7 +286,7 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -285,13 +294,15 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
     }
 
     /**
-     * Skills required to fulfill this role or in this Occupation.
+     * A statement of knowledge, skill, ability, task or any other assertion
+     * expressing a competency that is desired or required to fulfill this role
+     * or to work in this occupation.
      *
-     * @param string|string[] $skills
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $skills
      *
      * @return static
      *
-     * @see http://schema.org/skills
+     * @see https://schema.org/skills
      */
     public function skills($skills)
     {
@@ -301,11 +312,12 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -319,7 +331,7 @@ class Occupation extends BaseType implements IntangibleContract, ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

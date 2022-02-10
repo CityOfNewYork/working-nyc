@@ -10,8 +10,8 @@ class CookieLanguage {
 	private $defaultLanguage;
 
 	/**
-	 * @param  \WPML_Cookie  $cookie
-	 * @param  string  $defaultLanguage
+	 * @param  \WPML_Cookie $cookie
+	 * @param  string       $defaultLanguage
 	 */
 	public function __construct( \WPML_Cookie $cookie, $defaultLanguage ) {
 		$this->cookie          = $cookie;
@@ -52,10 +52,10 @@ class CookieLanguage {
 		if ( is_user_logged_in() ) {
 			if ( ! $this->cookie->headers_sent() ) {
 				if ( preg_match(
-					     '@\.(css|js|png|jpg|gif|jpeg|bmp)@i',
-					     basename( preg_replace( '@\?.*$@', '', $_SERVER['REQUEST_URI'] ) )
-				     )
-				     || isset( $_POST['icl_ajx_action'] ) || isset( $_POST['_ajax_nonce'] ) || defined( 'DOING_AJAX' )
+					'@\.(css|js|png|jpg|gif|jpeg|bmp)@i',
+					basename( preg_replace( '@\?.*$@', '', $_SERVER['REQUEST_URI'] ) )
+				)
+					 || isset( $_POST['icl_ajx_action'] ) || isset( $_POST['_ajax_nonce'] ) || defined( 'DOING_AJAX' )
 				) {
 					return;
 				}
@@ -64,8 +64,13 @@ class CookieLanguage {
 				if ( ! $current_cookie_value || $current_cookie_value !== $lang_code ) {
 					$cookie_domain = $this->get_cookie_domain();
 					$cookie_path   = defined( 'COOKIEPATH' ) ? COOKIEPATH : '/';
-					$this->cookie->set_cookie( $cookieName, $lang_code, time() + DAY_IN_SECONDS, $cookie_path,
-						$cookie_domain );
+					$this->cookie->set_cookie(
+						$cookieName,
+						$lang_code,
+						time() + DAY_IN_SECONDS,
+						$cookie_path,
+						$cookie_domain
+					);
 				}
 			}
 		} elseif ( $sitepress->get_setting( \WPML_Cookie_Setting::COOKIE_SETTING_FIELD ) ) {

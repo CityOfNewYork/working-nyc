@@ -2,6 +2,8 @@
 
 namespace WorkingNYC;
 
+use Timber;
+
 /**
  * Constructs a view's Meta instance, fetching the custom field values for the post by ID or permalink slug
  *
@@ -22,6 +24,10 @@ class Meta {
     } else {
       $this->id = $pid;
     }
+
+    $this->post = Timber::get_post($this->id);
+
+    $this->is_homepage = (is_page_template('template-home-page.php') || is_front_page());
 
     $this->description = $this->getDescription();
 
@@ -45,21 +51,29 @@ class Meta {
   }
 
   /**
-   * Get the meta description for the post/page. Defaults to the Program Intro if blank.
+   * Get the meta description for the post. Falls back to Blog info, Program,
+   * or Announcement content if blank.
    *
    * @return  String  The meta description
    */
   public function getDescription() {
-    if (is_page_template('template-home-page.php') || is_front_page()) {
-      return get_bloginfo('description');
-    }
-
     $description = get_field(self::FIELD_DESCRIPTION, $this->id);
 
-    $programIntro = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
-
     if (empty($description)) {
-      $description = $programIntro;
+      switch ($this->post->post_type) {
+        case 'page':
+          $description = ($this->is_homepage) ?
+            get_bloginfo('description') : $description;
+          break;
+
+        case 'announcements':
+          $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->id);
+          break;
+
+        case 'programs':
+          $description = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
+          break;
+      }
     }
 
     return strip_tags($description);
@@ -84,67 +98,78 @@ class Meta {
   }
 
   /**
-   * Get the OG title field value for the page/post. Defaults to the Program
-   * title if the OG title field is blank. Falls back to the document title for
-   * all other post types.
+   * Get the OG title field value for the page/post. Falls back to Blog
+   * info, Program, or Announcement content if blank. Falls back to the
+   * post title if blank.
    *
    * @return  String  The OG title value
    */
   public function getOgTitle() {
-    if (is_page_template('template-home-page.php') || is_front_page()) {
-      return get_bloginfo('name');
-    }
-
     $title = get_field(self::FIELD_OG_TITLE, $this->id);
 
-    $programTitle = get_field(self::FIELD_PROGRAM_TITLE, $this->id);
-
     if (empty($title)) {
-      $title = $programTitle;
+      switch ($this->post->post_type) {
+        case 'page':
+          $title = ($this->is_homepage) ? get_bloginfo('name') : $title;
+          break;
+
+        case 'announcements':
+          $title = get_field(self::FIELD_ANNOUNCEMENT_TITLE, $this->id);
+          break;
+
+        case 'programs':
+          $title = get_field(self::FIELD_PROGRAM_TITLE, $this->id);
+          break;
+      }
     }
 
     if (empty($title)) {
-      $title = get_the_title($this->id);
+      $title = $this->post->post_title;
     }
 
     return $title;
   }
 
   /**
-   * Get the OG description field value for the page/post. Defaults to the
-   * Program intro if the OG description is blank, falls back to the value of
-   * getDescription for all other post types.
+   * Get the OG Description field for the post. Falls back to Blog info,
+   * Program, or Announcement content if blank.
    *
    * @return  String  The OG description value
    */
   public function getOgDescription() {
     $description = get_field(self::FIELD_OG_DESCRIPTION, $this->id);
 
-    $programIntro = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
-
     if (empty($description)) {
-      $description = $programIntro;
-    }
+      switch ($this->post->post_type) {
+        case 'page':
+          $description = ($this->is_homepage) ?
+            get_bloginfo('description') : $description;
+          break;
 
-    if (empty($description)) {
-      $description = $this->description;
+        case 'announcements':
+          $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->id);
+          break;
+
+        case 'programs':
+          $description = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
+          break;
+      }
     }
 
     return strip_tags($description);
   }
 
   /**
-   * Gets the image attachment values needed for the OG image meta tags.
+   * Gets the post image attachment values needed for the OG image meta tags.
+   * Falls back to the default image in the site settings if blank.
    *
    * @return  Array/String  Returns an array of the image ID, url, and alt text.
    *                        Blank string if there is no image.
    */
   public function getOgImage() {
-    if (is_page_template('template-home-page.php') || is_front_page()) {
-      $id = get_field(self::FIELD_OG_IMAGE_DEFAULT, 'option');
-    } else {
-      $id = get_field(self::FIELD_OG_IMAGE, $this->id);
-    }
+    $custom = get_field(self::FIELD_OG_IMAGE, $this->id);
+
+    $id = ($custom) ? $custom : get_field(self::FIELD_OG_IMAGE_DEFAULT, 'option');
 
     return (empty($id)) ? '' : array(
       'id' => $id,
@@ -166,10 +191,6 @@ class Meta {
    * Constants
    */
 
-  /**
-   * Advanced Custom Field IDs
-   */
-
   const FIELD_DESCRIPTION = 'field_5efa4326ea712';
 
   const FIELD_KEYWORDS = 'field_5efa4334ea713';
@@ -187,4 +208,8 @@ class Meta {
   const FIELD_PROGRAM_INTRO = 'field_5ef375d688d7e';
 
   const FIELD_PROGRAM_TITLE = 'field_5ef25f691edae';
+
+  const FIELD_ANNOUNCEMENT_TITLE = 'field_5fc55e19cfde8';
+
+  const FIELD_ANNOUNCEMENT_DETAILS = 'field_5fc55e34cfde9';
 }

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\MusicAlbumProductionTypeContract;
 use \Spatie\SchemaOrg\Contracts\EnumerationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,73 +11,84 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * Classification of the album by it's type of content: soundtrack, live album,
  * studio album, etc.
  *
- * @see http://schema.org/MusicAlbumProductionType
+ * @see https://schema.org/MusicAlbumProductionType
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
  *
+ * @method static supersededBy($supersededBy) The value should be instance of pending types Class|Class[]|Enumeration|Enumeration[]|Property|Property[]
  */
-class MusicAlbumProductionType extends BaseType implements EnumerationContract, IntangibleContract, ThingContract
+class MusicAlbumProductionType extends BaseType implements MusicAlbumProductionTypeContract, EnumerationContract, IntangibleContract, ThingContract
 {
     /**
      * CompilationAlbum.
      *
-     * @see http://schema.org/CompilationAlbum
+     * @see https://schema.org/CompilationAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const CompilationAlbum = 'http://schema.org/CompilationAlbum';
+     const CompilationAlbum = 'https://schema.org/CompilationAlbum';
 
     /**
      * DJMixAlbum.
      *
-     * @see http://schema.org/DJMixAlbum
+     * @see https://schema.org/DJMixAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const DJMixAlbum = 'http://schema.org/DJMixAlbum';
+     const DJMixAlbum = 'https://schema.org/DJMixAlbum';
 
     /**
      * DemoAlbum.
      *
-     * @see http://schema.org/DemoAlbum
+     * @see https://schema.org/DemoAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const DemoAlbum = 'http://schema.org/DemoAlbum';
+     const DemoAlbum = 'https://schema.org/DemoAlbum';
 
     /**
      * LiveAlbum.
      *
-     * @see http://schema.org/LiveAlbum
+     * @see https://schema.org/LiveAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const LiveAlbum = 'http://schema.org/LiveAlbum';
+     const LiveAlbum = 'https://schema.org/LiveAlbum';
 
     /**
      * MixtapeAlbum.
      *
-     * @see http://schema.org/MixtapeAlbum
+     * @see https://schema.org/MixtapeAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const MixtapeAlbum = 'http://schema.org/MixtapeAlbum';
+     const MixtapeAlbum = 'https://schema.org/MixtapeAlbum';
 
     /**
      * RemixAlbum.
      *
-     * @see http://schema.org/RemixAlbum
+     * @see https://schema.org/RemixAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const RemixAlbum = 'http://schema.org/RemixAlbum';
+     const RemixAlbum = 'https://schema.org/RemixAlbum';
 
     /**
      * SoundtrackAlbum.
      *
-     * @see http://schema.org/SoundtrackAlbum
+     * @see https://schema.org/SoundtrackAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const SoundtrackAlbum = 'http://schema.org/SoundtrackAlbum';
+     const SoundtrackAlbum = 'https://schema.org/SoundtrackAlbum';
 
     /**
      * SpokenWordAlbum.
      *
-     * @see http://schema.org/SpokenWordAlbum
+     * @see https://schema.org/SpokenWordAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const SpokenWordAlbum = 'http://schema.org/SpokenWordAlbum';
+     const SpokenWordAlbum = 'https://schema.org/SpokenWordAlbum';
 
     /**
      * StudioAlbum.
      *
-     * @see http://schema.org/StudioAlbum
+     * @see https://schema.org/StudioAlbum
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#MBZ
      */
-     const StudioAlbum = 'http://schema.org/StudioAlbum';
+     const StudioAlbum = 'https://schema.org/StudioAlbum';
 
     /**
      * An additional type for the item, typically used for adding more specific
@@ -90,7 +102,7 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -104,7 +116,7 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -118,7 +130,7 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -135,7 +147,7 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -149,11 +161,11 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -164,11 +176,11 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -180,11 +192,11 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -198,7 +210,7 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -209,11 +221,11 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -229,7 +241,7 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -239,11 +251,12 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -257,7 +270,7 @@ class MusicAlbumProductionType extends BaseType implements EnumerationContract, 
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

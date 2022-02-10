@@ -1,19 +1,19 @@
 var WPML_core = WPML_core || {};
 
 (function () {
-	"use strict";
+    "use strict";
 
-	jQuery(document).ready(function () {
+    jQuery(function () {
 
-		jQuery("#icl_msync_cancel").click(function () {
-			location.href = location.href.replace(/#(.)$/, '');
-		});
+        jQuery("#icl_msync_cancel").click(function () {
+            location.href = WPML_core.sanitize(location.href).replace(/#(.)$/, '');
+        });
 
-		var icl_msync_confirm = jQuery('#icl_msync_confirm');
-		var check_all = icl_msync_confirm.find('thead :checkbox');
+        var icl_msync_confirm = jQuery('#icl_msync_confirm');
+        var check_all = icl_msync_confirm.find('thead :checkbox');
 
-		//Remove already assigned events: that's what makes that this slow!
-		check_all.off('click');
+        //Remove already assigned events: that's what makes that this slow!
+        check_all.off('click');
 		check_all.off('change');
 
 		check_all.on('change', function () {

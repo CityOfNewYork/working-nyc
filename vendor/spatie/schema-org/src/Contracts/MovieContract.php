@@ -6,6 +6,8 @@ interface MovieContract
 {
     public function about($about);
 
+    public function abstract($abstract);
+
     public function accessMode($accessMode);
 
     public function accessModeSufficient($accessModeSufficient);
@@ -22,6 +24,8 @@ interface MovieContract
 
     public function accountablePerson($accountablePerson);
 
+    public function acquireLicensePage($acquireLicensePage);
+
     public function actor($actor);
 
     public function actors($actors);
@@ -33,6 +37,10 @@ interface MovieContract
     public function alternateName($alternateName);
 
     public function alternativeHeadline($alternativeHeadline);
+
+    public function archivedAt($archivedAt);
+
+    public function assesses($assesses);
 
     public function associatedMedia($associatedMedia);
 
@@ -54,19 +62,31 @@ interface MovieContract
 
     public function commentCount($commentCount);
 
+    public function conditionsOfAccess($conditionsOfAccess);
+
     public function contentLocation($contentLocation);
 
     public function contentRating($contentRating);
+
+    public function contentReferenceTime($contentReferenceTime);
 
     public function contributor($contributor);
 
     public function copyrightHolder($copyrightHolder);
 
+    public function copyrightNotice($copyrightNotice);
+
     public function copyrightYear($copyrightYear);
+
+    public function correction($correction);
 
     public function countryOfOrigin($countryOfOrigin);
 
+    public function creativeWorkStatus($creativeWorkStatus);
+
     public function creator($creator);
+
+    public function creditText($creditText);
 
     public function dateCreated($dateCreated);
 
@@ -86,9 +106,13 @@ interface MovieContract
 
     public function duration($duration);
 
+    public function editEIDR($editEIDR);
+
     public function editor($editor);
 
     public function educationalAlignment($educationalAlignment);
+
+    public function educationalLevel($educationalLevel);
 
     public function educationalUse($educationalUse);
 
@@ -122,6 +146,8 @@ interface MovieContract
 
     public function interactivityType($interactivityType);
 
+    public function interpretedAsClaim($interpretedAsClaim);
+
     public function isAccessibleForFree($isAccessibleForFree);
 
     public function isBasedOn($isBasedOn);
@@ -144,7 +170,11 @@ interface MovieContract
 
     public function mainEntityOfPage($mainEntityOfPage);
 
+    public function maintainer($maintainer);
+
     public function material($material);
+
+    public function materialExtent($materialExtent);
 
     public function mentions($mentions);
 
@@ -153,6 +183,8 @@ interface MovieContract
     public function name($name);
 
     public function offers($offers);
+
+    public function pattern($pattern);
 
     public function position($position);
 
@@ -168,6 +200,8 @@ interface MovieContract
 
     public function publisher($publisher);
 
+    public function publisherImprint($publisherImprint);
+
     public function publishingPrinciples($publishingPrinciples);
 
     public function recordedAt($recordedAt);
@@ -182,6 +216,14 @@ interface MovieContract
 
     public function schemaVersion($schemaVersion);
 
+    public function sdDatePublished($sdDatePublished);
+
+    public function sdLicense($sdLicense);
+
+    public function sdPublisher($sdPublisher);
+
+    public function size($size);
+
     public function sourceOrganization($sourceOrganization);
 
     public function spatial($spatial);
@@ -194,6 +236,8 @@ interface MovieContract
 
     public function subtitleLanguage($subtitleLanguage);
 
+    public function teaches($teaches);
+
     public function temporal($temporal);
 
     public function temporalCoverage($temporalCoverage);
@@ -204,7 +248,11 @@ interface MovieContract
 
     public function timeRequired($timeRequired);
 
+    public function titleEIDR($titleEIDR);
+
     public function trailer($trailer);
+
+    public function translationOfWork($translationOfWork);
 
     public function translator($translator);
 
@@ -212,10 +260,14 @@ interface MovieContract
 
     public function url($url);
 
+    public function usageInfo($usageInfo);
+
     public function version($version);
 
     public function video($video);
 
     public function workExample($workExample);
+
+    public function workTranslation($workTranslation);
 
 }

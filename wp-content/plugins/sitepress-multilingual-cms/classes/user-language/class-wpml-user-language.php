@@ -1,5 +1,8 @@
 <?php
 
+use WPML\Element\API\Languages;
+use WPML\FP\Maybe;
+
 /**
  * @package wpml-core
  * @subpackage wpml-user-language
@@ -10,8 +13,11 @@ class WPML_User_Language {
 
 	private $language_changes_history       = array();
 	private $admin_language_changes_history = array();
-	private $language_switched              = false;
-	private $wp_locale_fixup = array( 'el' => 'el' );
+
+	/**
+	 * @var \wpdb|null
+	 */
+	private $wpdb;
 
 	/**
 	 * WPML_User_Language constructor.
@@ -27,9 +33,6 @@ class WPML_User_Language {
 		}
 		$this->wpdb = $wpdb;
 
-		$this->language_changes_history[] = $sitepress->get_current_language();
-		$this->admin_language_changes_history[] = $this->sitepress->get_admin_language();
-
 		$this->register_hooks();
 	}
 
@@ -43,7 +46,7 @@ class WPML_User_Language {
 			add_filter( 'get_available_languages', array( $this, 'intersect_wpml_wp_languages' ) );
 		}
 
-		register_activation_hook( WPML_PLUGIN_PATH . '/' . WPML_PLUGIN_FILE,  array( $this, 'update_user_lang_on_site_setup' ) );
+		register_activation_hook( WPML_PLUGIN_PATH . '/' . WPML_PLUGIN_FILE, array( $this, 'update_user_lang_on_site_setup' ) );
 	}
 
 	/**
@@ -52,10 +55,10 @@ class WPML_User_Language {
 	 * @return array
 	 */
 	public function intersect_wpml_wp_languages( $wp_languages ) {
-		$active_wpml_languages = wp_list_pluck( $this->sitepress->get_active_languages(), 'default_locale' );
-		$active_wpml_codes = array_flip( $active_wpml_languages );
+		$active_wpml_languages         = wp_list_pluck( $this->sitepress->get_active_languages(), 'default_locale' );
+		$active_wpml_codes             = array_flip( $active_wpml_languages );
 		$intersect_languages_by_locale = array_intersect( $active_wpml_languages, $wp_languages );
-		$intersect_languages_by_code = array_intersect( $active_wpml_codes, $wp_languages );
+		$intersect_languages_by_code   = array_intersect( $active_wpml_codes, $wp_languages );
 
 		return array_merge( $intersect_languages_by_code, $intersect_languages_by_locale );
 	}
@@ -74,13 +77,17 @@ class WPML_User_Language {
 		$language = apply_filters( 'wpml_user_language', null, $email );
 
 		if ( $language ) {
-			$this->language_switched                = true;
-			$this->language_changes_history[]       = $language;
-			$this->admin_language_changes_history[] = $language;
+			$user_language  = $this->sitepress->get_current_language();
+			$admin_language = $this->sitepress->get_admin_language();
 
-			$this->sitepress->switch_lang( $language, true );
+			if ( $language !== $user_language || $language !== $admin_language ) {
+				$this->language_changes_history[]       = $user_language;
+				$this->admin_language_changes_history[] = $admin_language;
 
-			$this->sitepress->set_admin_language( $language );
+				$this->sitepress->switch_lang( $language, true );
+
+				$this->sitepress->set_admin_language( $language );
+			}
 		}
 	}
 
@@ -89,12 +96,11 @@ class WPML_User_Language {
 	}
 
 	private function wpml_restore_language_from_email() {
-		if ( $this->language_switched ) {
-			$this->language_switched = false;
-
-			$this->sitepress->switch_lang( $this->language_changes_history[0], true );
-
-			$this->sitepress->set_admin_language( $this->admin_language_changes_history[0] );
+		if ( count( $this->language_changes_history ) > 0 ) {
+			$this->sitepress->switch_lang( array_pop( $this->language_changes_history ), true );
+		}
+		if ( count( $this->admin_language_changes_history ) > 0 ) {
+			$this->sitepress->set_admin_language( array_pop( $this->admin_language_changes_history ) );
 		}
 	}
 
@@ -135,7 +141,7 @@ class WPML_User_Language {
 		}
 		update_user_meta( $user_id, 'icl_admin_language', $user_language );
 
-		if( $this->user_admin_language_for_edit( $user_id ) && $this->is_editing_current_profile() ) {
+		if ( $this->user_admin_language_for_edit( $user_id ) && $this->is_editing_current_profile() ) {
 			$this->set_language_cookie( $user_language );
 		}
 	}
@@ -149,7 +155,7 @@ class WPML_User_Language {
 		$code = $this->sitepress->get_language_code_from_locale( $wp_locale );
 
 		if ( ! $code ) {
-			$guess_code = strtolower( substr( $wp_locale, 0, 2 ) );
+			$guess_code   = strtolower( substr( $wp_locale, 0, 2 ) );
 			$guess_locale = $this->sitepress->get_locale_from_language_code( $guess_code );
 
 			if ( $guess_locale ) {
@@ -168,7 +174,7 @@ class WPML_User_Language {
 	private function set_language_cookie( $user_language ) {
 		global $wpml_request_handler;
 
-		if( is_object( $wpml_request_handler ) ) {
+		if ( is_object( $wpml_request_handler ) ) {
 			$wpml_request_handler->set_language_cookie( $user_language );
 		}
 	}
@@ -187,11 +193,16 @@ class WPML_User_Language {
 	 */
 	public function update_user_lang_on_cookie_update( $lang ) {
 		$user_id = get_current_user_id();
-		$wp_lang = $this->get_wp_locale( $this->sitepress->get_language_details( $lang ) );
 
-		if( $this->user_needs_sync_admin_lang() && $user_id && $this->user_admin_language_for_edit( $user_id ) ) {
+		if ( $this->user_needs_sync_admin_lang() && $user_id && $this->user_admin_language_for_edit( $user_id ) ) {
 			update_user_meta( $user_id, 'icl_admin_language', $lang );
-			update_user_meta( $user_id, 'locale', $wp_lang );
+
+			$wpLang = Maybe::of( $lang )
+			               ->map( Languages::getLanguageDetails() )
+			               ->map( Languages::getWPLocale() )
+			               ->getOrElse( null );
+
+			update_user_meta( $user_id, 'locale', $wpLang );
 		}
 	}
 
@@ -205,25 +216,9 @@ class WPML_User_Language {
 		return isset( $pagenow ) && 'user-edit.php' === $pagenow;
 	}
 
-	private function get_wp_locale( $lang_details ) {
-		$locale = null;
-
-		if ( ! isset( $lang_details['default_locale'], $lang_details['code'] ) ) {
-			return $locale;
-		}
-
-		$locale = $lang_details['default_locale'];
-
-		if ( array_key_exists( $lang_details['code'], $this->wp_locale_fixup ) ) {
-			$locale = $this->wp_locale_fixup[ $lang_details['code'] ];
-		}
-
-		return $locale;
-	}
-
 	public function update_user_lang_on_site_setup() {
-		$current_user_id       = get_current_user_id();
-		$wp_user_lang          = get_user_meta( $current_user_id, 'locale', true );
+		$current_user_id = get_current_user_id();
+		$wp_user_lang    = get_user_meta( $current_user_id, 'locale', true );
 
 		if ( ! $wp_user_lang ) {
 			return;

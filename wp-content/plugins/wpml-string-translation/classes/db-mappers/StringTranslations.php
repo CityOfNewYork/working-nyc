@@ -7,8 +7,8 @@ use function WPML\FP\curryN;
 class StringTranslations {
 	/**
 	 * @param  \wpdb  $wpdb
-	 * @param  int  $stringId
-	 * @param  string  $language
+	 * @param  int    $stringId
+	 * @param  string $language
 	 *
 	 * @return callable|bool
 	 */

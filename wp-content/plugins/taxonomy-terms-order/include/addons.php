@@ -1,5 +1,7 @@
 <?php
-
+    
+    if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+    
     //Co-Authors Plus fix
     add_action ('to/get_terms_orderby/ignore', 'to_get_terms_orderby_ignore_coauthors', 10, 3);
     function to_get_terms_orderby_ignore_coauthors( $ignore, $orderby, $args )
@@ -28,6 +30,9 @@
             if( !   is_plugin_active( 'woocommerce/woocommerce.php' ))
                 return $ignore;
             
+            if ( ! function_exists ( 'wc_get_attribute_taxonomies' ) )
+                return $ignore;
+                
             //create a list of attribute taxonomies
             $attributes =   wc_get_attribute_taxonomies();
             $found_attributex_tax   =   array();

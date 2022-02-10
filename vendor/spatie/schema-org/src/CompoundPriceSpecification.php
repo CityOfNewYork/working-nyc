@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\CompoundPriceSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\PriceSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
@@ -13,10 +14,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * property of the attached unit price specification for indicating the
  * dimension of a price component (e.g. "electricity" or "final cleaning").
  *
- * @see http://schema.org/CompoundPriceSpecification
+ * @see https://schema.org/CompoundPriceSpecification
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass
  *
  */
-class CompoundPriceSpecification extends BaseType implements IntangibleContract, PriceSpecificationContract, StructuredValueContract, ThingContract
+class CompoundPriceSpecification extends BaseType implements CompoundPriceSpecificationContract, IntangibleContract, PriceSpecificationContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -30,7 +32,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -44,7 +46,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -58,7 +60,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -75,7 +77,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -87,11 +89,12 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      * offer or price specification is valid. This allows e.g. specifying that a
      * certain freight charge is valid only for a certain quantity.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $eligibleQuantity
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $eligibleQuantity
      *
      * @return static
      *
-     * @see http://schema.org/eligibleQuantity
+     * @see https://schema.org/eligibleQuantity
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleQuantity($eligibleQuantity)
     {
@@ -104,11 +107,12 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      * to express free shipping above a certain order volume, or to limit the
      * acceptance of credit cards to purchases to a certain minimal amount.
      *
-     * @param PriceSpecification|PriceSpecification[] $eligibleTransactionVolume
+     * @param \Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[] $eligibleTransactionVolume
      *
      * @return static
      *
-     * @see http://schema.org/eligibleTransactionVolume
+     * @see https://schema.org/eligibleTransactionVolume
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function eligibleTransactionVolume($eligibleTransactionVolume)
     {
@@ -122,11 +126,11 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -137,11 +141,11 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -153,11 +157,11 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -171,7 +175,8 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/maxPrice
+     * @see https://schema.org/maxPrice
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function maxPrice($maxPrice)
     {
@@ -185,7 +190,8 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/minPrice
+     * @see https://schema.org/minPrice
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function minPrice($minPrice)
     {
@@ -199,7 +205,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -210,11 +216,11 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -251,7 +257,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/price
+     * @see https://schema.org/price
      */
     public function price($price)
     {
@@ -262,11 +268,12 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      * This property links to all [[UnitPriceSpecification]] nodes that apply in
      * parallel for the [[CompoundPriceSpecification]] node.
      *
-     * @param UnitPriceSpecification|UnitPriceSpecification[] $priceComponent
+     * @param \Spatie\SchemaOrg\Contracts\UnitPriceSpecificationContract|\Spatie\SchemaOrg\Contracts\UnitPriceSpecificationContract[] $priceComponent
      *
      * @return static
      *
-     * @see http://schema.org/priceComponent
+     * @see https://schema.org/priceComponent
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function priceComponent($priceComponent)
     {
@@ -289,11 +296,32 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/priceCurrency
+     * @see https://schema.org/priceCurrency
      */
     public function priceCurrency($priceCurrency)
     {
         return $this->setProperty('priceCurrency', $priceCurrency);
+    }
+
+    /**
+     * Defines the type of a price specified for an offered product, for example
+     * a list price, a (temporary) sale price or a manufacturer suggested retail
+     * price. If multiple prices are specified for an offer the [[priceType]]
+     * property can be used to identify the type of each such specified price.
+     * The value of priceType can be specified as a value from enumeration
+     * PriceTypeEnumeration or as a free form text string for price types that
+     * are not already predefined in PriceTypeEnumeration.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PriceTypeEnumerationContract|\Spatie\SchemaOrg\Contracts\PriceTypeEnumerationContract[]|string|string[] $priceType
+     *
+     * @return static
+     *
+     * @see https://schema.org/priceType
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
+     */
+    public function priceType($priceType)
+    {
+        return $this->setProperty('priceType', $priceType);
     }
 
     /**
@@ -305,7 +333,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -315,11 +343,12 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -333,7 +362,7 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -347,7 +376,8 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/validFrom
+     * @see https://schema.org/validFrom
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validFrom($validFrom)
     {
@@ -362,7 +392,8 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/validThrough
+     * @see https://schema.org/validThrough
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validThrough($validThrough)
     {
@@ -377,7 +408,8 @@ class CompoundPriceSpecification extends BaseType implements IntangibleContract,
      *
      * @return static
      *
-     * @see http://schema.org/valueAddedTaxIncluded
+     * @see https://schema.org/valueAddedTaxIncluded
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function valueAddedTaxIncluded($valueAddedTaxIncluded)
     {

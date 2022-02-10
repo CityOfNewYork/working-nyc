@@ -26,6 +26,8 @@ interface ActionAccessSpecificationContract
 
     public function image($image);
 
+    public function ineligibleRegion($ineligibleRegion);
+
     public function mainEntityOfPage($mainEntityOfPage);
 
     public function name($name);

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -17,10 +18,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * If the value for the [[closes]] property is less than the value for the
  * [[opens]] property then the hour range is assumed to span over the next day.
  *
- * @see http://schema.org/OpeningHoursSpecification
+ * @see https://schema.org/OpeningHoursSpecification
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsClass
  *
  */
-class OpeningHoursSpecification extends BaseType implements IntangibleContract, StructuredValueContract, ThingContract
+class OpeningHoursSpecification extends BaseType implements OpeningHoursSpecificationContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -34,7 +36,7 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -48,7 +50,7 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -62,7 +64,8 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/closes
+     * @see https://schema.org/closes
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function closes($closes)
     {
@@ -72,11 +75,12 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
     /**
      * The day of the week for which these opening hours are valid.
      *
-     * @param DayOfWeek|DayOfWeek[] $dayOfWeek
+     * @param \Spatie\SchemaOrg\Contracts\DayOfWeekContract|\Spatie\SchemaOrg\Contracts\DayOfWeekContract[] $dayOfWeek
      *
      * @return static
      *
-     * @see http://schema.org/dayOfWeek
+     * @see https://schema.org/dayOfWeek
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function dayOfWeek($dayOfWeek)
     {
@@ -90,7 +94,7 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -107,7 +111,7 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -121,11 +125,11 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -136,11 +140,11 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -152,11 +156,11 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -170,7 +174,7 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -184,7 +188,8 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/opens
+     * @see https://schema.org/opens
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function opens($opens)
     {
@@ -195,11 +200,11 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -215,7 +220,7 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -225,11 +230,12 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -243,7 +249,7 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -257,7 +263,8 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/validFrom
+     * @see https://schema.org/validFrom
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validFrom($validFrom)
     {
@@ -272,7 +279,8 @@ class OpeningHoursSpecification extends BaseType implements IntangibleContract, 
      *
      * @return static
      *
-     * @see http://schema.org/validThrough
+     * @see https://schema.org/validThrough
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function validThrough($validThrough)
     {

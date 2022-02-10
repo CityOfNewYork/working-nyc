@@ -11,7 +11,9 @@ use function WPML\FP\curryN;
  * @method static callable|void saveTranslation( ...$id, ...$lang, ...$translation, ...$state ) - Curried :: int → string → string → int → void
  * @method static callable|string|false getTranslation( ...$id, ...$lang ) - Curried :: int → string → string|false
  * @method static callable|array getTranslations( ...$id ) - Curried :: int → [lang => [value => string, status => int]]
- * @method static callable|bool updateStatus( ...$stringId, ...$language, ...$status ) - Curried :: int -> string -> int -> bool
+ * @method static callable|bool updateStatus( ...$stringId, ...$language, ...$status ) - Curried :: int->string->int->bool
+ * @method static callable|array getStringTranslationById( ...$stringTranslationId ) - Curried :: int → array
+ * @method static callable|array getStringById( ...$stringId ) - Curried :: int → array
  */
 class Fns {
 
@@ -27,6 +29,18 @@ class Fns {
 
 		self::macro( 'updateStatus', curryN( 3, function ( $stringId, $language, $status ) {
 			return self::saveTranslation( $stringId, $language, null, $status );
+		} ) );
+
+		self::macro( 'getStringTranslationById', curryN( 1, function ( $stringTranslationId ) {
+			global $wpdb;
+
+			return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}icl_string_translations WHERE id = %d", $stringTranslationId ) );
+		} ) );
+
+		self::macro( 'getStringById', curryN( 1, function ( $stringId ) {
+			global $wpdb;
+
+			return $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}icl_strings WHERE id = %d", $stringId ) );
 		} ) );
 	}
 }

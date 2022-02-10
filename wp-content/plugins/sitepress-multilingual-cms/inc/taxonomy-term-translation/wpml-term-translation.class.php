@@ -93,7 +93,7 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 	/**
 	 * Returns all post types to which a taxonomy is linked.
 	 *
-	 * @param $taxonomy string
+	 * @param string $taxonomy
 	 *
 	 * @return array
 	 *
@@ -119,12 +119,14 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 
 		if ( ! isset( $this->ttids ) || ! isset( $this->term_ids ) ) {
 
-			$data           = $this->wpdb->get_results( "	SELECT wpml_translations.element_id, tax.term_id, tax.taxonomy
-													 " . $this->get_element_join() . "
+			$data           = $this->wpdb->get_results(
+				'	SELECT wpml_translations.element_id, tax.term_id, tax.taxonomy
+													 ' . $this->get_element_join() . "
 													 JOIN {$this->wpdb->terms} terms
 													  ON terms.term_id = tax.term_id
 													 WHERE tax.term_id != tax.term_taxonomy_id",
-			                                      ARRAY_A );
+				ARRAY_A
+			);
 			$this->term_ids = array();
 			$this->ttids    = array();
 			foreach ( $data as $row ) {
@@ -137,14 +139,14 @@ class WPML_Term_Translation extends WPML_Element_Translation {
 	}
 
 	/**
-	 * @param $term
+	 * @param string $term
 	 * @param string $slug
-	 * @param $taxonomy
-	 * @param $lang_code
+	 * @param string $taxonomy
+	 * @param string $lang_code
 	 *
 	 * @return string
 	 */
-	public function generate_unique_term_slug( $term, $slug = '', $taxonomy, $lang_code ) {
+	public function generate_unique_term_slug( $term, $slug, $taxonomy, $lang_code ) {
 		if ( '' === trim( $slug ) ) {
 			$slug = sanitize_title( $term );
 		}

@@ -50,7 +50,7 @@ class WPML_Admin_Pagination_Render {
 	 */
 	public function paginate( $items ) {
 		$total       = count( $items );
-		$limit       = $this->pagination->get_items_per_page(); //per page
+		$limit       = $this->pagination->get_items_per_page(); // per page
 		$total_pages = ceil( $total / $limit );
 		$page        = max( $this->pagination->get_current_page(), 1 );
 		$page        = min( $page, $total_pages );

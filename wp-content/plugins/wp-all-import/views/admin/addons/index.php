@@ -8,12 +8,12 @@
 			<h3><?php _e('Premium Add-ons', 'wp_all_import_plugin'); ?></h3>
 			<?php foreach( $premium as $addon ): ?>
 			<div class="pmxi-add-on wp-box <?php if( $addon['active'] ): ?>pmxi-add-on-active<?php endif; ?>">
-				<a target="_blank" href="<?php echo $addon['url']; ?>">
-					<img src="<?php echo $addon['thumbnail']; ?>" />
+				<a target="_blank" href="<?php echo esc_url($addon['url']); ?>">
+					<img src="<?php echo esc_url($addon['thumbnail']); ?>" />
 				</a>
 				<div class="inner">
-					<h3><a target="_blank" href="<?php echo $addon['url']; ?>"><?php echo $addon['title']; ?></a></h3>
-					<p><?php echo $addon['description']; ?></p>
+					<h3><a target="_blank" href="<?php echo esc_url($addon['url']); ?>"><?php echo esc_html($addon['title']); ?></a></h3>
+					<p><?php echo esc_html($addon['description']); ?></p>
 				</div>
 				<div class="footer">
 					<?php if ( $addon['active'] ): ?>
@@ -26,19 +26,19 @@
 						foreach ($addon['required_plugins'] as $name => $active): 
 							if (!$active){
 								?>
-								<p style="margin:3px 0px;"><?php echo $name . __(' required', 'wp_all_import_plugin'); ?></p>
+								<p style="margin:3px 0px;"><?php echo esc_html($name) . __(' required', 'wp_all_import_plugin'); ?></p>
 								<?php
 								$all_required_plugins_installed = false;
 							}							
 						endforeach; 
 						if ($all_required_plugins_installed){
 							?>
-							<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Download",'acf'); ?></a>
+							<a target="_blank" href="<?php echo esc_url($addon['url']); ?>" class="button"><?php _e("Download",'acf'); ?></a>
 							<?php
 						}
 						?>
 					<?php else: ?>					
-						<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Purchase & Install",'acf'); ?></a>
+						<a target="_blank" href="<?php echo esc_url($addon['url']); ?>" class="button"><?php _e("Purchase & Install",'acf'); ?></a>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -49,12 +49,12 @@
 			<h3><?php _e('Free Add-ons', 'wp_all_import_plugin'); ?></h3>
 			<?php foreach( $free as $addon ): ?>
 			<div class="pmxi-add-on wp-box <?php if( $addon['active'] ): ?>pmxi-add-on-active<?php endif; ?>">
-				<a target="_blank" href="<?php echo $addon['url']; ?>">
-					<img src="<?php echo $addon['thumbnail']; ?>" />
+				<a target="_blank" href="<?php echo esc_url($addon['url']); ?>">
+					<img src="<?php echo esc_url($addon['thumbnail']); ?>" />
 				</a>
 				<div class="inner">
-					<h3><a target="_blank" href="<?php echo $addon['url']; ?>"><?php echo $addon['title']; ?></a></h3>
-					<p><?php echo $addon['description']; ?></p>
+					<h3><a target="_blank" href="<?php echo esc_url($addon['url']); ?>"><?php echo esc_html($addon['title']); ?></a></h3>
+					<p><?php echo esc_html($addon['description']); ?></p>
 				</div>
 				<div class="footer">
 					<?php if( $addon['active'] ): ?>
@@ -67,19 +67,19 @@
 						foreach ($addon['required_plugins'] as $name => $active): 
 							if (!$active){
 								?>
-								<p style="margin:3px 0px;"><?php echo $name . __(' required', 'wp_all_import_plugin'); ?></p>
+								<p style="margin:3px 0px;"><?php echo esc_html($name) . __(' required', 'wp_all_import_plugin'); ?></p>
 								<?php
 								$all_required_plugins_installed = false;
 							}							
 						endforeach; 
 						if ($all_required_plugins_installed){
 							?>
-							<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Download",'acf'); ?></a>
+							<a target="_blank" href="<?php echo esc_url($addon['url']); ?>" class="button"><?php _e("Download",'acf'); ?></a>
 							<?php
 						}
 						?>
 					<?php else: ?>
-						<a target="_blank" href="<?php echo $addon['url']; ?>" class="button"><?php _e("Download",'acf'); ?></a>
+						<a target="_blank" href="<?php echo esc_url($addon['url']); ?>" class="button"><?php _e("Download",'acf'); ?></a>
 					<?php endif; ?>
 				</div>
 			</div>

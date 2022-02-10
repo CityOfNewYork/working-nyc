@@ -10,7 +10,7 @@ class WPML_Initialize_Language_For_Post_Type {
 
 	public function run( $post_type, $default_language ) {
 		do {
-			$trid_max = $this->wpdb->get_var( "SELECT MAX(trid) FROM {$this->wpdb->prefix}icl_translations" ) + 1;
+			$trid_max = (int) $this->wpdb->get_var( "SELECT MAX(trid) FROM {$this->wpdb->prefix}icl_translations" ) + 1;
 			$sql          = "INSERT IGNORE INTO {$this->wpdb->prefix}icl_translations (`element_type`, `element_id`, `trid`, `language_code`)" . PHP_EOL;
 			$sql          .= "SELECT CONCAT('post_' , p.post_type) as element_type, p.ID as element_id, %d + p.ID as trid, %s as language_code" . PHP_EOL;
 			$sql          .= "FROM {$this->wpdb->posts} p" . PHP_EOL;

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\GamePlayModeContract;
 use \Spatie\SchemaOrg\Contracts\EnumerationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -9,33 +10,34 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * Indicates whether this game is multi-player, co-op or single-player.
  *
- * @see http://schema.org/GamePlayMode
+ * @see https://schema.org/GamePlayMode
  *
+ * @method static supersededBy($supersededBy) The value should be instance of pending types Class|Class[]|Enumeration|Enumeration[]|Property|Property[]
  */
-class GamePlayMode extends BaseType implements EnumerationContract, IntangibleContract, ThingContract
+class GamePlayMode extends BaseType implements GamePlayModeContract, EnumerationContract, IntangibleContract, ThingContract
 {
     /**
      * Play mode: CoOp. Co-operative games, where you play on the same team with
      * friends.
      *
-     * @see http://schema.org/CoOp
+     * @see https://schema.org/CoOp
      */
-     const CoOp = 'http://schema.org/CoOp';
+     const CoOp = 'https://schema.org/CoOp';
 
     /**
      * Play mode: MultiPlayer. Requiring or allowing multiple human players to
      * play simultaneously.
      *
-     * @see http://schema.org/MultiPlayer
+     * @see https://schema.org/MultiPlayer
      */
-     const MultiPlayer = 'http://schema.org/MultiPlayer';
+     const MultiPlayer = 'https://schema.org/MultiPlayer';
 
     /**
      * Play mode: SinglePlayer. Which is played by a lone player.
      *
-     * @see http://schema.org/SinglePlayer
+     * @see https://schema.org/SinglePlayer
      */
-     const SinglePlayer = 'http://schema.org/SinglePlayer';
+     const SinglePlayer = 'https://schema.org/SinglePlayer';
 
     /**
      * An additional type for the item, typically used for adding more specific
@@ -49,7 +51,7 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -63,7 +65,7 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -77,7 +79,7 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -94,7 +96,7 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -108,11 +110,11 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -123,11 +125,11 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -139,11 +141,11 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -157,7 +159,7 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -168,11 +170,11 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -188,7 +190,7 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -198,11 +200,12 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -216,7 +219,7 @@ class GamePlayMode extends BaseType implements EnumerationContract, IntangibleCo
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

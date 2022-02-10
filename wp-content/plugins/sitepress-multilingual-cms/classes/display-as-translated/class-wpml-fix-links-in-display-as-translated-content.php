@@ -20,18 +20,22 @@ class WPML_Fix_Links_In_Display_As_Translated_Content implements IWPML_Action, I
 	}
 
 	public function add_hooks() {
-		add_filter( 'the_content', array(
-			$this,
-			'fix_fallback_links'
-		), WPML_LS_Render::THE_CONTENT_FILTER_PRIORITY - 1 );
+		add_filter(
+			'the_content',
+			array(
+				$this,
+				'fix_fallback_links',
+			),
+			WPML_LS_Render::THE_CONTENT_FILTER_PRIORITY - 1
+		);
 	}
 
 	public function fix_fallback_links( $content ) {
 		if ( stripos( $content, '<a' ) !== false ) {
 			if ( $this->is_display_as_translated_content_type() ) {
 				list( $content, $encoded_ls_links ) = $this->encode_language_switcher_links( $content );
-				$content = $this->translate_link_targets->convert_text( $content );
-				$content = $this->decode_language_switcher_links( $content, $encoded_ls_links );
+				$content                            = $this->translate_link_targets->convert_text( $content );
+				$content                            = $this->decode_language_switcher_links( $content, $encoded_ls_links );
 			}
 		}
 

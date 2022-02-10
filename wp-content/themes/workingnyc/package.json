@@ -1,6 +1,6 @@
 {
   "name": "workingnyc",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Connecting NYC job seekers to workforce services.",
   "author": "Mayor's Office for Economic Opportunity",
   "private": "true",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@nycopportunity/working-patterns": "^0.0.1-54",
-    "axios": "^0.19.2",
+    "axios": "^0.25.0",
     "feather-icons": "^4.28.0",
     "postcss": "^8.3.11",
     "regenerator-runtime": "^0.13.9",

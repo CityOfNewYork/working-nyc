@@ -14,10 +14,11 @@ defined( 'ABSPATH' ) || exit;
  */
 class Plugin {
 	// Settings.
-	public $OPT_API_TOKEN = 'wpscan_api_token';
+	public $OPT_API_TOKEN         = 'wpscan_api_token';
 	public $OPT_SCANNING_INTERVAL = 'wpscan_scanning_interval';
-	public $OPT_SCANNING_TIME = 'wpscan_scanning_time';
-	public $OPT_IGNORE_ITEMS = 'wpscan_ignore_items';
+	public $OPT_SCANNING_TIME     = 'wpscan_scanning_time';
+	public $OPT_IGNORE_ITEMS      = 'wpscan_ignore_items';
+	public $OPT_DISABLE_CHECKS    = 'wpscan_disable_security_checks';
 
 	// Account.
 	public $OPT_ACCOUNT_STATUS = 'wpscan_account_status';
@@ -387,7 +388,7 @@ class Plugin {
 			$this->WPSCAN_ROLE,
 			'wpscan',
 			array( $this->classes['report'], 'page' ),
-			$this->plugin_url . 'assets/svg/menu-icon.svg',
+			plugin_dir_url( dirname( __FILE__ ) ) . 'assets/svg/menu-icon.svg',
 			null
 		);
 	}
@@ -472,7 +473,7 @@ class Plugin {
 					// We don't have the plugin/theme, do nothing.
 					break;
 				case 429:
-					array_push( $errors, sprintf( '%s <a href="%s" target="_blank">%s</a>.', __( 'You hit our free API usage limit. To increase your daily API limit please upgrade to paid usage from your', 'wpscan' ), WPSCAN_PROFILE_URL, __( 'WPScan profile page', 'wpscan' ) ) );
+					array_push( $errors, sprintf( '%s <a href="%s" target="_blank">%s</a>.', __( 'You hit your API limit. To increase your daily API limit please upgrade via your ', 'wpscan' ), WPSCAN_PROFILE_URL, __( 'WPScan profile page', 'wpscan' ) ) );
 					break;
 				case 500:
 					array_push( $errors, sprintf( '%s <a href="%s" target="_blank">%s</a>', __( 'There seems to be a problem with the WPScan API. Status: 500. Check the ', 'wpscan' ), WPSCAN_STATUS_URL, __( 'API Status', 'wpscan' ) ) );
@@ -554,18 +555,20 @@ class Plugin {
 		}
 
 		// Security checks.
-		$this->report['security-checks'] = array();
+		if ( get_option( $this->OPT_DISABLE_CHECKS, array() ) !== '1' ) {
+			$this->report['security-checks'] = array();
 
-		foreach ( $this->classes['checks/system']->checks as $id => $data ) {
-			$data['instance']->perform();
-			$this->report['security-checks'][ $id ]['vulnerabilities'] = array();
+			foreach ( $this->classes['checks/system']->checks as $id => $data ) {
+				$data['instance']->perform();
+				$this->report['security-checks'][ $id ]['vulnerabilities'] = array();
 
-			if ( $data['instance']->vulnerabilities ) {
-				$this->report['security-checks'][ $id ]['vulnerabilities'] = $data['instance']->get_vulnerabilities();
+				if ( $data['instance']->vulnerabilities ) {
+					$this->report['security-checks'][ $id ]['vulnerabilities'] = $data['instance']->get_vulnerabilities();
 
-				$this->maybe_fire_issue_found_action( 'security-check', $id, $this->report['security-checks'][ $id ] );
+					$this->maybe_fire_issue_found_action( 'security-check', $id, $this->report['security-checks'][ $id ] );
+				}
 			}
-		}
+	  }
 
 		// Caching.
 		$this->report['cache'] = strtotime( current_time( 'mysql' ) );
@@ -609,6 +612,7 @@ class Plugin {
 	 */
 	public function verify_plugins( $ignored ) {
 		$plugins = array();
+		$ignored[] = 'latest'; // ignore the plugin with the slug 'latest' as this conflicts with our API.
 
 		if ( ! function_exists( 'get_plugins' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/plugin.php';
@@ -655,6 +659,7 @@ class Plugin {
 	 */
 	public function verify_themes( $ignored ) {
 		$themes = array();
+		$ignored[] = 'latest'; // ignore the theme with the slug 'latest' as this conflicts with our API.
 
 		if ( ! function_exists( 'wp_get_themes' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/theme.php';

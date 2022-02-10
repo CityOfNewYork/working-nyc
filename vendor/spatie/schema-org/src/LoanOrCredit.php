@@ -2,19 +2,21 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\LoanOrCreditContract;
 use \Spatie\SchemaOrg\Contracts\FinancialProductContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ServiceContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
 /**
- * A financial product for the loaning of an amount of money under agreed terms
- * and charges.
+ * A financial product for the loaning of an amount of money, or line of credit,
+ * under agreed terms and charges.
  *
- * @see http://schema.org/LoanOrCredit
+ * @see https://schema.org/LoanOrCredit
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO
  *
  */
-class LoanOrCredit extends BaseType implements FinancialProductContract, IntangibleContract, ServiceContract, ThingContract
+class LoanOrCredit extends BaseType implements LoanOrCreditContract, FinancialProductContract, IntangibleContract, ServiceContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -28,7 +30,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -39,11 +41,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * The overall rating, based on a collection of reviews or ratings, of the
      * item.
      *
-     * @param AggregateRating|AggregateRating[] $aggregateRating
+     * @param \Spatie\SchemaOrg\Contracts\AggregateRatingContract|\Spatie\SchemaOrg\Contracts\AggregateRatingContract[] $aggregateRating
      *
      * @return static
      *
-     * @see http://schema.org/aggregateRating
+     * @see https://schema.org/aggregateRating
      */
     public function aggregateRating($aggregateRating)
     {
@@ -57,7 +59,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -67,11 +69,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * The amount of money.
      *
-     * @param MonetaryAmount|MonetaryAmount[]|float|float[]|int|int[] $amount
+     * @param \Spatie\SchemaOrg\Contracts\MonetaryAmountContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountContract[]|float|float[]|int|int[] $amount
      *
      * @return static
      *
-     * @see http://schema.org/amount
+     * @see https://schema.org/amount
      */
     public function amount($amount)
     {
@@ -84,11 +86,12 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * cost of funds over the term of a loan. This includes any fees or
      * additional costs associated with the transaction.
      *
-     * @param QuantitativeValue|QuantitativeValue[]|float|float[]|int|int[] $annualPercentageRate
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[]|float|float[]|int|int[] $annualPercentageRate
      *
      * @return static
      *
-     * @see http://schema.org/annualPercentageRate
+     * @see https://schema.org/annualPercentageRate
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO
      */
     public function annualPercentageRate($annualPercentageRate)
     {
@@ -98,11 +101,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * The geographic area where a service or offered item is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[]|string|string[] $areaServed
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[]|string|string[] $areaServed
      *
      * @return static
      *
-     * @see http://schema.org/areaServed
+     * @see https://schema.org/areaServed
      */
     public function areaServed($areaServed)
     {
@@ -112,11 +115,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * An intended audience, i.e. a group for whom something was created.
      *
-     * @param Audience|Audience[] $audience
+     * @param \Spatie\SchemaOrg\Contracts\AudienceContract|\Spatie\SchemaOrg\Contracts\AudienceContract[] $audience
      *
      * @return static
      *
-     * @see http://schema.org/audience
+     * @see https://schema.org/audience
      */
     public function audience($audience)
     {
@@ -127,11 +130,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * A means of accessing the service (e.g. a phone bank, a web site, a
      * location, etc.).
      *
-     * @param ServiceChannel|ServiceChannel[] $availableChannel
+     * @param \Spatie\SchemaOrg\Contracts\ServiceChannelContract|\Spatie\SchemaOrg\Contracts\ServiceChannelContract[] $availableChannel
      *
      * @return static
      *
-     * @see http://schema.org/availableChannel
+     * @see https://schema.org/availableChannel
      */
     public function availableChannel($availableChannel)
     {
@@ -145,7 +148,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/award
+     * @see https://schema.org/award
      */
     public function award($award)
     {
@@ -156,11 +159,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * The brand(s) associated with a product or service, or the brand(s)
      * maintained by an organization or business person.
      *
-     * @param Brand|Brand[]|Organization|Organization[] $brand
+     * @param \Spatie\SchemaOrg\Contracts\BrandContract|\Spatie\SchemaOrg\Contracts\BrandContract[]|\Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $brand
      *
      * @return static
      *
-     * @see http://schema.org/brand
+     * @see https://schema.org/brand
      */
     public function brand($brand)
     {
@@ -173,11 +176,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * service involved in an exchange.  If it is not clear whether an entity is
      * a broker, seller, or buyer, the latter two terms are preferred.
      *
-     * @param Organization|Organization[]|Person|Person[] $broker
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $broker
      *
      * @return static
      *
-     * @see http://schema.org/broker
+     * @see https://schema.org/broker
      */
     public function broker($broker)
     {
@@ -188,15 +191,38 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * A category for the item. Greater signs or slashes can be used to
      * informally indicate a category hierarchy.
      *
-     * @param Thing|Thing[]|string|string[] $category
+     * @param \Spatie\SchemaOrg\Contracts\PhysicalActivityCategoryContract|\Spatie\SchemaOrg\Contracts\PhysicalActivityCategoryContract[]|\Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[]|string|string[] $category
      *
      * @return static
      *
-     * @see http://schema.org/category
+     * @see https://schema.org/category
      */
     public function category($category)
     {
         return $this->setProperty('category', $category);
+    }
+
+    /**
+     * The currency in which the monetary amount is expressed.
+     * 
+     * Use standard formats: [ISO 4217 currency
+     * format](http://en.wikipedia.org/wiki/ISO_4217) e.g. "USD"; [Ticker
+     * symbol](https://en.wikipedia.org/wiki/List_of_cryptocurrencies) for
+     * cryptocurrencies e.g. "BTC"; well known names for [Local Exchange
+     * Tradings
+     * Systems](https://en.wikipedia.org/wiki/Local_exchange_trading_system)
+     * (LETS) and other currency types e.g. "Ithaca HOUR".
+     *
+     * @param string|string[] $currency
+     *
+     * @return static
+     *
+     * @see https://schema.org/currency
+     * @link https://github.com/schemaorg/schemaorg/issues/1253
+     */
+    public function currency($currency)
+    {
+        return $this->setProperty('currency', $currency);
     }
 
     /**
@@ -206,7 +232,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -223,7 +249,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -238,7 +264,8 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/feesAndCommissionsSpecification
+     * @see https://schema.org/feesAndCommissionsSpecification
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO
      */
     public function feesAndCommissionsSpecification($feesAndCommissionsSpecification)
     {
@@ -246,14 +273,30 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     }
 
     /**
-     * Indicates an OfferCatalog listing for this Organization, Person, or
-     * Service.
+     * The period of time after any due date that the borrower has to fulfil its
+     * obligations before a default (failure to pay) is deemed to have occurred.
      *
-     * @param OfferCatalog|OfferCatalog[] $hasOfferCatalog
+     * @param \Spatie\SchemaOrg\Contracts\DurationContract|\Spatie\SchemaOrg\Contracts\DurationContract[] $gracePeriod
      *
      * @return static
      *
-     * @see http://schema.org/hasOfferCatalog
+     * @see https://schema.org/gracePeriod
+     * @see https://pending.schema.org
+     */
+    public function gracePeriod($gracePeriod)
+    {
+        return $this->setProperty('gracePeriod', $gracePeriod);
+    }
+
+    /**
+     * Indicates an OfferCatalog listing for this Organization, Person, or
+     * Service.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OfferCatalogContract|\Spatie\SchemaOrg\Contracts\OfferCatalogContract[] $hasOfferCatalog
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasOfferCatalog
      */
     public function hasOfferCatalog($hasOfferCatalog)
     {
@@ -263,11 +306,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * The hours during which this service or contact is available.
      *
-     * @param OpeningHoursSpecification|OpeningHoursSpecification[] $hoursAvailable
+     * @param \Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract|\Spatie\SchemaOrg\Contracts\OpeningHoursSpecificationContract[] $hoursAvailable
      *
      * @return static
      *
-     * @see http://schema.org/hoursAvailable
+     * @see https://schema.org/hoursAvailable
      */
     public function hoursAvailable($hoursAvailable)
     {
@@ -281,11 +324,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -296,11 +339,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -311,11 +354,12 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * The interest rate, charged or paid, applicable to the financial product.
      * Note: This is different from the calculated annualPercentageRate.
      *
-     * @param QuantitativeValue|QuantitativeValue[]|float|float[]|int|int[] $interestRate
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[]|float|float[]|int|int[] $interestRate
      *
      * @return static
      *
-     * @see http://schema.org/interestRate
+     * @see https://schema.org/interestRate
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO
      */
     public function interestRate($interestRate)
     {
@@ -325,11 +369,12 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * A pointer to another, somehow related product (or multiple products).
      *
-     * @param Product|Product[]|Service|Service[] $isRelatedTo
+     * @param \Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|\Spatie\SchemaOrg\Contracts\ServiceContract|\Spatie\SchemaOrg\Contracts\ServiceContract[] $isRelatedTo
      *
      * @return static
      *
-     * @see http://schema.org/isRelatedTo
+     * @see https://schema.org/isRelatedTo
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function isRelatedTo($isRelatedTo)
     {
@@ -340,11 +385,12 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * A pointer to another, functionally similar product (or multiple
      * products).
      *
-     * @param Product|Product[]|Service|Service[] $isSimilarTo
+     * @param \Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[]|\Spatie\SchemaOrg\Contracts\ServiceContract|\Spatie\SchemaOrg\Contracts\ServiceContract[] $isSimilarTo
      *
      * @return static
      *
-     * @see http://schema.org/isSimilarTo
+     * @see https://schema.org/isSimilarTo
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function isSimilarTo($isSimilarTo)
     {
@@ -352,13 +398,31 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     }
 
     /**
-     * The duration of the loan or credit agreement.
+     * A form of paying back money previously borrowed from a lender. Repayment
+     * usually takes the form of periodic payments that normally include part
+     * principal plus interest in each payment.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $loanTerm
+     * @param \Spatie\SchemaOrg\Contracts\RepaymentSpecificationContract|\Spatie\SchemaOrg\Contracts\RepaymentSpecificationContract[] $loanRepaymentForm
      *
      * @return static
      *
-     * @see http://schema.org/loanTerm
+     * @see https://schema.org/loanRepaymentForm
+     * @see https://pending.schema.org
+     */
+    public function loanRepaymentForm($loanRepaymentForm)
+    {
+        return $this->setProperty('loanRepaymentForm', $loanRepaymentForm);
+    }
+
+    /**
+     * The duration of the loan or credit agreement.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $loanTerm
+     *
+     * @return static
+     *
+     * @see https://schema.org/loanTerm
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO
      */
     public function loanTerm($loanTerm)
     {
@@ -366,13 +430,29 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     }
 
     /**
-     * An associated logo.
+     * The type of a loan or credit.
      *
-     * @param ImageObject|ImageObject[]|string|string[] $logo
+     * @param string|string[] $loanType
      *
      * @return static
      *
-     * @see http://schema.org/logo
+     * @see https://schema.org/loanType
+     * @see https://pending.schema.org
+     */
+    public function loanType($loanType)
+    {
+        return $this->setProperty('loanType', $loanType);
+    }
+
+    /**
+     * An associated logo.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $logo
+     *
+     * @return static
+     *
+     * @see https://schema.org/logo
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function logo($logo)
     {
@@ -384,11 +464,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -402,7 +482,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -412,13 +492,19 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * An offer to provide this item&#x2014;for example, an offer to sell a
      * product, rent the DVD of a movie, perform a service, or give away tickets
-     * to an event.
+     * to an event. Use [[businessFunction]] to indicate the kind of transaction
+     * offered, i.e. sell, lease, etc. This property can also be used to
+     * describe a [[Demand]]. While this property is listed as expected on a
+     * number of common types, it can be used in others. In that case, using a
+     * second type, such as Product or a subtype of Product, can clarify the
+     * nature of the offer.
      *
-     * @param Offer|Offer[] $offers
+     * @param \Spatie\SchemaOrg\Contracts\DemandContract|\Spatie\SchemaOrg\Contracts\DemandContract[]|\Spatie\SchemaOrg\Contracts\OfferContract|\Spatie\SchemaOrg\Contracts\OfferContract[] $offers
      *
      * @return static
      *
-     * @see http://schema.org/offers
+     * @see https://schema.org/offers
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
      */
     public function offers($offers)
     {
@@ -429,11 +515,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -444,11 +530,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * The tangible thing generated by the service, e.g. a passport, permit,
      * etc.
      *
-     * @param Thing|Thing[] $produces
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $produces
      *
      * @return static
      *
-     * @see http://schema.org/produces
+     * @see https://schema.org/produces
      */
     public function produces($produces)
     {
@@ -460,11 +546,12 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * producer. Another party (a seller) may offer those services or goods on
      * behalf of the provider. A provider may also serve as the seller.
      *
-     * @param Organization|Organization[]|Person|Person[] $provider
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $provider
      *
      * @return static
      *
-     * @see http://schema.org/provider
+     * @see https://schema.org/provider
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
      */
     public function provider($provider)
     {
@@ -478,7 +565,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/providerMobility
+     * @see https://schema.org/providerMobility
      */
     public function providerMobility($providerMobility)
     {
@@ -486,14 +573,48 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     }
 
     /**
-     * Assets required to secure loan or credit repayments. It may take form of
-     * third party pledge, goods, financial instruments (cash, securities, etc.)
+     * The only way you get the money back in the event of default is the
+     * security. Recourse is where you still have the opportunity to go back to
+     * the borrower for the rest of the money.
      *
-     * @param Thing|Thing[]|string|string[] $requiredCollateral
+     * @param bool|bool[] $recourseLoan
      *
      * @return static
      *
-     * @see http://schema.org/requiredCollateral
+     * @see https://schema.org/recourseLoan
+     * @see https://pending.schema.org
+     */
+    public function recourseLoan($recourseLoan)
+    {
+        return $this->setProperty('recourseLoan', $recourseLoan);
+    }
+
+    /**
+     * Whether the terms for payment of interest can be renegotiated during the
+     * life of the loan.
+     *
+     * @param bool|bool[] $renegotiableLoan
+     *
+     * @return static
+     *
+     * @see https://schema.org/renegotiableLoan
+     * @see https://pending.schema.org
+     */
+    public function renegotiableLoan($renegotiableLoan)
+    {
+        return $this->setProperty('renegotiableLoan', $renegotiableLoan);
+    }
+
+    /**
+     * Assets required to secure loan or credit repayments. It may take form of
+     * third party pledge, goods, financial instruments (cash, securities, etc.)
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[]|string|string[] $requiredCollateral
+     *
+     * @return static
+     *
+     * @see https://schema.org/requiredCollateral
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#FIBO
      */
     public function requiredCollateral($requiredCollateral)
     {
@@ -503,11 +624,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * A review of the item.
      *
-     * @param Review|Review[] $review
+     * @param \Spatie\SchemaOrg\Contracts\ReviewContract|\Spatie\SchemaOrg\Contracts\ReviewContract[] $review
      *
      * @return static
      *
-     * @see http://schema.org/review
+     * @see https://schema.org/review
      */
     public function review($review)
     {
@@ -523,7 +644,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -533,11 +654,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * The geographic area where the service is provided.
      *
-     * @param AdministrativeArea|AdministrativeArea[]|GeoShape|GeoShape[]|Place|Place[] $serviceArea
+     * @param \Spatie\SchemaOrg\Contracts\AdministrativeAreaContract|\Spatie\SchemaOrg\Contracts\AdministrativeAreaContract[]|\Spatie\SchemaOrg\Contracts\GeoShapeContract|\Spatie\SchemaOrg\Contracts\GeoShapeContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $serviceArea
      *
      * @return static
      *
-     * @see http://schema.org/serviceArea
+     * @see https://schema.org/serviceArea
      */
     public function serviceArea($serviceArea)
     {
@@ -547,11 +668,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * The audience eligible for this service.
      *
-     * @param Audience|Audience[] $serviceAudience
+     * @param \Spatie\SchemaOrg\Contracts\AudienceContract|\Spatie\SchemaOrg\Contracts\AudienceContract[] $serviceAudience
      *
      * @return static
      *
-     * @see http://schema.org/serviceAudience
+     * @see https://schema.org/serviceAudience
      */
     public function serviceAudience($serviceAudience)
     {
@@ -562,11 +683,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * The tangible thing generated by the service, e.g. a passport, permit,
      * etc.
      *
-     * @param Thing|Thing[] $serviceOutput
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[] $serviceOutput
      *
      * @return static
      *
-     * @see http://schema.org/serviceOutput
+     * @see https://schema.org/serviceOutput
      */
     public function serviceOutput($serviceOutput)
     {
@@ -577,11 +698,11 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      * The type of service being offered, e.g. veterans' benefits, emergency
      * relief, etc.
      *
-     * @param string|string[] $serviceType
+     * @param \Spatie\SchemaOrg\Contracts\GovernmentBenefitsTypeContract|\Spatie\SchemaOrg\Contracts\GovernmentBenefitsTypeContract[]|string|string[] $serviceType
      *
      * @return static
      *
-     * @see http://schema.org/serviceType
+     * @see https://schema.org/serviceType
      */
     public function serviceType($serviceType)
     {
@@ -595,7 +716,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/slogan
+     * @see https://schema.org/slogan
      */
     public function slogan($slogan)
     {
@@ -605,15 +726,32 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
         return $this->setProperty('subjectOf', $subjectOf);
+    }
+
+    /**
+     * Human-readable terms of service documentation.
+     *
+     * @param string|string[] $termsOfService
+     *
+     * @return static
+     *
+     * @see https://schema.org/termsOfService
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/1423
+     */
+    public function termsOfService($termsOfService)
+    {
+        return $this->setProperty('termsOfService', $termsOfService);
     }
 
     /**
@@ -623,7 +761,7 @@ class LoanOrCredit extends BaseType implements FinancialProductContract, Intangi
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

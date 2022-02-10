@@ -24,10 +24,10 @@ class WPML_Absolute_To_Permalinks {
 
 		$home    = rtrim( $this->sitepress->get_wp_api()->get_option( 'home' ), '/' );
 		$parts   = parse_url( $home );
-		$abshome = $parts[ 'scheme' ] . '://' . $parts[ 'host' ];
-		$path    = isset( $parts[ 'path' ] ) ? ltrim( $parts[ 'path' ], '/' ) : '';
+		$abshome = $parts['scheme'] . '://' . $parts['host'];
+		$path    = isset( $parts['path'] ) ? ltrim( $parts['path'], '/' ) : '';
 		$tx_qvs  = join( '|', $this->taxonomies_query->get_query_vars() );
-		$reg_ex  = '@<a([^>]+)?href="((' . $abshome . ')?/' . $path . '/?('. $active_langs_reg_ex. ')?\?(p|page_id|cat_ID|' . $tx_qvs . ')=([0-9a-z-]+))(#?[^"]*)"([^>]+)?>@i';
+		$reg_ex  = '@<a([^>]+)?href="((' . $abshome . ')?/' . $path . '/?(' . $active_langs_reg_ex . ')?\?(p|page_id|cat_ID|' . $tx_qvs . ')=([0-9a-z-]+))(#?[^"]*)"([^>]+)?>@i';
 		$text    = preg_replace_callback( $reg_ex, [ $this, 'show_permalinks_cb' ], $text );
 
 		return $text;
@@ -37,7 +37,7 @@ class WPML_Absolute_To_Permalinks {
 
 		$parts = $this->get_found_parts( $matches );
 
-		$url   = $this->get_url( $parts );
+		$url = $this->get_url( $parts );
 
 		if ( $this->sitepress->get_wp_api()->is_wp_error( $url ) || empty( $url ) ) {
 			return $parts->whole;
@@ -53,13 +53,14 @@ class WPML_Absolute_To_Permalinks {
 	}
 
 	private function get_found_parts( $matches ) {
-		return (object) array( 'whole'        => $matches[0],
-							   'pre_href'     => $matches[1],
-							   'content_type' => $matches[5],
-							   'id'           => $matches[6],
-							   'fragment'     => $matches[7],
-							   'trail'        => isset( $matches[8] ) ?  $matches[8] : ''
-							   );
+		return (object) array(
+			'whole'        => $matches[0],
+			'pre_href'     => $matches[1],
+			'content_type' => $matches[5],
+			'id'           => $matches[6],
+			'fragment'     => $matches[7],
+			'trail'        => isset( $matches[8] ) ? $matches[8] : '',
+		);
 	}
 
 	private function get_url( $parts ) {
@@ -87,9 +88,9 @@ class WPML_Absolute_To_Permalinks {
 		if ( $fragment != '' ) {
 			$fragment = str_replace( '&#038;', '&', $fragment );
 			$fragment = str_replace( '&amp;', '&', $fragment );
-			if ( $fragment[ 0 ] == '&' ) {
+			if ( $fragment[0] == '&' ) {
 				if ( strpos( $fragment, '?' ) === false && strpos( $url, '?' ) === false ) {
-					$fragment[ 0 ] = '?';
+					$fragment[0] = '?';
 				}
 			}
 
@@ -105,9 +106,9 @@ class WPML_Absolute_To_Permalinks {
 		if ( $fragment != '' ) {
 			$fragment = str_replace( '&#038;', '&', $fragment );
 			$fragment = str_replace( '&amp;', '&', $fragment );
-			$start = $fragment[0];
+			$start    = $fragment[0];
 			parse_str( substr( $fragment, 1 ), $fragment_query );
-			if ( isset( $fragment_query['lang' ] ) ) {
+			if ( isset( $fragment_query['lang'] ) ) {
 				if ( $fragment_query['lang'] != $this->lang ) {
 					unset( $fragment_query['lang'] );
 
@@ -115,21 +116,19 @@ class WPML_Absolute_To_Permalinks {
 					if ( strlen( $fragment ) ) {
 						$fragment = $start . $fragment;
 					}
-
 				}
 			}
-
 		}
 		return $fragment;
 	}
 
-	private function check_for_duplicate_lang_query( $fragment , $url ) {
+	private function check_for_duplicate_lang_query( $fragment, $url ) {
 		$url_parts = explode( '?', $url );
 		parse_str( $url_parts[1], $url_query );
 
 		if ( isset( $url_query['lang'] ) ) {
 			parse_str( substr( $fragment, 1 ), $fragment_query );
-			if ( isset( $fragment_query['lang' ] ) ) {
+			if ( isset( $fragment_query['lang'] ) ) {
 				unset( $fragment_query['lang'] );
 				$fragment = build_query( $fragment_query );
 				if ( strlen( $fragment ) ) {

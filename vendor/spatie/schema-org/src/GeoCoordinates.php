@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\GeoCoordinatesContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -9,10 +10,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
 /**
  * The geographic coordinates of a place or event.
  *
- * @see http://schema.org/GeoCoordinates
+ * @see https://schema.org/GeoCoordinates
  *
  */
-class GeoCoordinates extends BaseType implements IntangibleContract, StructuredValueContract, ThingContract
+class GeoCoordinates extends BaseType implements GeoCoordinatesContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -26,7 +27,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -36,11 +37,11 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
     /**
      * Physical address of the item.
      *
-     * @param PostalAddress|PostalAddress[]|string|string[] $address
+     * @param \Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|string|string[] $address
      *
      * @return static
      *
-     * @see http://schema.org/address
+     * @see https://schema.org/address
      */
     public function address($address)
     {
@@ -51,11 +52,12 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      * The country. For example, USA. You can also provide the two-letter [ISO
      * 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1).
      *
-     * @param Country|Country[]|string|string[] $addressCountry
+     * @param \Spatie\SchemaOrg\Contracts\CountryContract|\Spatie\SchemaOrg\Contracts\CountryContract[]|string|string[] $addressCountry
      *
      * @return static
      *
-     * @see http://schema.org/addressCountry
+     * @see https://schema.org/addressCountry
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
      */
     public function addressCountry($addressCountry)
     {
@@ -69,7 +71,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -83,7 +85,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -100,7 +102,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -117,7 +119,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/elevation
+     * @see https://schema.org/elevation
      */
     public function elevation($elevation)
     {
@@ -131,11 +133,11 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -146,11 +148,11 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -165,7 +167,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/latitude
+     * @see https://schema.org/latitude
      */
     public function latitude($latitude)
     {
@@ -180,7 +182,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/longitude
+     * @see https://schema.org/longitude
      */
     public function longitude($longitude)
     {
@@ -192,11 +194,11 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -210,7 +212,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -224,7 +226,8 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/postalCode
+     * @see https://schema.org/postalCode
+     * @link https://github.com/schemaorg/schemaorg/issues/2506
      */
     public function postalCode($postalCode)
     {
@@ -235,11 +238,11 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -255,7 +258,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -265,11 +268,12 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -283,7 +287,7 @@ class GeoCoordinates extends BaseType implements IntangibleContract, StructuredV
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

@@ -3,7 +3,7 @@
  * Plugin Name: Members
  * Plugin URI:  https://memberpress.com/plugins/members
  * Description: A user and role management plugin that puts you in full control of your site's permissions. This plugin allows you to edit your roles and their capabilities, clone existing roles, assign multiple roles per user, block post content, or even make your site completely private.
- * Version:     3.1.5
+ * Version:     3.1.7
  * Author:      MemberPress
  * Author URI:  https://memberpress.com
  * Text Domain: members
@@ -431,7 +431,7 @@ final class Members_Plugin {
 	public function run_addon_activator( $addon ) {
 
 		if ( file_exists( trailingslashit( __DIR__ ) . "addons/{$addon}/src/Activator.php" ) ) {
-			
+
 			// Require the add-on file
 			include "addons/{$addon}/src/Activator.php";
 
@@ -458,7 +458,7 @@ final class Members_Plugin {
 			), null, true );
 			wp_localize_script( 'block-editor-mp-upsell', 'membersUpsell', array(
 				'title' => __( 'Permissions', 'members' ),
-				'message' => __( 'To protect this block by paid membership or centrally with a content protection rule, upgrade to MemberPress.', 'members' )
+				'message' => __( 'To protect this block by paid membership or centrally with a content protection rule, add MemberPress.', 'members' )
 			) );
 		}
 	}

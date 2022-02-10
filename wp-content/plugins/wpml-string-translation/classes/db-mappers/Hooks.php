@@ -2,7 +2,6 @@
 
 namespace WPML\ST\DB\Mappers;
 
-
 use function WPML\Container\make;
 use function WPML\FP\partial;
 

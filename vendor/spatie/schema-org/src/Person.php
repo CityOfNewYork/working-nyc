@@ -2,15 +2,17 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\PersonContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
 /**
  * A person (alive, dead, undead, or fictional).
  *
- * @see http://schema.org/Person
+ * @see https://schema.org/Person
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_rNews
  *
  */
-class Person extends BaseType implements ThingContract
+class Person extends BaseType implements PersonContract, ThingContract
 {
     /**
      * An additional name for a Person, can be used for a middle name.
@@ -19,7 +21,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalName
+     * @see https://schema.org/additionalName
      */
     public function additionalName($additionalName)
     {
@@ -38,7 +40,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -48,11 +50,11 @@ class Person extends BaseType implements ThingContract
     /**
      * Physical address of the item.
      *
-     * @param PostalAddress|PostalAddress[]|string|string[] $address
+     * @param \Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[]|string|string[] $address
      *
      * @return static
      *
-     * @see http://schema.org/address
+     * @see https://schema.org/address
      */
     public function address($address)
     {
@@ -63,11 +65,11 @@ class Person extends BaseType implements ThingContract
      * An organization that this person is affiliated with. For example, a
      * school/university, a club, or a team.
      *
-     * @param Organization|Organization[] $affiliation
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $affiliation
      *
      * @return static
      *
-     * @see http://schema.org/affiliation
+     * @see https://schema.org/affiliation
      */
     public function affiliation($affiliation)
     {
@@ -81,7 +83,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -91,11 +93,11 @@ class Person extends BaseType implements ThingContract
     /**
      * An organization that the person is an alumni of.
      *
-     * @param EducationalOrganization|EducationalOrganization[]|Organization|Organization[] $alumniOf
+     * @param \Spatie\SchemaOrg\Contracts\EducationalOrganizationContract|\Spatie\SchemaOrg\Contracts\EducationalOrganizationContract[]|\Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $alumniOf
      *
      * @return static
      *
-     * @see http://schema.org/alumniOf
+     * @see https://schema.org/alumniOf
      */
     public function alumniOf($alumniOf)
     {
@@ -109,7 +111,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/award
+     * @see https://schema.org/award
      */
     public function award($award)
     {
@@ -123,7 +125,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/awards
+     * @see https://schema.org/awards
      */
     public function awards($awards)
     {
@@ -137,7 +139,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/birthDate
+     * @see https://schema.org/birthDate
      */
     public function birthDate($birthDate)
     {
@@ -147,11 +149,11 @@ class Person extends BaseType implements ThingContract
     /**
      * The place where the person was born.
      *
-     * @param Place|Place[] $birthPlace
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $birthPlace
      *
      * @return static
      *
-     * @see http://schema.org/birthPlace
+     * @see https://schema.org/birthPlace
      */
     public function birthPlace($birthPlace)
     {
@@ -162,11 +164,11 @@ class Person extends BaseType implements ThingContract
      * The brand(s) associated with a product or service, or the brand(s)
      * maintained by an organization or business person.
      *
-     * @param Brand|Brand[]|Organization|Organization[] $brand
+     * @param \Spatie\SchemaOrg\Contracts\BrandContract|\Spatie\SchemaOrg\Contracts\BrandContract[]|\Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $brand
      *
      * @return static
      *
-     * @see http://schema.org/brand
+     * @see https://schema.org/brand
      */
     public function brand($brand)
     {
@@ -174,13 +176,31 @@ class Person extends BaseType implements ThingContract
     }
 
     /**
-     * A child of the person.
+     * A [callsign](https://en.wikipedia.org/wiki/Call_sign), as used in
+     * broadcasting and radio communications to identify people, radio and TV
+     * stations, or vehicles.
      *
-     * @param Person|Person[] $children
+     * @param string|string[] $callSign
      *
      * @return static
      *
-     * @see http://schema.org/children
+     * @see https://schema.org/callSign
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2109
+     */
+    public function callSign($callSign)
+    {
+        return $this->setProperty('callSign', $callSign);
+    }
+
+    /**
+     * A child of the person.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $children
+     *
+     * @return static
+     *
+     * @see https://schema.org/children
      */
     public function children($children)
     {
@@ -190,11 +210,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A colleague of the person.
      *
-     * @param Person|Person[]|string|string[] $colleague
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[]|string|string[] $colleague
      *
      * @return static
      *
-     * @see http://schema.org/colleague
+     * @see https://schema.org/colleague
      */
     public function colleague($colleague)
     {
@@ -204,11 +224,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A colleague of the person.
      *
-     * @param Person|Person[] $colleagues
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $colleagues
      *
      * @return static
      *
-     * @see http://schema.org/colleagues
+     * @see https://schema.org/colleagues
      */
     public function colleagues($colleagues)
     {
@@ -218,11 +238,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A contact point for a person or organization.
      *
-     * @param ContactPoint|ContactPoint[] $contactPoint
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[] $contactPoint
      *
      * @return static
      *
-     * @see http://schema.org/contactPoint
+     * @see https://schema.org/contactPoint
      */
     public function contactPoint($contactPoint)
     {
@@ -232,11 +252,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A contact point for a person or organization.
      *
-     * @param ContactPoint|ContactPoint[] $contactPoints
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[] $contactPoints
      *
      * @return static
      *
-     * @see http://schema.org/contactPoints
+     * @see https://schema.org/contactPoints
      */
     public function contactPoints($contactPoints)
     {
@@ -250,7 +270,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/deathDate
+     * @see https://schema.org/deathDate
      */
     public function deathDate($deathDate)
     {
@@ -260,11 +280,11 @@ class Person extends BaseType implements ThingContract
     /**
      * The place where the person died.
      *
-     * @param Place|Place[] $deathPlace
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $deathPlace
      *
      * @return static
      *
-     * @see http://schema.org/deathPlace
+     * @see https://schema.org/deathPlace
      */
     public function deathPlace($deathPlace)
     {
@@ -278,7 +298,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -295,7 +315,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -310,7 +330,8 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/duns
+     * @see https://schema.org/duns
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function duns($duns)
     {
@@ -324,7 +345,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/email
+     * @see https://schema.org/email
      */
     public function email($email)
     {
@@ -332,14 +353,13 @@ class Person extends BaseType implements ThingContract
     }
 
     /**
-     * Family name. In the U.S., the last name of an Person. This can be used
-     * along with givenName instead of the name property.
+     * Family name. In the U.S., the last name of a Person.
      *
      * @param string|string[] $familyName
      *
      * @return static
      *
-     * @see http://schema.org/familyName
+     * @see https://schema.org/familyName
      */
     public function familyName($familyName)
     {
@@ -353,7 +373,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/faxNumber
+     * @see https://schema.org/faxNumber
      */
     public function faxNumber($faxNumber)
     {
@@ -363,11 +383,11 @@ class Person extends BaseType implements ThingContract
     /**
      * The most generic uni-directional social relation.
      *
-     * @param Person|Person[] $follows
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $follows
      *
      * @return static
      *
-     * @see http://schema.org/follows
+     * @see https://schema.org/follows
      */
     public function follows($follows)
     {
@@ -378,11 +398,11 @@ class Person extends BaseType implements ThingContract
      * A person or organization that supports (sponsors) something through some
      * kind of financial contribution.
      *
-     * @param Organization|Organization[]|Person|Person[] $funder
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $funder
      *
      * @return static
      *
-     * @see http://schema.org/funder
+     * @see https://schema.org/funder
      */
     public function funder($funder)
     {
@@ -390,15 +410,22 @@ class Person extends BaseType implements ThingContract
     }
 
     /**
-     * Gender of the person. While http://schema.org/Male and
-     * http://schema.org/Female may be used, text strings are also acceptable
-     * for people who do not identify as a binary gender.
+     * Gender of something, typically a [[Person]], but possibly also fictional
+     * characters, animals, etc. While https://schema.org/Male and
+     * https://schema.org/Female may be used, text strings are also acceptable
+     * for people who do not identify as a binary gender. The [[gender]]
+     * property can also be used in an extended sense to cover e.g. the gender
+     * of sports teams. As with the gender of individuals, we do not try to
+     * enumerate all possibilities. A mixed-gender [[SportsTeam]] can be
+     * indicated with a text value of "Mixed".
      *
-     * @param GenderType|GenderType[]|string|string[] $gender
+     * @param \Spatie\SchemaOrg\Contracts\GenderTypeContract|\Spatie\SchemaOrg\Contracts\GenderTypeContract[]|string|string[] $gender
      *
      * @return static
      *
-     * @see http://schema.org/gender
+     * @see https://schema.org/gender
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2341
      */
     public function gender($gender)
     {
@@ -406,14 +433,13 @@ class Person extends BaseType implements ThingContract
     }
 
     /**
-     * Given name. In the U.S., the first name of a Person. This can be used
-     * along with familyName instead of the name property.
+     * Given name. In the U.S., the first name of a Person.
      *
      * @param string|string[] $givenName
      *
      * @return static
      *
-     * @see http://schema.org/givenName
+     * @see https://schema.org/givenName
      */
     public function givenName($givenName)
     {
@@ -430,7 +456,8 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/globalLocationNumber
+     * @see https://schema.org/globalLocationNumber
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function globalLocationNumber($globalLocationNumber)
     {
@@ -438,14 +465,31 @@ class Person extends BaseType implements ThingContract
     }
 
     /**
-     * The Person's occupation. For past professions, use Role for expressing
-     * dates.
+     * A credential awarded to the Person or Organization.
      *
-     * @param Occupation|Occupation[] $hasOccupation
+     * @param \Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract|\Spatie\SchemaOrg\Contracts\EducationalOccupationalCredentialContract[] $hasCredential
      *
      * @return static
      *
-     * @see http://schema.org/hasOccupation
+     * @see https://schema.org/hasCredential
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2289
+     */
+    public function hasCredential($hasCredential)
+    {
+        return $this->setProperty('hasCredential', $hasCredential);
+    }
+
+    /**
+     * The Person's occupation. For past professions, use Role for expressing
+     * dates.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\OccupationContract|\Spatie\SchemaOrg\Contracts\OccupationContract[] $hasOccupation
+     *
+     * @return static
+     *
+     * @see https://schema.org/hasOccupation
+     * @link https://github.com/schemaorg/schemaorg/issues/1698
      */
     public function hasOccupation($hasOccupation)
     {
@@ -456,11 +500,11 @@ class Person extends BaseType implements ThingContract
      * Indicates an OfferCatalog listing for this Organization, Person, or
      * Service.
      *
-     * @param OfferCatalog|OfferCatalog[] $hasOfferCatalog
+     * @param \Spatie\SchemaOrg\Contracts\OfferCatalogContract|\Spatie\SchemaOrg\Contracts\OfferCatalogContract[] $hasOfferCatalog
      *
      * @return static
      *
-     * @see http://schema.org/hasOfferCatalog
+     * @see https://schema.org/hasOfferCatalog
      */
     public function hasOfferCatalog($hasOfferCatalog)
     {
@@ -470,11 +514,12 @@ class Person extends BaseType implements ThingContract
     /**
      * Points-of-Sales operated by the organization or person.
      *
-     * @param Place|Place[] $hasPOS
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $hasPOS
      *
      * @return static
      *
-     * @see http://schema.org/hasPOS
+     * @see https://schema.org/hasPOS
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function hasPOS($hasPOS)
     {
@@ -484,11 +529,11 @@ class Person extends BaseType implements ThingContract
     /**
      * The height of the item.
      *
-     * @param Distance|Distance[]|QuantitativeValue|QuantitativeValue[] $height
+     * @param \Spatie\SchemaOrg\Contracts\DistanceContract|\Spatie\SchemaOrg\Contracts\DistanceContract[]|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $height
      *
      * @return static
      *
-     * @see http://schema.org/height
+     * @see https://schema.org/height
      */
     public function height($height)
     {
@@ -498,11 +543,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A contact location for a person's residence.
      *
-     * @param ContactPoint|ContactPoint[]|Place|Place[] $homeLocation
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $homeLocation
      *
      * @return static
      *
-     * @see http://schema.org/homeLocation
+     * @see https://schema.org/homeLocation
      */
     public function homeLocation($homeLocation)
     {
@@ -516,7 +561,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/honorificPrefix
+     * @see https://schema.org/honorificPrefix
      */
     public function honorificPrefix($honorificPrefix)
     {
@@ -524,13 +569,13 @@ class Person extends BaseType implements ThingContract
     }
 
     /**
-     * An honorific suffix preceding a Person's name such as M.D. /PhD/MSCSW.
+     * An honorific suffix following a Person's name such as M.D. /PhD/MSCSW.
      *
      * @param string|string[] $honorificSuffix
      *
      * @return static
      *
-     * @see http://schema.org/honorificSuffix
+     * @see https://schema.org/honorificSuffix
      */
     public function honorificSuffix($honorificSuffix)
     {
@@ -544,11 +589,11 @@ class Person extends BaseType implements ThingContract
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -559,15 +604,32 @@ class Person extends BaseType implements ThingContract
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
         return $this->setProperty('image', $image);
+    }
+
+    /**
+     * The number of interactions for the CreativeWork using the WebSite or
+     * SoftwareApplication. The most specific child type of InteractionCounter
+     * should be used.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\InteractionCounterContract|\Spatie\SchemaOrg\Contracts\InteractionCounterContract[] $interactionStatistic
+     *
+     * @return static
+     *
+     * @see https://schema.org/interactionStatistic
+     * @link https://github.com/schemaorg/schemaorg/issues/2421
+     */
+    public function interactionStatistic($interactionStatistic)
+    {
+        return $this->setProperty('interactionStatistic', $interactionStatistic);
     }
 
     /**
@@ -579,7 +641,8 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/isicV4
+     * @see https://schema.org/isicV4
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function isicV4($isicV4)
     {
@@ -589,11 +652,13 @@ class Person extends BaseType implements ThingContract
     /**
      * The job title of the person (for example, Financial Manager).
      *
-     * @param string|string[] $jobTitle
+     * @param \Spatie\SchemaOrg\Contracts\DefinedTermContract|\Spatie\SchemaOrg\Contracts\DefinedTermContract[]|string|string[] $jobTitle
      *
      * @return static
      *
-     * @see http://schema.org/jobTitle
+     * @see https://schema.org/jobTitle
+     * @see https://pending.schema.org
+     * @link https://github.com/schemaorg/schemaorg/issues/2192
      */
     public function jobTitle($jobTitle)
     {
@@ -603,11 +668,11 @@ class Person extends BaseType implements ThingContract
     /**
      * The most generic bi-directional social/work relation.
      *
-     * @param Person|Person[] $knows
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $knows
      *
      * @return static
      *
-     * @see http://schema.org/knows
+     * @see https://schema.org/knows
      */
     public function knows($knows)
     {
@@ -615,15 +680,51 @@ class Person extends BaseType implements ThingContract
     }
 
     /**
+     * Of a [[Person]], and less typically of an [[Organization]], to indicate a
+     * topic that is known about - suggesting possible expertise but not
+     * implying it. We do not distinguish skill levels here, or relate this to
+     * educational content, events, objectives or [[JobPosting]] descriptions.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\ThingContract|\Spatie\SchemaOrg\Contracts\ThingContract[]|string|string[] $knowsAbout
+     *
+     * @return static
+     *
+     * @see https://schema.org/knowsAbout
+     * @see https://pending.schema.org
+     */
+    public function knowsAbout($knowsAbout)
+    {
+        return $this->setProperty('knowsAbout', $knowsAbout);
+    }
+
+    /**
+     * Of a [[Person]], and less typically of an [[Organization]], to indicate a
+     * known language. We do not distinguish skill levels or
+     * reading/writing/speaking/signing here. Use language codes from the [IETF
+     * BCP 47 standard](http://tools.ietf.org/html/bcp47).
+     *
+     * @param \Spatie\SchemaOrg\Contracts\LanguageContract|\Spatie\SchemaOrg\Contracts\LanguageContract[]|string|string[] $knowsLanguage
+     *
+     * @return static
+     *
+     * @see https://schema.org/knowsLanguage
+     * @see https://pending.schema.org
+     */
+    public function knowsLanguage($knowsLanguage)
+    {
+        return $this->setProperty('knowsLanguage', $knowsLanguage);
+    }
+
+    /**
      * Indicates a page (or other CreativeWork) for which this thing is the main
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -633,11 +734,12 @@ class Person extends BaseType implements ThingContract
     /**
      * A pointer to products or services offered by the organization or person.
      *
-     * @param Offer|Offer[] $makesOffer
+     * @param \Spatie\SchemaOrg\Contracts\OfferContract|\Spatie\SchemaOrg\Contracts\OfferContract[] $makesOffer
      *
      * @return static
      *
-     * @see http://schema.org/makesOffer
+     * @see https://schema.org/makesOffer
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function makesOffer($makesOffer)
     {
@@ -648,11 +750,11 @@ class Person extends BaseType implements ThingContract
      * An Organization (or ProgramMembership) to which this Person or
      * Organization belongs.
      *
-     * @param Organization|Organization[]|ProgramMembership|ProgramMembership[] $memberOf
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\ProgramMembershipContract|\Spatie\SchemaOrg\Contracts\ProgramMembershipContract[] $memberOf
      *
      * @return static
      *
-     * @see http://schema.org/memberOf
+     * @see https://schema.org/memberOf
      */
     public function memberOf($memberOf)
     {
@@ -667,7 +769,8 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/naics
+     * @see https://schema.org/naics
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function naics($naics)
     {
@@ -681,7 +784,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -691,11 +794,11 @@ class Person extends BaseType implements ThingContract
     /**
      * Nationality of the person.
      *
-     * @param Country|Country[] $nationality
+     * @param \Spatie\SchemaOrg\Contracts\CountryContract|\Spatie\SchemaOrg\Contracts\CountryContract[] $nationality
      *
      * @return static
      *
-     * @see http://schema.org/nationality
+     * @see https://schema.org/nationality
      */
     public function nationality($nationality)
     {
@@ -706,11 +809,11 @@ class Person extends BaseType implements ThingContract
      * The total financial value of the person as calculated by subtracting
      * assets from liabilities.
      *
-     * @param MonetaryAmount|MonetaryAmount[]|PriceSpecification|PriceSpecification[] $netWorth
+     * @param \Spatie\SchemaOrg\Contracts\MonetaryAmountContract|\Spatie\SchemaOrg\Contracts\MonetaryAmountContract[]|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract|\Spatie\SchemaOrg\Contracts\PriceSpecificationContract[] $netWorth
      *
      * @return static
      *
-     * @see http://schema.org/netWorth
+     * @see https://schema.org/netWorth
      */
     public function netWorth($netWorth)
     {
@@ -720,11 +823,12 @@ class Person extends BaseType implements ThingContract
     /**
      * Products owned by the organization or person.
      *
-     * @param OwnershipInfo|OwnershipInfo[]|Product|Product[] $owns
+     * @param \Spatie\SchemaOrg\Contracts\OwnershipInfoContract|\Spatie\SchemaOrg\Contracts\OwnershipInfoContract[]|\Spatie\SchemaOrg\Contracts\ProductContract|\Spatie\SchemaOrg\Contracts\ProductContract[] $owns
      *
      * @return static
      *
-     * @see http://schema.org/owns
+     * @see https://schema.org/owns
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function owns($owns)
     {
@@ -734,11 +838,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A parent of this person.
      *
-     * @param Person|Person[] $parent
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $parent
      *
      * @return static
      *
-     * @see http://schema.org/parent
+     * @see https://schema.org/parent
      */
     public function parent($parent)
     {
@@ -748,11 +852,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A parents of the person.
      *
-     * @param Person|Person[] $parents
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $parents
      *
      * @return static
      *
-     * @see http://schema.org/parents
+     * @see https://schema.org/parents
      */
     public function parents($parents)
     {
@@ -762,11 +866,11 @@ class Person extends BaseType implements ThingContract
     /**
      * Event that this person is a performer or participant in.
      *
-     * @param Event|Event[] $performerIn
+     * @param \Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $performerIn
      *
      * @return static
      *
-     * @see http://schema.org/performerIn
+     * @see https://schema.org/performerIn
      */
     public function performerIn($performerIn)
     {
@@ -777,11 +881,11 @@ class Person extends BaseType implements ThingContract
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -801,11 +905,11 @@ class Person extends BaseType implements ThingContract
      * sometimes related information (e.g. indicating a [[funder]]) can be
      * expressed using schema.org terminology.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $publishingPrinciples
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $publishingPrinciples
      *
      * @return static
      *
-     * @see http://schema.org/publishingPrinciples
+     * @see https://schema.org/publishingPrinciples
      */
     public function publishingPrinciples($publishingPrinciples)
     {
@@ -815,11 +919,11 @@ class Person extends BaseType implements ThingContract
     /**
      * The most generic familial relation.
      *
-     * @param Person|Person[] $relatedTo
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $relatedTo
      *
      * @return static
      *
-     * @see http://schema.org/relatedTo
+     * @see https://schema.org/relatedTo
      */
     public function relatedTo($relatedTo)
     {
@@ -835,7 +939,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -846,11 +950,12 @@ class Person extends BaseType implements ThingContract
      * A pointer to products or services sought by the organization or person
      * (demand).
      *
-     * @param Demand|Demand[] $seeks
+     * @param \Spatie\SchemaOrg\Contracts\DemandContract|\Spatie\SchemaOrg\Contracts\DemandContract[] $seeks
      *
      * @return static
      *
-     * @see http://schema.org/seeks
+     * @see https://schema.org/seeks
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function seeks($seeks)
     {
@@ -860,11 +965,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A sibling of the person.
      *
-     * @param Person|Person[] $sibling
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $sibling
      *
      * @return static
      *
-     * @see http://schema.org/sibling
+     * @see https://schema.org/sibling
      */
     public function sibling($sibling)
     {
@@ -874,11 +979,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A sibling of the person.
      *
-     * @param Person|Person[] $siblings
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $siblings
      *
      * @return static
      *
-     * @see http://schema.org/siblings
+     * @see https://schema.org/siblings
      */
     public function siblings($siblings)
     {
@@ -890,11 +995,11 @@ class Person extends BaseType implements ThingContract
      * or financial contribution. e.g. a sponsor of a Medical Study or a
      * corporate sponsor of an event.
      *
-     * @param Organization|Organization[]|Person|Person[] $sponsor
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[]|\Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $sponsor
      *
      * @return static
      *
-     * @see http://schema.org/sponsor
+     * @see https://schema.org/sponsor
      */
     public function sponsor($sponsor)
     {
@@ -904,11 +1009,11 @@ class Person extends BaseType implements ThingContract
     /**
      * The person's spouse.
      *
-     * @param Person|Person[] $spouse
+     * @param \Spatie\SchemaOrg\Contracts\PersonContract|\Spatie\SchemaOrg\Contracts\PersonContract[] $spouse
      *
      * @return static
      *
-     * @see http://schema.org/spouse
+     * @see https://schema.org/spouse
      */
     public function spouse($spouse)
     {
@@ -918,11 +1023,12 @@ class Person extends BaseType implements ThingContract
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -937,7 +1043,8 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/taxID
+     * @see https://schema.org/taxID
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function taxID($taxID)
     {
@@ -951,7 +1058,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/telephone
+     * @see https://schema.org/telephone
      */
     public function telephone($telephone)
     {
@@ -965,7 +1072,7 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {
@@ -979,7 +1086,8 @@ class Person extends BaseType implements ThingContract
      *
      * @return static
      *
-     * @see http://schema.org/vatID
+     * @see https://schema.org/vatID
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function vatID($vatID)
     {
@@ -989,11 +1097,12 @@ class Person extends BaseType implements ThingContract
     /**
      * The weight of the product or person.
      *
-     * @param QuantitativeValue|QuantitativeValue[] $weight
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $weight
      *
      * @return static
      *
-     * @see http://schema.org/weight
+     * @see https://schema.org/weight
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#source_GoodRelationsTerms
      */
     public function weight($weight)
     {
@@ -1003,11 +1112,11 @@ class Person extends BaseType implements ThingContract
     /**
      * A contact location for a person's place of work.
      *
-     * @param ContactPoint|ContactPoint[]|Place|Place[] $workLocation
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[]|\Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $workLocation
      *
      * @return static
      *
-     * @see http://schema.org/workLocation
+     * @see https://schema.org/workLocation
      */
     public function workLocation($workLocation)
     {
@@ -1017,11 +1126,11 @@ class Person extends BaseType implements ThingContract
     /**
      * Organizations that the person works for.
      *
-     * @param Organization|Organization[] $worksFor
+     * @param \Spatie\SchemaOrg\Contracts\OrganizationContract|\Spatie\SchemaOrg\Contracts\OrganizationContract[] $worksFor
      *
      * @return static
      *
-     * @see http://schema.org/worksFor
+     * @see https://schema.org/worksFor
      */
     public function worksFor($worksFor)
     {

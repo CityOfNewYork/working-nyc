@@ -34,22 +34,23 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 	};
 
 	var attachEvents = function () {
-		attachAutoSaveEvents();
-		attachToggleEvents();
-		attachTooltipEvents();
-		attachDialogEvents();
-		attachRowActionEvents();
-		attachSelectedSlotChangeEvents();
-		attachPresetColorsEvent();
-		attachTemplateChangeEvents();
-		attachMenuHierarchicalEvents();
-		attachUpdatePreviewEvents();
-		attachSaveClickEvents();
-		fixSelectedOption();
-		forceRefreshOnBrowserBackButton();
-		setupWizardNextEvent();
-		preventClickOnPreviewLinks();
-	};
+        attachAutoSaveEvents();
+        attachToggleEvents();
+        attachSubOptionsEvents();
+        attachTooltipEvents();
+        attachDialogEvents();
+        attachRowActionEvents();
+        attachSelectedSlotChangeEvents();
+        attachPresetColorsEvent();
+        attachTemplateChangeEvents();
+        attachMenuHierarchicalEvents();
+        attachUpdatePreviewEvents();
+        attachSaveClickEvents();
+        fixSelectedOption();
+        forceRefreshOnBrowserBackButton();
+        setupWizardNextEvent();
+        preventClickOnPreviewLinks();
+    };
 
 	var maybeInitAdditionalCssStyle = function() {
 		if ($('#' + additionalCssStyleId).length < 1) {
@@ -59,65 +60,84 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 		}
 	};
 
-	var attachAutoSaveEvents = function() {
-		formAndDialogBox.on('change', '.js-wpml-ls-trigger-save', function() {
-			updateSettings($(this));
-		});
+    var attachAutoSaveEvents = function () {
+        formAndDialogBox.on('change', '.js-wpml-ls-trigger-save', function () {
+            updateSettings($(this));
+        });
 
-		formAndDialogBox.on('keyup', '.js-wpml-ls-trigger-need-save', function() {
-			var triggerNode = $(this),
-				messageWrapper = triggerNode.closest('.js-wpml-ls-option').find('.js-wpml-ls-messages');
+        formAndDialogBox.on('keyup', '.js-wpml-ls-trigger-need-save', function () {
+            var triggerNode = $(this),
+                messageWrapper = triggerNode.closest('.js-wpml-ls-option').find('.js-wpml-ls-messages');
 
-			showUpdatedContent(messageWrapper, wpml_ls.strings.leave_text_box_to_save , 0, 'notice');
-		});
-	};
-	
-	var attachToggleEvents = function() {
-		formAndDialogBox
-			.on('click', '.js-wpml-ls-toggle-slot', function() {
-				var triggerNode = $(this);
-				var targetNode  = $(triggerNode.data('target'));
+            showUpdatedContent(messageWrapper, wpml_ls.strings.leave_text_box_to_save, 0, 'notice');
+        });
+    };
 
-				targetNode.slideToggle({
-					complete: function(){
-						if(targetNode.is(':visible')) {
-							triggerNode.addClass('open');
-							targetNode.find('.js-wpml-ls-row-edit').trigger('click');
-						} else {
-							triggerNode.removeClass('open');
-						}
-						repositionDialog();
+    var attachSubOptionsEvents = function () {
+        formAndDialogBox
+            .on('click', '.js-wpml-ls-toggle-suboptions', function () {
+                const triggerNode = $(this);
+                const targetNode = $(triggerNode.data('target'));
 
-					}
-				});
-			})
-			.on('click', '.js-wpml-ls-toggle-once', function() {
-				var targetNode = $(this).nextAll('.js-wpml-ls-toggle-target');
-				$(this).find('label').unwrap().find('.js-arrow-toggle').remove();
-				targetNode.slideToggle();
-				return false;
-			});
-	};
+                // Use this with non-boolean inputs (e.g. radio buttons group).
+                const showOnValue = !!triggerNode.data('show-on-value') && "" + triggerNode.val() === "" + triggerNode.data('show-on-value');
+                // Use this with a checkbox.
+                const showOnChecked = !!triggerNode.data('show-on-checked') && triggerNode.prop('checked');
 
-	var attachTooltipEvents = function() {
-		formAndDialogBox.on('click.tooltip', '.js-wpml-ls-tooltip-open', function(e) {
-			e.preventDefault();
-			openTooltip($(this));
-		});
-	};
+                if (showOnValue || showOnChecked) {
+                    targetNode.slideDown();
+                } else {
+                    targetNode.slideUp();
+                }
+            });
+    };
 
-	var initLanguageSortable = function() {
-		$('#wpml-ls-languages-order').sortable({
-			stop: function() {
-				updateSettings($(this));
-			}
-		});
-	};
+    var attachToggleEvents = function () {
+        formAndDialogBox
+            .on('click', '.js-wpml-ls-toggle-slot', function () {
+                var triggerNode = $(this);
+                var targetNode = $(triggerNode.data('target'));
 
-	var initDialogNode = function() {
-		dialogBox.dialog({
-				dialogClass: 'dialog-fixed otgs-ui-dialog wpml-ls-dialog',
-				width: '90%',
+                targetNode.slideToggle({
+                                           complete: function () {
+                                               if (targetNode.is(':visible')) {
+                                                   triggerNode.addClass('open');
+                                                   targetNode.find('.js-wpml-ls-row-edit').trigger('click');
+                                               } else {
+                                                   triggerNode.removeClass('open');
+                                               }
+                                               repositionDialog();
+
+                                           }
+                                       });
+            })
+            .on('click', '.js-wpml-ls-toggle-once', function () {
+                var targetNode = $(this).nextAll('.js-wpml-ls-toggle-target');
+                $(this).find('label').unwrap().find('.js-arrow-toggle').remove();
+                targetNode.slideToggle();
+                return false;
+            });
+    };
+
+    var attachTooltipEvents = function () {
+        formAndDialogBox.on('click.tooltip', '.js-wpml-ls-tooltip-open', function (e) {
+            e.preventDefault();
+            openTooltip($(this));
+        });
+    };
+
+    var initLanguageSortable = function () {
+        $('#wpml-ls-languages-order').sortable({
+                                                   stop: function () {
+                                                       updateSettings($(this));
+                                                   }
+                                               });
+    };
+
+    var initDialogNode = function () {
+        dialogBox.dialog({
+                             dialogClass: 'dialog-fixed otgs-ui-dialog wpml-ls-dialog',
+                             width      : '90%',
 				modal:       true,
 				autoOpen:    false,
 				draggable:   true,
@@ -164,7 +184,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 	};
 
 	var getItemFromHash = function() {
-		var hashParts = window.location.hash.substring(1).split('/'),
+		var hashParts = WPML_core.sanitize(window.location.hash).substring(1).split('/'),
 			item = null,
 			type = hashParts[0] || '',
 			slug = hashParts[1] || '';
@@ -303,7 +323,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 
 	var attachSelectedSlotChangeEvents = function() {
 		formAndDialogBox.on('change', '.js-wpml-ls-available-slots', function(){
-			var newSlug = $(this).val(),
+			var newSlug = WPML_core.sanitize( $(this).val() ),
 				subform = $(this).closest('.js-wpml-ls-subform'),
 				itemType = subform.data('item-type');
 
@@ -337,7 +357,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 
 	var attachPresetColorsEvent = function() {
 		formAndDialogBox.on('change', '.js-wpml-ls-colorpicker-preset', function(){
-			var slug = $(this).val(),
+			var slug = WPML_core.sanitize( $(this).val() ),
 				subform = $(this).parents('.js-wpml-ls-subform');
 
 			if (slug) {
@@ -358,7 +378,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 	var fixSelectedOption = function() {
 		// Prevent loosing selected after replacing in original id
 		formAndDialogBox.on('change', 'select', function () {
-			var selectedVal = $(this).val();
+			var selectedVal = WPML_core.sanitize( $(this).val() );
 			$('option', this).prop('selected', false);
 			$('option', this).attr('selected', false);
 			$('option[value="' + selectedVal + '"]', this).prop('selected', true);
@@ -386,7 +406,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 			form.find('input[name="submit_setup_wizard"]').val(1);
 
 			updateSettings(form, function(){
-				location.href = location.href.replace(/#.*/,'');
+				location.href = WPML_core.sanitize(location.href).replace(/#.*/,'');
 			});
 		});
 	};
@@ -433,7 +453,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 				buttons: function( event, t ) {
 					var button = $('<a class="close" href="#">&nbsp;</a>');
 
-					return button.bind( 'click.pointer', function(e) {
+					return button.on( 'click.pointer', function(e) {
 						e.preventDefault();
 						t.element.pointer('close');
 					});
@@ -539,7 +559,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 	var updateRowAndSubform = function(subform) {
 		var row      = $('#' + subform.data('origin-id')),
 			itemType = subform.data('item-type'),
-			slug     = subform.find('.js-wpml-ls-available-slots').val();
+			slug     = WPML_core.sanitize( subform.find('.js-wpml-ls-available-slots').val() );
 
 		row.find('.js-wpml-ls-subform').replaceWith(subform);
 
@@ -557,7 +577,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 
 	var appendNewRowAndSubform = function(subform) {
 		var itemType = subform.data('item-type'),
-			slug     = subform.find('.js-wpml-ls-available-' + itemType).val();
+			slug     = WPML_core.sanitize( subform.find('.js-wpml-ls-available-' + itemType).val() );
 
 		replaceSubformElementsAttributes(subform, slug);
 
@@ -671,7 +691,7 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 			})
 			.on('keyup', '.js-wpml-ls-additional-css', function(){
 				var styleId      = 'wpml-ls-inline-styles-additional-css',
-					newStyleNode = $('<style id="' + styleId + '" type="text/css">' + $(this).val() + '</style>');
+					newStyleNode = $('<style id="' + styleId + '" type="text/css">' + WPML_core.sanitize( $(this).val() ) + '</style>');
 
 				$('#' + styleId).replaceWith(newStyleNode);
 			});
@@ -881,8 +901,8 @@ WPML_core.languageSwitcher = (function( $, wpml_ls ) {
 
 })( jQuery, wpml_language_switcher_admin );
 
-jQuery(document).ready(function () {
-	"use strict";
+jQuery(function () {
+    "use strict";
 
-	WPML_core.languageSwitcher.init();
+    WPML_core.languageSwitcher.init();
 });

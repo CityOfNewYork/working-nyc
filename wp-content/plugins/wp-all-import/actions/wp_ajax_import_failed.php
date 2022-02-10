@@ -12,7 +12,7 @@ function pmxi_wp_ajax_import_failed(){
     $result = false;
 	if (!empty($_POST['id'])) {
         $import = new PMXI_Import_record();
-        $import->getbyId($_POST['id']);
+        $import->getbyId(intval($_POST['id']));
         if ( ! $import->isEmpty()) {
             $import->set(array(
                 'executing' => 0,
@@ -21,7 +21,7 @@ function pmxi_wp_ajax_import_failed(){
                 'failed_on' => date('Y-m-d H:i:s')
             ))->save();
             $result = true;
-            do_action('pmxi_import_failed', $_POST['id']);
+            do_action('pmxi_import_failed', intval($_POST['id']));
         }
     }
 	exit( json_encode( array('result' => $result)));

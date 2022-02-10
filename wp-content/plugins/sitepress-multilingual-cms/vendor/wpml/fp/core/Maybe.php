@@ -2,9 +2,9 @@
 
 namespace WPML\FP;
 
-use Exception;
 use WPML\Collect\Support\Traits\Macroable;
 use WPML\FP\Functor\Functor;
+use WPML\FP\Functor\Pointed;
 
 /**
  * Class Maybe
@@ -43,12 +43,13 @@ class Maybe {
 
 	use Macroable;
 
+	/**
+	 * @return void
+	 */
 	public static function init() {
-		self::macro( 'just', curryN(1, function( $value ) {
-			return new Just( $value );
-		}));
+		self::macro( 'just', Just::of() );
 
-		self::macro( 'of', self::just() );
+		self::macro( 'of', Just::of() );
 
 		self::macro( 'fromNullable', curryN( 1, function( $value ) {
 			return is_null( $value ) || $value === false ? self::nothing() : self::just( $value );
@@ -90,10 +91,10 @@ class Maybe {
 	}
 }
 
-Maybe::init();
 
 class Just extends Maybe {
 	use Functor;
+	use Pointed;
 	use Applicative;
 
 	/**
@@ -120,8 +121,18 @@ class Just extends Maybe {
 	 * @return Just|Nothing
 	 */
 	public function filter( $fn = null ) {
-		$fn = $fn ?: FP::identity();
+		$fn = $fn ?: Fns::identity();
 		return Maybe::fromNullable( $fn( $this->value ) ? $this->value : null );
+	}
+
+	/**
+	 * @param callable $fn
+	 *
+	 * @return Just|Nothing
+	 */
+	public function reject( $fn = null ) {
+		$fn = $fn ?: Fns::identity();
+		return $this->filter( Logic::complement( $fn ) );
 	}
 
 	/**
@@ -145,7 +156,7 @@ class Nothing extends Maybe {
 	use ConstApplicative;
 
 	/**
-	 * @param callable
+	 * @param callable $fn
 	 *
 	 * @return Nothing
 	 */
@@ -153,8 +164,12 @@ class Nothing extends Maybe {
 		return $this;
 	}
 
+	/**
+	 * @return void
+	 * @throws \Exception
+	 */
 	public function get() {
-		throw new Exception( "Can't extract the value of Nothing" );
+		throw new \Exception( "Can't extract the value of Nothing" );
 	}
 
 	/**
@@ -180,6 +195,15 @@ class Nothing extends Maybe {
 	 *
 	 * @return Nothing
 	 */
+	public function reject( callable $fn ) {
+		return $this;
+	}
+
+	/**
+	 * @param callable $fn
+	 *
+	 * @return Nothing
+	 */
 	public function chain( callable $fn ) {
 		return $this;
 	}
@@ -192,3 +216,5 @@ class Nothing extends Maybe {
 	}
 
 }
+
+Maybe::init();

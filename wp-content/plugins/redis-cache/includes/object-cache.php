@@ -3,7 +3,7 @@
  * Plugin Name: Redis Object Cache Drop-In
  * Plugin URI: http://wordpress.org/plugins/redis-cache/
  * Description: A persistent object cache backend powered by Redis. Supports Predis, PhpRedis, Credis, HHVM, replication, clustering and WP-CLI.
- * Version: 2.0.18
+ * Version: 2.0.23
  * Author: Till Krüss
  * Author URI: https://objectcache.pro
  * License: GPLv3
@@ -163,6 +163,11 @@ function wp_cache_init() {
     // Backwards compatibility: map `WP_CACHE_KEY_SALT` constant to `WP_REDIS_PREFIX`.
     if ( defined( 'WP_CACHE_KEY_SALT' ) && ! defined( 'WP_REDIS_PREFIX' ) ) {
         define( 'WP_REDIS_PREFIX', WP_CACHE_KEY_SALT );
+    }
+
+    // Set unique prefix for sites hosted on Cloudways
+    if ( ! defined( 'WP_REDIS_PREFIX' ) && isset( $_SERVER['cw_allowed_ip'] ) )  {
+        define( 'WP_REDIS_PREFIX', getenv( 'HTTP_X_APP_USER' ) );
     }
 
     if ( ! ( $wp_object_cache instanceof WP_Object_Cache ) ) {
@@ -479,6 +484,9 @@ class WP_Object_Cache {
                 case 'phpredis':
                     $this->connect_using_phpredis( $parameters );
                     break;
+                case 'relay':
+                    $this->connect_using_relay( $parameters );
+                    break;
                 case 'credis':
                     $this->connect_using_credis( $parameters );
                     break;
@@ -489,7 +497,11 @@ class WP_Object_Cache {
             }
 
             if ( defined( 'WP_REDIS_CLUSTER' ) ) {
-                $this->diagnostics[ 'ping' ] = $this->redis->ping( current( array_values( WP_REDIS_CLUSTER ) ) );
+                $connectionID = current( array_values( WP_REDIS_CLUSTER ) );
+
+                $this->diagnostics[ 'ping' ] = ($client === 'predis')
+                    ? $this->redis->getClientFor( $connectionID )->ping()
+                    : $this->redis->ping( $connectionID );
             } else {
                 $this->diagnostics[ 'ping' ] = $this->redis->ping();
             }
@@ -572,7 +584,7 @@ class WP_Object_Cache {
     }
 
     /**
-     * Connect to Redis using the PhpRedis (PECL) extention.
+     * Connect to Redis using the PhpRedis (PECL) extension.
      *
      * @param  array $parameters Connection parameters built by the `build_parameters` method.
      * @return void
@@ -607,8 +619,8 @@ class WP_Object_Cache {
                 'host' => $parameters['host'],
                 'port' => $parameters['port'],
                 'timeout' => $parameters['timeout'],
-                null,
-                'retry_interval' => $parameters['retry_interval'],
+                '',
+                'retry_interval' => (int) $parameters['retry_interval'],
             ];
 
             if ( strcasecmp( 'tls', $parameters['scheme'] ) === 0 ) {
@@ -636,7 +648,7 @@ class WP_Object_Cache {
             }
 
             if ( isset( $parameters['database'] ) ) {
-                if ( ctype_digit( $parameters['database'] ) ) {
+                if ( ctype_digit( (string) $parameters['database'] ) ) {
                     $parameters['database'] = (int) $parameters['database'];
                 }
 
@@ -652,6 +664,74 @@ class WP_Object_Cache {
 
         if ( defined( 'WP_REDIS_SERIALIZER' ) && ! empty( WP_REDIS_SERIALIZER ) ) {
             $this->redis->setOption( Redis::OPT_SERIALIZER, WP_REDIS_SERIALIZER );
+        }
+    }
+
+    /**
+     * Connect to Redis using the Relay extension.
+     *
+     * @param  array $parameters Connection parameters built by the `build_parameters` method.
+     * @return void
+     */
+    protected function connect_using_relay( $parameters ) {
+        $version = phpversion( 'relay' );
+
+        $this->diagnostics[ 'client' ] = sprintf( 'Relay (v%s)', $version );
+
+        if ( defined( 'WP_REDIS_SHARDS' ) ) {
+            throw new Exception('Relay does not support sharding.');
+        } elseif ( defined( 'WP_REDIS_CLUSTER' ) ) {
+            throw new Exception('Relay does not cluster connections.');
+        } else {
+            $this->redis = new Relay\Relay;
+
+            $args = [
+                'host' => $parameters['host'],
+                'port' => $parameters['port'],
+                'timeout' => $parameters['timeout'],
+                '',
+                'retry_interval' => (int) $parameters['retry_interval'],
+            ];
+
+            if ( strcasecmp( 'tls', $parameters['scheme'] ) === 0 ) {
+                $args['host'] = sprintf(
+                    '%s://%s',
+                    $parameters['scheme'],
+                    str_replace( 'tls://', '', $parameters['host'] )
+                );
+            }
+
+            if ( strcasecmp( 'unix', $parameters['scheme'] ) === 0 ) {
+                $args['host'] = $parameters['path'];
+                $args['port'] = null;
+            }
+
+            $args['read_timeout'] = $parameters['read_timeout'];
+
+            call_user_func_array( [ $this->redis, 'connect' ], array_values( $args ) );
+
+            if ( isset( $parameters['password'] ) ) {
+                $args['password'] = $parameters['password'];
+                $this->redis->auth( $parameters['password'] );
+            }
+
+            if ( isset( $parameters['database'] ) ) {
+                if ( ctype_digit( (string) $parameters['database'] ) ) {
+                    $parameters['database'] = (int) $parameters['database'];
+                }
+
+                $args['database'] = $parameters['database'];
+
+                if ( $parameters['database'] ) {
+                    $this->redis->select( $parameters['database'] );
+                }
+            }
+
+            $this->diagnostics += $args;
+        }
+
+        if ( defined( 'WP_REDIS_SERIALIZER' ) && ! empty( WP_REDIS_SERIALIZER ) ) {
+            $this->redis->setOption( Relay\Relay::OPT_SERIALIZER, WP_REDIS_SERIALIZER );
         }
     }
 
@@ -864,7 +944,7 @@ class WP_Object_Cache {
     }
 
     /**
-     * Connect to Redis using HHVM's Redis extention.
+     * Connect to Redis using HHVM's Redis extension.
      *
      * @param  array $parameters Connection parameters built by the `build_parameters` method.
      * @return void
@@ -895,7 +975,7 @@ class WP_Object_Cache {
         }
 
         if ( isset( $parameters['database'] ) ) {
-            if ( ctype_digit( $parameters['database'] ) ) {
+            if ( ctype_digit( (string) $parameters['database'] ) ) {
                 $parameters['database'] = (int) $parameters['database'];
             }
 
@@ -1931,6 +2011,19 @@ LUA;
     }
 
     /**
+     * Alias of `decrement()`.
+     *
+     * @see self::decrement()
+     * @param  string $key    The key name.
+     * @param  int    $offset Optional. The decrement. Defaults to 1.
+     * @param  string $group  Optional. The key group. Default is 'default'.
+     * @return int|bool
+     */
+    public function decr( $key, $offset = 1, $group = 'default' ) {
+        return $this->decrement( $key, $offset, $group );
+    }
+
+    /**
      * Render data about current cache requests
      * Used by the Debug bar plugin
      *
@@ -1974,8 +2067,6 @@ LUA;
         );
 
         return (object) [
-            // Connected, Disabled, Unknown, Not connected
-            // 'status' => '...',
             'hits' => $this->cache_hits,
             'misses' => $this->cache_misses,
             'ratio' => $total > 0 ? round( $this->cache_hits / ( $total / 100 ), 1 ) : 100,
@@ -2173,7 +2264,7 @@ LUA;
      * @param mixed $expiration  Incoming expiration value (whatever it is).
      */
     protected function validate_expiration( $expiration ) {
-        $expiration = is_int( $expiration ) || ctype_digit( $expiration ) ? (int) $expiration : 0;
+        $expiration = is_int( $expiration ) || ctype_digit( (string) $expiration ) ? (int) $expiration : 0;
 
         if ( defined( 'WP_REDIS_MAXTTL' ) ) {
             $max = (int) WP_REDIS_MAXTTL;

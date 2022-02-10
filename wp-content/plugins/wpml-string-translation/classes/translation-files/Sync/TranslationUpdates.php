@@ -19,7 +19,7 @@ class TranslationUpdates {
 	private $data;
 
 	public function __construct( \wpdb $wpdb, \WPML_Language_Records $languageRecords ) {
-		$this->wpdb = $wpdb;
+		$this->wpdb            = $wpdb;
 		$this->languageRecords = $languageRecords;
 	}
 

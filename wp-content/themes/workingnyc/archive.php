@@ -32,8 +32,6 @@ $ID = get_page_by_path($path)->ID;
 
 $ID = defined('ICL_LANGUAGE_CODE') ? icl_object_id(get_page_by_path($path)->ID, 'page', true, ICL_LANGUAGE_CODE) : $ID;
 
-$page = new WorkingNYC\Page($ID);
-
 /**
  * Set the Timber view context
  *
@@ -50,7 +48,6 @@ $context['filters'] = Templating\get_filters($path);
 $context['filters_label'] = Templating\get_filter_label($path);
 
 $context['meta'] = new WorkingNYC\Meta($ID);
-// $context['post'] = $page;
 $context['posts'] = Timber::get_posts();
 
 /**

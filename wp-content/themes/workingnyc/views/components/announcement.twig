@@ -1,14 +1,14 @@
 <article class="c-card c-card-transparent h-full">
   <header class="c-card__header">
     <h2 class="c-card__title">
-      <a href="{{ this.link }}" target="{{ this.target }}">
+      <a href="{{ this.link }}" target="{{ this.target }}" class="no-underline">
         {% if this.date|date('U') > this.statusPeriod|date('U') %}
-        <mark class="badge status-alt" title="{{ this.statusTitle }}">
+        <mark class="badge" title="{{ this.statusTitle }}">
           {{ this.status }}
         </mark>
         {% endif %}
 
-        {{ this.announcement_title }}
+        <span class="underline">{{ this.announcement_title }}</span>
 
         {% if this.target == '_blank' %}
         <svg aria-hidden="true" class="icon-wnyc-ui">

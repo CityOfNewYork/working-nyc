@@ -10,10 +10,10 @@ WPML_String_Translation.TranslationBasket = function () {
 	var private_data = {};
 
 	var init = function () {
-		jQuery(document).ready(function() {
-			private_data.button = jQuery('#icl_send_strings');
-		});
-	};
+        jQuery(function () {
+            private_data.button = jQuery('#icl_send_strings');
+        });
+    };
 	
 	self.maybe_enable_button = function () {
 		if ( self.is_not_active_lang_selected() ) {

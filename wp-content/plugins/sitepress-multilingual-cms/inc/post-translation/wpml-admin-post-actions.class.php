@@ -52,7 +52,10 @@ class WPML_Admin_Post_Actions extends WPML_Post_Translation {
 		global $sitepress;
 
 		$this->defer_term_counting();
-		$post = isset( $post ) ? $post : get_post( $post_id );
+		if ( ! $post ) {
+			$post = get_post( $post_id );
+		}
+
 		// exceptions
 		$http_referer = $this->get_http_referer();
 		if ( ! $this->has_save_post_action( $post ) && ! $http_referer->is_rest_request_called_from_post_edit_page() ) {

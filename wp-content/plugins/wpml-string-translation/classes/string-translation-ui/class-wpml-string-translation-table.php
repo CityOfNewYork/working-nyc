@@ -1,22 +1,23 @@
 <?php
 
+use WPML\Element\API\Languages;
 use WPML\FP\Fns;
 use WPML\FP\Obj;
 use WPML\FP\Wrapper;
-use WPML\Element\API\Languages;
-use function \WPML\FP\pipe;
+use function WPML\FP\partialRight;
 
 class WPML_String_Translation_Table {
 
-	/** @var  array $strings */
 	private $strings;
-
-	/** @var array */
 	private $active_languages;
-
-	/** @var array */
 	private $additional_columns_to_render;
+	private $strings_in_page;
 
+	/**
+	 * WPML_String_Translation_Table constructor.
+	 *
+	 * @param array<string> $strings
+	 */
 	public function __construct( $strings ) {
 		global $sitepress;
 
@@ -39,11 +40,12 @@ class WPML_String_Translation_Table {
 			$this->render_table_header_or_footer( 'tfoot' );
 			?>
 			<tbody>
-			<?php if ( empty( $this->strings ) ) {
+			<?php
+			if ( empty( $this->strings ) ) {
 				?>
 				<tr>
 					<td colspan="6" align="center">
-						<?php esc_html_e( 'No strings found', 'wpml-string-translation' ) ?>
+						<?php esc_html_e( 'No strings found', 'wpml-string-translation' ); ?>
 					</td>
 				</tr>
 				<?php
@@ -71,43 +73,52 @@ class WPML_String_Translation_Table {
 			];
 		};
 
-		$makeFlag = function ( $langData ) {
+		$getFlagImg = function ($langData) {
+		    if ($langData['flagUrl'] !== '') {
+			    return '<img
+					src="'.esc_attr( $langData['flagUrl'] ).'"
+            alt="'.esc_attr( $langData['title'] ).'"
+            >';
+		    } else {
+		        return $langData['code'];
+		    }
+
+		};
+
+		$makeFlag = function ( $langData ) use ($getFlagImg) {
 			ob_start();
 			?>
 			<span
 				data-code="<?php esc_attr_e( $langData['code'] ); ?>"
 				title="<?php esc_attr_e( $langData['title'] ); ?>"
 			>
-				<img
-					src="<?php esc_attr_e( $langData['flagUrl'] ); ?>"
-					alt="<?php esc_attr_e( $langData['title'] ); ?>"
-				>
+				<?php echo $getFlagImg($langData) ?>
 			</span>
 			<?php
 			return ob_get_clean();
 		};
 
 		$flags = Wrapper::of( $this->active_languages )
-		                ->map( Fns::map( $getFlagData ) )
-		                ->map( Fns::map( $makeFlag ) )
-		                ->map( Fns::reduce( WPML\FP\Str::concat(), '' ) );
+						->map( Fns::map( $getFlagData ) )
+						->map( Fns::map( $makeFlag ) )
+						->map( Fns::reduce( WPML\FP\Str::concat(), '' ) );
 		?>
 		<<?php echo $tag; ?>>
 		<tr>
 			<td scope="col" class="manage-column column-cb check-column"><input type="checkbox"/></td>
-			<th scope="col"><?php esc_html_e( 'Domain', 'wpml-string-translation' ) ?></th>
+			<th scope="col"><?php esc_html_e( 'Domain', 'wpml-string-translation' ); ?></th>
 			<?php if ( $this->additional_columns_to_render->contains( 'context' ) ) : ?>
-				<th scope="col"><?php esc_html_e( 'Context', 'wpml-string-translation' ) ?></th>
+				<th scope="col"><?php esc_html_e( 'Context', 'wpml-string-translation' ); ?></th>
 			<?php endif; ?>
 			<?php if ( $this->additional_columns_to_render->contains( 'name' ) ) : ?>
-				<th scope="col"><?php esc_html_e( 'Name', 'wpml-string-translation' ) ?></th>
+				<th scope="col"><?php esc_html_e( 'Name', 'wpml-string-translation' ); ?></th>
 			<?php endif; ?>
 			<?php if ( $this->additional_columns_to_render->contains( 'view' ) ) : ?>
-				<th scope="col"><?php esc_html_e( 'View', 'wpml-string-translation' ) ?></th>
+				<th scope="col"><?php esc_html_e( 'View', 'wpml-string-translation' ); ?></th>
 			<?php endif; ?>
-			<th scope="col"><?php esc_html_e( 'String', 'wpml-string-translation' ) ?></th>
+			<th scope="col"><?php esc_html_e( 'String', 'wpml-string-translation' ); ?></th>
 			<th scope="col" class="wpml-col-languages"
-			    data-langs="<?php esc_attr_e( json_encode( $codes ) ); ?>"><?php echo $flags->get(); ?></th>
+				data-langs="<?php echo esc_attr( json_encode( $codes ) ); ?>"><?php echo $flags->get(); ?></th>
 		</tr>
 		<<?php echo $tag; ?>>
 		<?php
@@ -115,13 +126,14 @@ class WPML_String_Translation_Table {
 
 	public function render_string_row( $string_id, $icl_string ) {
 		global $wpdb, $sitepress, $WPML_String_Translation;
+		$icl_string = $this->decodeHtmlEntitiesForStringAndTranslations( $icl_string );
 
 		?>
-		<tr valign="top" data-string="<?php esc_attr_e( htmlentities( json_encode( $icl_string ), ENT_QUOTES ) ); ?>">
-			<?php echo $this->render_checkbox_cell( $icl_string ) ?>
-			<td class="wpml-st-col-domain"><?php echo esc_html( $icl_string['context'] ) ?></td>
+		<tr valign="top" data-string="<?php echo esc_attr( htmlentities( json_encode( $icl_string ), ENT_QUOTES ) ); ?>">
+			<?php echo $this->render_checkbox_cell( $icl_string ); ?>
+			<td class="wpml-st-col-domain"><?php echo esc_html( $icl_string['context'] ); ?></td>
 			<?php if ( $this->additional_columns_to_render->contains( 'context' ) ) : ?>
-				<td class="wpml-st-col-context"><?php echo esc_html( $icl_string['gettext_context'] ) ?></td>
+				<td class="wpml-st-col-context"><?php echo esc_html( $icl_string['gettext_context'] ); ?></td>
 			<?php endif; ?>
 			<?php if ( $this->additional_columns_to_render->contains( 'name' ) ) : ?>
 				<td class="wpml-st-col-name"><?php echo esc_html( $this->hide_if_md5( $icl_string['name'] ) ); ?></td>
@@ -129,20 +141,38 @@ class WPML_String_Translation_Table {
 
 			<?php if ( $this->additional_columns_to_render->contains( 'view' ) ) : ?>
 				<td class="wpml-st-col-view" nowrap="nowrap">
-					<?php $this->render_view_column( $string_id ) ?>
+					<?php $this->render_view_column( $string_id ); ?>
 				</td>
 			<?php endif; ?>
 			<td class="wpml-st-col-string">
-				<div class="icl-st-original"<?php _icl_string_translation_rtl_div( $icl_string['string_language'] ) ?>>
+				<div class="icl-st-original"<?php _icl_string_translation_rtl_div( $icl_string['string_language'] ); ?>>
 					<img width="18" height="12"
-					     src="<?php echo esc_url( $sitepress->get_flag_url( $icl_string['string_language'] ) ) ?>"> <?php echo esc_html( $icl_string['value'] ) ?>
+						 src="<?php echo esc_url( $sitepress->get_flag_url( $icl_string['string_language'] ) ); ?>"> <?php echo esc_html( $icl_string['value'] ); ?>
 				</div>
-				<input type="hidden" id="icl_st_wc_<?php echo esc_attr( $string_id ) ?>" value="<?php
-				echo $WPML_String_Translation->estimate_word_count( $icl_string['value'], $icl_string['string_language'] ) ?>"/>
+				<input type="hidden" id="icl_st_wc_<?php echo esc_attr( $string_id ); ?>" value="
+															  <?php
+																echo $WPML_String_Translation->estimate_word_count( $icl_string['value'], $icl_string['string_language'] )
+																?>
+				"/>
 			</td>
 			<td class="languages-status wpml-col-languages"></td>
 		</tr>
 		<?php
+	}
+
+	private function decodeHtmlEntitiesForStringAndTranslations( $string ) {
+		$decode = partialRight( 'html_entity_decode', ENT_QUOTES );
+
+		$string['value'] = $decode( $string['value'] );
+		$string['name']  = $decode( $string['name'] );
+		if ( Obj::prop( 'translations', $string ) ) {
+			$string['translations'] = Fns::map(
+				Obj::over( Obj::lensProp( 'value' ), $decode ),
+				$string['translations']
+			);
+		}
+
+		return $string;
 	}
 
 	/**
@@ -154,7 +184,7 @@ class WPML_String_Translation_Table {
 		$class = 'icl_st_row_cb' . ( ! empty( $string['string_package_id'] ) ? ' icl_st_row_package' : '' );
 
 		return '<td><input class="' . esc_attr( $class ) . '" type="checkbox" value="' . esc_attr( $string['string_id'] )
-		       . '" data-language="' . esc_attr( $string['string_language'] ) . '" /></td>';
+			   . '" data-language="' . esc_attr( $string['string_language'] ) . '" /></td>';
 	}
 
 	private function render_view_column( $string_id ) {
@@ -163,10 +193,10 @@ class WPML_String_Translation_Table {
 			$thickbox_url = $this->get_thickbox_url( WPML_ST_String_Tracking_AJAX_Factory::ACTION_POSITION_IN_SOURCE, $string_id );
 
 			?>
-			<a class="thickbox" title="<?php esc_attr_e( 'view in source', 'wpml-string-translation' ) ?>"
+			<a class="thickbox" title="<?php esc_attr_e( 'view in source', 'wpml-string-translation' ); ?>"
 			   href="<?php echo esc_url( $thickbox_url ); ?>">
-				<img src="<?php echo WPML_ST_URL ?>/res/img/view-in-source.png" width="16" height="16"
-				     alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"/>
+				<img src="<?php echo WPML_ST_URL; ?>/res/img/view-in-source.png" width="16" height="16"
+					 alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ); ?>"/>
 			</a>
 			<?php
 		}
@@ -175,10 +205,10 @@ class WPML_String_Translation_Table {
 			$thickbox_url = $this->get_thickbox_url( WPML_ST_String_Tracking_AJAX_Factory::ACTION_POSITION_IN_PAGE, $string_id );
 
 			?>
-			<a class="thickbox" title="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"
+			<a class="thickbox" title="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ); ?>"
 			   href="<?php echo esc_url( $thickbox_url ); ?>">
-				<img src="<?php echo WPML_ST_URL ?>/res/img/view-in-page.png" width="16" height="16"
-				     alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ) ?>"/>
+				<img src="<?php echo WPML_ST_URL; ?>/res/img/view-in-page.png" width="16" height="16"
+					 alt="<?php esc_attr_e( 'view in page', 'wpml-string-translation' ); ?>"/>
 			</a>
 			<?php
 		}
@@ -186,7 +216,7 @@ class WPML_String_Translation_Table {
 
 	/**
 	 * @param string $action
-	 * @param int $string_id
+	 * @param int    $string_id
 	 *
 	 * @return string
 	 */
@@ -210,7 +240,7 @@ class WPML_String_Translation_Table {
 	}
 
 	/**
-	 * @param $string
+	 * @param array<string,string|int> $string
 	 */
 	public function updateColumnsForString( $string ) {
 		if (
@@ -240,7 +270,7 @@ class WPML_String_Translation_Table {
 		$tracked_page   = Obj::prop( ICL_STRING_TRANSLATION_STRING_TRACKING_TYPE_PAGE, $this->strings_in_page );
 
 		return ( $tracked_source && Obj::prop( $string_id, $tracked_source ) )
-		       || ( $tracked_page && Obj::prop( $string_id, $tracked_page ) );
+			   || ( $tracked_page && Obj::prop( $string_id, $tracked_page ) );
 	}
 }
 

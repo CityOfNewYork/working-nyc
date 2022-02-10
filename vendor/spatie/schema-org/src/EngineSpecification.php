@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\EngineSpecificationContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\StructuredValueContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
@@ -10,10 +11,11 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * Information about the engine of the vehicle. A vehicle can have multiple
  * engines represented by multiple engine specification entities.
  *
- * @see http://schema.org/EngineSpecification
+ * @see https://schema.org/EngineSpecification
+ * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group
  *
  */
-class EngineSpecification extends BaseType implements IntangibleContract, StructuredValueContract, ThingContract
+class EngineSpecification extends BaseType implements EngineSpecificationContract, IntangibleContract, StructuredValueContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -27,7 +29,7 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -41,7 +43,7 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -55,7 +57,7 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -72,7 +74,7 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -80,15 +82,80 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
     }
 
     /**
+     * The volume swept by all of the pistons inside the cylinders of an
+     * internal combustion engine in a single movement. 
+     * 
+     * Typical unit code(s): CMQ for cubic centimeter, LTR for liters, INQ for
+     * cubic inches
+     * * Note 1: You can link to information about how the given value has been
+     * determined using the [[valueReference]] property.
+     * * Note 2: You can use [[minValue]] and [[maxValue]] to indicate ranges.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $engineDisplacement
+     *
+     * @return static
+     *
+     * @see https://schema.org/engineDisplacement
+     * @see https://auto.schema.org
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group
+     */
+    public function engineDisplacement($engineDisplacement)
+    {
+        return $this->setProperty('engineDisplacement', $engineDisplacement);
+    }
+
+    /**
+     * The power of the vehicle's engine.
+     *     Typical unit code(s): KWT for kilowatt, BHP for brake horsepower, N12
+     * for metric horsepower (PS, with 1 PS = 735,49875 W)
+     * 
+     * * Note 1: There are many different ways of measuring an engine's power.
+     * For an overview, see 
+     * [http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes](http://en.wikipedia.org/wiki/Horsepower#Engine_power_test_codes).
+     * * Note 2: You can link to information about how the given value has been
+     * determined using the [[valueReference]] property.
+     * * Note 3: You can use [[minValue]] and [[maxValue]] to indicate ranges.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $enginePower
+     *
+     * @return static
+     *
+     * @see https://schema.org/enginePower
+     * @see https://auto.schema.org
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group
+     */
+    public function enginePower($enginePower)
+    {
+        return $this->setProperty('enginePower', $enginePower);
+    }
+
+    /**
+     * The type of engine or engines powering the vehicle.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QualitativeValueContract|\Spatie\SchemaOrg\Contracts\QualitativeValueContract[]|string|string[] $engineType
+     *
+     * @return static
+     *
+     * @see https://schema.org/engineType
+     * @see https://auto.schema.org
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group
+     */
+    public function engineType($engineType)
+    {
+        return $this->setProperty('engineType', $engineType);
+    }
+
+    /**
      * The type of fuel suitable for the engine or engines of the vehicle. If
      * the vehicle has only one engine, this property can be attached directly
      * to the vehicle.
      *
-     * @param QualitativeValue|QualitativeValue[]|string|string[] $fuelType
+     * @param \Spatie\SchemaOrg\Contracts\QualitativeValueContract|\Spatie\SchemaOrg\Contracts\QualitativeValueContract[]|string|string[] $fuelType
      *
      * @return static
      *
-     * @see http://schema.org/fuelType
+     * @see https://schema.org/fuelType
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group
      */
     public function fuelType($fuelType)
     {
@@ -102,11 +169,11 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -117,11 +184,11 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -133,11 +200,11 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -151,7 +218,7 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -162,11 +229,11 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -182,7 +249,7 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -192,15 +259,39 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
         return $this->setProperty('subjectOf', $subjectOf);
+    }
+
+    /**
+     * The torque (turning force) of the vehicle's engine.
+     * 
+     * Typical unit code(s): NU for newton metre (N m), F17 for pound-force per
+     * foot, or F48 for pound-force per inch
+     * 
+     * * Note 1: You can link to information about how the given value has been
+     * determined (e.g. reference RPM) using the [[valueReference]] property.
+     * * Note 2: You can use [[minValue]] and [[maxValue]] to indicate ranges.
+     *
+     * @param \Spatie\SchemaOrg\Contracts\QuantitativeValueContract|\Spatie\SchemaOrg\Contracts\QuantitativeValueContract[] $torque
+     *
+     * @return static
+     *
+     * @see https://schema.org/torque
+     * @see https://auto.schema.org
+     * @link http://www.w3.org/wiki/WebSchemas/SchemaDotOrgSources#Automotive_Ontology_Working_Group
+     */
+    public function torque($torque)
+    {
+        return $this->setProperty('torque', $torque);
     }
 
     /**
@@ -210,7 +301,7 @@ class EngineSpecification extends BaseType implements IntangibleContract, Struct
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

@@ -40,6 +40,10 @@ interface SportsEventContract
 
     public function endDate($endDate);
 
+    public function eventAttendanceMode($eventAttendanceMode);
+
+    public function eventSchedule($eventSchedule);
+
     public function eventStatus($eventStatus);
 
     public function funder($funder);
@@ -59,6 +63,10 @@ interface SportsEventContract
     public function mainEntityOfPage($mainEntityOfPage);
 
     public function maximumAttendeeCapacity($maximumAttendeeCapacity);
+
+    public function maximumPhysicalAttendeeCapacity($maximumPhysicalAttendeeCapacity);
+
+    public function maximumVirtualAttendeeCapacity($maximumVirtualAttendeeCapacity);
 
     public function name($name);
 
@@ -83,6 +91,8 @@ interface SportsEventContract
     public function sameAs($sameAs);
 
     public function sponsor($sponsor);
+
+    public function sport($sport);
 
     public function startDate($startDate);
 

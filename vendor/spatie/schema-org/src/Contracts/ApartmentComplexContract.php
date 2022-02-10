@@ -4,6 +4,8 @@ namespace Spatie\SchemaOrg\Contracts;
 
 interface ApartmentComplexContract
 {
+    public function accommodationFloorPlan($accommodationFloorPlan);
+
     public function additionalProperty($additionalProperty);
 
     public function additionalType($additionalType);
@@ -36,7 +38,29 @@ interface ApartmentComplexContract
 
     public function geo($geo);
 
+    public function geoContains($geoContains);
+
+    public function geoCoveredBy($geoCoveredBy);
+
+    public function geoCovers($geoCovers);
+
+    public function geoCrosses($geoCrosses);
+
+    public function geoDisjoint($geoDisjoint);
+
+    public function geoEquals($geoEquals);
+
+    public function geoIntersects($geoIntersects);
+
+    public function geoOverlaps($geoOverlaps);
+
+    public function geoTouches($geoTouches);
+
+    public function geoWithin($geoWithin);
+
     public function globalLocationNumber($globalLocationNumber);
+
+    public function hasDriveThroughService($hasDriveThroughService);
 
     public function hasMap($hasMap);
 
@@ -64,7 +88,15 @@ interface ApartmentComplexContract
 
     public function name($name);
 
+    public function numberOfAccommodationUnits($numberOfAccommodationUnits);
+
+    public function numberOfAvailableAccommodationUnits($numberOfAvailableAccommodationUnits);
+
+    public function numberOfBedrooms($numberOfBedrooms);
+
     public function openingHoursSpecification($openingHoursSpecification);
+
+    public function petsAllowed($petsAllowed);
 
     public function photo($photo);
 
@@ -89,6 +121,8 @@ interface ApartmentComplexContract
     public function subjectOf($subjectOf);
 
     public function telephone($telephone);
+
+    public function tourBookingPage($tourBookingPage);
 
     public function url($url);
 

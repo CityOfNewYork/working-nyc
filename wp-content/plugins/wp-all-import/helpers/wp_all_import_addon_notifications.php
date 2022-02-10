@@ -1,7 +1,7 @@
 <?php
 if ( ! function_exists('wp_all_import_addon_notifications') ){
 	function wp_all_import_addon_notifications(){
-		if ( ! empty($_GET['page']) and preg_match('%(pmxi-admin)%i', $_GET['page']))
+		if ( ! empty($_GET['page']) and preg_match('%(pmxi-admin)%i', sanitize_key($_GET['page'])))
 		{
 			if ( ! function_exists( 'is_plugin_active' ) ) require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -149,11 +149,11 @@ if ( ! function_exists('wp_all_import_addon_notifications') ){
 				foreach ($recommended_addons as $addon) {
 					if ( ! get_option(sanitize_key($addon['title']) . '_notice_ignore')) {
 						?>
-						<div class="updated notice is-dismissible wpallimport-dismissible" rel="<?php echo sanitize_key($addon['title']); ?>"><p>
+						<div class="updated notice is-dismissible wpallimport-dismissible" rel="<?php echo sanitize_key(esc_attr($addon['title'])); ?>"><p>
 							<?php printf(
 									__('Make imports easier with the <strong>free %s Add-On</strong> for WP All Import: <a href="%s" target="_blank">Get Add-On</a>', 'wp_all_import_plugin'),
-									$addon['title'],
-									$addon['url']
+									wp_kses_post($addon['title']),
+									esc_url($addon['url'])
 								  );
 							?>
 						</p></div>

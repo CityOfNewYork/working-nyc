@@ -16,6 +16,9 @@ use function WPML\FP\partialRight;
 class Option {
 	use Macroable;
 
+	/**
+	 * @return void
+	 */
 	public static function init() {
 		self::macro( 'get', curryN( 1, 'get_option' ) );
 		self::macro( 'getOr', curryN( 2, 'get_option' ) );

@@ -64,17 +64,17 @@ class WPML_Config_Update_Integrator {
 
 	public function update_event() {
 		$this->get_worker()
-		     ->run();
+			 ->run();
 	}
 
 	public function upgrader_process_complete_event() {
 		$this->get_worker()
-		     ->run();
+			 ->run();
 	}
 
 	public function update_event_ajax() {
 		if ( $this->get_worker()
-		          ->run() ) {
+				  ->run() ) {
 			echo date( 'F j, Y H:i a', time() );
 		}
 

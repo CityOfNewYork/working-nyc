@@ -9,6 +9,11 @@
           'label': __('Home', 'WNYC'),
           'link': '/'
         },
+        web_share: {
+          'title': post.title,
+          'text': (post.web_share_text) ? post.web_share_text,
+          'url': fn('wp_get_shortlink')
+        }
       } %}
     </div>
 

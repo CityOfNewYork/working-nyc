@@ -22,6 +22,25 @@
             "maxlength": ""
         },
         {
+            "key": "field_61faba60a0e83",
+            "label": "Hide Web Share",
+            "name": "web_share_hide",
+            "type": "true_false",
+            "instructions": "Check this option to hide the sharing button on the page. This will not prevent users from being able to the URL using browser native sharing buttons or affect the visibility of OG meta data below.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Hide Web Share",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
             "key": "field_5eb97fb30adde",
             "label": "OG Title",
             "name": "og_title",
@@ -137,5 +156,5 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1623872442
+    "modified": 1643821964
 }

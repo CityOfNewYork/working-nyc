@@ -2,12 +2,11 @@
 
 namespace WPML\ST\DB\Mappers;
 
-
 class Update {
 	/**
-	 * @param  callable  $getStringById
-	 * @param  int  $stringId
-	 * @param  string  $domain
+	 * @param  callable $getStringById
+	 * @param  int      $stringId
+	 * @param  string   $domain
 	 *
 	 * @return bool
 	 */
@@ -26,8 +25,8 @@ class Update {
 	}
 
 	/**
-	 * @param $oldDomain
-	 * @param $newDomain
+	 * @param string $oldDomain
+	 * @param string $newDomain
 	 *
 	 * @return int
 	 */

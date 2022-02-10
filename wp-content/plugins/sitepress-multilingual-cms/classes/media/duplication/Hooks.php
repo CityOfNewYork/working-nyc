@@ -14,7 +14,7 @@ class Hooks {
 
 	public static function add() {
 		WPHooks::onAction( 'update_postmeta', 10, 4 )
-		       ->then( spreadArgs( Fns::withoutRecursion( Fns::noop(), [ self::class, 'syncAttachedFile' ] ) ) );
+			   ->then( spreadArgs( Fns::withoutRecursion( Fns::noop(), [ self::class, 'syncAttachedFile' ] ) ) );
 	}
 
 	public static function syncAttachedFile( $meta_id, $object_id, $meta_key, $meta_value ) {
@@ -26,8 +26,8 @@ class Hooks {
 			$isMetaSameAsPrevious = pipe( Post::getMetaSingle( Fns::__, $meta_key ), Relation::equals( $prevValue ) );
 
 			IfOriginalPost::getTranslationIds( $object_id )
-			              ->filter( Fns::unary( $isMetaSameAsPrevious ) )
-			              ->each( Fns::unary( Post::updateMeta( Fns::__, $meta_key, $meta_value ) ) );
+						  ->filter( Fns::unary( $isMetaSameAsPrevious ) )
+						  ->each( Fns::unary( Post::updateMeta( Fns::__, $meta_key, $meta_value ) ) );
 		}
 	}
 }

@@ -2,6 +2,7 @@
 
 namespace Spatie\SchemaOrg;
 
+use \Spatie\SchemaOrg\Contracts\ServiceChannelContract;
 use \Spatie\SchemaOrg\Contracts\IntangibleContract;
 use \Spatie\SchemaOrg\Contracts\ThingContract;
 
@@ -9,10 +10,10 @@ use \Spatie\SchemaOrg\Contracts\ThingContract;
  * A means for accessing a service, e.g. a government office location, web site,
  * or phone number.
  *
- * @see http://schema.org/ServiceChannel
+ * @see https://schema.org/ServiceChannel
  *
  */
-class ServiceChannel extends BaseType implements IntangibleContract, ThingContract
+class ServiceChannel extends BaseType implements ServiceChannelContract, IntangibleContract, ThingContract
 {
     /**
      * An additional type for the item, typically used for adding more specific
@@ -26,7 +27,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/additionalType
+     * @see https://schema.org/additionalType
      */
     public function additionalType($additionalType)
     {
@@ -40,7 +41,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/alternateName
+     * @see https://schema.org/alternateName
      */
     public function alternateName($alternateName)
     {
@@ -52,11 +53,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      * use one of the language codes from the [IETF BCP 47
      * standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]
      *
-     * @param Language|Language[]|string|string[] $availableLanguage
+     * @param \Spatie\SchemaOrg\Contracts\LanguageContract|\Spatie\SchemaOrg\Contracts\LanguageContract[]|string|string[] $availableLanguage
      *
      * @return static
      *
-     * @see http://schema.org/availableLanguage
+     * @see https://schema.org/availableLanguage
      */
     public function availableLanguage($availableLanguage)
     {
@@ -70,7 +71,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/description
+     * @see https://schema.org/description
      */
     public function description($description)
     {
@@ -87,7 +88,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/disambiguatingDescription
+     * @see https://schema.org/disambiguatingDescription
      */
     public function disambiguatingDescription($disambiguatingDescription)
     {
@@ -101,11 +102,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      * strings or as URL (URI) links. See [background
      * notes](/docs/datamodel.html#identifierBg) for more details.
      *
-     * @param PropertyValue|PropertyValue[]|string|string[] $identifier
+     * @param \Spatie\SchemaOrg\Contracts\PropertyValueContract|\Spatie\SchemaOrg\Contracts\PropertyValueContract[]|string|string[] $identifier
      *
      * @return static
      *
-     * @see http://schema.org/identifier
+     * @see https://schema.org/identifier
      */
     public function identifier($identifier)
     {
@@ -116,11 +117,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      * An image of the item. This can be a [[URL]] or a fully described
      * [[ImageObject]].
      *
-     * @param ImageObject|ImageObject[]|string|string[] $image
+     * @param \Spatie\SchemaOrg\Contracts\ImageObjectContract|\Spatie\SchemaOrg\Contracts\ImageObjectContract[]|string|string[] $image
      *
      * @return static
      *
-     * @see http://schema.org/image
+     * @see https://schema.org/image
      */
     public function image($image)
     {
@@ -132,11 +133,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      * entity being described. See [background
      * notes](/docs/datamodel.html#mainEntityBackground) for details.
      *
-     * @param CreativeWork|CreativeWork[]|string|string[] $mainEntityOfPage
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|string|string[] $mainEntityOfPage
      *
      * @return static
      *
-     * @see http://schema.org/mainEntityOfPage
+     * @see https://schema.org/mainEntityOfPage
      */
     public function mainEntityOfPage($mainEntityOfPage)
     {
@@ -150,7 +151,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/name
+     * @see https://schema.org/name
      */
     public function name($name)
     {
@@ -161,11 +162,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      * Indicates a potential Action, which describes an idealized action in
      * which this thing would play an 'object' role.
      *
-     * @param Action|Action[] $potentialAction
+     * @param \Spatie\SchemaOrg\Contracts\ActionContract|\Spatie\SchemaOrg\Contracts\ActionContract[] $potentialAction
      *
      * @return static
      *
-     * @see http://schema.org/potentialAction
+     * @see https://schema.org/potentialAction
      */
     public function potentialAction($potentialAction)
     {
@@ -175,11 +176,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
     /**
      * Estimated processing time for the service using this channel.
      *
-     * @param Duration|Duration[] $processingTime
+     * @param \Spatie\SchemaOrg\Contracts\DurationContract|\Spatie\SchemaOrg\Contracts\DurationContract[] $processingTime
      *
      * @return static
      *
-     * @see http://schema.org/processingTime
+     * @see https://schema.org/processingTime
      */
     public function processingTime($processingTime)
     {
@@ -189,11 +190,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
     /**
      * The service provided by this channel.
      *
-     * @param Service|Service[] $providesService
+     * @param \Spatie\SchemaOrg\Contracts\ServiceContract|\Spatie\SchemaOrg\Contracts\ServiceContract[] $providesService
      *
      * @return static
      *
-     * @see http://schema.org/providesService
+     * @see https://schema.org/providesService
      */
     public function providesService($providesService)
     {
@@ -209,7 +210,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/sameAs
+     * @see https://schema.org/sameAs
      */
     public function sameAs($sameAs)
     {
@@ -220,11 +221,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      * The location (e.g. civic structure, local business, etc.) where a person
      * can go to access the service.
      *
-     * @param Place|Place[] $serviceLocation
+     * @param \Spatie\SchemaOrg\Contracts\PlaceContract|\Spatie\SchemaOrg\Contracts\PlaceContract[] $serviceLocation
      *
      * @return static
      *
-     * @see http://schema.org/serviceLocation
+     * @see https://schema.org/serviceLocation
      */
     public function serviceLocation($serviceLocation)
     {
@@ -234,11 +235,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
     /**
      * The phone number to use to access the service.
      *
-     * @param ContactPoint|ContactPoint[] $servicePhone
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[] $servicePhone
      *
      * @return static
      *
-     * @see http://schema.org/servicePhone
+     * @see https://schema.org/servicePhone
      */
     public function servicePhone($servicePhone)
     {
@@ -248,11 +249,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
     /**
      * The address for accessing the service by mail.
      *
-     * @param PostalAddress|PostalAddress[] $servicePostalAddress
+     * @param \Spatie\SchemaOrg\Contracts\PostalAddressContract|\Spatie\SchemaOrg\Contracts\PostalAddressContract[] $servicePostalAddress
      *
      * @return static
      *
-     * @see http://schema.org/servicePostalAddress
+     * @see https://schema.org/servicePostalAddress
      */
     public function servicePostalAddress($servicePostalAddress)
     {
@@ -262,11 +263,11 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
     /**
      * The number to access the service by text message.
      *
-     * @param ContactPoint|ContactPoint[] $serviceSmsNumber
+     * @param \Spatie\SchemaOrg\Contracts\ContactPointContract|\Spatie\SchemaOrg\Contracts\ContactPointContract[] $serviceSmsNumber
      *
      * @return static
      *
-     * @see http://schema.org/serviceSmsNumber
+     * @see https://schema.org/serviceSmsNumber
      */
     public function serviceSmsNumber($serviceSmsNumber)
     {
@@ -280,7 +281,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/serviceUrl
+     * @see https://schema.org/serviceUrl
      */
     public function serviceUrl($serviceUrl)
     {
@@ -290,11 +291,12 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
     /**
      * A CreativeWork or Event about this Thing.
      *
-     * @param CreativeWork|CreativeWork[]|Event|Event[] $subjectOf
+     * @param \Spatie\SchemaOrg\Contracts\CreativeWorkContract|\Spatie\SchemaOrg\Contracts\CreativeWorkContract[]|\Spatie\SchemaOrg\Contracts\EventContract|\Spatie\SchemaOrg\Contracts\EventContract[] $subjectOf
      *
      * @return static
      *
-     * @see http://schema.org/subjectOf
+     * @see https://schema.org/subjectOf
+     * @link https://github.com/schemaorg/schemaorg/issues/1670
      */
     public function subjectOf($subjectOf)
     {
@@ -308,7 +310,7 @@ class ServiceChannel extends BaseType implements IntangibleContract, ThingContra
      *
      * @return static
      *
-     * @see http://schema.org/url
+     * @see https://schema.org/url
      */
     public function url($url)
     {

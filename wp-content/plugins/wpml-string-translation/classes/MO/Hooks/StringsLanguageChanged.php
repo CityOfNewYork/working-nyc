@@ -4,8 +4,8 @@
 namespace WPML\ST\MO\Hooks;
 
 
-use WPML\FP\Lst;
 use WPML\FP\Fns;
+use WPML\FP\Lst;
 use WPML\FP\Obj;
 use WPML\ST\MO\File\Manager;
 use WPML\ST\MO\Generate\DomainsAndLanguagesRepository;
@@ -13,19 +13,14 @@ use function WPML\FP\pipe;
 
 class StringsLanguageChanged implements \IWPML_Action {
 
-	/** @var DomainsAndLanguagesRepository */
 	private $domainsAndLanguageRepository;
-
-	/** @var Manager */
 	private $manager;
-
-	/** @var callable :: int[]->string[] */
 	private $getDomainsByStringIds;
 
 	/**
-	 * @param  DomainsAndLanguagesRepository  $domainsAndLanguageRepository
-	 * @param  Manager  $manager
-	 * @param  callable  $getDomainsByStringIds
+	 * @param DomainsAndLanguagesRepository $domainsAndLanguageRepository
+	 * @param Manager                       $manager
+	 * @param callable                      $getDomainsByStringIds
 	 */
 	public function __construct(
 		DomainsAndLanguagesRepository $domainsAndLanguageRepository,

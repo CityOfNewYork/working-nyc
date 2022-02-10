@@ -54,10 +54,12 @@ class Register implements IHandler {
 	public static function flatToHierarchical( $state, $option ) {
 
 		// string $value -> mixed $key -> array [ $key => $value ]
-		$makeArrayWithStringKey = function ( $value, $key ) { return [ (string) $key => $value ]; };
+		$makeArrayWithStringKey = function ( $value, $key ) {
+			return [ (string) $key => $value ];
+		};
 
 		return \WPML_Admin_Texts::getKeysParts( $option )
-		                        ->reverse()
-		                        ->reduce( $makeArrayWithStringKey, $state );
+								->reverse()
+								->reduce( $makeArrayWithStringKey, $state );
 	}
 }

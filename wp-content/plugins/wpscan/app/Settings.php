@@ -82,6 +82,7 @@ class Settings {
 		register_setting( $this->page, $this->parent->OPT_IGNORE_ITEMS );
 		register_setting( $this->page, $this->parent->OPT_SCANNING_INTERVAL, 'sanitize_text_field' );
 		register_setting( $this->page, $this->parent->OPT_SCANNING_TIME, 'sanitize_text_field' );
+		register_setting( $this->page, $this->parent->OPT_DISABLE_CHECKS, array( 'type' => 'boolean', 'default' => '0' ) );
 
 		$section = $this->page . '_section';
 
@@ -112,6 +113,14 @@ class Settings {
 			$this->parent->OPT_SCANNING_TIME,
 			__( 'Scanning Time', 'wpscan' ),
 			array( $this, 'field_scanning_time' ),
+			$this->page,
+			$section
+		);
+
+		add_settings_field(
+			$this->parent->OPT_DISABLE_CHECKS,
+			__( 'Disable Security Checks', 'wpscan' ),
+			array( $this, 'field_disable_security_checks' ),
 			$this->page,
 			$section
 		);
@@ -197,7 +206,7 @@ class Settings {
 	 */
 	public function page() {
 		echo '<div class="wrap">';
-			echo '<h1><img src="' . $this->parent->plugin_url . 'assets/svg/logo.svg" alt="WPScan"></h1>';
+			echo '<h1><img src="' . plugin_dir_url( dirname( __FILE__ ) ) . 'assets/svg/logo.svg" alt="WPScan"></h1>';
 
 			echo '<h2>' . __( 'Settings', 'wpscan' ) . '</h2>';
 
@@ -322,6 +331,21 @@ class Settings {
 		}
 
 		echo '</p><br/>';
+	}
+	/**
+	 * Disable security checks field
+	 *
+	 * @since 1.15.2
+	 * @access public
+	 * @return string
+	 */
+	public function field_disable_security_checks() {
+		$opt     = $this->parent->OPT_DISABLE_CHECKS;
+
+		$value   = get_option( $opt, array() );
+		$checked = $value === '1' ? 'checked' : null;
+
+		echo "<input name='{$opt}' type='checkbox' $checked value='1' >";
 	}
 
 	/**
