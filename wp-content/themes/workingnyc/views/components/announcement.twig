@@ -40,14 +40,31 @@
       </li>
     </ul>
 
-    {% include 'components/web-share.twig' with {this: {
-      class: 'z-30',
-      share: {
-        'title': this.announcement_title,
-        'text': this.announcement_details|striptags,
-        'url': this.shortlink
-      }
-    }} only %}
+    <div class="flex">
+      {% set announcement_share_id = fn('uniqid') %}
+
+      {% include 'components/web-share.twig' with {this: {
+        id: announcement_share_id,
+        class: 'z-30',
+        share: {
+          title: this.announcement_title,
+          text: this.announcement_details|striptags,
+          url: this.shortlink
+        }
+      }} only %}
+
+      <button aria-pressed="false" class="btn btn-small btn-primary mis-2 hidden tablet:inline-flex" data-copy="web-share-url-{{ announcement_share_id }}" data-js="copy">
+        <svg class="icon icon-wnyc-ui">
+          <use href="#feather-copy"></use>
+        </svg>
+
+        <svg class="icon-pressed icon-wnyc-ui mie-1">
+          <use href="#feather-check"></use>
+        </svg>
+
+        <span>{{ __('Copy URL', 'WNYC') }}</span>
+      </button>
+    </div>
 
     {# @span This empty span tag currently assists the stylesheet in removing margin on the last visible element in the card. #}
     <span></span>
