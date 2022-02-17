@@ -1,10 +1,10 @@
 <article class="c-card h-full {{ post.classes }}">
   <header class="c-card__header">
-    <h3 class="c-card__title mt-0 mb-2">
-      <a href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
-        <span data-program="plain-language-name">{{ post.program_title }}</span>
-      </a>
-    </h3>
+    <a href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
+      <h3 class="c-card__title mt-0 mb-2">
+          <span data-program="plain-language-name">{{ post.program_title }}</span>
+      </h3>
+    </a>
 
     <h4 class="c-card__subtitle text-alt mb-1">
       <b>{{ post.title }}</b> {{ __('by', 'WNYC-Programs')}} {{ post.program_agency }}
