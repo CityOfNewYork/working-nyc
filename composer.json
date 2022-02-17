@@ -1,7 +1,7 @@
 {
   "name": "nyco/working-nyc",
   "description": "Find and connect to services and resources that can help you prepare for and get a job.",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "authors": [
     {
       "name": "NYC Opportunity",
