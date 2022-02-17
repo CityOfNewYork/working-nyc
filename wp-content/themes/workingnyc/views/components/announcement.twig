@@ -1,7 +1,7 @@
 <article class="c-card c-card-transparent h-full">
   <header class="c-card__header">
-    <h2 class="c-card__title">
-      <a href="{{ this.link }}" target="{{ this.target }}" class="no-underline">
+    <a href="{{ this.link }}" target="{{ this.target }}" class="no-underline">
+      <h2 class="c-card__title">
         {% if this.date|date('U') > this.statusPeriod|date('U') %}
         <mark class="badge" title="{{ this.statusTitle }}">
           {{ this.status }}
@@ -15,8 +15,8 @@
           <use href="#feather-external-link"></use>
         </svg>
         {% endif %}
-      </a>
-    </h2>
+      </h2>
+    </a>
   </header>
 
   <div class="c-card__body">
