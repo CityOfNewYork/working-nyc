@@ -11,7 +11,7 @@
     "version": "echo \"No version task required\""
   },
   "dependencies": {
-    "@nycopportunity/working-patterns": "^0.0.1-54",
+    "@nycopportunity/working-patterns": "^0.0.1-55",
     "axios": "^0.25.0",
     "feather-icons": "^4.28.0",
     "postcss": "^8.3.11",
