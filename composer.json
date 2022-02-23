@@ -23,7 +23,6 @@
     "wpackagist-plugin/acf-to-rest-api": "*",
     "wpackagist-plugin/adminimize": "*",
     "wpackagist-plugin/aryo-activity-log": "*",
-    "wpackagist-plugin/custom-post-type-ui": "*",
     "wpackagist-plugin/gathercontent-import": "3.1.14",
     "wpackagist-plugin/google-authenticator": "*",
     "wpackagist-plugin/limit-login-attempts-reloaded": "*",

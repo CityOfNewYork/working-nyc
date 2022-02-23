@@ -2207,27 +2207,6 @@
             "install-path": "../../wp-content/plugins/aryo-activity-log"
         },
         {
-            "name": "wpackagist-plugin/custom-post-type-ui",
-            "version": "1.10.2",
-            "version_normalized": "1.10.2.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/custom-post-type-ui/",
-                "reference": "tags/1.10.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/custom-post-type-ui.1.10.2.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "installation-source": "dist",
-            "homepage": "https://wordpress.org/plugins/custom-post-type-ui/",
-            "install-path": "../../wp-content/plugins/custom-post-type-ui"
-        },
-        {
             "name": "wpackagist-plugin/gathercontent-import",
             "version": "3.1.14",
             "version_normalized": "3.1.14.0",

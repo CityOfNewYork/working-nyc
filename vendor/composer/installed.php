@@ -334,15 +334,6 @@
             'reference' => 'tags/2.8.2',
             'dev_requirement' => false,
         ),
-        'wpackagist-plugin/custom-post-type-ui' => array(
-            'pretty_version' => '1.10.2',
-            'version' => '1.10.2.0',
-            'type' => 'wordpress-plugin',
-            'install_path' => __DIR__ . '/../../wp-content/plugins/custom-post-type-ui',
-            'aliases' => array(),
-            'reference' => 'tags/1.10.2',
-            'dev_requirement' => false,
-        ),
         'wpackagist-plugin/gathercontent-import' => array(
             'pretty_version' => '3.1.14',
             'version' => '3.1.14.0',
