@@ -18,6 +18,7 @@
   "require": {
     "nyco/wp-assets": "^1.4",
     "nyco/wp-config": "^1",
+    "nyco/wp-gc-templates-sync": "^0.0.2",
     "spatie/schema-org": "^3",
     "timber/timber": "^1",
     "wpackagist-plugin/acf-to-rest-api": "*",

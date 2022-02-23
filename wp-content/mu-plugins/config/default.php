@@ -34,6 +34,26 @@ add_action('plugins_loaded', function() {
 });
 
 /**
+ * Have GatherContent Importer Plugin use tokens defined by constants.
+ *
+ * @author NYC Opportunity
+ */
+add_action('plugins_loaded', function() {
+  if (is_plugin_active('gathercontent-import/gathercontent-importer.php') &&
+    defined('GATHERCONTENT_ACCOUNT_EMAIL') &&
+    defined('GATHERCONTENT_PLATFORM_URL_SLUG') &&
+    defined('GATHERCONTENT_API_KEY')) {
+    $opts = get_option('gathercontent_importer');
+
+    $opts['account_email'] = GATHERCONTENT_ACCOUNT_EMAIL;
+    $opts['platform_url_slug'] = GATHERCONTENT_PLATFORM_URL_SLUG;
+    $opts['api_key'] = GATHERCONTENT_API_KEY;
+
+    update_option('gathercontent_importer', $opts); // Use tokens from config
+  }
+});
+
+/**
  * Remove the OAuth button field from the WP Bit.ly Admin settings
  * (Settings > Writing)
  *

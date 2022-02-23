@@ -1,0 +1,126 @@
+{
+    "id": "2693304",
+    "title": "General Job",
+    "meta": {
+        "_gc_account": "afdcontent",
+        "_gc_project": "314137",
+        "_gc_template": "2693304",
+        "_gc_structure_uuid": "31eb7a7e-78fa-467d-adf1-939aba370f94",
+        "_gc_account_id": "28666"
+    },
+    "content": {
+        "mapping": {
+            "ac40099d-8e49-a339-495c-bfc28e5d0355": {
+                "type": "wp-type-post",
+                "value": "post_title"
+            },
+            "232d232b-61d2-da49-3615-e089133fba48": {
+                "type": "wp-type-meta",
+                "value": "job_unique_identifier"
+            },
+            "7022dbf4-eda7-2497-7f2c-b34bb6461dd6": {
+                "type": "wp-type-taxonomy",
+                "value": "source"
+            },
+            "cec1e2b0-f597-e543-05e8-837d6248f564": {
+                "type": "wp-type-meta",
+                "value": "job_organization"
+            },
+            "bf5230c7-8272-2bef-45fa-8f4d0d76e66b": {
+                "type": "wp-type-meta",
+                "value": "job_organization_url"
+            },
+            "5b72677a-4641-712b-284d-d2156f84c408": {
+                "type": "wp-type-post",
+                "value": "post_content"
+            },
+            "18b4b65b-e3d9-f821-bae4-5c9b2c7984da": {
+                "type": "wp-type-meta",
+                "value": "job_requirements"
+            },
+            "1d6f6874-886b-2624-e72c-057dae177e02": {
+                "type": "wp-type-taxonomy",
+                "value": "schedule"
+            },
+            "03e175c8-c77e-ce3e-7af0-8d19a3ce20c4": {
+                "type": "wp-type-taxonomy",
+                "value": "salary"
+            },
+            "c5413502-aa66-384a-99d2-a81d5bd1ab02": {
+                "type": "wp-type-meta",
+                "value": "job_minimum_base_salary_value"
+            },
+            "e658b18b-cf87-44a4-4a63-52267ac1103e": {
+                "type": "wp-type-meta",
+                "value": "job_maximum_base_salary_value"
+            },
+            "4e68a0dd-ceaa-cf0e-ba40-4f6070ba0055": {
+                "type": "wp-type-meta",
+                "value": "job_minimum_hours_per_week"
+            },
+            "70e3b3ee-22fc-6836-f6d9-8329b80d12ae": {
+                "type": "wp-type-meta",
+                "value": "job_maximum_hours_per_week"
+            },
+            "b992b903-49da-21f2-b0f5-2d6071b6ad75": {
+                "type": "wp-type-meta",
+                "value": "job_street_address"
+            },
+            "e38096bb-e92e-5c2e-3acf-2af95d999ebd": {
+                "type": "wp-type-taxonomy",
+                "value": "locations"
+            },
+            "6c0ee400-479a-a522-f0cb-ea90e819c0f9": {
+                "type": "wp-type-meta",
+                "value": "job_postal_code"
+            },
+            "99528a37-bcd4-19f4-7b80-371e8d80e077": {
+                "type": "wp-type-meta",
+                "value": "job_bespoke_application_instructions"
+            },
+            "232942bc-6c79-6048-eee1-9b08b20a870b": {
+                "type": "wp-type-meta",
+                "value": "job_generic_application_instructions"
+            },
+            "6f331082-20a9-6cdc-c091-baa04701d621": {
+                "type": "wp-type-meta",
+                "value": "job_direct_apply"
+            },
+            "70acf9d9-026c-b6db-9b70-cb9c60e064d6": {
+                "type": "wp-type-meta",
+                "value": "job_learn_more"
+            },
+            "2e5220bb-c471-07eb-e918-12d1dba18474": {
+                "type": "wp-type-taxonomy",
+                "value": "sectors"
+            },
+            "c38b71a2-c3b0-7560-49d6-880cea5e0a47": {
+                "type": "wp-type-taxonomy",
+                "value": "populations"
+            }
+        },
+        "post_type": "jobs",
+        "post_author": "2",
+        "post_status": "draft",
+        "gc_status": {
+            "2119845": {
+                "wp": "",
+                "after": ""
+            },
+            "2119846": {
+                "wp": "",
+                "after": ""
+            },
+            "2119847": {
+                "wp": "",
+                "after": ""
+            },
+            "2119848": {
+                "wp": "",
+                "after": ""
+            }
+        },
+        "structure_uuid": "31eb7a7e-78fa-467d-adf1-939aba370f94"
+    },
+    "modified": 1645812159
+}
