@@ -1,0 +1,46 @@
+{
+    "id": "2694216",
+    "title": "Application Instructions",
+    "meta": {
+        "_gc_account": "afdcontent",
+        "_gc_project": "314137",
+        "_gc_template": "2694216",
+        "_gc_structure_uuid": "73df05a1-5b57-48bb-8efb-a213b2f2aa05",
+        "_gc_account_id": "28666"
+    },
+    "content": {
+        "mapping": {
+            "e3a8e710-d24c-a825-2f91-f54607800012": {
+                "type": "wp-type-post",
+                "value": "post_content"
+            },
+            "8b2193b6-2194-0b69-32a3-3105cf8e252d": {
+                "type": "wp-type-taxonomy",
+                "value": "source"
+            }
+        },
+        "post_type": "instructions",
+        "post_author": "1",
+        "post_status": "draft",
+        "gc_status": {
+            "2119845": {
+                "wp": "",
+                "after": ""
+            },
+            "2119846": {
+                "wp": "",
+                "after": ""
+            },
+            "2119847": {
+                "wp": "",
+                "after": ""
+            },
+            "2119848": {
+                "wp": "",
+                "after": ""
+            }
+        },
+        "structure_uuid": "73df05a1-5b57-48bb-8efb-a213b2f2aa05"
+    },
+    "modified": 1646080520
+}

@@ -3,6 +3,25 @@
     "title": "Program Details",
     "fields": [
         {
+            "key": "field_5ef25eaf1edad",
+            "label": "Occupation",
+            "name": "program_occupation",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_5ef25f691edae",
             "label": "Program Title",
             "name": "program_title",
@@ -136,44 +155,6 @@
             "delay": 0
         },
         {
-            "key": "field_5f21e4de34e10",
-            "label": "Disability Accommodation",
-            "name": "program_disability",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0
-        },
-        {
-            "key": "field_5f21e49d34e0f",
-            "label": "Language Access",
-            "name": "program_language_access",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 1,
-            "delay": 0
-        },
-        {
             "key": "field_5ef260811edb4",
             "label": "Next Steps",
             "name": "program_next_steps",
@@ -248,25 +229,6 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
-        },
-        {
-            "key": "field_5f21dfcefc7f7",
-            "label": "Email",
-            "name": "program_email",
-            "type": "text",
-            "instructions": "Enter an email address.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
         }
     ],
     "location": [
@@ -285,5 +247,7 @@
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 1,
+    "modified": 1645217944
 }
