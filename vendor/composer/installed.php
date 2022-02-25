@@ -136,6 +136,15 @@
             'reference' => '7e764436e5c5fb8297d8c912aa887b5cee729e94',
             'dev_requirement' => false,
         ),
+        'nyco/wp-gc-templates-sync' => array(
+            'pretty_version' => '0.0.2',
+            'version' => '0.0.2.0',
+            'type' => 'wordpress-muplugin',
+            'install_path' => __DIR__ . '/../../wp-content/mu-plugins/wp-gc-templates-sync',
+            'aliases' => array(),
+            'reference' => '21c74e9d6e86dabf0abce336ce88f0c2f1110804',
+            'dev_requirement' => false,
+        ),
         'psr/container' => array(
             'pretty_version' => '1.1.2',
             'version' => '1.1.2.0',
