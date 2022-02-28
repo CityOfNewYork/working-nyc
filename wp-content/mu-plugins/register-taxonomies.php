@@ -226,7 +226,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('source', ['jobs'], array(
+  register_taxonomy('source', ['jobs', 'instructions'], array(
     'label' => __('Sources'),
     'labels' => array(
       'name' => __('Sources'),
@@ -253,7 +253,7 @@ add_action('init', function() {
   ));
 
   /**
-   * Taxonomy: Sources
+   * Taxonomy: Salary
    *
    * @author NYC Opportunity
    */
