@@ -22,6 +22,10 @@
                 "type": "wp-type-taxonomy",
                 "value": "source"
             },
+            "8415802a-c845-dee7-328a-233130f56bbc": {
+                "type": "wp-type-taxonomy",
+                "value": "agency"
+            },
             "cec1e2b0-f597-e543-05e8-837d6248f564": {
                 "type": "wp-type-meta",
                 "value": "job_organization"
@@ -31,8 +35,8 @@
                 "value": "job_organization_url"
             },
             "5b72677a-4641-712b-284d-d2156f84c408": {
-                "type": "wp-type-post",
-                "value": "post_content"
+                "type": "wp-type-meta",
+                "value": "job_description"
             },
             "18b4b65b-e3d9-f821-bae4-5c9b2c7984da": {
                 "type": "wp-type-meta",
@@ -67,6 +71,10 @@
                 "value": "job_street_address"
             },
             "e38096bb-e92e-5c2e-3acf-2af95d999ebd": {
+                "type": "wp-type-taxonomy",
+                "value": "locations"
+            },
+            "421a2873-ede6-741e-4cdf-6dbd5ebc3be8": {
                 "type": "wp-type-taxonomy",
                 "value": "locations"
             },
@@ -122,5 +130,5 @@
         },
         "structure_uuid": "31eb7a7e-78fa-467d-adf1-939aba370f94"
     },
-    "modified": 1645812159
+    "modified": 1647023922
 }

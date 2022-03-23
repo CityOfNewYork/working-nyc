@@ -15,7 +15,7 @@
                 "class": "",
                 "id": ""
             },
-            "message": "The following template combines the needs of users with the needs of search engine schema to strengthen the utility of the content. This is the minimum requirement to feature a single job. Users will ultimately want to see as many details as possible, so this template can be revised as needed.\r\n\r\nRefer to the <a href=\"https:\/\/docs.google.com\/document\/d\/1dtuU2pr1aL-kbDkrLdORNiiP7f81McjXKSPo1RWEzb4\/edit#heading=h.gjdgxs\" target=\"_blank\">Working NYC Style Guide<\/a> as well as the <a href=\"https:\/\/developers.google.com\/search\/docs\/advanced\/structured-data\/job-posting\" target=\"_blank\">Job Posting Schema Markup Documentation<\/a> for further details.",
+            "message": "Content in this page is managed and synced from Gather Content. Edits can be made here but may be overwritten if changes are synced from Gather Content.",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -44,7 +44,7 @@
             "name": "job_organization",
             "type": "text",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -77,6 +77,25 @@
             "maxlength": ""
         },
         {
+            "key": "field_622b9692c9dff",
+            "label": "Description",
+            "name": "job_description",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
             "key": "field_620fed9f8af97",
             "label": "Requirements",
             "name": "job_requirements",
@@ -101,7 +120,7 @@
             "name": "job_minimum_base_salary_value",
             "type": "number",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -246,7 +265,7 @@
                 "id": ""
             },
             "choices": {
-                "true": "True"
+                "Generic": "Generic"
             },
             "allow_custom": 0,
             "default_value": [],
@@ -259,7 +278,7 @@
             "key": "field_620ff81af5a80",
             "label": "Direct Apply",
             "name": "job_direct_apply",
-            "type": "text",
+            "type": "url",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -269,10 +288,7 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
+            "placeholder": ""
         },
         {
             "key": "field_620ff8c5f5a81",
@@ -309,5 +325,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 1,
-    "modified": 1645218002
+    "modified": 1647973551
 }

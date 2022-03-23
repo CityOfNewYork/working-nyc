@@ -1,0 +1,65 @@
+<article class="c-card">
+  <header class="c-card__header">
+    <a class="block" data-js="job-{{ post.id }}" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
+      <h3 class="c-card__title mt-0 mb-2">{{ post.title }}</h3>
+    </a>
+
+    <h4 class="c-card__subtitle text-alt mb-1">
+      {% if post.sector %}<b>{{ post.sector }}</b>{% endif %}
+      {% if post.sector and post.organization %}<span>{{ __('with', 'WNYC') }} </span>{% endif %}
+      {% if post.organization %}<span>{{ post.organization }}</span>{% endif %}
+    </h4>
+  </header>
+
+  <div class="c-card__body">
+    <div class="c-card__summary">
+      <p>{{ post.summary }}</p>
+    </div>
+
+    <ul class="c-card__features">
+      <li class="flex items-center">
+        <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
+          <title>{{ __('Schedule', 'WNYC') }}</title>
+
+          <use href="#feather-calendar"></use>
+        </svg>
+
+        <span>{{ post.schedule }}</span>
+      </li>
+
+      <li class="flex items-center">
+        <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
+          <title>{{ __('Salary', 'WNYC') }}</title>
+
+          <use href="#feather-dollar-sign"></use>
+        </svg>
+
+        <span>{{ post.salary }}</span>
+      </li>
+
+      <li class="flex items-center">
+        <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
+          <title>{{ __('Location', 'WNYC') }}</title>
+
+          <use href="#feather-map-pin"></use>
+        </svg>
+
+        <span>{{ post.location }}</span>
+      </li>
+    </ul>
+
+    <a class="c-card__cta" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
+      <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+        <use href="#feather-arrow-left"></use>
+      </svg>
+
+      <span>
+        {{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} {{ post.title }}</span>
+      </span>
+
+      <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+        <use href="#feather-arrow-right"></use>
+      </svg>
+    </a>
+  </div>
+</article>

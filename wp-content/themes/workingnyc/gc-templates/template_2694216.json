@@ -11,8 +11,8 @@
     "content": {
         "mapping": {
             "e3a8e710-d24c-a825-2f91-f54607800012": {
-                "type": "wp-type-post",
-                "value": "post_content"
+                "type": "wp-type-meta",
+                "value": "instruction_details"
             },
             "8b2193b6-2194-0b69-32a3-3105cf8e252d": {
                 "type": "wp-type-taxonomy",
@@ -42,5 +42,5 @@
         },
         "structure_uuid": "73df05a1-5b57-48bb-8efb-a213b2f2aa05"
     },
-    "modified": 1646080520
+    "modified": 1647975022
 }

@@ -1,0 +1,211 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1" id="content">
+    <div class="layout-content sticky top-0 bg-scale-1 z-10">
+      {% include ['components/utility-nav.twig'] with {
+        return: {
+          'label': __('Jobs', 'WNYC'),
+          'link': jobs_archive
+        },
+        cta: [
+          {
+            'label': __('Apply', 'WNYC'),
+            'link': '#application-instructions'
+          }
+        ],
+        web_share: {
+          'title': post.program_title,
+          'text': (post.web_share_text) ? post.web_share_text : '',
+          'url': fn('wp_get_shortlink')
+        }
+      } %}
+    </div>
+
+    {# Header Section #}
+    <div class="layout-content">
+      <header class="o-header">
+        <div>
+          <h1 class="o-header__title">{{ post.title }}</h1>
+
+          <h2 class="o-header__subtitle">
+            {% if post.sector %}<b>{{ post.sector }}</b>{% endif %}
+            {% if post.sector and post.organization %}<span>{{ __('with', 'WNYC') }} </span>{% endif %}
+            {% if post.organization %}<span>{{ post.organization }}</span>{% endif %}
+          </h2>
+
+          {% include 'components/breadcrumbs.twig' with {
+            crumbs: [
+              {
+                'label': __('Jobs', 'WNYC'),
+                'link': jobs_archive
+              },
+              {
+                'label': post.title,
+                'link': ''
+              }
+            ]
+          } %}
+
+          <p class="small flex items-center">
+            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+              <title>{{ __('Schedule', 'WNYC') }}</title>
+
+              <use href="#feather-calendar"></use>
+            </svg>
+
+            <span>{{ post.schedule }}</span>
+          </p>
+
+          <p class="small flex items-center">
+            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+              <title>{{ __('Salary', 'WNYC') }}</title>
+
+              <use href="#feather-dollar-sign"></use>
+            </svg>
+
+            <span>{{ post.salary }}</span>
+          </p>
+
+          <p class="small flex items-center">
+            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+              <title>{{ __('Location', 'WNYC') }}</title>
+
+              <use href="#feather-map-pin"></use>
+            </svg>
+
+            <span>{{ post.location }}</span>
+          </p>
+
+          <p class="small flex items-center">
+            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+              <title>{{ __('Last Updated', 'WNYC') }}</title>
+
+              <use href="#feather-alert-triangle"></use>
+            </svg>
+
+            {{ __('Last updated', 'WNYC') }} {{ modified_date }}
+          </p>
+        </div>
+      </header>
+    </div>
+
+    {# Description #}
+    {# Requirements #}
+    {# Application Instructions #}
+    <div class="bg-scale-2 layout-content">
+      <div class="pb-4 wrap">
+        <section>
+          <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="description">
+            <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#description">
+                <svg class="icon-wnyc-ui" role="img">
+                  <title>{{ __('Description', 'WNYC') }}</title>
+
+                  <use href="#feather-info"></use>
+                </svg>
+              </a>
+
+              {{ __('Description', 'WNYC') }}
+            </h3>
+          </div>
+
+          {{ post.get_field('job_description') }}
+        </section>
+
+        {% if post.get_field('job_requirements') %}
+        <section>
+          <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="requirements">
+            <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#requirements">
+                <svg class="icon-wnyc-ui" role="img">
+                  <title>{{ __('Requirements', 'WNYC') }}</title>
+
+                  <use href="#feather-users"></use>
+                </svg>
+              </a>
+
+              {{ __('Who it\'s for', 'WNYC') }}
+            </h3>
+          </div>
+
+          {{ post.get_field('job_requirements') }}
+        </section>
+        {% endif %}
+
+        {% if post.instructions %}
+        <section>
+          <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="application-instructions">
+            <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#application-instructions">
+                <svg class="icon-wnyc-ui" role="img">
+                  <title>{{ __('Application Instructions', 'WNYC') }}</title>
+
+                  <use href="#feather-clipboard"></use>
+                </svg>
+              </a>
+
+              {{ __('Application Instructions', 'WNYC') }}
+            </h3>
+          </div>
+
+          {{ post.instructions }}
+        </section>
+        {% endif %}
+      </div>
+    </div>
+
+    {# Links #}
+    {% if post.job_learn_more or post.job_direct_apply %}
+    <section class="layout-content bg-scale-1 py-4 pb-8" id="contact">
+      <nav class="wrap grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
+        {% if post.job_learn_more %}
+        <a class="btn btn-secondary w-full" href="{{ post.job_learn_more }}" target="_blank" rel="noopener nofollow">
+          <span>{{ __('Learn More', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} {{ post.post_title }}</span></span>
+
+          <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+            <use href="#feather-external-link"></use>
+          </svg>
+        </a>
+        {% endif %}
+
+        {% if post.job_direct_apply %}
+        <a class="btn btn-secondary w-full" href="{{ post.job_direct_apply }}" target="_blank" rel="noopener nofollow">
+          <span>{{ __('Apply', 'WNYC') }} <span class="sr-only">{{ __('for', 'WNYC') }} {{ post.post_title }}</span></span>
+
+          <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+            <use href="#feather-external-link"></use>
+          </svg>
+        </a>
+        {% endif %}
+      </nav>
+    </section>
+    {% endif %}
+
+    {# More #}
+    {# <section class="bg-scale-1 layout-content tablet:pb-6">
+      <div class="page-max">
+        <div class="text-center text-alt mb-1">—</div>
+        <nav class="py-2 wrap">
+          <a class="btn btn-primary btn-next w-full" href="#">
+            <svg aria-hidden="true" class="icon-wnyc-ui">
+              <use href="#arrow-left"></use>
+            </svg>{{ __('More programs at', 'WNYC') }} {{ post.program_provider }}<svg aria-hidden="true" class="icon-wnyc-ui">
+              <use href="#arrow-right"></use>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </section> #}
+
+    {% if options.feedback is defined %}
+    {% include 'objects/feedback.twig' %}
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
+  </main>
+</div>
+{% endblock %}

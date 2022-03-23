@@ -6,6 +6,7 @@
 module.exports = [
   'assets/styles/site-default-development.css',
   'assets/js/archive-development.js',
+  'assets/js/archive-jobs-development.js',
   'assets/js/global-development.js',
   'assets/js/newsletter-development.js',
   'assets/js/polyfills-development.js',
