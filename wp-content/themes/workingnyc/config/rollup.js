@@ -7,10 +7,6 @@ const commonjs = require('@rollup/plugin-commonjs');        // Include CommonJS 
 const replace = require('@rollup/plugin-replace');          // Replace content while bundling
 const vue = require('rollup-plugin-vue');                   // Roll up Vue single file components (SFCs)
 
-// import babel from '@rollup/plugin-babel';
-// import vue from 'rollup-plugin-vue';
-// const env = process.env.NODE_ENV;
-
 /**
  * General ES module configuration
  *
@@ -24,8 +20,9 @@ let rollup = {
 
 /**
  * Plugins
+ *
+ * @type {Array}
  */
-
 const plugins = [
   nodeResolve.nodeResolve({
     browser: true,
@@ -34,25 +31,22 @@ const plugins = [
     ]
   }),
   commonjs(),
+  vue(),
   replace({
     'preventAssignment': true,
     'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
-    // 'SCREEN_DESKTOP': 960,
-    // 'SCREEN_TABLET': 768,
-    // 'SCREEN_MOBILE': 480,
-    // 'SCREEM_SM_MOBILE': 400
-  }),
-  // babel({
-  //   exclude: 'node_modules/**'// ,
-  //   // presets: ["@babel/preset-env"]
-  // }),
-  vue()
+    'SCREEN_DESKTOP': 960,
+    'SCREEN_TABLET': 768,
+    'SCREEN_MOBILE': 480,
+    'SCREEM_SM_MOBILE': 400
+  })
 ];
 
 /**
  * Modules
+ *
+ * @type {Array}
  */
-
 module.exports = [
   {
     input: './src/js/global.js',
@@ -71,7 +65,19 @@ module.exports = [
     output: [{
       file: './assets/js/archive-development.js',
       format: rollup.format,
-      sourcemap: rollup.sourcemap,
+      sourcemap: false,
+      strict: rollup.strict
+    }],
+    plugins: plugins,
+    cache: true,
+    devModule: true
+  },
+  {
+    input: './src/js/archive-jobs.js',
+    output: [{
+      file: './assets/js/archive-jobs-development.js',
+      format: rollup.format,
+      sourcemap: false,
       strict: rollup.strict
     }],
     plugins: plugins,

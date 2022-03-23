@@ -12,9 +12,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_post_type(
-    'announcements',
-    array(
+  register_post_type('announcements', array(
       'labels' => array(
         'name' => __('Announcements'),
         'singular_name' => __('Announcement'),
@@ -57,9 +55,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_post_type(
-    'programs',
-    array(
+  register_post_type('programs', array(
       'labels' => array(
         'name' => __('Programs'),
         'singular_name' => __('Program'),
@@ -102,9 +98,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_post_type(
-    'jobs',
-    array(
+  register_post_type('jobs', array(
       'labels' => array(
         'name' => __('Jobs'),
         'singular_name' => __('Job'),
@@ -123,7 +117,7 @@ add_action('init', function() {
       'exclude_from_search' => false,
       'show_ui' => true,
       'hierarchical' => false,
-      'supports' => ['title', 'editor'],
+      'supports' => ['title'],
 
       /**
        * @source https://developer.wordpress.org/resource/dashicons/
@@ -147,9 +141,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_post_type(
-    'instructions',
-    array(
+  register_post_type('instructions', array(
       'labels' => array(
         'name' => __('Application Instructions'),
         'singular_name' => __('Instruction'),
@@ -168,7 +160,7 @@ add_action('init', function() {
       'exclude_from_search' => true,
       'show_ui' => true,
       'hierarchical' => false,
-      'supports' => ['title', 'editor'],
+      'supports' => ['title'],
 
       /**
        * @source https://developer.wordpress.org/resource/dashicons/

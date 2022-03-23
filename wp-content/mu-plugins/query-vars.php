@@ -8,7 +8,7 @@
  * Author URI: nyc.gov/opportunity
  */
 
-add_filter('query_vars', function($publicQueryVars) {
+add_filter('query_vars', function($vars) {
   /**
    * Please note, custom query parameters must use the prefix
    * to prevent conflicts with the WordPress Query
@@ -18,7 +18,35 @@ add_filter('query_vars', function($publicQueryVars) {
 
   $prefix = 'wnyc_';
 
-  array_push($publicQueryVars, $prefix . 'v');
+  /**
+   * Google Optimize (or other) A/B testing query parameter
+   */
 
-  return $publicQueryVars;
+  array_push($vars, $prefix . 'v'); // version
+
+  /**
+   * Query Vars to map to the WP Archive Vue history state. These are different
+   * from registered query vars so that they don't interfere with the WordPress
+   * Query.
+   *
+   * These are mapped in the following scripts
+   *
+   * wp-content/themes/workingnyc/src/js/programs-archive.js
+   * wp-content/themes/workingnyc/src/js/jobs-archive.js
+   *
+   * @author NYC Opportunity
+   */
+
+  array_push($vars, $prefix . 'wnyc_agy'); // agency
+  array_push($vars, $prefix . 'wnyc_ser'); // services
+  array_push($vars, $prefix . 'wnyc_rst'); // recruitment_status
+  array_push($vars, $prefix . 'wnyc_sch'); // schedule
+  array_push($vars, $prefix . 'wnyc_dur'); // duration
+  array_push($vars, $prefix . 'wnyc_loc'); // locations
+  array_push($vars, $prefix . 'wnyc_pop'); // populations
+  array_push($vars, $prefix . 'wnyc_sec'); // sectors
+  array_push($vars, $prefix . 'wnyc_src'); // source
+  array_push($vars, $prefix . 'wnyc_sal'); // salary
+
+  return $vars;
 });

@@ -13,7 +13,8 @@ const restrict = [
   'icon-', 'logo-', 'option-', 'select-', 'arrow-', 'chevron-', 'help-circle.svg',
   'calendar.svg', 'users.svg', 'award.svg', 'x.svg', 'copy.svg', 'check.svg',
   'facebook.svg', 'twitter.svg', 'menu.svg', 'translate.svg', 'search.svg',
-  'info.svg', 'alert-', 'external-link.svg', 'share-2.svg', 'sun.svg', 'moon.svg'
+  'info.svg', 'alert-', 'external-link.svg', 'share-2.svg', 'sun.svg', 'moon.svg',
+  'map-pin.svg', 'dollar-sign.svg', 'clipboard.svg'
 ];
 
 /**

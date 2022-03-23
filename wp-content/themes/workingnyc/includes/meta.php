@@ -62,16 +62,25 @@ class Meta {
     if (empty($description)) {
       switch ($this->post->post_type) {
         case 'page':
-          $description = ($this->is_homepage) ?
-            get_bloginfo('description') : $description;
+          $description = ($this->is_homepage) ? get_bloginfo('description') : $description;
+
           break;
 
         case 'announcements':
           $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->id);
+
           break;
 
         case 'programs':
           $description = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
+
+          break;
+
+        case 'jobs':
+          $description = get_field(self::FIELD_JOB_DESCRIPTION, $this->id);
+
+          $description = trim(substr(strip_tags($description), 0, 120)) . '... ';
+
           break;
       }
     }
@@ -111,14 +120,17 @@ class Meta {
       switch ($this->post->post_type) {
         case 'page':
           $title = ($this->is_homepage) ? get_bloginfo('name') : $title;
+
           break;
 
         case 'announcements':
           $title = get_field(self::FIELD_ANNOUNCEMENT_TITLE, $this->id);
+
           break;
 
         case 'programs':
           $title = get_field(self::FIELD_PROGRAM_TITLE, $this->id);
+
           break;
       }
     }
@@ -142,16 +154,25 @@ class Meta {
     if (empty($description)) {
       switch ($this->post->post_type) {
         case 'page':
-          $description = ($this->is_homepage) ?
-            get_bloginfo('description') : $description;
+          $description = ($this->is_homepage) ? get_bloginfo('description') : $description;
+
           break;
 
         case 'announcements':
           $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->id);
+
           break;
 
         case 'programs':
           $description = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
+
+          break;
+
+        case 'jobs':
+          $description = get_field(self::FIELD_JOB_DESCRIPTION, $this->id);
+
+          $description = trim(substr(strip_tags($description), 0, 120)) . '... ';
+
           break;
       }
     }
@@ -212,4 +233,6 @@ class Meta {
   const FIELD_ANNOUNCEMENT_TITLE = 'field_5fc55e19cfde8';
 
   const FIELD_ANNOUNCEMENT_DETAILS = 'field_5fc55e34cfde9';
+
+  const FIELD_JOB_DESCRIPTION = 'field_622b9692c9dff';
 }

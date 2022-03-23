@@ -1,10 +1,12 @@
 <?php
 
+// phpcs:disable
 /**
  * Plugin Name: Register Taxonomies
- * Description: Creates custom taxonomies types for Working NYC
+ * Description: Creates custom taxonomies for the site. The order of registration affects the display order on the front-end. Additionally, filters can be configured to show up on the front-end using the 'public' configuration parameter for each taxonomy.
  * Author: NYC Opportunity
  */
+// phpcs:enable
 
 add_action('init', function() {
   /**
@@ -13,12 +15,12 @@ add_action('init', function() {
    * @author NYC Opportunity
    */
   register_taxonomy('services', ['programs'], array(
-    'label' => __('Services'),
+    'label' => __('Services', 'WNYC'),
     'labels' => array(
-      'name' => __('Services'),
-      'singular_name' => __('Service')
+      'name' => __('Services', 'WNYC'),
+      'singular_name' => __('Service', 'WNYC')
     ),
-    'public' => true,
+    'public' => true, // Use this to show in the front-end filters
     'publicly_queryable' => true,
     'hierarchical' => true,
     'show_ui' => true,
@@ -29,137 +31,13 @@ add_action('init', function() {
       'slug' => 'services',
       'with_front' => true
     ),
-    'show_admin_column' => false,
+    'show_admin_column' => true,
     'show_in_rest' => true,
     'show_tagcloud' => true,
     'rest_base' => 'services',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
+    'show_in_quick_edit' => true,
     'show_in_graphql' => false,
-  ));
-
-  /**
-   * Taxonomy: Recruitment status
-   *
-   * @author NYC Opportunity
-   */
-  register_taxonomy('recruitment_status', ['programs'], array(
-    'label' => __('Recruitment status'),
-    'labels' => array(
-      'name' => __('Recruitment status'),
-      'singular_name' => __('Recruitment status')
-    ),
-    'public' => true,
-    'publicly_queryable' => true,
-    'hierarchical' => true,
-    'show_ui' => true,
-    'show_in_menu' => true,
-    'show_in_nav_menus' => true,
-    'query_var' => true,
-    'rewrite' => array(
-      'slug' => 'recruitment_status',
-      'with_front' => true
-    ),
-    'show_admin_column' => false,
-    'show_in_rest' => true,
-    'show_tagcloud' => true,
-    'rest_base' => 'recruitment_status',
-    'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
-    'show_in_graphql' => false,
-  ));
-
-  /**
-   * Taxonomy: Schedule
-   *
-   * @author NYC Opportunity
-   */
-  register_taxonomy('schedule', ['programs', 'jobs'], array(
-    'label' => __('Schedule'),
-    'labels' => array(
-      'name' => __('Schedule'),
-      'singular_name' => __('Schedule')
-    ),
-    'public' => true,
-    'publicly_queryable' => true,
-    'hierarchical' => true,
-    'show_ui' => true,
-    'show_in_menu' => true,
-    'show_in_nav_menus' => true,
-    'query_var' => true,
-    'rewrite' => array(
-      'slug' => 'schedule',
-      'with_front' => true
-    ),
-    'show_admin_column' => false,
-    'show_in_rest' => true,
-    'show_tagcloud' => true,
-    'rest_base' => 'schedule',
-    'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
-    'show_in_graphql' => false,
-  ));
-
-  /**
-   * Taxonomy: Durations
-   *
-   * @author NYC Opportunity
-   */
-  register_taxonomy('duration', ['programs'], array(
-    'label' => __('Durations'),
-    'labels' => array(
-      'name' => __('Durations'),
-      'singular_name' => __('Duration'),
-    ),
-    'public' => true,
-    'publicly_queryable' => true,
-    'hierarchical' => true,
-    'show_ui' => true,
-    'show_in_menu' => true,
-    'show_in_nav_menus' => true,
-    'query_var' => true,
-    'rewrite' => array(
-      'slug' => 'duration',
-      'with_front' => true
-    ),
-    'show_admin_column' => false,
-    'show_in_rest' => true,
-    'show_tagcloud' => true,
-    'rest_base' => 'duration',
-    'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
-    'show_in_graphql' => false,
-  ));
-
-  /**
-   * Taxonomy: Locations
-   *
-   * @author NYC Opportunity
-   */
-  register_taxonomy('locations', ['programs', 'jobs'], array(
-    'label' => __('Locations'),
-    'labels' => array(
-      'name' => __('Locations'),
-      'singular_name' => __('Location')
-    ),
-    'public' => true,
-    'publicly_queryable' => true,
-    'hierarchical' => true,
-    'show_ui' => true,
-    'show_in_menu' => true,
-    'show_in_nav_menus' => true,
-    'query_var' => true,
-    'rewrite' => array(
-      'slug' => 'locations',
-      'with_front' => true
-    ),
-    'show_admin_column' => false,
-    'show_in_rest' => true,
-    'show_tagcloud' => true,
-    'rest_base' => 'locations',
-    'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
-    'show_in_graphql' => false
   ));
 
   /**
@@ -167,26 +45,29 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('populations', ['programs', 'jobs'], array(
-    'label' => __('People served'),
+  register_taxonomy('populations', ['programs'], array(
+    'label' => __('People served', 'WNYC'),
     'labels' => array(
-      'name' => __('People served'),
-      'singular_name' => __('People served'),
+      'name' => __('People served', 'WNYC'),
+      'singular_name' => __('People served', 'WNYC'),
     ),
-    'public' => true,
+    'public' => true, // Use this to show in the front-end filters
     'publicly_queryable' => true,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
     'show_in_nav_menus' => true,
     'query_var' => true,
-    'rewrite' => [ 'slug' => 'populations', 'with_front' => true, ],
+    'rewrite' => array(
+      'slug' => 'populations',
+      'with_front' => true,
+    ),
     'show_admin_column' => false,
     'show_in_rest' => true,
     'show_tagcloud' => true,
     'rest_base' => 'populations',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
+    'show_in_quick_edit' => true,
     'show_in_graphql' => false
   ));
 
@@ -196,12 +77,12 @@ add_action('init', function() {
    * @author NYC Opportunity
    */
   register_taxonomy('sectors', ['programs', 'jobs'], array(
-    'label' => __('Sectors'),
+    'label' => __('Sectors', 'WNYC'),
     'labels' => array(
-      'name' => __('Sectors'),
-      'singular_name' => __('Sector'),
+      'name' => __('Sectors', 'WNYC'),
+      'singular_name' => __('Sector', 'WNYC'),
     ),
-    'public' => true,
+    'public' => true, // Use this to show in the front-end filters
     'publicly_queryable' => true,
     'hierarchical' => true,
     'show_ui' => true,
@@ -217,22 +98,22 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'sectors',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
+    'show_in_quick_edit' => true,
     'show_in_graphql' => false
   ));
 
   /**
-   * Taxonomy: Sources
+   * Taxonomy: Recruitment status
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('source', ['jobs', 'instructions'], array(
-    'label' => __('Sources'),
+  register_taxonomy('recruitment_status', ['programs'], array(
+    'label' => __('Recruitment statuses', 'WNYC'),
     'labels' => array(
-      'name' => __('Sources'),
-      'singular_name' => __('Source'),
+      'name' => __('Recruitment statuses', 'WNYC'),
+      'singular_name' => __('Recruitment status', 'WNYC')
     ),
-    'public' => true,
+    'public' => true, // Use this to show in the front-end filters
     'publicly_queryable' => true,
     'hierarchical' => true,
     'show_ui' => true,
@@ -240,16 +121,16 @@ add_action('init', function() {
     'show_in_nav_menus' => true,
     'query_var' => true,
     'rewrite' => array(
-      'slug' => 'sources',
+      'slug' => 'recruitment_status',
       'with_front' => true
     ),
-    'show_admin_column' => false,
+    'show_admin_column' => true,
     'show_in_rest' => true,
     'show_tagcloud' => true,
-    'rest_base' => 'sources',
+    'rest_base' => 'recruitment_status',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
-    'show_in_graphql' => false
+    'show_in_quick_edit' => true,
+    'show_in_graphql' => false,
   ));
 
   /**
@@ -258,12 +139,12 @@ add_action('init', function() {
    * @author NYC Opportunity
    */
   register_taxonomy('salary', ['jobs'], array(
-    'label' => __('Salary Units'),
+    'label' => __('Salary types', 'WNYC'),
     'labels' => array(
-      'name' => __('Salary Units'),
-      'singular_name' => __('Salary Unit'),
+      'name' => __('Salary types', 'WNYC'),
+      'singular_name' => __('Salary type', 'WNYC'),
     ),
-    'public' => true,
+    'public' => true, // Use this to show in the front-end filters
     'publicly_queryable' => true,
     'hierarchical' => true,
     'show_ui' => true,
@@ -279,7 +160,162 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'salary',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => false,
+    'show_in_quick_edit' => true,
+    'show_in_graphql' => false
+  ));
+
+  /**
+   * Taxonomy: Schedule
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('schedule', ['programs', 'jobs'], array(
+    'label' => __('Schedule', 'WNYC'),
+    'labels' => array(
+      'name' => __('Schedule', 'WNYC'),
+      'singular_name' => __('Schedule', 'WNYC')
+    ),
+    'public' => true, // Use this to show in the front-end filters
+    'publicly_queryable' => true,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'schedule',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true,
+    'show_tagcloud' => true,
+    'rest_base' => 'schedule',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true,
+    'show_in_graphql' => false,
+  ));
+
+  /**
+   * Taxonomy: Durations
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('duration', ['programs'], array(
+    'label' => __('Durations', 'WNYC'),
+    'labels' => array(
+      'name' => __('Durations', 'WNYC'),
+      'singular_name' => __('Duration', 'WNYC'),
+    ),
+    'public' => true, // Use this to show in the front-end filters
+    'publicly_queryable' => true,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'duration',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true,
+    'show_tagcloud' => true,
+    'rest_base' => 'duration',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true,
+    'show_in_graphql' => false,
+  ));
+
+  /**
+   * Taxonomy: Locations
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('locations', ['programs', 'jobs'], array(
+    'label' => __('Locations', 'WNYC'),
+    'labels' => array(
+      'name' => __('Locations', 'WNYC'),
+      'singular_name' => __('Location', 'WNYC')
+    ),
+    'public' => true, // Use this to show in the front-end filters
+    'publicly_queryable' => true,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'locations',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true,
+    'show_tagcloud' => true,
+    'rest_base' => 'locations',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true,
+    'show_in_graphql' => false
+  ));
+
+  /**
+   * Taxonomy: Sources
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('source', ['jobs', 'instructions'], array(
+    'label' => __('Sources', 'WNYC'),
+    'labels' => array(
+      'name' => __('Sources', 'WNYC'),
+      'singular_name' => __('Source', 'WNYC'),
+    ),
+    'public' => true, // Use this to show in the front-end filters
+    'publicly_queryable' => true,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'sources',
+      'with_front' => true
+    ),
+    'show_admin_column' => true,
+    'show_in_rest' => true,
+    'show_tagcloud' => true,
+    'rest_base' => 'sources',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true,
+    'show_in_graphql' => false
+  ));
+
+  /**
+   * Taxonomy: Agency
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('agency', ['programs', 'jobs'], array(
+    'label' => __('Agency providers', 'WNYC'),
+    'labels' => array(
+      'name' => __('Agency providers', 'WNYC'),
+      'singular_name' => __('Agency provider', 'WNYC'),
+    ),
+    'public' => false, // Use this to show in the front-end filters
+    'publicly_queryable' => true,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'agency',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true,
+    'show_tagcloud' => true,
+    'rest_base' => 'agency',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true,
     'show_in_graphql' => false
   ));
 });
