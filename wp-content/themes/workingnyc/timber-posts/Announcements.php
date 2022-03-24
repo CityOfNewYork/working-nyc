@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Announcement
+ * Announcements
  *
  * @author NYC Opportunity
  */
@@ -10,7 +10,7 @@ namespace WorkingNYC;
 
 use Timber;
 
-class Announcement extends Timber\Post {
+class Announcements extends Timber\Post {
   /**
    * Constructor
    *

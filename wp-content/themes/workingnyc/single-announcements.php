@@ -6,7 +6,7 @@
  * @author NYC Opportunity
  */
 
-require_once WorkingNYC\timber_post('Announcement');
+require_once WorkingNYC\timber_post('Announcements');
 
 /**
  * Set the Timber view context
@@ -15,9 +15,11 @@ require_once WorkingNYC\timber_post('Announcement');
  */
 
 $context = Timber::get_context();
+
 $post = Timber::get_post();
 
-$context['post'] = new WorkingNYC\Announcement($post);
+$context['post'] = new WorkingNYC\Announcements($post);
+
 $context['meta'] = new WorkingNYC\Meta($post->ID);
 
 /**

@@ -61,9 +61,9 @@ module.exports = [
     devModule: true
   },
   {
-    input: './src/js/archive.js',
+    input: './src/js/archive-programs.js',
     output: [{
-      file: './assets/js/archive-development.js',
+      file: './assets/js/archive-programs-development.js',
       format: rollup.format,
       sourcemap: false,
       strict: rollup.strict

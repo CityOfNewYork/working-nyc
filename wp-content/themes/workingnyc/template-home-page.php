@@ -6,8 +6,8 @@
  * @author NYC Opportunity
  */
 
-require_once WorkingNYC\timber_post('Announcement');
-require_once WorkingNYC\timber_post('Program');
+require_once WorkingNYC\timber_post('Announcements');
+require_once WorkingNYC\timber_post('Programs');
 
 /**
  * Enqueue
@@ -27,6 +27,7 @@ add_action('wp_enqueue_scripts', function() {
  */
 
 $context = Timber::get_context();
+
 $post = Timber::get_post(get_option('page_on_front'));
 
 $context['post'] = $post;
@@ -38,7 +39,7 @@ $context['post'] = $post;
  */
 
 $context['announcements'] = array_map(function($post) {
-    return new WorkingNYC\Announcement($post);
+    return new WorkingNYC\Announcements($post);
 }, Timber::get_posts(array(
   'posts_per_page' => 4,
   'post_type' => 'announcements',
@@ -50,7 +51,7 @@ $context['meta'] = new WorkingNYC\Meta($post->ID);
 
 $context['featured_posts'] = array_map(function($section) {
   $section['featured_posts_objects'] = array_map(function($post) {
-    return new WorkingNYC\Program($post);
+    return new WorkingNYC\Programs($post);
   }, $section['featured_posts_objects']);
 
   return $section;
@@ -59,22 +60,6 @@ $context['featured_posts'] = array_map(function($section) {
 $context['questionnaire_post_type'] = Templating\get_questionnaire_post_type($post->ID);
 $context['questionnaire_threshold'] = Templating\get_questionnaire_threshold($post->ID);
 $context['questionnaire_qs'] = Templating\get_questionnaire_qs($post->ID);
-
-/**
- * Generate schema for page
- *
- * @author NYC Opportunity
- */
-
-$schemas = array();
-
-array_push(
-  $schemas,
-  WNYCSchema\website(),
-  WNYCSchema\organization()
-);
-
-$context['schema'] = json_encode($schemas, JSON_UNESCAPED_SLASHES);
 
 /**
  * Render the view
