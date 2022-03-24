@@ -37,15 +37,17 @@
       </header>
     </div>
 
-    <section class="bg-scale-2 layout-content">
+    {% if sitemap %}<section class="bg-scale-2 layout-content">
       <div class="py-4 wrap">
-        {% if sitemap %}
-          {% include 'sitemap.twig'%}
-        {% elseif post.content %}
-          {{ post.content }}
-        {% endif %}
+        {% include 'sitemap.twig'%}
       </div>
     </section>
+    {% elseif post.content %}
+    <section class="bg-scale-2 layout-content">
+      <div class="py-4 wrap">
+        {{ post.content }}
+      </div>
+    </section>{% endif %}
 
     {% if options.feedback is defined %}
     {% include 'objects/feedback.twig' %}

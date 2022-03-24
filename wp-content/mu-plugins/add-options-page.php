@@ -9,11 +9,11 @@
 add_action('init', function() {
   if (function_exists('acf_add_options_page')) {
     acf_add_options_page(array(
-      'page_title'  => 'WNYC General Settings',
-      'menu_title'  => 'WNYC Settings',
-      'menu_slug'   => 'wnyc-general-settings',
-      'capability'  => 'edit_posts',
-      'redirect'    => false,
+      'page_title' => 'WKNYC General Settings',
+      'menu_title' => 'WKNYC Settings',
+      'menu_slug' => 'wknyc-general-settings',
+      'capability' => 'edit_posts',
+      'redirect' => false
     ));
   }
 });

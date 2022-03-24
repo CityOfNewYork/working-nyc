@@ -96,8 +96,8 @@ new WebShare({
  */
 
 // Removing the WPML classes
-const wpmlClasses='.wpml-ls-statics-shortcode_actions.wpml-ls.wpml-ls-legacy-list-horizontal';
-document.querySelector(wpmlClasses).removeAttribute('class');
+// const wpmlClasses='.wpml-ls-statics-shortcode_actions.wpml-ls.wpml-ls-legacy-list-horizontal';
+// document.querySelector(wpmlClasses).removeAttribute('class');
 
 // Add tabindex=-1 to wpml language links
 const wpmlLinks = document.querySelectorAll('.wpml-ls-link');

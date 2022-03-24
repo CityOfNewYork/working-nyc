@@ -13,11 +13,13 @@
  */
 
 $context = Timber::get_context();
+
 $post = Timber::get_post();
 
 $context['meta'] = new WorkingNYC\Meta($post->ID);
 
 $context['post'] = $post;
+
 $context['sections'] = Templating\get_sections();
 
 $template = array('single.twig');
