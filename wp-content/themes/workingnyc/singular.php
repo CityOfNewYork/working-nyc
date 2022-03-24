@@ -13,6 +13,7 @@
  */
 
 $context = Timber::get_context();
+
 $post = Timber::get_post();
 
 $context['post'] = $post;
@@ -26,16 +27,26 @@ $context['post'] = $post;
 if ($post->slug == 'sitemap') {
   $context['sitemap'] = true;
 
-  $args = array(
+  $context['programs'] = Timber::get_posts(array(
     'posts_per_page' => -1,
     'post_type' => 'programs',
     'orderby' => 'title',
     'order' => 'ASC'
-  );
+  ));
 
-  $programs = get_posts($args);
+  $context['jobs'] = Timber::get_posts(array(
+    'posts_per_page' => -1,
+    'post_type' => 'jobs',
+    'orderby' => 'title',
+    'order' => 'ASC'
+  ));
 
-  $context['programs'] = $programs;
+  $context['announcements'] = Timber::get_posts(array(
+    'posts_per_page' => -1,
+    'post_type' => 'announcements',
+    'orderby' => 'title',
+    'order' => 'ASC'
+  ));
 }
 
 /**

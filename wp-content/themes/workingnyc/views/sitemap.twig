@@ -12,11 +12,19 @@
   <h2 class="h3">{{ __('Programs', 'WNYC') }}</h2>
 
   <ul>
-    {% for program in programs %}
-    <li>
-      <a class="block" href="{{ programs_archive }}{{ program.post_name }}">{{ program.post_title }}</a>
-    </li>
-    {% endfor %}
+    {% for post in programs %}<li>
+      <a class="block" href="{{ post.link }}">{{ post.post_title }}</a>
+    </li>{% endfor %}
+  </ul>
+</div>
+
+<div class="mb-8">
+  <h2 class="h3">{{ __('Jobs', 'WNYC') }}</h2>
+
+  <ul>
+    {% for post in jobs %}<li>
+      <a class="block" href="{{ post.link }}">{{ post.post_title }}</a>
+    </li>{% endfor %}
   </ul>
 </div>
 
@@ -37,3 +45,13 @@
     {% endfor %}
   </ul>
 </div>
+
+{# <div class="mb-8">
+  <h2 class="h3">{{ __('Announcements', 'WNYC') }}</h2>
+
+  <ul>
+    {% for post in announcements %}<li>
+      <a class="block" href="{{ post.link }}">{{ post.post_title }}</a>
+    </li>{% endfor %}
+  </ul>
+</div> #}
