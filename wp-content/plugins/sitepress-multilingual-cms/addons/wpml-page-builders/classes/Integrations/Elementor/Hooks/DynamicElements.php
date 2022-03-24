@@ -2,6 +2,10 @@
 
 namespace WPML\PB\Elementor\Hooks;
 
+use WPML\FP\Obj;
+use WPML\FP\Relation;
+use function WPML\FP\compose;
+
 class DynamicElements implements \IWPML_Frontend_Action, \IWPML_DIC_Action {
 
 	public function add_hooks() {
@@ -14,9 +18,31 @@ class DynamicElements implements \IWPML_Frontend_Action, \IWPML_DIC_Action {
 	 * @return array
 	 */
 	public function convert( array $data ) {
+		// $isHotspotWidget :: array -> bool
+		$isHotspotWidget = Relation::propEq( 'widgetType', 'hotspot' );
+
+		// $convertPopUpTag :: string -> string
+		$convertPopUpTag = function( $tagString ) {
+			return $this->convertPopUpTag( $tagString );
+		};
+
+		// $hotspotLinksLens :: callable -> callable -> callable
+		$hotspotLinksLens = compose(
+			Obj::lensProp( 'settings' ),
+			Obj::lensMappedProp( 'hotspot' ),
+			Obj::lensPath( [ '__dynamic__', 'hotspot_link' ] )
+		);
+
+		// $convertHotspotLinks :: array -> array
+		$convertHotspotLinks = Obj::over( $hotspotLinksLens, $convertPopUpTag );
+
 		foreach ( $data as &$item ) {
 			if ( $this->isDynamicLink( $item ) ) {
-					$item['settings']['__dynamic__']['link'] = $this->convertPopUpId( $item['settings']['__dynamic__']['link'] );
+				$item = Obj::over( Obj::lensPath( [ 'settings', '__dynamic__', 'link' ] ), $convertPopUpTag, $item );
+			}
+
+			if ( $isHotspotWidget( $item ) ) {
+				$item = $convertHotspotLinks( $item );
 			}
 
 			$item['elements'] = $this->convert( $item['elements'] );
@@ -41,7 +67,7 @@ class DynamicElements implements \IWPML_Frontend_Action, \IWPML_DIC_Action {
 	 *
 	 * @return string
 	 */
-	private function convertPopUpId( $tagString ) {
+	private function convertPopUpTag( $tagString ) {
 		preg_match( '/name="(.*?(?="))"/', $tagString, $tagNameMatch );
 
 		if ( ! $tagNameMatch || $tagNameMatch[1] !== 'popup' ) {

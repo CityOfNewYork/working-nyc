@@ -9,12 +9,20 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static array split( ...$delimiter, ...$str ) - Curried :: string->string->string
  * @method static callable|bool includes( ...$needle, ...$str ) - Curried :: string → string → bool
  * @method static callable|string trim( ...$trim, ...$str ) - Curried :: string → string → string
+ * @method static callable|string trimPrefix( ...$trim, ...$str ) - Curried :: string → string → string
+ *
+ * Trims the prefix from the start of the string if the prefix exists
+ *
+ * ```
+ * $trimmed = Str::trimPrefix( 'prefix-', 'prefix-test' );
+ * ```
+ *
  * @method static callable|string concat( ...$a, ...$b ) - Curried :: string → string → string
  * @method static callable|string sub( ...$start, ...$str ) - Curried :: int → string → string
  * @method static callable|string startsWith( ...$test, ...$str ) - Curried :: string → string → bool
  * @method static callable|string endsWith( ...$test, ...$str ) - Curried :: string → string → bool
- * @method static callable|string pos( ...$test, ...$str ) - Curried :: string → string → int
- * @method static callable|string len( ...$str ) - Curried :: string → int
+ * @method static callable|int pos( ...$test, ...$str ) - Curried :: string → string → int
+ * @method static callable|int len( ...$str ) - Curried :: string → int
  * @method static callable|string replace( ...$find, ...$replace, ...$str ) - Curried :: string → string → string → string
  * @method static callable|string pregReplace( ...$pattern, ...$replace, ...$str ) - Curried :: string → string → string → string
  * @method static callable|string match( ...$pattern, ...$str ) - Curried :: string → string → array
@@ -42,6 +50,10 @@ class Str {
 		self::macro( 'split', curryN( 2, 'explode' ) );
 
 		self::macro( 'trim', curryN( 2, flip( 'trim' ) ) );
+
+		self::macro( 'trimPrefix', curryN( 2, function( $prefix, $str ) {
+			return $prefix && self::pos( $prefix, $str ) === 0 ? self::sub( self::len( $prefix ), $str ) : $str;
+		} ) );
 
 		self::macro( 'concat', curryN( 2, function ( $a, $b ) {
 			return $a . $b;

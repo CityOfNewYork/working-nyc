@@ -259,7 +259,7 @@ class Languages {
 			], $langDetails );
 		} ) );
 
-		self::macro( 'downloadWPLocale', curryN( 1, function ( string $locale ) {
+		self::macro( 'downloadWPLocale', curryN( 1, function ( $locale ) {
 			if ( ! function_exists( 'wp_download_language_pack' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/translation-install.php';
 			}

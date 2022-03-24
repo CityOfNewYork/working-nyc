@@ -1705,7 +1705,7 @@ class WP_Installer {
 
 	function get_local_product_versions( $repository_id ) {
 
-		$versions = array();
+		$versions = [];
 
 		foreach ( $this->settings['repositories'][ $repository_id ]['data']['packages'] as $package_id => $package ) {
 

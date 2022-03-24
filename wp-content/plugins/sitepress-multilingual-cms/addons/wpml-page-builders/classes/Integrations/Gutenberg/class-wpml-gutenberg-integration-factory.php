@@ -33,6 +33,9 @@ class WPML_Gutenberg_Integration_Factory {
 			$integrations->add(
 				make( \WPML\PB\Gutenberg\Widgets\Block\Search::class )
 			);
+			$integrations->add(
+				make( \WPML\PB\Gutenberg\Navigation\Frontend::class )
+			);
 		}
 
 		$integrations->add(
@@ -72,7 +75,7 @@ class WPML_Gutenberg_Integration_Factory {
 		);
 	}
 
-	private function create_strings_in_block($config_option) {
+	private function create_strings_in_block( $config_option ) {
 		$string_parsers = [
 			new WPML\PB\Gutenberg\StringsInBlock\HTML( $config_option ),
 			new WPML\PB\Gutenberg\StringsInBlock\Attributes( $config_option ),

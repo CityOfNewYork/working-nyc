@@ -420,7 +420,10 @@ $theme_wpml_config_file = WPML_Config::get_theme_wpml_config_file();
 									<div class="icl_error_text" style="display:none;margin:10px;">
 										<p><?php esc_html_e( 'This can be a result of either:', 'sitepress' ); ?></p>
 										<ul>
-											<li><?php esc_html_e( "WordPress is installed in a directory (not root) and you're using default links.", 'sitepress' ); ?></li>
+											<li>
+                                                <?php esc_html_e( "Your server settings do not allow for languages in directories.", 'sitepress' ); ?>
+                                                <a href="https://wpml.org/documentation/getting-started-guide/language-setup/cannot-activate-language-directories/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore"><?php esc_html_e( 'Learn more about the required server settings.', 'sitepress'); ?></a>
+                                            </li>
 											<li><?php esc_html_e( 'URL rewriting is not enabled in your web server.', 'sitepress' ); ?></li>
 											<li><?php esc_html_e( 'The web server cannot write to the .htaccess file', 'sitepress' ); ?></li>
 										</ul>

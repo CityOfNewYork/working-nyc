@@ -1,5 +1,7 @@
 <?php
 
+use WPML\FP\Lst;
+
 abstract class WPML_Menu_Sync_Functionality extends WPML_Full_Translation_API {
 
 	const STRING_CONTEXT_SUFFIX    = ' menu';
@@ -116,14 +118,15 @@ abstract class WPML_Menu_Sync_Functionality extends WPML_Full_Translation_API {
 		$languages         = array_diff( $languages, array( $this->sitepress->get_default_language() ) );
 		$translations      = array_fill_keys( $languages, false );
 		foreach ( $languages as $lang_code ) {
+
 			$item->object_type    = property_exists( $item, 'object_type' ) ? $item->object_type : $item->type;
 			$translated_object_id = (int) icl_object_id(
-				$item->object_id,
-				( $item->object_type === 'custom' ? 'nav_menu_item' : $item->object ),
+				$item->object_type === 'post_type_archive' ? $item->ID : $item->object_id,
+				Lst::includes( $item->object_type, [ 'custom', 'post_type_archive' ] ) ? 'nav_menu_item' : $item->object,
 				false,
 				$lang_code
 			);
-			if ( ! $translated_object_id && $item->object_type !== 'custom' ) {
+			if ( ! $translated_object_id && $item->object_type !== 'custom' && $item->object_type !== 'post_type_archive' ) {
 				continue;
 			}
 
@@ -166,6 +169,13 @@ abstract class WPML_Menu_Sync_Functionality extends WPML_Full_Translation_API {
 						$icl_st_label_exists,
 						$icl_st_url_exists
 					);
+				}
+			} elseif ( $item->object_type === 'post_type_archive' ) {
+				if ( $translated_object_id ) {
+					$translated_object = get_post( $translated_object_id );
+					$translated_object_title = $translated_object->post_title;
+				} else {
+					$translated_object_title = $item->post_title;
 				}
 			}
 			$this->fix_assignment_to_menu( $item_translations, (int) $menu_id );

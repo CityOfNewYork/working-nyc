@@ -1,5 +1,11 @@
 <?php
+
 use WPML\FP\Obj;
+use WPML\FP\Fns;
+use WPML\FP\Lst;
+use WPML\FP\Maybe;
+use function WPML\FP\partial;
+use function WPML\FP\invoke;
 
 class WPML_LS_Settings {
 
@@ -375,19 +381,37 @@ class WPML_LS_Settings {
 	 * @return WPML_LS_Slot
 	 */
 	public function get_menu_settings_from_id( $term_id ) {
+		$menu_slot = $this->get_slot( 'menus', $term_id );
+		if ( $menu_slot->is_enabled() ) {
+			return $menu_slot;
+		}
+
 		if ( $term_id > 0 ) {
-			$menu_element = new WPML_Menu_Element( $term_id, $this->sitepress );
-			$default_lang = $this->sitepress->get_default_language();
+			$menu_element         = new WPML_Menu_Element( $term_id, $this->sitepress );
+			$default_lang         = $this->sitepress->get_default_language();
+			$source_language_code = $menu_element->get_source_language_code();
+
+			$findSettingsInLang = function ( $lang ) use ( $menu_element ) {
+				return Maybe::of( $lang )
+					->map( [ $menu_element, 'get_translation' ] )
+					->map( invoke( 'get_wp_object' ) )
+					->reject( 'is_wp_error' )
+					->map( Obj::prop( 'term_id' ) )
+					->map( partial( [ $this, 'get_slot' ], 'menus' ) )
+					->filter( invoke( 'is_enabled' ) )
+					->getOrElse( null );
+			};
 
 			if ( $menu_element->get_language_code() !== $default_lang ) {
-				$nav_menu = $menu_element->get_translation( $default_lang )
-					? $menu_element->get_translation( $default_lang )->get_wp_object() : null;
+				$menu_slot = $findSettingsInLang( $default_lang ) ?: $menu_slot;
+			}
 
-				$term_id = $nav_menu && ! is_wp_error( $nav_menu ) ? $nav_menu->term_id : null;
+			if ( $source_language_code && $source_language_code !== $default_lang && $menu_element->get_language_code() !== $source_language_code ) {
+				$menu_slot = $findSettingsInLang( $source_language_code ) ?: $menu_slot;
 			}
 		}
 
-		return $this->get_slot( 'menus', $term_id );
+		return $menu_slot;
 	}
 
 	/**

@@ -23,12 +23,12 @@ class WPML_PB_String_Registration {
 	/**
 	 * WPML_PB_String_Registration constructor.
 	 *
-	 * @param IWPML_PB_Strategy $strategy
-	 * @param WPML_ST_String_Factory $string_factory
-	 * @param WPML_ST_Package_Factory $package_factory
+	 * @param IWPML_PB_Strategy           $strategy
+	 * @param WPML_ST_String_Factory      $string_factory
+	 * @param WPML_ST_Package_Factory     $package_factory
 	 * @param WPML_Translate_Link_Targets $translate_link_targets
-	 * @param callable $set_link_translations
-	 * @param bool $migration_mode
+	 * @param callable                    $set_link_translations
+	 * @param bool                        $migration_mode
 	 */
 	public function __construct(
 		IWPML_PB_Strategy $strategy,
@@ -47,8 +47,9 @@ class WPML_PB_String_Registration {
 	}
 
 	/**
-	 * @param int $post_id
+	 * @param int    $post_id
 	 * @param string $content
+	 * @param string $name
 	 *
 	 * @return null|int
 	 */

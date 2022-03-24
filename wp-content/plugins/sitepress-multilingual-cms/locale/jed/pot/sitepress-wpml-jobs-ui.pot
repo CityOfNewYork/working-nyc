@@ -3,14 +3,18 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: vendor/wpml/tm/src/js/ate/TranslationQueueFilters.js:34
-msgid "Insufficient funds"
+#: src/js/ate/status-icons/TranslationQueue.js:47
+msgid "Draft — Pending review"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/ate/TranslationQueueFilters.js:61
+#: src/js/ate/status-icons/TranslationQueue.js:49
 msgid "Complete"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/ate/TranslationQueueFilters.js:63
-msgid "Pending review"
+#: src/js/ate/status-icons/TranslationQueue.js:59
+msgid "Insufficient funds"
+msgstr ""
+
+#: src/js/jobs/components/ListItem.js:120
+msgid "Editor Job ID"
 msgstr ""

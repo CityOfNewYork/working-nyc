@@ -170,7 +170,7 @@ $po_importer = apply_filters( 'wpml_st_get_po_importer', null );
 
 	<?php else : ?>
 
-		<p style="line-height:220%;">
+		<p class="wpml-string-translation-filter">
 			<?php echo esc_html__( 'Display:', 'wpml-string-translation' ); ?>
 		<select name="icl_st_filter_status">
 			<?php

@@ -37,9 +37,6 @@ class WPML_Page_Name_Query_Filter extends WPML_Name_Query_Filter_Translated {
 			$page_query->query_vars['post_status'] = 'publish';
 			$page_query->query_vars['name']        = '';
 			$page_query->query_vars['page_id']     = 0;
-			/**
-			 * @phpstan-ignore-next-line
-			 */
 			$page_query->post_status               = 'publish';
 			$page_query->is_page                   = false;
 			$page_query->is_singular               = false;

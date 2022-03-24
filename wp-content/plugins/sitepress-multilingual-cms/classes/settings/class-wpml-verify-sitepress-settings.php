@@ -38,7 +38,7 @@ class WPML_Verify_SitePress_Settings {
 			'sync_delete'                        => 0,
 			'sync_delete_tax'                    => 0,
 			'sync_post_taxonomies'               => 1,
-			'sync_post_date'                     => 0,
+			'sync_post_date'                     => 1,
 			'sync_taxonomy_parents'              => 0,
 			'translation_pickup_method'          => 0,
 			'notify_complete'                    => 1,

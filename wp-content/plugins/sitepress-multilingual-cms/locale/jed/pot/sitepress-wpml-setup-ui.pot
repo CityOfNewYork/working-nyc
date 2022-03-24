@@ -62,7 +62,7 @@ msgid "Email"
 msgstr ""
 
 #: src/js/components/roles/ExistingUserSelect.js:49
-#: vendor/wpml/tm/src/js/translationServices/components/SearchForm.js:13
+#: src/js/translationServices/components/SearchForm.js:13
 msgid "Search"
 msgstr ""
 
@@ -170,7 +170,7 @@ msgstr ""
 
 #: src/js/components/translators/TranslatorsTable.js:123
 #: src/js/setup/components/Steps/AddLanguagesModal.js:302
-#: vendor/wpml/tm/src/js/translationServices/components/ServicesList.js:69
+#: src/js/translationServices/components/ServicesList.js:69
 msgid "Name"
 msgstr ""
 
@@ -710,17 +710,17 @@ msgstr ""
 msgid "Finish"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/Connect.js:22
+#: src/js/translationServices/components/Connect.js:22
 msgid ""
 "Visit <link_to_service /> to request an API Token. This token allows WPML "
 "to connect to <service_name /> to send and receive jobs."
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/Sections.js:16
+#: src/js/translationServices/components/Sections.js:16
 msgid "Settings"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/Sections.js:42
+#: src/js/translationServices/components/Sections.js:42
 msgid ""
 "It’s not currently possible to connect a translation service when WPML is "
 "set to translate your site’s content automatically. To use a translation "
@@ -728,27 +728,27 @@ msgid ""
 "page."
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/SelectedService.js:24
+#: src/js/translationServices/components/SelectedService.js:24
 msgid "Error: "
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/SelectedService.js:44
-#: vendor/wpml/tm/src/js/translationServices/components/ServicesList.js:41
+#: src/js/translationServices/components/SelectedService.js:44
+#: src/js/translationServices/components/ServicesList.js:41
 msgid "Documentation"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/SelectedService.js:53
+#: src/js/translationServices/components/SelectedService.js:53
 msgid "Deactivate"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/ServicesList.js:57
+#: src/js/translationServices/components/ServicesList.js:57
 msgid "Activate"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/ServicesList.js:74
+#: src/js/translationServices/components/ServicesList.js:74
 msgid "Description"
 msgstr ""
 
-#: vendor/wpml/tm/src/js/translationServices/components/ServicesList.js:81
+#: src/js/translationServices/components/ServicesList.js:81
 msgid "Ranking"
 msgstr ""

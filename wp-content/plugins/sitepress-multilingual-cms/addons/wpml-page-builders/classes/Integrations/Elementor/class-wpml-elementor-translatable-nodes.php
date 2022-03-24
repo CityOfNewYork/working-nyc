@@ -37,11 +37,11 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 				foreach ( $node_data['fields'] as $key => $field ) {
 					$field_key       = $field['field'];
 					$pathInFlatField = array_merge( [ self::SETTINGS_FIELD ], self::get_partial_path( $field_key ) );
-					$string_value    = Obj::path( $pathInFlatField, $element );
+					$string_value    = Obj::pathOr( null, $pathInFlatField, $element );
 
 					if ( ! is_string( $string_value ) ) {
 						$pathInArrayField = array_merge( [ self::SETTINGS_FIELD, $key ], self::get_partial_path( $field_key ) );
-						$string_value     = Obj::path( $pathInArrayField, $element );
+						$string_value     = Obj::pathOr( null, $pathInArrayField, $element );
 					}
 
 					if ( $string_value ) {
@@ -87,9 +87,9 @@ class WPML_Elementor_Translatable_Nodes implements IWPML_Page_Builders_Translata
 
 					if ( $this->get_string_name( $node_id, $field, $element ) === $string->get_name() ) {
 						$pathInFlatField    = array_merge( [ self::SETTINGS_FIELD ], self::get_partial_path( $field_key ) );
-						$stringInFlatField  = Obj::path( $pathInFlatField, $element );
+						$stringInFlatField  = Obj::pathOr( null, $pathInFlatField, $element );
 						$pathInArrayField   = array_merge( [ self::SETTINGS_FIELD, $key ], self::get_partial_path( $field_key ) );
-						$stringInArrayField = Obj::path( $pathInArrayField, $element );
+						$stringInArrayField = Obj::pathOr( null, $pathInArrayField, $element );
 
 						if ( is_string( $stringInFlatField ) ) {
 							$element = Obj::assocPath( $pathInFlatField, $string->get_value(), $element );

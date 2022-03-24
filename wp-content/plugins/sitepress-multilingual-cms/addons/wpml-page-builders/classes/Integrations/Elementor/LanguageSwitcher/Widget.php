@@ -46,7 +46,7 @@ class Widget extends Widget_Base {
 	 * wrappers like `start_controls_section()`, `start_controls_tabs()` and
 	 * `start_controls_tab()`.
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->adaptor->registerControls();
 	}
 

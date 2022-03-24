@@ -1,5 +1,6 @@
 <?php
 
+use WPML\FP\Lst;
 use WPML\FP\Maybe;
 use WPML\FP\Obj;
 use function WPML\FP\partial;
@@ -110,7 +111,9 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 			$this->is_deleting_all_translations = ! $this->post_translation->get_original_element( $post_id, true );
 			$trid                               = $this->post_translation->get_element_trid( $post_id );
 			$translated_ids                     = $this->get_translations_without_source( $post_id, $trid );
-			$this->delete_translations( $translated_ids, $keep_db_entries );
+			if ( $this->sync_delete || Lst::includes( $post_type, [ 'wp_template', 'wp_template_parts' ] ) ) {
+				$this->delete_translations( $translated_ids, $keep_db_entries );
+			}
 			$this->is_deleting_all_translations = false;
 		}
 
@@ -179,7 +182,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 	 * @param bool  $keep_db_entries
 	 */
 	private function delete_translations( array $translated_ids, $keep_db_entries ) {
-		if ( $this->sync_delete && ! empty( $translated_ids ) ) {
+		if ( ! empty( $translated_ids ) ) {
 			foreach ( $translated_ids as $trans_id ) {
 				if ( ! $this->is_bulk_prevented( $trans_id ) ) {
 					if ( $keep_db_entries ) {
@@ -226,7 +229,7 @@ class WPML_Post_Synchronization extends WPML_SP_And_PT_User {
 
 		$wp_api            = $this->sitepress->get_wp_api();
 		$term_count_update = new WPML_Update_Term_Count( $wp_api );
-		
+
 		$post           = get_post ( $post_id );
 		$source_post_status = $this->get_post_status( $post_id );
 		$translated_ids = $this->post_translation->get_element_translations( $post_id, false, true );

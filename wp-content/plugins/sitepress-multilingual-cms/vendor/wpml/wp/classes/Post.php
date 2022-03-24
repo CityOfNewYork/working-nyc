@@ -18,6 +18,7 @@ use function WPML\FP\pipe;
  * @method static callable|Either getTerms( ...$postId, ...$taxonomy )  - Curried:: int → string → Either false|WP_Error [WP_Term]
  * @method static callable|mixed getMetaSingle( ...$postId, ...$key ) - Curried :: int → string → mixed
  * @method static callable|int|bool updateMeta( ...$postId, ...$key, ...$value ) - Curried :: int → string → mixed → int|bool
+ * @method static callable|bool deleteMeta( ...$postId, ...$key ) - Curried :: int → string → bool
  * @method static callable|string|false getType( ...$postId ) - Curried :: int → string|bool
  * @method static callable|\WP_Post|null get( ...$postId ) - Curried :: int → \WP_Post|null
  * @method static callable|string|false getStatus( ...$postId ) - Curried :: int → string|bool

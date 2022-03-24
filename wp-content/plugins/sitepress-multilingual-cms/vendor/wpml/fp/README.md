@@ -78,6 +78,7 @@
     * [flatten](#flatten)
     * [includes](#includes)
     * [nth](#nth)
+    * [first](#first)
     * [last](#last)
     * [length](#length)
     * [take](#take)
@@ -1886,6 +1887,25 @@ Lst::nth( mixed $...$n, mixed $...$array ): callable|boolean
 
 ---
 
+### first
+
+
+```php
+Lst::first(mixed $...$array): callable|boolean
+```
+
+
+- Curried :: [a, b] -> a | null
+
+* This method is **static**.
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `$...$array` | **mixed** |  Array of elements to get the first of them. |
+
+---
+
 ### last
 
 
@@ -1894,14 +1914,14 @@ Lst::nth( mixed $...$n, mixed $...$array ): callable|boolean
 Lst::last( mixed $...$array ): callable|boolean
 ```
 
-- Curried :: [a] → a | null
+- Curried :: [a, b] → b | null
 
 * This method is **static**.
 **Parameters:**
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
-| `$...$array` | **mixed** |  |
+| `$...$array` | **mixed** |  Array of elements to get the last of them. |
 
 
 

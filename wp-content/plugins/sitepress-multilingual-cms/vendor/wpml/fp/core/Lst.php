@@ -37,7 +37,8 @@ use WPML\Collect\Support\Arr;
  * $this->assertFalse( $includes10and20( [ 5, 15, 20 ] ) );
  * ```
  * @method static callable|bool nth( ...$n, ...$array ) - Curried :: int → [a] → a | null
- * @method static callable|bool last( ...$array ) - Curried :: [a] → a | null
+ * @method static callable|bool first( ...$array ) - Curried :: [a, b] → a | null
+ * @method static callable|bool last( ...$array ) - Curried :: [a, b] → b | null
  * @method static callable|int length( ...$array ) - Curried :: [a] → int
  * @method static callable|array take( ...$n, ...$array ) - Curried :: int → [a] → [a]
  * @method static callable|array takeLast( ...$n, ...$array ) - Curried :: int → [a] → [a]
@@ -213,6 +214,8 @@ class Lst {
 
 		} ) );
 
+		self::macro( 'first', self::nth( 0 ) );
+
 		self::macro( 'last', self::nth( - 1 ) );
 
 		self::macro( 'length', curryN( 1, 'count' ) );
@@ -362,6 +365,19 @@ class Lst {
 		$repeat = flip( partial( 'array_fill', 0 ) );
 
 		return call_user_func_array( curryN( 2, $repeat ), func_get_args() );
+	}
+
+	/**
+	 * @param array|Collection $param
+	 *
+	 * @return callable|int
+	 */
+	public static function sum( $param = null ) {
+		$sum = function ( $param ) {
+			return is_object( $param ) ? $param->sum() : array_sum( $param );
+		};
+
+		return call_user_func_array( curryN( 1, $sum ), func_get_args() );
 	}
 }
 

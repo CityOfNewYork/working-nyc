@@ -7,6 +7,7 @@ use WPML\FP\Logic;
 use WPML\FP\Maybe;
 use WPML\FP\Relation;
 use WPML\PB\Elementor\DataConvert;
+use WPML\PB\GutenbergCleanup\Package;
 use WPML_Elementor_Data_Settings;
 use function WPML\FP\curryN;
 use function WPML\FP\pipe;
@@ -45,7 +46,7 @@ class GutenbergCleanup implements \IWPML_Backend_Action, \IWPML_Frontend_Action 
 			$update = curryN( 2, function( $postId, $meta ) {
 				// Do not use update_post_meta, we need update meta for revisions too.
 				update_metadata( 'post', $postId, WPML_Elementor_Data_Settings::META_KEY_DATA, $meta );
-				self::deletePackage( self::getGutenbergPackage( $postId ) );
+				Package::delete( Package::get( $postId ) );
 				return true;
 			} );
 
@@ -76,24 +77,5 @@ class GutenbergCleanup implements \IWPML_Backend_Action, \IWPML_Frontend_Action 
 		}
 
 		return $data;
-	}
-
-	/**
-	 * @param int $postId
-	 */
-	public static function getGutenbergPackage( $postId ) {
-		// $isGbPackage :: \WPML_Package -> bool
-		$isGbPackage = Relation::propEq( 'kind_slug', 'gutenberg' );
-
-		return wpml_collect( apply_filters( 'wpml_st_get_post_string_packages', [], $postId ) )
-			->filter( $isGbPackage )
-			->first();
-	}
-
-	/**
-	 * @param \WPML_Package|null $package
-	 */
-	public static function deletePackage( $package ) {
-		$package && do_action( 'wpml_delete_package', $package->name, $package->kind );
 	}
 }

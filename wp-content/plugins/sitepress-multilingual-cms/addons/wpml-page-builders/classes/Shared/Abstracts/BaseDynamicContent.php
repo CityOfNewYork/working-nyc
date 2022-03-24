@@ -4,7 +4,7 @@ namespace WPML\Compatibility;
 
 use SitePress;
 
-abstract class BaseDynamicContent implements \IWPML_DIC_Action, \IWPML_Backend_Action {
+abstract class BaseDynamicContent implements \IWPML_DIC_Action, \IWPML_Backend_Action, \IWPML_Frontend_Action {
 
 	/** @var SitePress */
 	private $sitepress;

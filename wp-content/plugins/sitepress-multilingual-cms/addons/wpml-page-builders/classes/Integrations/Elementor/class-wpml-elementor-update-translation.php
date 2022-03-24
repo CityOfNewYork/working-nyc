@@ -22,13 +22,7 @@ class WPML_Elementor_Update_Translation extends WPML_Page_Builders_Update_Transl
 	protected function update_strings_in_node( $node_id, $settings ) {
 		$strings = $this->translatable_nodes->get( $node_id, $settings );
 		foreach ( $strings as $string ) {
-			$translation = $this->get_translation( $string );
-
-			if ( 'VISUAL' === $string->get_editor_type() ) {
-				$translation->set_value( wpautop( $translation->get_value() ) );
-			}
-
-			$settings = $this->translatable_nodes->update( $node_id, $settings, $translation );
+			$settings = $this->translatable_nodes->update( $node_id, $settings, $this->get_translation( $string ) );
 		}
 		return $settings;
 	}
