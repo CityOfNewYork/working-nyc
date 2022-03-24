@@ -403,8 +403,7 @@ class ICLMenusSync extends WPML_Menu_Sync_Functionality {
 								// item translation does not exist but is a custom item that will be created
 								echo '<span class="icl_msync_item icl_msync_add">' . esc_html( $item_translation['title'] ) . ' @' . esc_html( $lang_code ) . '</span>';
 								echo '<input type="hidden" name="sync[add][' . esc_attr( $menu_id ) . '][' . esc_attr( $item['ID'] ) . '][' . esc_attr( $lang_code ) . ']" value="' . esc_attr( $item_translation['title'] . ' @' . $lang_code ) . '" />';
-								$this->operations['add'] = empty( $this->operations['add'] ) ? 1
-									: $this->operations['add'] ++;
+								$this->incOperation( 'add' );
 							} elseif ( ! empty( $item_translation['object_id'] ) ) {
 								// item translation does not exist but translated object does
 								if ( $item_translation['parent_not_translated'] ) {
@@ -415,11 +414,15 @@ class ICLMenusSync extends WPML_Menu_Sync_Functionality {
 									// item translation does not exist but translated object does
 									echo '<span class="icl_msync_item icl_msync_add">' . esc_html( $item_translation['title'] ) . '</span>';
 									echo '<input type="hidden" name="sync[add][' . esc_attr( $menu_id ) . '][' . esc_attr( $item['ID'] ) . '][' . esc_attr( $lang_code ) . ']" value="' . esc_attr( $item_translation['title'] ) . '" />';
-									$this->operations['add'] = empty( $this->operations['add'] ) ? 1
-										: $this->operations['add'] ++;
+									$this->incOperation( 'add' );
 								} else {
 									$need_sync --;
 								}
+							} elseif ( $item_translation && 'post_type_archive' === $item_translation['object_type'] ) {
+								// item translation does not exist but is a post type archive item that will be created
+								echo '<span class="icl_msync_item icl_msync_add">' . esc_html( $item_translation['title'] ) . ' @' . esc_html( $lang_code ) . '</span>';
+								echo '<input type="hidden" name="sync[add][' . esc_attr( $menu_id ) . '][' . esc_attr( $item['ID'] ) . '][' . esc_attr( $lang_code ) . ']" value="' . esc_attr( $item_translation['title'] . ' @' . $lang_code ) . '" />';
+								$this->incOperation( 'add' );
 							} else {
 								// item translation and object translation do not exist
 								echo '<i class="inactive">' . esc_html__( 'Not translated', 'sitepress' ) . '</i>';
@@ -628,5 +631,9 @@ class ICLMenusSync extends WPML_Menu_Sync_Functionality {
 		}
 
 		return $response;
+	}
+
+	private function incOperation( $mode ) {
+		$this->operations[ $mode ] = empty( $this->operations[ $mode ] ) ? 1 : $this->operations[ $mode ] ++;
 	}
 }

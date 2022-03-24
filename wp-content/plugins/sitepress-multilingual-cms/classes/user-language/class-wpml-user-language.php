@@ -2,9 +2,18 @@
 
 use WPML\Element\API\Languages;
 use WPML\FP\Maybe;
+use WPML\FP\Relation;
+use WPML\Language\Detection\CookieLanguage;
+use WPML\LIB\WP\Hooks;
+use WPML\LIB\WP\User;
+use WPML\LIB\WP\Option;
+use WPML\UIPage;
+use WPML\UrlHandling\WPLoginUrlConverter;
+use function WPML\Container\make;
+use function WPML\FP\spreadArgs;
 
 /**
- * @package wpml-core
+ * @package    wpml-core
  * @subpackage wpml-user-language
  */
 class WPML_User_Language {
@@ -37,6 +46,15 @@ class WPML_User_Language {
 	}
 
 	public function register_hooks() {
+		Hooks::onAction( 'wp_login', 10, 2 )
+		     ->then( spreadArgs( [ $this, 'update_user_lang_from_login' ] ) );
+
+		Hooks::onAction( 'init' )
+		     ->then( [ $this, 'add_how_to_set_notice' ] );
+
+		Hooks::onAction( 'wpml_user_profile_options' )
+		     ->then( [ $this, 'show_ui_to_enable_login_translation' ] );
+
 		add_action( 'wpml_switch_language_for_email', array( $this, 'switch_language_for_email_action' ), 10, 1 );
 		add_action( 'wpml_restore_language_from_email', array( $this, 'restore_language_from_email_action' ), 10, 0 );
 		add_action( 'profile_update', array( $this, 'sync_admin_user_language_action' ), 10, 2 );
@@ -46,7 +64,10 @@ class WPML_User_Language {
 			add_filter( 'get_available_languages', array( $this, 'intersect_wpml_wp_languages' ) );
 		}
 
-		register_activation_hook( WPML_PLUGIN_PATH . '/' . WPML_PLUGIN_FILE, array( $this, 'update_user_lang_on_site_setup' ) );
+		register_activation_hook(
+			WPML_PLUGIN_PATH . '/' . WPML_PLUGIN_FILE,
+			[ $this, 'update_user_lang_on_site_setup' ]
+		);
 	}
 
 	/**
@@ -168,6 +189,7 @@ class WPML_User_Language {
 
 	private function user_needs_sync_admin_lang() {
 		$wp_api = $this->sitepress->get_wp_api();
+
 		return $wp_api->version_compare_naked( get_bloginfo( 'version' ), '4.7', '>=' );
 	}
 
@@ -208,11 +230,13 @@ class WPML_User_Language {
 
 	private function is_editing_current_profile() {
 		global $pagenow;
+
 		return isset( $pagenow ) && 'profile.php' === $pagenow;
 	}
 
 	private function is_editing_other_profile() {
 		global $pagenow;
+
 		return isset( $pagenow ) && 'user-edit.php' === $pagenow;
 	}
 
@@ -229,6 +253,115 @@ class WPML_User_Language {
 
 		if ( $current_user_id && $lang_code_from_locale && ! $wpml_user_lang ) {
 			update_user_meta( $current_user_id, 'icl_admin_language', $lang_code_from_locale );
+		}
+	}
+
+	public function update_user_lang_from_login( $username, WP_User $user ) {
+        $cookieName = 'wp-wpml_login_lang';
+        Maybe::fromNullable( make( CookieLanguage::class, [ ':defaultLanguage' => '' ] )->get( $cookieName ) )
+             ->map( [ $this->sitepress, 'get_locale_from_language_code' ] )
+             ->reject( Relation::equals( User::getMetaSingle( $user->ID, 'locale' ) ) )
+             ->map( User::updateMeta( $user->ID, 'locale' ) );
+
+        $secure = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
+        setcookie( $cookieName, '', time() - 3600, COOKIEPATH, COOKIE_DOMAIN, $secure );
+	}
+
+	public function add_how_to_set_notice() {
+		global $pagenow;
+		$adminNotices = wpml_get_admin_notices();
+
+		$noticeId    = self::class . 'how_to_set_notice';
+		$noticeGroup = self::class;
+
+		if (
+			$pagenow !== 'profile.php'
+			&& ! Option::getOr( WPLoginUrlConverter::SETTINGS_KEY, false )
+		) {
+			$notice = new WPML_Notice(
+				$noticeId,
+				self::getNotice(),
+				$noticeGroup
+			);
+			$notice->set_css_class_types( [ 'info' ] );
+			$notice->add_capability_check( [ 'manage_options' ] );
+			$notice->set_dismissible( true );
+			$notice->add_user_restriction( User::getCurrentId() );
+			$adminNotices->add_notice( $notice );
+		} else {
+			$adminNotices->remove_notice( $noticeGroup, $noticeId );
+		}
+
+	}
+
+	public static function getNotice() {
+		ob_start();
+		?>
+		<h2><?php esc_html_e( 'Do you want the WordPress admin to be in a different language?', 'sitepress' ); ?></h2>
+		<p>
+			<?php esc_html_e( 'WPML lets each user choose the admin language, unrelated of the language in which visitors will see the front-end of the site.', 'sitepress' ); ?>
+			<br/>
+			<br/>
+			<?php
+			/* translators: %s is replaced with the word 'profile' wrapped in a link */
+			echo sprintf(
+				__( 'Go to your %s to choose your admin language.', 'sitepress' ),
+				'<a href="' . admin_url( 'profile.php' ) . '">' . __( 'profile', 'sitepress' ) . '</a>'
+			);
+			?>
+		</p>
+		<?php
+		return ob_get_clean();
+	}
+
+	public function show_ui_to_enable_login_translation() {
+		if ( current_user_can( 'manage_options' ) && ! WPLoginUrlConverter::isEnabled() ) {
+
+			$settingsPage     = UIPage::getSettings() . '#ml-content-setup-sec-wp-login';
+			$settingsPageLink = '<a href="' . $settingsPage . '">' . __( 'WPML->Settings', 'sitepress' ) . '</a>';
+			// translators: %s link to WPML Settings page
+			$message = esc_html__( 'WPML will include a language switcher on the WordPress login page. To change this, go to %s.', 'sitepress' );
+			?>
+			<tr class="user-language-wrap">
+				<th><?php esc_html_e( 'Login Page:', 'sitepress' ); ?></th>
+				<td>
+					<?php wp_nonce_field( 'icl_login_page_translation_nonce', 'icl_login_page_translation_nonce' ); ?>
+					<div id="wpml-login-translation">
+						<p>
+							<?php esc_html_e( 'Your site currently has language switching for the login page disabled.', 'sitepress' ); ?>
+							<button type="button" class="button wpml-login-activate">
+								<?php esc_html_e( 'Activate', 'sitepress' ); ?>
+							</button>
+							<span class="spinner" style="float: none"></span>
+						</p>
+					</div>
+					<div id="wpml-login-translation-updated" style="display:none">
+						<?php echo sprintf( $message, $settingsPageLink ); ?>
+					</div>
+					<script type="text/javascript">
+						jQuery(function ($) {
+							$('.wpml-login-activate').click(function () {
+								$(this).prop('disabled', true);
+								$(this).parent().find('.spinner').css('visibility', 'visible');
+								$.ajax({
+									url: ajaxurl,
+									type: "POST",
+									data: {
+										icl_ajx_action: 'icl_login_page_translation',
+										_icl_nonce: $('#icl_login_page_translation_nonce').val(),
+										login_page_translation: 1
+									},
+									success: function (response) {
+										$('#wpml-login-translation').hide();
+										$('#wpml-login-translation-updated').css('display', 'block');
+									}
+								});
+							});
+						});
+					</script>
+				</td>
+			</tr>
+			<?php
 		}
 	}
 }

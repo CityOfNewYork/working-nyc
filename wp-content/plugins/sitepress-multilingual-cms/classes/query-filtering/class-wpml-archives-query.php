@@ -2,7 +2,7 @@
 
 use WPML\FP\Obj;
 
-class WPML_Archives_Query implements IWPML_Action {
+class WPML_Archives_Query implements IWPML_Frontend_Action, IWPML_DIC_Action {
 
 	/** @var wpdb $wpdb */
 	private $wpdb;

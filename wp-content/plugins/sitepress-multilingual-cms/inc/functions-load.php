@@ -430,3 +430,7 @@ function wpml_create_upgrade_command_definition( $class_name, array $dependencie
 if ( is_admin() ) {
 	add_action( 'personal_options', 'wpml_show_user_options' );
 }
+
+
+// TM
+require_once 'functions-load-tm.php';

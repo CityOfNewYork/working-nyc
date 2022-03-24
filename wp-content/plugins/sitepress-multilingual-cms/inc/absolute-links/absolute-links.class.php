@@ -123,7 +123,7 @@ class AbsoluteLinks {
 				$url_parts         = wp_parse_url( $this->get_home_url_with_no_lang_directory() );
 				$url_parts['path'] = isset( $url_parts['path'] ) ? $url_parts['path'] : '';
 				foreach ( $alp_matches[4] as $k => $dir_path ) {
-					if ( 0 === strpos( $dir_path, 'wp-content' ) ) {
+					if ( 0 === strpos( $dir_path, WP_CONTENT_DIR ) ) {
 						continue;
 					}
 

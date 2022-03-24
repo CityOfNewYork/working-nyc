@@ -51,6 +51,16 @@ class WPML_Widgets_Support_Backend implements IWPML_Action {
 	 * @param array          $instance
 	 */
 	public function language_selector( $widget, $form, $instance ) {
+		/**
+		 * This allows to disable the display of the language selector on a widget form.
+		 *
+		 * @since 4.5.3
+		 *
+		 * @param bool If display should be disabled (default: false)
+		 */
+		if ( apply_filters( 'wpml_widget_language_selector_disable', false ) ) {
+			return;
+		}
 
 		$languages        = $this->active_languages;
 		$languages['all'] = array(

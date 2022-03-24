@@ -52,14 +52,12 @@ class Plugins {
 	 * @param bool $isSetupComplete
 	 */
 	public static function loadEmbeddedTM( $isSetupComplete ) {
-		$plugins = is_multisite() && is_network_admin()
-			? get_site_option( 'active_sitewide_plugins', array() )
-			: get_option( 'active_plugins', array() );
 		$tmSlug  = 'wpml-translation-management/plugin.php';
 
 		self::stopPluginActivation( self::WPML_TM_PLUGIN );
 
-		if ( ! self::deactivateTm( $plugins ) ) {
+		if ( ! self::deactivateTm() ) {
+
 			add_action( "after_plugin_row_$tmSlug", [ self::class, 'showEmbeddedTMNotice' ] );
 			add_action( "otgs_installer_clean_plugins_update_cache", [ self::class, 'updateTMAllowedOption' ] );
 
@@ -68,32 +66,13 @@ class Plugins {
 				add_action( 'after_setup_theme', [ self::class, 'updateTMAllowedOption' ], self::AFTER_INSTALLER );
 			}
 			if ( ! $isSetupComplete || $isTMAllowed ) {
-				if ( defined( 'WPML_TM_PATH' ) ||
-				     ( Relation::propEq( 'action', 'activate-selected', $_POST )
-				       && Lst::includes( self::WPML_CORE_PLUGIN, Obj::propOr( [], 'checked', $_POST ) ) )
-				) {
-					// This can happen when a blog has 4.5 active and TM is activate as network plugin, which
-					// is possible when 4.5 is only active on a blog but not as network plugin.
-					// This will probably never happen, but would cause a fatal error on the blog.
-					if ( is_multisite() ) {
-						$networkPlugins = get_site_option( 'active_sitewide_plugins', array() );
-						self::deactivateTm( $networkPlugins );
-					}
-
-					return;
-				}
-				require_once WPML_PLUGIN_PATH . '/vendor/wpml/tm/plugin.php';
+				require_once WPML_PLUGIN_PATH . '/tm.php';
 			}
 		}
 	}
 
-	private static function deactivateTm( $plugins ) {
-		if (
-			! is_array( $plugins ) ||
-			! Lst::includes( self::WPML_TM_PLUGIN, $plugins ) && // 'active_plugins' stores plugins as values.
-			! array_key_exists( self::WPML_TM_PLUGIN, $plugins ) // 'active_sitewide_plugins' stores plugins as keys.
-		) {
-			// TM is not active.
+	private static function deactivateTm() {
+		if ( ! self::isTMActive() ) {
 			return false;
 		}
 
@@ -107,6 +86,21 @@ class Plugins {
 		}
 
 		return true;
+	}
+
+	public static function isTMActive() {
+		$hasTM = function ( $plugins ) {
+			return is_array( $plugins ) && (
+					Lst::includes( self::WPML_TM_PLUGIN, $plugins ) || // 'active_plugins' stores plugins as values
+					array_key_exists( self::WPML_TM_PLUGIN, $plugins ) // 'active_sitewide_plugins' stores plugins as keys
+				);
+		};
+
+		if ( \is_multisite() && $hasTM( \get_site_option( 'active_sitewide_plugins', [] ) ) ) {
+			return true;
+		}
+
+        return $hasTM( \get_option( 'active_plugins', [] ) );
 	}
 
 	private static function stopPluginActivation( $pluginSlug ) {

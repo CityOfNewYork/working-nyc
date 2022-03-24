@@ -27,8 +27,8 @@ class Strings {
 	 * and add the extra strings "before", "after" and "fallback".
 	 *
 	 * @param WPML_PB_String[] $strings
-	 * @param string            $nodeId
-	 * @param array             $element
+	 * @param string           $nodeId
+	 * @param array            $element
 	 *
 	 * @return WPML_PB_String[]
 	 */
@@ -37,9 +37,11 @@ class Strings {
 		$dynamicFields = self::getDynamicFields( $element );
 
 		$updateFromDynamicFields = function( WPML_PB_String $string ) use ( &$dynamicFields ) {
-			$matchingField = $dynamicFields->first( function( Field $field ) use ( $string ) {
-				return $field->isMatchingStaticString( $string );
-			} );
+			$matchingField = $dynamicFields->first(
+				function( Field $field ) use ( $string ) {
+					return $field->isMatchingStaticString( $string );
+				}
+			);
 
 			if ( $matchingField ) {
 				return self::addBeforeAfterAndFallback( wpml_collect( [ $dynamicFields->pull( $dynamicFields->search( $matchingField ) ) ] ) );
@@ -79,7 +81,9 @@ class Strings {
 	 * @return Collection
 	 */
 	private static function getDynamicFieldsForModuleWithItems( array $element ) {
-		$isDynamic = function( $item ) { return isset( $item[ self::KEY_DYNAMIC ] ); };
+		$isDynamic = function( $item ) {
+			return isset( $item[ self::KEY_DYNAMIC ] );
+		};
 		$getFields = function( array $item ) use ( $element ) {
 			return self::getFields(
 				$item[ self::KEY_DYNAMIC ],
@@ -117,7 +121,7 @@ class Strings {
 	private static function isModuleWithItems( array $element ) {
 		if ( isset( $element[ self::KEY_SETTINGS ] ) ) {
 			$firstSettingElement = reset( $element[ self::KEY_SETTINGS ] );
-			return is_array( $firstSettingElement ) &&  0 === key( $firstSettingElement );
+			return is_array( $firstSettingElement ) && 0 === key( $firstSettingElement );
 		}
 
 		return false;
@@ -133,7 +137,7 @@ class Strings {
 			preg_match( self::SETTINGS_REGEX, $field->tagValue, $matches );
 
 			$isTranslatableSetting = function( $value, $settingField ) {
-				return $value && in_array( $settingField, self::TRANSLATABLE_SETTINGS );
+				return $value && is_string( $value ) && in_array( $settingField, self::TRANSLATABLE_SETTINGS, true );
 			};
 
 			$buildStringFromSetting = function( $value, $settingField ) use ( $field ) {
@@ -149,7 +153,7 @@ class Strings {
 				->filter( $isTranslatableSetting )
 				->map( $buildStringFromSetting );
 		};
-		
+
 		return $dynamicFields->map( $dynamicFieldToSettingStrings );
 	}
 

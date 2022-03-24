@@ -29,16 +29,17 @@ abstract class WPML_URL_Converter_Abstract_Strategy implements IWPML_URL_Convert
 	protected $wp_rewrite;
 
 	/**
-	 * @param string        $default_language
-	 * @param array<string> $active_languages
-	 * @param WP_Rewrite    $wp_rewrite
+	 * @param string                     $default_language
+	 * @param array<string>              $active_languages
+	 * @param WP_Rewrite|null            $wp_rewrite
+	 * @param WPML_Slash_Management|null $splash_helper
 	 */
-	public function __construct( $default_language, $active_languages, $wp_rewrite = null ) {
+	public function __construct( $default_language, $active_languages, $wp_rewrite = null, $splash_helper = null ) {
 		$this->default_language = $default_language;
 		$this->active_languages = $active_languages;
 
 		$this->lang_param   = new WPML_URL_Converter_Lang_Param_Helper( $active_languages );
-		$this->slash_helper = new WPML_Slash_Management();
+		$this->slash_helper = $splash_helper ?: new WPML_Slash_Management();
 
 		if ( ! $wp_rewrite ) {
 			global $wp_rewrite;

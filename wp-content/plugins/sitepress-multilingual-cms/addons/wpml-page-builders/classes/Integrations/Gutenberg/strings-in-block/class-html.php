@@ -31,7 +31,7 @@ class HTML extends Base {
 
 			foreach ( $block_queries as $blockQuery ) {
 				list( $query, $definedType, $label ) = XPath::parse( $blockQuery );
-				$elements = $xpath->query( $query );
+				$elements                            = $xpath->query( $query );
 				foreach ( $elements as $element ) {
 					list( $text, $type ) = $dom_handle->getPartialInnerHTML( $element );
 					if ( $text ) {
@@ -45,7 +45,6 @@ class HTML extends Base {
 					}
 				}
 			}
-
 		} else {
 
 			$string_id = $this->get_block_string_id( $block );
@@ -57,7 +56,6 @@ class HTML extends Base {
 					'VISUAL'
 				);
 			}
-
 		}
 
 		return $strings;
@@ -81,10 +79,10 @@ class HTML extends Base {
 
 			foreach ( $block_queries as $query ) {
 				list( $query, ) = XPath::parse( $query );
-				$elements = $xpath->query( $query );
+				$elements       = $xpath->query( $query );
 				foreach ( $elements as $element ) {
 					list( $text, ) = $dom_handle->getPartialInnerHTML( $element );
-					$block = $this->updateTranslationInBlock(
+					$block         = $this->updateTranslationInBlock(
 						$text,
 						$lang,
 						$block,
@@ -113,15 +111,14 @@ class HTML extends Base {
 	 * Unfortunately we cannot use the DOM because we have only HTML extracts which
 	 * are not valid taken independently.
 	 *
-	 * e.g. {
+	 * {@internal
 	 *          innerContent => [
 	 *              '<div><p>The title</p>',
 	 *              null,
 	 *              '\n\n',
 	 *              null,
 	 *              '</div>'
-	 *          ]
-	 *      }
+	 *          ]}
 	 *
 	 * @param \WP_Block_Parser_Block $block
 	 * @param \DOMNode               $element
@@ -130,16 +127,17 @@ class HTML extends Base {
 	 * @return \WP_Block_Parser_Block
 	 */
 	public static function update_string_in_innerContent( \WP_Block_Parser_Block $block, \DOMNode $element, $translation ) {
-		if ( empty( $block->innerContent ) ) {
+		if ( empty( $block->innerContent ) || empty( $element->nodeValue ) ) {
 			return $block;
 		}
 
-		$search_value = preg_quote( $element->nodeValue, '/' );
-
 		if ( $element instanceof \DOMAttr ) {
-			$search = '/(")(' . $search_value . ')(")/';
+			$search_value = preg_quote( esc_attr( $element->nodeValue ), '/' );
+			$search       = '/(")(' . $search_value . ')(")/';
+			$translation  = esc_attr( $translation );
 		} else {
-			$search = '/(>)(' . $search_value . ')(<)/';
+			$search_value = preg_quote( $element->nodeValue, '/' );
+			$search       = '/(>)(' . $search_value . ')(<)/';
 		}
 
 		foreach ( $block->innerContent as &$inner_content ) {
@@ -179,10 +177,12 @@ class HTML extends Base {
 	 * @return ListBlock|StandardBlock|HtmlBlock
 	 */
 	private function get_dom_handler( \WP_Block_Parser_Block $block ) {
-		$class = wpml_collect( [
-			self::LIST_BLOCK_NAME => ListBlock::class,
-			self::HTML_BLOCK_NAME => HtmlBlock::class,
-		] )->get( $block->blockName, StandardBlock::class );
+		$class = wpml_collect(
+			[
+				self::LIST_BLOCK_NAME => ListBlock::class,
+				self::HTML_BLOCK_NAME => HtmlBlock::class,
+			]
+		)->get( $block->blockName, StandardBlock::class );
 
 		return new $class();
 	}
@@ -211,7 +211,7 @@ class HTML extends Base {
 		$translationFromPageBuilder = apply_filters( 'wpml_pb_update_translations_in_content', $text, $lang );
 		if ( $translationFromPageBuilder === $text ) {
 			$string_id = $this->get_string_id( $block->blockName, $text );
-			if ( Obj::path( [ $string_id, $lang, 'status' ], $string_translations ) == ICL_TM_COMPLETE ) {
+			if ( (int) Obj::path( [ $string_id, $lang, 'status' ], $string_translations ) === ICL_TM_COMPLETE ) {
 				return self::preserveNewLines( $text, $string_translations[ $string_id ][ $lang ]['value'] );
 			} else {
 				return null;

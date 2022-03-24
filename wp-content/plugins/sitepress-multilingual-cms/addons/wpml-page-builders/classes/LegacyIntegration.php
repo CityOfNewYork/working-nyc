@@ -51,6 +51,7 @@ class LegacyIntegration {
 			$integrationClasses[] = \WPML\Compatibility\Divi\ThemeBuilderFactory::class;
 			$integrationClasses[] = \WPML\Compatibility\Divi\Builder::class;
 			$integrationClasses[] = \WPML\Compatibility\Divi\TinyMCE::class;
+			$integrationClasses[] = \WPML\Compatibility\Divi\DisplayConditions::class;
 			$integrationClasses[] = \WPML\Compatibility\Divi\DoubleQuotes::class;
 			$integrationClasses[] = \WPML\Compatibility\Divi\Hooks\Editor::class;
 		}

@@ -55,7 +55,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 	});
 
-	var fullhash = WPML_core.sanitize(window.location.hash);
+	var fullhash = otgs_wp_installer.sanitize(window.location.hash);
 	if (fullhash.length > 0) {
 		var product_selector=fullhash+' '+'.enter_site_key_js';
 		if ($(product_selector).length ) {
@@ -70,7 +70,7 @@ var installer_theme_extended_object = {
 		getParameterByName: function(name) {
 		    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 		    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-		        results = regex.exec(WPML_core.sanitize( location.search ));
+		        results = regex.exec(otgs_wp_installer.sanitize( location.search ));
 		    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	    },
 

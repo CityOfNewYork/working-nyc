@@ -2,10 +2,10 @@
 /**
  * Plugin Name: WPML Multilingual CMS
  * Plugin URI: https://wpml.org/
- * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-5-2/">WPML 4.5.2 release notes</a>
+ * Description: WPML Multilingual CMS | <a href="https://wpml.org">Documentation</a> | <a href="https://wpml.org/version/wpml-4-5-5/">WPML 4.5.5 release notes</a>
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com/
- * Version: 4.5.2
+ * Version: 4.5.5
  * Plugin Slug: sitepress-multilingual-cms
  *
  * @package WPML\Core
@@ -29,7 +29,7 @@ if ( ! \WPML\Requirements\WordPress::checkMinimumRequiredVersion() ) {
 	return;
 }
 
-define( 'ICL_SITEPRESS_VERSION', '4.5.2' );
+define( 'ICL_SITEPRESS_VERSION', '4.5.5' );
 
 // Do not uncomment the following line!
 // If you need to use this constant, use it in the wp-config.php file
@@ -176,10 +176,10 @@ if ( $sitepress->is_setup_complete() ) {
 		'WPML_Copy_Once_Custom_Field_Factory',
 		'WPML_Adjacent_Links_Hooks_Factory',
 		'WPML_Widgets_Support_Factory',
-		'WPML_Admin_Resources_Hooks_Factory',
+		'WPML_Admin_Resources_Hooks',
 		'WPML_Themes_Plugin_Localization_UI_Hooks_Factory',
-		'WPML_Theme_Plugin_Localization_Options_Ajax_Factory',
-		'WPML_Archives_Query_Factory',
+		'WPML_Theme_Plugin_Localization_Options_Ajax',
+		'WPML_Archives_Query',
 		'WPML_Fix_Links_In_Display_As_Translated_Content',
 		'WPML_Display_As_Translated_Tax_Query_Factory',
 		'WPML_Tax_Permalink_Filters_Factory',
@@ -217,6 +217,9 @@ if ( $sitepress->is_setup_complete() ) {
 		\WPML\AdminMenu\Redirect::class,
 		\WPML\Core\Menu\Translate::class,
 		\WPML\TaxonomyTermTranslation\AutoSync::class,
+		\WPML\FullSiteEditing\BlockTemplates::class,
+		\WPML\AdminLanguageSwitcher\DisableWpLanguageSwitcher::class,
+		\WPML\AdminLanguageSwitcher\AdminLanguageSwitcher::class,
 	];
 	$action_filter_loader->load( $actions );
 
@@ -322,7 +325,9 @@ register_deactivation_hook( WPML_PLUGIN_PATH . '/' . WPML_PLUGIN_FILE, 'icl_site
 
 add_filter( 'plugin_action_links', partial( 'icl_plugin_action_links', $sitepress ), 10, 2 );
 
-$WPML_Users_Languages_Dependencies = new WPML_Users_Languages_Dependencies( $sitepress );
+if ( $sitepress->is_setup_complete() ) {
+	$WPML_Users_Languages_Dependencies = new WPML_Users_Languages_Dependencies( $sitepress );
+}
 
 function wpml_init_cli() {
 	$wpml_cli_bootstrap = new \WPML\CLI\Core\BootStrap();

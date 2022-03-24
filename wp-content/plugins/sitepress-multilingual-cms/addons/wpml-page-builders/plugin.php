@@ -4,7 +4,7 @@
  * Description: Add full WPML support for most popular page builders.
  * Author: OnTheGoSystems
  * Author URI: http://www.onthegosystems.com
- * Version: 2.0.1
+ * Version: 2.0.3
  * Plugin Slug: wpml-page-builders
  */
 

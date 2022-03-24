@@ -40,7 +40,6 @@ class OTGS_Installer_Products_Parser {
 	public function get_products_from_response( $products_url, $repository_id, $response ) {
 		$products = $this->parse_products_response( $products_url, $response );
 		$products = $this->validate_products_plugins( $products_url, $products );
-
 		$products['downloads'] = $this->prepare_products_downloads( $repository_id, $products );
 
 		return $products;
@@ -91,7 +90,6 @@ class OTGS_Installer_Products_Parser {
 				}
 			}
 		}
-
 		return $products;
 	}
 
@@ -120,7 +118,7 @@ class OTGS_Installer_Products_Parser {
 
 	/**
 	 * @param string $repository_id
-	 * @param string $products
+	 * @param array $products
 	 *
 	 * @return array
 	 */

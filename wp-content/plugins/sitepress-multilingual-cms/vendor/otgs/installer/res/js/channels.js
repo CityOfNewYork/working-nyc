@@ -80,7 +80,7 @@
             success: function (ret) {
                 if( ret.status == 'OK'){
                     var tableSelector = '#installer_repo_' +  select.data('repository-id')  + ' .installer-table-wrap';
-                    $(tableSelector).load( WPML_core.sanitize(location.href) + ' ' + tableSelector + ' table.widefat', function(){
+                    $(tableSelector).load( otgs_wp_installer.sanitize(location.href) + ' ' + tableSelector + ' table.widefat', function(){
 
                         var upgradesCount = $(tableSelector).find('tr .installer-red-text').length
                             || select.val() == 1 && $(tableSelector).find('td.installer_version_installed .unstable').length;

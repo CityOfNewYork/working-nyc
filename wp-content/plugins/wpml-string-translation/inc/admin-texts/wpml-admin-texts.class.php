@@ -287,7 +287,7 @@ class WPML_Admin_Texts extends WPML_Admin_Text_Functionality {
 	 * @return array
 	 */
 	private static function findKeys( $string ) {
-		return array_filter( explode( '][', preg_replace( '/^\[(.*)\]$/', '$1', $string ) ) );
+		return array_filter( explode( '][', preg_replace( '/^\[(.*)\]$/', '$1', $string ) ), 'strlen' );
 	}
 
 	function clear_cache_for_option( $option_name ) {

@@ -21,6 +21,7 @@ class WPML_Elementor_Integration_Factory {
 				'WPML_PB_Elementor_Handle_Custom_Fields_Factory',
 				'WPML_Elementor_Media_Hooks_Factory',
 				'WPML_Elementor_WooCommerce_Hooks_Factory',
+				\WPML\PB\Elementor\Hooks\WooCommerce::class,
 				\WPML\PB\Elementor\LanguageSwitcher\LanguageSwitcher::class,
 				\WPML\PB\Elementor\Hooks\DynamicElements::class,
 				\WPML\PB\Elementor\Hooks\GutenbergCleanup::class,
@@ -28,6 +29,7 @@ class WPML_Elementor_Integration_Factory {
 				\WPML\PB\Elementor\Config\Factory::class,
 				\WPML\PB\Elementor\Hooks\LandingPages::class,
 				\WPML\PB\Elementor\Hooks\Editor::class,
+				\WPML\PB\Elementor\Hooks\WordPressWidgets::class,
 				\WPML_PB_Fix_Maintenance_Query::class,
 			)
 		);

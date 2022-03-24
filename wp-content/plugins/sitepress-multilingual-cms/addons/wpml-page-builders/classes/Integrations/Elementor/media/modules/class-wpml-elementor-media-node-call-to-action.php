@@ -1,8 +1,13 @@
 <?php
 
-class WPML_Elementor_Media_Node_Call_To_Action extends WPML_Elementor_Media_Node_With_Image_Property {
+class WPML_Elementor_Media_Node_Call_To_Action extends WPML_Elementor_Media_Node {
 
-	protected function get_property_name() {
-		return 'bg_image';
+	public function translate( $settings, $target_lang, $source_lang ) {
+		foreach ( [ 'bg_image', 'graphic_image' ] as $property ) {
+			$settings = $this->translate_image_property( $settings, $property, $target_lang, $source_lang );
+		}
+
+		return $settings;
 	}
+
 }
