@@ -13,11 +13,15 @@
  */
 
 $context = Timber::get_context();
+
 $post = Timber::get_post();
 
 $context['post'] = $post;
+
 $context['meta'] = new WorkingNYC\Meta($post->ID);
+
 $context['sections'] = Templating\get_sections();
+
 $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
 /**

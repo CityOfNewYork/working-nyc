@@ -25,7 +25,8 @@ const QUESTIONNAIRE_QS = 'field_5f2a0535594d6';
 
 /**
  * Gets the sections by ACF field id
- * @return array The collection of sections for the post.
+ *
+ * @return  Array  The collection of sections for the post.
  */
 function get_sections($id = null) {
   $sections = get_field(SECTION_ID, $id);
@@ -35,7 +36,8 @@ function get_sections($id = null) {
 
 /**
  * Gets featured posts
- * @return array The collection of featured posts.
+ *
+ * @return  Array  The collection of featured posts.
  */
 function get_featured_posts($id = null) {
   $featured = get_field(FEATURED_POSTS_ID, $id);
@@ -45,7 +47,8 @@ function get_featured_posts($id = null) {
 
 /**
  * Gets questionnaire post type
- * @return string post type slug.
+ *
+ * @return String  post type slug.
  */
 function get_questionnaire_post_type($id = null) {
   $post_type = get_field(QUESTIONNAIRE_POST_TYPE, $id);
@@ -55,7 +58,8 @@ function get_questionnaire_post_type($id = null) {
 
 /**
  * Gets questionnaire post threshold
- * @return integer min number of posts.
+ *
+ * @return  Integer  min number of posts.
  */
 function get_questionnaire_threshold($id = null) {
   $threshold = get_field(QUESTIONNAIRE_THRESHOLD, $id);
@@ -65,7 +69,8 @@ function get_questionnaire_threshold($id = null) {
 
 /**
  * Gets get questionnaire fields
- * @return array The collection of questions.
+ *
+ * @return  Array  The collection of questions.
  */
 function get_questionnaire_qs($id = null) {
   $questions = get_field(QUESTIONNAIRE_QS, $id);
@@ -76,7 +81,8 @@ function get_questionnaire_qs($id = null) {
 /**
  * Get the id of the post through the page path. Requires a page
  * of the same slug as above to be created.
- * @return integer The ID of the post
+ *
+ * @return  Integer  The ID of the post
  */
 function get_controller_id($path) {
   return get_page(icl_object_id(get_page_by_path($path)->ID, 'page', true, ICL_LANGUAGE_CODE));
@@ -84,7 +90,8 @@ function get_controller_id($path) {
 
 /**
  * Get the tagline from the post/page content
- * @return string The page tagline
+ *
+ * @return String  The page tagline
  */
 function get_content($path) {
   return get_post_field('post_content', get_controller_id($path));
@@ -92,7 +99,8 @@ function get_content($path) {
 
 /**
  * Get the title from the post/page
- * @return string The page title
+ *
+ * @return String  The page title
  */
 function get_title($path) {
   return get_the_title(get_controller_id($path));
@@ -100,7 +108,8 @@ function get_title($path) {
 
 /**
  * Gets the post type based on the path
- * @return string the post type
+ *
+ * @return String  the post type
  */
 function get_post_type($path) {
   $post_type = get_field_object(POST_TYPE, get_controller_id($path));
@@ -110,23 +119,27 @@ function get_post_type($path) {
 
 /**
  * Gets the filters in the order that the user would like to present them
- * @return string taxonomies comma delimited
+ *
+ * @return String  taxonomies comma delimited
  */
 function get_filters($path) {
   $arr = get_field(FILTERS, get_controller_id($path));
+
   $filters = array_column($arr, 'filter_name');
 
   foreach ($filters as $index => $filter) {
-    $filters[$index] = $filter.':'.get_taxonomy($filter)->label;
+    $filters[$index] = $filter . ':' . get_taxonomy($filter)->label;
   }
-  $filters = implode(",", $filters);
+
+  $filters = implode(',', $filters);
 
   return $filters;
 }
 
 /**
  * Gets the label for filters
- * @return string taxonomies comma delimited
+ *
+ * @return String  taxonomies comma delimited
  */
 function get_filter_label($path) {
   $label = get_field(FILTERS_LABEL, get_controller_id($path));
