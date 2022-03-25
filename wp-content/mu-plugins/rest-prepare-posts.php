@@ -35,12 +35,12 @@ add_action('rest_api_init', function() {
     $RestPreparePosts->timberNamespace = 'WorkingNYC';
 
     add_filter('rest_prepare_' . $type, function($post) use ($RestPreparePosts) {
-      /**
-       * Add public taxonomy details to the post.
-       *
-       * @var Array
-       */
-      $post->data['terms'] = $RestPreparePosts->getTerms($post->data['id']);
+      // /**
+      //  * Add public taxonomy details to the post.
+      //  *
+      //  * @var Array
+      //  */
+      // $post->data['terms'] = $RestPreparePosts->getTerms($post->data['id']);
 
       /**
        * Add public shared Timber context.

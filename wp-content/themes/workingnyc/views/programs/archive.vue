@@ -33,7 +33,7 @@
         <form tabindex="-1">
           <div class="layout-content">
             <div>
-              <fieldset class="mb-8" tabindex="-1" v-for="term in terms" :key="term.term_id">
+              <fieldset class="mb-8" tabindex="-1" v-for="term in terms" :key="term.slug">
                 <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">
                   {{ term.name }}
                 </legend>
@@ -88,11 +88,11 @@
       </div>
     </div>
 
-    <section class="page-max desktop:px-6" id="programs" v-if="init">
+    <section class="page-max desktop:px-6" v-if="init">
       <div class="wrap desktop:px-6" v-if="!loading">
-        <p data-alert="text" aria-live="polite" v-if="posts != null" v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></p>
+        <h2 class="text-p font-p" data-alert="text" aria-live="polite" v-if="posts != null" v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></h2>
 
-        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
+        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3" ref="results">
           <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
         </div>
 
@@ -116,7 +116,7 @@
 
     <div class="layout-content py-6 pb-8 mb-4" v-if="init">
       <div class="wrap">
-        <button id="pagination" class="btn btn-primary w-full" @click="paginate" v-if="next" data-amount="1">
+        <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
           {{ strings.SHOW_MORE }}
         </button>
 

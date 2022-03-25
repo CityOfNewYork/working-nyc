@@ -24,6 +24,14 @@ class Announcements extends Timber\Post {
     }
 
     /**
+     * The ID will be null if the post doesn't exist
+     */
+
+    if (null === $this->id) {
+      return false;
+    }
+
+    /**
      * Set Context
      */
 

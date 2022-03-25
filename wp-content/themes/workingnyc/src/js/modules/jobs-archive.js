@@ -86,7 +86,7 @@ export default {
        */
       endpoints: {
         terms: '/wp-json/api/v1/terms/?post_type[]=jobs'
-          + ((process.env.NODE_ENV === 'development') ? '&cache=1' : ''),
+          + ((process.env.NODE_ENV === 'development') ? '&cache=0' : ''),
         jobs: '/wp-json/wp/v2/jobs'
       },
 
@@ -101,7 +101,7 @@ export default {
       maps: function() {
         return {
           /**
-           * Jobs endpoint data map
+           * Data mapping function for results from the Jobs endpoint
            *
            * @raw /wp-json/wp/v2/jobs
            */
@@ -110,31 +110,29 @@ export default {
             title: jobs.title.rendered,
             link: jobs.link,
             context: jobs.context,
-            raw: (process.env.NODE_ENV === 'development') ? {
-                ...jobs
-              } : false
+            raw: (process.env.NODE_ENV === 'development') ? { ...jobs } : false
           }),
 
           /**
-           * Terms endpoint data map
+           * Data mapping function for results from the Terms endpoint
            *
            * @raw /wp-json/api/v1/terms
            */
           terms: terms => ({
-            name: terms.labels.archives,
-            slug: terms.name,
+            name: terms.taxonomy.labels.archives,
+            slug: terms.taxonomy.name,
             filters: terms.terms.map(filters => ({
               id: filters.term_id,
               name: filters.name,
               slug: filters.slug,
-              parent: terms.name,
+              parent: terms.taxonomy.name,
               active: (
-                  this.query.hasOwnProperty(terms.name) &&
-                  this.query[terms.name].includes(filters.term_id)
+                  this.query.hasOwnProperty(terms.taxonomy.name) &&
+                  this.query[terms.taxonomy.name].includes(filters.term_id)
                 ),
               checked: (
-                  this.query.hasOwnProperty(terms.name) &&
-                  this.query[terms.name].includes(filters.term_id)
+                  this.query.hasOwnProperty(terms.taxonomy.name) &&
+                  this.query[terms.taxonomy.name].includes(filters.term_id)
                 )
             }))
           })
@@ -209,6 +207,50 @@ export default {
       this.click(toChange);
 
       return this;
+    },
+
+    /**
+     * TODO: Set focus to results when the filter dropdown is closed. This
+     * method is not currently working when bound to the "close and see" button.
+     * That button uses the patterns scripts dialog method which interfere
+     * with DOM event propagation.
+     */
+     resultsFocus: function() {
+      document.querySelector('body').style.overflow = ''; // unlocks the dialog
+
+      this.$refs.results.setAttribute('tabindex', '-1');
+
+      this.$refs.results.focus();
+    },
+
+    /**
+     * Proxy for pagination. This will shift focus on the next page's first
+     * result once pagination is complete.
+     *
+     * @param   {Object}  event  The bound click event
+     */
+     nextPage: function(event) {
+      let _this = this;
+
+      (async (_this) => {
+        await _this.paginate(event);
+
+        if (_this.totalVisible <= 1)
+          return false;
+
+        let pages = _this.posts.filter(page => {
+          return (page && page.show);
+        });
+
+        if (pages) {
+          let posts = pages[pages.length - 1].posts;
+          let element = document.querySelector(`[data-js='post-${posts[0].id}']`);
+
+          if (element) {
+            element.focus();
+          }
+        }
+      })(_this);
     }
   },
 
@@ -253,29 +295,5 @@ export default {
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //
-  },
-
-  /**
-   * Focus on the first job title after the dom is updated.
-   */
-  updated: function() {
-    this.$nextTick(function() {
-      if (this.totalVisible <= 1)
-        return false;
-
-      let pages = this.posts.filter(page => {
-        return (page && page.show);
-      });
-
-      if (pages) {
-        let posts = pages[pages.length - 1].posts;
-        let post = posts[posts.length - 1];
-        let element = document.querySelector(`[data-js='job-${post.id}']`);
-
-        if (element) {
-          element.focus();
-        }
-      }
-    })
   }
 };

@@ -40,6 +40,10 @@ class Program extends Shortcode {
 
     $post = new \WorkingNYC\Programs($atts['id']);
 
+    if (null === $post->id) {
+      return "<!-- A program with the ID $post->ID does not exist -->";
+    }
+
     if (isset($atts['learn-more'])) {
       $post->link = $atts['learn-more'];
     }
@@ -50,8 +54,6 @@ class Program extends Shortcode {
 
     $post->classes = 'mb-4';
 
-    return (null === $post->id) ?
-      "<!-- A post with the ID $post->ID does not exist -->" :
-      Timber::compile($this->template, array('post' => $post));
+    return Timber::compile($this->template, array('post' => $post));
   }
 }

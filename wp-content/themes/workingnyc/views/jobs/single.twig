@@ -87,6 +87,10 @@
 
             {{ __('Last updated', 'WNYC') }} {{ modified_date }}
           </p>
+
+          <div class="pt-3">
+            <a href="#application-instructions" class="btn btn-secondary w-full">{{ __('Apply', 'WNYC') }}</a>
+          </div>
         </div>
       </header>
     </div>
@@ -157,7 +161,7 @@
     </div>
 
     {# Links #}
-    {% if post.job_learn_more or post.job_direct_apply %}
+    {% if post.job_learn_more or post.job_apply %}
     <section class="layout-content bg-scale-1 py-4 pb-8" id="contact">
       <nav class="wrap grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
         {% if post.job_learn_more %}
@@ -170,8 +174,8 @@
         </a>
         {% endif %}
 
-        {% if post.job_direct_apply %}
-        <a class="btn btn-secondary w-full" href="{{ post.job_direct_apply }}" target="_blank" rel="noopener nofollow">
+        {% if post.job_apply %}
+        <a class="btn btn-secondary w-full" href="{{ post.job_apply }}" target="_blank" rel="noopener nofollow">
           <span>{{ __('Apply', 'WNYC') }} <span class="sr-only">{{ __('for', 'WNYC') }} {{ post.post_title }}</span></span>
 
           <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">

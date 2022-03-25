@@ -25,6 +25,14 @@ class Programs extends Timber\Post {
     }
 
     /**
+     * The ID will be null if the post doesn't exist
+     */
+
+    if (null === $this->id) {
+      return false;
+    }
+
+    /**
      * Set Context
      */
 
@@ -72,20 +80,36 @@ class Programs extends Timber\Post {
     );
   }
 
+  /**
+   * Get the plain language title of the program.
+   *
+   * @return  String  The plain language title
+   */
   public function getPlainLanguageTitle() {
     return $this->post_title;
   }
 
+  /**
+   * Get the real program title.
+   *
+   * @return  String  The program title
+   */
   public function getTitle() {
     return $this->custom['program_title'];
   }
 
+  /**
+   * Get the agency provider's name name.
+   * TODO: refactor this to return the Agency taxonomy name (if set).
+   *
+   * @return  String  The agency name
+   */
   public function getAgency() {
     return $this->custom['program_agency'];
   }
 
   /**
-   * Construct the program status for program cards
+   * Construct the program status for program cards.
    *
    * @return  Boolean/Array  The program status
    */
@@ -109,6 +133,11 @@ class Programs extends Timber\Post {
     return ($s['recruiting'] || $s['disability'] || $s['language']) ? $s : false;
   }
 
+  /**
+   * Get the program introductory paragraph.
+   *
+   * @return  String  Program intro
+   */
   public function getIntro() {
     return strip_tags(str_replace('-', '', $this->custom['program_intro']));
   }
@@ -134,6 +163,11 @@ class Programs extends Timber\Post {
     return __('For', 'WNYC') . ' ' . $populations . '.';
   }
 
+  /**
+   * Get the services or certifications provided by the program completion.
+   *
+   * @return  String  List of services in comma separated format
+   */
   public function getServices() {
     $services = get_the_terms($this->ID, 'services');
 

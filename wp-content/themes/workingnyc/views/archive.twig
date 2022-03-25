@@ -3,7 +3,7 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div data-js-archive="{{ post_type }}" data-js-filters="{{ filters }}">
+    <div data-js-archive="{{ post_type }}">
       <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-20">
         <div class="c-utility wrap">
           <a class="link-icon mie-auto" href="{{ site.url }}">
@@ -46,13 +46,9 @@
 
       <section class="page-max desktop:px-6" id="jobs">
         <div class="wrap desktop:px-6">
-          <p data-alert="text" aria-live="polite" v-if="posts != null" v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></p>
-
           <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
             {% for post in posts %}{% include post_type ~ '/' ~ post_type_singular ~ '.twig' %}{% endfor %}
           </div>
-
-          <p data-alert="text" aria-live="polite" v-if="posts != null" v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></p>
         </div>
       </section>
 

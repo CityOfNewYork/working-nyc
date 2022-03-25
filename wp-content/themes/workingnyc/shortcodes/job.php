@@ -21,7 +21,7 @@ class Job extends Shortcode {
   public $tag = 'job';
 
   /** The path to the Timber Component */
-  public $template = 'components/job.twig';
+  public $template = 'jobs/job.twig';
 
   /** The shortcode hint for the selector dropdown */
   public $hint = 'id=""';
@@ -36,9 +36,13 @@ class Job extends Shortcode {
    * @return  String                  A compiled component string
    */
   public function shortcode($atts, $content, $shortcode_tag) {
-    require_once WorkingNYC\timber_post('Job');
+    require_once WorkingNYC\timber_post('Jobs');
 
     $post = new \WorkingNYC\Jobs($atts['id']);
+
+    if (null === $post->id) {
+      return "<!-- A job with the ID $post->ID does not exist -->";
+    }
 
     if (isset($atts['learn-more'])) {
       $post->link = $atts['learn-more'];
@@ -50,8 +54,6 @@ class Job extends Shortcode {
 
     $post->classes = 'mb-4';
 
-    return (null === $post->id) ?
-      "<!-- A post with the ID $post->ID does not exist -->" :
-      Timber::compile($this->template, array('post' => $post));
+    return Timber::compile($this->template, array('post' => $post));
   }
 }

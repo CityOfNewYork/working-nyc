@@ -82,29 +82,29 @@
                 "type": "wp-type-meta",
                 "value": "job_postal_code"
             },
-            "99528a37-bcd4-19f4-7b80-371e8d80e077": {
-                "type": "wp-type-meta",
-                "value": "job_bespoke_application_instructions"
-            },
             "232942bc-6c79-6048-eee1-9b08b20a870b": {
                 "type": "wp-type-meta",
                 "value": "job_generic_application_instructions"
             },
-            "6f331082-20a9-6cdc-c091-baa04701d621": {
+            "99528a37-bcd4-19f4-7b80-371e8d80e077": {
                 "type": "wp-type-meta",
-                "value": "job_direct_apply"
+                "value": "job_bespoke_application_instructions"
             },
             "70acf9d9-026c-b6db-9b70-cb9c60e064d6": {
                 "type": "wp-type-meta",
                 "value": "job_learn_more"
             },
+            "ec06dbf2-e508-921c-f5d6-d88a337e4ad4": {
+                "type": "wp-type-meta",
+                "value": "job_apply"
+            },
+            "028df05b-6d34-c5a4-456a-d1bd9b61789d": {
+                "type": "wp-type-meta",
+                "value": "job_apply_direct"
+            },
             "2e5220bb-c471-07eb-e918-12d1dba18474": {
                 "type": "wp-type-taxonomy",
                 "value": "sectors"
-            },
-            "c38b71a2-c3b0-7560-49d6-880cea5e0a47": {
-                "type": "wp-type-taxonomy",
-                "value": "populations"
             }
         },
         "post_type": "jobs",
@@ -130,5 +130,5 @@
         },
         "structure_uuid": "31eb7a7e-78fa-467d-adf1-939aba370f94"
     },
-    "modified": 1647023922
+    "modified": 1648245073
 }
