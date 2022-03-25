@@ -1,7 +1,7 @@
 <template>
   <article class="c-card">
     <header class="c-card__header">
-      <a class="block" :data-js="'job-' + post.id" :href="post.link">
+      <a class="block" :data-js="'post-' + post.id" :href="post.link">
         <h3 class="c-card__title mt-0 mb-2" v-html="post.title"></h3>
       </a>
 

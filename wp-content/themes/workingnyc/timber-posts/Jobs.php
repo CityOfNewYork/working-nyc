@@ -28,6 +28,14 @@ class Jobs extends Timber\Post {
     }
 
     /**
+     * The ID will be null if the post doesn't exist
+     */
+
+    if (null === $this->id) {
+      return false;
+    }
+
+    /**
      * Set Context
      */
 
@@ -367,6 +375,14 @@ class Jobs extends Timber\Post {
       }, $schedule);
 
       $schema->employmentType($schedule);
+    }
+
+    /**
+     * Direct apply
+     */
+
+    if (in_array('Direct', $this->custom['job_apply_direct'])) {
+      $schema->directApply(true);
     }
 
     return [$schema->toArray()];

@@ -878,7 +878,7 @@
 	    undefined
 	  );
 
-	var JobsArchive = {
+	var ProgramsArchive = {
 	  extends: __vue_component__$2,
 	  props: {
 	    perPage: {
@@ -911,10 +911,10 @@
 	       *
 	       * @type {String}
 	       */
-	      type: 'jobs',
+	      type: 'programs',
 
 	      /**
-	       * Setting this sets the initial app query
+	       * Setting this sets the initial app query.
 	       *
 	       * @type {Object}
 	       */
@@ -923,22 +923,6 @@
 	        page: this.page,
 	        orderby: 'menu_order',
 	        order: 'asc'
-	      },
-
-	      /**
-	       * Modify how the URL history is written
-	       *
-	       * @type {Object}
-	       */
-	      history: {
-	        omit: [
-	          'page',
-	          'per_page',
-	          'orderby',
-	          'order'
-	        ],
-	        map: {},
-	        filterParams: false
 	      },
 
 	      /**
@@ -953,6 +937,22 @@
 	      },
 
 	      /**
+	       * Modify how the URL history is written
+	       *
+	       * @type {Object}
+	       */
+	       history: {
+	        omit: [
+	          'page',
+	          'per_page',
+	          'orderby',
+	          'order'
+	        ],
+	        map: {},
+	        filterParams: false
+	      },
+
+	      /**
 	       * This is the endpoint list for terms and post requests
 	       *
 	       * @type  {Object}
@@ -961,9 +961,9 @@
 	       * @param  {String}  jobs   This is based on the 'type' setting above
 	       */
 	      endpoints: {
-	        terms: '/wp-json/api/v1/terms/?post_type[]=jobs'
+	        terms: '/wp-json/api/v1/terms/?post_type[]=programs'
 	          + (''),
-	        jobs: '/wp-json/wp/v2/jobs'
+	        programs: '/wp-json/wp/v2/programs'
 	      },
 
 	      /**
@@ -977,38 +977,39 @@
 	      maps: function() {
 	        return {
 	          /**
-	           * Jobs endpoint data map
+	           * Data mapping function for results from the Programs endpoint
 	           *
 	           * @raw /wp-json/wp/v2/jobs
 	           */
-	          jobs: jobs => ({
-	            id: jobs.id,
-	            title: jobs.title.rendered,
-	            link: jobs.link,
-	            context: jobs.context,
+	          programs: programs => ({
+	            id: programs.id,
+	            title: programs.acf.program_title,
+	            link: programs.link,
+	            status: programs.status,
+	            context: programs.context,
 	            raw: false
 	          }),
 
 	          /**
-	           * Terms endpoint data map
+	           * Data mapping function for results from the Terms endpoint
 	           *
 	           * @raw /wp-json/api/v1/terms
 	           */
 	          terms: terms => ({
-	            name: terms.labels.archives,
-	            slug: terms.name,
+	            name: terms.taxonomy.labels.archives,
+	            slug: terms.taxonomy.name,
 	            filters: terms.terms.map(filters => ({
 	              id: filters.term_id,
 	              name: filters.name,
 	              slug: filters.slug,
-	              parent: terms.name,
+	              parent: terms.taxonomy.name,
 	              active: (
-	                  this.query.hasOwnProperty(terms.name) &&
-	                  this.query[terms.name].includes(filters.term_id)
+	                  this.query.hasOwnProperty(terms.taxonomy.name) &&
+	                  this.query[terms.taxonomy.name].includes(filters.term_id)
 	                ),
 	              checked: (
-	                  this.query.hasOwnProperty(terms.name) &&
-	                  this.query[terms.name].includes(filters.term_id)
+	                  this.query.hasOwnProperty(terms.taxonomy.name) &&
+	                  this.query[terms.taxonomy.name].includes(filters.term_id)
 	                )
 	            }))
 	          })
@@ -1083,6 +1084,48 @@
 	      this.click(toChange);
 
 	      return this;
+	    },
+
+	    /**
+	     * TODO: Set focus to results when the filter dropdown is closed. This
+	     * method is not currently working when bound to the "close and see" button
+	     */
+	    resultsFocus: function() {
+	      document.querySelector('body').style.overflow = ''; // unlocks the dialog
+
+	      this.$refs.results.setAttribute('tabindex', '-1');
+
+	      this.$refs.results.focus();
+	    },
+
+	    /**
+	     * Proxy for pagination. This will shift focus on the next page's first
+	     * result once pagination is complete.
+	     *
+	     * @param   {Object}  event  The bound click event
+	     */
+	    nextPage: function(event) {
+	      let _this = this;
+
+	      (async (_this) => {
+	        await _this.paginate(event);
+
+	        if (_this.totalVisible <= 1)
+	          return false;
+
+	        let pages = _this.posts.filter(page => {
+	          return (page && page.show);
+	        });
+
+	        if (pages) {
+	          let posts = pages[pages.length - 1].posts;
+	          let element = document.querySelector(`[data-js='post-${posts[0].id}']`);
+
+	          if (element) {
+	            element.focus();
+	          }
+	        }
+	      })(_this);
 	    }
 	  },
 
@@ -1111,9 +1154,7 @@
 	      'duration': 'wnyc_dur',
 	      'locations': 'wnyc_loc',
 	      'populations': 'wnyc_pop',
-	      'sectors': 'wnyc_sec',
-	      'source': 'wnyc_src',
-	      'salary': 'wnyc_sal'
+	      'sectors': 'wnyc_sec'
 	    };
 
 	    // Add map of WP Query terms < to > Window history state
@@ -1127,38 +1168,14 @@
 	      .queue()            // Initialize the first page request
 	      .fetch('terms')     // Get the terms from the 'terms' endpoint
 	      .catch(this.error); //
-	  },
-
-	  /**
-	   * Focus on the first job title after the dom is updated.
-	   */
-	  updated: function() {
-	    this.$nextTick(function() {
-	      if (this.totalVisible <= 1)
-	        return false;
-
-	      let pages = this.posts.filter(page => {
-	        return (page && page.show);
-	      });
-
-	      if (pages) {
-	        let posts = pages[pages.length - 1].posts;
-	        let post = posts[posts.length - 1];
-	        let element = document.querySelector(`[data-js='job-${post.id}']`);
-
-	        if (element) {
-	          element.focus();
-	        }
-	      }
-	    });
 	  }
 	};
 
 	/* script */
-	const __vue_script__$1 = JobsArchive;
+	const __vue_script__$1 = ProgramsArchive;
 
 	/* template */
-	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-20"},[_c('div',{staticClass:"c-utility wrap"},[_c('a',{staticClass:"link-icon mie-auto",attrs:{"href":"/"}},[_c('svg',{staticClass:"icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-chevron-left"}})]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.strings.HOME))])]),_vm._v(" "),_c('button',{staticClass:"btn btn-small btn-secondary light:btn-primary",attrs:{"disabled":_vm.terms.length === 0,"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"open","data-dialog-lock":"true","data-js":"dialog"}},[_c('span',{staticClass:"mie-1"},[_vm._v(_vm._s(_vm.strings.FILTERS))]),_vm._v(" "),_c('span',{staticClass:"badge badge-small status-secondary light:status-primary"},[_vm._v(_vm._s(_vm.totalFilters))])])]),_vm._v(" "),_c('div',{staticClass:"hidden",attrs:{"aria-hidden":"true","id":"aria-c-filter"}},[_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"wrap text-end relative z-20"},[_c('button',{staticClass:"btn btn-primary btn-small",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"close","data-js":"dialog","tabindex":"-1"}},[_c('svg',{staticClass:"icon-wnyc-ui",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#feather-x"}})]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.strings.CLOSE))])])])]),_vm._v(" "),_c('form',{attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"layout-content"},[_c('div',_vm._l((_vm.terms),function(term){return _c('fieldset',{key:term.term_id,staticClass:"mb-8",attrs:{"tabindex":"-1"}},[_c('legend',{staticClass:"h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1",attrs:{"tabindex":"-1"}},[_vm._v("\n                "+_vm._s(term.name)+"\n              ")]),_vm._v(" "),_c('div',{staticClass:"wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3"},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.change({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-wnyc-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"option__label"},[_vm._v(_vm._s(filter.name))])])])}),0)])}),0)]),_vm._v(" "),_c('div',{staticClass:"layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1"},[_c('div',{staticClass:"wrap"},[_c('button',{staticClass:"btn btn-secondary w-full",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-js":"dialog","tabindex":"-1"},domProps:{"innerHTML":_vm._s(_vm.strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', _vm.headers.total))}})])])])])]),_vm._v(" "),_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"page-max"},[_c('header',{staticClass:"o-header"},[_c('div',[_c('h1',{staticClass:"o-header__title"},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))]),_vm._v(" "),(_vm.strings.PAGE_CONTENT)?_c('div',{staticClass:"mb-3",domProps:{"innerHTML":_vm._s(_vm.strings.PAGE_CONTENT)}}):_vm._e(),_vm._v(" "),_c('nav',{staticClass:"o-header__breadcrumbs",attrs:{"aria-label":"Breadcrumb"}},[_c('a',{attrs:{"href":"/"}},[_vm._v(_vm._s(_vm.strings.HOME))]),_vm._v(" "),_c('svg',{staticClass:"o-header__breadcrumbs-chevron icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-chevron-right"}})]),_vm._v(" "),_c('b',{attrs:{"aria-current":"page"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])])])])])]),_vm._v(" "),(_vm.init)?_c('section',{staticClass:"page-max desktop:px-6",attrs:{"id":"jobs"}},[(!_vm.loading)?_c('div',{staticClass:"wrap desktop:px-6"},[(_vm.posts != null)?_c('p',{attrs:{"data-alert":"text","aria-live":"polite"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e(),_vm._v(" "),_c('div',{staticClass:"grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('Job',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.posts != null)?_c('p',{attrs:{"data-alert":"text"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.none)?_c('div',{staticClass:"flex items-center text-em justify-center py-4"},[_c('p',[_vm._v(_vm._s(_vm.strings.NO_RESULTS))])]):_vm._e()]):_c('section',{staticClass:"page-max desktop:px-6"},[_c('div',{staticClass:"flex items-center text-em justify-center py-8"},[_c('svg',{staticClass:"spinner icon-4 block mie-2",attrs:{"viewBox":"0 0 24 24","version":"1.1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('circle',{staticClass:"spinner__path",attrs:{"cx":"12","cy":"12","r":"10","fill":"none"}})]),_vm._v("\n\n      "+_vm._s(_vm.strings.LOADING)+"\n    ")])]),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"layout-content py-6 pb-8 mb-4"},[_c('div',{staticClass:"wrap"},[(_vm.next)?_c('button',{staticClass:"btn btn-primary w-full",attrs:{"id":"pagination","data-amount":"1"},on:{"click":_vm.paginate}},[_vm._v("\n        "+_vm._s(_vm.strings.SHOW_MORE)+"\n      ")]):(_vm.strings.SUGGEST)?_c('article',{staticClass:"c-alert mb-3",attrs:{"data-js":"alert-help"},domProps:{"innerHTML":_vm._s(_vm.strings.SUGGEST)}}):_vm._e()])]):_vm._e()])};
+	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-20"},[_c('div',{staticClass:"c-utility wrap"},[_c('a',{staticClass:"link-icon mie-auto",attrs:{"href":"/"}},[_c('svg',{staticClass:"icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-chevron-left"}})]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.strings.HOME))])]),_vm._v(" "),_c('button',{staticClass:"btn btn-small btn-secondary light:btn-primary",attrs:{"disabled":_vm.terms.length === 0,"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"open","data-dialog-lock":"true","data-js":"dialog"}},[_c('span',{staticClass:"mie-1"},[_vm._v(_vm._s(_vm.strings.FILTERS))]),_vm._v(" "),_c('span',{staticClass:"badge badge-small status-secondary light:status-primary"},[_vm._v(_vm._s(_vm.totalFilters))])])]),_vm._v(" "),_c('div',{staticClass:"hidden",attrs:{"aria-hidden":"true","id":"aria-c-filter"}},[_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"wrap text-end relative z-20"},[_c('button',{staticClass:"btn btn-primary btn-small",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"close","data-js":"dialog","tabindex":"-1"}},[_c('svg',{staticClass:"icon-wnyc-ui",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#feather-x"}})]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.strings.CLOSE))])])])]),_vm._v(" "),_c('form',{attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"layout-content"},[_c('div',_vm._l((_vm.terms),function(term){return _c('fieldset',{key:term.slug,staticClass:"mb-8",attrs:{"tabindex":"-1"}},[_c('legend',{staticClass:"h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1",attrs:{"tabindex":"-1"}},[_vm._v("\n                "+_vm._s(term.name)+"\n              ")]),_vm._v(" "),_c('div',{staticClass:"wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3"},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.change({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-wnyc-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"option__label"},[_vm._v(_vm._s(filter.name))])])])}),0)])}),0)]),_vm._v(" "),_c('div',{staticClass:"layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1"},[_c('div',{staticClass:"wrap"},[_c('button',{staticClass:"btn btn-secondary w-full",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-js":"dialog","tabindex":"-1"},domProps:{"innerHTML":_vm._s(_vm.strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', _vm.headers.total))}})])])])])]),_vm._v(" "),_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"page-max"},[_c('header',{staticClass:"o-header"},[_c('div',[_c('h1',{staticClass:"o-header__title"},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))]),_vm._v(" "),(_vm.strings.PAGE_CONTENT)?_c('div',{staticClass:"mb-3",domProps:{"innerHTML":_vm._s(_vm.strings.PAGE_CONTENT)}}):_vm._e(),_vm._v(" "),_c('nav',{staticClass:"o-header__breadcrumbs",attrs:{"aria-label":"Breadcrumb"}},[_c('a',{attrs:{"href":"/"}},[_vm._v(_vm._s(_vm.strings.HOME))]),_vm._v(" "),_c('svg',{staticClass:"o-header__breadcrumbs-chevron icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-chevron-right"}})]),_vm._v(" "),_c('b',{attrs:{"aria-current":"page"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])])])])])]),_vm._v(" "),(_vm.init)?_c('section',{staticClass:"page-max desktop:px-6"},[(!_vm.loading)?_c('div',{staticClass:"wrap desktop:px-6"},[(_vm.posts != null)?_c('h2',{staticClass:"text-p font-p",attrs:{"data-alert":"text","aria-live":"polite"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e(),_vm._v(" "),_c('div',{ref:"results",staticClass:"grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('Program',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.posts != null)?_c('p',{attrs:{"data-alert":"text"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.none)?_c('div',{staticClass:"flex items-center text-em justify-center py-4"},[_c('p',[_vm._v(_vm._s(_vm.strings.NO_RESULTS))])]):_vm._e()]):_c('section',{staticClass:"page-max desktop:px-6"},[_c('div',{staticClass:"flex items-center text-em justify-center py-8"},[_c('svg',{staticClass:"spinner icon-4 block mie-2",attrs:{"viewBox":"0 0 24 24","version":"1.1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('circle',{staticClass:"spinner__path",attrs:{"cx":"12","cy":"12","r":"10","fill":"none"}})]),_vm._v("\n\n      "+_vm._s(_vm.strings.LOADING)+"\n    ")])]),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"layout-content py-6 pb-8 mb-4"},[_c('div',{staticClass:"wrap"},[(_vm.next)?_c('button',{staticClass:"btn btn-primary w-full",attrs:{"id":"pagination","data-amount":"1"},on:{"click":_vm.nextPage}},[_vm._v("\n        "+_vm._s(_vm.strings.SHOW_MORE)+"\n      ")]):(_vm.strings.SUGGEST)?_c('article',{staticClass:"c-alert mb-3",attrs:{"data-js":"alert-help"},domProps:{"innerHTML":_vm._s(_vm.strings.SUGGEST)}}):_vm._e()])]):_vm._e()])};
 	var __vue_staticRenderFns__$1 = [];
 
 	  /* style */
@@ -1262,6 +1279,20 @@
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 
 	var script = {
 	  props: {
@@ -1278,7 +1309,7 @@
 	const __vue_script__ = script;
 
 	/* template */
-	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('a',{staticClass:"block",attrs:{"data-js":'job-' + _vm.post.id,"href":_vm.post.link}},[_c('h3',{staticClass:"c-card__title mt-0 mb-2",domProps:{"innerHTML":_vm._s(_vm.post.title)}})]),_vm._v(" "),_c('h4',{staticClass:"c-card__subtitle text-alt mb-1"},[(_vm.post.context.sector)?_c('b',{domProps:{"innerHTML":_vm._s(_vm.post.context.sector)}}):_vm._e(),_vm._v(" "),(_vm.post.context.sector && _vm.post.context.organization)?_c('span',[_vm._v(_vm._s(_vm.strings.WITH)+" ")]):_vm._e(),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.organization)}})])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[_c('div',{staticClass:"c-card__summary"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.post.context.summary)}})]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.schedule)?_c('li',{staticClass:"flex items-center"},[_c('svg',{staticClass:"icon-wnyc-ui flex-shrink-0 mie-1",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#feather-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.salary)?_c('li',{staticClass:"flex items-center"},[_c('svg',{staticClass:"icon-wnyc-ui flex-shrink-0 mie-1",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SALARY))]),_vm._v(" "),_c('use',{attrs:{"href":"#feather-dollar-sign"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.salary)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.location)?_c('li',{staticClass:"flex items-center"},[_c('svg',{staticClass:"icon-wnyc-ui flex-shrink-0 mie-1",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.LOCATION))]),_vm._v(" "),_c('use',{attrs:{"href":"#feather-map-pin"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.location)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.link}},[_c('svg',{staticClass:"icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-arrow-left"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-arrow-right"}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])])};
+	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('a',{staticClass:"block",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.link}},[_c('h3',{staticClass:"c-card__title mt-0 mb-2",domProps:{"innerHTML":_vm._s(_vm.post.context.program_plain_language_title)}})]),_vm._v(" "),_c('h4',{staticClass:"c-card__subtitle text-alt mb-1"},[_c('b',{attrs:{"data-program":"title"},domProps:{"innerHTML":_vm._s(_vm.post.context.program_title)}}),_c('span',[_vm._v(" "+_vm._s(_vm.strings.BY)+" ")]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.program_agency)}})])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[(_vm.post.status)?_c('p',{staticClass:"c-card__status flex items-center"},[(_vm.post.context.status.recruiting)?_c('mark',{staticClass:"badge mie-2",attrs:{"data-program":"recruiting"}},[_vm._v("\n        "+_vm._s(_vm.post.context.status.recruiting.name)+"\n      ")]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"flex mie-2",attrs:{"title":_vm.post.context.status.disability.name}},[_c('svg',{staticClass:"icon text-em",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#icon-wnyc-accessible"}})]),_vm._v(" "),_c('span',{staticClass:"sr-only"},[_vm._v(_vm._s(_vm.post.context.status.disability.name))])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.language)?_c('span',{staticClass:"flex me-2",attrs:{"title":_vm.post.context.status.language.name}},[_c('svg',{staticClass:"icon-wnyc-ui text-em",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#icon-wnyc-translate"}})]),_vm._v(" "),_c('span',{staticClass:"sr-only"},[_vm._v(_vm._s(_vm.post.context.status.language.name))])]):_vm._e()]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"c-card__summary"},[_c('p',[(_vm.post.context.intro)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.intro)}}):_vm._e(),_vm._v(" "),(_vm.post.context.populations)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.populations)}}):_vm._e()])]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.services)?_c('li',{staticClass:"flex items-center"},[_c('svg',{staticClass:"icon-wnyc-ui flex-shrink-0 mie-1",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SERVICES))]),_vm._v(" "),_c('use',{attrs:{"href":"#feather-award"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.services)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.schedule)?_c('li',{staticClass:"flex items-center"},[_c('svg',{staticClass:"icon-wnyc-ui flex-shrink-0 mie-1",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#feather-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.link}},[_c('svg',{staticClass:"icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-arrow-left"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.context.program_plain_language_title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-wnyc-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#feather-arrow-right"}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])])};
 	var __vue_staticRenderFns__ = [];
 
 	  /* style */
@@ -1311,7 +1342,7 @@
 	  );
 
 	/**
-	 * Jobs Archive
+	 * Programs Archive
 	 *
 	 * @author NYC Opportunity
 	 */
@@ -1320,7 +1351,7 @@
 	 * Mount Components
 	 */
 
-	Vue.component('Job', __vue_component__);
+	Vue.component('Program', __vue_component__);
 
 	/**
 	 * Archive
@@ -1341,23 +1372,22 @@
 	          HOME: 'Home',
 	          FILTERS: (config.filters) ? config.filters.innerHTML : 'Filters',
 	          CLOSE: 'Close',
-	          CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ number }} jobs',
+	          CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ number }} programs',
 	          PAGE_TITLE: (config.title) ? config.title.innerHTML : 'Posts',
 	          PAGE_CONTENT: (config.content) ? config.content.innerHTML : '',
-	          WITH: 'with',
+	          BY: 'by',
+	          SERVICES: 'Services',
 	          SCHEDULE: 'Schedule',
-	          SALARY: 'Salary',
-	          LOCATION: 'Location',
 	          LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ program }}</span>',
 	          SHOWING: 'Showing {{ TOTAL_VISIBLE }} results of {{ TOTAL }}',
 	          NO_RESULTS: 'No Results. Try deselecting some filters.',
 	          LOADING: 'Loading',
 	          SHOW_MORE: 'Show more',
-	          SUGGEST: (config.suggest) ? config.suggest.innerHTML : ''
+	          SUGGEST:  (config.suggest) ? config.suggest.innerHTML : ''
 	        }
 	      }
 	    });
 	  }
-	}).$mount('[data-js-archive="jobs"]');
+	}).$mount('[data-js-archive="programs"]');
 
 })();

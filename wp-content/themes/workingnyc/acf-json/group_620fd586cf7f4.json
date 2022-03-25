@@ -233,25 +233,6 @@
             "maxlength": ""
         },
         {
-            "key": "field_620ff56ef5a7e",
-            "label": "Bespoke Application Instructions",
-            "name": "job_bespoke_application_instructions",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "basic",
-            "media_upload": 1,
-            "delay": 0
-        },
-        {
             "key": "field_620ff669f5a7f",
             "label": "Generic Application Instructions",
             "name": "job_generic_application_instructions",
@@ -275,10 +256,10 @@
             "save_custom": 0
         },
         {
-            "key": "field_620ff81af5a80",
-            "label": "Direct Apply",
-            "name": "job_direct_apply",
-            "type": "url",
+            "key": "field_620ff56ef5a7e",
+            "label": "Bespoke Application Instructions",
+            "name": "job_bespoke_application_instructions",
+            "type": "wysiwyg",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -288,7 +269,10 @@
                 "id": ""
             },
             "default_value": "",
-            "placeholder": ""
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 1,
+            "delay": 0
         },
         {
             "key": "field_620ff8c5f5a81",
@@ -305,6 +289,45 @@
             },
             "default_value": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_620ff81af5a80",
+            "label": "Apply",
+            "name": "job_apply",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_623e1ce3d8d55",
+            "label": "Direct Apply",
+            "name": "job_apply_direct",
+            "type": "checkbox",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "Direct": "Direct"
+            },
+            "allow_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
+            "toggle": 0,
+            "return_format": "value",
+            "save_custom": 0
         }
     ],
     "location": [
@@ -325,5 +348,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 1,
-    "modified": 1647973551
+    "modified": 1648237849
 }
