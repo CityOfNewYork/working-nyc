@@ -18,7 +18,7 @@ $post = Timber::get_post();
 
 $context['post'] = $post;
 
-$context['meta'] = new WorkingNYC\Meta($post->ID);
+$context['meta'] = new WorkingNYC\Meta($post);
 
 $context['sections'] = Templating\get_sections();
 

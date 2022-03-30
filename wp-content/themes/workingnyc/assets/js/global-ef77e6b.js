@@ -421,12 +421,13 @@
    *
    * Element Attributes. Either <a> or <button>
    *
-   * @attr  data-js="dialog"         Instantiates the toggling method
-   * @attr  aria-controls=""         Targets the id of the dialog
-   * @attr  aria-expanded="false"    Declares target closed/open when toggled
-   * @attr  data-dialog="open"       Designates the primary opening element of the dialog
-   * @attr  data-dialog="close"      Designates the primary closing element of the dialog
-   * @attr  data-dialog-lock="true"  Wether to lock screen scrolling when dialog is open
+   * @attr  data-js="dialog"               Instantiates the toggling method
+   * @attr  aria-controls=""               Targets the id of the dialog
+   * @attr  aria-expanded="false"          Declares target closed/open when toggled
+   * @attr  data-dialog="open"             Designates the primary opening element of the dialog
+   * @attr  data-dialog="close"            Designates the primary closing element of the dialog
+   * @attr  data-dialog-focus-on-close=""  Designates an alternate element to focus on when the dialog closes. Value of the attribute is the id of the dialog.
+   * @attr  data-dialog-lock="true"        Wether to lock screen scrolling when dialog is open
    *
    * Target Attributes. Any <element>
    *
@@ -480,15 +481,24 @@
             }
           }
 
-          // Focus on the close or open button if present
-          let id = `[aria-controls="${toggle.target.getAttribute('id')}"]`;
-          let close = document.querySelector(this.selectors.CLOSE + id);
-          let open = document.querySelector(this.selectors.OPEN + id);
+          // Focus on the close, open, or other focus element if present
+          let id = toggle.target.getAttribute('id');
+          let control = `[aria-controls="${id}"]`;
+          let close = document.querySelector(this.selectors.CLOSE + control);
+          let open = document.querySelector(this.selectors.OPEN + control);
+
+          let focusOnClose = document.querySelector(this.selectors.FOCUS_ON_CLOSE.replace('{{ ID }}', id));
 
           if (active && close) {
             close.focus();
           } else if (open) {
-            open.focus();
+            // Alternatively focus on this element if it is present
+            if (focusOnClose) {
+              focusOnClose.setAttribute('tabindex', '-1');
+              focusOnClose.focus();
+            } else {
+              open.focus();
+            }
           }
         }
       });
@@ -504,7 +514,8 @@
   Dialog.selectors = {
     CLOSE: '[data-dialog*="close"]',
     OPEN: '[data-dialog*="open"]',
-    LOCKS: '[data-dialog-lock="true"]'
+    LOCKS: '[data-dialog-lock="true"]',
+    FOCUS_ON_CLOSE: '[data-dialog-focus-on-close="{{ ID }}"]'
   };
 
   /** @type  {Object}  Data attribute namespaces */

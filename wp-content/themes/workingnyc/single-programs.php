@@ -24,7 +24,7 @@ $context['post'] = $post;
 
 $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
-$context['meta'] = new WorkingNYC\Meta($post->ID);
+$context['meta'] = new WorkingNYC\Meta($post);
 
 /**
  * Generate schema for page

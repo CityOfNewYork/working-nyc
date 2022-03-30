@@ -85,8 +85,7 @@ export default {
        * @param  {String}  jobs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=programs'
-          + ((process.env.NODE_ENV === 'development') ? '&cache=0' : ''),
+        terms: '/wp-json/api/v1/terms/?post_type[]=programs&cache=0',
         programs: '/wp-json/wp/v2/programs'
       },
 
@@ -127,14 +126,10 @@ export default {
               name: filters.name,
               slug: filters.slug,
               parent: terms.taxonomy.name,
-              active: (
-                  this.query.hasOwnProperty(terms.taxonomy.name) &&
-                  this.query[terms.taxonomy.name].includes(filters.term_id)
-                ),
               checked: (
-                  this.query.hasOwnProperty(terms.taxonomy.name) &&
-                  this.query[terms.taxonomy.name].includes(filters.term_id)
-                )
+                this.query.hasOwnProperty(terms.taxonomy.name) &&
+                this.query[terms.taxonomy.name].includes(filters.term_id)
+              )
             }))
           })
         };
@@ -145,71 +140,7 @@ export default {
   /**
    * @type {Object}
    */
-  computed: {
-    /**
-     * By default the application returns paged results, this computed property
-     * adds all visible posts to a single array to show.
-     *
-     * @return  {Array}  All visible posts in one array
-     */
-    postsFlat() {
-      let posts = this.posts.filter(page => {
-        return (page && page.show) ? page.posts : false;
-      }).map(page => {
-        return page.posts;
-      });
-
-      return posts.flat();
-    },
-
-    /**
-     * Find the total visible post by mapping each shown page and adding the
-     * number of posts.
-     *
-     * @return  {Number}  Representing the total visible posts
-     */
-    totalVisible: function() {
-      let show = this.posts.map(page => {
-        return (page && page.show) ? page.posts.length : 0;
-      });
-
-      return (show.length) ?
-        show.reduce((acc, cur) => acc + cur, 0) : 0;
-    },
-
-    /**
-     * Return the total number of checked filters
-     *
-     * @return  {Number}  Number of checked filters
-     */
-    totalFilters: function() {
-      return this.terms.reduce((acc, cur) => {
-        return acc + cur.filters.filter(f => f.checked).length
-      }, 0);
-    }
-  },
-
-  /**
-   * @type {Object}
-   */
   methods: {
-    /**
-     * Proxy for the click event that toggles the filter.
-     *
-     * @param   {Object}  toChange  A constructed object containing:
-     *                              event - The click event
-     *                              data  - The term object
-     *
-     * @return  {Object}            Vue Instance
-     */
-    change: function(toChange) {
-      this.$set(toChange.data, 'checked', !toChange.data.checked);
-
-      this.click(toChange);
-
-      return this;
-    },
-
     /**
      * TODO: Set focus to results when the filter dropdown is closed. This
      * method is not currently working when bound to the "close and see" button.

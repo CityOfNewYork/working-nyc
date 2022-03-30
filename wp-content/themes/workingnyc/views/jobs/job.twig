@@ -1,7 +1,7 @@
 <article class="c-card">
   <header class="c-card__header">
     <a class="block" data-js="job-{{ post.id }}" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
-      <h3 class="c-card__title mt-0 mb-2">{{ post.title }}</h3>
+      <h3 class="c-card__title mt-0 mb-2">{{ post.cardTitle }}</h3>
     </a>
 
     <h4 class="c-card__subtitle text-alt mb-1">
@@ -16,7 +16,9 @@
       <p>{{ post.summary }}</p>
     </div>
 
+    {% if post.schedule or post.salary or post.location %}
     <ul class="c-card__features">
+      {% if post.schedule %}
       <li class="flex items-center">
         <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
           <title>{{ __('Schedule', 'WNYC') }}</title>
@@ -26,7 +28,9 @@
 
         <span>{{ post.schedule }}</span>
       </li>
+      {% endif %}
 
+      {% if post.salary %}
       <li class="flex items-center">
         <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
           <title>{{ __('Salary', 'WNYC') }}</title>
@@ -36,7 +40,9 @@
 
         <span>{{ post.salary }}</span>
       </li>
+      {% endif %}
 
+      {% if post.location %}
       <li class="flex items-center">
         <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
           <title>{{ __('Location', 'WNYC') }}</title>
@@ -46,7 +52,9 @@
 
         <span>{{ post.location }}</span>
       </li>
+      {% endif %}
     </ul>
+    {% endif %}
 
     <a class="c-card__cta" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
       <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">

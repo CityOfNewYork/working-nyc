@@ -12,6 +12,8 @@ use Timber;
 use Spatie\SchemaOrg\Schema;
 
 class Programs extends Timber\Post {
+  const SINGULAR = 'program'; // used to locate the single template
+
   /**
    * Constructor
    *
@@ -35,6 +37,8 @@ class Programs extends Timber\Post {
     /**
      * Set Context
      */
+
+    $this->singular = self::SINGULAR;
 
     $this->program_plain_language_title = $this->getPlainLanguageTitle();
 

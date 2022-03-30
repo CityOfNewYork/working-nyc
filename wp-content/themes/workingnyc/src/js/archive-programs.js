@@ -30,6 +30,10 @@ import ProgramsArchive from '../../views/programs/archive.vue';
 import Program from '../../views/programs/program.vue';
 
 /**
+ * Redirect old filtering method to WP Archive Vue filtering
+ */
+
+/**
  * Mount Components
  */
 
@@ -54,6 +58,7 @@ new Vue({
           HOME: 'Home',
           FILTERS: (config.filters) ? config.filters.innerHTML : 'Filters',
           CLOSE: 'Close',
+          TOGGLE_ALL: 'Toggle all {{ TERM }}',
           CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ number }} programs',
           PAGE_TITLE: (config.title) ? config.title.innerHTML : 'Posts',
           PAGE_CONTENT: (config.content) ? config.content.innerHTML : '',
@@ -61,7 +66,8 @@ new Vue({
           SERVICES: 'Services',
           SCHEDULE: 'Schedule',
           LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ program }}</span>',
-          SHOWING: 'Showing {{ TOTAL_VISIBLE }} results of {{ TOTAL }}',
+          SHOWING: 'Showing {{ TOTAL_VISIBLE }} results of {{ TOTAL }}.',
+          RESET: 'Click here to reset filters',
           NO_RESULTS: 'No Results. Try deselecting some filters.',
           LOADING: 'Loading',
           SHOW_MORE: 'Show more',

@@ -33,25 +33,35 @@
         <form tabindex="-1">
           <div class="layout-content">
             <div>
-              <fieldset class="mb-8" tabindex="-1" v-for="term in terms" :key="term.slug">
-                <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">
-                  {{ term.name }}
-                </legend>
+              <div class="mb-8" v-for="term in terms" :key="term.slug">
+                <fieldset class="fieldset mb-2" tabindex="-1">
+                  <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">
+                    {{ term.name }}
+                  </legend>
 
-                <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
-                  <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
-                    <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="change({event: $event, data: filter})">
+                  <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
+                    <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
+                      <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 
-                    <span class="option__base">
-                      <svg aria-hidden="true" class="option__graphic" tabindex="-1">
-                        <use href="#option-wnyc-checkbox"></use>
-                      </svg>
+                      <span class="option__base">
+                        <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                          <use href="#option-wnyc-checkbox"></use>
+                        </svg>
 
-                      <span class="option__label">{{ filter.name }}</span>
-                    </span>
-                  </label>
+                        <span class="option__label">{{ filter.name }}</span>
+                      </span>
+                    </label>
+                  </div>
+                </fieldset>
+
+                <div class="pis-4">
+                  <button class="text-small" type="button" tabindex="-1"
+                    @click="toggle({event: $event, data: {parent: term.slug}})"
+                    :aria-pressed="term.filters.filter(f => f.checked).length === term.filters.length ? 'true' : 'false'"
+                    v-html="strings.TOGGLE_ALL.replace('{{ TERM }}', term.name.toLowerCase())">
+                  </button>
                 </div>
-              </fieldset>
+              </div>
             </div>
           </div>
 
@@ -90,9 +100,13 @@
 
     <section class="page-max desktop:px-6" v-if="init">
       <div class="wrap desktop:px-6" v-if="!loading">
-        <h2 class="text-p font-p" data-alert="text" aria-live="polite" v-if="posts != null" v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></h2>
+        <h2 class="text-p font-p inline-block" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
+          <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
 
-        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3" ref="results">
+          <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button>
+        </h2>
+
+        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
           <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
         </div>
 
@@ -100,7 +114,7 @@
       </div>
 
       <div class="flex items-center text-em justify-center py-4" v-if="none">
-        <p>{{ strings.NO_RESULTS }}</p>
+        <p>{{ strings.NO_RESULTS }} <button v-html="strings.RESET" @click="reset"></button></p>
       </div>
     </section>
 

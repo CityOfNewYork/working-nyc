@@ -170,9 +170,9 @@ add_action('init', function() {
    * @author NYC Opportunity
    */
   register_taxonomy('schedule', ['programs', 'jobs'], array(
-    'label' => __('Schedule', 'WNYC'),
+    'label' => __('Schedules', 'WNYC'),
     'labels' => array(
-      'name' => __('Schedule', 'WNYC'),
+      'name' => __('Schedules', 'WNYC'),
       'singular_name' => __('Schedule', 'WNYC')
     ),
     'public' => true, // Use this to show in the front-end filters
@@ -276,13 +276,13 @@ add_action('init', function() {
     'show_in_nav_menus' => true,
     'query_var' => true,
     'rewrite' => array(
-      'slug' => 'sources',
+      'slug' => 'source',
       'with_front' => true
     ),
     'show_admin_column' => true,
     'show_in_rest' => true,
     'show_tagcloud' => true,
-    'rest_base' => 'sources',
+    'rest_base' => 'source',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
     'show_in_quick_edit' => true,
     'show_in_graphql' => false

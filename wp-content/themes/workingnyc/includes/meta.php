@@ -13,19 +13,12 @@ class Meta {
   /**
    * Constructor
    *
-   * @param   String/Number  $pid  Either the post permalink to use with get_page_by_path or the post ID
+   * @param   Object  $post  The post to construct Meta data for.
    *
-   * @return  Object               Instance of Meta
+   * @return  Object         Instance of Meta
    */
-  public function __construct($pid) {
-    if (is_string($pid)) {
-      $this->id = defined('ICL_LANGUAGE_CODE')
-        ? icl_object_id(get_page_by_path($path)->ID, 'page', true, ICL_LANGUAGE_CODE) : get_page_by_path($path)->ID;
-    } else {
-      $this->id = $pid;
-    }
-
-    $this->post = Timber::get_post($this->id);
+  public function __construct($post) {
+    $this->post = $post;
 
     $this->is_homepage = (is_page_template('template-home-page.php') || is_front_page());
 
@@ -47,6 +40,8 @@ class Meta {
 
     $this->twitter_site = (defined('META_TWITTER_SITE')) ? META_TWITTER_SITE : '';
 
+    unset($this->post);
+
     return $this;
   }
 
@@ -57,7 +52,7 @@ class Meta {
    * @return  String  The meta description
    */
   public function getDescription() {
-    $description = get_field(self::FIELD_DESCRIPTION, $this->id);
+    $description = get_field(self::FIELD_DESCRIPTION, $this->post->id);
 
     if (empty($description)) {
       switch ($this->post->post_type) {
@@ -67,17 +62,17 @@ class Meta {
           break;
 
         case 'announcements':
-          $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->id);
+          $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->post->id);
 
           break;
 
         case 'programs':
-          $description = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
+          $description = get_field(self::FIELD_PROGRAM_INTRO, $this->post->id);
 
           break;
 
         case 'jobs':
-          $description = get_field(self::FIELD_JOB_DESCRIPTION, $this->id);
+          $description = get_field(self::FIELD_JOB_DESCRIPTION, $this->post->id);
 
           $description = trim(substr(strip_tags($description), 0, 120)) . '... ';
 
@@ -94,7 +89,7 @@ class Meta {
    * @return  String  The meta keywords
    */
   public function getKeywords() {
-    return get_field(self::FIELD_KEYWORDS, $this->id);
+    return get_field(self::FIELD_KEYWORDS, $this->post->id);
   }
 
   /**
@@ -103,7 +98,7 @@ class Meta {
    * @return  String  The robots rules
    */
   public function getRobots() {
-    return get_field(self::FIELD_ROBOTS, $this->id);
+    return get_field(self::FIELD_ROBOTS, $this->post->id);
   }
 
   /**
@@ -114,7 +109,7 @@ class Meta {
    * @return  String  The OG title value
    */
   public function getOgTitle() {
-    $title = get_field(self::FIELD_OG_TITLE, $this->id);
+    $title = get_field(self::FIELD_OG_TITLE, $this->post->id);
 
     if (empty($title)) {
       switch ($this->post->post_type) {
@@ -124,12 +119,12 @@ class Meta {
           break;
 
         case 'announcements':
-          $title = get_field(self::FIELD_ANNOUNCEMENT_TITLE, $this->id);
+          $title = get_field(self::FIELD_ANNOUNCEMENT_TITLE, $this->post->id);
 
           break;
 
         case 'programs':
-          $title = get_field(self::FIELD_PROGRAM_TITLE, $this->id);
+          $title = get_field(self::FIELD_PROGRAM_TITLE, $this->post->id);
 
           break;
       }
@@ -149,7 +144,7 @@ class Meta {
    * @return  String  The OG description value
    */
   public function getOgDescription() {
-    $description = get_field(self::FIELD_OG_DESCRIPTION, $this->id);
+    $description = get_field(self::FIELD_OG_DESCRIPTION, $this->post->id);
 
     if (empty($description)) {
       switch ($this->post->post_type) {
@@ -159,17 +154,17 @@ class Meta {
           break;
 
         case 'announcements':
-          $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->id);
+          $description = get_field(self::FIELD_ANNOUNCEMENT_DETAILS, $this->post->id);
 
           break;
 
         case 'programs':
-          $description = get_field(self::FIELD_PROGRAM_INTRO, $this->id);
+          $description = get_field(self::FIELD_PROGRAM_INTRO, $this->post->id);
 
           break;
 
         case 'jobs':
-          $description = get_field(self::FIELD_JOB_DESCRIPTION, $this->id);
+          $description = get_field(self::FIELD_JOB_DESCRIPTION, $this->post->id);
 
           $description = trim(substr(strip_tags($description), 0, 120)) . '... ';
 
@@ -188,7 +183,7 @@ class Meta {
    *                        Blank string if there is no image.
    */
   public function getOgImage() {
-    $custom = get_field(self::FIELD_OG_IMAGE, $this->id);
+    $custom = get_field(self::FIELD_OG_IMAGE, $this->post->id);
 
     $id = ($custom) ? $custom : get_field(self::FIELD_OG_IMAGE_DEFAULT, 'option');
 

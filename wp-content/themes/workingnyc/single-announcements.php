@@ -20,7 +20,7 @@ $post = Timber::get_post();
 
 $context['post'] = new WorkingNYC\Announcements($post);
 
-$context['meta'] = new WorkingNYC\Meta($post->ID);
+$context['meta'] = new WorkingNYC\Meta($post);
 
 /**
  * Render the view

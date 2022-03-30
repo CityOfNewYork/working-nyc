@@ -15,6 +15,39 @@ use Timber;
 use Spatie\SchemaOrg\Schema;
 
 class Jobs extends Timber\Post {
+  const SINGULAR = 'job'; // used to locate the single template
+
+  const LOCATION_DEFAULT = 'New York City';
+
+  // The presence of the value string inside the taxonomy term is used to
+  // determine the key. It uses a partial string comparison as opposed to
+  // an exact match which is why they are truncated
+  const EMPLOYMENT_TYPE = array(
+    'FULL_TIME' => 'Full',
+    'PART_TIME' => 'Part',
+    'CONTRACTOR' => 'Contract',
+    'TEMPORARY' => 'Temp',
+    'INTERN' => 'Intern',
+    'VOLUNTEER' => 'Volunteer',
+    'PER_DIEM' => 'Diem',
+    'OTHER' => 'Other'
+  );
+
+  const EMPLOYMENT_TYPE_DEFAULT = 'OTHER';
+
+  const BASE_SALARY = array(
+    'HOUR' => 'Hour',
+    'DAY' => 'Day',
+    'WEEK' => 'Week',
+    'MONTH' => 'Month',
+    'YEAR' => 'Year'
+  );
+
+  // Determines wether to abort the Job Posting schema.
+  // TODO: In the future this can be used to determine the Job Training schema.
+  // https://developers.google.com/search/docs/advanced/structured-data/job-training
+  const TRAINING_TYPE = 'Apprentice';
+
   /**
    * Constructor
    *
@@ -39,6 +72,8 @@ class Jobs extends Timber\Post {
      * Set Context
      */
 
+    $this->singular = self::SINGULAR;
+
     $this->sector = $this->getSector();
 
     $this->organization = $this->getOrganization();
@@ -54,6 +89,8 @@ class Jobs extends Timber\Post {
     $this->location = $this->getLocation();
 
     $this->source = $this->getSource();
+
+    $this->cardTitle = $this->getCardTitle();
 
     $this->instructions = $this->getInstructions();
 
@@ -83,6 +120,7 @@ class Jobs extends Timber\Post {
       'salary' => $this->getSalary(),
       'location' => $this->getLocation(),
       'source' => $this->getSource(),
+      'cardTitle' => $this->getCardTitle(),
       'instructions' => $this->getInstructions()
     );
   }
@@ -140,7 +178,8 @@ class Jobs extends Timber\Post {
    * @return  String  Summary with HTML markup stripped
    */
   public function getSummary($limit = 120) {
-    return trim(substr(strip_tags($this->custom['job_description']), 0, $limit)) . '... ';
+    return (empty($this->custom['job_description'])) ?
+      '' : trim(substr(strip_tags($this->custom['job_description']), 0, $limit)) . '... ';
   }
 
   /**
@@ -197,6 +236,10 @@ class Jobs extends Timber\Post {
    * @return  String  The salary range including dollar signs and salary unit
    */
   public function getSalary() {
+    if (empty($this->custom['job_minimum_base_salary_value'])) {
+      return '';
+    }
+
     $salary = '$' . $this->custom['job_minimum_base_salary_value'];
 
     if (!empty($this->custom['job_maximum_base_salary_value'])) {
@@ -233,7 +276,7 @@ class Jobs extends Timber\Post {
 
       $locations = implode(', ', $locations);
     } else {
-      return __('New York City', 'WNYC');
+      return __(self::LOCATION_DEFAULT, 'WNYC');
     }
 
     return $locations;
@@ -248,6 +291,16 @@ class Jobs extends Timber\Post {
     $sources = get_the_terms($this->ID, 'source');
 
     return ($sources) ? $sources[0] : array();
+  }
+
+  /**
+   * Get the title for Job cards
+   *
+   * @return  String  Constructed title for the Job
+   */
+  public function getCardTitle() {
+    return ($this->location == __(self::LOCATION_DEFAULT, 'WNYC'))
+      ? $this->post_title : "$this->post_title ($this->location)";
   }
 
   /**
@@ -276,7 +329,7 @@ class Jobs extends Timber\Post {
       $instructions = $instructions . $this->custom['job_bespoke_application_instructions'];
     }
 
-    return $instructions;
+    return wpautop($instructions);
   }
 
   /**
@@ -289,6 +342,46 @@ class Jobs extends Timber\Post {
    * @return  Array  The post schema array
    */
   public function getSchema() {
+    $schema = Schema::JobPosting();
+
+    /**
+     * Employment type or schedule. This value will determine wether to return
+     * a schema or not for Jobs.
+     */
+
+    $schedule = get_the_terms($this->ID, 'schedule');
+
+    if ($schedule) {
+      $schedule = array_map(function($schedule) {
+        foreach (self::EMPLOYMENT_TYPE as $key => $value) {
+          if (str_contains($schedule, $value)) { // loose matching
+            return $key;
+
+            break;
+          }
+        }
+
+        return self::EMPLOYMENT_TYPE_DEFAULT;
+      }, $schedule);
+
+      $schema->employmentType($schedule);
+    }
+
+    /**
+     * Return an empty schema value if the job is an apprenticeship. The
+     * Job Training Schema value needs to be used for that job type.
+     *
+     * @source https://developers.google.com/search/docs/advanced/structured-data/job-training
+     */
+
+    if ($this->schedule && str_contains($this->schedule, self::TRAINING_TYPE)) {
+      return [];
+    }
+
+    /**
+     * Getting some other schema pre-requisites
+     */
+
     $hiringOrganization = ('confidential' === $this->organization)
       ? $this->organization : Schema::Organization()
         ->name($this->organization)
@@ -305,10 +398,11 @@ class Jobs extends Timber\Post {
       ->addressCountry('US');
 
     /**
-     * Schema base requirements
+     * Schema base requirements. If none of these things are available then
+     * it shouldn't be returned.
      */
 
-    $schema = Schema::JobPosting()
+    $schema = $schema
       ->datePosted(date(DATE_W3C, strtotime($this->date)))
       ->description($this->custom['job_description'] . $this->custom['job_requirements'])
       ->hiringOrganization($hiringOrganization)
@@ -316,7 +410,7 @@ class Jobs extends Timber\Post {
       ->title($this->post_title);
 
     /**
-     * Remote position. Locality will always be New York City
+     * Remote position. Locality will always be New York City.
      */
 
     if (str_contains($this->location, 'Virtual')) {
@@ -325,28 +419,38 @@ class Jobs extends Timber\Post {
       )->jobLocationType('TELECOMMUTE');
     }
 
-    /**
-     * Salary
-     */
+    // /**
+    //  * Salary
+    //  *
+    //  * TODO: Google states that we cannot provide this value in our schema.
+    //  * If we do we need to change the schema type to "Occupation." Need to
+    //  * find out why and if this applies to us.
+    //  *
+    //  * "Note: Only employers can provide baseSalary. If you're a third party
+    //  *  job site, you can provide a salary estimate for an occupation type
+    //  *  using the Occupation type."
+    //  *
+    //  * @link https://developers.google.com/search/docs/advanced/structured-data/job-posting#basesalary
+    //  */
 
-    $baseSalaryValue = Schema::QuantitativeValue();
+    // $baseSalaryValue = Schema::QuantitativeValue();
 
-    if (empty($this->custom['job_maximum_base_salary_value'])) {
-      $baseSalaryValue->value($this->custom['job_minimum_base_salary_value']);
-    } else {
-      $baseSalaryValue->minValue($this->custom['job_minimum_base_salary_value']);
-      $baseSalaryValue->maxValue($this->custom['job_maximum_base_salary_value']);
-    }
+    // if (empty($this->custom['job_maximum_base_salary_value'])) {
+    //   $baseSalaryValue->value($this->custom['job_minimum_base_salary_value']);
+    // } else {
+    //   $baseSalaryValue->minValue($this->custom['job_minimum_base_salary_value']);
+    //   $baseSalaryValue->maxValue($this->custom['job_maximum_base_salary_value']);
+    // }
 
-    $unit = get_the_terms($this->ID, 'salary');
+    // $unit = get_the_terms($this->ID, 'salary');
 
-    $unit = ($unit) ? strtoupper($unit[0]->name) : '';
+    // $unit = ($unit) ? strtoupper($unit[0]->name) : '';
 
-    $schema->baseSalary(
-      Schema::MonetaryAmount()
-        ->currency('USD')
-        ->value($baseSalaryValue->unitText($unit))
-    );
+    // $schema->baseSalary(
+    //   Schema::MonetaryAmount()
+    //     ->currency('USD')
+    //     ->value($baseSalaryValue->unitText($unit))
+    // );
 
     /**
      * Unique Identifier
@@ -358,23 +462,6 @@ class Jobs extends Timber\Post {
           ->name($this->source->name)
           ->value($this->job_unique_identifier)
       );
-    }
-
-    /**
-     * Employment type or schedule
-     */
-
-    $schedule = get_the_terms($this->ID, 'schedule');
-
-    if ($schedule) {
-      $schedule = array_map(function($schedule) {
-        $name = str_replace('-', '_', $schedule->name);
-        $name = str_replace(' ', '_', $name);
-
-        return strtoupper($name);
-      }, $schedule);
-
-      $schema->employmentType($schedule);
     }
 
     /**

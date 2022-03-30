@@ -26,7 +26,7 @@
     {# Header Section #}
     <div class="layout-content">
       <header class="o-header">
-        <div>
+        <div class="w-full">
           <h1 class="o-header__title">{{ post.title }}</h1>
 
           <h2 class="o-header__subtitle">
@@ -48,7 +48,7 @@
             ]
           } %}
 
-          <p class="small flex items-center">
+          {% if post.schedule %}<p class="small flex items-center">
             <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Schedule', 'WNYC') }}</title>
 
@@ -56,9 +56,9 @@
             </svg>
 
             <span>{{ post.schedule }}</span>
-          </p>
+          </p>{% endif %}
 
-          <p class="small flex items-center">
+          {% if post.salary %}<p class="small flex items-center">
             <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Salary', 'WNYC') }}</title>
 
@@ -66,9 +66,9 @@
             </svg>
 
             <span>{{ post.salary }}</span>
-          </p>
+          </p>{% endif %}
 
-          <p class="small flex items-center">
+          {% if post.location %}<p class="small flex items-center">
             <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Location', 'WNYC') }}</title>
 
@@ -76,7 +76,7 @@
             </svg>
 
             <span>{{ post.location }}</span>
-          </p>
+          </p>{% endif %}
 
           <p class="small flex items-center">
             <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
@@ -88,9 +88,9 @@
             {{ __('Last updated', 'WNYC') }} {{ modified_date }}
           </p>
 
-          <div class="pt-3">
+          {% if post.instructions %}<div class="pt-3">
             <a href="#application-instructions" class="btn btn-secondary w-full">{{ __('Apply', 'WNYC') }}</a>
-          </div>
+          </div>{% endif %}
         </div>
       </header>
     </div>
@@ -130,7 +130,7 @@
                 </svg>
               </a>
 
-              {{ __('Who it\'s for', 'WNYC') }}
+              {{ __('Requirements', 'WNYC') }}
             </h3>
           </div>
 
@@ -176,7 +176,7 @@
 
         {% if post.job_apply %}
         <a class="btn btn-secondary w-full" href="{{ post.job_apply }}" target="_blank" rel="noopener nofollow">
-          <span>{{ __('Apply', 'WNYC') }} <span class="sr-only">{{ __('for', 'WNYC') }} {{ post.post_title }}</span></span>
+          <span>{{ __('See the full job post and apply', 'WNYC') }} <span class="sr-only">{{ __('to', 'WNYC') }} {{ post.post_title }}</span></span>
 
           <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
             <use href="#feather-external-link"></use>

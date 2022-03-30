@@ -112,23 +112,23 @@
         "post_status": "draft",
         "gc_status": {
             "2119845": {
-                "wp": "",
+                "wp": "draft",
                 "after": ""
             },
             "2119846": {
-                "wp": "",
+                "wp": "pending",
                 "after": ""
             },
             "2119847": {
-                "wp": "",
+                "wp": "pending",
                 "after": ""
             },
             "2119848": {
-                "wp": "",
+                "wp": "publish",
                 "after": ""
             }
         },
         "structure_uuid": "31eb7a7e-78fa-467d-adf1-939aba370f94"
     },
-    "modified": 1648245073
+    "modified": 1650040594
 }
