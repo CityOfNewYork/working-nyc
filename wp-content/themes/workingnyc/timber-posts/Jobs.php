@@ -325,28 +325,38 @@ class Jobs extends Timber\Post {
       )->jobLocationType('TELECOMMUTE');
     }
 
-    /**
-     * Salary
-     */
+    // /**
+    //  * Salary
+    //  *
+    //  * TODO: Google states that we cannot provide this value in our schema.
+    //  * If we do we need to change the schema type to "Occupation." Need to
+    //  * find out why and if this applies to us.
+    //  *
+    //  * "Note: Only employers can provide baseSalary. If you're a third party
+    //  *  job site, you can provide a salary estimate for an occupation type
+    //  *  using the Occupation type."
+    //  *
+    //  * @link https://developers.google.com/search/docs/advanced/structured-data/job-posting#basesalary
+    //  */
 
-    $baseSalaryValue = Schema::QuantitativeValue();
+    // $baseSalaryValue = Schema::QuantitativeValue();
 
-    if (empty($this->custom['job_maximum_base_salary_value'])) {
-      $baseSalaryValue->value($this->custom['job_minimum_base_salary_value']);
-    } else {
-      $baseSalaryValue->minValue($this->custom['job_minimum_base_salary_value']);
-      $baseSalaryValue->maxValue($this->custom['job_maximum_base_salary_value']);
-    }
+    // if (empty($this->custom['job_maximum_base_salary_value'])) {
+    //   $baseSalaryValue->value($this->custom['job_minimum_base_salary_value']);
+    // } else {
+    //   $baseSalaryValue->minValue($this->custom['job_minimum_base_salary_value']);
+    //   $baseSalaryValue->maxValue($this->custom['job_maximum_base_salary_value']);
+    // }
 
-    $unit = get_the_terms($this->ID, 'salary');
+    // $unit = get_the_terms($this->ID, 'salary');
 
-    $unit = ($unit) ? strtoupper($unit[0]->name) : '';
+    // $unit = ($unit) ? strtoupper($unit[0]->name) : '';
 
-    $schema->baseSalary(
-      Schema::MonetaryAmount()
-        ->currency('USD')
-        ->value($baseSalaryValue->unitText($unit))
-    );
+    // $schema->baseSalary(
+    //   Schema::MonetaryAmount()
+    //     ->currency('USD')
+    //     ->value($baseSalaryValue->unitText($unit))
+    // );
 
     /**
      * Unique Identifier
