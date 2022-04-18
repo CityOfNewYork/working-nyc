@@ -5,7 +5,7 @@
         "_gc_account": "afdcontent",
         "_gc_project": "314137",
         "_gc_template": "2694216",
-        "_gc_structure_uuid": "73df05a1-5b57-48bb-8efb-a213b2f2aa05",
+        "_gc_structure_uuid": "",
         "_gc_account_id": "28666"
     },
     "content": {
@@ -24,23 +24,23 @@
         "post_status": "draft",
         "gc_status": {
             "2119845": {
-                "wp": "",
+                "wp": "draft",
                 "after": ""
             },
             "2119846": {
-                "wp": "",
+                "wp": "pending",
                 "after": ""
             },
             "2119847": {
-                "wp": "",
+                "wp": "pending",
                 "after": ""
             },
             "2119848": {
-                "wp": "",
+                "wp": "publish",
                 "after": ""
             }
         },
-        "structure_uuid": "73df05a1-5b57-48bb-8efb-a213b2f2aa05"
+        "structure_uuid": ""
     },
-    "modified": 1647975022
+    "modified": 1650040628
 }
