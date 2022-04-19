@@ -35,6 +35,39 @@ $ID = defined('ICL_LANGUAGE_CODE') ?
   icl_object_id(get_page_by_path($path)->ID, 'page', true, ICL_LANGUAGE_CODE) : $ID;
 
 /**
+ * Convert previous program Query variable filters to the new syntax and
+ * redirect the request to ensure it works for the front-end application.
+ * At some point, this can be removed from this template.
+ *
+ * @author NYC Opportunity
+ *
+ * @since 1.9
+ */
+
+if ('programs' === $path) {
+  $q = implode('&', array_filter(array_map(function($tax) {
+    $query = get_query_var($tax[0], false);
+
+    return ($query) ?
+      "$tax[1][]=" . get_term_by('slug', $query, $tax[0])->term_id : false;
+  }, [
+    ['services', 'wnyc_ser'],
+    ['populations', 'wnyc_pop'],
+    ['sectors', 'wnyc_sec'],
+    ['recruitment_status', 'wnyc_rst'],
+    ['schedule', 'wnyc_sch'],
+    ['duration', 'wnyc_dur'],
+    ['locations', 'wnyc_loc']
+  ])));
+
+  if (false === empty($q)) {
+    wp_redirect( "?$q" );
+
+    exit;
+  }
+}
+
+/**
  * Set the Timber view context
  *
  * @author NYC Opportunity

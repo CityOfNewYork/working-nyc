@@ -85,8 +85,7 @@ export default {
        * @param  {String}  jobs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=jobs'
-          + ((process.env.NODE_ENV === 'development') ? '&cache=0' : ''),
+        terms: `/wp-json/api/v1/terms/?post_type[]=jobs${((process.env.NODE_ENV === 'development') ? '&cache=0' : '')}`,
         jobs: '/wp-json/wp/v2/jobs'
       },
 
@@ -147,7 +146,7 @@ export default {
      * That button uses the patterns scripts dialog method which interfere
      * with DOM event propagation.
      */
-     resultsFocus: function() {
+    resultsFocus: function() {
       document.querySelector('body').style.overflow = ''; // unlocks the dialog
 
       this.$refs.results.setAttribute('tabindex', '-1');

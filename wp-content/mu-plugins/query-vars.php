@@ -37,16 +37,16 @@ add_filter('query_vars', function($vars) {
    * @author NYC Opportunity
    */
 
-  array_push($vars, $prefix . 'wnyc_agy'); // agency
-  array_push($vars, $prefix . 'wnyc_ser'); // services
-  array_push($vars, $prefix . 'wnyc_rst'); // recruitment_status
-  array_push($vars, $prefix . 'wnyc_sch'); // schedule
-  array_push($vars, $prefix . 'wnyc_dur'); // duration
-  array_push($vars, $prefix . 'wnyc_loc'); // locations
-  array_push($vars, $prefix . 'wnyc_pop'); // populations
-  array_push($vars, $prefix . 'wnyc_sec'); // sectors
-  array_push($vars, $prefix . 'wnyc_src'); // source
-  array_push($vars, $prefix . 'wnyc_sal'); // salary
+  array_push($vars, $prefix . 'agy'); // agency
+  array_push($vars, $prefix . 'ser'); // services
+  array_push($vars, $prefix . 'rst'); // recruitment_status
+  array_push($vars, $prefix . 'sch'); // schedule
+  array_push($vars, $prefix . 'dur'); // duration
+  array_push($vars, $prefix . 'loc'); // locations
+  array_push($vars, $prefix . 'pop'); // populations
+  array_push($vars, $prefix . 'sec'); // sectors
+  array_push($vars, $prefix . 'src'); // source
+  array_push($vars, $prefix . 'sal'); // salary
 
   return $vars;
 });

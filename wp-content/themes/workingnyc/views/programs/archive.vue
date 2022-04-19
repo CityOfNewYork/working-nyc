@@ -41,7 +41,7 @@
 
                   <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
                     <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
-                      <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="change({event: $event, data: filter})">
+                      <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 
                       <span class="option__base">
                         <svg aria-hidden="true" class="option__graphic" tabindex="-1">
@@ -100,13 +100,13 @@
 
     <section class="page-max desktop:px-6" v-if="init">
       <div class="wrap desktop:px-6" v-if="!loading">
-        <h2 class="text-p font-p" data-alert="text" aria-live="polite" v-if="posts != null">
+        <h2 class="text-p font-p inline-block" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
           <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
 
           <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button>
         </h2>
 
-        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3" ref="results">
+        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
           <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
         </div>
 
@@ -114,7 +114,7 @@
       </div>
 
       <div class="flex items-center text-em justify-center py-4" v-if="none">
-        <p>{{ strings.NO_RESULTS }}</p>
+        <p>{{ strings.NO_RESULTS }} <button v-html="strings.RESET" @click="reset"></button></p>
       </div>
     </section>
 

@@ -85,8 +85,7 @@ export default {
        * @param  {String}  jobs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=programs'
-          + ((process.env.NODE_ENV === 'development') ? '&cache=0' : ''),
+        terms: `/wp-json/api/v1/terms/?post_type[]=programs${((process.env.NODE_ENV === 'development') ? '&cache=0' : '')}`,
         programs: '/wp-json/wp/v2/programs'
       },
 

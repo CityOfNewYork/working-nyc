@@ -8,8 +8,8 @@
  * Dependencies
  */
 
-import Vue from 'vue/dist/vue.runtime';  // development
-// import Vue from 'vue/dist/vue.runtime.min'; // production
+// import Vue from 'vue/dist/vue.runtime';  // development
+import Vue from 'vue/dist/vue.runtime.min'; // production
 
 /**
  * The template markup is stored in the views/jobs/archive.vue file Which

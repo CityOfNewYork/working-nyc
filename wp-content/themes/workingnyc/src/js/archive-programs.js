@@ -30,6 +30,10 @@ import ProgramsArchive from '../../views/programs/archive.vue';
 import Program from '../../views/programs/program.vue';
 
 /**
+ * Redirect old filtering method to WP Archive Vue filtering
+ */
+
+/**
  * Mount Components
  */
 
