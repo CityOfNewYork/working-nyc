@@ -15,6 +15,8 @@ use Timber;
 use Spatie\SchemaOrg\Schema;
 
 class Jobs extends Timber\Post {
+  const DEFAULT_LOCATION = 'New York City';
+
   /**
    * Constructor
    *
@@ -55,6 +57,8 @@ class Jobs extends Timber\Post {
 
     $this->source = $this->getSource();
 
+    $this->cardTitle = $this->getCardTitle();
+
     $this->instructions = $this->getInstructions();
 
     /**
@@ -83,6 +87,7 @@ class Jobs extends Timber\Post {
       'salary' => $this->getSalary(),
       'location' => $this->getLocation(),
       'source' => $this->getSource(),
+      'cardTitle' => $this->getCardTitle(),
       'instructions' => $this->getInstructions()
     );
   }
@@ -233,7 +238,7 @@ class Jobs extends Timber\Post {
 
       $locations = implode(', ', $locations);
     } else {
-      return __('New York City', 'WNYC');
+      return __(self::DEFAULT_LOCATION, 'WNYC');
     }
 
     return $locations;
@@ -248,6 +253,16 @@ class Jobs extends Timber\Post {
     $sources = get_the_terms($this->ID, 'source');
 
     return ($sources) ? $sources[0] : array();
+  }
+
+  /**
+   * Get the title for Job cards
+   *
+   * @return  String  Constructed title for the Job
+   */
+  public function getCardTitle() {
+    return ($this->location == __(self::DEFAULT_LOCATION, 'WNYC'))
+      ? $this->post_title : "$this->post_title ($this->location)";
   }
 
   /**
@@ -305,7 +320,8 @@ class Jobs extends Timber\Post {
       ->addressCountry('US');
 
     /**
-     * Schema base requirements
+     * Schema base requirements. If none of these things are available then
+     * it shouldn't be returned.
      */
 
     $schema = Schema::JobPosting()
@@ -316,7 +332,7 @@ class Jobs extends Timber\Post {
       ->title($this->post_title);
 
     /**
-     * Remote position. Locality will always be New York City
+     * Remote position. Locality will always be New York City.
      */
 
     if (str_contains($this->location, 'Virtual')) {
