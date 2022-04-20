@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad0f1d8521c90a949d5dae54886737da",
+    "content-hash": "9f97d953c79d40ae4121abecf4d9e464",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -2326,6 +2326,50 @@
                 }
             ],
             "time": "2022-01-07T12:00:00+00:00"
+        },
+        {
+            "name": "nyco/wp-login",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CityOfNewYork/nyco-wp-login.git",
+                "reference": "4020f846bae63dc83f704ce19383798d05bd1225"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CityOfNewYork/nyco-wp-login/zipball/4020f846bae63dc83f704ce19383798d05bd1225",
+                "reference": "4020f846bae63dc83f704ce19383798d05bd1225",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "~3.0"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "NYC Opportunity",
+                    "email": "products@nycopportunity.nyc.gov",
+                    "homepage": "https://nyc.gov/opportunity"
+                }
+            ],
+            "description": "A local development plugin for WordPress to enable logging in to the WordPress Admin.",
+            "homepage": "https://github.com/cityofnewyork/nyco-wp-login",
+            "keywords": [
+                "login",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/cityofnewyork/nyco-wp-login/issues",
+                "source": "https://github.com/CityOfNewYork/nyco-wp-login/tree/v0.0.1"
+            },
+            "time": "2022-04-20T16:34:46+00:00"
         },
         {
             "name": "psr/log",

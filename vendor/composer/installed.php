@@ -154,6 +154,15 @@
             'reference' => '21c74e9d6e86dabf0abce336ce88f0c2f1110804',
             'dev_requirement' => false,
         ),
+        'nyco/wp-login' => array(
+            'pretty_version' => '0.0.1',
+            'version' => '0.0.1.0',
+            'type' => 'wordpress-muplugin',
+            'install_path' => __DIR__ . '/../../wp-content/mu-plugins/wp-login',
+            'aliases' => array(),
+            'reference' => '4020f846bae63dc83f704ce19383798d05bd1225',
+            'dev_requirement' => true,
+        ),
         'psr/container' => array(
             'pretty_version' => '2.0.2',
             'version' => '2.0.2.0',

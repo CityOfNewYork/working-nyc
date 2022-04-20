@@ -1033,6 +1033,53 @@
             "install-path": "../../wp-content/mu-plugins/wp-gc-templates-sync"
         },
         {
+            "name": "nyco/wp-login",
+            "version": "0.0.1",
+            "version_normalized": "0.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CityOfNewYork/nyco-wp-login.git",
+                "reference": "4020f846bae63dc83f704ce19383798d05bd1225"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CityOfNewYork/nyco-wp-login/zipball/4020f846bae63dc83f704ce19383798d05bd1225",
+                "reference": "4020f846bae63dc83f704ce19383798d05bd1225",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "~3.0"
+            },
+            "time": "2022-04-20T16:34:46+00:00",
+            "type": "wordpress-muplugin",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "NYC Opportunity",
+                    "email": "products@nycopportunity.nyc.gov",
+                    "homepage": "https://nyc.gov/opportunity"
+                }
+            ],
+            "description": "A local development plugin for WordPress to enable logging in to the WordPress Admin.",
+            "homepage": "https://github.com/cityofnewyork/nyco-wp-login",
+            "keywords": [
+                "login",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/cityofnewyork/nyco-wp-login/issues",
+                "source": "https://github.com/CityOfNewYork/nyco-wp-login/tree/v0.0.1"
+            },
+            "install-path": "../../wp-content/mu-plugins/wp-login"
+        },
+        {
             "name": "psr/container",
             "version": "2.0.2",
             "version_normalized": "2.0.2.0",
@@ -2676,6 +2723,7 @@
     "dev": true,
     "dev-package-names": [
         "filp/whoops",
+        "nyco/wp-login",
         "psr/log",
         "squizlabs/php_codesniffer",
         "whoops/soap",
