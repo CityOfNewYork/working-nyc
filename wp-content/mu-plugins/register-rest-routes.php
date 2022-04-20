@@ -51,13 +51,25 @@ add_action('rest_api_init', function() {
     'callback' => function(WP_REST_Request $request) {
       $params = $request->get_params();
 
-      $postTypes = (isset($params['post_type'])) ? $params['post_type'] : false;
+      /**
+       * Query Parameter Options
+       */
 
-      $hideEmpty = (isset($params['hide_empty'])) ? filter_var($params['hide_empty'], FILTER_VALIDATE_BOOLEAN) : false;
+      // What post type terms to query
+      $postTypes = (isset($params['post_type'])) ?
+        $params['post_type'] : false;
 
-      $cache = (isset($params['cache'])) ? filter_var($params['cache'], FILTER_VALIDATE_BOOLEAN) : true;
+      // Wether to hide terms with no posts
+      $hideEmpty = (isset($params['hide_empty'])) ?
+        filter_var($params['hide_empty'], FILTER_VALIDATE_BOOLEAN) : false;
 
-      /** */
+      // Wether to use cached terms
+      $cache = (isset($params['cache'])) ?
+        filter_var($params['cache'], FILTER_VALIDATE_BOOLEAN) : true;
+
+      /**
+       * Process query params
+       */
 
       $type = ($postTypes) ? implode('_', $postTypes) : '';
 
