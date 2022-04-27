@@ -4,11 +4,11 @@
       <h3 class="c-card__title mt-0 mb-2">{{ post.cardTitle }}</h3>
     </a>
 
-    <h4 class="c-card__subtitle text-alt mb-1">
+    <p class="c-card__subtitle text-alt mb-1">
       {% if post.sector %}<b>{{ post.sector }}</b>{% endif %}
-      {% if post.sector and post.organization %}<span>{{ __('with', 'WNYC') }} </span>{% endif %}
+      {% if post.sector and post.organization %}<span> {{ __('with', 'WNYC') }} </span>{% endif %}
       {% if post.organization %}<span>{{ post.organization }}</span>{% endif %}
-    </h4>
+    </p>
   </header>
 
   <div class="c-card__body">
@@ -21,7 +21,7 @@
       {% if post.schedule %}
       <li class="flex items-center">
         <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
-          <title>{{ __('Schedule', 'WNYC') }}</title>
+          <title>{{ __('Employment Type and Schedule', 'WNYC') }}</title>
 
           <use href="#feather-calendar"></use>
         </svg>
@@ -45,7 +45,7 @@
       {% if post.location %}
       <li class="flex items-center">
         <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
-          <title>{{ __('Location', 'WNYC') }}</title>
+          <title>{{ __('Work Location', 'WNYC') }}</title>
 
           <use href="#feather-map-pin"></use>
         </svg>

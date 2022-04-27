@@ -5,11 +5,11 @@
         <h3 class="c-card__title mt-0 mb-2" v-html="post.context.cardTitle"></h3>
       </a>
 
-      <h4 class="c-card__subtitle text-alt mb-1">
+      <p class="c-card__subtitle text-alt mb-1">
         <b v-if="post.context.sector" v-html="post.context.sector"></b>
-        <span v-if="post.context.sector && post.context.organization">{{ strings.WITH }} </span>
+        <span v-if="post.context.sector && post.context.organization"> {{ strings.WITH }} </span>
         <span v-html="post.context.organization"></span>
-      </h4>
+      </p>
     </header>
 
     <div class="c-card__body">

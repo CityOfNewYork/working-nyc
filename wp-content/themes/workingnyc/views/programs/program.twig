@@ -4,16 +4,16 @@
       <h3 class="c-card__title mt-0 mb-2">{{ post.program_plain_language_title }}</h3>
     </a>
 
-    <h4 class="c-card__subtitle text-alt mb-1">
+    <p class="c-card__subtitle text-alt mb-1">
       <b>{{ post.program_title }}</b> {{ __('by', 'WNYC') }} {{ post.program_agency }}
-    </h4>
+    </p>
   </header>
 
   <div class="c-card__body">
     {% if post.status %}<p class="c-card__status flex items-center">
       {% if post.status.recruiting %}<mark class="badge mie-2" data-program="recruiting">
         {{ post.status.recruiting.name }}
-      </mark>{% endif %}
+      </mark> <span class="sr-only">&nbsp;</span>{% endif %}
 
       {% if post.status.disability %}<span class="flex mie-2" data-program="accessible" title="{{ post.status.disability.name }}">
         <svg aria-hidden="true" class="icon text-em">
@@ -21,7 +21,7 @@
         </svg>
 
         <span class="sr-only">{{ post.status.disability.name }}</span>
-      </span>{% endif %}
+      </span> <span class="sr-only">&nbsp;</span>{% endif %}
 
       {% if post.status.language %}<span class="flex me-2" data-program="multilingual" title="{{ post.status.language.name }}">
         <svg aria-hidden="true" class="icon-wnyc-ui text-em">
@@ -31,7 +31,6 @@
         <span class="sr-only">{{ post.status.language.name }}</span>
       </span>{% endif %}
     </p>{% endif %}
-
 
     {% if post.intro or post.populations %}<div class="c-card__summary">
       <p>
@@ -43,7 +42,7 @@
     <ul class="c-card__features">
       {% if post.services %}<li class="flex items-center">
         <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
-          <title>{{ __('Services', 'WNYC') }}</title>
+          <title>{{ __('Services Provided', 'WNYC') }}</title>
 
           <use href="#feather-award"></use>
         </svg>
@@ -53,7 +52,7 @@
 
       {% if post.schedule %}<li class="flex items-center">
         <svg class="icon-wnyc-ui flex-shrink-0 mie-1" role="img">
-          <title>{{ __('Schedule', 'WNYC') }}</title>
+          <title>{{ __('Duration and Length', 'WNYC') }}</title>
 
           <use href="#feather-calendar"></use>
         </svg>

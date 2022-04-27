@@ -5,17 +5,18 @@
         <h3 class="c-card__title mt-0 mb-2" v-html="post.context.program_plain_language_title"></h3>
       </a>
 
-      <h4 class="c-card__subtitle text-alt mb-1">
-        <b data-program="title" v-html="post.context.program_title"></b><span> {{ strings.BY }} </span>
+      <p class="c-card__subtitle text-alt mb-1">
+        <b data-program="title" v-html="post.context.program_title"></b>
+        <span> {{ strings.BY }} </span>
         <span v-html="post.context.program_agency"></span>
-      </h4>
+      </p>
     </header>
 
     <div class="c-card__body">
       <p class="c-card__status flex items-center" v-if="post.status">
         <mark class="badge mie-2" data-program="recruiting" v-if="post.context.status.recruiting">
           {{ post.context.status.recruiting.name }}
-        </mark>
+        </mark> <span v-if="post.context.status.recruiting" class="sr-only">&nbsp;</span>
 
         <span class="flex mie-2" :title="post.context.status.disability.name" v-if="post.context.status.disability">
           <svg aria-hidden="true" class="icon text-em">
@@ -23,7 +24,7 @@
           </svg>
 
           <span class="sr-only">{{ post.context.status.disability.name }}</span>
-        </span>
+        </span> <span v-if="post.context.status.disability" class="sr-only">&nbsp;</span>
 
         <span class="flex me-2" :title="post.context.status.language.name" v-if="post.context.status.language">
           <svg aria-hidden="true" class="icon-wnyc-ui text-em">

@@ -54,7 +54,7 @@ class Site extends TimberSite {
 
     $context['footer_menu'] = new TimberMenu('footer_menu');
 
-    $context['footer_menu_secondary'] = new TimberMenu('footer_menu_secondary');
+    $context['footer_menu_secondary'] = new TimberMenu('footer_menu_secondary'); // not in use
 
     $context['footer_menu_tertiary'] = new TimberMenu('footer_menu_tertiary');
 
