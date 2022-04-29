@@ -708,4 +708,48 @@
   }
 }
 
+.llar-alert-icon-animation {
+  animation-duration: 10s;
+  animation-timing-function: ease-out;
+  animation-delay: 3s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-play-state: running;
+  animation-name: shake;
+}
+
+#menu-settings {
+  li {
+    position: relative;
+    .llar-alert-icon-animation {
+      position: absolute;
+      right: 5px;
+      top: 7px;
+      min-width: 15px;
+      line-height: 15px;
+      height: 15px;
+    }
+  }
+}
+
+@keyframes shake {
+  1%, 9% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  2%, 8% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  3%, 5%, 7% {
+    transform: translate3d(-3px, 0, 0);
+  }
+
+  4%, 6% {
+    transform: translate3d(3px, 0, 0);
+  }
+}
+
 @import "dashboard-page";
+@import "admin-dashboard-widgets";

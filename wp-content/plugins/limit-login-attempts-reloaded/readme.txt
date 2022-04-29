@@ -4,9 +4,9 @@ Donate link: https://www.paypal.com/donate?hosted_button_id=FKD4MYFCMNVQQ
 Tags: brute force, login, security, firewall, protection
 Requires at least: 3.0
 Tested up to: 5.9
-Stable tag: 2.24.1
+Stable tag: 2.25.0
 
-Reloaded version of the original Limit Login Attempts plugin for Login Protection by a team of WordPress developers. GDPR compliant.
+Block excessive login attempts and protect your site against brute force attacks. Simple, yet powerful tools to improve site performance.
 
 == Description ==
 
@@ -97,6 +97,10 @@ By default, you will need to copy and paste the lists to each site manually. For
 Please follow this link: <a href="https://www.limitloginattempts.com/resources/">https://www.limitloginattempts.com/resources/</a>
 
 == Changelog ==
+
+= 2.25.0 =
+* Dashboard widged added.
+* Security indicator added.
 
 = 2.24.1 =
 * Fixed E_ERROR occurring in rare cases when the log table is corrupted.

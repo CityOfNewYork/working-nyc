@@ -380,12 +380,12 @@
             'dev_requirement' => false,
         ),
         'wpackagist-plugin/limit-login-attempts-reloaded' => array(
-            'pretty_version' => '2.24.1',
-            'version' => '2.24.1.0',
+            'pretty_version' => '2.25.0',
+            'version' => '2.25.0.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../wp-content/plugins/limit-login-attempts-reloaded',
             'aliases' => array(),
-            'reference' => 'tags/2.24.1',
+            'reference' => 'tags/2.25.0',
             'dev_requirement' => false,
         ),
         'wpackagist-plugin/loggedin' => array(
