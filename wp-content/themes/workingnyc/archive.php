@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Template Name: Archive
+ *
  * Archive Page - This view will map an archive for a particular post type to
  * a page post using the request slug. The view request slug will need to match
  * the post type slug and the page permalink.
@@ -30,6 +32,30 @@ add_action('wp_enqueue_scripts', function() use ($path) {
  */
 
 $post = get_page_by_path($path);
+
+/**
+ * Get status and logged in state, redirect if page isn't public
+ *
+ * @author NYC Opportunity
+ */
+
+if ($post->post_status === 'private' && false === is_user_logged_in()) {
+  wp_redirect('/404');
+
+  exit;
+}
+
+if ($post->post_status === 'draft' && false === is_user_logged_in()) {
+  wp_redirect('/404');
+
+  exit;
+}
+
+/**
+ * Get post ID and translated post ID
+ *
+ * @author NYC Opportunity
+ */
 
 $ID = $post->ID;
 
