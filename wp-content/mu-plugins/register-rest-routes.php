@@ -73,8 +73,8 @@ add_action('rest_api_init', function() {
         $data = [];
 
         $query = array(
-          'public' => true,
-          '_builtin' => false
+          '_builtin' => false,
+          'show_in_rest' => true
         );
 
         // Get public taxonomies and build our initial assoc. array

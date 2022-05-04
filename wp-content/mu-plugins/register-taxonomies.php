@@ -20,8 +20,8 @@ add_action('init', function() {
       'name' => __('Services', 'WNYC'),
       'singular_name' => __('Service', 'WNYC')
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -32,7 +32,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => true,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'services',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -51,8 +51,8 @@ add_action('init', function() {
       'name' => __('People served', 'WNYC'),
       'singular_name' => __('People served', 'WNYC'),
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -63,7 +63,7 @@ add_action('init', function() {
       'with_front' => true,
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'populations',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -82,8 +82,8 @@ add_action('init', function() {
       'name' => __('Sectors', 'WNYC'),
       'singular_name' => __('Sector', 'WNYC'),
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -94,7 +94,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'sectors',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -113,8 +113,8 @@ add_action('init', function() {
       'name' => __('Recruitment statuses', 'WNYC'),
       'singular_name' => __('Recruitment status', 'WNYC')
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -125,7 +125,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => true,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'recruitment_status',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -144,8 +144,8 @@ add_action('init', function() {
       'name' => __('Salary types', 'WNYC'),
       'singular_name' => __('Salary type', 'WNYC'),
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -156,7 +156,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'salary',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -175,8 +175,8 @@ add_action('init', function() {
       'name' => __('Schedules', 'WNYC'),
       'singular_name' => __('Schedule', 'WNYC')
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -187,7 +187,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'schedule',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -206,8 +206,8 @@ add_action('init', function() {
       'name' => __('Durations', 'WNYC'),
       'singular_name' => __('Duration', 'WNYC'),
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -218,7 +218,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'duration',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -237,8 +237,8 @@ add_action('init', function() {
       'name' => __('Locations', 'WNYC'),
       'singular_name' => __('Location', 'WNYC')
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -249,7 +249,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'locations',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -268,8 +268,8 @@ add_action('init', function() {
       'name' => __('Sources', 'WNYC'),
       'singular_name' => __('Source', 'WNYC'),
     ),
-    'public' => true, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -280,7 +280,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => true,
-    'show_in_rest' => true,
+    'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'source',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -299,8 +299,8 @@ add_action('init', function() {
       'name' => __('Agency providers', 'WNYC'),
       'singular_name' => __('Agency provider', 'WNYC'),
     ),
-    'public' => false, // Use this to show in the front-end filters
-    'publicly_queryable' => true,
+    'public' => false,
+    'publicly_queryable' => false,
     'hierarchical' => true,
     'show_ui' => true,
     'show_in_menu' => true,
@@ -311,7 +311,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true,
+    'show_in_rest' => false, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'agency',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
