@@ -1,7 +1,7 @@
 <article class="c-card">
   <header class="c-card__header">
-    <a class="block" data-js="job-{{ post.id }}" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
-      <h3 class="c-card__title mt-0 mb-2">{{ post.cardTitle }}</h3>
+    <a class="c-card__header-link" data-js="job-{{ post.id }}" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
+      <h3 class="c-card__title">{{ post.cardTitle }}</h3>
     </a>
 
     <p class="c-card__subtitle text-alt mb-1">

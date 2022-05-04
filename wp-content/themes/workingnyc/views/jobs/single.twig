@@ -4,17 +4,25 @@
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
     <div class="layout-content sticky top-0 bg-scale-1 z-10">
+      {% if (post.job_learn_more or post.job_apply) %}
+      {% set cta = '#learn-more-and-apply' %}
+      {% endif %}
+
+      {% if (post.instructions) %}
+      {% set cta = '#application-instructions' %}
+      {% endif %}
+
       {% include ['components/utility-nav.twig'] with {
         return: {
           'label': __('Jobs', 'WNYC'),
           'link': jobs_archive
         },
-        cta: [
+        cta: (cta) ? [
           {
             'label': __('Apply', 'WNYC'),
-            'link': '#application-instructions'
+            'link': cta
           }
-        ],
+        ] : [],
         web_share: {
           'title': post.program_title,
           'text': (post.web_share_text) ? post.web_share_text : '',
@@ -27,13 +35,6 @@
     <div class="layout-content">
       <header class="o-header">
         <div class="w-full">
-          <h1 class="o-header__title">{{ post.title }}</h1>
-
-          <h2 class="o-header__subtitle">
-            {% if post.sector %}<b>{{ post.sector }}</b>{% endif %}
-            {% if post.sector and post.organization %}<span>{{ __('with', 'WNYC') }} </span>{% endif %}
-            {% if post.organization %}<span>{{ post.organization }}</span>{% endif %}
-          </h2>
 
           {% include 'components/breadcrumbs.twig' with {
             crumbs: [
@@ -47,6 +48,14 @@
               }
             ]
           } %}
+
+          <h1 class="o-header__title">{{ post.title }}</h1>
+
+          <h2 class="o-header__subtitle">
+            {% if post.sector %}<b>{{ post.sector }}</b>{% endif %}
+            {% if post.sector and post.organization %}<span>{{ __('with', 'WNYC') }} </span>{% endif %}
+            {% if post.organization %}<span>{{ post.organization }}</span>{% endif %}
+          </h2>
 
           {% if post.schedule %}<p class="small flex items-center">
             <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
@@ -88,8 +97,8 @@
             {{ __('Last updated', 'WNYC') }} {{ modified_date }}
           </p>
 
-          {% if post.instructions %}<div class="pt-3">
-            <a href="#application-instructions" class="btn btn-secondary w-full">{{ __('Apply', 'WNYC') }}</a>
+          {% if cta %}<div class="pt-3">
+            <a href="{{ cta }}" class="btn btn-secondary w-full">{{ __('Apply', 'WNYC') }}</a>
           </div>{% endif %}
         </div>
       </header>
@@ -103,7 +112,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="description">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex flex-shrink-0 mie-1" href="#description">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#description" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Description', 'WNYC') }}</title>
 
@@ -122,7 +131,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="requirements">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex flex-shrink-0 mie-1" href="#requirements">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#requirements" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Requirements', 'WNYC') }}</title>
 
@@ -142,7 +151,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="application-instructions">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex flex-shrink-0 mie-1" href="#application-instructions">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#application-instructions" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Application Instructions', 'WNYC') }}</title>
 
@@ -157,33 +166,53 @@
           {{ post.instructions }}
         </section>
         {% endif %}
+
+        {% if post.job_learn_more == '' and post.job_apply == '' %}
+        <div class="pb-8"></div>
+        {% endif %}
       </div>
     </div>
 
     {# Links #}
     {% if post.job_learn_more or post.job_apply %}
-    <section class="layout-content bg-scale-1 py-4 pb-8" id="contact">
-      <nav class="wrap grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
-        {% if post.job_learn_more %}
-        <a class="btn btn-secondary w-full" href="{{ post.job_learn_more }}" target="_blank" rel="noopener nofollow">
-          <span>{{ __('Learn More', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} {{ post.post_title }}</span></span>
+    <section class="layout-content bg-scale-1 pb-8">
+      <div class="wrap">
+        <div class="pt-utility-anchor" id="learn-more-and-apply">
+          <h3 class="h5 flex items-center mb-3 text-alt pb-2 tablet:pb-3">
+            <a class="link-anchor flex flex-shrink-0 mie-1" href="#learn-more-and-apply" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
+              <svg class="icon-wnyc-ui" role="img">
+                <title>{{ __('Learn More and Apply', 'WNYC') }}</title>
 
-          <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-            <use href="#feather-external-link"></use>
-          </svg>
-        </a>
-        {% endif %}
+                <use href="#feather-clipboard"></use>
+              </svg>
+            </a>
 
-        {% if post.job_apply %}
-        <a class="btn btn-secondary w-full" href="{{ post.job_apply }}" target="_blank" rel="noopener nofollow">
-          <span>{{ __('See the full job post and apply', 'WNYC') }} <span class="sr-only">{{ __('to', 'WNYC') }} {{ post.post_title }}</span></span>
+            {{ __('Learn More and Apply', 'WNYC') }}
+          </h3>
+        </div>
 
-          <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-            <use href="#feather-external-link"></use>
-          </svg>
-        </a>
-        {% endif %}
-      </nav>
+        <nav class="grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
+          {% if post.job_learn_more %}
+          <a class="btn btn-secondary w-full" href="{{ post.job_learn_more }}" target="_blank" rel="noopener nofollow">
+            <span>{{ __('Learn More', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} {{ post.post_title }}</span></span>
+
+            <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+              <use href="#feather-external-link"></use>
+            </svg>
+          </a>
+          {% endif %}
+
+          {% if post.job_apply %}
+          <a class="btn btn-secondary w-full" href="{{ post.job_apply }}" target="_blank" rel="noopener nofollow">
+            <span>{{ __('Full Job Post and Apply', 'WNYC') }} <span class="sr-only">{{ __('to', 'WNYC') }} {{ post.post_title }}</span></span>
+
+            <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+              <use href="#feather-external-link"></use>
+            </svg>
+          </a>
+          {% endif %}
+        </nav>
+      </div>
     </section>
     {% endif %}
 

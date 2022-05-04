@@ -27,10 +27,10 @@
     <div class="layout-content">
       <header class="o-header">
         <div class="w-full">
-          <h1 class="o-header__title">{{ post.program_title }}</h1>
+          <h1 class="o-header__title">{{ post.program_plain_language_title }}</h1>
 
           <h2 class="o-header__subtitle">
-            <b>{{ post.title }}</b> {{ __('by', 'WNYC') }} {% if post.program_provider and post.program_agency %}{{ post.program_agency }} | {{ post.program_provider }}{% else %}{{ post.program_provider }}{{ post.program_agency }}{% endif %}
+            <b>{{ post.program_title }}</b> {{ __('by', 'WNYC') }} {% if post.program_provider and post.program_agency %}{{ post.program_agency }} | {{ post.program_provider }}{% else %}{{ post.program_provider }}{{ post.program_agency }}{% endif %}
           </h2>
 
           {% include 'components/breadcrumbs.twig' with {
@@ -175,7 +175,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="eligibility">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex flex-shrink-0 mie-1" href="#eligibility">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#eligibility" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Who it\'s for', 'WNYC') }}</title>
 
@@ -195,7 +195,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="schedule">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex flex-shrink-0 mie-1" href="#schedule">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#schedule" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Duration and Length', 'WNYC') }}</title>
 
@@ -215,7 +215,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="disability-accommodation">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex flex-shrink-0 mie-1" href="#disability-accommodation">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#disability-accommodation" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
                 <svg class="icon" role="img">
                   <title>{{ __('Disability Accommodation', 'WNYC') }}</title>
 
@@ -235,7 +235,7 @@
         <section>
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="language-access">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
-              <a class="link-anchor flex flex-shrink-0 mie-1" href="#language-access">
+              <a class="link-anchor flex flex-shrink-0 mie-1" href="#language-access" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
                 <svg class="icon-wnyc-ui" role="img">
                   <title>{{ __('Language Access', 'WNYC') }}</title>
 

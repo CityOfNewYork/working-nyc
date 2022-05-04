@@ -45,7 +45,6 @@
 
     {% block header %}
       {% include 'objects/navigation.twig' %}
-      {% include 'objects/menu.twig' %}
       {% include 'objects/text-controller.twig' %}
     {% endblock %}
 
@@ -61,8 +60,6 @@
 
     {# SVG Sprite Paths #}
     <div data-js="sprites" data-wnyc="{{ sprites.wnyc }}" data-feather="{{ sprites.feather }}" aria-hidden="true" style="display: none;"></div>
-
-    {# {{ function('enqueue_script', 'global') }} #}
 
     {{ wp_footer }}
 

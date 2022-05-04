@@ -90,7 +90,7 @@ class Programs extends Timber\Post {
    * @return  String  The plain language title
    */
   public function getPlainLanguageTitle() {
-    return $this->post_title;
+    return $this->custom['program_title'];
   }
 
   /**
@@ -99,7 +99,7 @@ class Programs extends Timber\Post {
    * @return  String  The program title
    */
   public function getTitle() {
-    return $this->custom['program_title'];
+    return $this->post_title;
   }
 
   /**
@@ -121,11 +121,11 @@ class Programs extends Timber\Post {
     $recruiting = get_the_terms($this->ID, 'recruitment_status');
 
     $disability = array(
-      'name' => __('Disability accommodation details are available.', 'WNYC')
+      'name' => __('Disability accommodation details are available. View this program to learn more.', 'WNYC')
     );
 
     $language = array(
-      'name' => __('Language access details are available.', 'WNYC')
+      'name' => __('Language access details are available. View this program to learn more.', 'WNYC')
     );
 
     $s = array(

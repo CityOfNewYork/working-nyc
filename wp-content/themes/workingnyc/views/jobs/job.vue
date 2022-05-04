@@ -1,8 +1,8 @@
 <template>
   <article class="c-card">
     <header class="c-card__header">
-      <a class="block" :data-js="'post-' + post.id" :href="post.link">
-        <h3 class="c-card__title mt-0 mb-2" v-html="post.context.cardTitle"></h3>
+      <a class="c-card__header-link" :data-js="'post-' + post.id" :href="post.link">
+        <h3 class="c-card__title" v-html="post.context.cardTitle"></h3>
       </a>
 
       <p class="c-card__subtitle text-alt mb-1">

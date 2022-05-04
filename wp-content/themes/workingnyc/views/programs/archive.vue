@@ -78,12 +78,6 @@
       <div class="page-max">
         <header class="o-header">
           <div>
-            <h1 class="o-header__title">{{ strings.PAGE_TITLE }}</h1>
-
-            <!-- <h2 class="o-header__subtitle" v-if="checkedFilters.length">Exploring <span v-for="f, i in checkedFilters"><span v-if="checkedFilters.length > 1 && i == checkedFilters.length - 1">and </span>v{ f.name }<span v-if="checkedFilters.length > 2 && i < checkedFilters.length - 1">,</span><span v-if="i == checkedFilters.length - 1">.</span><span v-else>&nbsp;</span></span></h2> -->
-
-            <div class="mb-3" v-if="strings.PAGE_CONTENT" v-html="strings.PAGE_CONTENT"></div>
-
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
               <a href="/">{{ strings.HOME }}</a>
 
@@ -93,6 +87,12 @@
 
               <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
             </nav>
+
+            <h1 class="o-header__title">{{ strings.PAGE_TITLE }}</h1>
+
+            <!-- <h2 class="o-header__subtitle" v-if="checkedFilters.length">Exploring <span v-for="f, i in checkedFilters"><span v-if="checkedFilters.length > 1 && i == checkedFilters.length - 1">and </span>v{ f.name }<span v-if="checkedFilters.length > 2 && i < checkedFilters.length - 1">,</span><span v-if="i == checkedFilters.length - 1">.</span><span v-else>&nbsp;</span></span></h2> -->
+
+            <div class="mb-3" v-if="strings.PAGE_CONTENT" v-html="strings.PAGE_CONTENT"></div>
           </div>
         </header>
       </div>
@@ -102,9 +102,9 @@
       <div class="wrap desktop:px-6" v-if="!loading">
         <h2 class="text-p font-p inline-block" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
           <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
-
-          <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button>
         </h2>
+
+        <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button>
 
         <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
           <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>

@@ -1,8 +1,8 @@
 <template>
   <article class="c-card">
     <header class="c-card__header">
-      <a class="block" :data-js="'post-' + post.id" :href="post.link">
-        <h3 class="c-card__title mt-0 mb-2" v-html="post.context.program_plain_language_title"></h3>
+      <a class="c-card__header-link" :data-js="'post-' + post.id" :href="post.link">
+        <h3 class="c-card__title" v-html="post.context.program_plain_language_title"></h3>
       </a>
 
       <p class="c-card__subtitle text-alt mb-1">
@@ -15,8 +15,8 @@
     <div class="c-card__body">
       <p class="c-card__status flex items-center" v-if="post.status">
         <mark class="badge mie-2" data-program="recruiting" v-if="post.context.status.recruiting">
-          {{ post.context.status.recruiting.name }}
-        </mark> <span v-if="post.context.status.recruiting" class="sr-only">&nbsp;</span>
+          {{ post.context.status.recruiting.name }}<span class="sr-only">.</span>
+        </mark>
 
         <span class="flex mie-2" :title="post.context.status.disability.name" v-if="post.context.status.disability">
           <svg aria-hidden="true" class="icon text-em">

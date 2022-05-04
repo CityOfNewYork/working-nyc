@@ -27,7 +27,7 @@
       <use data-js-themes="icon" href="#feather-sun"></use>
     </svg>
 
-    <span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
+    <span class="sr-only">Toggle&nbsp;</span><span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
   </button>
 
   <button aria-controls="aria-c-text-controller" aria-expanded="false" class="o-navigation__menu-item desktop:m-0" data-dialog="open" data-dialog-lock="true" data-js="dialog">
@@ -45,4 +45,6 @@
 
     <span class="o-navigation__menu-label">{{ __('Menu', 'WNYC') }}</span>
   </button>
+
+  {% include 'objects/menu.twig' %}
 </nav>

@@ -1,7 +1,7 @@
 <article class="c-card h-full {{ post.classes }}">
   <header class="c-card__header">
-    <a href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
-      <h3 class="c-card__title mt-0 mb-2">{{ post.program_plain_language_title }}</h3>
+    <a class="c-card__header-link" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener nofollow"{% endif %}>
+      <h3 class="c-card__title">{{ post.program_plain_language_title }}</h3>
     </a>
 
     <p class="c-card__subtitle text-alt mb-1">
@@ -12,8 +12,8 @@
   <div class="c-card__body">
     {% if post.status %}<p class="c-card__status flex items-center">
       {% if post.status.recruiting %}<mark class="badge mie-2" data-program="recruiting">
-        {{ post.status.recruiting.name }}
-      </mark> <span class="sr-only">&nbsp;</span>{% endif %}
+        {{ post.status.recruiting.name }}<span class="sr-only">.</span>
+      </mark>{% endif %}
 
       {% if post.status.disability %}<span class="flex mie-2" data-program="accessible" title="{{ post.status.disability.name }}">
         <svg aria-hidden="true" class="icon text-em">
