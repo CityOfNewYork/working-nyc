@@ -48,5 +48,22 @@ add_filter('query_vars', function($vars) {
   array_push($vars, $prefix . 'src'); // source
   array_push($vars, $prefix . 'sal'); // salary
 
+  /**
+   * These need to be added to support mapping the previous /programs archive
+   * query variables to the new variable set up. The Questionnaire on the
+   * homepage uses the old query variables to filter results.
+   *
+   * @author NYC Opportunity
+   */
+
+  array_push($vars, 'services');
+  array_push($vars, 'populations');
+  array_push($vars, 'sectors');
+  array_push($vars, 'recruitment_status');
+  array_push($vars, 'schedule');
+  array_push($vars, 'duration');
+  array_push($vars, 'locations');
+  array_push($vars, 'agency');
+
   return $vars;
 });
