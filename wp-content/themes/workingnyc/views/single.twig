@@ -21,8 +21,6 @@
     <div class="layout-content">
       <header class="o-header">
         <div>
-          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
-
           {% include 'components/breadcrumbs.twig' with
             {
               crumbs: [
@@ -33,19 +31,23 @@
               ]
             }
           %}
+
+          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
         </div>
       </header>
     </div>
 
-    <section class="bg-scale-2 layout-content">
+    {% if sitemap %}<section class="bg-scale-2 layout-content">
       <div class="py-4 wrap">
-        {% if sitemap %}
-          {% include 'sitemap.twig'%}
-        {% elseif post.content %}
-          {{ post.content }}
-        {% endif %}
+        {% include 'sitemap.twig'%}
       </div>
     </section>
+    {% elseif post.content %}
+    <section class="bg-scale-2 layout-content">
+      <div class="py-4 wrap">
+        {{ post.content }}
+      </div>
+    </section>{% endif %}
 
     {% if options.feedback is defined %}
     {% include 'objects/feedback.twig' %}

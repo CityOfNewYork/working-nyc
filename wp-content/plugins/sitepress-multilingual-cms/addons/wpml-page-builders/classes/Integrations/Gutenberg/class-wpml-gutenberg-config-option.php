@@ -30,7 +30,7 @@ class WPML_Gutenberg_Config_Option {
 			}
 		}
 
-		update_option( self::OPTION, $blocks );
+		update_option( self::OPTION, $blocks, 'no' );
 	}
 
 	/**

@@ -41,13 +41,13 @@
       </header>
     </div>
 
-    <section class="bg-scale-2 clearfix">
+    {% if post.content %}<section class="bg-scale-2 clearfix">
       <div class="layout-content pt-utility-anchor pb-8 mb-8">
         <div class="py-4 wrap">
-          {% if post.content %}{{ post.content }}{% endif %}
+          {{ post.content }}
         </div>
       </div>
-    </section>
+    </section>{% endif %}
 
     {% if options.feedback is defined %}
     {% include 'objects/feedback.twig' %}

@@ -24,8 +24,8 @@ if (class_exists('Whoops\Run')) {
  * Shorthand for debug logging. Supports native debug log and query monitor
  * logging.
  *
- * @param   String   $str     The string to log.
- * @param   Boolean  $return  Wether to make it human readable.
+ * @param  String   $str     The string to log.
+ * @param  Boolean  $return  Wether to make it human readable.
  *
  * @author NYC Opportunity
  */
@@ -90,7 +90,6 @@ activate_plugin('redis-cache/redis-cache.php');
  */
 
 activate_plugin('query-monitor/query-monitor.php');
-activate_plugin('query-monitor-twig-profile/query-monitor-twig-profile.php');
 
 /**
  * Allow local development requests
@@ -105,3 +104,13 @@ add_filter('allowed_http_origins', function($origins) {
 
   return $origins;
 });
+
+/**
+ * Enable seamless logging in to the WordPress Admin.
+ *
+ * @author NYC Opportunity
+ */
+
+if (file_exists(WPMU_PLUGIN_DIR . '/wp-login/login.php')) {
+  require_once WPMU_PLUGIN_DIR . '/wp-login/login.php';
+}

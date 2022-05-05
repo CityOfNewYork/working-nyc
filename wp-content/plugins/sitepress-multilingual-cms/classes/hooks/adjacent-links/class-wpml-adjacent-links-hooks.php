@@ -90,16 +90,6 @@ class WPML_Adjacent_Links_Hooks implements IWPML_Action {
 
 	/** @return string */
 	private function get_current_post_type() {
-		$post_type = get_query_var( 'post_type' );
-
-		if ( ! $post_type ) {
-			$post_type = get_post_type();
-		}
-
-		if ( ! $post_type ) {
-			$post_type = 'post';
-		}
-
-		return $post_type;
+		return get_post_type() ?: 'post';
 	}
 }

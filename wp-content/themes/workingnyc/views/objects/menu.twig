@@ -4,24 +4,24 @@
       <use data-js-themes="icon" href="#feather-sun"></use>
     </svg>
 
-    <span data-js-themes="label">{{ __('Theme', 'WNYC - Navigation') }}</span>
+    <span class="sr-only">Toggle&nbsp;</span><span data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
   </button>
 
   <div class="mb-auto">
-    <nav aria-label="{{ __('Menu', 'WNYC - Navigation') }}" class="o-menu__nav">
-      <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC - Navigation') }}</a>
+    <button class="o-menu__nav-item flex items-center" aria-controls="aria-c-menu" data-js="menu" data-js-menu="close" tabindex="-1">
+      <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
+        <use href="#feather-x"></use>
+      </svg>
+
+      <span>{{ __('Close', 'WNYC') }}</span>
+    </button>
+
+    <nav aria-label="{{ __('Menu', 'WNYC') }}" class="o-menu__nav">
+      <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC') }}</a>
 
       {% for menu_item in header_menu.get_items %}
       <a class="o-menu__nav-item" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
       {% endfor %}
     </nav>
-
-    <button class="o-menu__nav-item flex items-center" aria-haspopup="menu" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="close" tabindex="-1">
-      <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-        <use href="#feather-x"></use>
-      </svg>
-
-      <span>{{ __('Close', 'WNYC - Navigation') }}</span>
-    </button>
   </div>
 </aside>

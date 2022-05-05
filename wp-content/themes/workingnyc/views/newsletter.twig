@@ -21,8 +21,6 @@
     <div class="layout-content">
       <header class="o-header">
         <div>
-          <h1 class="o-header__title">{{ post.title }}</h1>
-
           {% include 'components/breadcrumbs.twig' with {
               crumbs: [
                 {
@@ -32,6 +30,8 @@
               ]
             }
           %}
+
+          <h1 class="o-header__title">{{ post.title }}</h1>
         </div>
       </header>
     </div>

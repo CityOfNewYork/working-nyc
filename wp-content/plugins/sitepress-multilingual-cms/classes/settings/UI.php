@@ -35,6 +35,7 @@ class UI implements \IWPML_Backend_Action {
 				'shouldTranslateEverything' => Option::shouldTranslateEverything(),
 				'settingsUrl'               => admin_url( UIPage::getSettings() ),
 				'existingPostTypes'         => PostTypes::getOnlyTranslatable(),
+				'isTMLoaded'                => ! wpml_is_setup_complete() || Option::isTMAllowed(),
 			]
 		];
 	}

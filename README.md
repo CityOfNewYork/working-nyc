@@ -1,6 +1,6 @@
 # Working NYC
 
-![](open-graph.png)
+![Image of person using the Working NYC website with their phone.](open-graph.png)
 
 [Working NYC](https://working.nyc.gov) helps New Yorkers connect to the services and resources they need to find a new or better job. The site accommodates NYC residents...
 

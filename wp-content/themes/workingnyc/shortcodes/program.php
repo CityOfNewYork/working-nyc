@@ -21,7 +21,7 @@ class Program extends Shortcode {
   public $tag = 'program';
 
   /** The path to the Timber Component */
-  public $template = 'components/program.twig';
+  public $template = 'programs/program.twig';
 
   /** The shortcode hint for the selector dropdown */
   public $hint = 'id=""';
@@ -36,9 +36,13 @@ class Program extends Shortcode {
    * @return  String                  A compiled component string
    */
   public function shortcode($atts, $content, $shortcode_tag) {
-    require_once WorkingNYC\timber_post('Program');
+    require_once WorkingNYC\timber_post('Programs');
 
-    $post = new \WorkingNYC\Program($atts['id']);
+    $post = new \WorkingNYC\Programs($atts['id']);
+
+    if (null === $post->id) {
+      return "<!-- A program with the ID $post->ID does not exist -->";
+    }
 
     if (isset($atts['learn-more'])) {
       $post->link = $atts['learn-more'];
@@ -50,8 +54,6 @@ class Program extends Shortcode {
 
     $post->classes = 'mb-4';
 
-    return (null === $post->id) ?
-      "<!-- A post with the ID $post->ID does not exist -->" :
-      Timber::compile($this->template, array('post' => $post));
+    return Timber::compile($this->template, array('post' => $post));
   }
 }

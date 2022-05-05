@@ -1,7 +1,7 @@
 {
   "name": "nyco/working-nyc",
   "description": "Find and connect to services and resources that can help you prepare for and get a job.",
-  "version": "1.8.2",
+  "version": "1.9.6",
   "authors": [
     {
       "name": "NYC Opportunity",
@@ -18,12 +18,12 @@
   "require": {
     "nyco/wp-assets": "^1.4",
     "nyco/wp-config": "^1",
-    "spatie/schema-org": "^3",
+    "nyco/wp-gc-templates-sync": "^0.0.2",
+    "spatie/schema-org": "3.8.0",
     "timber/timber": "^1",
     "wpackagist-plugin/acf-to-rest-api": "*",
     "wpackagist-plugin/adminimize": "*",
     "wpackagist-plugin/aryo-activity-log": "*",
-    "wpackagist-plugin/custom-post-type-ui": "*",
     "wpackagist-plugin/gathercontent-import": "3.1.14",
     "wpackagist-plugin/google-authenticator": "*",
     "wpackagist-plugin/limit-login-attempts-reloaded": "*",
@@ -31,7 +31,7 @@
     "wpackagist-plugin/members": "*",
     "wpackagist-plugin/rollbar": "*",
     "wpackagist-plugin/simple-custom-post-order": "*",
-    "wpackagist-plugin/taxonomy-terms-order": "*",
+    "wpackagist-plugin/wordpress-importer": "*",
     "wpackagist-plugin/wp-all-export": "*",
     "wpackagist-plugin/wp-all-import": "*",
     "wpackagist-plugin/wp-bitly": "*",
@@ -41,11 +41,11 @@
   },
   "require-dev": {
     "filp/whoops": "*",
+    "nyco/wp-login": "^0.0.1",
     "squizlabs/php_codesniffer": "*",
     "whoops/soap": "*",
     "wpackagist-plugin/query-monitor": "*",
     "wpackagist-plugin/redis-cache": "*",
-    "wpackagist-plugin/wp-auto-login": "*",
     "wpackagist-plugin/wp-crontrol": "*"
   },
   "scripts": {

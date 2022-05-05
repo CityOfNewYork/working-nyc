@@ -18,9 +18,17 @@ class WPML_Translation_Modes {
 		);
 	}
 
+	public function get_options_for_post_type( $post_type_label ) {
+		return [
+			WPML_CONTENT_TYPE_DONT_TRANSLATE           => sprintf( __( "Do not make '%s' translatable", 'sitepress' ), $post_type_label ),
+			WPML_CONTENT_TYPE_TRANSLATE                => sprintf( __( "Make '%s' translatable", 'sitepress' ), $post_type_label ),
+			WPML_CONTENT_TYPE_DISPLAY_AS_IF_TRANSLATED => sprintf( __( "Make '%s' appear as translated", 'sitepress' ), $post_type_label ),
+		];
+	}
+
 	public function get_options() {
 		$formatHeading = function ( $a, $b ) {
-			return $a . '<br/><span class="explanation-text">' . $b . '</span>';
+			return $a . "<br/><span class='explanation-text'>" . $b . '</span>';
 		};
 
 		return [

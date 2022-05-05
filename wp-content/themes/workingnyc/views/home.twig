@@ -42,7 +42,7 @@
           <div class="scroll py-3 scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:pb-0 tablet:grid tablet:grid-cols-2 tablet:gap-3 desktop:gap-5 tablet:px-3 desktop:px-6">
             {% for featured in section.featured_posts_objects %}
             <div class="wrap-start {% if loop.last %}wrap-end{% endif %} transform-none tablet:p-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-              {% include ['components/program.twig'] with {
+              {% include [ featured.post_type ~ '/' ~ featured.singular ~ '.twig'] with {
                 post: featured
               } %}
             </div>
@@ -50,14 +50,15 @@
           </div>
         </div>
 
+        {% if section.featured_posts_archive %}
         <div class="layout-content">
           <div class="wrap tablet:py-6">
-            <a class="btn btn-secondary light:btn-primary btn-next flex w-full" href="{{ programs_archive }}">
+            <a class="btn btn-secondary light:btn-primary btn-next flex w-full" href="{{ section.featured_posts_archive.link }}">
               <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
                 <use href="#feather-arrow-left"></use>
               </svg>
 
-              <span>{{ __('See all programs', 'WNYC') }}</span>
+              <span>{{ section.featured_posts_archive.label }}</span>
 
               <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
                 <use href="#feather-arrow-right"></use>
@@ -65,6 +66,7 @@
             </a>
           </div>
         </div>
+        {% endif %}
       </div>
     </section>
     {% endfor %}

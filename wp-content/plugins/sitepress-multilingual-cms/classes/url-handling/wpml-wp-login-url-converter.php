@@ -6,6 +6,8 @@ use WPML\Element\API\Languages;
 use WPML\FP\Obj;
 use WPML\FP\Relation;
 use WPML\FP\Str;
+use WPML\LIB\WP\Option;
+use WPML\LIB\WP\User;
 
 class WPLoginUrlConverter implements \IWPML_Action {
 	const PRIORITY_AFTER_URL_FILTERS = 100;
@@ -30,9 +32,9 @@ class WPLoginUrlConverter implements \IWPML_Action {
 	}
 
 	public function add_hooks() {
-
 		add_filter( 'site_url', [ $this, 'site_url' ], self::PRIORITY_AFTER_URL_FILTERS, 3 );
 		add_filter( 'login_url', [ $this, 'convert_url' ] );
+
 		add_filter( 'register_url', [ $this, 'convert_url' ] );
 		add_filter( 'lostpassword_url', [ $this, 'convert_url' ] );
 		add_filter( 'request', [ $this, 'on_request' ] );
@@ -48,6 +50,11 @@ class WPLoginUrlConverter implements \IWPML_Action {
 		add_filter( 'registration_redirect', [ $this, 'filter_redirect_with_lang' ] );
 		add_filter( 'lostpassword_redirect', [ $this, 'filter_redirect_with_lang' ] );
 
+		if ( self::isEnabled() ) {
+			add_filter( 'logout_url', [ $this, 'convert_user_logout_url' ] );
+			add_filter( 'logout_redirect', [ $this, 'convert_default_redirect_url' ], 2, 10 );
+		}
+
 		add_action( 'generate_rewrite_rules', [ $this, 'generate_rewrite_rules' ] );
 		add_action( 'login_init', [ $this, 'redirect_to_login_url_with_lang' ] );
 
@@ -59,15 +66,36 @@ class WPLoginUrlConverter implements \IWPML_Action {
 		}
 	}
 
+	/**
+	 * Converts the logout URL to be translated.
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	public function convert_user_logout_url( $url ) {
+		$current_user_id = User::getCurrentId();
+		if ( $current_user_id ) {
+			$user_locale = User::getMetaSingle( $current_user_id, 'locale' );
+			if ( ! empty( $user_locale ) ) {
+				$language_code = $this->sitepress->get_language_code_from_locale( $user_locale );
+				return $this->url_converter->convert_url( $url, $language_code );
+			}
+		}
+		return $url;
+	}
+
 	public function add_signup_language_field() {
 		echo "<input type='hidden' name='lang' value='" . $this->sitepress->get_current_language() . "' />";
 	}
 
 	public function redirect_to_login_url_with_lang() {
-		$converted_url = site_url( $_SERVER['REQUEST_URI'], 'login' );
+		$sitePath              = Obj::propOr( '', 'path', parse_url( site_url() ) );
+		$requestUriWithoutPath = Str::trimPrefix( $sitePath, $_SERVER['REQUEST_URI'] );
+
+		$converted_url = site_url( $requestUriWithoutPath, 'login' );
 		if (
 			! is_multisite()
-			&& $converted_url != site_url( $_SERVER['REQUEST_URI'] )
+			&& $converted_url != site_url( $requestUriWithoutPath )
 			&& wp_redirect( $converted_url, 302, 'WPML' )
 		) {
 			exit;
@@ -84,6 +112,21 @@ class WPLoginUrlConverter implements \IWPML_Action {
 		);
 
 		$wp_rewrite->non_wp_rules = array_merge( $language_rules->toArray(), $wp_rewrite->non_wp_rules );
+	}
+
+	/**
+	 * Converts the redirected string if it's the default one.
+	 *
+	 * @param string $redirect_to
+	 * @param string $requested_redirect_to
+	 * @return string
+	 */
+	public function convert_default_redirect_url( $redirect_to, $requested_redirect_to ) {
+		if ( '' === $requested_redirect_to ) {
+			return $this->convert_url( $redirect_to );
+		}
+
+		return $redirect_to;
 	}
 
 	public function filter_redirect_with_lang( $redirect_to ) {
@@ -146,14 +189,38 @@ class WPLoginUrlConverter implements \IWPML_Action {
 		return $query_vars;
 	}
 
+	public static function enable() {
+		self::saveState( true );
+	}
+
+	public static function disable() {
+		self::saveState( false );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public static function isEnabled() {
+		return Option::getOr( self::SETTINGS_KEY, false );
+	}
+
+	/**
+	 * @param bool $state
+	 *
+	 */
+	public static function saveState( $state ) {
+		Option::update( self::SETTINGS_KEY, $state );
+		WPLoginUrlConverterRules::markRulesForUpdating();
+	}
+
 	private function should_convert_url_for_multisite( $url ) {
 		return is_multisite() && Str::includes( 'wp-activate.php', $url );
 	}
 
 	private function is_wp_login_url( $url ) {
 		return Str::includes( 'wp-login.php', $url )
-			   || Str::includes( 'wp-signup.php', $url )
-			   || Str::includes( 'wp-activate.php', $url );
+		       || Str::includes( 'wp-signup.php', $url )
+		       || Str::includes( 'wp-activate.php', $url );
 
 	}
 

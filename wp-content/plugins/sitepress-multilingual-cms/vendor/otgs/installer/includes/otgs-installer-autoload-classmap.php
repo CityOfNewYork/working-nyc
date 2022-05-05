@@ -109,6 +109,7 @@ return [
 	'OTGS\Installer\Settings'                                      => $baseDir . '/includes/class-otgs-installer-settings.php',
 	'OTGS\Installer\CommercialTab\SectionsManager'                 => $baseDir . '/includes/products/commercial-tab/SectionsManager.php',
 	'OTGS\Installer\CommercialTab\DownloadsList'                   => $baseDir . '/includes/products/commercial-tab/DownloadsList.php',
+	'OTGS\Installer\CommercialTab\DownloadFilter'                  => $baseDir . '/includes/products/commercial-tab/DownloadFilter.php',
 	'OTGS\Installer\Upgrade\AutoUpgrade'                           => $baseDir . '/includes/upgrade/AutoUpgrade.php',
 	'OTGS\Installer\Upgrade\InstallerPlugins'                      => $baseDir . '/includes/upgrade/InstallerPlugins.php',
 ];

@@ -4,6 +4,7 @@ use WPML\FP\Fns;
 use WPML\FP\Logic;
 use WPML\FP\Obj;
 use WPML\FP\Str;
+use WPML\LIB\WP\Url;
 use function WPML\FP\pipe;
 
 /**
@@ -1383,13 +1384,28 @@ class SitePress extends WPML_WPDB_User implements
 
 		$is_preview    = ( isset( $_POST['wp-preview'] ) && $_POST['wp-preview'] === 'dopreview' ) || is_preview();
 		$is_attachment = in_array( $pagenow, array( 'upload.php', 'media-upload.php' ), true )
-						 || ( $post && 'attachment' === $post->post_type ) || is_attachment();
+		                 || ( $post && 'attachment' === $post->post_type ) || is_attachment();
 
 		if ( $is_attachment || $is_preview ) {
 			return;
 		}
 
+		if ( current_user_can( 'manage_options' ) && \WPML\WP\OptionManager::getOr( false, 'core', 'show_cf_meta_box' ) ) {
+			add_meta_box( 'icl_div_config', __( 'Multilingual Content Setup', 'sitepress' ), array(
+				$this,
+				'meta_box_config'
+			), $post->post_type, 'normal', 'low'
+			);
+		}
+
 		if ( filter_input( INPUT_POST, 'icl_action' ) === 'icl_mcs_inline' ) {
+			$custom_post_type                                             = filter_input( INPUT_POST, 'custom_post' );
+			$translate                                                    = (int) filter_input( INPUT_POST, 'translate' );
+			$iclsettings['custom_posts_sync_option'][ $custom_post_type ] = $translate;
+			if ( $translate ) {
+				$this->verify_post_translations( $custom_post_type );
+			}
+
 			$custom_taxs_off  = (array) filter_input( INPUT_POST, 'custom_taxs_off', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
 			$custom_taxs_on   = (array) filter_input( INPUT_POST, 'custom_taxs_on', FILTER_UNSAFE_RAW, FILTER_REQUIRE_ARRAY );
 			$tax_sync_options = array_merge( array_fill_keys( $custom_taxs_on, 1 ), array_fill_keys( $custom_taxs_off, 0 ) );
@@ -2044,6 +2060,136 @@ class SitePress extends WPML_WPDB_User implements
 		$post_edit_metabox = new WPML_Meta_Boxes_Post_Edit_HTML( $this, $this->post_translation );
 		$post_edit_metabox->render_languages( $post );
 		do_action( 'wpml_post_edit_languages', $post );
+	}
+
+	function meta_box_config( $post ) {
+		/** @var TranslationManagement $iclTranslationManagement */
+		global $iclTranslationManagement, $wp_taxonomies, $wp_post_types, $sitepress_settings;
+		if ( ! $this->settings['setup_complete'] ) {
+			return;
+		}
+
+		$translation_modes = new WPML_Translation_Modes();
+
+		echo '<div class="icl_form_success" style="display:none">' . __( 'Settings saved', 'sitepress' ) . '</div>';
+
+		$cp_editable      = true;
+		$radio_disabled   = '';
+		$translation_mode = WPML_CONTENT_TYPE_DONT_TRANSLATE;
+
+		if ( isset( $sitepress_settings['custom_posts_sync_option'][ $post->post_type ] ) ) {
+			$translation_mode = (int) $sitepress_settings['custom_posts_sync_option'][ $post->post_type ];
+		}
+
+		$read_only_translation_mode = null;
+		if ( array_key_exists( $post->post_type, $iclTranslationManagement->settings['custom-types_readonly_config'] ) ) {
+			$read_only_translation_mode = (int) $iclTranslationManagement->settings['custom-types_readonly_config'][ $post->post_type ];
+		}
+
+		$unlocked = false;
+		if ( isset( $sitepress_settings['custom_posts_unlocked_option'][ $post->post_type ] ) ) {
+			$unlocked = (bool) $sitepress_settings['custom_posts_unlocked_option'][ $post->post_type ];
+		}
+
+		if ( null !== $read_only_translation_mode && ! $unlocked ) {
+			if ( array_key_exists( $post->post_type, $this->get_translatable_documents() ) ) {
+				$translation_mode = $read_only_translation_mode;
+				$radio_disabled   = 'disabled="disabled"';
+			}
+			$cp_editable = false;
+		}
+
+		echo '<ul>';
+
+		foreach ( $translation_modes->get_options_for_post_type( $wp_post_types[ $post->post_type ]->labels->name ) as $value => $label ) {
+			$checked = checked( $value, $translation_mode, false );
+
+			$disabled_state_for_mode = WPML_Custom_Types_Translation_UI::get_disabled_state_for_mode(
+				$unlocked,
+				(bool) $radio_disabled,
+				$value,
+				$post->post_type
+			);
+
+			if ( $disabled_state_for_mode['reason_message'] ) {
+				$label .= ' - ' . $disabled_state_for_mode['reason_message'];
+			}
+			$input_value = esc_attr( $post->post_type ) . ',' . esc_attr( $value );
+			echo '<li>';
+			echo '<label>';
+			echo '<input id="icl_make_translatable' . $input_value . '" name="icl_make_translatable" type="radio" value="' . $input_value . '" ' . $checked . $disabled_state_for_mode['html_attribute'] . '/>';
+			echo '&nbsp;' . wp_kses_post( $label );
+			echo '</label>';
+			echo '</li>';
+		}
+		echo '</ul>';
+
+		echo '<br clear="all" /><span id="icl_mcs_details">';
+		if ( $translation_modes->is_translatable_mode( $translation_mode ) ) {
+			$custom_taxonomies = array_diff( get_object_taxonomies( $post->post_type ), array( 'post_tag', 'category', 'nav_menu', 'link_category', 'post_format' ) );
+			if ( ! empty( $custom_taxonomies ) ) {
+				?>
+				<table class="widefat">
+					<thead>
+					<tr>
+						<th colspan="2"><?php _e( 'Custom taxonomies', 'sitepress' ); ?></th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php foreach ( $custom_taxonomies as $ctax ) : ?>
+						<?php
+						$checked_tax_translate = ! empty( $sitepress_settings['taxonomies_sync_option'][ $ctax ] ) ? ' checked="checked"' : '';
+						$checked_do_nothing    = empty( $sitepress_settings['taxonomies_sync_option'][ $ctax ] ) ? ' checked="checked"' : '';
+						$radio_disabled        = isset( $iclTranslationManagement->settings['taxonomies_readonly_config'][ $ctax ] ) ? ' disabled="disabled"' : '';
+						?>
+						<tr>
+							<td><?php echo $wp_taxonomies[ $ctax ]->labels->name; ?></td>
+							<td align="right">
+								<label><input name="icl_mcs_custom_taxs_<?php echo $ctax; ?>" class="icl_mcs_custom_taxs" type="radio"
+											  value="<?php echo $ctax; ?>" <?php echo $checked_tax_translate; ?><?php echo $radio_disabled; ?> />&nbsp;<?php _e( 'Translate', 'sitepress' ); ?></label>
+								<label><input name="icl_mcs_custom_taxs_<?php echo $ctax; ?>" type="radio" value="0" <?php echo $checked_do_nothing; ?><?php echo $radio_disabled; ?> />&nbsp;<?php _e( 'Do nothing', 'sitepress' ); ?></label>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+					</tbody>
+				</table>
+				<br/>
+				<?php
+			}
+
+			if ( $this->get_wp_api()
+					  ->constant( 'WPML_TM_VERSION' ) ) {
+				$settings_factory                     = $iclTranslationManagement->settings_factory();
+				$settings_factory->show_system_fields = array_key_exists( 'show_system_fields', $_GET ) ? (bool) $_GET['show_system_fields'] : false;
+
+				?>
+				<p>
+					<?php
+					$toggle_system_fields = array(
+						'url'  => add_query_arg( array( 'show_system_fields' => ! $settings_factory->show_system_fields ) ),
+						'text' => $settings_factory->show_system_fields ? __( 'Hide system fields', 'sitepress' ) : __( 'Show system fields', 'sitepress' ),
+					);
+					?>
+					<a href="<?php echo $toggle_system_fields['url']; ?>"><?php echo $toggle_system_fields['text']; ?></a>
+				</p>
+				<?php
+
+				$settings_menu = new WPML_TM_Post_Edit_Custom_Field_Settings_Menu( $settings_factory, $post );
+				echo $settings_menu->render();
+				$custom_keys = $settings_menu->is_rendered();
+			}
+
+			if ( ! empty( $custom_taxonomies ) || ! empty( $custom_keys ) ) {
+				echo '<small>' . __( 'Note: Custom taxonomies and custom fields are shared across different post types.', 'sitepress' ) . '</small>';
+			}
+		}
+		echo '</span>';
+		if ( $cp_editable || ! empty( $custom_taxonomies ) || ! empty( $custom_keys ) ) {
+			echo '<p class="submit" style="margin:0;padding:0"><input class="button-secondary" id="icl_make_translatable_submit" type="button" value="' . __( 'Apply', 'sitepress' ) . '" /></p><br clear="all" />';
+			wp_nonce_field( 'icl_mcs_inline_nonce', '_icl_nonce_imi' );
+		} else {
+			_e( 'Nothing to configure.', 'sitepress' );
+		}
 	}
 
 	/**
@@ -4033,11 +4179,14 @@ class SitePress extends WPML_WPDB_User implements
 	 */
 	function url_to_postid( $url ) {
 
-		if ( strpos( $url, 'wp-login.php' ) !== false
-			 || strpos( $url, '/wp-admin/' ) !== false
-			 || strpos( $url, '/wp-content/' ) !== false ) {
+		if (
+			Url::isLogin( $url )
+			|| Url::isAdmin( $url )
+			|| Url::isContentDirectory( $url )
+		) {
 			return $url;
 		}
+
 
 		$is_language_in_domain = false; // if language negotiation type as lang. in domain
 		$is_translated_domain  = false; // if this url is in secondary language domain

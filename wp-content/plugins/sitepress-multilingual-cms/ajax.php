@@ -1,6 +1,7 @@
 <?php
 
 use WPML\Settings\PostType\Automatic;
+use WPML\UrlHandling\WPLoginUrlConverter;
 
 /**
  * @package wpml-core
@@ -66,16 +67,9 @@ switch ( $request ) {
 		echo 1;
 		break;
 	case 'icl_login_page_translation':
-		update_option(
-			\WPML\UrlHandling\WPLoginUrlConverter::SETTINGS_KEY,
-			filter_input( INPUT_POST, 'login_page_translation', FILTER_VALIDATE_INT )
+		WPLoginUrlConverter::saveState(
+			(bool) filter_input( INPUT_POST, 'login_page_translation', FILTER_VALIDATE_INT )
 		);
-		if ( ! function_exists( 'save_mod_rewrite_rules' ) ) {
-			require_once ABSPATH . 'wp-admin/includes/misc.php';
-		}
-		$wp_rewrite->rewrite_rules();
-		save_mod_rewrite_rules();
-		$wp_rewrite->flush_rules( false );
 		echo 1;
 		break;
 	case 'language_domains':

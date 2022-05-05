@@ -945,7 +945,6 @@ class TranslationManagement {
 	private function get_comment_duplicator() {
 
 		if ( ! $this->comment_duplicator ) {
-			require WPML_PLUGIN_PATH . '/inc/post-translation/wpml-comment-duplication.class.php';
 			$this->comment_duplicator = new WPML_Comment_Duplication();
 		}
 

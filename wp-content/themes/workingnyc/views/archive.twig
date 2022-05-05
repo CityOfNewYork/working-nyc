@@ -1,0 +1,85 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1" id="content">
+    <div data-js-archive="{{ post_type }}">
+      <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-20">
+        <div class="c-utility wrap">
+          <a class="link-icon mie-auto" href="{{ site.url }}">
+            <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
+              <use href="#feather-chevron-left"></use>
+            </svg>
+
+            <span>{{ __('Home', 'WNYC') }}</span>
+          </a>
+
+          <button disabled class="btn btn-small btn-secondary light:btn-primary">
+            <span class="mie-1" data-js="filters-label">{{ filters_label }}</span>
+
+            <span class="badge badge-small status-secondary light:status-primary">0</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="layout-content">
+        <div class="page-max">
+          <header class="o-header">
+            <div>
+              <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
+                <a href="{{ site.url }}">{{ __('Home', 'WNYC') }}</a>
+
+                <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-wnyc-ui rtl:flip">
+                  <use href="#feather-chevron-right"></use>
+                </svg>
+
+                <b aria-current="page">{{ page_title }}</b>
+              </nav>
+
+              <h1 class="o-header__title" data-js="title">{{ page_title }}</h1>
+
+              <div class="mb-3" data-js="content">{{ page_content }}</div>
+            </div>
+          </header>
+        </div>
+      </div>
+
+      <section class="page-max desktop:px-6" id="jobs">
+        <div class="wrap desktop:px-6">
+          <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
+            {% for post in posts %}{% include post_type ~ '/' ~ post_type_singular ~ '.twig' %}{% endfor %}
+          </div>
+        </div>
+      </section>
+
+      {% if post_type == 'programs' %}
+      <div class="layout-content py-6 pb-8 mb-4">
+        <div class="wrap">
+          <article class="c-alert mb-3" data-js="suggest-a-program">
+            <div class="c-alert__graphic">
+              <svg aria-hidden="true" class="icon-wnyc-ui">
+                <use href="#feather-help-circle"></use>
+              </svg>
+            </div>
+
+            <div class="c-alert__body">
+              <b class="text-alt mb-1">{{ options.new_program_heading }}</b>
+
+              <p data-js-alert="text">{{ options.new_program_body | striptags('<a><svg><title><use>') }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    {% if options.feedback is defined %}
+    {% include 'objects/feedback.twig' %}
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
+  </main>
+</div>
+{% endblock %}

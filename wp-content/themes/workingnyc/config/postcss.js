@@ -15,6 +15,7 @@ postCssConfig.plugins = postCssConfig.plugins.map(p => {
     tailwindcssConfig.mode = 'jit';
     tailwindcssConfig.purge = [
       './views/**/*.twig',
+      './views/**/*.vue',
       './shortcodes/**/*.php'
     ];
 

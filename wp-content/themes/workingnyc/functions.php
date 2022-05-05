@@ -43,6 +43,7 @@ new Shortcode\Alert();
 new Shortcode\Blockquote();
 new Shortcode\Card();
 new Shortcode\Icon();
+new Shortcode\Job();
 new Shortcode\Program();
 
 /**

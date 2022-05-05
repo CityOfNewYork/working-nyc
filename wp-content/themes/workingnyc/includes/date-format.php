@@ -8,16 +8,19 @@ namespace WorkingNYC;
 /**
  * Dependencies
  */
+
 use DateTime;
 
 /**
  * Formats the modified date for the page
+ *
  * @return string The formatted date
  */
 function modified_date_formatted($id) {
-
   $mod_date = new DateTime(get_the_modified_date('Y-m-d', $id));
-  $cur_date = new DateTime(date("Y-m-d"));
+
+  $cur_date = new DateTime(date('Y-m-d'));
+
   $interval = $mod_date->diff($cur_date);
 
   if ($interval->d == 0) {
@@ -29,6 +32,6 @@ function modified_date_formatted($id) {
       return $interval->d.__(' days ago', 'WNYC-Date');
     }
   } else {
-    return __(' on ', 'WNYC-Date').$mod_date->format('M d, Y');
+    return __(' on ', 'WNYC-Date') . $mod_date->format('M d, Y');
   }
 }

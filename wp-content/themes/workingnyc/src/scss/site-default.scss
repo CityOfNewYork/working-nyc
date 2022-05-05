@@ -8,4 +8,14 @@
 // stylesheet include Arabic (ar), Spanish (es), Korean (ko), Urdu (ur), and
 // Chinese (tc).
 
-@forward 'imports' // with ($language: '');
+@forward 'imports'; // with ($language: '');
+
+[tabindex='0'],
+[tabindex='-1'] {
+  &:focus {
+    outline: 0 solid transparent;
+    outline-offset: var(--wnyc-focus-gap);
+    outline-color: var(--wnyc-focus);
+    outline-width: var(--wnyc-focus-width);
+  }
+}

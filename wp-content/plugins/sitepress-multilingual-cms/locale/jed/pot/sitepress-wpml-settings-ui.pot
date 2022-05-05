@@ -17,6 +17,22 @@ msgstr ""
 msgid "No, I want to translate some of these posts, but not all"
 msgstr ""
 
+#: src/js/settings/UI/TranslationMethod.js:54
+msgid ""
+"You must use the Advanced Translation Editor if you want to translate your "
+"content automatically."
+msgstr ""
+
+#: src/js/settings/UI/Troubleshooting.js:26
+msgid "Synchronize translators and translation managers with ATE"
+msgstr ""
+
+#: src/js/settings/UI/Troubleshooting.js:36
+msgid ""
+"Please try again in a few minutes. If the problem persists, please contact "
+"%sWPML support%s."
+msgstr ""
+
 #: src/js/settings/components/ConfirmNewTranslatablePostType.js:105
 msgid "Save"
 msgstr ""

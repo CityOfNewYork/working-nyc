@@ -22,6 +22,7 @@ use WPML\Collect\Support\Traits\Macroable;
  * @method static callable|bool isArray ( ...$a ) - Curried :: a → bool
  * @method static callable|bool isMappable ( ...$a ) - Curried :: a → bool
  * @method static callable|bool isEmpty( ...$a ) - Curried:: a → bool
+ * @method static callable|bool isNotEmpty( ...$a ) - Curried:: a → bool
  * @method static callable|mixed firstSatisfying( ...$predicate, ...$functions, ...$data ) - Curried:: callable->callable[]->mixed->mixed
  * @method static callable|bool isTruthy( ...$data ) - Curried:: mixed->bool
  */
@@ -114,6 +115,8 @@ class Logic {
 
 			return empty( $arg );
 		} ) );
+
+		self::macro( 'isNotEmpty', curryN( 1, self::complement( self::isEmpty() ) ) );
 
 		self::macro( 'firstSatisfying', curryN( 3, function ( $predicate, array $conditions, $data ) {
 			foreach ( $conditions as $condition ) {

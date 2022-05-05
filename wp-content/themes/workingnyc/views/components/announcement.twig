@@ -1,6 +1,6 @@
 <article class="c-card c-card-transparent h-full">
   <header class="c-card__header">
-    <a href="{{ this.link }}" target="{{ this.target }}" class="no-underline">
+    <a href="{{ this.link }}" target="{{ this.target }}" class="c-card__header-link no-underline">
       <h2 class="c-card__title">
         {% if this.date|date('U') > this.statusPeriod|date('U') %}
         <mark class="badge" title="{{ this.statusTitle }}">

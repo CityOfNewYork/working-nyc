@@ -6,8 +6,9 @@
  * @author NYC Opportunity
  */
 
-require_once WorkingNYC\timber_post('Announcement');
-require_once WorkingNYC\timber_post('Program');
+require_once WorkingNYC\timber_post('Announcements');
+require_once WorkingNYC\timber_post('Programs');
+require_once WorkingNYC\timber_post('Jobs');
 
 /**
  * Enqueue
@@ -27,6 +28,7 @@ add_action('wp_enqueue_scripts', function() {
  */
 
 $context = Timber::get_context();
+
 $post = Timber::get_post(get_option('page_on_front'));
 
 $context['post'] = $post;
@@ -38,7 +40,7 @@ $context['post'] = $post;
  */
 
 $context['announcements'] = array_map(function($post) {
-    return new WorkingNYC\Announcement($post);
+    return new WorkingNYC\Announcements($post);
 }, Timber::get_posts(array(
   'posts_per_page' => 4,
   'post_type' => 'announcements',
@@ -46,35 +48,59 @@ $context['announcements'] = array_map(function($post) {
   'order' => 'ASC',
 )));
 
-$context['meta'] = new WorkingNYC\Meta($post->ID);
-
-$context['featured_posts'] = array_map(function($section) {
-  $section['featured_posts_objects'] = array_map(function($post) {
-    return new WorkingNYC\Program($post);
-  }, $section['featured_posts_objects']);
-
-  return $section;
-}, Templating\get_featured_posts($post->ID));
-
-$context['questionnaire_post_type'] = Templating\get_questionnaire_post_type($post->ID);
-$context['questionnaire_threshold'] = Templating\get_questionnaire_threshold($post->ID);
-$context['questionnaire_qs'] = Templating\get_questionnaire_qs($post->ID);
-
 /**
- * Generate schema for page
+ * Set Meta context
  *
  * @author NYC Opportunity
  */
 
-$schemas = array();
+$context['meta'] = new WorkingNYC\Meta($post);
 
-array_push(
-  $schemas,
-  WNYCSchema\website(),
-  WNYCSchema\organization()
-);
+/**
+ * Extend Timber posts for each post type
+ *
+ * @author NYC Opportunity
+ */
 
-$context['schema'] = json_encode($schemas, JSON_UNESCAPED_SLASHES);
+$context['featured_posts'] = array_map(function($section) {
+  $section['featured_posts_objects'] = array_map(function($post) {
+    switch ($post->post_type) {
+      case 'programs':
+        $post = new WorkingNYC\Programs($post);
+        break;
+
+      case 'jobs':
+        $post = new WorkingNYC\Jobs($post);
+        break;
+    }
+
+    return $post;
+  }, $section['featured_posts_objects']);
+
+  $types = array_unique(array_map(function($post) {
+    return $post->post_type;
+  }, $section['featured_posts_objects']));
+
+  // If there is only one post type, set the archive link for the section.
+  $section['featured_posts_archive'] = (count($types) === 1) ? array(
+    'label' => __('See all ' . $types[0], 'WNYC'),
+    'link' => get_post_type_archive_link($types[0])
+  ) : false;
+
+  return $section;
+}, Templating\get_featured_posts($post->ID));
+
+/**
+ * Set context for the Questionnaire
+ *
+ * @author NYC Opportunity
+ */
+
+$context['questionnaire_post_type'] = Templating\get_questionnaire_post_type($post->ID);
+
+$context['questionnaire_threshold'] = Templating\get_questionnaire_threshold($post->ID);
+
+$context['questionnaire_qs'] = Templating\get_questionnaire_qs($post->ID);
 
 /**
  * Render the view
