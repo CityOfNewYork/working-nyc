@@ -27,12 +27,6 @@
     <div class="layout-content">
       <header class="o-header">
         <div class="w-full">
-          <h1 class="o-header__title">{{ post.program_plain_language_title }}</h1>
-
-          <h2 class="o-header__subtitle">
-            <b>{{ post.program_title }}</b> {{ __('by', 'WNYC') }} {% if post.program_provider and post.program_agency %}{{ post.program_agency }} | {{ post.program_provider }}{% else %}{{ post.program_provider }}{{ post.program_agency }}{% endif %}
-          </h2>
-
           {% include 'components/breadcrumbs.twig' with {
             crumbs: [
               {
@@ -45,6 +39,12 @@
               }
             ]
           } %}
+
+          <h1 class="o-header__title">{{ post.program_plain_language_title }}</h1>
+
+          <h2 class="o-header__subtitle">
+            <b>{{ post.program_title }}</b> {{ __('by', 'WNYC') }} {% if post.program_provider and post.program_agency %}{{ post.program_agency }} | {{ post.program_provider }}{% else %}{{ post.program_provider }}{{ post.program_agency }}{% endif %}
+          </h2>
 
           {% if post.terms('recruitment_status')[0].slug == 'actively-recruiting' %}
           <p>
