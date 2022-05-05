@@ -18,20 +18,20 @@
           {{ post.context.status.recruiting.name }}<span class="sr-only">.</span>
         </mark>
 
-        <span class="flex mie-2" :title="post.context.status.disability.name" v-if="post.context.status.disability">
-          <svg aria-hidden="true" class="icon text-em">
+        <span class="flex mie-2" v-if="post.context.status.disability" :title="post.context.status.disability.name">
+          <svg class="icon text-em" role="img">
+            <title v-html="post.context.status.disability.name"></title>
+
             <use href="#icon-wnyc-accessible"></use>
           </svg>
-
-          <span class="sr-only">{{ post.context.status.disability.name }}</span>
         </span> <span v-if="post.context.status.disability" class="sr-only">&nbsp;</span>
 
-        <span class="flex me-2" :title="post.context.status.language.name" v-if="post.context.status.language">
-          <svg aria-hidden="true" class="icon-wnyc-ui text-em">
+        <span class="flex me-2" v-if="post.context.status.language" :title="post.context.status.language.name">
+          <svg class="icon-wnyc-ui text-em" role="img">
+            <title v-html="post.context.status.language.name"></title>
+
             <use href="#icon-wnyc-translate"></use>
           </svg>
-
-          <span class="sr-only">{{ post.context.status.language.name }}</span>
         </span>
       </p>
 

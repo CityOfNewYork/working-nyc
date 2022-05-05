@@ -11,20 +11,24 @@
 
   <div class="c-card__body">
     {% if post.status %}<p class="c-card__status flex items-center">
-      {% if post.status.recruiting %}<mark class="badge mie-2" data-program="recruiting">
+      {% if post.status.recruiting %}<mark class="badge mie-2">
         {{ post.status.recruiting.name }}<span class="sr-only">.</span>
       </mark>{% endif %}
 
-      {% if post.status.disability %}<span class="flex mie-2" data-program="accessible" title="{{ post.status.disability.name }}">
-        <svg aria-hidden="true" class="icon text-em">
+      {% if post.status.disability %}<span class="flex mie-2" title="{{ post.status.disability.name }}">
+        <svg class="icon text-em" role="img">
+          <title>{{ post.status.disability.name }}</title>
+
           <use href="#icon-wnyc-accessible"></use>
         </svg>
 
         <span class="sr-only">{{ post.status.disability.name }}</span>
       </span> <span class="sr-only">&nbsp;</span>{% endif %}
 
-      {% if post.status.language %}<span class="flex me-2" data-program="multilingual" title="{{ post.status.language.name }}">
-        <svg aria-hidden="true" class="icon-wnyc-ui text-em">
+      {% if post.status.language %}<span class="flex me-2" title="{{ post.status.language.name }}">
+        <svg class="icon-wnyc-ui text-em" role="img">
+          <title>{{ post.status.language.name }}</title>
+
           <use href="#icon-wnyc-translate"></use>
         </svg>
 
@@ -66,7 +70,7 @@
         <use href="#feather-arrow-left"></use>
       </svg>
 
-      <span>{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span data-program="plain-language-name">{{ post.program_title }}</span></span></span>
+      <span>{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ post.program_title }}</span></span></span>
 
       <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
         <use href="#feather-arrow-right"></use>
