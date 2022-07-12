@@ -1,7 +1,7 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.9.6',
-        'version' => '1.9.6.0',
+        'pretty_version' => '1.9.7',
+        'version' => '1.9.7.0',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -119,8 +119,8 @@
             'dev_requirement' => false,
         ),
         'nyco/working-nyc' => array(
-            'pretty_version' => '1.9.6',
-            'version' => '1.9.6.0',
+            'pretty_version' => '1.9.7',
+            'version' => '1.9.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
