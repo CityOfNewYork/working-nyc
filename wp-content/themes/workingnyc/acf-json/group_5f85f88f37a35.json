@@ -146,7 +146,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "wnyc-general-settings"
+                "value": "wknyc-general-settings"
             }
         ]
     ],
@@ -158,5 +158,6 @@
     "hide_on_screen": "",
     "active": true,
     "description": "",
-    "modified": 1623859838
+    "show_in_rest": 0,
+    "modified": 1657639640
 }
