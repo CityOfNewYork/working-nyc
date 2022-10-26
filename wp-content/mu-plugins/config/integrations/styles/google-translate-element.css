@@ -7,8 +7,8 @@ a {
 }
 
 .goog-te-banner-frame {
-  position: relative;
-  box-shadow: none;
+  position: relative !important;
+  box-shadow: none !important;
   display: block
 }
 

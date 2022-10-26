@@ -1,6 +1,6 @@
 {
     "key": "group_5ef25e9c303c0",
-    "title": "Program Details",
+    "title": "Program Fields",
     "fields": [
         {
             "key": "field_5ef25eaf1edad",
@@ -42,10 +42,10 @@
         },
         {
             "key": "field_5ef25f7a1edaf",
-            "label": "Agency",
+            "label": "[old] Agency",
             "name": "program_agency",
             "type": "text",
-            "instructions": "",
+            "instructions": "This field will be replaced by the Agency taxonomy.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -63,6 +63,25 @@
             "key": "field_5ef25fa81edb0",
             "label": "Provider",
             "name": "program_provider",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_635a86057db2f",
+            "label": "Preview",
+            "name": "program_preview",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -155,6 +174,44 @@
             "delay": 0
         },
         {
+            "key": "field_635a85657db2d",
+            "label": "Duration and Schedule Label",
+            "name": "program_duration_and_schedule_label",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_635a859d7db2e",
+            "label": "Wraparound Support",
+            "name": "program_wraparound_support",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_5ef260811edb4",
             "label": "Next Steps",
             "name": "program_next_steps",
@@ -243,11 +300,11 @@
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "top",
+    "label_placement": "left",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 1,
-    "modified": 1645217944
+    "modified": 1666984485
 }

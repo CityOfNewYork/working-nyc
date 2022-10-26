@@ -1,0 +1,136 @@
+{# @Type   View #}
+{# @For    Post Type #}
+{# @Class  timber-posts/Guides.php #}
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1">
+    <div class="layout-content sticky top-0 bg-scale-1 z-30">
+      {% include ['components/utility-nav.twig'] with {
+        return: {
+          'label': __('Guides', 'WNYC'),
+          'link': post.archive
+        },
+        web_share: {
+          'title': post.title,
+          'text': (post.web_share_text) ? post.web_share_text,
+          'url': fn('wp_get_shortlink')
+        }
+      } %}
+    </div>
+
+    {# Header Section #}
+    {% if post.thumbnail %}
+    <header class="o-header bg-banner-min-height-with-utility relative">
+      <div class="page-max desktop:px-6">
+        <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
+          <div>
+    {% else %}
+    <div class="layout-content">
+      <header class="o-header">
+        <div class="w-full">
+    {% endif %}
+
+            {% include 'components/breadcrumbs.twig' with {
+              crumbs: [
+                {
+                  'label': __('Guides', 'WNYC'),
+                  'link': post.archive
+                },
+                {
+                  'label': post.title,
+                  'link': ''
+                }
+              ]
+            } %}
+
+            <div class="o-header__title">
+              {% if post.icon %}
+              <svg class="o-header__icon text-blue-d-1 fill-blue-l-1" role="img">
+                <title>{{ post.icon.name }}</title>
+
+                <use href="#program-card-{{ post.icon.slug }}"></use>
+              </svg>
+              {% endif %}
+
+              <h1 id="page-heading" class="o-header__heading">{{ post.title }}</h1>
+            </div>
+
+            {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
+
+            {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
+
+            <p class="small flex items-center">
+              <svg class="icon-ui mie-1 icon-2" role="img">
+                <title>{{ __('Last updated', 'WNYC-Date') }}</title>
+
+                <use href="#lucide-info"></use>
+              </svg>
+
+              {{ __('Last updated', 'WNYC-Date') }}
+
+              {{ post.date|date(fn('get_option', 'date_format')) }}
+              {{ post.date|date(fn('get_option', 'time_format')) }}
+            </p>
+
+            {% if post.thumbnail %}
+            <p class="text-center">
+              <a class="inline-block text-center" href="#explore">
+                <span>{{ __('Explore', 'WNYC') }}</span><br />
+                <svg aria-hidden="true" class="icon-ui icon-5">
+                  <use href="#lucide-chevron-down"></use>
+                </svg>
+              </a>
+            </p>
+            {% endif %}
+    {% if post.thumbnail %}
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-image-grid hidden tablet:grid grid-cols-2 gap-x-5 animated fadeIn">
+        <div></div>
+        <div class="bg-image-grid__mask-scale-1 relative">
+          <img class="bg-image-grid__img" loading="eager" {% if post.thumbnail.focal_point %} style="object-position: {{ post.thumbnail.focal_point }};"{% endif %} src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        </div>
+      </div>
+    </header>
+    {% else %}
+        </div>
+      </header>
+    </div>
+    {% endif %}
+
+    {% include 'components/active-navigation.twig' with {this: {
+      items: collections|map(item => {title: item.heading}),
+      classes: 'pt-utility-anchor'
+    }} %}
+
+    <div class="bg-scale-0" id="explore">
+      <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
+        {% if collections %}
+        {% for collection in collections %}
+        {% include collection.template with {this: collection} only %}
+        {% endfor %}
+        {% endif %}
+
+        {# <section class="bg-scale-2 layout-content">
+          <div class="py-4 wrap">
+          </div>
+        </section> #}
+      </div>
+
+      {% include 'components/back-to-top.twig' %}
+    </div>
+
+    {% if options.feedback is defined %}
+    {% include 'objects/feedback.twig' %}
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
+  </main>
+</div>
+{% endblock %}

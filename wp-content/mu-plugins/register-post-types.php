@@ -33,14 +33,14 @@ add_action('init', function() {
     'hierarchical' => false,
     'supports' => ['title', 'editor'],
 
-      /**
-       * @source https://developer.wordpress.org/resource/dashicons/
-       */
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
     'menu_icon' => 'dashicons-megaphone',
 
-      /**
-       * Use the registration order to enforce menu position
-       */
+    /**
+     * Use the registration order to enforce menu position
+     */
     'menu_position' => 21,
     'has_archive' => true,
     'rewrite' => array(
@@ -75,14 +75,14 @@ add_action('init', function() {
     'hierarchical' => false,
     'supports' => ['title'],
 
-      /**
-       * @source https://developer.wordpress.org/resource/dashicons/
-       */
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
     'menu_icon' => 'dashicons-awards',
 
-      /**
-       * Use the registration order to enforce menu position
-       */
+    /**
+     * Use the registration order to enforce menu position
+     */
     'menu_position' => 21,
     'has_archive' => true,
     'rewrite' => array(
@@ -117,14 +117,14 @@ add_action('init', function() {
     'hierarchical' => false,
     'supports' => ['title'],
 
-      /**
-       * @source https://developer.wordpress.org/resource/dashicons/
-       */
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
     'menu_icon' => 'dashicons-businessperson',
 
-      /**
-       * Use the registration order to enforce menu position
-       */
+    /**
+     * Use the registration order to enforce menu position
+     */
     'menu_position' => 21,
     'has_archive' => true,
     'rewrite' => array(
@@ -159,18 +159,60 @@ add_action('init', function() {
     'hierarchical' => false,
     'supports' => ['title'],
 
-      /**
-       * @source https://developer.wordpress.org/resource/dashicons/
-       */
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
     'menu_icon' => 'dashicons-yes-alt',
 
-      /**
-       * Use the registration order to enforce menu position
-       */
+    /**
+     * Use the registration order to enforce menu position
+     */
     'menu_position' => 21,
     'has_archive' => false,
     'rewrite' => array(
       'slug' => 'instructions',
+      'with_front' => false
+    )
+  ));
+
+  /**
+   * Post Type: Guides
+   *
+   * @author NYC Opportunity
+   */
+  register_post_type('guides', array(
+    'labels' => array(
+      'name' => __('Guides'),
+      'singular_name' => __('Guide'),
+      'all_items' => __('All Guides'),
+      'add_new' => __('Add New'),
+      'add_new_item' => __('Add New Guide'),
+      'edit' => __('Edit'),
+      'edit_item' => __('Edit Guide'),
+      'new_item' => __('New Guide'),
+      'view_item' => __('View Guide'),
+      'search_items' => __('Search Guides')
+    ),
+    'description' => __('A career guide on the site.'),
+    'public' => true,
+    'show_in_rest' => true,
+    'exclude_from_search' => false,
+    'show_ui' => true,
+    'hierarchical' => false,
+    'supports' => ['title', 'editor', 'thumbnail'],
+
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
+    'menu_icon' => 'dashicons-nametag',
+
+    /**
+     * Use the registration order to enforce menu position
+     */
+    'menu_position' => 21,
+    'has_archive' => true,
+    'rewrite' => array(
+      'slug' => 'guides',
       'with_front' => false
     )
   ));

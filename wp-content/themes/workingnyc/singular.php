@@ -34,6 +34,13 @@ if ($post->slug == 'sitemap') {
     'order' => 'ASC'
   ));
 
+  $context['guides'] = Timber::get_posts(array(
+    'posts_per_page' => -1,
+    'post_type' => 'guides',
+    'orderby' => 'title',
+    'order' => 'ASC'
+  ));
+
   $context['jobs'] = Timber::get_posts(array(
     'posts_per_page' => -1,
     'post_type' => 'jobs',
@@ -55,4 +62,6 @@ if ($post->slug == 'sitemap') {
  * @author NYC Opportunity
  */
 
-Timber::render('single.twig', $context);
+$compiled = new WorkingNYC\CompileImgPreload('single.twig', $context);
+
+echo $compiled->html;

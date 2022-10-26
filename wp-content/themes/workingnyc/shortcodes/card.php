@@ -25,7 +25,7 @@ class Card extends Shortcode {
   public $template = 'components/card.twig';
 
   /** The shortcode hint for the selector dropdown */
-  public $hint = 'title="" subtitle="" body=""';
+  public $hint = 'title="" subtitle="" call-to-action="" call-to-action-external';
 
   /** Wether the shortcode should have a closing tag or not */
   public $closes = true;
@@ -42,10 +42,21 @@ class Card extends Shortcode {
   public function shortcode($atts, $content, $shortcode_tag) {
     $id = $this->tag . '-' . uniqid();
 
+    $linkLabel = __('Learn more', 'WNYC');
+
+    if (isset($atts['call-to-action']) && in_array('call-to-action-external', $atts)) {
+      $url = parse_url($atts['call-to-action']);
+
+      $linkLabel = __('Go to', 'WNYC') . ' ' . $url['host'];
+    }
+
     $card = array(
       'id' => $id,
       'classes' => 'mb-4',
-      'body' => do_shortcode($content)
+      'body' => $content,
+      'link' => (isset($atts['call-to-action'])) ? $atts['call-to-action'] : false,
+      'link_target' => (in_array('call-to-action-external', $atts)) ? '_blank' : '',
+      'link_label' => $linkLabel
     );
 
     return Timber::compile(

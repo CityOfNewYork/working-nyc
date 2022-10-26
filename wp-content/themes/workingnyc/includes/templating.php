@@ -46,39 +46,6 @@ function get_featured_posts($id = null) {
 }
 
 /**
- * Gets questionnaire post type
- *
- * @return String  post type slug.
- */
-function get_questionnaire_post_type($id = null) {
-  $post_type = get_field(QUESTIONNAIRE_POST_TYPE, $id);
-
-  return $post_type;
-}
-
-/**
- * Gets questionnaire post threshold
- *
- * @return  Integer  min number of posts.
- */
-function get_questionnaire_threshold($id = null) {
-  $threshold = get_field(QUESTIONNAIRE_THRESHOLD, $id);
-
-  return $threshold;
-}
-
-/**
- * Gets get questionnaire fields
- *
- * @return  Array  The collection of questions.
- */
-function get_questionnaire_qs($id = null) {
-  $questions = get_field(QUESTIONNAIRE_QS, $id);
-
-  return $questions;
-}
-
-/**
  * Get the id of the post through the page path. Requires a page
  * of the same slug as above to be created.
  *

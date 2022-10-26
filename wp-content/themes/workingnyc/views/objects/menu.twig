@@ -1,22 +1,26 @@
-<aside aria-hidden="true" class="o-menu o-menu-fixed grid hidden" id="aria-c-menu">
-  <button class="flex items-center justify-self-end mb-auto" data-js="themes">
-    <svg class="icon-wnyc-ui">
-      <use data-js-themes="icon" href="#feather-sun"></use>
-    </svg>
-
-    <span class="sr-only">Toggle&nbsp;</span><span data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
-  </button>
-
-  <div class="mb-auto">
-    <button class="o-menu__nav-item flex items-center" aria-controls="aria-c-menu" data-js="menu" data-js-menu="close" tabindex="-1">
-      <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-        <use href="#feather-x"></use>
+<aside class="o-menu o-menu-fixed hidden" id="aria-c-menu" aria-hidden="true">
+  <div class="o-menu__wrap">
+    <button class="o-menu__nav-item" aria-controls="aria-c-menu" data-js="menu" data-js-menu="close" tabindex="-1">
+      <svg aria-hidden="true" class="icon-ui" tabindex="-1">
+        <use href="#lucide-x"></use>
       </svg>
 
       <span>{{ __('Close', 'WNYC') }}</span>
     </button>
 
-    <nav aria-label="{{ __('Menu', 'WNYC') }}" class="o-menu__nav">
+    <hr />
+
+    <button class="o-menu__nav-item" data-js="themes" tabindex="-1">
+      <svg class="icon-ui" tabindex="-1">
+        <use data-js-themes="icon" href="#lucide-moon"></use>
+      </svg>
+
+      <span class="sr-only">Toggle&nbsp;</span><span data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
+    </button>
+
+    <hr />
+
+    <nav class="o-menu__nav" aria-label="{{ __('Menu', 'WNYC') }}">
       <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC') }}</a>
 
       {% for menu_item in header_menu.get_items %}

@@ -1,8 +1,14 @@
-@forward '@nycopportunity/working-patterns/dist/styles/tokens.css';
 
-@forward '@nycopportunity/pattern-attribution/src/tokens';
-@forward '@nycopportunity/pattern-menu/src/tokens';
-@forward '@nycopportunity/pattern-navigation/src/tokens';
+:root {
+  --o-navigation-z-index: 40;
+  --o-menu-z-index: 40;
+  --nyco-dimension-scroll-peek-column-width: 86%;
+}
 
-@forward '@nycopportunity/working-patterns/dist/styles/tokens-default.css';
-@forward '@nycopportunity/working-patterns/dist/styles/tokens-light.css';
+@media (min-width: 768px) {
+  :root {
+    --o-navigation-position: relative;
+    --o-navigation-z-index: 40;
+    --o-menu-z-index: 40;
+  }
+}

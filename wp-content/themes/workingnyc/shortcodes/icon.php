@@ -38,9 +38,28 @@ class Icon extends Shortcode {
       return;
     }
 
-    // Swap out feather icon class for custom icon class
-    $atts['class'] = ($atts['name'] === 'icon-wnyc-accessible') ?
-      'icon ' . $atts['class'] : 'icon-wnyc-ui ' . $atts['class'];
+    switch ($atts['name']) {
+      // NYCO Icon
+      case 'accessibility':
+        $atts['name'] = 'nyco-accessibility';
+        $atts['class'] = 'icon ' . $atts['class'];
+
+        break;
+
+      // NYCO Icon
+      case 'languages':
+        $atts['name'] = 'nyco-languages';
+        $atts['class'] = 'icon-ui ' . $atts['class'];
+
+        break;
+
+      // Lucide Icon
+      default:
+        $atts['name'] = 'lucide-' . $atts['name'];
+        $atts['class'] = 'icon-ui ' . $atts['class'];
+
+        break;
+    }
 
     return '<svg aria-hidden="true" class="'. $atts['class'] . '">' .
       '<use href="#' . $atts['name'] . '"></use>' .

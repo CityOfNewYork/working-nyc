@@ -42,10 +42,6 @@ class Site extends TimberSite {
 
     $context['site'] = $this;
 
-    $context['programs_archive'] = get_post_type_archive_link('programs');
-
-    $context['jobs_archive'] = get_post_type_archive_link('jobs');
-
     /**
      * Menus
      */
@@ -69,8 +65,10 @@ class Site extends TimberSite {
      */
 
     $context['sprites'] = array(
-      'wnyc' => strstr(glob(get_template_directory() . '/assets/svg/icons-*')[0], '/wp-content'),
-      'feather' => strstr(glob(get_template_directory() . '/assets/svg/feather-*')[0], '/wp-content'),
+      'svgs' => strstr(glob(get_template_directory() . '/assets/svg/svgs-*')[0], '/wp-content'),
+      'elements' => strstr(glob(get_template_directory() . '/assets/svg/pattern-elements-*')[0], '/wp-content'),
+      'lucide' => strstr(glob(get_template_directory() . '/assets/svg/lucide-*')[0], '/wp-content'),
+      'wknyc' => strstr(glob(get_template_directory() . '/assets/svg/wknyc-*')[0], '/wp-content'),
       'favicon' => strstr(glob(get_template_directory() . '/assets/svg/favicon-*')[0], '/wp-content')
     );
 

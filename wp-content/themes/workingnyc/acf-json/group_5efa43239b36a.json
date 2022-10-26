@@ -98,6 +98,20 @@
                 "operator": "==",
                 "value": "announcements"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "jobs"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "guides"
+            }
         ]
     ],
     "menu_order": 5,
@@ -109,5 +123,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1657639954
+    "modified": 1666881035
 }

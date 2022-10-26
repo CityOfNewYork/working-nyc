@@ -65,5 +65,11 @@ add_filter('query_vars', function($vars) {
   array_push($vars, 'locations');
   array_push($vars, 'agency');
 
+  /**
+   * Add Public Query Variable for Open Graph Images
+   */
+
+  array_push($vars, $prefix . 'ogi');
+
   return $vars;
 });

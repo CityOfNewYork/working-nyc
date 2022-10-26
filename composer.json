@@ -19,16 +19,19 @@
     "nyco/wp-assets": "^1.4",
     "nyco/wp-config": "^1",
     "nyco/wp-gc-templates-sync": "^0.0.2",
+    "nyco/wp-og-images": "^0.0.2",
     "spatie/schema-org": "3.8.0",
     "timber/timber": "^1",
     "wpackagist-plugin/acf-to-rest-api": "*",
     "wpackagist-plugin/adminimize": "*",
     "wpackagist-plugin/aryo-activity-log": "*",
+    "wpackagist-plugin/enable-media-replace": "*",
     "wpackagist-plugin/gathercontent-import": "3.1.14",
     "wpackagist-plugin/google-authenticator": "*",
     "wpackagist-plugin/limit-login-attempts-reloaded": "*",
     "wpackagist-plugin/loggedin": "*",
     "wpackagist-plugin/members": "*",
+    "wpackagist-plugin/regenerate-thumbnails": "*",
     "wpackagist-plugin/rollbar": "*",
     "wpackagist-plugin/simple-custom-post-order": "*",
     "wpackagist-plugin/wordpress-importer": "*",
@@ -75,5 +78,10 @@
     ]
   },
   "minimum-stability": "stable",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "composer/installers": true
+    }
+  }
 }

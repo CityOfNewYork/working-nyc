@@ -1,24 +1,34 @@
-<div class='c-web-share'>
-  <button aria-controls="aria-c-web-share-fallback-{{ this.id }}" aria-expanded="false" class="btn btn-small btn-primary m-0" data-js="web-share" data-web-share='{{ this.share|json_encode }}'>
-    <svg class="c-web-share__icon icon-wnyc-ui">
-      <use href="#feather-share-2"></use>
-    </svg>
+<div class="c-web-share">
+  <div class="c-web-share__wrap">
+    <button class="btn btn-small btn-primary mie-1 hidden tablet:inline-flex" aria-pressed="false" data-copy="web-share-url-{{ this.id }}" data-js="copy">
+      <svg class="icon icon-ui">
+        <use data-js-copy='icon' href='#lucide-copy'></use>
+      </svg>
 
-    <span>{{__('Share', 'WNYC')}}</span>
-  </button>
+      <span><span class="sr-only">{{ __('Press to', 'WNYC') }}&nbsp;</span>{{ __('Copy link', 'WNYC') }}<span class="sr-only">&nbsp;{{ __('to share', 'WNYC') }}&nbsp;{{ this.share.subject }}</span></span>
+    </button>
+
+    <button class="btn btn-small btn-primary" aria-controls="aria-c-web-share-fallback-{{ this.id }}" aria-expanded="false" data-js="web-share" data-web-share='{{ this.share|json_encode }}'>
+      <svg class="c-web-share__icon icon-ui">
+        <use href="#lucide-share-2"></use>
+      </svg>
+
+      <span>{{ __('Share', 'WNYC') }}<span class="sr-only">&nbsp;{{ this.share.subject }}</span></span>
+    </button>
+  </div>
 
   <div aria-hidden="true" class="c-web-share__fallback hidden {{ this.class }}" id="aria-c-web-share-fallback-{{ this.id }}" role="region">
     <div class="c-web-share__fallback-body">
       <div class="flex mb-2 items-center flex-row-reverse">
         <button aria-controls="aria-c-web-share-fallback-{{ this.id }}" aria-expanded="false" class="link-icon m-0" data-js="web-share" tabindex="-1">
-          <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-            <use href="#feather-x"></use>
+          <svg aria-hidden="true" class="icon-ui" tabindex="-1">
+            <use href="#lucide-x"></use>
           </svg>
 
           <span>{{__('Close', 'WNYC')}}</span>
         </button>
 
-        <label class="c-web-share__label flex-1" for="web-share-url-{{ this.id }}" tabindex="-1">{{__('Share this URL', 'WNYC')}}</label>
+        <label class="c-web-share__label flex-1" for="web-share-url-{{ this.id }}" tabindex="-1"><span class="sr-only">{{ this.share.subject }}&nbsp;</span>{{ __('Link to share', 'WNYC') }}</label>
       </div>
 
       <div class="c-web-share__input input">
@@ -27,31 +37,27 @@
 
       <div class="c-web-share__items">
         <button aria-pressed="false" class="c-web-share__item c-web-share__copy btn btn-small btn-primary mx-0" data-copy="web-share-url-{{ this.id }}" data-js="copy" tabindex="-1">
-          <svg class="icon icon-wnyc-ui" tabindex="-1">
-            <use href="#feather-copy"></use>
+          <svg class="icon icon-ui">
+            <use data-js-copy='icon' href='#lucide-copy'></use>
           </svg>
 
-          <svg class="icon-pressed icon-wnyc-ui mie-1" tabindex="-1">
-            <use href="#feather-check"></use>
-          </svg>
-
-          <span>{{ __('Copy URL', 'WNYC') }}</span>
+          <span><span class="sr-only">{{ __('Press to', 'WNYC') }}&nbsp;</span>{{ __('Copy link', 'WNYC') }}</span>
         </button>
 
         <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://www.facebook.com/sharer/sharer.php?u={{ this.share.url|url_encode }}" tabindex="-1" target="_blank">
-          <svg class="icon-wnyc-ui">
-            <use href="#feather-facebook"></use>
+          <svg class="icon-ui">
+            <use href="#lucide-facebook"></use>
           </svg>
 
-          <span>{{ __('Facebook', 'WNYC') }}</span>
+          <span><span class="sr-only">{{ __('Share', 'WNYC') }}&nbsp;{{ this.share.subject }}&nbsp;{{ __('to', 'WNYC') }}&nbsp;</span>{{ __('Facebook', 'WNYC') }}</span>
         </a>
 
         <a class="c-web-share__item btn btn-small btn-primary mx-0" href="https://twitter.com/intent/tweet?text={{ this.share.text|url_encode }}%20{{ this.share.url|url_encode }}" tabindex="-1" target="_blank">
-          <svg class="icon-wnyc-ui">
-            <use href="#feather-twitter"></use>
+          <svg class="icon-ui">
+            <use href="#lucide-twitter"></use>
           </svg>
 
-          <span>{{ __('Twitter', 'WNYC') }}</span>
+          <span><span class="sr-only">{{ __('Share', 'WNYC') }}&nbsp;{{ this.share.subject }}&nbsp;{{ __('to', 'WNYC') }}&nbsp;</span>{{ __('Twitter', 'WNYC') }}</span>
         </a>
       </div>
     </div>

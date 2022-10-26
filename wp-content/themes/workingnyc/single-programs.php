@@ -22,17 +22,17 @@ $post = new WorkingNYC\Programs($post);
 
 $context['post'] = $post;
 
-if (defined('WP_ENV') && 'development' === WP_ENV) {
-  debug($context['post']);
-}
+// if (defined('WP_ENV') && 'development' === WP_ENV) {
+//   debug($context['post']);
+// }
 
 $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
-if (defined('WP_ENV') && 'development' === WP_ENV) {
-  debug($context['meta']);
-}
+// if (defined('WP_ENV') && 'development' === WP_ENV) {
+//   debug($context['meta']);
+// }
 
 /**
  * Generate schema for page

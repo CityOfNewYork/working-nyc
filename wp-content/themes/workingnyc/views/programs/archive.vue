@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-20">
+    <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
       <div class="c-utility wrap">
         <a class="link-icon mie-auto" href="/">
-          <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-            <use href="#feather-chevron-left"></use>
+          <svg aria-hidden="true" class="icon-ui rtl:flip">
+            <use href="#lucide-chevron-left"></use>
           </svg>
 
           <span>{{ strings.HOME }}</span>
@@ -21,8 +21,8 @@
         <div class="layout-content">
           <div class="wrap text-end relative z-20">
             <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-primary btn-small" data-dialog="close" data-js="dialog" tabindex="-1">
-              <svg aria-hidden="true" class="icon-wnyc-ui" tabindex="-1">
-                <use href="#feather-x"></use>
+              <svg aria-hidden="true" class="icon-ui" tabindex="-1">
+                <use href="#lucide-x"></use>
               </svg>
 
               <span>{{ strings.CLOSE }}</span>
@@ -45,7 +45,7 @@
 
                       <span class="option__base">
                         <svg aria-hidden="true" class="option__graphic" tabindex="-1">
-                          <use href="#option-wnyc-checkbox"></use>
+                          <use href="#option-nyco-checkbox"></use>
                         </svg>
 
                         <span class="option__label">{{ filter.name }}</span>
@@ -81,14 +81,16 @@
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
               <a href="/">{{ strings.HOME }}</a>
 
-              <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-wnyc-ui rtl:flip">
-                <use href="#feather-chevron-right"></use>
+              <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
+                <use href="#lucide-chevron-right"></use>
               </svg>
 
               <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
             </nav>
 
-            <h1 class="o-header__title">{{ strings.PAGE_TITLE }}</h1>
+            <div class="o-header__title">
+              <h1 id="page-heading" class="o-header__heading">{{ strings.PAGE_TITLE }}</h1>
+            </div>
 
             <!-- <h2 class="o-header__subtitle" v-if="checkedFilters.length">Exploring <span v-for="f, i in checkedFilters"><span v-if="checkedFilters.length > 1 && i == checkedFilters.length - 1">and </span>v{ f.name }<span v-if="checkedFilters.length > 2 && i < checkedFilters.length - 1">,</span><span v-if="i == checkedFilters.length - 1">.</span><span v-else>&nbsp;</span></span></h2> -->
 
@@ -100,11 +102,13 @@
 
     <section class="page-max desktop:px-6" v-if="init">
       <div class="wrap desktop:px-6" v-if="!loading">
-        <h2 class="text-p font-p inline-block" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
-          <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
-        </h2>
+        <div class="mb-3">
+          <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
+            <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
+          </h2>
 
-        <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button>
+          <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button>
+        </div>
 
         <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
           <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
@@ -135,6 +139,12 @@
         </button>
 
         <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
+      </div>
+    </div>
+
+    <div class="layout-content pb-2 sticky z-10 o-navigation-feedback-spacing-bottom">
+      <div class="wrap text-end">
+        <a class="btn btn-small tablet:btn btn-secondary" href="#page-heading">{{ strings.BACK_TO_TOP }}</a>
       </div>
     </div>
   </div>

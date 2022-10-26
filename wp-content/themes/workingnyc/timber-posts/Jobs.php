@@ -51,7 +51,7 @@ class Jobs extends Timber\Post {
   /**
    * Constructor
    *
-   * @return  Object  Instance of Announcement
+   * @return  Object  Instance of Jobs
    */
   public function __construct($pid = false) {
     if ($pid) {
@@ -93,6 +93,8 @@ class Jobs extends Timber\Post {
     $this->cardTitle = $this->getCardTitle();
 
     $this->instructions = $this->getInstructions();
+
+    $this->archive = get_post_type_archive_link('jobs');
 
     /**
      * Set the schema
@@ -313,7 +315,8 @@ class Jobs extends Timber\Post {
     $instructions = '';
 
     // Get generic instructions
-    if (in_array('Generic', $this->custom['job_generic_application_instructions'])) {
+    if (!empty($this->custom['job_generic_application_instructions']) &&
+      in_array('Generic', $this->custom['job_generic_application_instructions'])) {
       $source = (isset($this->source)) ? $this->source : $this->getSource();
 
       $posts = Timber::get_posts(array(
@@ -354,7 +357,7 @@ class Jobs extends Timber\Post {
     if ($schedule) {
       $schedule = array_map(function($schedule) {
         foreach (self::EMPLOYMENT_TYPE as $key => $value) {
-          if (str_contains($schedule, $value)) { // loose matching
+          if (str_contains($schedule->name, $value)) { // loose matching
             return $key;
 
             break;
@@ -468,7 +471,8 @@ class Jobs extends Timber\Post {
      * Direct apply
      */
 
-    if (in_array('Direct', $this->custom['job_apply_direct'])) {
+    if (!empty($this->custom['job_apply_direct']) &&
+      in_array('Direct', $this->custom['job_apply_direct'])) {
       $schema->directApply(true);
     }
 

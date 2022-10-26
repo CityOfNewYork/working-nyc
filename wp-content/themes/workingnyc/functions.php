@@ -27,6 +27,30 @@ new WorkingNYC\Site();
 WorkingNYC\require_includes();
 
 /**
+ * Add global support in the theme for thumbnails. Individual post types may
+ * have Featured Image support added by including "thumbnail" in the "supports"
+ * array attribute.
+ *
+ * @link /wp-content/mu-plugins/register-post-types.php
+ *
+ * @author NYC Opportunity
+ */
+
+add_theme_support('post-thumbnails');
+
+add_image_size('open-graph', 1200, 628, array('center', 'center'));
+add_image_size('small', 480);
+add_image_size('mobile', 768);
+add_image_size('tablet', 1112);
+add_image_size('desktop', 1920);
+
+/**
+ * Create instance of Icons
+ */
+
+new WorkingNYC\Icons(['guides']);
+
+/**
  * Shortcodes
  *
  * @link /shortcodes/
@@ -41,6 +65,7 @@ new Shortcode\Accordion();
 new Shortcode\AirtableLink();
 new Shortcode\Alert();
 new Shortcode\Blockquote();
+new Shortcode\Button();
 new Shortcode\Card();
 new Shortcode\Icon();
 new Shortcode\Job();
@@ -95,6 +120,13 @@ add_filter('wp_resource_hints', function($urls, $relation_type) {
       ]);
 
       break;
+
+    case 'preconnect':
+      $urls = array_merge($urls, [
+        'https://cdn.jsdelivr.net',
+        'https://fonts.googleapis.com',
+        'https://fonts.gstatic.com'
+      ]);
   }
 
   return $urls;

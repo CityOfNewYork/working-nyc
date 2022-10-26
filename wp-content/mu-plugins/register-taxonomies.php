@@ -14,7 +14,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('services', ['programs'], array(
+  register_taxonomy('services', ['programs', 'guides'], array(
     'label' => __('Services', 'WNYC'),
     'labels' => array(
       'name' => __('Services', 'WNYC'),
@@ -36,8 +36,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'services',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false,
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -45,7 +44,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('populations', ['programs'], array(
+  register_taxonomy('populations', ['programs', 'guides'], array(
     'label' => __('People served', 'WNYC'),
     'labels' => array(
       'name' => __('People served', 'WNYC'),
@@ -67,8 +66,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'populations',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -76,7 +74,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('sectors', ['programs', 'jobs'], array(
+  register_taxonomy('sectors', ['programs', 'jobs', 'guides'], array(
     'label' => __('Sectors', 'WNYC'),
     'labels' => array(
       'name' => __('Sectors', 'WNYC'),
@@ -98,8 +96,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'sectors',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -129,8 +126,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'recruitment_status',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false,
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -138,7 +134,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('salary', ['jobs'], array(
+  register_taxonomy('salary', ['jobs', 'guides'], array(
     'label' => __('Salary types', 'WNYC'),
     'labels' => array(
       'name' => __('Salary types', 'WNYC'),
@@ -160,8 +156,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'salary',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -169,7 +164,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('schedule', ['programs', 'jobs'], array(
+  register_taxonomy('schedule', ['programs', 'jobs', 'guides'], array(
     'label' => __('Schedules', 'WNYC'),
     'labels' => array(
       'name' => __('Schedules', 'WNYC'),
@@ -191,8 +186,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'schedule',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false,
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -200,7 +194,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('duration', ['programs'], array(
+  register_taxonomy('duration', ['programs', 'guides'], array(
     'label' => __('Durations', 'WNYC'),
     'labels' => array(
       'name' => __('Durations', 'WNYC'),
@@ -222,8 +216,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'duration',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false,
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -231,7 +224,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('locations', ['programs', 'jobs'], array(
+  register_taxonomy('locations', ['programs', 'jobs', 'guides'], array(
     'label' => __('Locations', 'WNYC'),
     'labels' => array(
       'name' => __('Locations', 'WNYC'),
@@ -253,8 +246,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'locations',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -284,8 +276,7 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'source',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false
+    'show_in_quick_edit' => true
   ));
 
   /**
@@ -293,11 +284,11 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('agency', ['programs', 'jobs'], array(
-    'label' => __('Agency providers', 'WNYC'),
+  register_taxonomy('agency', ['programs', 'jobs', 'guides'], array(
+    'label' => __('Agency', 'WNYC'),
     'labels' => array(
-      'name' => __('Agency providers', 'WNYC'),
-      'singular_name' => __('Agency provider', 'WNYC'),
+      'name' => __('Agency', 'WNYC'),
+      'singular_name' => __('Agency', 'WNYC'),
     ),
     'public' => false,
     'publicly_queryable' => false,
@@ -315,7 +306,66 @@ add_action('init', function() {
     'show_tagcloud' => true,
     'rest_base' => 'agency',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
-    'show_in_quick_edit' => true,
-    'show_in_graphql' => false
+    'show_in_quick_edit' => true
+  ));
+
+  /**
+   * Taxonomy: Hosting
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('hosting', ['programs'], array(
+    'label' => __('Hosting', 'WNYC'),
+    'labels' => array(
+      'name' => __('Hosting', 'WNYC'),
+      'singular_name' => __('Host', 'WNYC')
+    ),
+    'public' => false,
+    'publicly_queryable' => false,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'hosting',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => false, // Use this to show in the front-end filters
+    'show_tagcloud' => true,
+    'rest_base' => 'host',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true
+  ));
+
+  /**
+   * Taxonomy: Hosting
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('funding', ['programs'], array(
+    'label' => __('Funding', 'WNYC'),
+    'labels' => array(
+      'name' => __('Funding', 'WNYC'),
+      'singular_name' => __('Funding', 'WNYC')
+    ),
+    'public' => false,
+    'publicly_queryable' => false,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'funding',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => false, // Use this to show in the front-end filters
+    'show_tagcloud' => true,
+    'rest_base' => 'funding',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true
   ));
 });

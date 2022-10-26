@@ -37,7 +37,7 @@ class Announcements extends Timber\Post {
 
     $this->link = $this->getLink();
 
-    $this->shortLink = $this->getShortLink();
+    $this->short_link = $this->getShortLink();
 
     $this->target = ($this->announcement_is_external === 'Yes')
       ? '_blank' : '_self';
@@ -46,9 +46,11 @@ class Announcements extends Timber\Post {
 
     $this->status = __('New', 'WNYC');
 
-    $this->statusTitle = __('Updated in the last 7 days', 'WNYC');
+    $this->status_title = __('Updated in the last 7 days', 'WNYC');
 
-    $this->statusPeriod = '-7 days';
+    $this->status_period = '-7 days';
+
+    $this->archive = get_home_url() . '/#announcements';
 
     return $this;
   }

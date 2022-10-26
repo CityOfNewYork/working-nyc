@@ -1,0 +1,44 @@
+{
+    "key": "group_635c1af4e10ec",
+    "title": "Image Fields",
+    "fields": [
+        {
+            "key": "field_635c1b284f2b4",
+            "label": "Focal Point",
+            "name": "focal_point",
+            "type": "text",
+            "instructions": "The focal point is expressed as an \"x y\" coordinate and will be set to the \"object position\" CSS property. When the image is resized within the browser window, this coordinate of the image will mostly be kept in view. Both the x and the y value should be percentages points that generally intersect with the position on the image that needs to be focused on. For example; 50% 50% would center the image, 25% 75% would keep the top right part of the image in view.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "attachment",
+                "operator": "==",
+                "value": "image"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1666981201
+}

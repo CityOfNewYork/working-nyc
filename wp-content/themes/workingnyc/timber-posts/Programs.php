@@ -3,6 +3,9 @@
 /**
  * Programs
  *
+ * @link  http://localhost:8080/programs/
+ * @link  http://localhost:8080/wp-json/wp/v2/programs
+ *
  * @author NYC Opportunity
  */
 
@@ -48,6 +51,8 @@ class Programs extends Timber\Post {
 
     $this->status = $this->getStatus();
 
+    $this->preview = $this->getPreview();
+
     $this->intro = $this->getIntro();
 
     $this->populations = $this->getPopulations();
@@ -55,6 +60,18 @@ class Programs extends Timber\Post {
     $this->services = $this->getServices();
 
     $this->schedule = $this->getSchedule();
+
+    $this->supports = $this->getSupports();
+
+    $this->archive = get_post_type_archive_link('programs');
+
+    $this->external = $this->getExternal();
+
+    $this->link = $this->getLink();
+
+    $this->link_label = $this->getLinkLabel();
+
+    $this->languages = $this->getLanguages();
 
     /**
      * Set Schema
@@ -77,10 +94,15 @@ class Programs extends Timber\Post {
       'program_title' => $this->getTitle(),
       'program_agency' => $this->getAgency(),
       'status' => $this->getStatus(),
+      'preview' => $this->getPreview(),
       'intro' => $this->getIntro(),
       'populations' => $this->getPopulations(),
       'services' => $this->getServices(),
-      'schedule' => $this->getSchedule()
+      'schedule' => $this->getSchedule(),
+      'supports' => $this->getSupports(),
+      'external' => $this->getExternal(),
+      'link' => $this->getLink(),
+      'link_label' => $this->getLinkLabel()
     );
   }
 
@@ -109,7 +131,19 @@ class Programs extends Timber\Post {
    * @return  String  The agency name
    */
   public function getAgency() {
-    return $this->custom['program_agency'];
+    $agencies = get_the_terms($this->ID, 'agency');
+
+    if ($agencies) {
+      $agencies = array_map(function($agency) {
+        return $agency->name;
+      }, $agencies);
+
+      $agencies = implode(' ' . __('and', 'WNYC') . ' ', $agencies);
+    } else {
+      $agencies = $this->custom['program_agency'];
+    }
+
+    return $agencies;
   }
 
   /**
@@ -142,8 +176,21 @@ class Programs extends Timber\Post {
    *
    * @return  String  Program intro
    */
+  public function getPreview() {
+    if (array_key_exists('program_preview', $this->custom)) {
+      return $this->custom['program_preview'];
+    } else {
+      return strip_tags($this->custom['program_intro']);
+    }
+  }
+
+  /**
+   * Get the program introductory paragraph.
+   *
+   * @return  String  Program intro
+   */
   public function getIntro() {
-    return strip_tags(str_replace('-', '', $this->custom['program_intro']));
+    return strip_tags($this->custom['program_intro']);
   }
 
   /**
@@ -194,6 +241,10 @@ class Programs extends Timber\Post {
    * @return  String  Schedule sentence
    */
   public function getSchedule() {
+    if (array_key_exists('program_duration_and_schedule_label', $this->custom)) {
+      return $this->custom['program_duration_and_schedule_label'];
+    }
+
     $duration = get_the_terms($this->ID, 'duration');
 
     if ($duration) {
@@ -219,6 +270,77 @@ class Programs extends Timber\Post {
     }
 
     return $duration . $schedule;
+  }
+
+  /**
+   * Get the wrap around support field label
+   *
+   * @return  String  Short description for wraparound supports
+   */
+  public function getSupports() {
+    return (array_key_exists('program_wraparound_support', $this->custom))
+      ? $this->custom['program_wraparound_support'] : '';
+  }
+
+  /**
+   * Wether the post call to action is external or not
+   *
+   * @return  Boolean  Wether the link is external or not
+   */
+  public function getExternal() {
+    $hosting = get_the_terms($this->ID, 'hosting');
+
+    if (false === $hosting) {
+      return false;
+    }
+
+    $external = array_shift($hosting);
+
+    return ('external' === $external->slug);
+  }
+
+  /**
+   * Get the link based on wether the resource is external or not
+   *
+   * @return  String  The full URL string to the resource
+   */
+  public function getLink() {
+    return ($this->external) ? $this->custom['program_learn_more'] : get_permalink($this->ID);
+  }
+
+  /**
+   * Get the external button link label for the program which is the domain
+   * of the link it is going to.
+   *
+   * @return  String  The link label
+   */
+  public function getLinkLabel() {
+    if (empty($this->custom['program_learn_more'])) {
+      return '';
+    }
+
+    $url = parse_url($this->custom['program_learn_more']);
+
+    return __('Go to', 'WNYC') . ' ' . $url['host'];
+  }
+
+  /**
+   * Determines wether to show the languages button in the utility nav
+   *
+   * @return  Boolean  List of services in comma separated format
+   */
+  public function getLanguages() {
+    $services = get_the_terms($this->ID, 'services');
+
+    if ($services) {
+      $services = array_map(function($service) {
+        return $service->slug;
+      }, $services);
+
+      return in_array('english-skills', $services);
+    }
+
+    return $services;
   }
 
   /**

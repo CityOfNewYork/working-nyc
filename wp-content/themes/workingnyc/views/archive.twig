@@ -4,21 +4,23 @@
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
     <div data-js-archive="{{ post_type }}">
-      <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-20">
+      <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
         <div class="c-utility wrap">
           <a class="link-icon mie-auto" href="{{ site.url }}">
-            <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-              <use href="#feather-chevron-left"></use>
+            <svg aria-hidden="true" class="icon-ui rtl:flip">
+              <use href="#lucide-chevron-left"></use>
             </svg>
 
             <span>{{ __('Home', 'WNYC') }}</span>
           </a>
 
+          {% if 'guides' != post_type %}
           <button disabled class="btn btn-small btn-secondary light:btn-primary">
             <span class="mie-1" data-js="filters-label">{{ filters_label }}</span>
 
             <span class="badge badge-small status-secondary light:status-primary">0</span>
           </button>
+          {% endif %}
         </div>
       </div>
 
@@ -29,14 +31,16 @@
               <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
                 <a href="{{ site.url }}">{{ __('Home', 'WNYC') }}</a>
 
-                <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-wnyc-ui rtl:flip">
-                  <use href="#feather-chevron-right"></use>
+                <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
+                  <use href="#lucide-chevron-right"></use>
                 </svg>
 
                 <b aria-current="page">{{ page_title }}</b>
               </nav>
 
-              <h1 class="o-header__title" data-js="title">{{ page_title }}</h1>
+              <div class="o-header__title">
+                <h1 id="page-heading" class="o-header__heading" data-js="title">{{ page_title }}</h1>
+              </div>
 
               <div class="mb-3" data-js="content">{{ page_content }}</div>
             </div>
@@ -44,21 +48,50 @@
         </div>
       </div>
 
-      <section class="page-max desktop:px-6" id="jobs">
+      <section class="page-max desktop:px-6" id="{{ post_type }}">
         <div class="wrap desktop:px-6">
-          <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
-            {% for post in posts %}{% include post_type ~ '/' ~ post_type_singular ~ '.twig' %}{% endfor %}
+          <div class="mb-3">
+            <h2 class="text-p font-p inline-block m-0">
+              {{ __('Showing {{ TOTAL_VISIBLE }} ' ~ post_type_object.label ~ '.')|replace({'{{ TOTAL_VISIBLE }}': posts|length}) }}
+            </h2>
           </div>
+
+          {% if post_type == 'guides' %}
+          <div class="py-4 grid gap-x-3 gap-y-6 tablet:grid-cols-2">
+          {% else %}
+          <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
+          {% endif %}
+            {% for post in posts %}
+            {% if post.thumbnail %}
+            {% include 'components/card.twig' with {
+              this: {
+                title: post.title,
+                link: post.link,
+                id: post.type ~ '-' ~ post.id,
+                thumbnail: post.thumbnail
+              }
+            } only %}
+            {% else %}
+            {% include post_type ~ '/' ~ post_type_singular ~ '.twig' %}
+            {% endif %}
+            {% endfor %}
+          </div>
+
+          <p>
+            {{ __('Showing {{ TOTAL_VISIBLE }} ' ~ post_type_object.label ~ '.')|replace({'{{ TOTAL_VISIBLE }}': posts|length}) }}
+          </p>
         </div>
       </section>
 
-      {% if post_type == 'programs' %}
       <div class="layout-content py-6 pb-8 mb-4">
         <div class="wrap">
+          {# <button id="pagination" data-amount="1" class="btn btn-primary w-full">Show more</button> #}
+
+          {# {% if post_type == 'programs' %}
           <article class="c-alert mb-3" data-js="suggest-a-program">
             <div class="c-alert__graphic">
-              <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use href="#feather-help-circle"></use>
+              <svg aria-hidden="true" class="icon-ui">
+                <use href="#lucide-help-circle"></use>
               </svg>
             </div>
 
@@ -68,9 +101,11 @@
               <p data-js-alert="text">{{ options.new_program_body | striptags('<a><svg><title><use>') }}</p>
             </div>
           </article>
+          {% endif %} #}
         </div>
       </div>
-      {% endif %}
+
+      {% include 'components/back-to-top.twig' %}
     </div>
 
     {% if options.feedback is defined %}

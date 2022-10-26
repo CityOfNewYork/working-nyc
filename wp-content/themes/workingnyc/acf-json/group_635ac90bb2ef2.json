@@ -1,0 +1,44 @@
+{
+    "key": "group_635ac90bb2ef2",
+    "title": "Guide Fields",
+    "fields": [
+        {
+            "key": "field_635ac91470c63",
+            "label": "Preview",
+            "name": "guide_preview",
+            "type": "wysiwyg",
+            "instructions": "This is the text that will appear in the card. Keep formatting and length to a minimum, one sentence.",
+            "required": 1,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "guides"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "left",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1668608861
+}

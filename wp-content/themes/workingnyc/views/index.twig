@@ -21,15 +21,19 @@
     <div class="layout-content">
       <header class="o-header">
         <div class="w-full">
-          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
+          <div class="o-header__title">
+            <h1 id="page-heading" class="o-header__heading">
+              {% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}
+            </h1>
+          </div>
 
           {% if post.content %}{{ post.content }}{% endif %}
 
           <p class="small flex items-center">
-            <svg class="icon-wnyc-ui mie-1 icon-2" role="img">
+            <svg class="icon-ui mie-1 icon-2" role="img">
               <title>{{ __('Last updated', 'WNYC-Date') }}</title>
 
-              <use href="#feather-alert-triangle"></use>
+              <use href="#lucide-info"></use>
             </svg>
 
             {{ __('Last updated', 'WNYC-Date') }}
@@ -40,37 +44,20 @@
       </header>
     </div>
 
-    {# Jump Navigation #}
-    <div class="layout-content sticky top-0 bg-scale-1 z-20">
-      <div class="px-2 tablet:px-3">
-        <div class="overflow-hidden overflow-x-scroll whitespace-nowrap" data-js="active-navigation-scroll">
-          <nav class="c-utility font-secondary inline-flex relative px-0" data-js="active-navigation" aria-label="{{ __('Jump Navigation', 'WNYC') }}">
-            <span class="c-utility__item text-alt">{{ __('Jump to', 'WNYC')}}</span>
-
-            <a class="text-secondary" href="#content">{{ __('Top of page', 'WNYC') }}</a>
-
-            {# no-underline text-alt #}
-
-            {% for section in sections %}
-            {% if section.section_title %}
-            <a class="text-secondary" data-active-navigation-item="no-underline text-alt" data-inactive-navigation-item="text-secondary" href="#{{ section.section_title|trim|replace({' ': '-'})|lower }}">{{ section.section_title }}</a>
-            {% endif %}
-            {% endfor %}
-          </nav>
-        </div>
-      </div>
-    </div>
+    {% include 'components/active-navigation.twig' with {this: {
+      items: sections|map(item => {title: item.section_title})
+    }} %}
 
     {% if sections %}
-    <div class="bg-scale-2">
+    <div class="bg-scale-0">
       <div class="layout-content pb-8 mb-8">
-        <div class="py-4" data-js="observe" data-js-observe-items="heading">
+        <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
           {% for section in sections %}
-          <section data-js-observe-item="heading" {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
+          <section data-active-navigation-observe-item="heading" {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
             {% if section.section_title %}
-            <div class="pt-utility-anchor bg-scale-2 sticky top-0 z-10">
+            <div class="pt-utility-anchor bg-scale-0 sticky top-0 z-10">
               <div class="wrap">
-                <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
+                <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3" data-active-navigation-item="focus">
                   {{ section.section_title }}
                 </h3>
               </div>
@@ -85,11 +72,7 @@
         </div>
       </div>
 
-      <div class="layout-content pb-2 sticky z-10 o-navigation-feedback-spacing-bottom">
-        <div class="wrap text-end">
-          <a class="btn btn-small tablet:btn btn-secondary" href="#content">{{ __('Back to top', 'WNYC') }}</a>
-        </div>
-      </div>
+      {% include 'components/back-to-top.twig' %}
     </div>
     {% endif %}
 

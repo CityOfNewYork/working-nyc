@@ -65,12 +65,14 @@ new Vue({
           BY: 'by',
           SERVICES: 'Services Provided',
           SCHEDULE: 'Duration and Length',
+          SUPPORTS: 'Support Provided',
           LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ program }}</span>',
-          SHOWING: 'Showing {{ TOTAL_VISIBLE }} results of {{ TOTAL }}.',
+          SHOWING: 'Showing {{ TOTAL_VISIBLE }} Programs of {{ TOTAL }}.',
           RESET: 'Click here to reset filters',
           NO_RESULTS: 'No Results. Try deselecting some filters.',
           LOADING: 'Loading',
           SHOW_MORE: 'Show more',
+          BACK_TO_TOP: 'Back to top',
           SUGGEST:  (config.suggest) ? config.suggest.innerHTML : ''
         }
       }

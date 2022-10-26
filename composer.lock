@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e8f599f8c17d6c91530dd729ac787a11",
+    "content-hash": "8dfaf6b781ec3d43ff42bc2a839737b7",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -921,6 +921,51 @@
                 "source": "https://github.com/CityOfNewYork/nyco-wp-gc-templates-sync/tree/v0.0.2"
             },
             "time": "2022-02-28T17:47:19+00:00"
+        },
+        {
+            "name": "nyco/wp-og-images",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CityOfNewYork/nyco-wp-og-images.git",
+                "reference": "82e04d2ec3dec4d02bb327e4fdbe737656d0ab4e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CityOfNewYork/nyco-wp-og-images/zipball/82e04d2ec3dec4d02bb327e4fdbe737656d0ab4e",
+                "reference": "82e04d2ec3dec4d02bb327e4fdbe737656d0ab4e",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "~3.0"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0+"
+            ],
+            "authors": [
+                {
+                    "name": "NYC Opportunity",
+                    "email": "products@nycopportunity.nyc.gov",
+                    "homepage": "https://nyc.gov/opportunity"
+                }
+            ],
+            "description": "A library for generating open graph images from WordPress content.",
+            "homepage": "https://github.com/cityofnewyork/nyco-wp-og-images",
+            "keywords": [
+                "open-graph",
+                "open-graph-images",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/cityofnewyork/nyco-wp-og-images/issues",
+                "source": "https://github.com/CityOfNewYork/nyco-wp-og-images/tree/v0.0.2"
+            },
+            "time": "2022-11-16T15:05:01+00:00"
         },
         {
             "name": "psr/container",
@@ -2003,6 +2048,24 @@
             "homepage": "https://wordpress.org/plugins/aryo-activity-log/"
         },
         {
+            "name": "wpackagist-plugin/enable-media-replace",
+            "version": "4.0.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/enable-media-replace/",
+                "reference": "tags/4.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/enable-media-replace.4.0.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/enable-media-replace/"
+        },
+        {
             "name": "wpackagist-plugin/gathercontent-import",
             "version": "3.1.14",
             "source": {
@@ -2091,6 +2154,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/members/"
+        },
+        {
+            "name": "wpackagist-plugin/regenerate-thumbnails",
+            "version": "3.1.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/regenerate-thumbnails/",
+                "reference": "tags/3.1.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.3.1.5.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/regenerate-thumbnails/"
         },
         {
             "name": "wpackagist-plugin/rollbar",
@@ -2580,5 +2661,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.3.0"
 }

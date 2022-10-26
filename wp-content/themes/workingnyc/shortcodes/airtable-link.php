@@ -92,8 +92,8 @@ class AirtableLink extends Shortcode {
 
     return '<a class="link-icon '. $atts['class'] . '" href="'. $url . '" target="_blank">' .
       '<span>' . $atts['text'] . '</span>' .
-      '<svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">' .
-        '<use href="#feather-external-link"></use>' .
+      '<svg aria-hidden="true" class="icon-ui rtl:flip">' .
+        '<use href="#lucide-external-link"></use>' .
       '</svg>' .
     '</a>';
   }

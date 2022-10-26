@@ -34,6 +34,7 @@
   <exclude-pattern>wp-content/mu-plugins/wp-config/</exclude-pattern>
   <exclude-pattern>wp-content/mu-plugins/wp-s3-all-import-compatibility/</exclude-pattern>
   <exclude-pattern>wp-content/mu-plugins/wp-send-me-nyc/</exclude-pattern>
+  <exclude-pattern>wp-content/mu-plugins/wp-og-images/</exclude-pattern>
   <exclude-pattern>wp-content/themes/workingnyc/node_modules/</exclude-pattern>
 
   <rule ref="PSR2" />

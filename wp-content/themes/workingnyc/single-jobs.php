@@ -22,17 +22,17 @@ $post = new WorkingNYC\Jobs($post);
 
 $context['post'] = $post;
 
-if (defined('WP_ENV') && 'development' === WP_ENV) {
-  debug($context['post']);
-}
+// if (defined('WP_ENV') && 'development' === WP_ENV) {
+//   debug($context['post']);
+// }
 
 $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
 $context['meta'] = new WorkingNYC\Meta($post); // Add meta to post
 
-if (defined('WP_ENV') && 'development' === WP_ENV) {
-  debug($context['meta']);
-}
+// if (defined('WP_ENV') && 'development' === WP_ENV) {
+//   debug($context['meta']);
+// }
 
 /**
  * Generate schema for page
@@ -44,9 +44,9 @@ $schema = json_decode($context['schema']); // Decode base schema to add
 
 $context['schema'] = json_encode(array_merge($schema, $post->schema), JSON_UNESCAPED_SLASHES);
 
-if (defined('WP_ENV') && 'development' === WP_ENV) {
-  debug(json_decode($context['schema']));
-}
+// if (defined('WP_ENV') && 'development' === WP_ENV) {
+//   debug(json_decode($context['schema']));
+// }
 
 /**
  * Render the view

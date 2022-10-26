@@ -19,6 +19,17 @@
 </div>
 
 <div class="mb-8">
+  <h2 class="h3">{{ __('Guides', 'WNYC') }}</h2>
+
+  <ul>
+    {% for post in guides %}<li>
+      <a class="block" href="{{ post.link }}">{{ post.post_title }}</a>
+    </li>{% endfor %}
+  </ul>
+</div>
+
+
+<div class="mb-8">
   <h2 class="h3">{{ __('Jobs', 'WNYC') }}</h2>
 
   <ul>
@@ -29,7 +40,7 @@
 </div>
 
 <div class="mb-8">
-  <h2 class="h3">{{ __('About Working NYC', 'WNYC') }}</h2>
+  <h2 class="h3">{{ __('About this website', 'WNYC') }}</h2>
 
   <ul>
     {% for menu_item in footer_menu_secondary.get_items %}

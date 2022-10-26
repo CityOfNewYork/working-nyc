@@ -12,7 +12,14 @@ module.exports = [
     includePaths: [
       './src/',
       './node_modules/',
-      './node_modules/@nycopportunity/working-patterns/src/',
+      `${process.env.PWD}/node_modules/@nycopportunity/standard/src`,
+      `${process.env.PWD}/node_modules/@nycopportunity/standard/dist`,
+      `${process.env.PWD}/node_modules/@nycopportunity/pattern-application-header/src`,
+      `${process.env.PWD}/node_modules/@nycopportunity/pattern-attribution/src`,
+      `${process.env.PWD}/node_modules/@nycopportunity/pattern-elements/src`,
+      `${process.env.PWD}/node_modules/@nycopportunity/pattern-menu/src`,
+      `${process.env.PWD}/node_modules/@nycopportunity/pattern-navigation/src`,
+      `${process.env.PWD}/node_modules/@nycopportunity/pattern-typography/src`
     ],
     devModule: true
   }

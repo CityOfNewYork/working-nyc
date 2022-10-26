@@ -1,43 +1,31 @@
-<article class="c-accordion {{ this.classes }}" id="{{ this.id }}">
-  <header class="c-accordion__header">
-    <button aria-controls="aria-c-{{ this.id }}" aria-expanded="{{ this.active }}" class="c-accordion__toggle w-full text-start print:hidden {% if this.active %}active{% endif %}" data-js="accordion">
-      <span class="c-accordion__heading mt-0" id="aria-lb-{{ this.id }}">
-        <span>{{ this.header }}</span>
-      </span>
+{# @Type   Component #}
+{# @For    Generic Templates, Short-codes #}
+<article class="c-accordion__group {{ this.classes }}" id="{{ this.id }}">
+  <h3 class="c-accordion__header">
+    <button class="c-accordion__toggle print:hidden {% if this.active %}active{% endif %}" aria-controls="aria-c-{{ this.id }}" aria-expanded="{% if this.active %}true{% else %}false{% endif %}" data-js="accordion">
+      <span class="c-accordion__heading" id="aria-lb-{{ this.id }}">{{ this.header }}</span>
 
-      <span class="c-accordion__toggle-active">
-        <svg class="icon-wnyc-ui" role="img">
-          <title>{{ __('Hide', 'wnyc') }}</title>
-
-          <use href="#feather-chevron-down"></use>
-        </svg>
-      </span>
-
-      <span class="c-accordion__toggle-inactive">
-        <svg class="icon-wnyc-ui" role="img">
-          <title>{{ __('Expand', 'wnyc') }}</title>
-
-          <use href="#feather-chevron-up"></use>
-        </svg>
-      </span>
+      <svg aria-hidden="true" class="icon-ui">
+        <use href="#lucide-chevron-down"></use>
+      </svg>
     </button>
-  </header>
+  </h3>
 
-  <div aria-hidden="{% if this.active %}false{% else %}true{% endif %}" id="aria-c-{{ this.id }}" aria-labelledby="aria-lb-{{ this.id }}" class="c-accordion__body print:active hidden:overflow animated {% if this.active %}active{% else %}hidden{% endif %}" role="region">
+  <div class="c-accordion__body print:active hidden:overflow animated {% if this.active %}active{% else %}hidden{% endif %}" aria-hidden="{% if this.active %}false{% else %}true{% endif %}" id="aria-c-{{ this.id }}" aria-labelledby="aria-lb-{{ this.id }}">
     <div class="c-accordion__padding">
-      <p>{{ this.body }}</p>
+      {{ this.body|wpautop }}
 
-      {% if this.cta %}
+      {% if this.link %}
       <p class="print:hidden">
-        <a class="btn btn-secondary btn-next w-full" href="{{ this.cta.href }}" {% if this.cta.target %}target="{{ this.cta.target }}"{% endif %} {% if this.cta.rel %}rel="{{ this.cta.rel }}"{% endif %} {% if this.active == false %}tabindex="-1"{% endif %}>
-          <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip" {% if this.active == false %}tabindex="-1"{% endif %}>
-            <use href="#feather-arrow-left"></use>
-          </svg>
+        <a class="btn btn-secondary" href="{{ this.link }}" {% if this.link_target == '_blank' %} target="{{ this.link_target }}" rel="noopener"{% endif %} {% if this.active %}{% else %}tabindex="-1"{% endif %}>
+          {% if this.link_target == '_blank' %}
+          <span>{{ this.link_label }}</span>
+          {% else %}
+          <span>{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ this.header }}</span></span></span>
+          {% endif %}
 
-          {{ this.cta.text }}
-
-          <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip" {% if this.active == false %}tabindex="-1"{% endif %}>
-            <use href="#feather-arrow-right"></use>
+          <svg aria-hidden="true" class="icon-ui rtl:flip" {% if this.active %}{% else %}tabindex="-1"{% endif %}>
+            <use href="#lucide-{% if this.link_target == '_blank' %}external-link{% else %}arrow-right{% endif %}"></use>
           </svg>
         </a>
       </p>

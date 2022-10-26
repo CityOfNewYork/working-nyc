@@ -1,94 +1,97 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div class="bg-scale-1 bg-shape-wnyc-abc bg-fixed">
-  <header class="o-banner page-max desktop:px-6">
-    <div class="py-7 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
-      <div class="pb-6 hidden tablet:flex"></div>
+<div class="bg-scale-1">
+  <header class="o-banner {% if post.thumbnail %}bg-banner-min-height bg-shape-wnyc-header{% endif %} relative">
+    <div class="page-max desktop:px-6">
 
-      <div class="pb-6 hidden tablet:flex"></div>
+      {% if post.thumbnail %}
+      <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
+        <div>
+      {% else %}
+      <div class="py-2 tablet:py-8 desktop:px-6 layout-content">
+        <div class="wrap">
+      {% endif %}
 
-      <div>
-        <div class="tablet:pe-4 pt-1">
-          <h1 class="sr-only">Working N Y C</h1>
+          <div class="text-center">
+            <h1 id="page-heading" class="m-0" style="line-height: 0">
+              <svg class="fill-text stroke-text text-brand" width="256" height="79" role="img">
+                <title>Working N Y C</title>
 
-          <svg aria-hidden="true" class="icon-logo-homepage fill-text text-brand">
-            <use href="#logo-wnyc-standard"></use>
-          </svg>
-
-          <h2 class="h4 font-primary tablet:font-normal tablet:text-h3 font-bold text-alt mb-5 tablet:mb-0">{{ post.post_content|striptags }}</h2>
-        </div>
-      </div>
-
-      {% include 'components/questionnaire.twig' %}
-    </div>
-  </header>
-
-  <main id="content">
-    {# Programs #}
-    {% if featured_posts %}
-    {% for section in featured_posts %}
-    <section class="page-max pb-8 mb-8" id="{{ section.featured_posts_heading|lower|replace({' ':'-'}) }}">
-      <div>
-        <div class="layout-content">
-          <div class="wrap">
-            <h2 class="h4 font-normal text-alt mt-0">{{ section.featured_posts_heading }}</h2>
-
-            <p>{{ section.featured_posts_description }}</p>
-          </div>
-        </div>
-
-        <div class="desktop:px-6">
-          <div class="scroll py-3 scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:pb-0 tablet:grid tablet:grid-cols-2 tablet:gap-3 desktop:gap-5 tablet:px-3 desktop:px-6">
-            {% for featured in section.featured_posts_objects %}
-            <div class="wrap-start {% if loop.last %}wrap-end{% endif %} transform-none tablet:p-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-              {% include [ featured.post_type ~ '/' ~ featured.singular ~ '.twig'] with {
-                post: featured
-              } %}
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        {% if section.featured_posts_archive %}
-        <div class="layout-content">
-          <div class="wrap tablet:py-6">
-            <a class="btn btn-secondary light:btn-primary btn-next flex w-full" href="{{ section.featured_posts_archive.link }}">
-              <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-                <use href="#feather-arrow-left"></use>
+                <use href="#logo-wknyc-horizontal-w-ribbon"></use>
               </svg>
+            </h1>
+          </div>
 
-              <span>{{ section.featured_posts_archive.label }}</span>
+          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
 
-              <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-                <use href="#feather-arrow-right"></use>
+          {# Do not delete. Possible header utility values; #}
+          {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
+          {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
+
+          <p class="text-center">
+            <a class="inline-block text-center" href="#content">
+              <span>{{ __('Explore', 'WNYC') }}</span><br />
+              <svg aria-hidden="true" class="icon-ui icon-5">
+                <use href="#lucide-chevron-down"></use>
               </svg>
             </a>
-          </div>
+          </p>
         </div>
-        {% endif %}
       </div>
-    </section>
-    {% endfor %}
+    </div>
+
+    {% if post.thumbnail %}
+    <div class="bg-image-grid hidden tablet:grid grid-cols-2 animated fadeIn">
+      <div></div>
+
+      <div class="bg-image-grid__mask-scale-1 relative">
+        <img class="bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      </div>
+    </div>
     {% endif %}
+  </header>
 
-    {% if announcements %}
-    <section class="page-max pb-8 mb-8" id="announcements">
-      <div class="layout-content">
-        <div class="wrap pb-2">
-          <h2 class="h4 font-normal text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
+  <main id="content" class="bg-shape-wnyc-content">
+    <div>
+      {# Collections #}
+      {% if collections %}
+      {% for collection in collections %}
 
-          <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
-            {% for announcement in announcements %}
-            <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-              {% include 'components/announcement.twig' with {this: announcement} only %}
+      {% if loop.index == 1 and questionnaire.position == 0 %}
+      {% include questionnaire.template with {this: questionnaire} %}
+      {% endif %}
+
+      {% include collection.template with {this: collection} only %}
+
+      {% if loop.index == questionnaire.position %}
+      {% include questionnaire.template with {this: questionnaire} %}
+      {% endif %}
+
+      {% endfor %}
+      {% endif %}
+
+      {# Announcements #}
+      {% if announcements %}
+      <section class="page-max pb-8 pt-utility-anchor" id="announcements">
+        <div class="layout-content py-2 tablet:py-8">
+          <div class="wrap">
+            <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
+
+            <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
+              {% for announcement in announcements %}
+              <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+                {% include 'components/announcement.twig' with {this: announcement} only %}
+              </div>
+              {% endfor %}
             </div>
-            {% endfor %}
           </div>
         </div>
-      </div>
-    </section>
-    {% endif %}
+      </section>
+      {% endif %}
+
+      {% include 'components/back-to-top.twig' %}
+    </div>
 
     {% if options.feedback is defined %}
     {% include 'objects/feedback.twig' %}
@@ -98,5 +101,9 @@
     {% include 'objects/newsletter.twig' %}
     {% endif %}
   </main>
+
+  <div class="bg-shape-wnyc-position bg-shape-wnyc-b bg-shape-wnyc-position-background"></div>
+
+  <div class="bg-shape-wnyc-position bg-shape-wnyc-ac bg-shape-wnyc-position-foreground"></div>
 </div>
 {% endblock %}

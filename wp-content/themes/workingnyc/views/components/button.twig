@@ -1,0 +1,35 @@
+{# @Type  Element #}
+{# @For   Generic Templates, Short-codes, Button Links #}
+{% if this.hyperlink %}
+<a href="{{ this.hyperlink.href }}" class="btn {{ this.type }}" {% if this.hyperlink.external %}target="_blank" rel="noopener"{% endif %}>
+  <span>{{ this.label }}</span>
+
+  {% if this.hyperlink.external %}
+  <svg aria-hidden="true" class="icon-ui rtl:flip">
+    <use href="#lucide-{% if this.hyperlink.external %}external-link{% else %}arrow-right{% endif %}"></use>
+  </svg>
+  {% endif %}
+</a>
+{# @Type  Element #}
+{# @For   Generic Templates, Short-codes, Site features #}
+{% elseif this.function %}
+  {# @For   Translation dialog #}
+  {% if this.function == 'languages' %}
+  <button class="btn {{ this.type }}" data-js="languages" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <svg class="icon-ui">
+      <use href="#nyco-languages"></use>
+    </svg>
+
+    <span>{{ __('Languages', 'WNYC') }}</span>
+  </button>
+  {# @For   Theme switcher #}
+  {% elseif this.function == 'themes' %}
+  <button class="btn {{ this.type }}" data-js="themes">
+    <svg class="icon-ui">
+      <use data-js-themes="icon" href="#lucide-moon"></use>
+    </svg>
+
+    <span class="sr-only">{{ __('Toggle', 'WNYC') }}&nbsp;</span><span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
+  </button>
+  {% endif %}
+{% endif %}

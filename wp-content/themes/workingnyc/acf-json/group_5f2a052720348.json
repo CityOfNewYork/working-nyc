@@ -1,7 +1,45 @@
 {
     "key": "group_5f2a052720348",
-    "title": "Questionnaire",
+    "title": "Questionnaire Fields",
     "fields": [
+        {
+            "key": "field_636024ab4107b",
+            "label": "Title",
+            "name": "questionnaire_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_636024be4107c",
+            "label": "Description",
+            "name": "questionnaire_description",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
         {
             "key": "field_5f2a065e594db",
             "label": "Post Type",
@@ -49,7 +87,7 @@
         },
         {
             "key": "field_5f2a0535594d6",
-            "label": "Questionnaire",
+            "label": "Questions",
             "name": "questionnaire",
             "type": "flexible_content",
             "instructions": "",
@@ -124,6 +162,51 @@
             "button_label": "Add Row",
             "min": "",
             "max": ""
+        },
+        {
+            "key": "field_635a9d1cd13d4",
+            "label": "Image",
+            "name": "questionnaire_image",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_635a9c2ad13d3",
+            "label": "Position",
+            "name": "questionnaire_position",
+            "type": "number",
+            "instructions": "Choose a number that represents where in the homepage the questionnaire will appear in the featured posts section.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": 0,
+            "max": "",
+            "step": 1
         }
     ],
     "location": [
@@ -138,9 +221,11 @@
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "top",
+    "label_placement": "left",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
-    "description": ""
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1667247753
 }

@@ -51,7 +51,7 @@ class Shortcode {
 
     if ($this->closes) {
       $shortcodes[$key] = "$shortcodes[$key]" .
-        __('Add body content between these shortcode tags.') .
+        __('Add text content between these shortcode tags.') .
         "[/$this->shortcode]";
     }
 

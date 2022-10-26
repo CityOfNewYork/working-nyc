@@ -49,7 +49,7 @@ class Program extends Shortcode {
     }
 
     if (isset($atts['learn-more-new-window']) && 'true' === $atts['learn-more-new-window']) {
-      $post->link_target = '_blank';
+      $post->external = true;
     }
 
     $post->classes = 'mb-4';

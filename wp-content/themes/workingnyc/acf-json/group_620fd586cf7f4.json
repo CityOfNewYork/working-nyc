@@ -1,6 +1,6 @@
 {
     "key": "group_620fd586cf7f4",
-    "title": "Job Details",
+    "title": "Job Fields",
     "fields": [
         {
             "key": "field_620fef508af9b",
@@ -342,11 +342,11 @@
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "top",
+    "label_placement": "left",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 1,
-    "modified": 1650911870
+    "modified": 1666984471
 }

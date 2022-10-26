@@ -1,10 +1,12 @@
-<nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
+{# @Type   Element #}
+{# @For    Generic Templates #}
+<nav class="breadcrumbs" aria-label="Breadcrumb">
   <a href="{{ site.url }}">{{ __('Home', 'WNYC') }}</a>
 
   {% if crumbs %}
   {% for crumb in crumbs %}
-    <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-wnyc-ui rtl:flip">
-      <use href="#feather-chevron-right"></use>
+    <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
+      <use href="#lucide-chevron-right"></use>
     </svg>
 
     {% if crumb.link != '' %}

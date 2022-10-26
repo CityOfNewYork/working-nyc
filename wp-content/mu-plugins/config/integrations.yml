@@ -94,6 +94,13 @@
     path: config/integrations/scripts/ie11-custom-properties.js
     position: before
 
+- handle: google-fonts-montserrat
+  name: Google Fonts, Montserrat
+  instructions: Enables the use of Montserrat on the homepage tagline.
+  in_footer: false
+  style:
+    path: config/integrations/styles/google-fonts-montserrat.css
+
 - handle: animate-on-scroll
   name: Animate on Scroll
   instructions: Enables scrolling animations (fading in) on the homepage.
@@ -102,5 +109,3 @@
   inline:
     path: config/integrations/scripts/animate-on-scroll.js
     position: after
-  style:
-    path: config/integrations/styles/animate-on-scroll.css

@@ -30,4 +30,6 @@ $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
  * @author NYC Opportunity
  */
 
-Timber::render('index.twig', $context);
+$compiled = new WorkingNYC\CompileImgPreload('index.twig', $context);
+
+echo $compiled->html;

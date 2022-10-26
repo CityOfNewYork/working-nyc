@@ -22,7 +22,9 @@ require_once WorkingNYC\timber_post($class);
  */
 
 add_action('wp_enqueue_scripts', function() use ($path) {
-  enqueue_script("archive-$path");
+  if ('guides' !== $path) {
+    enqueue_script("archive-$path");
+  }
 });
 
 /**
@@ -109,9 +111,11 @@ $context['page_content'] = Templating\get_content($path);
 
 $context['post_type'] = $path;
 
+$context['post_type_object'] = get_post_type_object($path);
+
 $context['post_type_singular'] = str_replace('s', '', $context['post_type']);
 
-$context['filters_label'] = __("Filter $path", 'WNYC');
+$context['filters_label'] = __("Filter " . strtolower($context['post_type_object']->label), 'WNYC');
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
@@ -127,4 +131,6 @@ $context['posts'] = array_map(function($p) use ($class) {
  * @author NYC Opportunity
  */
 
-Timber::render('archive.twig', $context);
+$compiled = new WorkingNYC\CompileImgPreload('archive.twig', $context);
+
+echo $compiled->html;

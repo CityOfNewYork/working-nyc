@@ -100,7 +100,31 @@
             "max_width": "",
             "max_height": "",
             "max_size": "",
-            "mime_types": ""
+            "mime_types": "png"
+        },
+        {
+            "key": "field_6372b8e133918",
+            "label": "OG Image Logo",
+            "name": "og_image_logo",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "full",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "png"
         },
         {
             "key": "field_60c26bae798e2",
@@ -141,6 +165,20 @@
                 "operator": "==",
                 "value": "announcements"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "jobs"
+            }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "guides"
+            }
         ]
     ],
     "menu_order": 6,
@@ -152,5 +190,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1657640014
+    "modified": 1668462893
 }

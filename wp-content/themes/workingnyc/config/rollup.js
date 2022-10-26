@@ -6,6 +6,7 @@ const nodeResolve = require('@rollup/plugin-node-resolve'); // Locate modules us
 const commonjs = require('@rollup/plugin-commonjs');        // Include CommonJS packages in Rollup bundles
 const replace = require('@rollup/plugin-replace');          // Replace content while bundling
 const vue = require('rollup-plugin-vue');                   // Roll up Vue single file components (SFCs)
+const package = require('../package.json');
 
 /**
  * General ES module configuration
@@ -38,7 +39,8 @@ const plugins = [
     'SCREEN_DESKTOP': 960,
     'SCREEN_TABLET': 768,
     'SCREEN_MOBILE': 480,
-    'SCREEM_SM_MOBILE': 400
+    'SCREEM_SM_MOBILE': 400,
+    'VERSION': `'${package.version}'`,
   })
 ];
 
@@ -76,6 +78,18 @@ module.exports = [
     input: './src/js/archive-jobs.js',
     output: [{
       file: './assets/js/archive-jobs-development.js',
+      format: rollup.format,
+      sourcemap: false,
+      strict: rollup.strict
+    }],
+    plugins: plugins,
+    cache: true,
+    devModule: true
+  },
+  {
+    input: './src/js/archive-guides.js',
+    output: [{
+      file: './assets/js/archive-guides-development.js',
       format: rollup.format,
       sourcemap: false,
       strict: rollup.strict

@@ -7,7 +7,15 @@ module.exports = {
   run: async () => {
     try {
       if (fs.existsSync('./assets')) {
-        await fs.rmSync('./assets', {
+        await fs.rmSync('./assets/js', {
+          recursive: true
+        });
+
+        await fs.rmSync('./assets/styles', {
+          recursive: true
+        });
+
+        await fs.rmSync('./assets/svg', {
           recursive: true
         });
 

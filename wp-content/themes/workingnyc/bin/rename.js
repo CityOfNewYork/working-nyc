@@ -15,44 +15,6 @@ const resolve = require('@nycopportunity/pttrn/bin/util/resolve');
  */
 const paths = resolve('config/rename', true, false);
 
-// /**f
-//  * Cleans previously renamed files based on files in the `paths` array.
-//  *
-//  * @return  {Boolean}  Truthy when complete
-//  */
-// const clean = async () => {
-//   try {
-//     let directories = paths.map(p => path.dirname(p))
-//       .filter((d, i, paths) => paths.indexOf(d) === i);
-
-//     for (let di = 0; di < directories.length; di++) {
-//       let dir = directories[di];
-//       let files = paths.filter(p => p.includes(dir));
-
-//       files = files.map(f => {
-//         let file = fs.readdirSync(dir).filter(curr => {
-//           return curr.startsWith(`${path.basename(f, path.extname(f))}-`) &&
-//             curr.endsWith(path.extname(f));
-//         }).map(f => path.join(dir, f));
-
-//         return file;
-//       }).flat();
-
-//       console.dir(files);
-
-//       files.forEach(async (f) => {
-//         await fs.unlinkSync(f);
-
-//         cnsl.describe(`${alerts.success} Rename deleting ${alerts.str.path(f)}`);
-//       });
-//     }
-
-//     return true;
-//   } catch (err) {
-//     cnsl.error(`Rename (rename): ${err.stack}`);
-//   }
-// };
-
 /**
  * Renames files included in the `paths` array.
  *

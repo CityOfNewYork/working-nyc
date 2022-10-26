@@ -14,13 +14,21 @@
                 "type": "wp-type-post",
                 "value": "post_title"
             },
-            "a6084a2e-d04f-e27c-4134-6e9dc76250b8": {
-                "type": "wp-type-meta",
-                "value": "program_title"
+            "d8b5ab6c-d37a-e358-9139-1b13f277e697": {
+                "type": "wp-type-taxonomy",
+                "value": "hosting"
+            },
+            "f2ee02b0-bc37-bb96-c06c-1f2e2ae4ac35": {
+                "type": "wp-type-taxonomy",
+                "value": "funding"
             },
             "b4d76888-2b92-23fe-ebe0-e5c96b6b7fa5": {
                 "type": "wp-type-meta",
                 "value": "program_agency"
+            },
+            "afbbd1ee-9b30-9a11-1447-f79a48ffe0d5": {
+                "type": "wp-type-taxonomy",
+                "value": "agency"
             },
             "ce83faeb-8dbe-89e1-f877-8fc764632484": {
                 "type": "wp-type-meta",
@@ -30,9 +38,21 @@
                 "type": "wp-type-taxonomy",
                 "value": "services"
             },
+            "6f34a64b-b06f-4a20-580f-fd864379e63a": {
+                "type": "wp-type-taxonomy",
+                "value": "populations"
+            },
             "a50e6c5e-cfb7-45ad-6f5e-68db7714911b": {
                 "type": "wp-type-taxonomy",
                 "value": "sectors"
+            },
+            "a6084a2e-d04f-e27c-4134-6e9dc76250b8": {
+                "type": "wp-type-meta",
+                "value": "program_title"
+            },
+            "bcaa7602-81dd-e3ed-804d-9b8e93e76046": {
+                "type": "wp-type-meta",
+                "value": "program_preview"
             },
             "693d4bb8-583a-79e9-b90a-a3831b1b6e73": {
                 "type": "wp-type-meta",
@@ -42,13 +62,13 @@
                 "type": "wp-type-meta",
                 "value": "program_more_info"
             },
-            "6f34a64b-b06f-4a20-580f-fd864379e63a": {
-                "type": "wp-type-taxonomy",
-                "value": "populations"
-            },
             "32449fcd-feee-b224-6972-ceca237aba1e": {
                 "type": "wp-type-meta",
                 "value": "program_eligibility"
+            },
+            "f61cd1fc-785d-f3af-d4fa-2b800d21643a": {
+                "type": "wp-type-meta",
+                "value": "program_wraparound_support"
             },
             "75f7e925-16cd-2d89-f1c9-28a6a2dfe015": {
                 "type": "wp-type-meta",
@@ -65,6 +85,10 @@
             "c48f6e02-2513-0f69-0280-da10c1773a38": {
                 "type": "wp-type-taxonomy",
                 "value": "schedule"
+            },
+            "c31f7e2c-6166-135e-6887-5d0dbfd6cd93": {
+                "type": "wp-type-meta",
+                "value": "program_duration_and_schedule_label"
             },
             "d66a7c9e-1304-5f5b-a7d9-a3536dd5cab6": {
                 "type": "wp-type-meta",
@@ -111,11 +135,15 @@
                 "wp": "",
                 "after": ""
             },
-            "1706153": {
+            "1706154": {
                 "wp": "",
                 "after": ""
             },
-            "1706154": {
+            "2293393": {
+                "wp": "",
+                "after": ""
+            },
+            "1706153": {
                 "wp": "",
                 "after": ""
             },
@@ -131,11 +159,15 @@
                 "wp": "",
                 "after": ""
             },
+            "1723313": {
+                "wp": "",
+                "after": ""
+            },
             "1706158": {
                 "wp": "",
                 "after": ""
             },
-            "1723313": {
+            "1812952": {
                 "wp": "",
                 "after": ""
             },
@@ -143,12 +175,16 @@
                 "wp": "",
                 "after": ""
             },
-            "1812952": {
+            "2143197": {
+                "wp": "",
+                "after": ""
+            },
+            "2213885": {
                 "wp": "",
                 "after": ""
             }
         },
         "structure_uuid": "8a069065-8720-448a-af55-583045587e89"
     },
-    "modified": 1645824882
+    "modified": 1666877568
 }

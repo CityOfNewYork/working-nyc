@@ -12,7 +12,8 @@
         web_share: {
           'title': post.title,
           'text': (post.web_share_text) ? post.web_share_text,
-          'url': fn('wp_get_shortlink')
+          'url': fn('wp_get_shortlink'),
+          'subject': __('this announcement', 'WNYC')
         }
       } %}
     </div>
@@ -21,15 +22,15 @@
     <div class="layout-content">
       <header class="o-header">
         <div>
-          <h1 class="o-header__title">{{ post.title }}</h1>
+          <h1 id="page-heading" class="o-header__title">{{ post.title }}</h1>
 
           {{ post.announcement_details|wpautop }}
 
           <p class="small flex items-center">
-            <svg class="icon-wnyc-ui mie-1 icon-2" role="img">
+            <svg class="icon-ui mie-1 icon-2" role="img">
               <title>{{ __('Last updated', 'WNYC-Date') }}</title>
 
-              <use href="#feather-alert-triangle"></use>
+              <use href="#lucide-info"></use>
             </svg>
 
             {{ __('Last updated', 'WNYC-Date') }}

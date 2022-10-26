@@ -2,22 +2,21 @@
  * Dependencies
  */
 
-let postCssConfig = require('@nycopportunity/working-patterns/config/postcss');
-let tailwindcssConfig = require('@nycopportunity/working-patterns/config/tailwindcss');
+let postCssConfig = require('@nycopportunity/standard/config/postcss');
+let tailwindcssConfig = require('@nycopportunity/standard/config/tailwindcss');
 
 /**
- * Use patterns Tailwindcss config but enable just-in-time mode for prod build
- *
- * @url https://v2.tailwindcss.com/docs/just-in-time-mode
+ * Use patterns Tailwindcss config but specify templates to analyze
  */
 postCssConfig.plugins = postCssConfig.plugins.map(p => {
   if (p.postcssPlugin === 'tailwindcss') {
-    tailwindcssConfig.mode = 'jit';
-    tailwindcssConfig.purge = [
+    tailwindcssConfig.content = [
       './views/**/*.twig',
       './views/**/*.vue',
       './shortcodes/**/*.php'
     ];
+
+    tailwindcssConfig.safelist = [];
 
     return require('tailwindcss')(tailwindcssConfig);
   }

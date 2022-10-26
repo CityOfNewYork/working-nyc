@@ -5,6 +5,7 @@
 import Dialog from '@nycopportunity/pttrn-scripts/src/dialog/dialog';
 import Copy from '@nycopportunity/pttrn-scripts/src/copy/copy';
 import Icons from '@nycopportunity/pttrn-scripts/src/icons/icons';
+import SetHeightProperties from '@nycopportunity/pttrn-scripts/src/set-height-properties/set-height-properties';
 import Themes from '@nycopportunity/pttrn-scripts/src/themes/themes';
 import Toggle from '@nycopportunity/pttrn-scripts/src/toggle/toggle';
 import Track from '@nycopportunity/pttrn-scripts/src/track/track';
@@ -16,8 +17,8 @@ import RollbarConfigure from './modules/rollbar-configure';
  * Components
  */
 
-import Accordion from '@nycopportunity/working-patterns/src/components/accordion/accordion';
-import ActiveNavigation from '@nycopportunity/working-patterns/src/components/active-navigation/active-navigation';
+import Accordion from '@nycopportunity/standard/src/components/accordion/accordion';
+import ActiveNavigation from '@nycopportunity/standard/src/components/active-navigation/active-navigation';
 
 /**
  * Objects
@@ -38,11 +39,22 @@ new RollbarConfigure();
 new Accordion();
 new ActiveNavigation();
 new Dialog();
-new Copy();
 new Menu();
 new Toggle();
 new Track();
 new WindowVh();
+
+/**
+ * Copy-to-clipboard Utility Configuration
+ */
+
+new Copy({
+  copied: c => c.element.querySelector('[data-js-copy="icon"]')
+    .setAttribute('href', `#lucide-check`),
+  after: c => c.element.querySelector('[data-js-copy="icon"]')
+    .setAttribute('href', `#lucide-copy`)
+});
+
 
 /**
  * Icon Sprites
@@ -50,27 +62,57 @@ new WindowVh();
 
 const sprites = document.querySelector('[data-js="sprites"]');
 
-new Icons(sprites.dataset.wnyc);
-new Icons(sprites.dataset.feather);
+new Icons(sprites.dataset.svgs);
+new Icons(sprites.dataset.elements);
+new Icons(sprites.dataset.lucide);
+new Icons(sprites.dataset.wknyc);
 
 sprites.remove();
 
 /**
- * Color Themes
+ * Themes Configuration
  */
+
+let themeLight = {
+  label: 'Dark Theme',
+  classname: 'default',
+  icon: 'lucide-moon',
+  version: VERSION
+};
+
+let themeDark = {
+  label: 'Light Theme',
+  classname: 'dark',
+  icon: 'lucide-sun',
+  version: VERSION
+};
+
+// This block ensures compatibility with the previous site theme configuration
+
+let themePreferenceStr = localStorage.getItem(Themes.storage.THEME);
+
+if (themePreferenceStr) {
+  let themePreference = JSON.parse(themePreferenceStr);
+
+  if (false === themePreference.hasOwnProperty('version')) {
+    switch(themePreference.classname) {
+      case 'default':
+        console.dir(themeDark);
+        localStorage.setItem(Themes.storage.THEME, JSON.stringify(themeDark));
+        break;
+
+      case 'light':
+        console.dir(themeLight);
+        localStorage.setItem(Themes.storage.THEME, JSON.stringify(themeLight));
+        break;
+    }
+  }
+}
 
 new Themes({
   themes: [
-    {
-      label: 'Light Theme',
-      classname: 'default',
-      icon: 'feather-sun'
-    },
-    {
-      label: 'Dark Theme',
-      classname: 'light',
-      icon: 'feather-moon'
-    }
+    themeLight,
+    themeDark
   ],
   after: thms => document.querySelectorAll(thms.selectors.TOGGLE)
     .forEach(element => {
@@ -80,7 +122,7 @@ new Themes({
 });
 
 /**
- * Webshare Configuration
+ * Web Share Configuration
  */
 
 new WebShare({
@@ -92,19 +134,26 @@ new WebShare({
 });
 
 /**
- * Text Controller
+ * Languages
  */
 
-// Removing the WPML classes
-// const wpmlClasses='.wpml-ls-statics-shortcode_actions.wpml-ls.wpml-ls-legacy-list-horizontal';
-// document.querySelector(wpmlClasses).removeAttribute('class');
-
-// Add tabindex=-1 to wpml language links
+// Modify WPML Language Links
+const wpmlList = document.querySelector('.wpml-ls-legacy-list-horizontal');
+const wpmlListItem = document.querySelectorAll('.wpml-ls-item');
 const wpmlLinks = document.querySelectorAll('.wpml-ls-link');
 
-wpmlLinks.forEach(function (link) {
+wpmlLinks.forEach(link => {
+  link.removeAttribute('class');
   link.setAttribute('tabindex', '-1');
 });
+
+wpmlListItem.forEach(link => {
+  link.removeAttribute('class');
+});
+
+if (wpmlList) {
+  wpmlList.removeAttribute('class');
+}
 
 // Initialize Google Translate Widget
 if (document.documentElement.lang != 'en') {
@@ -112,8 +161,8 @@ if (document.documentElement.lang != 'en') {
 }
 
 /**
- * Set CSS properties of various element heights for calculating the true
- * window bottom value in CSS.
+ * Set CSS properties of various element heights for
+ * calculating the true window bottom value in CSS.
  */
 
 ((elements) => {
@@ -141,3 +190,16 @@ if (document.documentElement.lang != 'en') {
     'property': '--wnyc-dimensions-feedback-height'
   }
 ]);
+
+new SetHeightProperties({
+  'elements': [
+    {
+      'selector': '[data-js="navigation"]',
+      'property': '--o-navigation-height'
+    },
+    {
+      'selector': '[data-js="feedback"]',
+      'property': '--nyco-feedback-height'
+    }
+  ]
+});

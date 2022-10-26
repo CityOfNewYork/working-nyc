@@ -31,7 +31,7 @@
             }
           %}
 
-          <h1 class="o-header__title">{{ post.title }}</h1>
+          <h1 id="page-heading" class="o-header__title">{{ post.title }}</h1>
         </div>
       </header>
     </div>
@@ -40,10 +40,10 @@
       <div class="wrap">
         <div class="pb-8 mb-8">
           {% if newsletter_message %}
-          <article class="c-alert status-tertiary mt-5" data-js="alert-warning">
+          <article class="c-alert c-alert-status-primary mt-5" data-js="alert-warning">
             <div class="c-alert__graphic">
-              <svg aria-hidden="true" class="icon-wnyc-ui">
-                <use href="#feather-info"></use>
+              <svg aria-hidden="true" class="icon-ui">
+                <use href="#lucide-info"></use>
               </svg>
             </div>
 
@@ -81,7 +81,7 @@
 
                       <span class="option__base">
                         <svg aria-hidden="true" class="option__graphic">
-                          <use href="#option-wnyc-checkbox"></use>
+                          <use href="#option-nyco-checkbox"></use>
                         </svg>
 
                         <span class="option__label">{{ subfield.label }}</span>
@@ -95,22 +95,22 @@
 
               <button class="btn-primary" type="submit">Submit</button>
 
-              <article aria-hidden="true" class="c-alert status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
+              <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
                 <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-wnyc-ui">
-                    <use href="#feather-info"></use>
+                  <svg aria-hidden="true" class="icon-ui">
+                    <use href="#lucide-info"></use>
                   </svg>
                 </div>
 
                 <div class="c-alert__body">
-                  <p data-js-alert="text">Please fill out the required fields and submit again.</p>
+                  <p data-js-alert="text">{{ __('Please fill out the required fields and submit again.', 'WNYC') }}</p>
                 </div>
               </article>
 
-              <article aria-hidden="true" class="c-alert status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
+              <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
                 <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-wnyc-ui">
-                    <use href="#feather-info"></use>
+                  <svg aria-hidden="true" class="icon-ui">
+                    <use href="#lucide-info"></use>
                   </svg>
                 </div>
 
@@ -119,10 +119,10 @@
                 </div>
               </article>
 
-              <article aria-hidden="true" class="c-alert status-secondary mt-5 hidden" data-js="alert-success" role="alert">
+              <article aria-hidden="true" class="c-alert c-alert-status-secondary mt-5 hidden" data-js="alert-success" role="alert">
                 <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-wnyc-ui">
-                    <use href="#feather-info"></use>
+                  <svg aria-hidden="true" class="icon-ui">
+                    <use href="#lucide-info"></use>
                   </svg>
                 </div>
 

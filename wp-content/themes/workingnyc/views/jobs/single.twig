@@ -1,9 +1,12 @@
+{# @Type   View #}
+{# @For    Post Type #}
+{# @Class  timber-posts/Jobs.php #}
 {% extends "base.twig" %}
 
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="layout-content sticky top-0 bg-scale-1 z-10">
+    <div class="layout-content sticky top-0 bg-scale-1 z-20">
       {% if (post.job_learn_more or post.job_apply) %}
       {% set cta = '#learn-more-and-apply' %}
       {% endif %}
@@ -15,7 +18,7 @@
       {% include ['components/utility-nav.twig'] with {
         return: {
           'label': __('Jobs', 'WNYC'),
-          'link': jobs_archive
+          'link': post.archive
         },
         cta: (cta) ? [
           {
@@ -40,7 +43,7 @@
             crumbs: [
               {
                 'label': __('Jobs', 'WNYC'),
-                'link': jobs_archive
+                'link': post.archive
               },
               {
                 'label': post.title,
@@ -49,7 +52,9 @@
             ]
           } %}
 
-          <h1 class="o-header__title">{{ post.title }}</h1>
+          <div class="o-header__title">
+            <h1 id="page-heading" class="o-header__heading">{{ post.title }}</h1>
+          </div>
 
           <h2 class="o-header__subtitle">
             {% if post.sector %}<b>{{ post.sector }}</b>{% endif %}
@@ -58,40 +63,40 @@
           </h2>
 
           {% if post.schedule %}<p class="small flex items-center">
-            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+            <svg class="icon-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Employment Type and Schedule', 'WNYC') }}</title>
 
-              <use href="#feather-calendar"></use>
+              <use href="#lucide-calendar"></use>
             </svg>
 
             <span>{{ post.schedule }}</span>
           </p>{% endif %}
 
           {% if post.salary %}<p class="small flex items-center">
-            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+            <svg class="icon-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Salary', 'WNYC') }}</title>
 
-              <use href="#feather-dollar-sign"></use>
+              <use href="#lucide-dollar-sign"></use>
             </svg>
 
             <span>{{ post.salary }}</span>
           </p>{% endif %}
 
           {% if post.location %}<p class="small flex items-center">
-            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+            <svg class="icon-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Work Location', 'WNYC') }}</title>
 
-              <use href="#feather-map-pin"></use>
+              <use href="#lucide-map-pin"></use>
             </svg>
 
             <span>{{ post.location }}</span>
           </p>{% endif %}
 
           <p class="small flex items-center">
-            <svg class="icon-wnyc-ui icon-2 flex-shrink-0 mie-1" role="img">
+            <svg class="icon-ui icon-2 flex-shrink-0 mie-1" role="img">
               <title>{{ __('Last Updated', 'WNYC') }}</title>
 
-              <use href="#feather-alert-triangle"></use>
+              <use href="#lucide-info"></use>
             </svg>
 
             {{ __('Last updated', 'WNYC') }} {{ modified_date }}
@@ -113,10 +118,10 @@
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="description">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
               <a class="link-anchor flex flex-shrink-0 mie-1" href="#description" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
-                <svg class="icon-wnyc-ui" role="img">
+                <svg class="icon-ui" role="img">
                   <title>{{ __('Description', 'WNYC') }}</title>
 
-                  <use href="#feather-info"></use>
+                  <use href="#lucide-info"></use>
                 </svg>
               </a>
 
@@ -132,10 +137,10 @@
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="requirements">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
               <a class="link-anchor flex flex-shrink-0 mie-1" href="#requirements" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
-                <svg class="icon-wnyc-ui" role="img">
+                <svg class="icon-ui" role="img">
                   <title>{{ __('Requirements', 'WNYC') }}</title>
 
-                  <use href="#feather-users"></use>
+                  <use href="#lucide-users"></use>
                 </svg>
               </a>
 
@@ -152,10 +157,10 @@
           <div class="pt-utility-anchor bg-scale-2 sticky top-0" id="application-instructions">
             <h3 class="h5 flex items-center mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
               <a class="link-anchor flex flex-shrink-0 mie-1" href="#application-instructions" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
-                <svg class="icon-wnyc-ui" role="img">
+                <svg class="icon-ui" role="img">
                   <title>{{ __('Application Instructions', 'WNYC') }}</title>
 
-                  <use href="#feather-clipboard"></use>
+                  <use href="#lucide-clipboard"></use>
                 </svg>
               </a>
 
@@ -171,6 +176,8 @@
         <div class="pb-8"></div>
         {% endif %}
       </div>
+
+      {% include 'components/back-to-top.twig' %}
     </div>
 
     {# Links #}
@@ -180,10 +187,10 @@
         <div class="pt-utility-anchor" id="learn-more-and-apply">
           <h3 class="h5 flex items-center mb-3 text-alt pb-2 tablet:pb-3">
             <a class="link-anchor flex flex-shrink-0 mie-1" href="#learn-more-and-apply" aria-label="{{ __('Copy link to this section', 'WNYC') }}">
-              <svg class="icon-wnyc-ui" role="img">
+              <svg class="icon-ui" role="img">
                 <title>{{ __('Learn More and Apply', 'WNYC') }}</title>
 
-                <use href="#feather-clipboard"></use>
+                <use href="#lucide-clipboard"></use>
               </svg>
             </a>
 
@@ -193,21 +200,21 @@
 
         <nav class="grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
           {% if post.job_learn_more %}
-          <a class="btn btn-secondary w-full" href="{{ post.job_learn_more }}" target="_blank" rel="noopener nofollow">
+          <a class="btn btn-secondary w-full" href="{{ post.job_learn_more }}" target="_blank" rel="noopener">
             <span>{{ __('Learn More', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} {{ post.post_title }}</span></span>
 
-            <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-              <use href="#feather-external-link"></use>
+            <svg aria-hidden="true" class="icon-ui rtl:flip">
+              <use href="#lucide-external-link"></use>
             </svg>
           </a>
           {% endif %}
 
           {% if post.job_apply %}
-          <a class="btn btn-secondary w-full" href="{{ post.job_apply }}" target="_blank" rel="noopener nofollow">
+          <a class="btn btn-secondary w-full" href="{{ post.job_apply }}" target="_blank" rel="noopener">
             <span>{{ __('Full Job Post and Apply', 'WNYC') }} <span class="sr-only">{{ __('to', 'WNYC') }} {{ post.post_title }}</span></span>
 
-            <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-              <use href="#feather-external-link"></use>
+            <svg aria-hidden="true" class="icon-ui rtl:flip">
+              <use href="#lucide-external-link"></use>
             </svg>
           </a>
           {% endif %}
@@ -222,9 +229,9 @@
         <div class="text-center text-alt mb-1">—</div>
         <nav class="py-2 wrap">
           <a class="btn btn-primary btn-next w-full" href="#">
-            <svg aria-hidden="true" class="icon-wnyc-ui">
+            <svg aria-hidden="true" class="icon-ui">
               <use href="#arrow-left"></use>
-            </svg>{{ __('More programs at', 'WNYC') }} {{ post.program_provider }}<svg aria-hidden="true" class="icon-wnyc-ui">
+            </svg>{{ __('More programs at', 'WNYC') }} {{ post.program_provider }}<svg aria-hidden="true" class="icon-ui">
               <use href="#arrow-right"></use>
             </svg>
           </a>

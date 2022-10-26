@@ -1,32 +1,34 @@
 <div class="c-utility wrap">
   <a class="link-icon mie-auto" href="{{ return.link }}">
-    <svg aria-hidden="true" class="icon-wnyc-ui rtl:flip">
-      <use href="#feather-chevron-left"></use>
+    <svg aria-hidden="true" class="icon-ui rtl:flip">
+      <use href="#lucide-chevron-left"></use>
     </svg>
 
     <span>{{ return.label }}</span>
   </a>
 
   {% for item in cta %}
-  <a class="text-inherit mis-3 {{ item.class }}" href="{{ item.link }}">{{ item.label }}</a>
+  <a class="text-inherit {{ item.class }}" href="{{ item.link }}">{{ item.label }}</a>
   {% endfor %}
+
+  {% if languages %}
+  <button class="btn-small" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <svg class="icon-ui hidden small:flex">
+      <use href="#nyco-languages"></use>
+    </svg>
+
+    <span>{{ __('Languages', 'WNYC') }}</span>
+  </button>
+  {% endif %}
 
   {% if web_share and post.web_share_hide == false %}
   {% set web_share_id = fn('uniqid') %}
 
-  {% include 'components/web-share.twig' with {this: {share: web_share, class: 'z-30 right-0', id: web_share_id}} only %}
-
-  <button aria-pressed="false" class="btn btn-small btn-primary mis-2 hidden tablet:inline-flex" data-copy="web-share-url-{{ web_share_id }}" data-js="copy">
-    <svg class="icon icon-wnyc-ui">
-      <use href="#feather-copy"></use>
-    </svg>
-
-    <svg class="icon-pressed icon-wnyc-ui mie-1">
-      <use href="#feather-check"></use>
-    </svg>
-
-    <span>{{ __('Copy URL', 'WNYC') }}</span>
-  </button>
+  {% include 'components/web-share.twig' with {this: {
+      share: web_share,
+      class: 'z-30 right-0',
+      id: web_share_id
+    }} only %}
   {% endif %}
 
   {% if has_filters %}

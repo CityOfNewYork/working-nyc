@@ -5,19 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    {% if meta.description %}<meta name="description" content="{{ meta.description }}" />{% endif %}
-    {% if meta.keywords %}<meta name="keywords" content="{{ meta.keywords }}" />{% endif %}
-    {% if meta.robots %}<meta name="robots" content="{{ meta.robots }}" />{% endif %}
+    {% if meta.description %}<meta name="description" content="{{ fn('esc_attr', meta.description) }}" />{% endif %}
+    {% if meta.keywords %}<meta name="keywords" content="{{ fn('esc_attr', meta.keywords) }}" />{% endif %}
+    {% if meta.robots %}<meta name="robots" content="{{ fn('esc_attr', meta.robots) }}" />{% endif %}
 
-    {% if meta.og_type %}<meta property="og:type" content="{{ meta.og_type }}" />{% endif %}
-    {% if meta.og_title %}<meta property="og:title" content="{{ meta.og_title }}" />{% endif %}
+    {% if meta.og_type %}<meta property="og:type" content="{{ fn('esc_attr', meta.og_type) }}" />{% endif %}
+    {% if meta.og_title %}<meta property="og:title" content="{{ fn('esc_attr', meta.og_title) }}" />{% endif %}
 
-    {% if meta.og_description %}<meta property="og:description" content="{{ meta.og_description }}" />{% endif %}
+    {% if meta.og_description %}<meta property="og:description" content="{{ fn('esc_attr', meta.og_description) }}" />{% endif %}
 
-    {% if meta.og_image %}
-    <meta property="og:image" content="{{ meta.og_image.url }}" />
-    <meta property="og:image:alt" content="{{ meta.og_image.alt }}" />
-    <meta name="twitter:image:alt" content="{{ meta.og_image.alt }}" />
+    {% if meta.og_image_url %}
+    <meta property="og:image" content="{{ fn('esc_url', meta.og_image_url) }}" />
+    {% if meta.og_image_alt %}<meta property="og:image:alt" content="{{ fn('esc_attr', meta.og_image_alt) }}" />{% endif %}
+    {% if meta.og_image_alt %}<meta name="twitter:image:alt" content="{{ fn('esc_attr', meta.og_image_alt) }}" />{% endif %}
     {% endif %}
 
     {% if meta.twitter_card_type %}<meta name="twitter:card" content="{{ meta.twitter_card_type }}" />{% endif %}
@@ -29,23 +29,19 @@
 
     <script type="application/ld+json">{{ schema }}</script>
 
-    {% block head_extras %}{% endblock %}
-
-    {{ function('wp_head') }}
-
-    {% block scripts_head %}{% endblock %}
+    {{ fn('wp_head') }}
   </head>
 
   {% set navigationSpacing = 'pb-8 mb-2 tablet:pb-0 tablet:mb-0' %}
 
-  <body class="color bg-scale-2">
+  <body class="bg">
     {{ fn('wp_body_open') }}
 
     <a class="sr-only" href="#content">{{ __('Skip to main content', 'WNYC') }}</a>
 
     {% block header %}
       {% include 'objects/navigation.twig' %}
-      {% include 'objects/text-controller.twig' %}
+      {% include 'objects/languages-dropdown.twig' %}
     {% endblock %}
 
     {% if fn('constant', 'SUPPORT_IE_11') and fn('is_IE') %}
@@ -55,11 +51,15 @@
     {% block content %}{% endblock %}
 
     {% block footer %}
-      {% include 'objects/footer.twig' %}
+      {% include 'objects/attribution.twig' %}
     {% endblock %}
 
     {# SVG Sprite Paths #}
-    <div data-js="sprites" data-wnyc="{{ sprites.wnyc }}" data-feather="{{ sprites.feather }}" aria-hidden="true" style="display: none;"></div>
+    <div data-js="sprites" aria-hidden="true" style="display: none;"
+      data-svgs="{{ sprites.svgs }}"
+      data-elements="{{ sprites.elements }}"
+      data-lucide="{{ sprites.lucide }}"
+      data-wknyc="{{ sprites.wknyc }}"></div>
 
     {{ wp_footer }}
 

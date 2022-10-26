@@ -7,7 +7,7 @@
             "label": "Featured Posts",
             "name": "featured_posts",
             "type": "flexible_content",
-            "instructions": "",
+            "instructions": "Add multiple collections of posts, separated by a heading, description, post list, and follow-up link. Short-codes can be used in the description for additional dynamic content.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -46,7 +46,7 @@
                             "label": "Description",
                             "name": "featured_posts_description",
                             "type": "wysiwyg",
-                            "instructions": "",
+                            "instructions": "<span class=\"dashicons dashicons-shortcode\"><\/span>  Short-codes, such as accordion groups, can be added in this field. Select a short-code from the dropdown to add one. Refer to the <a href=\"\/short-codes\" target=\"_blank\" rel=\"noopener nofollow\">Short-codes<\/a> page for more details on available options.",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
@@ -62,7 +62,7 @@
                         },
                         {
                             "key": "field_5f298e124e4df",
-                            "label": "Posts",
+                            "label": "Post List",
                             "name": "featured_posts_objects",
                             "type": "relationship",
                             "instructions": "",
@@ -75,7 +75,8 @@
                             },
                             "post_type": [
                                 "programs",
-                                "jobs"
+                                "jobs",
+                                "guides"
                             ],
                             "taxonomy": "",
                             "filters": [
@@ -85,15 +86,142 @@
                             ],
                             "elements": "",
                             "min": "",
-                            "max": 6,
+                            "max": 12,
                             "return_format": "object"
+                        },
+                        {
+                            "key": "field_635a91574f18d",
+                            "label": "Post List Display",
+                            "name": "featured_posts_display",
+                            "type": "button_group",
+                            "instructions": "Choose how the collection will display. All display types show the heading, description, and link (if desired). <b>Cards<\/b> are the default display. Different post types have different card types. <b>Callouts<\/b> display a large image for the first post in the collection. <b>Gallery<\/b> displays a grid of featured post images.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "cards": "<span class=\"dashicons dashicons-grid-view\"><\/span> Cards (default)",
+                                "callout": "<span class=\"dashicons dashicons-excerpt-view\"><\/span> Callout",
+                                "gallery": "<span class=\"dashicons dashicons-schedule\"><\/span> Gallery"
+                            },
+                            "allow_null": 0,
+                            "default_value": "cards",
+                            "layout": "horizontal",
+                            "return_format": "value"
+                        },
+                        {
+                            "key": "field_635a8d141dce1",
+                            "label": "Show Archive Link",
+                            "name": "featured_posts_archive",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
+                        {
+                            "key": "field_635a8ca21dce0",
+                            "label": "Post Archive Link",
+                            "name": "featured_posts_archive_link",
+                            "type": "text",
+                            "instructions": "The link to the post type archive will be used by default if this is left empty and there is only one post type in the collection.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a8d141dce1",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_635aebe5a5cb5",
+                            "label": "Post Archive External",
+                            "name": "featured_posts_archive_is_external",
+                            "type": "checkbox",
+                            "instructions": "Is this link to an external website?",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a8d141dce1",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "yes": "Yes"
+                            },
+                            "allow_custom": 0,
+                            "default_value": [],
+                            "layout": "vertical",
+                            "toggle": 0,
+                            "return_format": "value",
+                            "save_custom": 0
+                        },
+                        {
+                            "key": "field_635a8e971dce2",
+                            "label": "Post Archive Label",
+                            "name": "featured_posts_archive_label",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a8d141dce1",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
                         }
                     ],
                     "min": "",
                     "max": ""
                 }
             },
-            "button_label": "Add Section",
+            "button_label": "Add Collection",
             "min": "",
             "max": ""
         }
@@ -105,16 +233,23 @@
                 "operator": "==",
                 "value": "template-home-page.php"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "guides"
+            }
         ]
     ],
-    "menu_order": 0,
+    "menu_order": 1,
     "position": "normal",
     "style": "default",
-    "label_placement": "top",
+    "label_placement": "left",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1650569559
+    "modified": 1667407056
 }

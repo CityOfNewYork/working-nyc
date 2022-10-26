@@ -32,20 +32,25 @@
             }
           %}
 
-          <h1 class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
+          <h1 id="page-heading" class="o-header__title">{% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}</h1>
         </div>
       </header>
     </div>
 
-    {% if sitemap %}<section class="bg-scale-2 layout-content">
-      <div class="py-4 wrap">
-        {% include 'sitemap.twig'%}
+    {% if sitemap %}
+    <section class="bg-scale-2 clearfix">
+      <div class="layout-content pt-utility-anchor pb-8 mb-8">
+        <div class="py-4 wrap">
+         {% include 'sitemap.twig'%}
+        </div>
       </div>
     </section>
     {% elseif post.content %}
-    <section class="bg-scale-2 layout-content">
-      <div class="py-4 wrap">
-        {{ post.content }}
+    <section class="bg-scale-2 clearfix">
+      <div class="layout-content pt-utility-anchor pb-8 mb-8">
+        <div class="py-4 wrap">
+          {{ post.content }}
+        </div>
       </div>
     </section>{% endif %}
 
