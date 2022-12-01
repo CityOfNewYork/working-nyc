@@ -29,10 +29,6 @@ add_filter('wp_sitemaps_add_provider', function($provider, $name) {
     return false;
   }
 
-  if ('instructions' === $name) {
-    return false;
-  }
-
   return $provider;
 }, 10, 2);
 
@@ -44,6 +40,8 @@ add_filter('wp_sitemaps_add_provider', function($provider, $name) {
 add_filter('wp_sitemaps_post_types', function($type) {
   // Filter out the default posts type which is not used by the site.
   unset($type['post']);
+
+  unset($type['instructions']);
 
   return $type;
 });
@@ -58,18 +56,6 @@ add_filter('wp_sitemaps_post_types', function($type) {
  */
 add_filter('wp_sitemaps_posts_entry', function($entry, $post) {
   /**
-   * Do add page to sitemap if the meta robots field is 'noindex'
-   * TODO: Only hides the url but the a tag is still printed on the page,
-   * This filter only seems to allow you to modify the entry, not remove it.
-   */
-
-  // $robots = get_field('field_5f07332db6a31', $post->ID);
-
-  // if ('noindex' === $robots) {
-  //   return array();
-  // }
-
-  /**
    * Add last modified date to the URL entry.
    */
 
@@ -77,3 +63,28 @@ add_filter('wp_sitemaps_posts_entry', function($entry, $post) {
 
   return $entry;
 }, 10, 2);
+
+/**
+ * Filters the query arguments for post type sitemap queries.
+ *
+ * @link https://developer.wordpress.org/reference/hooks/wp_sitemaps_posts_query_args
+ *
+ * @param   Array  $args  Array of WP_Query arguments.
+ *
+ * @return  Array         Modified array of WP_Query arguments.
+ */
+add_filter('wp_sitemaps_posts_query_args', function($args) {
+  /**
+   * A query argument to prevent posts from being added to the site map
+   * if the meta robots custom field contains 'noindex'
+   */
+  $args['meta_query'] = array(
+    array(
+      'key' => 'meta_robots',
+      'value' => 'noindex',
+      'compare' => 'NOT IN'
+    )
+  );
+
+  return $args;
+}, 10);
