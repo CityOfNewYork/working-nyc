@@ -1820,7 +1820,7 @@
 	 */
 	validators.transitional = function transitional(validator, version, message) {
 	  function formatMessage(opt, desc) {
-	    return '[Axios v' + '1.9.7' + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
+	    return '[Axios v' + '2.0.0' + '] Transitional option \'' + opt + '\'' + desc + (message ? '. ' + message : '');
 	  }
 
 	  // eslint-disable-next-line func-names

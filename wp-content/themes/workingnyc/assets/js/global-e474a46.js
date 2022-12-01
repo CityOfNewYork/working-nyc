@@ -1587,14 +1587,14 @@
     label: 'Dark Theme',
     classname: 'default',
     icon: 'lucide-moon',
-    version: '1.9.7'
+    version: '2.0.0'
   };
 
   let themeDark = {
     label: 'Light Theme',
     classname: 'dark',
     icon: 'lucide-sun',
-    version: '1.9.7'
+    version: '2.0.0'
   };
 
   // This block ensures compatibility with the previous site theme configuration

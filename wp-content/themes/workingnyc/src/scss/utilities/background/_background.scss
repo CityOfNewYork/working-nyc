@@ -46,45 +46,9 @@
       background-size: 15em;
     }
   }
-
-  // .bg-shape-wnyc-abc {
-  //   background: url('../svg/shape-wnyc-a#{$variant}.svg') calc(50vw - 40px) calc(0vh - 84px) no-repeat,
-  //               url('../svg/shape-wnyc-b#{$variant}.svg') -124px 198px no-repeat,
-  //               url('../svg/shape-wnyc-c#{$variant}.svg') calc(100vw - 80px) calc(0vh + 226px) no-repeat;
-
-  //   @include media.screen-and-min-width('tablet') {
-  //     background-position: calc(100vw - 240px) calc(0vh - 54px),
-  //                         -86px 468px,
-  //                         calc(100vw - 190px) calc(0vh + 566px);
-
-  //     background-size: 15em;
-  //   }
-  // }
-
-  // .bg-shape-wnyc-b {
-  //   background: url('../svg/shape-wnyc-b#{$variant}.svg') -124px 198px no-repeat;
-
-  //   @include media.screen-and-min-width('tablet') {
-  //     background-position: -86px 468px;
-
-  //     background-size: 15em;
-  //   }
-  // }
-
-  // .bg-shape-wnyc-ac {
-  //   background: url('../svg/shape-wnyc-a#{$variant}.svg') calc(50vw - 40px) calc(0vh - 84px) no-repeat,
-  //               url('../svg/shape-wnyc-c#{$variant}.svg') calc(100vw - 80px) calc(0vh + 226px) no-repeat;
-
-  //   @include media.screen-and-min-width('tablet') {
-  //     background-position: calc(100vw - 240px) calc(0vh - 54px),
-  //                         calc(100vw - 190px) calc(0vh + 566px);
-
-  //     background-size: 15em;
-  //   }
-  // }
 }
 
-@include shapes-combined;
+@include shapes-combined('@default');
 
 @include media.screens-and-prefers-scheme(dark) using ($scheme) {
   @include shapes-combined('@#{$scheme}');
