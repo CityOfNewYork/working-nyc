@@ -3,7 +3,7 @@
 This folder contains all of the PHP functions, templates, styling, and scripts for the site. This is the only WordPress theme that is compatible with the WordPress site.
 
 * **/acf-json** - [Advanced Custom Fields](https://www.advancedcustomfields.com/pro/) JSON files for syncing custom fields between environments.
-* **/assets** - The source for SVG, stylesheet, and JavaScript files in [**src**](src) and **node_modules** directories are compiled to the [**/assets**](assets) directory. The theme relies on the [Working NYC Patterns](https://cityofnewyork.github.io/working-nyc-patterns/) for sourcing UI pattern code. Refer to the [documentation](https://cityofnewyork.github.io/working-nyc-patterns/) for details on the different patterns and their usage.
+* **/assets** - The source for SVG, stylesheet, and JavaScript files in [**src**](src) and **node_modules** directories are compiled to the [**/assets**](assets) directory. The theme relies on the [Opportunity Standard](https://nycopportunity.github.io/standard) for sourcing UI code. Refer to the [documentation](https://nycopportunity.github.io/standard) for details on the different patterns and their usage.
 <!-- * **/blocks** - [Custom Gutenburg Block](https://developer.wordpress.org/block-editor/developers/) source. -->
 * **/timber-posts** - Site and Post Type classes that [extend Timber](https://timber.github.io/docs/guides/extending-timber/) and provide processed data to views.
 * **/includes** - Theme functions, filters, and other helpers that assist in rendering views.
@@ -15,6 +15,8 @@ This folder contains all of the PHP functions, templates, styling, and scripts f
   <!-- * **/emails** - Email view templates -->
   * **/objects** - Object pattern templates.
   * **/programs** - Programs feature templates.
+  * **/jobs** - Jobs feature templates.
+  * **/guides** - Guides feature templates.
   * **/utilities** - Misc. view template partials.
 
 ## Twig Templates

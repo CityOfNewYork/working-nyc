@@ -1,6 +1,6 @@
 # Working NYC
 
-![Image of person using the Working NYC website with their phone.](open-graph.png)
+![Image of a person using the Working NYC website with their phone.](product-open-graph.png)
 
 [Working NYC](https://working.nyc.gov) helps New Yorkers connect to the services and resources they need to find a new or better job. The site accommodates NYC residents...
 
@@ -13,7 +13,7 @@ Learn more about Working NYC at [nyc.gov/opportunity](https://www1.nyc.gov/site/
 
 ## Tech
 
-Working NYC is a publicly available [WordPress](https://wordpress.org/) site hosted on [WP Engine](https://wpengine.com/). Source code is available in this repository. The [Working NYC Patterns](https://github.com/cityofnewyork/working-nyc-patterns) provide mobile-first stylesheets, fonts, icons, and JavaScript-enhanced components that support WCAG AA compliance, and multi-lingual (right-to-left, and left-to-right) layouts. They are distributed as an NPM Package which can be installed in any project.
+Working NYC is a publicly available [WordPress](https://wordpress.org/) site hosted on [WP Engine](https://wpengine.com/). Source code is available in this repository. The [Opportunity Standard](https://nycopportunity.github.io/standard) provides mobile-first stylesheets, fonts, icons, and JavaScript-enhanced components that support WCAG AA compliance, and multi-lingual (right-to-left, and left-to-right) layouts. They are distributed as an NPM Package which can be installed in any project.
 
 ## Local Installation
 
