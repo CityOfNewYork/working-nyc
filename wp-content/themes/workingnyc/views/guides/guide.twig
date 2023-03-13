@@ -32,22 +32,6 @@
       {{ post.preview|wpautop }}
     </div>
 
-    <ul class="c-card__features">
-      <li>
-        <svg class="icon-ui c-card__feature-icon" role="img">
-          <title>{{ __('Last Updated', 'WNYC') }}</title>
-
-          <use href="#lucide-info"></use>
-        </svg>
-
-        <span>
-          {{ __('Updated', 'WNYC') }}
-          {{ post.date|date(fn('get_option', 'date_format')) }}
-          {{ post.date|date(fn('get_option', 'time_format')) }}
-        </span>
-      </li>
-    </ul>
-
     <span></span>
   </div>
 </article>

@@ -61,19 +61,6 @@
 
             {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
 
-            <p class="small flex items-center">
-              <svg class="icon-ui mie-1 icon-2" role="img">
-                <title>{{ __('Last updated', 'WNYC-Date') }}</title>
-
-                <use href="#lucide-info"></use>
-              </svg>
-
-              {{ __('Last updated', 'WNYC-Date') }}
-
-              {{ post.date|date(fn('get_option', 'date_format')) }}
-              {{ post.date|date(fn('get_option', 'time_format')) }}
-            </p>
-
             {% if post.thumbnail %}
             <p class="text-center">
               <a class="inline-block text-center" href="#explore">
