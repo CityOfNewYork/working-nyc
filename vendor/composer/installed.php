@@ -424,6 +424,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'wpackagist-plugin/post-expirator' => array(
+            'pretty_version' => '2.8.3',
+            'version' => '2.8.3.0',
+            'reference' => 'tags/2.8.3',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../wp-content/plugins/post-expirator',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'wpackagist-plugin/query-monitor' => array(
             'pretty_version' => '3.9.0',
             'version' => '3.9.0.0',

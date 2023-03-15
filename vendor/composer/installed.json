@@ -2537,6 +2537,27 @@
             "install-path": "../../wp-content/plugins/members"
         },
         {
+            "name": "wpackagist-plugin/post-expirator",
+            "version": "2.8.3",
+            "version_normalized": "2.8.3.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/post-expirator/",
+                "reference": "tags/2.8.3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/post-expirator.2.8.3.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "installation-source": "dist",
+            "homepage": "https://wordpress.org/plugins/post-expirator/",
+            "install-path": "../../wp-content/plugins/post-expirator"
+        },
+        {
             "name": "wpackagist-plugin/query-monitor",
             "version": "3.9.0",
             "version_normalized": "3.9.0.0",

@@ -31,6 +31,7 @@
     "wpackagist-plugin/limit-login-attempts-reloaded": "*",
     "wpackagist-plugin/loggedin": "*",
     "wpackagist-plugin/members": "*",
+    "wpackagist-plugin/post-expirator": "*",
     "wpackagist-plugin/regenerate-thumbnails": "*",
     "wpackagist-plugin/rollbar": "*",
     "wpackagist-plugin/simple-custom-post-order": "*",
