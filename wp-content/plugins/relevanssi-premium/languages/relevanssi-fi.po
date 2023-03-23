@@ -1,0 +1,3606 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Relevanssi Premium\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-29 10:07+0300\n"
+"PO-Revision-Date: 2018-03-29 10:09+0300\n"
+"Last-Translator: Mikko Saari <mikko@mikkosaari.fi>\n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_attr__;esc_attr_e;esc_html__;_n:1,2;"
+"esc_html_e;_c;_nc;_x;_nx;_ex\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: lib\n"
+"X-Poedit-SearchPath-2: premium\n"
+
+#: lib/admin-ajax.php:88
+#, php-format
+msgid "Indexed %1$d post (total %2$d), processed %3$d / %4$d."
+msgid_plural "Indexed %1$d posts (total %2$d), processed %3$d / %4$d."
+msgstr[0] "Indeksoitiin %1$d artikkeli (yhteensä %2$d), käsitelty %3$d / %4$d."
+msgstr[1] ""
+"Indeksoitiin %1$d artikkelia (yhteensä %2$d), käsitelty %3$d / %4$d."
+
+#: lib/excerpts-highlights.php:24
+msgid "There is no excerpt because this is a protected post."
+msgstr "Tälle suojatulle artikkelille ei ole otetta."
+
+#: lib/indexing.php:349 premium/admin-ajax.php:97
+msgid "Indexing complete!"
+msgstr "Indeksointi valmis!"
+
+#: lib/indexing.php:352
+msgid "More to index..."
+msgstr "Indeksoitavaa on vielä…"
+
+#: lib/init.php:88
+msgid ""
+"You do not have an index! Remember to build the index (click the \"Build the "
+"index\" button), otherwise searching won't work."
+msgstr ""
+"Sinulla ei ole indeksiä! Muista indeksoida tietokanta, muuten haku ei toimi."
+
+#: lib/init.php:100
+msgid ""
+"Multibyte string functions are not available. Relevanssi may not work well "
+"without them. Please install (or ask your host to install) the mbstring "
+"extension."
+msgstr ""
+"Multibyte-merkkijonofunktioita ei ole saatavilla. Relevanssi ei toimi "
+"täydellisesti ilman niitä. Asenna (tai pyydä palveluntarjoajaasi asentamaan) "
+"mbstring-laajennus."
+
+#: lib/init.php:149 lib/init.php:150 lib/interface.php:423
+#: lib/interface.php:1344
+msgid "User searches"
+msgstr "Käyttäjien haut"
+
+#: lib/init.php:339
+msgid "Settings"
+msgstr "Asetukset"
+
+#: lib/init.php:342
+msgid "Go Premium!"
+msgstr "Osta Premium!"
+
+#: lib/interface.php:18
+msgid "Relevanssi Search Options"
+msgstr "Relevanssin asetukset"
+
+#: lib/interface.php:20
+msgid "Relevanssi Premium Search Options"
+msgstr "Relevanssi Premiumin asetukset"
+
+#: lib/interface.php:425
+msgid "Relevanssi User Searches"
+msgstr "Relevanssin käyttäjien haut"
+
+#: lib/interface.php:448
+msgid "Enable query logging to see stats here."
+msgstr "Kytke hakulokit päälle asetuksista, niin näet täällä hakutilastoja."
+
+#: lib/interface.php:469
+msgid "Logs clear!"
+msgstr "Lokit tyhjennetty!"
+
+#: lib/interface.php:471
+msgid "Clearing the logs failed."
+msgstr "Lokin tyhjentäminen epäonnistui."
+
+#: lib/interface.php:510
+#, php-format
+msgid "Successfully added %1$d/%2$d terms to stopwords!"
+msgstr "%1$d/%2$d sanaa lisättiin onnistuneesti hukkasanoihin!"
+
+#: lib/interface.php:521
+#, php-format
+msgid "Term '%s' added to stopwords!"
+msgstr "Sana ’%s’ lisätty hukkasanoihin!"
+
+#: lib/interface.php:524
+#, php-format
+msgid ""
+"<div id='message' class='updated fade'><p>Couldn't add term '%s' to "
+"stopwords!</p></div>"
+msgstr ""
+"<div id='message' class='updated fade'><p>Ei voitu lisätä sanaa '%s' "
+"hukkasanoihin!</p></div>"
+
+#: lib/interface.php:576
+msgid "All stopwords removed! Remember to re-index."
+msgstr "Hukkasanoja poistettu! Muista indeksoita uudestaan."
+
+#: lib/interface.php:578
+msgid "There was a problem, and stopwords couldn't be removed."
+msgstr "Joku ongelma esti hukkasanojen poistamisen."
+
+#: lib/interface.php:601
+#, php-format
+msgid "Term '%s' removed from stopwords! Re-index to get it back to index."
+msgstr ""
+"Sana '%s' poistettiin hukkasanoista! Indeksoi tietokanta nyt uudelleen."
+
+#: lib/interface.php:607
+#, php-format
+msgid "Couldn't remove term '%s' from stopwords!"
+msgstr "Sanan '%s' poistaminen hukkasanoista epäonnistui!"
+
+#: lib/interface.php:640
+msgid "25 most common words in the index"
+msgstr "25 indeksin yleisintä sanaa"
+
+#: lib/interface.php:641
+msgid ""
+"These words are excellent stopword material. A word that appears in most of "
+"the posts in the database is quite pointless when searching. This is also an "
+"easy way to create a completely new stopword list, if one isn't available in "
+"your language. Click the icon after the word to add the word to the stopword "
+"list. The word will also be removed from the index, so rebuilding the index "
+"is not necessary."
+msgstr ""
+"Nämä sanat ovat oivallista hukkasanamateriaalia. Jos sana esiintyy "
+"useimmissa tietokannan artikkeleissa, se on tavallisesti merkityksetön haun "
+"kannalta. Tämän listan avulla voit myös helposti luoda uuden "
+"hukkasanalistan, jos sellaista ei ole tarjolla käyttämällesi kielelle. Kun "
+"klikkaat ikonia sanan perässä, se lisätään hukkasanojen listaan. Sana myös "
+"poistetaan välittömästi indeksistä, joten indeksiä ei tarvitse rakentaa "
+"uudestaan."
+
+#: lib/interface.php:647
+msgid "Stopword Candidates"
+msgstr "Ehdotuksia hukkasanoiksi"
+
+#: lib/interface.php:654
+msgid "Add to stopwords"
+msgstr "Lisää hukkasanoihin"
+
+#: lib/interface.php:682
+msgid "Total Searches"
+msgstr "Hakuja yhteensä"
+
+#: lib/interface.php:684
+msgid "Totals"
+msgstr "Yhteensä"
+
+#: lib/interface.php:688
+msgid "Common Queries"
+msgstr "Tavallisimmat haut"
+
+#: lib/interface.php:698
+#, php-format
+msgid ""
+"Here you can see the %d most common user search queries, how many times "
+"those queries were made and how many results were found for those queries."
+msgstr ""
+"Täältä löydät %d yleisintä hakulausetta, kuinka usein hakuja on tehty ja "
+"kuinka monta hakutulosta ne ovat löytäneet."
+
+#: lib/interface.php:701 lib/interface.php:718 lib/interface.php:759
+msgid "Today and yesterday"
+msgstr "Tänään ja eilen"
+
+#: lib/interface.php:705 lib/interface.php:722 lib/interface.php:760
+msgid "Last 7 days"
+msgstr "Viimeiset 7 päivää"
+
+#: lib/interface.php:710 lib/interface.php:727
+#, php-format
+msgid "Last %d days"
+msgstr "Viimeiset %d päivää"
+
+#: lib/interface.php:715
+msgid "Unsuccessful Queries"
+msgstr "Epäonnistuneet haut"
+
+#: lib/interface.php:733
+msgid "Reset Logs"
+msgstr "Tyhjennä lokit"
+
+#: lib/interface.php:737
+#, php-format
+msgid "To reset the logs, type \"reset\" into the box here %1$s and click %2$s"
+msgstr ""
+"Tyhjentääksesi lokit, kirjoita \"reset\" tähän kenttään %1$s ja klikkaa %2$s"
+
+#: lib/interface.php:761
+msgid "Last 30 days"
+msgstr "Viimeiset 30 päivää"
+
+#: lib/interface.php:762
+msgid "Forever"
+msgstr "Aina"
+
+#: lib/interface.php:770
+msgid "When"
+msgstr "Milloin"
+
+#: lib/interface.php:770
+msgid "Searches"
+msgstr "Haut"
+
+#: lib/interface.php:827
+msgid "Query"
+msgstr "Haku"
+
+#: lib/interface.php:827
+msgid "Hits"
+msgstr "Osumia"
+
+#: lib/interface.php:1216
+msgid "Overview"
+msgstr "Yhteenveto"
+
+#: lib/interface.php:1217 lib/interface.php:1254
+msgid "Indexing"
+msgstr "Indeksointi"
+
+#: lib/interface.php:1218
+msgid "Attachments"
+msgstr "Liitteet"
+
+#: lib/interface.php:1219 lib/interface.php:1266 lib/interface.php:2658
+msgid "Searching"
+msgstr "Hakeminen"
+
+#: lib/interface.php:1220
+msgid "Logging"
+msgstr "Lokit"
+
+#: lib/interface.php:1221 lib/interface.php:1270
+msgid "Excerpts and highlights"
+msgstr "Otteet ja korostukset"
+
+#: lib/interface.php:1222 lib/interface.php:2506 lib/interface.php:2511
+msgid "Synonyms"
+msgstr "Synonyymit"
+
+#: lib/interface.php:1223 lib/interface.php:2537
+msgid "Stopwords"
+msgstr "Hukkasanat"
+
+#: lib/interface.php:1225
+msgid "Import / Export options"
+msgstr "Tuo tai vie asetukset"
+
+#: lib/interface.php:1236
+msgid "Welcome to Relevanssi!"
+msgstr "Tervetuloa Relevanssin käyttäjäksi!"
+
+#: lib/interface.php:1248
+msgid "Getting started"
+msgstr "Näin pääset alkuun"
+
+#: lib/interface.php:1250
+msgid ""
+"You've already installed Relevanssi. That's a great first step towards good "
+"search experience!"
+msgstr ""
+"Olet ottanut jo ensimmäisen askeleen kohti parempaa hakukokemusta "
+"asentamalla Relevanssin!"
+
+#: lib/interface.php:1254
+#, php-format
+msgid ""
+"Now, you need an index. Head over to the %1$s%2$s%3$s tab to set up the "
+"basic indexing options and to build the index."
+msgstr ""
+"Nyt tarvitset indeksin. Mene %1$s%2$s%3$s-välilehdelle säätämään "
+"indeksointiasetukset ja indeksoimaan sivustosi."
+
+#: lib/interface.php:1255
+msgid "You need to check at least the following options:"
+msgstr "Tarkista ainakin seuraavat asetukset:"
+
+#: lib/interface.php:1256
+msgid "Make sure the post types you want to include in the index are indexed."
+msgstr "Katso, että haluamasi artikkelityypit on merkitty indeksoitaviksi."
+
+#: lib/interface.php:1258
+#, php-format
+msgid ""
+"Do you use custom fields to store content you want included? If so, add "
+"those too. WooCommerce user? You probably want to include %s."
+msgstr ""
+"Käytätkö avainkenttiä sisällön tallentamiseen? Lisää nekin indeksoitaviksi. "
+"Käytätkö WooCommercea? Haluat luultavasti indeksoida kentän %s."
+
+#: lib/interface.php:1259
+msgid ""
+"Then just save the options and build the index. First time you have to do it "
+"manually, but after that, it's fully automatic: all changes are reflected in "
+"the index without reindexing. (That said, it's a good idea to rebuild the "
+"index once a year.)"
+msgstr ""
+"Sitten vain tallenna asetukset ja indeksoi. Ensimmäisellä kerralla "
+"indeksointi on tehtävä käsin, mutta sen jälkeen se on automaattista: kaikki "
+"muutokset päivitetään indeksiin. (Suosittelemme indeksoimaan koko sivuston "
+"noin kerran vuodessa.)"
+
+#: lib/interface.php:1262
+msgid "Great, you already have an index!"
+msgstr "Hienoa, sinulla on jo indeksi!"
+
+#: lib/interface.php:1266
+#, php-format
+msgid ""
+"On the %1$s%2$s%3$s tab, choose whether you want the default operator to be "
+"AND (less results, but more precise) or OR (more results, less precise)."
+msgstr ""
+"Valitse oletusoperaattori %1$s%2$s%3$s-välilehdellä: AND antaa vähemmän, "
+"mutta tarkempia tuloksia, OR antaa enemmän, mutta epätarkempia tuloksia."
+
+#: lib/interface.php:1270
+#, php-format
+msgid ""
+"The next step is the %1$s%2$s%3$s tab, where you can enable the custom "
+"excerpts that show the relevant part of post in the search results pages."
+msgstr ""
+"Seuraava askel on %1$s%2$s%3$s-välilehti, jossa voit kytkeä päälle paremmat "
+"otteet, jotka näyttävät hakutulossivulla olennaisen osan artikkelista."
+
+#: lib/interface.php:1271
+msgid ""
+"There are couple of options related to that, so if you want highlighting in "
+"the results, you can adjust the styles for that to suit the look of your "
+"site."
+msgstr ""
+"Jos haluat hakutuloksiin hakusanat korostettuna, voit säätää korostusten "
+"ulkoasua, jotta ne sopivat sivustollesi."
+
+#: lib/interface.php:1274
+msgid ""
+"That's about it! Now you should have Relevanssi up and running. The rest of "
+"the options is mostly fine-tuning."
+msgstr ""
+"Ja siinäpä se! Nyt Relevanssin pitäisi toimia mainiosti. Loput asetuksista "
+"ovat vain hienosäätöä."
+
+#: lib/interface.php:1277
+msgid ""
+"Relevanssi doesn't have a separate search widget. Instead, Relevanssi uses "
+"the default search widget. Any standard search form will do!"
+msgstr ""
+"Relevanssilla ei ole erillistä hakuvimpainta. Relevanssi voi käyttää "
+"WordPressin oletushakuvimpainta. Mikä tahansa standardinmukainen hakulomake "
+"kelpaa!"
+
+#: lib/interface.php:1281
+msgid "For more information"
+msgstr "Lisätietoja"
+
+#: lib/interface.php:1283
+msgid ""
+"Relevanssi uses the WordPress contextual help. Click 'Help' on the top right "
+"corner for more information on many Relevanssi topics."
+msgstr ""
+"Relevanssi käyttää WordPressin ohjejärjestelmää. Klikkaamalla ’Ohje’-nappia "
+"ruudun oikeassa yläkulmassa saat lisätietoja monista Relevanssin aiheista."
+
+#: lib/interface.php:1285
+#, php-format
+msgid ""
+"%1$sRelevanssi knowledge base%2$s has lots of information about advanced "
+"Relevanssi use, including plenty of code samples."
+msgstr ""
+"%1$sRelevanssin tietämyskannassa%2$s on paljon tietoa Relevanssin "
+"monipuolisista toiminnoista ja paljon esimerkkikoodia."
+
+#: lib/interface.php:1290
+msgid "Relevanssi on Facebook"
+msgstr "Relevanssi Facebookissa"
+
+#: lib/interface.php:1293
+msgid ""
+"Check out the Relevanssi page on Facebook for news and updates about "
+"Relevanssi."
+msgstr ""
+"Relevanssin Facebook-sivuilta löydät uutisia ja tietoa Relevanssin "
+"päivityksistä."
+
+#: lib/interface.php:1299
+msgid "Buy Relevanssi Premium"
+msgstr "Osta Relevanssi Premium"
+
+#: lib/interface.php:1302
+msgid "Buy Relevanssi Premium now"
+msgstr "Osta Relevanssi Premium nyt"
+
+#: lib/interface.php:1304
+#, php-format
+msgid ""
+"use coupon code %1$s for 20%% discount (valid at least until the end of %2$s)"
+msgstr ""
+"alennuskoodilla %1$s saat 20%% alennuksen (voimassa vähintään vuoden %2$s "
+"loppuun)"
+
+#: lib/interface.php:1305
+msgid "Here are some improvements Relevanssi Premium offers:"
+msgstr "Relevanssi Premium tarjoaa monia parannuksia:"
+
+#: lib/interface.php:1307
+msgid "PDF content indexing"
+msgstr "PDF-tiedostojen sisällön indeksoiminen"
+
+#: lib/interface.php:1308
+msgid "Index and search user profile pages"
+msgstr "Käyttäjien indeksoiminen ja hakeminen"
+
+#: lib/interface.php:1309
+msgid "Index and search taxonomy term pages"
+msgstr "Taksonomiasivujen indeksoiminen ja hakeminen"
+
+#: lib/interface.php:1310
+msgid "Multisite searches across many subsites"
+msgstr "Monen sivuston haut multisite-ympäristöissä"
+
+#: lib/interface.php:1311
+msgid "WP CLI commands"
+msgstr "WP CLI -komentoja"
+
+#: lib/interface.php:1312
+msgid "Adjust weights separately for each post type and taxonomy"
+msgstr "Painotusten säätö artikkelilajien ja taksonomioiden perusteella"
+
+#: lib/interface.php:1313
+msgid "Internal link anchors can be search terms for the target posts"
+msgstr "Sisäisten linkkien ankkurit voidaan hyödyntää hakutermeinä"
+
+#: lib/interface.php:1314
+msgid "Index and search any columns in the wp_posts database"
+msgstr "Indeksoi ja hae wp_posts-tietokannan sarakkeiden sisältöä"
+
+#: lib/interface.php:1315
+msgid ""
+"Hide Relevanssi branding from the User Searches page on a client installation"
+msgstr ""
+"Piilota Relevanssin brändäys Käyttäjien haut -sivulta asiakkaidesi sivuilla"
+
+#: lib/interface.php:1329
+msgid "Enable logs"
+msgstr "Lokit"
+
+#: lib/interface.php:1333 lib/interface.php:1336
+msgid "Keep a log of user queries."
+msgstr "Kirjaa käyttäjien haut lokiin."
+
+#: lib/interface.php:1343
+#, php-format
+msgid ""
+"If enabled, Relevanssi will log user queries. The logs can be examined under "
+"'%1$s' on the Dashboard admin menu and are stored in the %2$s database table."
+msgstr ""
+"Jos asetus on valittuna, Relevanssi kirjaa käyttäjien haut lokiin. Loki "
+"löytyy kohdasta %1$s Ohjausnäkymä-valikon alta ja ne on tallennettu "
+"tietokantatauluun %2$s."
+
+#: lib/interface.php:1351
+msgid "Log user IP"
+msgstr "Kirjaa käyttäjän IP"
+
+#: lib/interface.php:1355 lib/interface.php:1358
+msgid "Log the user's IP with the queries."
+msgstr "Kirjaa käyttäjien IP-osoitteet lokiin."
+
+#: lib/interface.php:1361
+msgid ""
+"If enabled, Relevanssi will log user's IP adress with the queries. Note that "
+"this may be illegal where you live, and in EU will create a person registry "
+"that falls under the GDPR."
+msgstr ""
+"Jos tämä asetus on päällä, Relevanssi tallentaa hakijan IP-osoitteen hakujen "
+"mukana. Huomaa, että tämä saattaa olla laitonta, ja EU:ssa muodostaa "
+"henkilörekisterin, jonka tulee noudattaa GDPR-säädöksiä."
+
+#: lib/interface.php:1366
+msgid "Exclude users"
+msgstr "Ohitettavat käyttäjät"
+
+#: lib/interface.php:1370
+msgid ""
+"Comma-separated list of numeric user IDs or user login names that will not "
+"be logged."
+msgstr ""
+"Pilkuilla erotettu lista käyttäjien ID-numeroita tai käyttäjätunnuksia, "
+"joiden hakuja ei kirjata lokiin."
+
+#: lib/interface.php:1380
+msgid "Trim logs"
+msgstr "Lokien poistaminen"
+
+#: lib/interface.php:1384
+msgid "How many days of logs to keep in the database."
+msgstr "Kuinka monta päivää lokeja säilytetään tietokannassa."
+
+#: lib/interface.php:1386
+#, php-format
+msgid " Set to %d for no trimming."
+msgstr " Jos arvo on %d, lokeja ei poisteta."
+
+#: lib/interface.php:1402
+msgid "Default operator"
+msgstr "Oletusoperaattori"
+
+#: lib/interface.php:1406
+msgid "AND - require all terms"
+msgstr "JA - kaikkien hakusanojen on esiinnyttävä"
+
+#: lib/interface.php:1407
+msgid "OR - any term present is enough"
+msgstr "TAI - mikä tahansa hakusana riittää"
+
+#: lib/interface.php:1409
+msgid "This setting determines the default operator for the search."
+msgstr "Tämä asetus säätää haun oletusoperaattorin."
+
+#: lib/interface.php:1413
+#, php-format
+msgid ""
+"You can override this setting with the %1$s query parameter, like this: %2$s"
+msgstr "Voit ohittaa tämän asetuksen parametrillä %1$s, tähän tapaan: %2$s"
+
+#: lib/interface.php:1420
+msgid "Fallback to OR"
+msgstr "TAI-varmistus"
+
+#: lib/interface.php:1424 lib/interface.php:1427
+msgid "Disable the OR fallback."
+msgstr "Kytke TAI-hakuun siirtyminen pois päältä."
+
+#: lib/interface.php:1430
+msgid ""
+"By default, if AND search fails to find any results, Relevanssi will switch "
+"the operator to OR and run the search again. You can prevent that by "
+"checking this option."
+msgstr ""
+"Jos JA-haku ei löydä tuloksia, Relevanssi vaihtaa operaattoriksi TAI ja "
+"hakee uudestaan. Tämän toiminnon voi kytkeä pois päältä tästä."
+
+#: lib/interface.php:1435
+msgid "Default order"
+msgstr "Hakutulosten oletusjärjestys"
+
+#: lib/interface.php:1439
+msgid "Relevance (highly recommended)"
+msgstr "Relevanssi (käytä tätä!)"
+
+#: lib/interface.php:1440
+msgid "Post date"
+msgstr "Artikkelin julkaisupäivä"
+
+#: lib/interface.php:1443
+#, php-format
+msgid ""
+"If you want to override this or use multi-layered ordering (eg. first order "
+"by relevance, but sort ties by post title), you can use the %s query "
+"variable. See Help for more information."
+msgstr ""
+"Jos haluat ohittaa tämän tai käyttää monitasoista lajittelua (esimerkiksi "
+"ensin relevanssin mukaan ja sitten tasapelit otsikon mukaan), voit käyttää "
+"%s-parametriä. Katso lisätietoja ohjevalikosta."
+
+#: lib/interface.php:1445
+msgid ""
+" If you want date-based results, see the recent post bonus in the Weights "
+"section."
+msgstr ""
+" Jos haluat suosia tuoreita artikkeleita, painotus-kohdasta löytyy "
+"mahdollisuus antaa tuoreille artikkeleille bonusta."
+
+#: lib/interface.php:1451
+msgid "Keyword matching"
+msgstr "Avainsanojen kohdistus"
+
+#: lib/interface.php:1455
+msgid "Whole words"
+msgstr "Kokonaiset sanat"
+
+#: lib/interface.php:1456
+msgid "Partial words"
+msgstr "Osittaiset sanat"
+
+#: lib/interface.php:1457
+msgid "Partial words if no hits for whole words"
+msgstr "Osittaiset sanat, jos kokonaisilla ei tule osumia"
+
+#: lib/interface.php:1459
+msgid ""
+"Whole words means Relevanssi only finds posts that include the whole search "
+"term."
+msgstr ""
+"Kokonaiset sanat tarkoittaa, että Relevanssi löytää vain artikkelit, joissa "
+"on hakusana kokonaisena."
+
+#: lib/interface.php:1460
+msgid ""
+"Partial words also includes cases where the word in the index begins or ends "
+"with the search term (searching for 'ana' will match 'anaconda' or 'banana', "
+"but not 'banal'). See Help, if you want to make Relevanssi match also inside "
+"words."
+msgstr ""
+"Osittaiset sanat ottaa huomioon sanat, jotka alkavat tai päättyvät "
+"hakusanalla (hakusanalla ’ana’ löytyy ’anakonda’ tai ’avainsana’, mutta ei "
+"’banaali’). Jos haluat, että Relevanssi hakee myös sanojen sisältä, katso "
+"ohjevalikosta neuvoja."
+
+#: lib/interface.php:1465
+msgid "Weights"
+msgstr "Painotukset"
+
+#: lib/interface.php:1468
+msgid ""
+"All the weights in the table are multipliers. To increase the weight of an "
+"element, use a higher number. To make an element less significant, use a "
+"number lower than 1."
+msgstr ""
+"Taulukon painot ovat kertoimia. Jos haluat lisätä painoa, kasvata numeroa. "
+"Jos haluat tehdä jostain merkityksettömämpää, käytä ykköstä pienempää painoa."
+
+#: lib/interface.php:1472
+msgid "Element"
+msgstr "Kohde"
+
+#: lib/interface.php:1473
+msgid "Weight"
+msgstr "Paino"
+
+#: lib/interface.php:1478
+msgid "Content"
+msgstr "Sisältö"
+
+#: lib/interface.php:1486
+msgid "Titles"
+msgstr "Otsikot"
+
+#: lib/interface.php:1499
+msgid "Comment text"
+msgstr "Kommenttien teksti"
+
+#: lib/interface.php:1528
+msgid "Boost exact matches"
+msgstr "Suosi tarkkoja osumia"
+
+#: lib/interface.php:1532 lib/interface.php:1535
+msgid "Give boost to exact matches."
+msgstr "Anna bonusta tarkoille osumille."
+
+#: lib/interface.php:1539
+#, php-format
+msgid ""
+"If you enable this option, matches where the search query appears in title "
+"or content as a phrase will get a weight boost. To adjust the boost, you can "
+"use the %s filter hook. See Help for more details."
+msgstr ""
+"Jos tämä asetus on päällä, hakutulokset, joissa koko hakulause esiintyy "
+"sellaisenaan otsikossa tai artikkelin sisällössä, saavat lisäbonusta. "
+"Bonuksen määrää voi säätää suodattimella %s, katso lisätietoja ohjeista."
+
+#: lib/interface.php:1547
+msgid "WPML"
+msgstr "WPML"
+
+#: lib/interface.php:1551 lib/interface.php:1554
+msgid "Limit results to current language."
+msgstr "Rajoita tulokset nykyiseen kieleen."
+
+#: lib/interface.php:1557
+msgid ""
+"Enabling this option will restrict the results to the currently active "
+"language. If the option is disabled, results will include posts in all "
+"languages."
+msgstr ""
+"Jos tämä asetus on valittuna, Relevanssi palauttaa tuloksia vain nykyisellä "
+"kielellä. Muussa tapauksessa tulokset sisältävät artikkeleita joka kielellä."
+
+#: lib/interface.php:1564
+msgid "Polylang"
+msgstr "Polylang"
+
+#: lib/interface.php:1568 lib/interface.php:1571
+msgid "Allow results from all languages."
+msgstr "Salli tuloksia joka kielestä."
+
+#: lib/interface.php:1574
+msgid ""
+"By default Polylang restricts the search to the current language. Enabling "
+"this option will lift this restriction."
+msgstr ""
+"Polylang rajaa tulokset oletuksena nykyiseen kieleen. Tämä asetus poistaa "
+"rajoituksen."
+
+#: lib/interface.php:1580
+msgid "Admin search"
+msgstr "Ylläpitohaku"
+
+#: lib/interface.php:1584 lib/interface.php:1587
+msgid "Use Relevanssi for admin searches."
+msgstr "Käytä Relevanssia myös WordPressin ylläpidon puolella."
+
+#: lib/interface.php:1590
+msgid ""
+"If checked, Relevanssi will be used for searches in the admin interface. The "
+"page search doesn't use Relevanssi, because WordPress works like that."
+msgstr ""
+"Jos asetus on valittuna, Relevanssia käytetään hakemiseen "
+"ylläpitokäyttöliittymässä. Sivujen haku ei käytä Relevanssia, koska "
+"WordPress nyt vain toimii niin."
+
+#: lib/interface.php:1596
+#, php-format
+msgid "Respect %s"
+msgstr "Kunnioita %s -asetusta"
+
+#: lib/interface.php:1600
+msgid "Respect exclude_from_search for custom post types"
+msgstr "Kunnioita artikkelityyppien 'exclude_from_search'-asetusta"
+
+#: lib/interface.php:1604
+#, php-format
+msgid "Respect %s for custom post types"
+msgstr "Kunnioita artikkelityyppien %s-asetusta"
+
+#: lib/interface.php:1606
+msgid ""
+"If checked, Relevanssi won't display posts of custom post types that have "
+"'exclude_from_search' set to true."
+msgstr ""
+"Jos tässä ruudussa on rasti, Relevanssi ei näytä hakutuloksissa sellaisten "
+"artikkelityyppien artikkeleita, joiden 'exclude_from_search'-asetus on "
+"päällä."
+
+#: lib/interface.php:1618
+msgid ""
+"You probably should uncheck this option, because you've set Relevanssi to "
+"index the following non-public post types:"
+msgstr ""
+"Sinun kannattaa luultavasti kytkeä tämä asetus pois päältä, koska olet "
+"valinnut Relevanssin indeksoitavaksi seuraavat yksityiset artikkelityypit:"
+
+#: lib/interface.php:1631
+msgid "Throttle searches"
+msgstr "Rajoita hakuja"
+
+#: lib/interface.php:1641
+msgid "Throttling the search does not work when sorting the posts by date."
+msgstr ""
+"Hakujen rajoittaminen ei toimi, jos hakuja lajitellaan päivämäärän mukaan."
+
+#: lib/interface.php:1651 lib/interface.php:1654
+msgid "Throttle searches."
+msgstr "Rajoita hakuja."
+
+#: lib/interface.php:1658
+msgid "Your database is so small that you don't need to enable this."
+msgstr "Tietokantasi on niin pieni, ettet tarvitse tätä asetusta."
+
+#: lib/interface.php:1660
+msgid ""
+"If this option is checked, Relevanssi will limit search results to at most "
+"500 results per term. This will improve performance, but may cause some "
+"relevant documents to go unfound. See Help for more details."
+msgstr ""
+"Jos tämä asetus on päällä, Relevanssi rajoittaa hakutulokset korkeintaan 500 "
+"tulokseen hakusanaa kohden. Tämä parantaa tuloksia, mutta voi jättää joitain "
+"relevantteja hakutuloksia pois. Ohjeista löytyy lisätietoja."
+
+#: lib/interface.php:1666
+msgid "Category restriction"
+msgstr "Kategoriarajoitus"
+
+#: lib/interface.php:1686
+msgid ""
+"You can restrict search results to a category for all searches. For "
+"restricting on a per-search basis and more options (eg. tag restrictions), "
+"see Help."
+msgstr ""
+"Voit rajoittaa kaikkia hakuja tiettyyn kategoriaan. Ohjeista löytyy "
+"tarkempia tietoja, jos haluat rajoittaa vain tiettyjä hakuja tai haluat "
+"tarkempia rajoituksia."
+
+#: lib/interface.php:1691
+msgid "Category exclusion"
+msgstr "Kategorioiden poissulkeminen"
+
+#: lib/interface.php:1711
+msgid ""
+"Posts in these categories are not included in search results. To exclude the "
+"posts completely from the index, see Help."
+msgstr ""
+"Näiden kategorioiden artikkelit eivät näy hakutuloksissa. Ohjeissa "
+"kerrotaan, miten artikkeleita saa täysin poistettua indeksistä."
+
+#: lib/interface.php:1716
+msgid "Post exclusion"
+msgstr "Artikkelien poissulkeminen"
+
+#: lib/interface.php:1720
+msgid ""
+"Enter a comma-separated list of post or page ID's to exclude those pages "
+"from the search results."
+msgstr ""
+"Anna pilkuilla erotettu lista avainsanojen ID-numeroita, jotka haluat "
+"poistaa hakutuloksista."
+
+#: lib/interface.php:1722
+msgid ""
+"With Relevanssi Premium, it's better to use the check box on post edit "
+"pages. That will remove the posts completely from the index, and will work "
+"with multisite searches unlike this setting."
+msgstr ""
+"Relevanssi Premiumin kanssa on käytännöllisempää käyttää artikkelin "
+"muokkaussivulla olevaa rastiruutua. Se poistaa artikkelit tyystin indeksistä "
+"ja toimii myös multisite-hauissa toisin kuin tämä asetus."
+
+#: lib/interface.php:1737
+msgid "Custom excerpts/snippets"
+msgstr "Hakusanat näyttävät otteet"
+
+#: lib/interface.php:1742
+msgid "Custom search result snippets"
+msgstr "Luo omat otteet hakutuloksiin"
+
+#: lib/interface.php:1746 lib/interface.php:1749
+msgid "Create custom search result snippets"
+msgstr "Luo omat otteet hakutuloksiin"
+
+#: lib/interface.php:1752
+msgid "Only enable this if you actually use the custom excerpts."
+msgstr "Kytke tämä päälle vain jos oikeasti käytät otteita."
+
+#: lib/interface.php:1763
+msgid "Length of the snippet"
+msgstr "Otteen pituus"
+
+#: lib/interface.php:1780
+msgid "characters"
+msgstr "merkkiä"
+
+#: lib/interface.php:1781
+msgid "words"
+msgstr "sanaa"
+
+#: lib/interface.php:1783
+msgid ""
+"Using words is much faster than characters. Don't use characters, unless you "
+"have a really good reason and your posts are short."
+msgstr ""
+"Sanojen käyttäminen mittana on paljon nopeampaa kuin merkkien. Älä käytä "
+"merkkimäärää, ellei sinulla ole siihen erittäin painavaa syytä."
+
+#: lib/interface.php:1794
+msgid "Allowable tags in excerpts"
+msgstr "Otteissa sallitut HTML-tagit"
+
+#: lib/interface.php:1804
+msgid ""
+"List all tags you want to allow in excerpts. For example: &lt;p&gt;&lt;a&gt;"
+"&lt;strong&gt;."
+msgstr ""
+"Listaa kaikki HTML-tagit, jotka haluat sallia otteissa, ilman välejä. "
+"Esimerkiksi: &lt;p&gt;&lt;a&gt;&lt;strong&gt;."
+
+#: lib/interface.php:1815
+msgid "Use custom fields for excerpts"
+msgstr "Käytä avainkenttiä otteisiin"
+
+#: lib/interface.php:1819 lib/interface.php:1828
+msgid "Use custom field content for building excerpts"
+msgstr "Käytä avainkenttien sisältöä otteiden luomiseen"
+
+#: lib/interface.php:1831
+msgid ""
+"Use the custom fields setting for indexing for excerpt-making as well. "
+"Enabling this option will show custom field content in Relevanssi-generated "
+"excerpts."
+msgstr ""
+"Käytä indeksoinnin avainkenttäasetusta myös otteita luotaessa. Kun tämä "
+"toiminto on päällä, Relevanssi näyttää otteissa myös avainkenttien sisältöä."
+
+#: lib/interface.php:1834
+msgid "Enable this option to use PDF content for excerpts."
+msgstr ""
+"Jos tämä asetus on käytössä, PDF-tiedostojen sisältöä käytetään otteissa."
+
+#: lib/interface.php:1839
+msgid "Current custom field setting"
+msgstr "Nykyinen avainkenttäasetus"
+
+#: lib/interface.php:1842
+msgid "all visible custom fields"
+msgstr "kaikki näkyvät avainkentät"
+
+#: lib/interface.php:1844
+msgid "all custom fields"
+msgstr "kaikki avainkentät"
+
+#: lib/interface.php:1848
+msgid "Just PDF content"
+msgstr "Vain PDF-sisältö"
+
+#: lib/interface.php:1850
+msgid "None selected"
+msgstr "Ei mitään"
+
+#: lib/interface.php:1858
+msgid "Search hit highlighting"
+msgstr "Hakutulosten korostaminen"
+
+#: lib/interface.php:1869
+msgid "Highlight type"
+msgstr "Korostustapa"
+
+#: lib/interface.php:1879
+msgid "No highlighting"
+msgstr "Ei korostusta"
+
+#: lib/interface.php:1883 lib/interface.php:1893
+msgid "Text color"
+msgstr "Tekstin väri"
+
+#: lib/interface.php:1884 lib/interface.php:1907
+msgid "Background color"
+msgstr "Taustaväri"
+
+#: lib/interface.php:1885
+msgid "CSS Style"
+msgstr "CSS-tyyli"
+
+#: lib/interface.php:1886
+msgid "CSS Class"
+msgstr "CSS-luokka"
+
+#: lib/interface.php:1888 lib/interface.php:2071
+msgid "Requires custom snippets to work."
+msgstr "Vaatii Relevanssin luomia otteita toimiakseen."
+
+#: lib/interface.php:1921
+msgid "CSS style for highlights"
+msgstr "CSS-tyyli korostuksille"
+
+#: lib/interface.php:1932
+#, php-format
+msgid ""
+"The highlights will be wrapped in a %s with this CSS in the style parameter."
+msgstr ""
+"Korostukset kääritään %s-elementtiin, jolla on nämä tyylit parametrinään."
+
+#: lib/interface.php:1937
+msgid "CSS class for highlights"
+msgstr "CSS-luokka korostuksille"
+
+#: lib/interface.php:1948
+#, php-format
+msgid "The highlights will be wrapped in a %s with this class."
+msgstr "Hakutulokset kääritään %s-elementtiin, jolla on tämä luokka."
+
+#: lib/interface.php:1953
+msgid "Highlight in titles"
+msgstr "Korosta hakusanat otsikoissa"
+
+#: lib/interface.php:1957 lib/interface.php:1966
+msgid "Highlight query terms in titles"
+msgstr "Korosta hakusanat myös tulosten otsikoissa"
+
+#: lib/interface.php:1970
+#, php-format
+msgid ""
+"Highlights in titles require changes to the search results template. You "
+"need to replace %1$s in the search results template with %2$s. For more "
+"information, see the contextual help."
+msgstr ""
+"Otsikoiden korostaminen vaatii muutoksia hakutulossivupohjiin. Sinun täytyy "
+"vaihtaa %1$s sivupohjassa funktioon %2$s. Ohjeista löytyy lisätietoja."
+
+#: lib/interface.php:1975
+msgid "Highlight in documents"
+msgstr "Korosta hakusanat artikkeleissa"
+
+#: lib/interface.php:1979 lib/interface.php:1988
+msgid "Highlight query terms in documents"
+msgstr "Korosta hakusanat artikkeleissa"
+
+#: lib/interface.php:1992
+#, php-format
+msgid ""
+"Highlights hits when user opens the post from search results. This requires "
+"an extra parameter (%s) to the links from the search results pages, which "
+"Relevanssi should add automatically."
+msgstr ""
+"Korostaa osumat kun käyttäjä avaa artikkelin hakutulossivulta. Tämä vaatii "
+"ylimääräisen parametrin (%s) hakutulossivulla oleviin linkkeihin "
+"toimiakseen. Relevanssin pitäisi lisätä parametri automaattisesti."
+
+#: lib/interface.php:2002
+msgid "Highlight in comments"
+msgstr "Korosta hakusanat kommenteissa"
+
+#: lib/interface.php:2006 lib/interface.php:2015
+msgid "Highlight query terms in comments"
+msgstr "Korosta hakusanat kommenteissa"
+
+#: lib/interface.php:2018
+msgid ""
+"Highlights hits in comments when user opens the post from search results."
+msgstr ""
+"Korosta osumat kommenteissa kun käyttäjä avaa artikkelisivun hakutuloksista."
+
+#: lib/interface.php:2023
+msgid "Highlighting problems with non-ASCII alphabet?"
+msgstr "Korostusongelmia ei-ASCII-merkistöjen kanssa?"
+
+#: lib/interface.php:2027 lib/interface.php:2036
+msgid "Uncheck this if you use non-ASCII characters"
+msgstr "Poista rasti tästä jos käytät muita kuin ASCII-merkistöjä"
+
+#: lib/interface.php:2039
+msgid ""
+"If you use non-ASCII characters (like Cyrillic alphabet) and the highlights "
+"don't work, unchecking this option may make the highlights work."
+msgstr ""
+"Jos käytät muita kuin ASCII-merkistöjä (esimerkiksi kyrillisiä aakkosia) ja "
+"hakusanojen korostukset eivät toimi, rastin poistaminen tästä asetuksesta "
+"voi auttaa."
+
+#: lib/interface.php:2044
+msgid "Breakdown of search results"
+msgstr "Näytä osumat otteissa"
+
+#: lib/interface.php:2055
+msgid "Breakdown of search hits in excerpts"
+msgstr "Näytä osumat otteissa"
+
+#: lib/interface.php:2059
+msgid "Show the breakdown of search hits in the excerpts"
+msgstr "Näytä osumat otteissa"
+
+#: lib/interface.php:2068
+msgid "Show the breakdown of search hits in the excerpts."
+msgstr "Näytä osumat otteissa."
+
+#: lib/interface.php:2076
+msgid "The breakdown format"
+msgstr "Osumalistauksen muoto"
+
+#: lib/interface.php:2086
+msgid ""
+"Use %body%, %title%, %tags% and %comments% to display the number of hits (in "
+"different parts of the post), %total% for total hits, %score% to display the "
+"document weight and %terms% to show how many hits each search term got."
+msgstr ""
+"Voit käyttää merkintöjä %body%, %title%, %tags% ja %comments% näyttämään "
+"osumien lukumäärän artikkelin eri osissa; %total% näyttää osumien "
+"yhteismäärän; %score% näyttää artikkelin painoarvon ja %terms% näyttää eri "
+"hakusanojen saamat osumat."
+
+#: lib/interface.php:2112 lib/interface.php:2570 premium/interface.php:1454
+msgid "Save the options"
+msgstr "Tallenna asetukset"
+
+#: lib/interface.php:2113 lib/interface.php:2119
+msgid "Build the index"
+msgstr "Indeksoi"
+
+#: lib/interface.php:2114 lib/interface.php:2121
+msgid "Index unindexed posts"
+msgstr "Indeksoi puuttuvat artikkelit"
+
+#: lib/interface.php:2119
+#, php-format
+msgid "%s empties the existing index and rebuilds it from scratch."
+msgstr "%s tyhjentää indeksin ja uudelleenindeksoi kaiken."
+
+#: lib/interface.php:2121
+#, php-format
+msgid ""
+"%s doesn't empty the index and only indexes those posts that are not "
+"indexed. You can use it if you have to interrupt building the index."
+msgstr ""
+"%s ei tyhjennä indeksiä ja indeksoi vain puuttuvat artikkelit. Käytä sitä, "
+"jos sinun tarvitsee jatkaa keskeytynyttä indeksointia."
+
+#: lib/interface.php:2124
+msgid "This doesn't index any taxonomy terms or users."
+msgstr "Tässä yhteydessä ei indeksoida taksonomiasivuja tai käyttäjiä."
+
+#: lib/interface.php:2131 premium/interface.php:750
+msgid "Time elapsed"
+msgstr "Kulunut aika"
+
+#: lib/interface.php:2131 premium/interface.php:750
+msgid "Time remaining"
+msgstr "Aikaa jäljellä"
+
+#: lib/interface.php:2131 premium/interface.php:750
+msgid "some time"
+msgstr "jonkin verran"
+
+#: lib/interface.php:2133
+msgid ""
+"Indexing should respond quickly. If nothing happens in couple of minutes, "
+"it's probably stuck. The most common reasons for indexing issues are "
+"incompatible shortcodes, so try disabling the shortcode expansion setting "
+"and try again. Also, if you've just updated Relevanssi, doing a hard refresh "
+"in your browser will make sure your browser is not trying to use an outdated "
+"version of the Relevanssi scripts."
+msgstr ""
+"Indeksoinnin pitäisi reagoida nopeasti. Jos mitään ei tapahdu muutamaan "
+"minuuttiin, indeksointi on luultavasti jumissa. Tavallisin syy jumeille on "
+"huonosti Relevanssin kanssa toimiva shortcode, joten kokeile kytkeä "
+"shortcodejen suoritus pois päältä asetuksista ja yritä uudestaan. Jos olet "
+"juuri päivittänyt Relevanssin, kannattaa myös ladata sivu kunnolla "
+"uudestaan, jotta selaimesi ei käytä Relevanssin skriptien vanhentunutta "
+"versiota."
+
+#: lib/interface.php:2137
+msgid "State of the index"
+msgstr "Indeksin tila"
+
+#: lib/interface.php:2138
+msgid "document in the index."
+msgid_plural "documents in the index."
+msgstr[0] "artikkeli indeksissä."
+msgstr[1] "artikkelia indeksissä."
+
+#: lib/interface.php:2140
+msgid "user in the index."
+msgid_plural "users in the index."
+msgstr[0] "käyttäjä indeksissä."
+msgstr[1] "käyttäjää indeksissä."
+
+#: lib/interface.php:2141
+msgid "taxonomy term in the index."
+msgid_plural "taxonomy terms in the index."
+msgstr[0] "taksonomiatermi indeksissä."
+msgstr[1] "taksonomiatermiä indeksissä."
+
+#: lib/interface.php:2144
+msgid "term in the index."
+msgid_plural "terms in the index."
+msgstr[0] "hakusana indeksissä."
+msgstr[1] "hakusanaa indeksissä."
+
+#: lib/interface.php:2145
+msgid "is the highest post ID indexed."
+msgstr "on korkein indeksoitu artikkelin ID."
+
+#: lib/interface.php:2152
+msgid ""
+"WARNING: You've chosen no post types to index. Nothing will be indexed. "
+"Choose some post types to index."
+msgstr ""
+"VAROITUS: Et ole valinnut yhtään artikkelityyppiä indeksoitavaksi. Mitään ei "
+"indeksoida. Valitse artikkelityyppejä indeksoitavaksi."
+
+#: lib/interface.php:2156
+msgid "Indexing options"
+msgstr "Indeksointiasetukset"
+
+#: lib/interface.php:2158
+msgid ""
+"Any changes to the settings on this page require reindexing before they take "
+"effect."
+msgstr ""
+"Tämän sivun asetuksiin tehtävät muutokset vaikuttavat vasta indeksoinnin "
+"jälkeen."
+
+#: lib/interface.php:2162
+msgid "Post types"
+msgstr "Artikkelilajit"
+
+#: lib/interface.php:2168
+msgid "Type"
+msgstr "Laji"
+
+#: lib/interface.php:2169 lib/interface.php:2223 premium/interface.php:628
+msgid "Index"
+msgstr "Indeksoi"
+
+#: lib/interface.php:2170
+msgid "Excluded from search?"
+msgstr "Rajattu pois hausta?"
+
+#: lib/interface.php:2187 lib/interface.php:2241 premium/interface.php:645
+msgid "yes"
+msgstr "kyllä"
+
+#: lib/interface.php:2189 lib/interface.php:2239 premium/interface.php:647
+msgid "no"
+msgstr "ei"
+
+#: lib/interface.php:2209
+#, php-format
+msgid ""
+"%1$s includes all attachment types. If you want to index only some "
+"attachments, see %2$sControlling attachment types in the Knowledge base%3$s."
+msgstr ""
+"%1$s sisältää kaikki liitetiedostot. Jos haluat indeksoida vain osan "
+"liitteistä, katso %2$saiheeseen liittyvä tietämyskannan artikkeli%3$s."
+
+#: lib/interface.php:2215 premium/interface.php:621
+msgid "Taxonomies"
+msgstr "Taksonomiat"
+
+#: lib/interface.php:2222 premium/interface.php:627
+msgid "Taxonomy"
+msgstr "Luokittelu"
+
+#: lib/interface.php:2224 premium/interface.php:629
+msgid "Public?"
+msgstr "Julkinen?"
+
+#: lib/interface.php:2250
+msgid ""
+"If you check a taxonomy here, the terms for that taxonomy are indexed with "
+"the posts. If you for example choose \"post_tag\", searching for a tag will "
+"find all posts that have the tag."
+msgstr ""
+"Jos rastitat taksonomian tästä, taksonomiatermit indeksoidaan osana "
+"artikkeleita. Jos esimerkiksi valitset tästä \"post_tag\", avainsanan "
+"hakeminen palauttaa tuloksena kaikki artikkelit, joissa avainsanaa on "
+"käytetty."
+
+#: lib/interface.php:2257
+msgid "Comments"
+msgstr "Kommentit"
+
+#: lib/interface.php:2261 lib/interface.php:2275
+msgid "none"
+msgstr "ei toistoa"
+
+#: lib/interface.php:2262
+msgid "comments"
+msgstr "kommentit"
+
+#: lib/interface.php:2263
+msgid "comments and pingbacks"
+msgstr "kommentit ja pingbackit"
+
+#: lib/interface.php:2265
+msgid ""
+"If you choose to index comments, you can choose if you want to index just "
+"comments, or everything including comments and track- and pingbacks."
+msgstr ""
+"Jos indeksoit kommentoit, voit valita indeksoitko vain tavalliset kommentit "
+"vai myös track- ja pingbackit."
+
+#: lib/interface.php:2271
+msgid "Custom fields"
+msgstr "Avainkentät"
+
+#: lib/interface.php:2276
+msgid "all"
+msgstr "kaikki"
+
+#: lib/interface.php:2277
+msgid "visible"
+msgstr "näkyvät"
+
+#: lib/interface.php:2278 lib/interface.php:2302
+msgid "some"
+msgstr "yksittäiset"
+
+#: lib/interface.php:2282
+msgid "'All' indexes all custom fields for posts."
+msgstr "’Kaikki’ indeksoi kaikki artikkelin avainkentät."
+
+#: lib/interface.php:2284
+msgid ""
+"'Visible' only includes the custom fields that are visible in the user "
+"interface (with names that don't start with an underscore)."
+msgstr ""
+"’Näkyvät’ indeksoi vain käyttöliittymässä näkyvät avainkentät (joiden nimi "
+"ei ala alaviivalla)."
+
+#: lib/interface.php:2286
+msgid "'Some' lets you choose individual custom fields to index."
+msgstr ""
+"’Yksittäiset’ antaa sinun valita yksittäiset kentät, jotka indeksoidaan."
+
+#: lib/interface.php:2297
+msgid ""
+"Enter a comma-separated list of custom fields to include in the index. With "
+"Relevanssi Premium, you can also use 'fieldname_%_subfieldname' notation for "
+"ACF repeater fields."
+msgstr ""
+"Anna pilkulla erotettu lista avainkentistä, jotka haluat indeksoida. "
+"Relevanssi Premiumin kanssa voit indeksoida ACF:n Repeater-kenttiä muodossa "
+"’kentännimi_%_alakentännimi’."
+
+#: lib/interface.php:2298
+msgid ""
+"You can use 'relevanssi_index_custom_fields' filter hook to adjust which "
+"custom fields are indexed."
+msgstr ""
+"Voit käyttää ’relevanssi_index_custom_fields’-koukkua indeksoitavien "
+"avainkenttien hienosäätöön."
+
+#: lib/interface.php:2302
+#, php-format
+msgid ""
+"If you want the SKU included, choose %1$s and enter %2$s. Also see the "
+"contextual help for more details."
+msgstr ""
+"Jos haluat SKU:t mukaan indeksiin, valitse %1$s ja anna asetukseksi %2$s. "
+"Katso ohjeista lisätietoja."
+
+#: lib/interface.php:2309
+msgid "Author display names"
+msgstr "Kirjoittajien nimet"
+
+#: lib/interface.php:2313 lib/interface.php:2316
+msgid "Index the post author display name"
+msgstr "Indeksoi artikkelien kirjoittajien nimet"
+
+#: lib/interface.php:2318
+msgid ""
+"Searching for the post author display name will return posts by that author."
+msgstr ""
+"Kirjoittajan nimellä hakeminen palauttaa tämän kirjoittajan tekemät "
+"artikkelit."
+
+#: lib/interface.php:2325 lib/interface.php:2720
+msgid "Excerpts"
+msgstr "Otteet"
+
+#: lib/interface.php:2329 lib/interface.php:2332 lib/interface.php:2353
+msgid "Index the post excerpt"
+msgstr "Indeksoi artikkelin ote"
+
+#: lib/interface.php:2334
+msgid "Relevanssi will find posts by the content in the excerpt."
+msgstr "Relevanssi hakee artikkeleita myös otteiden sisällön perusteella."
+
+#: lib/interface.php:2336
+msgid ""
+"WooCommerce stores the product short description in the excerpt, so it's a "
+"good idea to index excerpts."
+msgstr ""
+"WooCommerce tallentaa tuotteen lyhyen kuvauksen otteeseen, joten on hyvä "
+"idea indeksoida myös ne."
+
+#: lib/interface.php:2344
+msgid "Shortcodes"
+msgstr "Shortcodet"
+
+#: lib/interface.php:2349
+msgid "Expand shortcodes"
+msgstr "Suorita shortcodet"
+
+#: lib/interface.php:2356
+msgid "Expand shortcodes when indexing"
+msgstr "Suorita artikkelien sisällä olevat shortcodet indeksoitaessa"
+
+#: lib/interface.php:2359
+msgid ""
+"WooCommerce has shortcodes that don't work well with Relevanssi. With "
+"WooCommerce, make sure the option is disabled."
+msgstr ""
+"WooCommercessa on shortcodeja, jotka toimivat heikosti Relevanssin kanssa. "
+"Tämä asetus kannattaa kytkeä pois päältä."
+
+#: lib/interface.php:2361
+msgid ""
+"If checked, Relevanssi will expand shortcodes in post content before "
+"indexing. Otherwise shortcodes will be stripped."
+msgstr ""
+"Jos tämä asetus on päällä, Relevanssi laajentaa shortcodet artikkelien "
+"sisällössä ennen indeksointia. Muuten ne poistetaan."
+
+#: lib/interface.php:2362
+msgid ""
+"If you use shortcodes to include dynamic content, Relevanssi will not keep "
+"the index updated, the index will reflect the status of the shortcode "
+"content at the moment of indexing."
+msgstr ""
+"Jos käytät shortcodeja lisäämään sivuille dynaamista sisältöä, Relevanssi ei "
+"pidä indeksiä ajan tasalla, vaan indeksissä on shortcodejen tuottama sisältö "
+"indeksointihetkellä."
+
+#: lib/interface.php:2390
+msgid "Advanced indexing settings"
+msgstr "Kehittyneet indeksointiasetukset"
+
+#: lib/interface.php:2392
+msgid "Show advanced settings"
+msgstr "Näytä kehittyneet asetukset"
+
+#: lib/interface.php:2397
+msgid "Minimum word length"
+msgstr "Indeksoitavan sanan minimipituus"
+
+#: lib/interface.php:2401
+msgid "Words shorter than this many letters will not be indexed."
+msgstr "Tätä kirjainmäärää lyhyempiä sanoja ei indeksoida."
+
+#: lib/interface.php:2403
+#, php-format
+msgid ""
+"To enable one-letter searches, you need to add a filter function on the "
+"filter hook %1$s that returns %2$s."
+msgstr ""
+"Jotta yhden kirjaimen haut toimivat, sinun on lisättävä koukkuun %1$s "
+"funktio, joka palauttaa %2$s."
+
+#: lib/interface.php:2407
+msgid "Punctuation control"
+msgstr "Välimerkit"
+
+#: lib/interface.php:2408
+msgid ""
+"Here you can adjust how the punctuation is controlled. For more information, "
+"see help. Remember that any changes here require reindexing, otherwise "
+"searches will fail to find posts they should."
+msgstr ""
+"Voit säätää, miten välimerkkejä käsitellään. Ohjeista löytyy lisätietoja. "
+"Muista, että muutokset vaativat uudelleenindeksoinnin, muuten haut eivät "
+"toimi odotusten mukaisesti."
+
+#: lib/interface.php:2412
+msgid "Hyphens and dashes"
+msgstr "Väliviivat"
+
+#: lib/interface.php:2416 lib/interface.php:2443 lib/interface.php:2457
+msgid "Keep"
+msgstr "Pidä"
+
+#: lib/interface.php:2417 lib/interface.php:2430 lib/interface.php:2444
+#: lib/interface.php:2458
+msgid "Replace with spaces"
+msgstr "Korvaa välilyönneillä"
+
+#: lib/interface.php:2418 lib/interface.php:2431 lib/interface.php:2445
+#: lib/interface.php:2459
+msgid "Remove"
+msgstr "Poista"
+
+#: lib/interface.php:2420
+msgid ""
+"How Relevanssi should handle hyphens and dashes (en and em dashes)? "
+"Replacing with spaces is generally the best option, but in some cases "
+"removing completely is the best option. Keeping them is rarely the best "
+"option."
+msgstr ""
+"Miten Relevanssi käsittelee väliviivat (tavalliset viivat, en-viivat ja em-"
+"viivat)? Välilyönnillä korvaaminen on yleensä paras idea, mutta poistaminen "
+"on joskus paras ratkaisu. Pitäminen kannattaa harvoin."
+
+#: lib/interface.php:2426
+msgid "Apostrophes and quotes"
+msgstr "Heitto- ja lainausmerkit"
+
+#: lib/interface.php:2433
+msgid ""
+"How Relevanssi should handle apostrophes and quotes? It's not possible to "
+"keep them; that would lead to problems. Default behaviour is to replace with "
+"spaces, but sometimes removing makes sense."
+msgstr ""
+"Miten Relevanssi käsittelee heittomerkit ja lainausmerkit? Näitä merkkejä ei "
+"voi säilyttää, siitä tulisi vain harmia. Oletustoimintatapa on korvata "
+"välilyönneillä, mutta joskus poistaminen on parempi."
+
+#: lib/interface.php:2439
+msgid "Ampersands"
+msgstr "Ampersandit"
+
+#: lib/interface.php:2447
+msgid ""
+"How Relevanssi should handle ampersands? Replacing with spaces is generally "
+"the best option, but if you talk a lot about D&amp;D, for example, keeping "
+"the ampersands is useful."
+msgstr ""
+"Kuinka ampersandit eli et-merkit käsitellään? Välilyönnillä korvaaminen on "
+"yleensä parasta, mutta jos esimerkiksi puhut paljon D&amp;D:stä, "
+"säilyttäminen on hyvä."
+
+#: lib/interface.php:2453
+msgid "Decimal separators"
+msgstr "Desimaalipisteet"
+
+#: lib/interface.php:2461
+msgid ""
+"How Relevanssi should handle periods between decimals? Replacing with spaces "
+"is the default option, but that often leads to the numbers being removed "
+"completely. If you need to search decimal numbers a lot, keep the periods."
+msgstr ""
+"Miten Relevanssi käsittelee desimaalipisteet? Välilyönnillä korvaaminen on "
+"oletusasetus, mutta se johtaa usein numeroiden poistamiseen kokonaan. Jos "
+"saitillasi tarvitsee hakea desimaalinumeroita, pidä pisteet."
+
+#: lib/interface.php:2479
+msgid "Hide advanced settings"
+msgstr "Piilota kehittyneet asetukset"
+
+#: lib/interface.php:2494
+msgid "Indexing attachment content"
+msgstr "Liitteiden sisällön indeksoiminen"
+
+#: lib/interface.php:2496
+msgid ""
+"With Relevanssi Premium, you can index the text contents of attachments "
+"(PDFs, Word documents, Open Office documents and many other types). The "
+"contents of the attachments are processed on an external service, which "
+"makes the feature reliable and light on your own server performance."
+msgstr ""
+"Relevanssi Premiumilla voit indeksoida liitteiden (PDF:t, Word-dokumentit, "
+"Open Officen dokumentit ja monet muut) tekstisisällön. Sisältö luetaan "
+"ulkoisen palvelun avulla, mikä tekee siitä luotettavan, eikä rasita omaa "
+"palvelintasi."
+
+#: lib/interface.php:2498
+#, php-format
+msgid ""
+"In order to access this and many other delightful Premium features, %1$sbuy "
+"Relevanssi Premium here%2$s."
+msgstr ""
+"Tämän ja kaikki muut Premiumin ominaisuudet saat käyttöösi, kun %1$sostat "
+"Relevanssi Premiumin%2$s."
+
+#: lib/interface.php:2514
+msgid ""
+"Add synonyms here to make the searches find better results. If you notice "
+"your users frequently misspelling a product name, or for other reasons use "
+"many names for one thing, adding synonyms will make the results better."
+msgstr ""
+"Tähän voit lisätä synonyymejä. Jos huomaat, että käyttäjäsi tekevät usein "
+"kirjoitusvirheitä esimerkiksi jonkun tuotteen nimen kanssa tai muuten vain "
+"käyttävät jostain asiasta monta eri nimeä, synonyymeillä saat paremmat "
+"tulokset."
+
+#: lib/interface.php:2516
+msgid ""
+"Do not go overboard, though, as too many synonyms can make the search "
+"confusing: users understand if a search query doesn't match everything, but "
+"they get confused if the searches match to unexpected things."
+msgstr ""
+"Älä kuitenkaan liioittele. Liian suuri määrä synonyymejä tekee hausta "
+"hämmentävää. Käyttäjät kyllä ymmärtävät, jos hakutulos ei löydä kaikkea "
+"mahdollista, mutta hämmentyvät, jos haku löytää odottamattomia tuloksia."
+
+#: lib/interface.php:2520
+msgid ""
+"The format here is <code>key = value</code>. If you add <code>dog = hound</"
+"code> to the list of synonyms, searches for <code>dog</code> automatically "
+"become a search for <code>dog hound</code> and will thus match to posts that "
+"include either <code>dog</code> or <code>hound</code>. This only works in OR "
+"searches: in AND searches the synonyms only restrict the search, as now the "
+"search only finds posts that contain <strong>both</strong> <code>dog</code> "
+"and <code>hound</code>."
+msgstr ""
+"Formaatti on <code>avain = arvo</code>. Jos lisäät synonyymeihin <code>koira "
+"= hauva</code>, <code>koira</code>-haut muuttuvat automaattisesti muotoon "
+"<code>koira hauva</code> ja löytävät siten kaikki artikkelit, joissa on "
+"jompikumpi sanoista. Tämä toimii vain TAI-hauissa. JA-hauissa lisäsanojen "
+"lisääminen rajoittaa hakua, koska <code>koira hauva</code> löytää vain "
+"artikkelit joissa on <strong>molemmat</strong> sanat."
+
+#: lib/interface.php:2522
+msgid ""
+"The synonyms are one direction only. If you want both directions, add the "
+"synonym again, reversed: <code>hound = dog</code>."
+msgstr ""
+"Synonyymit ovat yksisuuntaisia. Jos haluat molemmat suunnat, lisää synonyymi "
+"myös toisinpäin: <code>hauva = koira</code>."
+
+#: lib/interface.php:2524
+msgid ""
+"It's possible to use phrases for the value, but not for the key. <code>dog = "
+"\"great dane\"</code> works, but <code>\"great dane\" = dog</code> doesn't."
+msgstr ""
+"Arvo voi olla fraasi, mutta avain ei. <code>koira = ”kultainen noutaja”</"
+"code> toimii, mutta <code>”kultainen noutaja” = koira</code> ei toimi."
+
+#: lib/interface.php:2527
+msgid ""
+"If you want to use synonyms in AND searches, enable synonym indexing on the "
+"Indexing tab."
+msgstr ""
+"Jos haluat käyttää synonyymejä myös JA-hauissa, kytke synonyymien "
+"indeksoiminen päälle indeksointiasetuksista."
+
+#: lib/interface.php:2596
+msgid ""
+"Enter a word here to add it to the list of stopwords. The word will "
+"automatically be removed from the index, so re-indexing is not necessary. "
+"You can enter many words at the same time, separate words with commas."
+msgstr ""
+"Lisää tässä sanoja hukkasanoihin. Sanat poistetaan automaattisesti "
+"indeksistä. Voit lisätä kerralla monta sanaa, erota sanat pilkuilla."
+
+#: lib/interface.php:2601
+msgid "Stopword(s) to add"
+msgstr "Lisättävät hukkasanat"
+
+#: lib/interface.php:2605
+msgid "Add"
+msgstr "Lisää"
+
+#: lib/interface.php:2609
+msgid ""
+"Here's a list of stopwords in the database. Click a word to remove it from "
+"stopwords. Removing stopwords won't automatically return them to index, so "
+"you need to re-index all posts after removing stopwords to get those words "
+"back to index."
+msgstr ""
+"Tässä ovat kaikki tietokannan hukkasanat. Voit poistaa sanan hukkasanoista "
+"klikkaamalla sitä. Hukkasanojen poistaminen ei palauta niitä automaattisesti "
+"tietokantaan, joten sinun täytyy uudelleenindeksoida saadaksesi sanat "
+"takaisin indeksiin."
+
+#: lib/interface.php:2614
+msgid "Current stopwords"
+msgstr "Nykyiset hukkasanat"
+
+#: lib/interface.php:2630
+msgid "Remove all stopwords"
+msgstr "Poista kaikki hukkasanat"
+
+#: lib/interface.php:2635
+msgid "Exportable list of stopwords"
+msgstr "Vietävä lista hukkasanoja"
+
+#: lib/interface.php:2639
+msgid ""
+"You can copy the list of stopwords here if you want to back up the list, "
+"copy it to a different blog or otherwise need the list."
+msgstr ""
+"Tämän listan voi kopioida varmuuskopiointia varten tai kopioitavaksi toiseen "
+"blogiin."
+
+#: lib/interface.php:2661
+#, php-format
+msgid ""
+"To adjust the post order, you can use the %1$s query parameter. With %1$s, "
+"you can use multiple layers of different sorting methods. See <a "
+"href='%2$s'>WordPress Codex</a> for more details on using arrays for orderby."
+msgstr ""
+"Voit muuttaa tulosten järjestystä käyttäen %1$s-kyselyparametriä. %1$s-"
+"parametrillä voit käyttää myös useita lajittelumenetelmiä. Katso <a "
+"href=’%2$s'>WordPressin Codexista</a> lisätietoja taulukkomuotoisesta "
+"lajitteluparametristä."
+
+#: lib/interface.php:2662
+msgid ""
+"Inside-word matching is disabled by default, because it increases garbage "
+"results that don't really match the search term. If you want to enable it, "
+"add the following function to your theme functions.php:"
+msgstr ""
+"Sanojen sisäinen kohdistus on oletuksena pois päältä, koska se tuottaa "
+"herkästi paljon roskaa tuloksiin. Jos haluat kytkeä sen päälle, lisää "
+"seuraava funktio teeman functions.php:hen:"
+
+#: lib/interface.php:2668
+#, php-format
+msgid "In order to adjust the throttle limit, you can use the %s filter hook."
+msgstr "Voit muuttaa rajoittimen asetusta käyttäen %s-koukkua."
+
+#: lib/interface.php:2670
+msgid ""
+"It's not usually necessary to adjust the limit from 500, but in some cases "
+"performance gains can be achieved by setting a lower limit. We don't suggest "
+"going under 200, as low values will make the results worse."
+msgstr ""
+"Yleensä ei ole syytä muuttaa rajaa oletusarvosta, joka on 500, mutta joskus "
+"pienempi raja voi tuottaa parempia tuloksia. Alle 200:n ei kannata mennä, "
+"koska kovin pienet arvot heikentävät tuloksia."
+
+#: lib/interface.php:2675
+msgid "Restrictions"
+msgstr "Rajoitukset"
+
+#: lib/interface.php:2677
+msgid ""
+"If you want the general search to target all posts, but have a single search "
+"form target only certain posts, you can add a hidden input variable to the "
+"search form. "
+msgstr ""
+"Jos haluat haun kohdistuvan kaikkiin artikkeleihin, mutta yksittäisen haun "
+"kohdistuvan vain tiettyihin artikkeleihin, voit lisätä hakulomakkeeeseen "
+"piilotetun kentän. "
+
+#: lib/interface.php:2678
+msgid ""
+"For example in order to restrict the search to categories 10, 14 and 17, you "
+"could add this to the search form:"
+msgstr ""
+"Jos haluat esimerkiksi rajoittaa haun kategorioihin 10, 14 and 17, voit "
+"tehdä näin:"
+
+#: lib/interface.php:2680
+msgid ""
+"To restrict the search to posts tagged with alfa AND beta, you could add "
+"this to the search form:"
+msgstr ""
+"Jos haluat rajoittaa haun artikkeleihin, joissa on tagit alfa JA beta, voit "
+"tehdä näin:"
+
+#: lib/interface.php:2683
+#, php-format
+msgid "For all the possible options, see the Codex documentation for %s."
+msgstr "Kaikki mahdolliset keinot löytyvät Codexin dokumentaatiosta: %s."
+
+#: lib/interface.php:2688
+msgid "Exclusions"
+msgstr "Poissulkemiset"
+
+#: lib/interface.php:2691
+#, php-format
+msgid ""
+"For more exclusion options, see the Codex documentation for %s. For example, "
+"to exclude tag ID 10, use"
+msgstr ""
+"Codexin dokumentaatiosta (%s) löytyy lisää erilaisia "
+"poissulkemismahdollisuuksia. Jos haluat estää tagin numero 10, käytä"
+
+#: lib/interface.php:2694
+#, php-format
+msgid ""
+"To exclude posts from the index and not just from the search, you can use "
+"the %s filter hook. This would not index posts that have a certain taxonomy "
+"term:"
+msgstr ""
+"Jos haluat poistaa artikkeleita myös indeksistä, käytä koukkua %s. Tämä "
+"estäisi kaikki artikkelit, joilla on tietty taksonomiatermi:"
+
+#: lib/interface.php:2704 lib/interface.php:2752
+#, php-format
+msgid ""
+"For more examples, see <a href='%s'>the related knowledge base posts</a>."
+msgstr ""
+"Lisää esimerkkejä löytyy <a href='%s'>tietämyskannan artikkeleista</a>."
+
+#: lib/interface.php:2709
+msgid "Logs"
+msgstr "Lokit"
+
+#: lib/interface.php:2712
+#, php-format
+msgid ""
+"By default, the User searches page shows 20 most common keywords. In order "
+"to see more, you can adjust the value with the %s filter hook, like this:"
+msgstr ""
+"Oletuksena Käyttäjien haut -sivu näyttää 20 yleisintä hakua. Voit muuttaa "
+"määrää koukulla %s, näin:"
+
+#: lib/interface.php:2715
+#, php-format
+msgid ""
+"The complete logs are stored in the %s database table, where you can access "
+"them if you need more information than what the User searches page provides."
+msgstr ""
+"Kaikki lokit säilytetään tietokannan taulussa %s, josta voit tutkailla niitä "
+"jos haluat enemmän tietoa kuin mitä Käyttäjien haut -sivu antaa."
+
+#: lib/interface.php:2722
+msgid ""
+"Building custom excerpts can be slow. If you are not actually using the "
+"excerpts, make sure you disable the option."
+msgstr ""
+"Otteiden tekeminen voi olla hidasta. Jos et käytä otteita, varmista että "
+"tämä asetus on pois päältä."
+
+#: lib/interface.php:2724
+#, php-format
+msgid ""
+"Custom snippets require that the search results template uses %s to print "
+"out the excerpts."
+msgstr ""
+"Relevanssin tekemien otteiden käyttäminen edellyttää, että "
+"hakutulossivupohjasi tulostaa otteet komennolla %s."
+
+#: lib/interface.php:2725
+msgid ""
+"Generally, Relevanssi generates the excerpts from post content. If you want "
+"to include custom field content in the excerpt-building, this can be done "
+"with a simple setting from the excerpt settings."
+msgstr ""
+"Relevanssi luo otteet artikkelin sisällöstä. Jos haluat sisällyttää myös "
+"avainkenttien sisältöä otteisiin, se hoituu yksinkertaisesti asetuksella "
+"otteiden asetuksista."
+
+#: lib/interface.php:2727
+#, php-format
+msgid ""
+"If you want more control over what content Relevanssi uses to create the "
+"excerpts, you can use the %1$s and %2$s filter hooks to adjust the content."
+msgstr ""
+"Jos haluat enemmän kontrollia sen suhteen, mitä otteisiin käytetään, voit "
+"käyttää koukkuja %1$s ja %2$s."
+
+#: lib/interface.php:2729
+#, php-format
+msgid ""
+"Some shortcode do not work well with Relevanssi excerpt-generation. "
+"Relevanssi disables some shortcodes automatically to prevent problems. This "
+"can be adjusted with the %s filter hook."
+msgstr ""
+"Jotkut shortcodet eivät toimi hyvin Relevanssin otteiden kanssa. Relevanssi "
+"poistaa osan shortcodeista automaattisesti käytöstä ongelmien välttämiseksi. "
+"Tätä voi säätää koukulla %s."
+
+#: lib/interface.php:2731
+#, php-format
+msgid ""
+"If you want Relevanssi to build excerpts faster and don't mind that they may "
+"be less than perfect in quality, add a filter that returns true on hook %s."
+msgstr ""
+"Jos haluat Relevanssin tekevän otteita nopeammin eikä sinua haittaa, jos "
+"laatu ei ole aivan täydellistä, lisää koukkuun %s funktio, joka palauttaa "
+"true."
+
+#: lib/interface.php:2737
+msgid "Highlights"
+msgstr "Korostukset"
+
+#: lib/interface.php:2739
+msgid ""
+"Title highlights don't appear automatically, because that led to problems "
+"with highlights appearing in wrong places and messing up navigation menus, "
+"for example."
+msgstr ""
+"Otsikoiden korostukset eivät näy automaattisesti, koska se johti ongelmiin. "
+"Korostuksia näkyi väärissä paikoissa ja ne sotkivat navigointivalikoita."
+
+#: lib/interface.php:2741
+#, php-format
+msgid ""
+"In order to see title highlights from Relevanssi, replace %1$s in the search "
+"results template with %2$s. It does the same thing, but supports Relevanssi "
+"title highlights."
+msgstr ""
+"Jotta saat otsikkokorostukset näkyviin, muokkaa hakutulosten sivupohjaa ja "
+"korvaa %1$s funktiolla %2$s. Se toimii ihan samalla tavalla, mutta tukee "
+"Relevanssin korostuksia."
+
+#: lib/interface.php:2746
+msgid "Punctuation"
+msgstr "Välimerkit"
+
+#: lib/interface.php:2748
+msgid ""
+"Relevanssi removes punctuation. Some punctuation is removed, some replaced "
+"with spaces. Advanced indexing settings include some of the more common "
+"settings people want to change."
+msgstr ""
+"Relevanssi poistaa välimerkit. Osa poistetaan kokonaan, osa korvataan "
+"välilyönneillä. Kehittyneistä indeksointiasetuksista löytyy tavallisimpia "
+"muutoksia, joita yleensä halutaan tehdä."
+
+#: lib/interface.php:2750
+#, php-format
+msgid ""
+"For more fine-tuned changes, you can use %1$s filter hook to adjust what is "
+"replaced with what, and %2$s filter hook to completely override the default "
+"punctuation control."
+msgstr ""
+"Jos haluat säätää enemmän, voit käyttää %1$s-koukkua säätämään mitä "
+"korvataan milläkin, ja %2$s-koukkua tekemään täysin omat ratkaisut "
+"välimerkkien käsittelyyn."
+
+#: lib/interface.php:2757
+msgid "Helpful shortcodes"
+msgstr "Hyödyllisiä shortcodeja"
+
+#: lib/interface.php:2760
+#, php-format
+msgid ""
+"If you have content that you don't want indexed, you can wrap that content "
+"in a %s shortcode."
+msgstr ""
+"Jos sinulla on sisältöä, jota et halua indeksoida, kääri se %s-shortcodeen."
+
+#: lib/interface.php:2762
+#, php-format
+msgid ""
+"If you need a search form on some page on your site, you can use the %s "
+"shortcode to print out a basic search form."
+msgstr ""
+"Jos haluat hakulomakkeen jollekin sivulle, shortcode %s tekee "
+"perushakulomakkeen."
+
+#: lib/interface.php:2764
+#, php-format
+msgid ""
+"If you need to add query variables to the search form, the shortcode takes "
+"parameters, which are then printed out as hidden input fields. To get a "
+"search form with a post type restriction, you can use %1$s. To restrict the "
+"search to categories 10, 14 and 17, you can use %2$s and so on."
+msgstr ""
+"Jos tarvitset hakulomakkeelle lisäparametrejä, shortcodeen voi lisätä "
+"parametrit, jotka sitten tulostetaan lomakkeelle piilotetuiksi input-"
+"kentiksi. Jos haluat lomakkeelle artikkelilajirajauksen, voit käyttää "
+"esimerkiksi %1$s. Jos haluat rajoittaa haun kategorioihin 10, 14 ja 17, "
+"käytä %2$s ja niin edelleen."
+
+#: lib/interface.php:2769
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: lib/interface.php:2771
+msgid ""
+"If your SKUs include hyphens or other punctuation, do note that Relevanssi "
+"replaces most punctuation with spaces. That's going to cause issues with SKU "
+"searches."
+msgstr ""
+"Jos SKU:si sisältävät väliviivoja tai muita välimerkkejä, Relevanssi korvaa "
+"enimmän osan välimerkeistä välilyönneillä. Tämä tuottaa vaikeuksia SKU-"
+"hakuihin."
+
+#: lib/interface.php:2773
+#, php-format
+msgid ""
+"For more details how to fix that issue, see <a href='%s'>WooCommerce tips in "
+"Relevanssi user manual</a>."
+msgstr ""
+"Ohjeita ongelman korjaamiseen löytyy <a href='%s'>Relevanssin WooCommerce-"
+"ohjeista</a>."
+
+#: lib/interface.php:2778
+msgid "Exact match bonus"
+msgstr "Tarkkojen osumien bonus"
+
+#: lib/interface.php:2781
+#, php-format
+msgid ""
+"To adjust the amount of the exact match bonus, you can use the %s filter "
+"hook. It works like this:"
+msgstr "Voit muuttaa lisäpainon määrää käyttämällä koukkua %s. Se toimii näin:"
+
+#: lib/interface.php:2787
+#, php-format
+msgid "The default values are %1$s for titles and %2$s for content."
+msgstr ""
+"Oletusarvot ovat %1$s otsikko-osumille ja %2$s osumille artikkelisisältöön."
+
+#: lib/interface.php:2790 premium/interface.php:1001
+msgid "For more information:"
+msgstr "Lisätietoja:"
+
+#: lib/interface.php:2791 premium/interface.php:1005
+msgid "Plugin knowledge base"
+msgstr "Tietämyskanta"
+
+#: lib/interface.php:2792 premium/interface.php:1003
+msgid "WordPress.org forum"
+msgstr "WordPress.orgin foorumilla"
+
+#: lib/interface.php:2832
+msgid "Click OK to copy Relevanssi options to all subsites"
+msgstr "Paina OK kopioidaksesi asetukset kaikille alasivustoille"
+
+#: lib/interface.php:2833
+msgid "Are you sure you want to remove all stopwords?"
+msgstr "Haluatko varmasti poistaa kaikki hukkasanat?"
+
+#: lib/interface.php:2834
+msgid "Wiping out the index..."
+msgstr "Tyhjennetään indeksiä…"
+
+#: lib/interface.php:2835
+msgid "Done."
+msgstr "Valmis."
+
+#: lib/interface.php:2836
+msgid "Indexing users..."
+msgstr "Indeksoidaan käyttäjiä..."
+
+#: lib/interface.php:2837
+msgid "Indexing the following taxonomies:"
+msgstr "Indeksoidaan taksonomiat:"
+
+#: lib/interface.php:2838
+msgid "Counting posts..."
+msgstr "Lasketaan artikkeleita…"
+
+#: lib/interface.php:2839
+msgid "Counting taxonomy terms..."
+msgstr "Lasketaan taksonomiasivuja..."
+
+#: lib/interface.php:2840
+msgid "Counting users..."
+msgstr "Lasketaan käyttäjiä…"
+
+#: lib/interface.php:2841
+msgid "posts found."
+msgstr "artikkelia löytyi."
+
+#: lib/interface.php:2842
+msgid "taxonomy terms found."
+msgstr "taksonomiasivua löytyi."
+
+#: lib/interface.php:2843
+msgid "users found."
+msgstr "käyttäjää löytyi."
+
+#: lib/interface.php:2844
+msgid "Taxonomy term indexing is disabled."
+msgstr "Taksonomiasivujen indeksointi on pois päältä."
+
+#: lib/interface.php:2845
+msgid "User indexing is disabled."
+msgstr "Käyttäjien indeksointi ei ole käytössä."
+
+#: lib/interface.php:2846
+msgid "Indexing complete."
+msgstr "Indeksointi valmis."
+
+#: lib/interface.php:2847
+msgid "posts excluded."
+msgstr "artikkeliä ohitettua."
+
+#: lib/interface.php:2848
+msgid "Settings have changed, please save the options before indexing."
+msgstr "Asetuksia on muutettu, tallenna asetukset ennen indeksointia."
+
+#: lib/interface.php:2849
+msgid "Reload the page to refresh the state of the index."
+msgstr "Lataa sivu uudestaan päivittääksesi indeksin tilan."
+
+#: lib/interface.php:2850
+msgid "Are you sure you want to delete all attachment content from the index?"
+msgstr "Haluatko varmasti poistaa kaiken liitetiedostojen sisällön indeksistä?"
+
+#: lib/interface.php:2851
+msgid "Relevanssi attachment data wiped clean."
+msgstr "Liitetiedostojen sisältö on tyhjennetty."
+
+#: lib/interface.php:2852
+msgid "hour"
+msgstr "tunti"
+
+#: lib/interface.php:2853
+msgid "hours"
+msgstr "tuntia"
+
+#: lib/interface.php:2854
+msgid "about"
+msgstr "noin"
+
+#: lib/interface.php:2855
+msgid "about an hour"
+msgstr "noin tunti"
+
+#: lib/interface.php:2856
+msgid "about an hour and a half"
+msgstr "noin puolitoista tuntia"
+
+#: lib/interface.php:2857
+msgid "minute"
+msgstr "minuutti"
+
+#: lib/interface.php:2858
+msgid "minutes"
+msgstr "minuuttia"
+
+#: lib/interface.php:2859
+msgid "less than a minute"
+msgstr "alle minuutti"
+
+#: lib/interface.php:2860
+msgid "we're done!"
+msgstr "valmista tuli!"
+
+#: lib/interface.php:2890
+msgid "Tag weight"
+msgstr "Avainsanojen paino"
+
+#: lib/interface.php:2898
+msgid "Category weight"
+msgstr "Kategorioiden paino"
+
+#: premium/admin-ajax.php:113
+#, php-format
+msgid "Successfully indexed attachment id %d."
+msgstr "Indeksoitiin onnistuneesti liite %d."
+
+#: premium/admin-ajax.php:116
+#, php-format
+msgid "Failed to index attachment id %1$d: %2$s"
+msgstr "Liitteen %1$d indeksointi epäonnistui: %2$s"
+
+#: premium/admin-ajax.php:191
+msgid "Attachment ID"
+msgstr "Liitteen ID"
+
+#: premium/admin-ajax.php:248 premium/admin-ajax.php:252
+#, php-format
+msgid "%1$d taxonomy term, total %2$d / %3$d."
+msgid_plural "%1$d taxonomy terms, total %2$d / %3$d."
+msgstr[0] "%1$d taksonomiatermi, yhteensä %2$d / %3$d."
+msgstr[1] "%1$d taksonomiatermiä, yhteensä %2$d / %3$d."
+
+#: premium/admin-ajax.php:320
+#, php-format
+msgid "Indexed %1$d user (total %2$d), processed %3$d / %4$d."
+msgid_plural "Indexed %1$d users (total %2$d), processed %3$d / %4$d."
+msgstr[0] "Indeksoitiin %1$d käyttäjä (yhteensä %2$d), käsitelty %3$d / %4$d."
+msgstr[1] "Indeksoitiin %1$d käyttäjää (yhteensä %2$d), käsitelty %3$d / %4$d."
+
+#: premium/indexing.php:1055
+#, php-format
+msgid "Indexed %d taxonomy terms."
+msgstr "Indeksoitiin %d taksonomiasivua."
+
+#: premium/indexing.php:1057
+msgid "No taxonomies to index."
+msgstr "Ei indeksoitavia taksonomioita."
+
+#: premium/interface.php:25 premium/interface.php:38
+msgid "API key"
+msgstr "API-avain"
+
+#: premium/interface.php:28
+msgid "API key is set"
+msgstr "API-avain on asetettu"
+
+#: premium/interface.php:29
+msgid "Remove the API key."
+msgstr "Poista API-avain."
+
+#: premium/interface.php:30 premium/interface.php:43
+msgid ""
+"A valid API key is required to use the automatic update feature and the PDF "
+"indexing. Otherwise the plugin will work just fine without an API key. Get "
+"your API key from Relevanssi.com."
+msgstr ""
+"API-avain tarvitaan automaattisten päivitysten saamiseksi ja PDF-"
+"indeksointiin. Muuten plugini toimii hyvin ilman API-avainta. Hae omasi "
+"Relevanssi.com:sta."
+
+#: premium/interface.php:41
+msgid "Set the API key:"
+msgstr "Aseta API-avain:"
+
+#: premium/interface.php:63 premium/interface.php:138 premium/interface.php:971
+msgid "Internal links"
+msgstr "Sisäiset linkit"
+
+#: premium/interface.php:67
+msgid "No special processing for internal links"
+msgstr "Ei erityiskäsittelyä sisäisille linkeille"
+
+#: premium/interface.php:68
+msgid "Index internal links for target documents only"
+msgstr "Indeksoi sisäiset linkit vain kohdeartikkelille"
+
+#: premium/interface.php:69
+msgid "Index internal links for both target and source"
+msgstr "Indeksoi sisäiset linkit lähde- ja kohdeartikkelille"
+
+#: premium/interface.php:71
+msgid ""
+"Internal link anchor tags can be indexed for target document, both target "
+"and source or source only. See Help for more details."
+msgstr ""
+"Sisäisten linkkien ankkurit voidaan indeksoida kohdeartikkelille, kohteelle "
+"ja lähteelle tai vain lähteelle. Ohjeista löytyy lisätietoja."
+
+#: premium/interface.php:95
+msgid "Hide Relevanssi"
+msgstr "Piilota Relevanssi"
+
+#: premium/interface.php:99 premium/interface.php:102
+msgid "Hide Relevanssi on edit pages"
+msgstr "Piilota Relevanssi muokkaussivuilla"
+
+#: premium/interface.php:105
+msgid "Enabling this option hides Relevanssi on all post edit pages."
+msgstr "Tämä asetus piilottaa Relevanssin artikkelien muokkaussivuilla."
+
+#: premium/interface.php:110
+msgid "Show Relevanssi for admins"
+msgstr "Näytä Relevanssi ylläpitäjille"
+
+#: premium/interface.php:114
+msgid "Show Relevanssi for admins on edit pages"
+msgstr "Näytä Relevanssi ylläpitäjille muokkaussivuilla"
+
+#: premium/interface.php:117
+msgid "Show Relevanssi on edit pages for admins"
+msgstr "Näytä Relevanssi ylläpitäjille muokkaussivuilla"
+
+#: premium/interface.php:121
+#, php-format
+msgid ""
+"If Relevanssi is hidden on post edit pages, enabling this option will show "
+"Relevanssi features for admin-level users. Admin-level users are those with "
+"%1$s capabilities, but if you want to use a different capability, you can "
+"use the %2$s filter to modify that."
+msgstr ""
+"Jos Relevanssia ei näytetä artikkelien muokkaussivuilla, tällä asetuksella "
+"saat Relevanssin näkymään ylläpitäjille. Ylläpitäjiksi lasketaan käyttäjät, "
+"joilla on %1$s -oikeus, mutta jos haluat käyttää toista kriteeriä, voit "
+"muuttaa sitä filtterillä %2$s."
+
+#: premium/interface.php:169
+#, php-format
+msgid "Post type '%s':"
+msgstr "Artikkelityyppi '%s':"
+
+#: premium/interface.php:204
+#, php-format
+msgid "Taxonomy '%s':"
+msgstr "Taksonomia '%s':"
+
+#: premium/interface.php:230
+msgid "Recent posts bonus weight:"
+msgstr "Tuoreiden artikkelien lisäpaino:"
+
+#: premium/interface.php:250
+msgid "Recent posts bonus cutoff"
+msgstr "Uutuusraja"
+
+#: premium/interface.php:253
+msgid "days"
+msgstr "päivää"
+
+#: premium/interface.php:254
+msgid ""
+"Posts newer than the day cutoff specified here will have their weight "
+"multiplied with the bonus above."
+msgstr ""
+"Aikarajaa uudempia artikkelien paino kerrotaan yllä asetetulla kertoimella."
+
+#: premium/interface.php:271
+msgid "Hide Relevanssi branding"
+msgstr "Piilota Relevanssin brändäys"
+
+#: premium/interface.php:276 premium/interface.php:280
+#, php-format
+msgid "Don't show Relevanssi branding on the '%s' screen."
+msgstr "Älä näytä Relevanssin nimeä ’%s’-ruudulla."
+
+#: premium/interface.php:276 premium/interface.php:280
+msgid "User Searches"
+msgstr "Käyttäjien haut"
+
+#: premium/interface.php:300
+msgid "Highlight from external searches"
+msgstr "Korosta hakusanat artikkeleissa ulkoisista hauista"
+
+#: premium/interface.php:304 premium/interface.php:313
+msgid "Highlight query terms in documents from external searches"
+msgstr "Korosta hakusanat artikkeleissa ulkoisista hauista"
+
+#: premium/interface.php:316
+msgid ""
+"Highlights hits when user arrives from an external search. Currently "
+"supports Bing, Ask, Yahoo and AOL Search. Google hides the keyword "
+"information."
+msgstr ""
+"Korostaa osumat artikkelissa kun käyttäjä saapuu ulkoisesta hausta. Tällä "
+"hetkellä tukee Bingiä, Askia, Yahoota ja AOL Searchia. Google piilottaa "
+"hakusanatiedot."
+
+#: premium/interface.php:333
+msgid "Thousands separator"
+msgstr "Tuhaterotin"
+
+#: premium/interface.php:337
+msgid ""
+"If Relevanssi sees this character between numbers, it'll stick the numbers "
+"together no matter how the character would otherwise be handled. Especially "
+"useful if a space is used as a thousands separator."
+msgstr ""
+"Jos Relevanssi näkee tämän merkin kahden numeron välissä, numerot "
+"yhdistetään toisiinsa. Erityisen kätevää, jos käytät tuhaterottimena "
+"välilyöntiä."
+
+#: premium/interface.php:354
+msgid "Disable these shortcodes"
+msgstr "Poista nämä shortcodet käytöstä"
+
+#: premium/interface.php:358
+msgid ""
+"Enter a comma-separated list of shortcodes. These shortcodes will not be "
+"expanded if expand shortcodes above is enabled. This is useful if a "
+"particular shortcode is causing problems in indexing."
+msgstr ""
+"Anna pilkuilla erotettu lista shortcodeista. Näitä shortcodeja ei "
+"laajenneta, vaikka muuten shortcodejen laajennus olisi päällä. Jos shortcode "
+"aiheuttaa ongelmia indeksoinnissa, lisää se tähän listaan."
+
+#: premium/interface.php:389
+msgid "MySQL columns"
+msgstr "MySQL-sarakkeet"
+
+#: premium/interface.php:396
+#, php-format
+msgid ""
+"A comma-separated list of %s MySQL table columns to include in the index. "
+"Following columns are available: "
+msgstr ""
+"Pilkuilla erotettu lista %s-taulun sarakkeita, jotka indeksoidaan. Seuraavat "
+"sarakkeet ovat käytettävissä: "
+
+#: premium/interface.php:418 premium/interface.php:425
+msgid "Search all subsites"
+msgstr "Hae kaikilta alasivustoilta"
+
+#: premium/interface.php:422
+msgid "Search all subsites."
+msgstr "Hae kaikilta alasivustoilta."
+
+#: premium/interface.php:427
+msgid ""
+"If this option is checked, multisite searches will include all subsites. "
+"Warning: if you have dozens of sites in your network, the searches may "
+"become too slow. This can be overridden from the search form."
+msgstr ""
+"Jos tämä asetus on käytössä, haut kohdistuvat kaikkiin alasivustoihin. "
+"Varoitus: jos verkostosi on laaja, haut hidastuvat kovasti. Tämän asetuksen "
+"voi ohittaa hakulomakkeelta."
+
+#: premium/interface.php:433
+msgid "Search some subsites"
+msgstr "Hae joiltain alasivustoilta"
+
+#: premium/interface.php:443
+msgid ""
+"Add a comma-separated list of blog ID values to have all search forms on "
+"this site search these multisite subsites. This can be overridden from the "
+"search form."
+msgstr ""
+"Anna pilkuilla erotettu lista blogien ID-numeroita rajataksesi kaikki tämän "
+"sivuston haut näihin alasivustoihin. Tämän voi ohittaa hakulomakkeelta."
+
+#: premium/interface.php:465
+msgid "Indexing user profiles"
+msgstr "Käyttäjäprofiilien indeksointi"
+
+#: premium/interface.php:470
+msgid "Index user profiles"
+msgstr "Indeksoi käyttäjäprofiilit"
+
+#: premium/interface.php:474 premium/interface.php:477
+msgid "Index user profiles."
+msgstr "Indeksoi käyttäjäprofiilit."
+
+#: premium/interface.php:479
+msgid ""
+"Relevanssi will index user profiles. This includes first name, last name, "
+"display name and user description."
+msgstr ""
+"Jos tämä asetus on päällä, Relevanssi indeksoi ja hakee käyttäjien "
+"profiileja (etunimi, sukunimi, näyttönimi ja käyttäjän kuvaus)."
+
+#: premium/interface.php:480
+msgid ""
+"This may require changes to search results template, see the contextual help."
+msgstr ""
+"Tämä saattaa vaatia muutoksia hakutulosten sivupohjaan, katso lisätietoja "
+"ohjeista."
+
+#: premium/interface.php:486
+msgid "Index subscribers"
+msgstr "Indeksoi tilaajat"
+
+#: premium/interface.php:490 premium/interface.php:493
+msgid "Index also subscriber profiles."
+msgstr "Indeksoi myös tilaajien profiilit."
+
+#: premium/interface.php:495
+msgid ""
+"By default, Relevanssi indexes authors, editors, contributors and admins, "
+"but not subscribers. You can change that with this option."
+msgstr ""
+"Oletuksena Relevanssi indeksoi kirjoittajat, toimittajat, avustajat ja "
+"pääkäyttäjät, mutta ei tilaajia. Voit muuttaa sitä tästä."
+
+#: premium/interface.php:502
+msgid "Extra fields"
+msgstr "Lisäkentät"
+
+#: premium/interface.php:506
+msgid ""
+"A comma-separated list of extra user fields to include in the index. These "
+"can be user fields or user meta."
+msgstr ""
+"Pilkuilla erotettu lista käyttäjien lisäkentistä, jotka indeksoidaan. Nämä "
+"voivat olla käyttäjäkenttiä tai käyttäjämetaa."
+
+#: premium/interface.php:522
+msgid "Indexing synonyms"
+msgstr "Synonyymien indeksointi"
+
+#: premium/interface.php:526
+msgid "Index synonyms"
+msgstr "Indeksoi synonyymit"
+
+#: premium/interface.php:530 premium/interface.php:533
+msgid "Index synonyms for AND searches."
+msgstr "Indeksoi synonyymit JA-hakuihin."
+
+#: premium/interface.php:536
+msgid ""
+"If checked, Relevanssi will use the synonyms in indexing. If you add "
+"<code>dog = hound</code> to the synonym list and enable this feature, every "
+"time the indexer sees <code>hound</code> in post content or post title, it "
+"will index it as <code>hound dog</code>. Thus, the post will be found when "
+"searching with either word. This makes it possible to use synonyms with AND "
+"searches, but will slow down indexing, especially with large databases and "
+"large lists of synonyms. This only works for post titles and post content. "
+"You can use multi-word keys and values, but phrases do not work."
+msgstr ""
+"Relevanssi voi käyttää synonyymejä indeksoinnissa. Jos lisäät "
+"synonyymilistaan <code>koira = hauva</code> ja kytket tämän asetuksen "
+"päälle, aina kun indeksoija näkee artikkelissa sanan <code>hauva</code>, se "
+"indeksoidaan <code>hauva koira</code> ja artikkeli löytyy siten molemmilla "
+"hakusanoilla. Tämä mahdollistaa synonyymien käyttämisen JA-operaattorilla. "
+"Tämä kuitenkin hidastaa indeksointia, etenkin jos tietokantasi on iso tai "
+"jos synonyymejä on paljon. Tämä toimii vain artikkelien otsikoissa ja "
+"sisällössä. Voit käyttää monisanaisia avaimia ja arvoja, mutta "
+"lainausmerkeillä ympäröidyt fraasit eivät toimi."
+
+#: premium/interface.php:555
+msgid "Indexing PDF content"
+msgstr "PDF-sisällön indeksointi"
+
+#: premium/interface.php:560
+msgid "Index for parent"
+msgstr "Indeksoi emoartikkelille"
+
+#: premium/interface.php:564 premium/interface.php:567
+msgid "Index PDF contents for parent post"
+msgstr "Indeksoi PDF:n sisältö emoartikkelille"
+
+#: premium/interface.php:570
+#, php-format
+msgid ""
+"If checked, Relevanssi indexes the PDF content both for the attachment post "
+"and the parent post. You can control the attachment post visibility by "
+"indexing or not indexing the post type %s."
+msgstr ""
+"Jos tämä asetus on käytössä, Relevanssi indeksoi PDF:n sisällön sekä "
+"liiteartikkeliin että siihen artikkeliin, johon liite on liitettynä. Voit "
+"vaikuttaa liitteiden näkyvyyteen indeksoimalla tai olemalla indeksoimatta "
+"artikkelityypin %s."
+
+#: premium/interface.php:573
+#, php-format
+msgid ""
+"You have not chosen to index the post type %s. You won't see any PDF content "
+"in the search results, unless you check this option."
+msgstr ""
+"Et ole valinnut artikkelityyppiä %s indeksoitavaksi. Et näe PDF-sisältöä "
+"hakutuloksissa, jos et valitse tätä asetusta."
+
+#: premium/interface.php:577
+msgid ""
+"Searching for PDF contents will now return both the attachment itself and "
+"the parent post. Are you sure you want both in the results?"
+msgstr ""
+"PDF-sisällön hakeminen palauttaa nyt sekä liitetiedoston että artikkelin, "
+"johon se on liitetty. Haluatko varmasti molemmat tuloksiin?"
+
+#: premium/interface.php:601
+msgid "Indexing taxonomy terms"
+msgstr "Taksonomiasivujen indeksointi"
+
+#: premium/interface.php:606
+msgid "Index taxonomy terms"
+msgstr "Indeksoi taksonomiasivut"
+
+#: premium/interface.php:610 premium/interface.php:613
+msgid "Index taxonomy terms."
+msgstr "Indeksoi taksonomiasivut."
+
+#: premium/interface.php:615
+msgid ""
+"Relevanssi will index taxonomy terms (categories, tags and custom "
+"taxonomies). Searching for taxonomy term name will return the taxonomy term "
+"page."
+msgstr ""
+"Relevanssi indeksoi taksonomiasivut (luokat, avainsanat ja omat "
+"taksonomiat). Taksonomiatermin nimellä hakeminen palauttaa taksonomiatermin "
+"sivun."
+
+#: premium/interface.php:682
+msgid "Import or export options"
+msgstr "Vie tai tuo asetuksia"
+
+#: premium/interface.php:684
+msgid ""
+"Here you find the current Relevanssi Premium options in a text format. Copy "
+"the contents of the text field to make a backup of your settings. You can "
+"also paste new settings here to change all settings at the same time. This "
+"is useful if you have default settings you want to use on every system."
+msgstr ""
+"Tästä löydät Relevanssi Premiumin nykyiset asetukset tekstimuodossa. Voit "
+"kopioida sisällön ottaaksesi varmuuskopion asetuksistasi. Voit myös liittää "
+"tähän uudet asetukset, jolloin kaikki asetukset päivittyvät kerralla. Tämä "
+"on kätevää, jos haluat kopioida vakioasetukset saitilta toiselle."
+
+#: premium/interface.php:688
+msgid "Current Settings"
+msgstr "Nykyiset asetukest"
+
+#: premium/interface.php:692
+msgid "Import settings"
+msgstr "Tuo asetukset"
+
+#: premium/interface.php:697
+msgid ""
+"Note! Make sure you've got correct settings from a right version of "
+"Relevanssi. Settings from a different version of Relevanssi may or may not "
+"work and may or may not mess your settings."
+msgstr ""
+"Huomio! Varmista, että tuot asetuksia oikeasta Relevanssin versiosta. Eri "
+"versiosta tulevat asetukset voivat toimia tai voivat olla toimimatta."
+
+#: premium/interface.php:742
+msgid "Read all unread attachments"
+msgstr "Lue kaikki lukemattomat liitteet"
+
+#: premium/interface.php:747
+#, php-format
+msgid ""
+"Clicking the button will read the contents of all the unread attachments "
+"files and store the contents to the %s custom field for future indexing. "
+"Attachments with errors will be skipped, except for the files with timeout "
+"and connection related errors: those will be attempted again."
+msgstr ""
+"Napin painaminen lukee kaikkien vielä lukemattomien liitetiedostojen "
+"sisällön ja tallentaa sen %s-avainkenttään myöhempää käyttöä varten. "
+"Liitetiedostot, joissa on lukuvirheitä ohitetaan, paitsi yhteysvirheet: ne "
+"tiedostot yritetään lukea uudestaan."
+
+#: premium/interface.php:755
+msgid "State of the attachments"
+msgstr "Liitteiden tila"
+
+#: premium/interface.php:770
+msgid "document has read attachment content."
+msgid_plural "documents have read attachment content."
+msgstr[0] "artikkelilla on indeksoitua liitesisältöä."
+msgstr[1] "artikkelilla on indeksoitua liitesisältöä."
+
+#: premium/interface.php:771
+msgid "document has an attachment reading error."
+msgid_plural "documents have attachment reading errors."
+msgstr[0] "dokumentissa on liitteenlukuvirhe."
+msgstr[1] "dokumentissa on liitteenlukuvirhe."
+
+#: premium/interface.php:773
+msgid "Show errors"
+msgstr "Näytä virheet"
+
+#: premium/interface.php:779
+msgid "Server location"
+msgstr "Palvelimen sijainti"
+
+#: premium/interface.php:782
+msgid "United States"
+msgstr "Yhdysvallat"
+
+#: premium/interface.php:783
+msgid "European Union"
+msgstr "Euroopan Unioni"
+
+#: premium/interface.php:788
+msgid "Reset attachment content"
+msgstr "Nollaa liitteiden sisältö"
+
+#: premium/interface.php:790
+msgid "Reset all attachment data from posts"
+msgstr "Poista kaikki luettu liitetiedostojen sisältö artikkeleista"
+
+#: premium/interface.php:792
+#, php-format
+msgid ""
+"This will remove all %1$s and %2$s custom fields from all posts. If you want "
+"to reread all attachment files, use this to clean up; clicking the reading "
+"button doesn't wipe the slate clean like it does in regular indexing."
+msgstr ""
+"Tämä poistaa kaikki %1$s- ja %2$s-avainkentät kaikista artikkeleista. Jos "
+"haluat lukea liitteiden sisällöt uudestaan, tyhjennä tiedot tästä: napin "
+"painallus ei aloita tyhjästä kuten artikkelien indeksoinnissa."
+
+#: premium/interface.php:797
+msgid "Read new files"
+msgstr "Lue uudet tiedostot"
+
+#: premium/interface.php:801 premium/interface.php:804
+msgid "Read new files automatically"
+msgstr "Lue uudet tiedostot automaattisesti"
+
+#: premium/interface.php:806
+msgid ""
+"If this option is enabled, Relevanssi will automatically read the contents "
+"of new attachments as they are uploaded. This may cause unexpected delays in "
+"uploading posts. If this is not enabled, new attachments are not read "
+"automatically and need to be manually read and reindexed."
+msgstr ""
+"Jos tämä toiminto on käytössä, Relevanssi lukee automaattisesti uusien "
+"liitetiedostojen sisällön kun ne lähetetään mediakirjastoon. Tämä voi "
+"aiheuttaa odottamattomia viiveitä tiedostojen lähettämisessä. Jos toiminto "
+"ei ole käytössä, uusia liitteitä ei lueta automaattisesti ja ne on luettava "
+"käsin."
+
+#: premium/interface.php:812
+msgid "Upload files"
+msgstr "Lähetä tiedostot"
+
+#: premium/interface.php:816 premium/interface.php:819
+msgid "Upload files for reading"
+msgstr "Lähetä liitetiedostot luettaviksi"
+
+#: premium/interface.php:821
+msgid ""
+"By default, Relevanssi only sends a link to the attachment to the attachment "
+"reader. If your files are not accessible (for example your site is inside an "
+"intranet, password protected, or a local dev site, and the files can't be "
+"downloaded if given the URL of the file), check this option to upload the "
+"whole file to the reader."
+msgstr ""
+"Oletuksena Relevanssi lähettää liitteiden lukijalle vain linkin "
+"liitetiedostoosi. Jos liitteesi eivät ole tavoitettavissa (sivustosi on "
+"intranetissä, salasanan takana tai paikallinen kehitysympäristö, eikä "
+"tiedostoja voi lukea jos annetaan pelkkä URL), valitse tämä asetus, jolloin "
+"Relevanssi lähettää koko tiedoston luettavaksi."
+
+#: premium/interface.php:827
+msgid "Link to files"
+msgstr "Linkitä liitetiedostoihin"
+
+#: premium/interface.php:831 premium/interface.php:834
+msgid "Link search results directly to the files"
+msgstr "Linkitä hakutulokset suoraan liitetiedostoon"
+
+#: premium/interface.php:836
+msgid ""
+"If this option is checked, attachment results in search results will link "
+"directly to the file. Otherwise the results will link to the attachment page."
+msgstr ""
+"Jos tämä asetus on valittuna, hakutulossivulla on linkki suoraan "
+"liitetiedostoon. Muuten linkki osoittaa liitteen sivulle."
+
+#: premium/interface.php:839
+#, php-format
+msgid ""
+"You're not indexing the %s post type, so this setting doesn't have any "
+"effect."
+msgstr ""
+"Et ole valinnut %s-artikkelityyppiä indeksoitavaksi, joten tällä asetuksella "
+"ei ole vaikutusta."
+
+#: premium/interface.php:843
+#, php-format
+msgid ""
+"You're not indexing the %s post type and haven't connected the files to the "
+"parent posts in the indexing settings. You won't be seeing any files in the "
+"results."
+msgstr ""
+"Et ole indeksoinut artikkelityyppiä %s etkä ole yhdistänyt liitteitä "
+"emoartikkeleihin indeksointiasetuksissa. Et näe liitetiedostoja "
+"hakutuloksissa."
+
+#: premium/interface.php:849
+msgid "Instructions"
+msgstr "Ohjeet"
+
+#: premium/interface.php:852
+#, php-format
+msgid ""
+"When Relevanssi reads attachment content, the text is extracted and saved in "
+"the %s custom field for the attachment post. This alone does not add the "
+"attachment content in the Relevanssi index; it just makes the contents of "
+"the attachments easily available for the regular Relevanssi indexing process."
+msgstr ""
+"Kun Relevanssi lukee liitteen sisällön, teksti kaivellaan irti ja "
+"tallennetaan liiteartikkelin avainkenttään %s. Tämä ei vielä lisää liitteen "
+"sisältöä Relevanssin indeksiin, mutta se tuo liittteen sisällön helposti "
+"Relevanssin tavallisen indeksoinnin saataville."
+
+#: premium/interface.php:854
+#, php-format
+msgid ""
+"There are two ways to index the attachment content. If you choose to index "
+"the %s post type, Relevanssi will show the attachment posts in the results."
+msgstr ""
+"Liitteiden sisällön voi indeksoida kahdella eri tavalla. Voit valita "
+"artikkelityypin %s indeksoitavaksi, jolloin Relevanssi näyttää "
+"liiteartikkelit tuloksissa."
+
+#: premium/interface.php:855
+msgid ""
+"You can also choose to index the attachment content for the parent post, in "
+"which case Relevanssi will show the parent post in the results (this setting "
+"can be found on the indexing settings). Obviously this does not find the "
+"content in attachments that are not attached to another post – if you just "
+"upload a file to the WordPress Media Library, it is not attached and won't "
+"be found unless you index the attachment posts."
+msgstr ""
+"Voit myös indeksoida liitteiden sisällön osaksi liitteen emoartikkelia, "
+"jolloin Relevanssi näyttää hakutuloksissa liitteen emoartikkelin (tämä "
+"asetus löytyy indeksointiasetuksista). Tämä ei tietenkään löydä kuin "
+"sellaiset liitteet, jotka on liitetty toiseen artikkeliin. Jos vain lähetät "
+"tiedoston WordPressin mediakirjastoon, sitä ei liitetä mihinkään "
+"artikkeliin, eikä sitä myöskään löydy, ellet indeksoi liitetiedostoja "
+"sellaisenaan."
+
+#: premium/interface.php:856
+msgid ""
+"In any case, in order to see attachments in the results, you must read the "
+"attachment content here first, then build the index on the Indexing tab."
+msgstr ""
+"Joka tapauksessa sinun on ensin luettava liitteiden sisältö täällä ja sitten "
+"indeksoitava indeksointivälilehdellä."
+
+#: premium/interface.php:857
+msgid ""
+"If you need to reread a file, you can do read individual files from Media "
+"Library. Choose an attachment and click 'Edit more details' to read the "
+"content."
+msgstr ""
+"Jos sinun täytyy lukea liitteen sisältö uudestaan, voit lukea yksittäisiä "
+"liitetiedostoja Mediakirjastosta. Avaa liitteen lisätietoja-sivuja, "
+"lukemistoiminto löytyy sieltä."
+
+#: premium/interface.php:861
+msgid "Key not valid?"
+msgstr "Eikö avaimesi kelpaa?"
+
+#: premium/interface.php:863
+msgid ""
+"Are you a new Relevanssi customer and seeing 'Key xxxxxx is not valid' error "
+"messages? New API keys are delivered to the server once per hour, so if try "
+"again an hour later, the key should work."
+msgstr ""
+"Oletko uusi Relevanssin asiakas ja liitetiedostojen lukeminen antaa ’Key "
+"xxxxxx is not valid’-virheilmoituksia? Uudet API-avaimet toimitetaan "
+"liitteiden lukijalle kerran tunnissa, joten kokeile vähän ajan päästä "
+"uudestaan."
+
+#: premium/interface.php:867
+msgid "Important!"
+msgstr "Tärkeää!"
+
+#: premium/interface.php:869
+msgid ""
+"In order to read the contents of the files, the files are sent over to "
+"Relevanssiservices.com, a processing service hosted on a Digital Ocean "
+"Droplet. There are two servers: one in the US and another in the EU. The "
+"service creates a working copy of the files. The copy is removed after the "
+"file has been processed, but there are no guarantees that someone with an "
+"access to the server couldn't see the files. Do not read files with "
+"confidential information in them. In order to block individual files from "
+"reading, use the Relevanssi post controls on attachment edit page to exclude "
+"attachment posts from indexing."
+msgstr ""
+"Kun tiedostojen sisältö luetaan, tiedostot lähetetään Relevanssiservices.com-"
+"palvelimelle, joka pyörii Digital Oceanin Droplet-palvelimella. Palvelimia "
+"on kaksi: toinen on Yhdysvalloissa ja toinen EU:ssa. Palvelu luo tiedostosta "
+"työkopion, joka poistetaan käsittelyn jälkeen. Emme voi kuitenkaan antaa "
+"takeita, etteikö joku, jolla on pääsy palvelimelle, voisi nähdä tiedostoja. "
+"Älä lue tiedostoja, joissa on luottamuksellista sisältöä. Voit estää "
+"yksittäisten tiedostojen käsittelyn liitteen muokkaussivulta asettamalla "
+"artikkelin indeksointikieltoon."
+
+#: premium/interface.php:892
+msgid "Relevanssi post controls"
+msgstr "Relevanssin artikkeliasetukset"
+
+#: premium/interface.php:923
+msgid "Exclude this post or page from the index."
+msgstr "Poista tämä artikkeli indeksistä."
+
+#: premium/interface.php:926
+msgid "Pin this post"
+msgstr "Kiinnitä tämä artikkeli"
+
+#: premium/interface.php:927
+msgid ""
+"A comma-separated list of single word keywords or multi-word phrases. If any "
+"of these keywords are present in the search query, this post will be moved "
+"on top of the search results."
+msgstr ""
+"Pilkuilla erotettu lista yksittäisiä hakusanoja tai monisanaisia "
+"hakulauseita. Jos joku näistä hakusanoista esiintyy käyttäjän haussa, tämä "
+"artikkeli kiinnitetään hakutulosten huipulle."
+
+#: premium/interface.php:930
+msgid "Exclude this post"
+msgstr "Estä tämä artikkeli"
+
+#: premium/interface.php:931
+msgid ""
+"A comma-separated list of single word keywords or multi-word phrases. If any "
+"of these keywords are present in the search query, this post will be removed "
+"from the search results."
+msgstr ""
+"Pilkuilla erotettu lista yksittäisiä hakusanoja tai monisanaisia "
+"hakulauseita. Jos joku näistä hakusanoista esiintyy käyttäjän haussa, tämä "
+"artikkeli poistetaan hakutuloksista."
+
+#: premium/interface.php:945
+msgid "Boolean operators"
+msgstr "Boolen logiikka"
+
+#: premium/interface.php:947
+msgid ""
+"Relevanssi Premium offers limited support for Boolean logic. In addition of "
+"setting the default operator from Relevanssi settings, you can use AND and "
+"NOT operators in searches."
+msgstr ""
+"Relevanssi Premium tarjoaa rajallista tukea Boolen logiikalle. "
+"Oletusoperaattorin säätämisen lisäksi käytössä on JA- ja EI-operaattorit."
+
+#: premium/interface.php:948
+msgid "To use the NOT operator, prefix the search term with a minus sign:"
+msgstr "EI-operaattoria käytetään lisäämällä hakusanan eteen miinusmerkki:"
+
+#: premium/interface.php:949
+msgid "cats -dogs"
+msgstr "kissa -koira"
+
+#: premium/interface.php:950
+msgid ""
+"This would only show posts that have the word 'cats' but not the word 'dogs'."
+msgstr ""
+"Tämä näyttäisi vain artikkelit, joissa on sana 'cats', mutta ei sanaa 'dogs'."
+
+#: premium/interface.php:951
+msgid ""
+"To use the AND operator, set the default operator to OR and prefix the "
+"search term with a plus sign:"
+msgstr ""
+"JA-operaattoria käytetään laittamalla oletusoperaattoriksi TAI ja lisäämällä "
+"hakusanan eteen plusmerkki:"
+
+#: premium/interface.php:952
+msgid "+cats dogs mice"
+msgstr "+kissa koira hiiri"
+
+#: premium/interface.php:953
+msgid ""
+"This would show posts that have the word 'cats' and either 'dogs' or 'mice' "
+"or both, and would prioritize posts that have all three."
+msgstr ""
+"Tämä näyttäisi artikkelit, joissa on sana 'cats' ja joko 'dogs' tai 'mice' "
+"tai molemmat. Haku suosii artikkeleita, joissa on kaikki kolme."
+
+#: premium/interface.php:958
+msgid "User profiles"
+msgstr "Käyttäjäprofiilit"
+
+#: premium/interface.php:961
+#, php-format
+msgid ""
+"Permalinks to user profiles may not always work on search results templates. "
+"%1$s should work, but if it doesn't, you can replace it with %2$s."
+msgstr ""
+"Permalinkit käyttäjäprofiileihin eivät aina toimi hakutulossivuilla. %1$s-"
+"funktiolla linkin pitäisi toimia, mutta jos ei toimi, kokeile funktiota %2$s."
+
+#: premium/interface.php:963
+#, php-format
+msgid ""
+"To control which user meta fields are indexed, you can use the %s option. It "
+"should have a comma-separated list of user meta fields. It can be set like "
+"this (you only need to run this code once):"
+msgstr ""
+"Jos haluat kontrolloida, mitä lisäkenttiä käyttäjistä indeksoidaan, voit "
+"käyttää %s-asetusta. Asetuksen arvona pitäisi olla pilkuilla erotettu lista "
+"kenttiä. Sen voi asettaa näin (riittää, että ajat tämän kerran):"
+
+#: premium/interface.php:966
+#, php-format
+msgid ""
+"For more details on user profiles and search results templates, see <a "
+"href='%s'>this knowledge base entry</a>."
+msgstr ""
+"Lisätietoja käyttäjäprofiileista ja hakutulossivuista löytyy <a "
+"href='%s'>tietämyskannasta</a>."
+
+#: premium/interface.php:973
+msgid ""
+"This option sets how Relevanssi handles internal links that point to your "
+"own site."
+msgstr ""
+"Tämä asetus määrittelee, miten Relevanssi käsittelee sivustosi sisäisiä "
+"linkkejä."
+
+#: premium/interface.php:974
+msgid ""
+"If you choose 'No special processing', Relevanssi doesn’t care about links "
+"and indexes the link anchor (the text of the link) like it is any other text."
+msgstr ""
+"Jos et valitse mitään erityiskäsittelyä, Relevanssi ei välitä linkeistä ja "
+"indeksoi linkin tekstin kuten muunkin tekstin."
+
+#: premium/interface.php:975
+msgid ""
+"If you choose 'Index internal links for target documents only', then the "
+"link is indexed like the link anchor text were the part of the link target, "
+"not the post where the link is."
+msgstr ""
+"Jos valitset indeksoida linkit vain kohdeartikkeleille, linkki indeksoidaan "
+"kuin sen teksti olisi osa linkin kohdetta, eikä sitä sivua, jossa linkki on."
+
+#: premium/interface.php:976
+msgid ""
+"If you choose 'Index internal links for target and source', the link anchor "
+"text will count for both posts."
+msgstr ""
+"Jos valitset, että linkit indeksoidaan molemmille sivuille, ankkuriteksti "
+"huomioidaan molemmilla sivuilla."
+
+#: premium/interface.php:981
+msgid "Stemming"
+msgstr "Stemmaus"
+
+#: premium/interface.php:983
+msgid ""
+"By default Relevanssi doesn't understand anything about singular word forms, "
+"plurals or anything else. You can, however, add a stemmer that will stem all "
+"the words to their basic form, making all different forms equal in searching."
+msgstr ""
+"Relevanssi ei ymmärrä kielestä yhtään mitään: ei sanamuotoja, monikoita eikä "
+"muuta. Relevanssiin on kuitenkin mahdollista lisätä stemmeri, joka muuttaa "
+"sanat perusmuotoihinsa."
+
+#: premium/interface.php:984
+msgid ""
+"To enable the English-language stemmer, add this to the theme functions.php:"
+msgstr ""
+"Kytke englanninkielinen stemmeri päälle lisäämällä tämä rivi teemasi "
+"function.php:hen (jos haluat suomenkielisen stemmerin, ota yhteyttä "
+"asiakaspalveluun):"
+
+#: premium/interface.php:986
+msgid "After you add the code, rebuild the index to get correct results."
+msgstr ""
+"Kun olet lisännyt koodin, uudelleenindeksoi tietokanta, jotta saat oikeita "
+"tuloksia."
+
+#: premium/interface.php:991
+msgid "WP CLI"
+msgstr "WP CLI -tuki"
+
+#: premium/interface.php:994
+#, php-format
+msgid ""
+"If you have WP CLI installed, Relevanssi Premium has some helpful commands. "
+"Use %s to get a list of available commands."
+msgstr ""
+"Jos sinulla on käytössä WP CLI, Relevanssi Premiumissa on muutamia näppäriä "
+"komentoja. Käskyllä %s saat listan komennoista."
+
+#: premium/interface.php:996
+#, php-format
+msgid "You can also see %1$sthe user manual page%2$s."
+msgstr "Voit myös katsoa %1$smanuaalista ohjeita%2$s."
+
+#: premium/interface.php:1002
+msgid "Plugin support page"
+msgstr "Lisäosan tukisivulta"
+
+#: premium/interface.php:1077
+msgid "Options updated!"
+msgstr "Asetukset päivitetty!"
+
+#: premium/interface.php:1424
+msgid "Relevanssi network options"
+msgstr "Relevanssi Premiumin verkostoasetukset"
+
+#: premium/interface.php:1457
+msgid "Copy options from one site to other sites"
+msgstr "Kopioi Relevanssin asetukset alasivustolta muille alasivustoille"
+
+#: premium/interface.php:1458
+msgid ""
+"Choose a blog and copy all the options from that blog to all other blogs "
+"that have active Relevanssi Premium. Be careful! There's no way to undo the "
+"procedure!"
+msgstr ""
+"Valitse alasivusto ja kopioi kaikki Relevanssin asetukset tältä "
+"alasivustolta muille alasivustoille, joissa on aktiivinen Relevanssi Premium "
+"asennettuna. Ole varovainen! Kopiointia ei ole mahdollista perua!"
+
+#: premium/interface.php:1465
+msgid "Copy options"
+msgstr "Kopioi asetukset"
+
+#: premium/interface.php:1483
+msgid "Copy options to all other subsites"
+msgstr "Kopioi asetukset kaikille muille alasivustoille"
+
+#: premium/interface.php:1533
+#, php-format
+msgid "Copying options from blog %s"
+msgstr "Kopioidaan asetuksia sivustolta %s"
+
+#: premium/interface.php:1549
+#, php-format
+msgid "Processing blog %s:"
+msgstr "Käsitellään alasivustoa %s:"
+
+#: premium/interface.php:1551
+msgid "Relevanssi is not active in this blog."
+msgstr "Relevanssi ei ole aktiivinen tällä sivustolla."
+
+#: premium/interface.php:1562
+msgid "Options updated."
+msgstr "Asetukset päivitetty."
+
+#: premium/pdf-upload.php:109
+msgid "Relevanssi attachment controls"
+msgstr "Relevanssin liitetiedostojen käsittely"
+
+#: premium/pdf-upload.php:129
+msgid "Index attachment content"
+msgstr "Indeksoi liitteiden sisältö"
+
+#: premium/pdf-upload.php:133
+msgid "Indexer will fetch the file from your server."
+msgstr "Lukija hakee tiedoston palvelimeltasi."
+
+#: premium/pdf-upload.php:136
+msgid "The file will be uploaded to the indexer."
+msgstr "Tiedosto lähetetään lukijalle."
+
+#: premium/pdf-upload.php:140
+msgid "No API key set. API key is required for attachment indexing."
+msgstr ""
+"API-avainta ei ole asetettu. Liitetiedostojen lukeminen vaatii voimassa "
+"olevan avaimen."
+
+#: premium/pdf-upload.php:147
+msgid "Attachment content"
+msgstr "Liitteen sisältö"
+
+#: premium/pdf-upload.php:153
+msgid "Attachment error message"
+msgstr "Liitteen virheilmoitus"
+
+#: premium/pdf-upload.php:158
+msgid ""
+"This page will reload after indexing and you can see the response from the "
+"attachment extracting server."
+msgstr ""
+"Tämä sivu ladataan uudestaan lukemisen jälkeen ja näet, mitä "
+"liitetiedostojen lukija on ilmoittanut."
+
+#~ msgid ""
+#~ "<div id='message' class='updated fade'><p>Term '%s' added to stopwords!</"
+#~ "p></div>"
+#~ msgstr ""
+#~ "<div id='message' class='updated fade'><p>Sana '%s' lisättiin "
+#~ "hukkasanoihin!</p></div>"
+
+#~ msgid "If enabled, Relevanssi will log user's IP adress with the queries."
+#~ msgstr ""
+#~ "Jos asetus on valittu, Relevanssi kirjaa lokiin käyttäjien IP-osoitteet."
+
+#~ msgid "Successfully indexed %d."
+#~ msgstr "Onnistuttiin indeksoimaan %d."
+
+#~ msgid "Failed to index %d: %s."
+#~ msgstr "Indeksointi epäonnistui %d: %s."
+
+#~ msgid "%s"
+#~ msgstr "%s"
+
+#~ msgid "Reset PDF content"
+#~ msgstr "Nollaa PDF-sisältö"
+
+#~ msgid "Relevanssi PDF controls"
+#~ msgstr "Relevanssin PDF-toiminnot"
+
+#~ msgid "Index PDF content"
+#~ msgstr "Lue PDF:n sisältö"
+
+#~ msgid "PDF Content"
+#~ msgstr "PDF:n sisältö"
+
+#~ msgid "Post content"
+#~ msgstr "Artikkelin sisältö"
+
+#~ msgid "Post titles"
+#~ msgstr "Artikkelien otsikot"
+
+#~ msgid "Create custom search results snippets"
+#~ msgstr "Luo omat otteet hakutuloksiin"
+
+#~ msgid "Exclusions and restrictions"
+#~ msgstr "Rajoitukset"
+
+#~ msgid "Highlighting search results"
+#~ msgstr "Hakutulosten korostaminen"
+
+#~ msgid "Quick tools"
+#~ msgstr "Pikatyökalut"
+
+#~ msgid "add"
+#~ msgstr "lisää"
+
+#~ msgid ""
+#~ "Use 'Build the index' to build the index with current <a "
+#~ "href='#indexing'>indexing options</a>. If you can't finish indexing with "
+#~ "one go, use 'Continue indexing' to finish the job. You can change the "
+#~ "number of documents to add until you find the largest amount you can add "
+#~ "with one go. See 'State of the Index' below to find out how many "
+#~ "documents actually go into the index."
+#~ msgstr ""
+#~ "Käytä 'Indeksoi'-nappia rakentaaksesi indeksin nykyisillä <a "
+#~ "href='#indexing'>indeksointiasetuksilla</a>. Jos indeksi ei valmistu "
+#~ "kerralla, valitse 'Jatka indeksointia' jatkaaksesi työtä. Voit säätää "
+#~ "kerralla indeksoitavien artikkelien määrää, kunnes löydät mahdollisimman "
+#~ "suuren määrän, joka valmistuu kerralla. Indeksin tilasta näet, kuinka "
+#~ "monta artikkelia indeksissä jo on."
+
+#~ msgid "Use search for admin:"
+#~ msgstr "Käytä hakua ylläpidon puolella:"
+
+#~ msgid ""
+#~ "If you choose AND and the search finds no matches, it will automatically "
+#~ "do an OR search."
+#~ msgstr ""
+#~ "Jos valitset JA-operaattorin, eikä hakutuloksia löydy, Relevanssi "
+#~ "kokeilee automaattisesti TAI-operaattoria."
+
+#~ msgid ""
+#~ "If you don't want Relevanssi to fall back to OR search when AND search "
+#~ "gets no hits, check this option. For most cases, leave this one unchecked."
+#~ msgstr ""
+#~ "Jos tässä ruudussa ei ole rastia ja haku JA-operaattorilla ei tuota "
+#~ "tuloksia, Relevanssi yrittää samaa hakua TAI-operaattorilla."
+
+#~ msgid "When to use fuzzy matching?"
+#~ msgstr "Milloin käytetään sumeaa hakua?"
+
+#~ msgid "When straight search gets no hits"
+#~ msgstr "Vain jos suora haku ei löydä osumia"
+
+#~ msgid "Always"
+#~ msgstr "Aina"
+
+#~ msgid "Don't use fuzzy search"
+#~ msgstr "Älä käytä sumeaa hakua"
+
+#~ msgid ""
+#~ "Straight search matches just the term. Fuzzy search matches everything "
+#~ "that begins or ends with the search term."
+#~ msgstr ""
+#~ "Suora haku kohdistuu vain hakusanaan sellaisenaan. Sumea haku kohdistuu "
+#~ "kaikkiin sanoihin, jotka alkavat hakusanalla tai päättyvät hakusanaan."
+
+#~ msgid ""
+#~ "If this option is checked, Relevanssi will limit search results to at "
+#~ "most 500 results per term (this number can be adjusted by changing the "
+#~ "'relevanssi_throttle_limit' option). This will improve performance, but "
+#~ "may cause some relevant documents to go unfound. However, Relevanssi "
+#~ "tries to prioritize the most relevant documents. <strong>This does not "
+#~ "work when sorting results by date.</strong> The throttle can end up "
+#~ "cutting off recent posts to favour more relevant posts."
+#~ msgstr ""
+#~ "Tämä toiminto rajoittaa Relevanssin kerralla hakemien hakutulosten määrää "
+#~ "korkeintaan 500 hakutulokseen hakusanaa kohden. Tätä voi tarvita "
+#~ "suorituskyvyn parantamiseen. Jos välttämättä tarvitsee, lukumäärää voi "
+#~ "muuttaa . <strong>Älä käytä asetusta, jos lajittelet tuloksia päivämäärän "
+#~ "mukaan</strong>."
+
+#~ msgid ""
+#~ "These values affect the weights of the documents. These are all "
+#~ "multipliers, so 1 means no change in weight, less than 1 means less "
+#~ "weight, and more than 1 means more weight. Setting something to zero "
+#~ "makes that worthless. For example, if title weight is more than 1, words "
+#~ "in titles are more significant than words elsewhere. If title weight is "
+#~ "0, words in titles won't make any difference to the search results."
+#~ msgstr ""
+#~ "Nämä arvot vaikuttavat artikkelien painotuksiin. Luvut ovat kertoimia, "
+#~ "eli yksi tarkoittaa oletusarvoa, alle yhden olevat arvot vähentävät "
+#~ "kohteen painoa ja yli yhden olevat arvot kasvattavat painoa. Jonkun arvon "
+#~ "nollaaminen tekee kohteesta merkityksettömän. Jos vaikkapa otsikoiden "
+#~ "paino on suurempi kuin yksi, otsikossa esiintyvät sanat ovat muita "
+#~ "merkittävämpiä. Jos otsikoiden paino on nolla, otsikoilla ei ole mitään "
+#~ "merkitystä tuloksiin."
+
+#~ msgid "WPML/Polylang compatibility"
+#~ msgstr "WPML/Polylang-yhteensopivuus"
+
+#~ msgid "Don't log queries from these users:"
+#~ msgstr "Älä kirjaa hakuja näiltä käyttäjiltä:"
+
+#~ msgid ""
+#~ "If you enable logs, you can see what your users are searching for. You "
+#~ "can prevent your own searches from getting in the logs with the omit "
+#~ "feature."
+#~ msgstr ""
+#~ "Jos kytket lokit päälle, näet mitä käyttäjäsi hakevat. Voit estää "
+#~ "asetuksella omien hakujesi päätymisen lokeihin."
+
+#~ msgid "Logs are also needed to use the 'Did you mean?' feature."
+#~ msgstr "Lokeja tarvitaan lisäksi 'Tarkoititko?'-ominaisuuden tueksi."
+
+#~ msgid "Restrict search to these categories and tags:"
+#~ msgstr "Rajoita haku näihin luokkiin ja avainsanoihin:"
+
+#~ msgid ""
+#~ "Enter a comma-separated list of category and tag IDs to restrict search "
+#~ "to those categories or tags. You can also use <code>&lt;input "
+#~ "type='hidden' name='cats' value='list of cats and tags' /&gt;</code> in "
+#~ "your search form. The input field will \toverrun this setting."
+#~ msgstr ""
+#~ "Anna pilkuilla erotettu lista kategorioiden ja avainsanojen ID-numeroita "
+#~ "rajataksesi haun näihin kategorioihin tai avainsanoihin. Voit myös lisätä "
+#~ "hakulomakkeeseen piilotetun kentän: <code>&lt;input type='hidden' "
+#~ "name='cats' value='lista ID-numeroita' /&gt;</code>. Lomakkeen kenttä "
+#~ "menee tämän asetuksen edelle."
+
+#~ msgid "Exclude these categories from search:"
+#~ msgstr "Poista nämä luokat hakutuloksista:"
+
+#~ msgid ""
+#~ "Enter a comma-separated list of category IDs that are excluded from "
+#~ "search results."
+#~ msgstr ""
+#~ "Anna pilkuilla erotettu lista kategorioiden ID-numeroita, jotka haluat "
+#~ "poistaa hakutuloksista."
+
+#~ msgid "Exclude these tags from search:"
+#~ msgstr "Poista nämä avainsanat hakutuloksista:"
+
+#~ msgid "Exclude these posts/pages from search:"
+#~ msgstr "Poista nämä artikkelit hakutuloksista:"
+
+#~ msgid ""
+#~ "Enter a comma-separated list of post/page IDs that are excluded from "
+#~ "search results. This only works here, you can't use the input field "
+#~ "option (WordPress doesn't pass custom parameters there)."
+#~ msgstr ""
+#~ "Anna pilkuilla erotettu lista artikkelien ID-numeroita, jotka haluat "
+#~ "poistaa hakutuloksista."
+
+#~ msgid ""
+#~ "You can also use a checkbox on post/page edit pages to remove posts from "
+#~ "index. This setting doesn't work in multisite searches, but the checkbox "
+#~ "does."
+#~ msgstr ""
+#~ "Voit poistaa artikkeleita indeksistä käyttäen muokkaussivulla olevaa "
+#~ "toimintoa. Tämä asetus ei toimi multisite-haussa, mutta muokkaussivulla "
+#~ "oleva asetus toimii."
+
+#~ msgid "Respect exclude_from_search for custom post types:"
+#~ msgstr "Kunnioita artikkelityyppien 'exclude_from_search'-asetusta:"
+
+#~ msgid ""
+#~ "If checked, Relevanssi will create excerpts that contain the search term "
+#~ "hits. To make them work, make sure your search result template uses "
+#~ "the_excerpt() to display post excerpts."
+#~ msgstr ""
+#~ "Relevanssi tekee itse otteet hakutuloksiin niin, että otteissa näkyvät "
+#~ "hakusanat. Jotta nämä Relevanssin luomat otteet toimivat, varmista että "
+#~ "hakutulosten sivupohja käyttää the_excerpt()-funktiota otteiden "
+#~ "esittämiseen."
+
+#~ msgid "This must be an integer."
+#~ msgstr "Tämän on oltava kokonaisluku."
+
+#~ msgid ""
+#~ "Check this to show more information on where the search hits were made. "
+#~ "Requires custom snippets to work."
+#~ msgstr ""
+#~ "Laita rasti ruutuun näyttääksesi, miten hakusanat osuvat artikkeliin. "
+#~ "Vaatii Relevanssin tekemiä otteita toimiakseen."
+
+#~ msgid "First, choose the type of highlighting used:"
+#~ msgstr "Valitse ensin käytettävä korostustapa:"
+
+#~ msgid "Highlight query terms in search results:"
+#~ msgstr "Korosta hakusanat tulossivulla:"
+
+#~ msgid "Highlighting isn't available unless you use custom snippets"
+#~ msgstr ""
+#~ "Korostukset eivät ole käytettävissä, jos et käytä Relevanssin luomia "
+#~ "otteita."
+
+#~ msgid ""
+#~ "Highlight hits in titles of the search results. This doesn't work "
+#~ "automatically but requires you to replace the_title() on the template "
+#~ "with relevanssi_the_title()."
+#~ msgstr ""
+#~ "Korosta hakusanat hakutulosten otsikoissa. Tämä asetus ei toimi suoraan; "
+#~ "sinun on korvattava sivupohjassa the_title()-funktio "
+#~ "relevanssi_the_title()-funktiolla."
+
+#~ msgid "Highlight query terms in documents from local searches:"
+#~ msgstr "Korosta hakusanat artikkeleissa paikallisissa hauissa:"
+
+#~ msgid ""
+#~ "Highlights hits when user opens the post from search results. This is "
+#~ "based on HTTP referrer, so if that's blocked, there'll be no highlights."
+#~ msgstr ""
+#~ "Korosta osumat kun käyttäjä avaa artikkelin hakutuloksista. Korostus "
+#~ "perustuu HTTP referrer -arvoon; jos sen käyttö on estetty käyttäjän "
+#~ "selaimessa, korostukset eivät toimi."
+
+#~ msgid "Then adjust the settings for your chosen type:"
+#~ msgstr "Säädä sitten valitsemasi lajin asetuksia:"
+
+#~ msgid "Use HTML color codes (#rgb or #rrggbb)"
+#~ msgstr "Käytä HTML-värikoodeja (#rgb or #rrggbb)"
+
+#~ msgid "Background color for highlights:"
+#~ msgstr "Taustaväri korostuksille:"
+
+#~ msgid ""
+#~ "You can use any CSS styling here, style will be inserted with a &lt;"
+#~ "span&gt;"
+#~ msgstr ""
+#~ "Voit käyttää mitä tahansa CSS-tyylejä tässä, tyylit lisätään &lt;span&gt;-"
+#~ "tagilla"
+
+#~ msgid "Choose post types to index:"
+#~ msgstr "Valitse indeksoitavat artikkelityypit:"
+
+#~ msgid ""
+#~ "If checked, Relevanssi will also index and search the authors of your "
+#~ "posts. Author display name will be indexed. Remember to rebuild the index "
+#~ "if you change this option!"
+#~ msgstr ""
+#~ "Jos tämä asetus on valittu, Relevanssi indeksoi artikkelien kirjoittajien "
+#~ "nimet (display name eli julkisilla sivuilla näytettävä nimi) "
+#~ "käytettäväksi haussa. Muista rakentaa indeksi uudestaan, jos muutat tätä "
+#~ "asetusta."
+
+#~ msgid ""
+#~ "If checked, Relevanssi will also index and search the excerpts of your "
+#~ "posts. Remember to rebuild the index if you change this option!"
+#~ msgstr ""
+#~ "Jos tämä asetus on valittu, Relevanssi indeksoi artikkeliesi otteet "
+#~ "käytettäväksi haussa. Muista rakentaa indeksi uudestaan, jos muutat tätä "
+#~ "asetusta."
+
+#~ msgid "Index and search these comments:"
+#~ msgstr "Indeksoi ja hae näistä kommenteista:"
+
+#~ msgid "normal"
+#~ msgstr "normaali"
+
+#~ msgid ""
+#~ "Relevanssi will index and search ALL (all comments including track- &amp; "
+#~ "pingbacks and custom comment types), NONE (no comments) or NORMAL "
+#~ "(manually posted comments on your blog).<br />Remember to rebuild the "
+#~ "index if you change this option!"
+#~ msgstr ""
+#~ "Valitse indeksoitavat kommentit. KAIKKI sisältää kaikki kommentit ja "
+#~ "track- ja pingbackit, NORMAALI sisältää tavalliset kommentit ja EI MITÄÄN "
+#~ "ei indeksoi kommentteja ollenkaan.<br />Muista rakentaa indeksi "
+#~ "uudestaan, jos muutat tätä asetusta."
+
+#~ msgid ""
+#~ "A comma-separated list of custom fields to include in the index. Set to "
+#~ "'visible' to index all visible custom fields and to 'all' to index all "
+#~ "custom fields, also those starting with a '_' character. With Relevanssi "
+#~ "Premium, you can also use 'fieldname_%_subfieldname' notation for ACF "
+#~ "repeater fields. You can use 'relevanssi_index_custom_fields' filter hook "
+#~ "to adjust which custom fields are indexed."
+#~ msgstr ""
+#~ "Pilkuilla erotettu lista avainkentistä, jotka haluat indeksoida. Jos "
+#~ "laitat asetukseksi 'visible', Relevanssi indeksoi kaikki näkyvät "
+#~ "avainkentät. Asetuksella 'all' Relevanssi indeksoi kaikki avainkentät, "
+#~ "myös ne, joiden nimi alkaa alaviivalla. Jos käytössä on Relevanssi "
+#~ "Premium, voit listata ACF:n Repeater-kenttiä käyttämällä muotoa "
+#~ "'kentännimi_%_alakentännimi'. Indeksoitavia avainkenttiä voi hienosäätää "
+#~ "'relevanssi_index_custom_fields'-suodattimen avulla."
+
+#~ msgid "Save indexing options, erase index and rebuild the index"
+#~ msgstr ""
+#~ "Tallenna indeksointiasetukset, tyhjennä indeksi ja rakenna uusi indeksi"
+
+#~ msgid ""
+#~ "Add synonyms here in 'key = value' format. When searching with the OR "
+#~ "operator, any search of 'key' will be expanded to include 'value' as "
+#~ "well. Using phrases is possible. The key-value pairs work in one "
+#~ "direction only, but you can of course repeat the same pair reversed."
+#~ msgstr ""
+#~ "Lisää synonyymejä muodossa 'avain = arvo'. Kun haetaan OR-operaattoria "
+#~ "käyttäen, haut 'avain'-sanalla löytävät myös artikkelit, joissa esiintyy "
+#~ "sana 'arvo'. Arvoina voi käyttää myös fraaseja. Avain-arvo-parit toimivat "
+#~ "vain yhteen suuntaan, mutta voit toki lisätä saman parin myös toisin päin."
+
+#~ msgid ""
+#~ "Here's a list of stopwords you can use to export the stopwords to another "
+#~ "blog."
+#~ msgstr ""
+#~ "Tässä on lista hukkasanoista. Voit käyttää sitä viedäksesi hukkasanat "
+#~ "toiselle sivustolle."
+
+#~ msgid ""
+#~ "Thanks for updating the plugin. After the update, Relevanssi requires re-"
+#~ "indexing in order to handle taxonomy terms better. You can reindex at <a "
+#~ "href=\"%1$s\">the\n"
+#~ "\t\t\t   settings page</a>. If you just completed indexing, disregard "
+#~ "this message - all is good and this message should not appear again. "
+#~ "Thanks!"
+#~ msgstr ""
+#~ "Kiitos kun päivitit lisäosan. Päivityksen jälkeen Relevanssi edellyttää "
+#~ "uudelleenindeksointia, jotta taksonomiatermit toimivat paremmin. Voit "
+#~ "tehdä sen <a href=\"%1$s\">asetussivulla</a>. Jos sait juuri indeksoitua, "
+#~ "älä välitä tästä viestiä – kaikki on hyvin, eikä tätä viestiä pitäisi "
+#~ "enää näkyä. Kiitos!"
+
+#~ msgid "How to index internal links:"
+#~ msgstr "Kuinka sisäiset linkit indeksoidaan:"
+
+#~ msgid ""
+#~ "Internal link anchor tags can be indexed for target document (so the text "
+#~ "will match the document the link points to), both target and source or "
+#~ "source only (with no extra significance for the links). See Relevanssi "
+#~ "Knowledge Base for more details. Changing this option requires reindexing."
+#~ msgstr ""
+#~ "Sisäisten linkkien ankkuritekstit voidaan indeksoida osana "
+#~ "kohdeartikkelia (jolloin ankkuriteksti indeksoidaan osaksi artikkelia, "
+#~ "johon linkki johtaa), sekä lähde- että kohdeartikkeliin tai vain "
+#~ "lähdeartikkeliin (jolloin niitä ei käsitellä mitenkään erityisesti). "
+#~ "Relevanssin kotisivuilta löytyy lisätietoja. Tämän asetuksen muuttaminen "
+#~ "vaatii tietokannan indeksointia."
+
+#~ msgid ""
+#~ "If you check this option, all Relevanssi features are removed from edit "
+#~ "pages."
+#~ msgstr ""
+#~ "Jos tämä asetus on päällä, Relevanssin ominaisuuksia ei näy laisinkaan "
+#~ "muokkaussivuilla."
+
+#~ msgid "Weight multiplier for new posts:"
+#~ msgstr "Uusien artikkelien painokerroin:"
+
+#~ msgid "Assign bonus for posts newer than:"
+#~ msgstr "Anna bonus artikkeleille jotka ovat uudempia kuin:"
+
+#~ msgid ""
+#~ "If checked, Relevanssi will index subscriber profiles as well, otherwise "
+#~ "only authors, editors, contributors and admins are indexed."
+#~ msgstr ""
+#~ "Oletuksena Relevanssi indeksoi vain authorit, editorit, contributorit ja "
+#~ "adminit. Kytkemällä tämän asetuksen päälle Relevanssi indeksoi myös "
+#~ "tilaajat (subscribers)."
+
+#~ msgid ""
+#~ "A comma-separated list of user profile field names (names of the database "
+#~ "columns) to include in the index."
+#~ msgstr ""
+#~ "Pilkuilla erotettu lista käyttäjäprofiilien kenttien nimiä "
+#~ "(tietokantasarakkeiden nimiä), jotka haluat mukaan indeksiin."
+
+#~ msgid ""
+#~ "If checked, Relevanssi will also index and search taxonomy pages "
+#~ "(categories, tags, custom taxonomies)."
+#~ msgstr ""
+#~ "Jos tämä asetus on päällä, Relevanssi indeksoi ja hakee myös "
+#~ "taksonomiasivuja (kategoriat, avainsanat, omat taksonomiat)."
+
+#~ msgid ""
+#~ "Choose taxonomies to index – for these taxonomies, the terms are included "
+#~ "in search results:"
+#~ msgstr ""
+#~ "Valitse indeksoitavat taksonomiat – näiden taksonomioiden kohdalla itse "
+#~ "taksonomiatermit tulevat mukaan hakutuloksiin:"
+
+#~ msgid ""
+#~ "If you check a taxonomy here, the terms in that taxonomy will be indexed "
+#~ "and will appear as itself in the search results."
+#~ msgstr ""
+#~ "Jos rastitat taksonomian tästä listasta, taksonomiatermit itsessään "
+#~ "indeksoidaan ja tulevat mukaan hakutuloksiin."
+
+#~ msgid "Thank you!"
+#~ msgstr "Kiitos!"
+
+#~ msgid ""
+#~ "Thank you for buying Relevanssi Premium! Your support makes it possible "
+#~ "for me to keep working on this plugin."
+#~ msgstr ""
+#~ "Kiitos kun ostit Relevanssi Premiumin! Tukesi mahdollistaa lisäosan "
+#~ "kehittämistyön jatkumisen."
+
+#~ msgid ""
+#~ "I can do custom hacks based on Relevanssi and other WordPress "
+#~ "development. If you need someone to fix your WordPress, just ask me for a "
+#~ "quote."
+#~ msgstr ""
+#~ "Teemme tilaustyönä Relevanssiin ja WordPressiin liittyviä "
+#~ "kehitysprojekteja. Jos kaipaat apua WordPressin kanssa, kysy lisää!"
+
+#~ msgid "for news and updates about your favourite plugin."
+#~ msgstr "nähdäksesi lisäosan uusimmat kuulumiset."
+
+#~ msgid "Help and support"
+#~ msgstr "Käyttäjätuki"
+
+#~ msgid "For Relevanssi support, see:"
+#~ msgstr "Relevanssi-tukea saat:"
+
+#~ msgid "Did you know this feature?"
+#~ msgstr "Tiesitkö tämänkin ominaisuuden?"
+
+#~ msgid "Use the [search] shortcode to build easy links to search results."
+#~ msgstr ""
+#~ "Käytä [search]-shortcodea tehdäksesi helppoja linkkejä hakutuloksiin."
+
+#~ msgid "Boolean NOT"
+#~ msgstr "Booleanin EI"
+
+#~ msgid "To get results without particular word, use the minus operator"
+#~ msgstr "Jos haluat tuloksia ilman tiettyä sanaa, käytä miinusoperaattoria"
+
+#~ msgid "Boolean AND"
+#~ msgstr "Booleanin JA"
+
+#~ msgid "To force a particular term in an OR search, use the plus operator"
+#~ msgstr ""
+#~ "Jos haluat pakottaa tietyn hakusanan esiintymään TAI-haussa, käytä "
+#~ "plussaoperaattoria"
+
+#~ msgid ""
+#~ "would require that all results include the term 'cats', and results "
+#~ "including all three terms will be favoured. The plus operator has no "
+#~ "effect in an AND search, where all terms have an implicit + before them."
+#~ msgstr ""
+#~ "vaatisi, että kaikissa tuloksissa on oltava sana 'kissa', ja suosisi "
+#~ "tuloksia, joissa on kaikki kolme sanaa. Plussaoperaattorilla ei ole "
+#~ "vaikutusta JA-haussa, jossa kaikilla hakusanoilla on implisiittinen "
+#~ "plussaoperaattori edessään."
+
+#~ msgid ""
+#~ "Relevanssi Premium supports WP CLI. Type %s on command line or <a href="
+#~ "\"%s\">see the user manual</a> for instructions."
+#~ msgstr ""
+#~ "Relevanssi Premium tukee WP CLI:tä. Saat ohjeita kirjoittamalla "
+#~ "komentoriville %s tai <a href=\"%s\">lukemalla käyttöohjeita</a>."
+
+#~ msgid "<strong>Tip:</strong> %s is the best way to rebuild a big index!"
+#~ msgstr "<strong>Vinkki:</strong> %s on paras tapa indeksoida iso sivusto!"
+
+#~ msgid "Limit:"
+#~ msgstr "Hakurajoitus:"
+
+#~ msgid ""
+#~ "For better performance, adjust the limit to a smaller number. Adjusting "
+#~ "the limit to 100 or 200 should be safe for good results, and might bring "
+#~ "a boost in search speed. DO NOT use this feature to limit the number of "
+#~ "search results on search results pages, as that will lead to problems. "
+#~ "For adjusting the number of search results displayed, see <a "
+#~ "href='%s'>this knowledge base entry</a>."
+#~ msgstr ""
+#~ "Hakua voi tehostaa säätämällä rajoitusta pienempään lukuun. Rajan alin "
+#~ "turvallinen arvo on 100–200. ÄLÄ käytä tätä ominaisuutta tulossivulla "
+#~ "näytettävien hakutulosten määrän säätämiseen, siitä seuraa vaikeuksia. "
+#~ "Jos haluat säätää tulossivulla näytettävien tulosten määrä, <a "
+#~ "href='%s'>lue ohjeet täältä</a>."
+
+#~ msgid "http://www.mikkosaari.fi/"
+#~ msgstr "http://www.mikkosaari.fi/"
+
+#~ msgid "Mikko Saari"
+#~ msgstr "Mikko Saari"
+
+#~ msgid ""
+#~ "This plugin replaces WordPress search with a relevance-sorting search."
+#~ msgstr ""
+#~ "Tämä lisäosa korvaa WordPressin oletushaun relevanssin mukaan "
+#~ "lajittelevalla haulla."
+
+#~ msgid "http://www.relevanssi.com/"
+#~ msgstr "http://www.relevanssi.com/"
+
+#~ msgid "Data wiped clean, you can now delete the plugin."
+#~ msgstr "Tiedot poistettu, voit nyt poistaa lisäosan."
+
+#~ msgid ""
+#~ "Enter a comma-separated list of post/page IDs that are excluded from "
+#~ "search results. This only works here, you can't use the input field "
+#~ "option (WordPress doesn't pass custom parameters there). You can also use "
+#~ "a checkbox on post/page edit pages to remove posts from index."
+#~ msgstr ""
+#~ "Anna pilkuilla erotettu lista artikkelien ID-numeroita, jotka haluat "
+#~ "poistaa hakutuloksista. Voit myös käyttää artikkelien muokkaussivulta "
+#~ "löytyvää toimintoa poistaaksesi artikkeleita."
