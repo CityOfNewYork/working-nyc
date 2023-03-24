@@ -42,7 +42,7 @@
     {% block header %}
       {% include 'objects/navigation.twig' %}
       {% include 'objects/languages-dropdown.twig' %}
-      {% include 'partials/search-form.twig' %}
+      {% include 'partials/search-overlay.twig' %}
     {% endblock %}
 
     {% if fn('constant', 'SUPPORT_IE_11') and fn('is_IE') %}

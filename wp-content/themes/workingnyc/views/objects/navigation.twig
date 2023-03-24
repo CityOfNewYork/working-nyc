@@ -15,12 +15,12 @@
   <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
   {% endfor %}
 
-  {# <button aria-controls="aria-c-search" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-js="search">
+  <button aria-controls="aria-c-search" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-js="search">
     <svg class="o-navigation__menu-icon icon-ui">
-      <use href="#search"></use>
+      <use href="#icon-search"></use>
     </svg>
     <span class="o-navigation__menu-label">{{__('Search', 'WNYC')}}</span>
-  </button> #}
+  </button>
 
   <button class="o-navigation__item" data-js="themes">
     <svg class="o-navigation__menu-icon icon-ui">
@@ -37,6 +37,18 @@
 
     <span class="o-navigation__menu-label">{{ __('Languages', 'WNYC') }}</span>
   </button>
+
+  
+  {# <button class="o-navigation__nav-link search-toggle-icon" href="#search" data-toggle="overlay-search" data-toggle-class="fadeInDown">
+    <svg class="o-navigation__icon o-navigation__icon__search" role="img" aria-hidden="true">
+      <title>Search</title>
+      <use href="#icon-search"></use>
+    </svg>
+    <svg class="o-navigation__icon o-navigation__icon__close" role="img" aria-hidden="true">
+      <title>Search</title>
+      <use href="#icon-close"></use>
+    </svg>
+  </button> #}
 
   <button class="o-navigation__menu-item desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
     <svg class="o-navigation__menu-icon icon-ui">
