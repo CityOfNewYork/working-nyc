@@ -1,4 +1,12 @@
-<form role="search" method="get" class="search-form" action="/">
-    <input type="search" name="s" placeholder="Search" value="{{ s }}"></input>
-    <button type="submit" class="search-submit">Submit</button>
+<form class="o-search__form" action="/">
+    <label class="label">Search for work and services</label>
+    <div class="input o-search__input">
+        <input data-js="search__input" tabindex="-1" inputmode="search" name="s" placeholder="Search" value="{{ s }}"></input>
+        <button type="submit" tabindex="-1" class="o-search__submit">
+            <svg class="icon-ui">
+                <title>{{__('Submit', 'WNYC')}}</title>
+            <use href="#lucide-search"></use>
+        </svg>
+        </button>
+    </div>
 </form>

@@ -18,6 +18,18 @@
       <span class="sr-only">Toggle&nbsp;</span><span data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
     </button>
 
+    <button class="o-menu__nav-item" aria-controls="aria-c-search-menu" aria-expanded="false" data-dialog="open" data-js="search">
+      <svg class="icon-ui" tabindex="-1">
+        <title>{{__('Search', 'WNYC')}}</title>
+        <use href="#lucide-search"></use>
+      </svg>
+      <span>{{__('Search', 'WNYC') }}</span>
+    </button>
+
+    <div class="o-search hidden" aria-hidden="false" class="active" id="aria-c-search-menu">
+      {% include 'partials/search-form.twig' %}
+    </div>
+
     <hr />
 
     <nav class="o-menu__nav" aria-label="{{ __('Menu', 'WNYC') }}">

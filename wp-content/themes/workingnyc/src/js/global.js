@@ -19,6 +19,7 @@ import RollbarConfigure from './modules/rollbar-configure';
 
 import Accordion from '@nycopportunity/standard/src/components/accordion/accordion';
 import ActiveNavigation from '@nycopportunity/standard/src/components/active-navigation/active-navigation';
+import Search from '@nycopportunity/standard/src/objects/search/search';
 
 /**
  * Objects
@@ -40,6 +41,7 @@ new Accordion();
 new ActiveNavigation();
 new Dialog();
 new Menu();
+new Search();
 new Toggle();
 new Track();
 new WindowVh();
