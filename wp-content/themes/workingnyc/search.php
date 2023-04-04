@@ -1,5 +1,8 @@
 <?php
 
+require_once WorkingNYC\timber_post('Jobs');
+require_once WorkingNYC\timber_post('Programs');
+
 // Get the search term
 $term = (isset($_GET['s'])) ? $_GET['s'] : '';
 
@@ -14,40 +17,22 @@ $wp_query = new WP_Query(array(
 $relevanssi_query = relevanssi_do_query($wp_query);
 $wp_query_ids = wp_list_pluck($wp_query->posts, 'ID');
 $posts = Timber::get_posts($wp_query_ids);
-
-// Post filtering
-// Should refactor this logic into functions.php.
-// if (is_array($posts)) {
-//   foreach ($posts as $i => $post) {
-//     switch ($post->post_type) {
-//       case 'tribe_events':
-//         // Format events posts
-//         $posts[$i] = new GunyEvent($post);
-//         break;
-//       case 'age':
-//         // Add age groups to age posts
-//         $age_groups = $post->terms('age_group');
-//         if ($age_groups) {
-//           $post->age_group = $age_groups[0];
-//         }
-//         break;
-//     }
-//   }
-// }
+$job_or_program_posts = array_filter($posts, function($p) {
+  return $p->post_type == 'programs' || $p->post_type == 'jobs';
+});
 
 // Set Context
 $context = Timber::get_context();
 $context['term'] = $term;
-$context['posts'] = $posts;
+$context['posts'] = array_map(function($p) {
+  if ($p->post_type == 'programs') {
+    return new WorkingNYC\Programs($p);
+  }
+  else {
+    return new WorkingNYC\Jobs($p);
+  }
+}, $posts);
 // $context['language'] = ICL_LANGUAGE_CODE;
-
-// Compile templates for search template
-$templates_form = array('partials/search-form.twig');
-// $templates_filters = array('partials/search-filters.twig');
-// $templates_results = array('partials/post-list.twig');
-$context['search'] = Timber::compile($templates_form, $context);
-// $context['facet_post_type'] = Timber::compile($templates_filters, $context);
-// $context['results'] = Timber::compile($templates_results, $context);
 
 // Render view
 $templates = array('search.twig');

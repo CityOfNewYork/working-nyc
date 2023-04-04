@@ -1,15 +1,65 @@
-{% extends "list.twig" %}
+{% extends "base.twig" %}
 
-{% block head_extras %}
-<style>
-  .c-hero { background-color: #469BFF; }
-</style>
-{% endblock %}
+{% block content %}
+  <div class="bg-scale-2">
+    <main class="bg-scale-1" id="content">
+      <div class="layout-content">
+        <div class="page-max">
+          <header class="o-header">
+            <div class="w-full">
+              <div class="c-utility wrap">
+                <a class="link-icon mie-auto" href="{{ site.url }}">
+                  <svg aria-hidden="true" class="icon-ui rtl:flip">
+                    <use href="#lucide-chevron-left"></use>
+                  </svg>
 
-{% block hero %}
-<header class="c-hero u-lg-gutter">
-  <div class="o-container-med">
-    <h1 class="show-for-screen-reader">{{__('Search Results', 'WNYC')}}</h1>
+                  <span>{{ __('Home', 'WNYC') }}</span>
+                </a>
+              </div>
+            </div>
+            {% if term != '' %}
+              <div class="o-header__title">
+                <h1 id="page-heading" class="o-header__heading">{{__('Search results', 'WNYC')}}</h1>
+              </div>
+            {% endif %}
+          </header>
+          {% include 'partials/search-form.twig' %}
+        </div>
+      </div>
+    </main>
   </div>
-</header>
+
+  {% if term != '' %}
+    <section class="page-max desktop:px-6">
+      <div class="wrap desktop:px-6">
+        {% block list_sidebar %}
+        {% endblock %}
+      </div>
+      <div class="wrap desktop:px-6">
+        {% block before_list %}
+        {% endblock %}
+        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
+          {% block post_list %}
+            {% for post in posts %}
+              {% if post.post_type == 'jobs' %}
+                {% include 'jobs/job.twig' with {
+                  this: {
+                    post: post
+                  }
+                } %}
+              {% elseif post.post_type == 'programs' %}
+                {% include 'programs/program.twig' with {
+                  this: {
+                    post: post
+                  }
+                } %}
+              {% endif %}
+            {% endfor %}
+          {% endblock %}
+        </div>
+        {% block after_list %}
+        {% endblock %}
+      </div> 
+    </section> 
+  {% endif %}
 {% endblock %}
