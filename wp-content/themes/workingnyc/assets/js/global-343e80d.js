@@ -1272,6 +1272,7 @@
   class Accordion {
     /**
      * @constructor
+     *
      * @return {object} The class
      */
     constructor() {
@@ -1285,6 +1286,7 @@
 
   /**
    * The dom selector for the module
+   *
    * @type {String}
    */
   Accordion.selector = '[data-js*="accordion"]';
@@ -1486,6 +1488,44 @@
   };
 
   /**
+   * The Search module
+   *
+   * @class
+   */
+  class Search {
+    /**
+     * @constructor
+     *
+     * @return {object} The class
+     */
+    constructor() {
+      this._toggle = new Toggle({
+        selector: Search.selector,
+        after: (toggle) => {
+          let el = document.querySelector(Search.selector);
+          let input = document.querySelector(Search.selectors.input);
+
+          if (el.className.includes('active') && input) {
+            input.focus();
+          }
+        }
+      });
+
+      return this;
+    }
+  }
+
+  /**
+   * The dom selector for the module
+   * @type {String}
+   */
+  Search.selector = '[data-js*="search"]';
+
+  Search.selectors = {
+    input: '[data-search*="input"]'
+  };
+
+  /**
    * The Mobile Nav module
    *
    * @class
@@ -1550,6 +1590,7 @@
   new ActiveNavigation();
   new Dialog();
   new Menu();
+  new Search();
   new Toggle();
   new Track();
   new WindowVh();
@@ -1587,14 +1628,14 @@
     label: 'Dark Theme',
     classname: 'default',
     icon: 'lucide-moon',
-    version: '2.0.0'
+    version: '2.0.2'
   };
 
   let themeDark = {
     label: 'Light Theme',
     classname: 'dark',
     icon: 'lucide-sun',
-    version: '2.0.0'
+    version: '2.0.2'
   };
 
   // This block ensures compatibility with the previous site theme configuration

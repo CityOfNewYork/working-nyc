@@ -17,7 +17,7 @@
 
   {# <button aria-controls="aria-c-search" aria-expanded="false" class="o-navigation__menu-item btn-link desktop:m-0" data-js="search">
     <svg class="o-navigation__menu-icon icon-ui">
-      <use href="#search"></use>
+      <use href="#icon-search"></use>
     </svg>
     <span class="o-navigation__menu-label">{{__('Search', 'WNYC')}}</span>
   </button> #}
@@ -30,12 +30,20 @@
     <span class="sr-only">Toggle&nbsp;</span><span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
   </button>
 
-  <button class="o-navigation__menu-item desktop:m-0" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+  <button class="o-navigation__menu-item" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
     <svg class="o-navigation__menu-icon icon-ui">
       <use href="#nyco-languages"></use>
     </svg>
 
     <span class="o-navigation__menu-label">{{ __('Languages', 'WNYC') }}</span>
+  </button>
+  
+  <button class="o-navigation__item desktop:m-0" aria-controls="aria-c-search" aria-expanded="false" data-dialog="open" data-js="search">
+    <svg class="o-navigation__menu-icon icon-ui">
+      <title>{{__('Search', 'WNYC')}}</title>
+      <use href="#lucide-search"></use>
+    </svg>
+    <span class="o-navigation__menu-label">{{__('Search', 'WNYC') }}</span>
   </button>
 
   <button class="o-navigation__menu-item desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
