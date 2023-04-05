@@ -27,8 +27,7 @@ $context['term'] = $term;
 $context['posts'] = array_map(function($p) {
   if ($p->post_type == 'programs') {
     return new WorkingNYC\Programs($p);
-  }
-  else {
+  } else {
     return new WorkingNYC\Jobs($p);
   }
 }, $posts);
