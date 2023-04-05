@@ -1,12 +1,4 @@
 <form class="o-search__form w-full" style="max-width: var(--nyco-dimension-content-width)" action="/">
     <label class="label pb-1">{{__('Search for work or services', 'WNYC')}}</label>
-    <div class="input o-search__input rounded">
-        <input class="rounded border-0" data-js="search__input" tabindex="-1" inputmode="search" name="s" placeholder="Search" value="{{ s }}"></input>
-        <button type="submit" tabindex="-1" class="o-search__submit">
-            <svg class="icon-ui">
-                <title>{{__('Submit', 'WNYC')}}</title>
-            <use href="#lucide-search"></use>
-        </svg>
-        </button>
-    </div>
+    {% include 'partials/search-input.twig' %}
 </form>
