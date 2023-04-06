@@ -1,43 +1,38 @@
-<aside class="o-menu o-menu-fixed hidden" id="aria-c-menu" aria-hidden="true">
-  <div class="o-menu__wrap">
-    <button class="o-menu__nav-item" aria-controls="aria-c-menu" data-js="menu" data-js-menu="close" tabindex="-1">
-      <svg aria-hidden="true" class="icon-ui" tabindex="-1">
-        <use href="#lucide-x"></use>
-      </svg>
+<aside class="o-menu o-menu-fixed hidden block" id="aria-c-menu" aria-hidden="true">
+  <button class="float-right" aria-controls="aria-c-menu" data-js="menu" data-js-menu="close" tabindex="-1">
+    <svg aria-hidden="true" class="icon-ui" tabindex="-1">
+      <use href="#lucide-x"></use>
+    </svg>
+  </button>
+  <div class="flex items-center h-full">
+    <div class="o-menu__wrap">
+      <a class="o-menu__nav-item" href="{{ site.url }}/?s=" tabindex="-1">
+        <svg class="icon-ui" tabindex="-1">
+          <title>{{__('Search', 'WNYC')}}</title>
+          <use href="#lucide-search"></use>
+        </svg>
+        <span>{{__('Search', 'WNYC') }}</span>
+      </a>
 
-      <span>{{ __('Close', 'WNYC') }}</span>
-    </button>
+      <hr />
 
-    <hr />
+      <button class="o-menu__nav-item" data-js="themes" tabindex="-1">
+        <svg class="icon-ui" tabindex="-1">
+          <use data-js-themes="icon" href="#lucide-moon"></use>
+        </svg>
 
-    <button class="o-menu__nav-item" data-js="themes" tabindex="-1">
-      <svg class="icon-ui" tabindex="-1">
-        <use data-js-themes="icon" href="#lucide-moon"></use>
-      </svg>
+        <span class="sr-only">Toggle&nbsp;</span><span data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
+      </button>
 
-      <span class="sr-only">Toggle&nbsp;</span><span data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
-    </button>
+      <hr />
 
-    <button class="o-menu__nav-item" aria-controls="aria-c-search-menu" aria-expanded="false" data-dialog="open" data-js="search">
-      <svg class="icon-ui" tabindex="-1">
-        <title>{{__('Search', 'WNYC')}}</title>
-        <use href="#lucide-search"></use>
-      </svg>
-      <span>{{__('Search', 'WNYC') }}</span>
-    </button>
+      <nav class="o-menu__nav" aria-label="{{ __('Menu', 'WNYC') }}">
+        <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC') }}</a>
 
-    <div class="o-search hidden" aria-hidden="false" class="active" id="aria-c-search-menu">
-      {% include 'partials/search-form.twig' %}
+        {% for menu_item in header_menu.get_items %}
+        <a class="o-menu__nav-item" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
+        {% endfor %}
+      </nav>
     </div>
-
-    <hr />
-
-    <nav class="o-menu__nav" aria-label="{{ __('Menu', 'WNYC') }}">
-      <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC') }}</a>
-
-      {% for menu_item in header_menu.get_items %}
-      <a class="o-menu__nav-item" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
-      {% endfor %}
-    </nav>
   </div>
 </aside>
