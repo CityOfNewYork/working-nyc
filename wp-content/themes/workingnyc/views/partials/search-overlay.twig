@@ -7,7 +7,10 @@
   </button>
   <div class="py-2 tablet:py-8">
     <div class="justify-center flex">
-      {% include 'partials/search-form.twig' %}
+      <div class="block w-full" style="max-width: var(--nyco-dimension-content-width)">
+        <label class="label pb-1">{{__('Search for work or services', 'WNYC')}}</label>
+        {% include 'partials/search-form.twig' %}
+      </div>
     </div>
   </div>
 </div>
