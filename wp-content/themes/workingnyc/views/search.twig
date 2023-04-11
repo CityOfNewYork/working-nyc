@@ -31,7 +31,7 @@
             {% if posts|length > 1 %}
               {{ __('Showing {{ TOTAL_VISIBLE }} results for "{{ TERM }}".')|replace({'{{ TOTAL_VISIBLE }}': posts|length, '{{ TERM }}': term}) }}
             {% else %}
-              {{ __('Showing 1 result for "{{ TERM }}".')|replace({'{{ TOTAL_VISIBLE }}': posts|length, '{{ TERM }}': term}) }}
+              {{ __('Showing 1 result for "{{ TERM }}".')|replace({'{{ TERM }}': term}) }}
             {% endif %}
           </h2>
           {% endblock %}
