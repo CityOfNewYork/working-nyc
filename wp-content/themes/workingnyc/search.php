@@ -30,7 +30,7 @@ $context['posts'] = array_map(function($p) {
   } else {
     return new WorkingNYC\Jobs($p);
   }
-}, $posts);
+}, $job_or_program_posts);
 // $context['language'] = ICL_LANGUAGE_CODE;
 
 // Render view

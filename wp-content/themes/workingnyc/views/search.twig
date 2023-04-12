@@ -28,7 +28,11 @@
         <div class="tablet:px-6">
           {% block before_list %}
           <h2 class="text-p font-p inline-block my-4">
-            {{ __('Showing {{ TOTAL_VISIBLE }} results for "{{ TERM }}".')|replace({'{{ TOTAL_VISIBLE }}': posts|length, '{{ TERM }}': term}, 'WNYC') }}
+            {% if posts|length > 1 %}
+              {{ __('Showing {{ TOTAL_VISIBLE }} results for "{{ TERM }}".', 'WNYC')|replace({'{{ TOTAL_VISIBLE }}': posts|length, '{{ TERM }}': term}) }}
+            {% else %}
+              {{ __('Showing 1 result for "{{ TERM }}".', 'WNYC')|replace({'{{ TERM }}': term}) }}
+            {% endif %}
           </h2>
           {% endblock %}
           <div class="grid gap-3 desktop:grid-cols-2 mb-3">
@@ -55,14 +59,14 @@
         </div> 
       {% else %}
       <div class="my-3 tablet:my-4 tablet:px-6">
-        <h4>{{__('No results for "{{ TERM }}"'|replace({'{{ TERM }}': term}), 'WNYC')}}</h4>
+        <h4>{{__('No results for "{{ TERM }}"', 'WNYC')|replace({'{{ TERM }}': term})}}</h4>
         <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('Search help', 'WNYC')}}</h5>
         <list>
           <li class="m-0">{{__('Check your search for typos', 'WNYC')}}</li>
           <li class="m-0">{{__('Use generic search terms', 'WNYC')}}</li>
-          <li class="m-0">{{__('Browse our <a href="{{ PROGRAMS_URL }}">programs</a> and <a href="{{ JOBS_URL }}">jobs</a>'|replace({'{{ PROGRAMS_URL }}': site.url ~ '/programs', '{{ JOBS_URL }}': site.url ~ '/jobs'}), 'WNYC')}}</li>
+          <li class="m-0">{{__('Browse our <a href="{{ PROGRAMS_URL }}">programs</a> and <a href="{{ JOBS_URL }}">jobs</a>', 'WNYC')|replace({'{{ PROGRAMS_URL }}': site.url|last == '/' ? site.url ~ 'programs' : site.url ~ '/programs', '{{ JOBS_URL }}': site.url|last == '/' ? site.url ~ 'jobs' : site.url ~ '/jobs'})}}</li>
         </list>
-        <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('If you still can\'t find what you\'re looking for, <a href="{{ FEEDBACK_URL }}">send feedback</a> to improve our site.'|replace({'{{ FEEDBACK_URL }}': 'https://airtable.com/shrfQGpXvo9mmmHpJ'}), 'WNYC')}}</h5>
+        <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('If you still can\'t find what you\'re looking for, {{ FEEDBACK }} to improve our site.', 'WNYC')|replace({'{{ FEEDBACK }}': '<a href="https://airtable.com/shrfQGpXvo9mmmHpJ">send us feedback</a>'})}}</h5>
       </div>
       {% endif %}
     {% endif %}
