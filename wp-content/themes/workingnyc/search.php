@@ -9,17 +9,18 @@ $term = (isset($_GET['s'])) ? $_GET['s'] : '';
 // Create query
 $wp_query = new WP_Query(array(
   's' => $term,
-  'post_type' => 'any'
+  'post_type' => array('jobs', 'programs')
 ));
 
 // Redo relevanssi query and get posts in Timber format.
-// This block could be made more efficient.
+// This block could be made more efficient by not getting the posts 
+// through Timber::get_posts but there needs to be a way to format 
+// the posts for the timber template.
+
+// relevanssi_do_query puts the results in wp_query
 $relevanssi_query = relevanssi_do_query($wp_query);
 $wp_query_ids = wp_list_pluck($wp_query->posts, 'ID');
 $posts = Timber::get_posts($wp_query_ids);
-$job_or_program_posts = array_filter($posts, function($p) {
-  return $p->post_type == 'programs' || $p->post_type == 'jobs';
-});
 
 // Set Context
 $context = Timber::get_context();
@@ -30,7 +31,9 @@ $context['posts'] = array_map(function($p) {
   } else {
     return new WorkingNYC\Jobs($p);
   }
-}, $job_or_program_posts);
+}, $posts);
+
+// TODO add support for languages other than English
 // $context['language'] = ICL_LANGUAGE_CODE;
 
 // Render view
