@@ -13,8 +13,8 @@ $wp_query = new WP_Query(array(
 ));
 
 // Redo relevanssi query and get posts in Timber format.
-// This block could be made more efficient by not getting the posts 
-// through Timber::get_posts but there needs to be a way to format 
+// This block could be made more efficient by not getting the posts
+// through Timber::get_posts but there needs to be a way to format
 // the posts for the timber template.
 
 // relevanssi_do_query puts the results in wp_query
