@@ -17,49 +17,49 @@ var programsButton = document.getElementById("programs-button");
 
 var searchResults = document.querySelectorAll('[data-js="search-result"]');
 
-allButton.addEventListener("click", function () {
-    allButton.className = selectedButtonClass;
-    jobsButton.className = baseButtonClass;
-    programsButton.className = baseButtonClass;
-
-    for (var i = 0; i < searchResults.length; i++) {
-        searchResults[i].style.display = "inherit";
-    }
-
-    console.log("a");
-    console.log(searchResults);
-});
-
-jobsButton.addEventListener("click", function () {
-    allButton.className = baseButtonClass;
-    jobsButton.className = selectedButtonClass;
-    programsButton.className = baseButtonClass;
-
-    for (var i = 0; i < searchResults.length; i++) {
-        if (postings[i].getAttribute("data-js-result-type") == "job") {
+// Buttons won't show up if there are no results
+if (allButton) {
+    allButton.addEventListener("click", function () {
+        allButton.className = selectedButtonClass;
+        jobsButton.className = baseButtonClass;
+        programsButton.className = baseButtonClass;
+    
+        for (var i = 0; i < searchResults.length; i++) {
             searchResults[i].style.display = "inherit";
         }
-        else {
-            searchResults[i].style.display = "none";
+    });
+}
+
+if (jobsButton) {
+    jobsButton.addEventListener("click", function () {
+        allButton.className = baseButtonClass;
+        jobsButton.className = selectedButtonClass;
+        programsButton.className = baseButtonClass;
+    
+        for (var i = 0; i < searchResults.length; i++) {
+            if (searchResults[i].getAttribute("data-js-result-type") == "job") {
+                searchResults[i].style.display = "inherit";
+            }
+            else {
+                searchResults[i].style.display = "none";
+            }
         }
-    }
+    });
+}
 
-    console.log("b");
-});
-
-programsButton.addEventListener("click", function () {
-    allButton.className = baseButtonClass;
-    jobsButton.className = baseButtonClass;
-    programsButton.className = "";
-
-    for (var i = 0; i < searchResults.length; i++) {
-        if (postings[i].getAttribute("data-js-result-type") == "program") {
-            searchResults[i].style.display = "inherit";
+if (programsButton) {
+    programsButton.addEventListener("click", function () {
+        allButton.className = baseButtonClass;
+        jobsButton.className = baseButtonClass;
+        programsButton.className = selectedButtonClass;
+    
+        for (var i = 0; i < searchResults.length; i++) {
+            if (searchResults[i].getAttribute("data-js-result-type") == "program") {
+                searchResults[i].style.display = "inherit";
+            }
+            else {
+                searchResults[i].style.display = "none";
+            }
         }
-        else {
-            searchResults[i].style.display = "none";
-        }
-    }
-
-    console.log("c");
-});
+    });
+}
