@@ -1,0 +1,80 @@
+{# @Type   Component #}
+{# @For    Post Type #}
+{# @Class  timber-posts/Jobs.php #}
+<article class="c-card">
+  <header class="c-card__header">
+    <span>
+      <a class="c-card__header-link" data-js="job-{{ post.id }}" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener"{% endif %}>
+        <h3 class="c-card__title">
+          <span class="c-card__underline">{{ post.cardTitle }}</span>
+        </h3>
+      </a>
+
+      <p class="c-card__subtitle text-alt">
+        {% if post.sector %}<b>{{ post.sector }}</b>{% endif %}
+        {% if post.sector and post.organization %}<span> {{ __('with', 'WNYC') }} </span>{% endif %}
+        {% if post.organization %}<span>{{ post.organization }}</span>{% endif %}
+      </p>
+    </span>
+  </header>
+
+  <div class="c-card__body">
+    <div class="c-card__summary">
+      <p>{{ post.summary }}</p>
+    </div>
+
+    {% if post.schedule or post.salary or post.location %}
+    <ul class="c-card__features">
+      {% if post.schedule %}
+      <li>
+        <svg class="icon-ui c-card__feature-icon" role="img">
+          <title>{{ __('Employment Type and Schedule', 'WNYC') }}</title>
+
+          <use href="#lucide-calendar"></use>
+        </svg>
+
+        <span>{{ post.schedule }}</span>
+      </li>
+      {% endif %}
+
+      {% if post.salary %}
+      <li>
+        <svg class="icon-ui c-card__feature-icon" role="img">
+          <title>{{ __('Salary', 'WNYC') }}</title>
+
+          <use href="#lucide-dollar-sign"></use>
+        </svg>
+
+        <span>{{ post.salary }}</span>
+      </li>
+      {% endif %}
+
+      {% if post.location %}
+      <li>
+        <svg class="icon-ui c-card__feature-icon" role="img">
+          <title>{{ __('Work Location', 'WNYC') }}</title>
+
+          <use href="#lucide-map-pin"></use>
+        </svg>
+
+        <span>{{ post.location }}</span>
+      </li>
+      {% endif %}
+    </ul>
+    {% endif %}
+
+    <a class="c-card__cta" href="{{ post.link }}" {% if post.link_target == '_blank' %}target="{{ post.link_target }}" rel="noopener"{% endif %}>
+      <svg aria-hidden="true" class="icon-ui rtl:flip">
+        <use href="#lucide-arrow-left"></use>
+      </svg>
+
+      <span>
+        {{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} {{ post.title }}</span>
+      </span>
+
+      <svg aria-hidden="true" class="icon-ui rtl:flip">
+        <use href="#lucide-arrow-right"></use>
+      </svg>
+    </a>
+  </div>
+</article>
