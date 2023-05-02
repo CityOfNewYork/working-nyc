@@ -99,9 +99,9 @@ module.exports = [
     devModule: true
   },
   {
-    input: './src/js/archive-search.js',
+    input: './src/js/search.js',
     output: [{
-      file: './assets/js/archive-search-development.js',
+      file: './assets/js/search-development.js',
       format: rollup.format,
       sourcemap: false,
       strict: rollup.strict

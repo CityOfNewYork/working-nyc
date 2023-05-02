@@ -1329,7 +1329,7 @@
 	  );
 
 	/**
-	 * Jobs Archive
+	 * Search results
 	 *
 	 * @author NYC Opportunity
 	 */
