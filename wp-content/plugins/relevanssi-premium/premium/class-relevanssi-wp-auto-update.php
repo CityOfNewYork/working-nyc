@@ -57,11 +57,13 @@ class Relevanssi_WP_Auto_Update {
 		list ($t1, $t2)        = explode( '/', $plugin_slug );
 		$this->slug            = str_replace( '.php', '', $t2 );
 
-		// define the alternative API for updating checking.
-		add_filter( 'pre_set_site_transient_update_plugins', array( &$this, 'check_update' ) );
+		if ( 'on' !== get_option( 'relevanssi_do_not_call_home' ) ) {
+			// define the alternative API for updating checking.
+			add_filter( 'pre_set_site_transient_update_plugins', array( &$this, 'check_update' ) );
 
-		// Define the alternative response for information checking.
-		add_filter( 'plugins_api', array( &$this, 'check_info' ), 10, 3 );
+			// Define the alternative response for information checking.
+			add_filter( 'plugins_api', array( &$this, 'check_info' ), 10, 3 );
+		}
 	}
 
 	/**
@@ -69,9 +71,13 @@ class Relevanssi_WP_Auto_Update {
 	 *
 	 * @param object $transient The filtered transient.
 	 *
-	 * @return object $ transient
+	 * @return object $transient
 	 */
 	public function check_update( $transient ) {
+		if ( ! is_object( $transient ) ) {
+			return $transient;
+		}
+
 		// Get the remote version.
 		$info           = $this->get_remote_information();
 		$remote_version = 0;
@@ -84,33 +90,54 @@ class Relevanssi_WP_Auto_Update {
 			$obj              = new stdClass();
 			$obj->slug        = $this->slug;
 			$obj->new_version = $remote_version;
-			$obj->url         = $this->update_path;
-			$obj->package     = $this->update_path;
+			$obj->url         = $info->package;
+			$obj->package     = $info->package;
 			$obj->icons       = $info->icons;
 			$obj->banners     = $info->banners;
 
 			$transient->response[ $this->plugin_slug ] = $obj;
+		} else {
+			global $relevanssi_variables;
+			// No update is available.
+			$item = (object) array(
+				'id'            => 'relevanssi-premium/relevanssi.php',
+				'slug'          => 'relevanssi-premium',
+				'plugin'        => 'relevanssi-premium/relevanssi.php',
+				'new_version'   => $relevanssi_variables['plugin_version'],
+				'url'           => '',
+				'package'       => '',
+				'icons'         => array(),
+				'banners'       => array(),
+				'banners_rtl'   => array(),
+				'tested'        => '',
+				'requires_php'  => '',
+				'compatibility' => new stdClass(),
+			);
+			$transient->no_update['relevanssi-premium/relevanssi.php'] = $item;
 		}
+
 		return $transient;
 	}
 
 	/**
 	 * Adds our self-hosted description to the filter.
 	 *
-	 * @param boolean $false Result object or array, should return false.
-	 * @param array   $action Type of information request.
-	 * @param object  $arg Plugin API arguments.
+	 * @param object $api    Result object or array, should return false.
+	 * @param array  $action Type of information request.
+	 * @param object $args   Plugin API arguments.
 	 *
-	 * @return bool|object
+	 * @return object $api   New stdClass with plugin information on success, default response on failure.
 	 */
-	public function check_info( $false, $action, $arg ) {
-		if ( isset( $arg->slug ) ) {
-			if ( $arg->slug === $this->slug ) {
+	public function check_info( $api, $action, $args ) {
+		$plugin = ( 'plugin_information' === $action ) && isset( $args->slug ) && ( $this->slug === $args->slug );
+
+		if ( $plugin ) {
+			if ( $args->slug === $this->slug ) {
 				$information = $this->get_remote_information();
 				return $information;
 			}
 		}
-		return false;
+		return $api;
 	}
 
 	/**
@@ -119,13 +146,19 @@ class Relevanssi_WP_Auto_Update {
 	 * @return string $remote_version Version number at the remote end.
 	 */
 	public function get_remote_version() {
-		$api_key = get_site_option( 'relevanssi_api_key' );
-		$request = wp_remote_post( $this->update_path, array(
-			'body' => array(
-				'api_key' => $api_key,
-				'action'  => 'version',
-			),
-		) );
+		$api_key = get_network_option( null, 'relevanssi_api_key' );
+		if ( ! $api_key ) {
+			$api_key = get_option( 'relevanssi_api_key' );
+		}
+		$request = wp_remote_post(
+			$this->update_path,
+			array(
+				'body' => array(
+					'api_key' => $api_key,
+					'action'  => 'version',
+				),
+			)
+		);
 		if ( ! is_wp_error( $request ) || 200 === wp_remote_retrieve_response_code( $request ) ) {
 			return $request['body'];
 		}
@@ -138,13 +171,19 @@ class Relevanssi_WP_Auto_Update {
 	 * @return bool|object
 	 */
 	public function get_remote_information() {
-		$api_key = get_site_option( 'relevanssi_api_key' );
-		$request = wp_remote_post( $this->update_path, array(
-			'body' => array(
-				'api_key' => $api_key,
-				'action'  => 'info',
-			),
-		) );
+		$api_key = get_network_option( null, 'relevanssi_api_key' );
+		if ( ! $api_key ) {
+			$api_key = get_option( 'relevanssi_api_key' );
+		}
+		$request = wp_remote_post(
+			$this->update_path,
+			array(
+				'body' => array(
+					'api_key' => $api_key,
+					'action'  => 'info',
+				),
+			)
+		);
 		if ( ! is_wp_error( $request ) || 200 === wp_remote_retrieve_response_code( $request ) ) {
 			if ( is_serialized( $request['body'] ) ) {
 				return unserialize( $request['body'] ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions
@@ -159,14 +198,23 @@ class Relevanssi_WP_Auto_Update {
 	 * @return boolean $remote_license
 	 */
 	public function get_remote_license() {
-		$api_key = get_site_option( 'relevanssi_api_key' );
-		$request = wp_remote_post( $this->update_path, array(
-			'body' => array(
-				'api_key' => $api_key,
-				'action'  => 'license',
-			),
-		) );
+		$api_key = get_network_option( null, 'relevanssi_api_key' );
+		if ( ! $api_key ) {
+			$api_key = get_option( 'relevanssi_api_key' );
+		}
+		$request = wp_remote_post(
+			$this->update_path,
+			array(
+				'body' => array(
+					'api_key' => $api_key,
+					'action'  => 'license',
+				),
+			)
+		);
 		if ( ! is_wp_error( $request ) || 200 === wp_remote_retrieve_response_code( $request ) ) {
+			if ( 'false' === $request['body'] ) {
+				return false;
+			}
 			return $request['body'];
 		}
 		return false;
@@ -182,11 +230,18 @@ class Relevanssi_WP_Auto_Update {
  */
 function relevanssi_activate_auto_update() {
 	global $relevanssi_variables;
-	$api_key = get_site_option( 'relevanssi_api_key' );
-	if ( 'su9qtC30xCLLA' === crypt( $api_key, 'suolaa' ) ) {
-		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update-development.php';
-	} else {
-		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update.php';
+	$api_key = get_network_option( null, 'relevanssi_api_key' );
+	if ( ! $api_key ) {
+		$api_key = get_option( 'relevanssi_api_key' );
 	}
-	new Relevanssi_WP_Auto_Update( $relevanssi_variables['plugin_version'], $relevanssi_plugin_remote_path, $relevanssi_variables['plugin_basename'] );
+	if ( 'su9qtC30xCLLA' === crypt( $api_key, 'suolaa' ) ) {
+		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update-development-2022.php';
+	} else {
+		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update-2022.php';
+	}
+	$relevanssi_variables['autoupdate'] = new Relevanssi_WP_Auto_Update(
+		$relevanssi_variables['plugin_version'],
+		$relevanssi_plugin_remote_path,
+		$relevanssi_variables['plugin_basename']
+	);
 }
