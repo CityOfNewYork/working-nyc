@@ -26,6 +26,7 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 	 * respectively.
 	 * ---
 	 * options:
+	 *   - post_types
 	 *   - taxonomies
 	 *   - users
 	 * ---
@@ -34,9 +35,7 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 	 * : Post ID, if you only want to reindex one post.
 	 *
 	 * [--limit=<limit>]
-	 * : Number of posts you want to index at one go. If you are extending
-	 * the indexing, the relevanssi_index_limit option is used for limit
-	 * if this value is left empty.
+	 * : Number of posts you want to index at one go.
 	 *
 	 * [--extend=<extend>]
 	 * : If true, do not truncate the index or index users and taxonomies.
@@ -72,6 +71,8 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 	 * @param array $assoc_args Command arguments as associative array.
 	 */
 	public function index( $args, $assoc_args ) {
+		remove_filter( 'relevanssi_search_ok', '__return_true' );
+
 		$post_id = null;
 		if ( isset( $assoc_args['post'] ) ) {
 			$post_id = $assoc_args['post'];
@@ -103,6 +104,9 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 		} elseif ( 'users' === $target ) {
 			relevanssi_index_users();
 			WP_CLI::success( 'Done!' );
+		} elseif ( 'post_types' === $target ) {
+			relevanssi_index_post_type_archives();
+			WP_CLI::success( 'Done!' );
 		} else {
 			if ( isset( $post_id ) ) {
 				$n = relevanssi_index_doc( $post_id, true, relevanssi_get_custom_fields(), true, $debug );
@@ -131,6 +135,44 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 				WP_CLI::success( "$n posts indexed. $completion" );
 			}
 		}
+	}
+
+	/**
+	 * Refreshes the Relevanssi index.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *    wp relevanssi refresh
+	 *
+	 * @param array $args       Command arguments (not used).
+	 * @param array $assoc_args Command arguments as associative array.
+	 */
+	public function refresh( $args, $assoc_args ) {
+		$index_post_types  = get_option( 'relevanssi_index_post_types', '' );
+		$index_statuses    = apply_filters(
+			'relevanssi_valid_status',
+			array( 'publish', 'private', 'draft', 'pending', 'future' )
+		);
+		$all_indexed_posts = get_posts(
+			array(
+				'post_type'   => $index_post_types,
+				'fields'      => 'ids',
+				'numberposts' => -1,
+				'post_status' => $index_statuses,
+			)
+		);
+
+		$found_posts = count( $all_indexed_posts );
+		$progress    = relevanssi_generate_progress_bar( 'Indexing posts', $found_posts );
+
+		WP_CLI::log( 'Found ' . $found_posts . ' posts to refresh.' );
+		foreach ( $all_indexed_posts as $post_id ) {
+			relevanssi_index_doc( $post_id, true, relevanssi_get_custom_fields(), true, false );
+			$progress->tick();
+		}
+		$progress->finish();
+
+		WP_CLI::success( 'Index refresh done!' );
 	}
 
 	/**
@@ -268,23 +310,23 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 	}
 
 	/**
-	 * Wipes clean the PDF content from posts and rereads the PDF content.
+	 * Reads the attachment content for all attachments that haven't been read
+	 * yet.
 	 *
 	 * ## EXAMPLES
 	 *
-	 *      wp relevanssi index_pdfs
+	 *      wp relevanssi read_attachments
 	 *
 	 * @param array $args       Command arguments (not used).
 	 * @param array $assoc_args Command arguments as associative array.
 	 */
-	public function index_pdfs( $args, $assoc_args ) {
-		delete_post_meta_by_key( '_relevanssi_pdf_content' );
-		delete_post_meta_by_key( '_relevanssi_pdf_error' );
-
-		$pdf_attachments = relevanssi_get_posts_with_attachments();
-		foreach ( $pdf_attachments as $post_id ) {
+	public function read_attachments( $args, $assoc_args ) {
+		$attachment_posts = relevanssi_get_posts_with_attachments( 0 );
+		WP_CLI::log( 'Found ' . count( $attachment_posts ) . ' attachments to read.' );
+		foreach ( $attachment_posts as $post_id ) {
 			$exit_and_die = false;
-			$response     = relevanssi_index_pdf( $post_id, $exit_and_die );
+			WP_CLI::log( 'Reading attachment ' . $post_id . '...' );
+			$response = relevanssi_index_pdf( $post_id, $exit_and_die );
 			if ( $response['success'] ) {
 				WP_CLI::log( "Successfully read the content for post $post_id." );
 			} else {
@@ -293,6 +335,366 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 		}
 	}
 
+	/**
+	 * Removes all attachment content for all posts. Use with care! Does not
+	 * reindex the posts or remove them from the index.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *      wp relevanssi remove_attachment_content
+	 *
+	 * @param array $args       Command arguments (not used).
+	 * @param array $assoc_args Command arguments as associative array (not
+	 * used).
+	 */
+	public function remove_attachment_content( $args, $assoc_args ) {
+		delete_post_meta_by_key( '_relevanssi_pdf_content' );
+		delete_post_meta_by_key( '_relevanssi_pdf_error' );
+
+		WP_CLI::log( 'Removed all attachment content.' );
+	}
+
+	/**
+	 * Removes all attachment errors for all posts.
+	 *
+	 * ## EXAMPLES
+	 *
+	 *      wp relevanssi remove_attachment_errors
+	 *
+	 * @param array $args       Command arguments (not used).
+	 * @param array $assoc_args Command arguments as associative array (not
+	 * used).
+	 */
+	public function remove_attachment_errors( $args, $assoc_args ) {
+		delete_post_meta_by_key( '_relevanssi_pdf_error' );
+
+		WP_CLI::log( 'Removed all attachment errors.' );
+	}
+
+	/**
+	 * Regenerates the related posts for all posts.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--post_type=<post_types>]
+	 * : A comma-separated list of post types to cover. If empty, generate the post
+	 * types chosen in the Related posts options, or if that's empty, all public post
+	 * types.
+	 *
+	 * [--post_objects=<post_objects>]
+	 * : If true, doesn't generate the related posts HTML code and instead stores the
+	 * post objects of the related posts in the transient. If false, the transient
+	 * will contain the generated related posts HTML code. Default false.
+	 * ---
+	 * default: false
+	 * options:
+	 *   - true
+	 *   - false
+	 * ---
+	 *
+	 * ## EXAMPLES
+	 *
+	 *      wp relevanssi regenerate_related
+	 *      wp relevanssi regenerate_related --post_type=post,page
+	 *
+	 * @param array $args       Command arguments (not used).
+	 * @param array $assoc_args Command arguments as associative array.
+	 */
+	public function regenerate_related( $args, $assoc_args ) {
+		relevanssi_flush_related_cache();
+
+		$settings = get_option( 'relevanssi_related_settings', relevanssi_related_default_settings() );
+
+		if ( isset( $settings['enabled'] ) && 'off' === $settings['enabled'] ) {
+			WP_CLI::error( 'Related posts feature is disabled.' );
+		}
+
+		$post_types = array();
+		if ( isset( $settings['append'] ) && ! empty( $settings['append'] ) ) {
+			// Related posts are automatically appended to certain post types, so
+			// regenerate the related posts for those post types.
+			$post_types = explode( ',', $settings['append'] );
+		} else {
+			// Nothing set, so regenerate for all public post types.
+			$pt_args    = array(
+				'public' => true,
+			);
+			$post_types = get_post_types( $pt_args, 'names' );
+		}
+
+		if ( isset( $assoc_args['post_type'] ) ) {
+			$post_types = explode( ',', $assoc_args['post_type'] );
+		}
+
+		$post_objects = false;
+		if ( isset( $assoc_args['post_objects'] ) ) {
+			if ( filter_var( $assoc_args['post_objects'], FILTER_VALIDATE_BOOLEAN ) ) {
+				$post_objects = true;
+			}
+		}
+
+		$post_args = array(
+			'post_type'      => $post_types,
+			'fields'         => 'ids',
+			'posts_per_page' => -1,
+		);
+		$posts     = get_posts( $post_args ); // Get all posts for the wanted post types.
+		$count     = count( $posts );
+		WP_CLI::log( 'Regenerating related posts for post types ' . implode( ', ', $post_types ) . ", total $count posts." );
+
+		$progress = relevanssi_generate_progress_bar( 'Regenerating', $count );
+
+		foreach ( $posts as $post_id ) {
+			relevanssi_related_posts( $post_id, $post_objects );
+			$progress->tick();
+		}
+
+		$progress->finish();
+		WP_CLI::success( 'Done!' );
+	}
+
+	/**
+	 * Lists pinned posts.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--format=<format>]
+	 * : Format of the results. Possible values are "table", "json", "csv",
+	 * "yaml" and "count". Default: "table".
+	 *
+	 * [--type=<type>]
+	 * : Type of the results. Possible values are "pinned", "unpinned", and
+	 * "both". Default: "both".
+	 *
+	 * ## EXAMPLES
+	 *
+	 *      wp relevanssi list_pinned_posts
+	 *      wp relevanssi list_pinned_posts --format=csv --type=pinned
+	 *
+	 * @param array $args       Command arguments (not used).
+	 * @param array $assoc_args Command arguments as associative array.
+	 */
+	public function list_pinned_posts( $args, $assoc_args ) {
+		global $wpdb;
+
+		$posts = $wpdb->get_results(
+			"SELECT p.ID, p.post_title, pm.meta_key, pm.meta_value FROM $wpdb->posts AS p, $wpdb->postmeta AS pm
+			WHERE p.ID = pm.post_id
+				AND (
+    				pm.meta_key = '_relevanssi_pin'
+    				OR pm.meta_key = '_relevanssi_unpin'
+    				OR (
+        				pm.meta_key = '_relevanssi_pin_for_all' AND pm.meta_value = 'on'
+    				)
+				)
+			ORDER BY p.ID ASC"
+		);
+
+		$pinned   = array();
+		$unpinned = array();
+
+		$format = $assoc_args['format'] ?? 'table';
+		if ( 'ids' === $format ) {
+			$format = 'table';
+		}
+
+		$include_pinned   = true;
+		$include_unpinned = true;
+		if ( isset( $assoc_args['type'] ) ) {
+			if ( 'pinned' === $assoc_args['type'] ) {
+				$include_unpinned = false;
+			} elseif ( 'unpinned' === $assoc_args['type'] ) {
+				$include_pinned = false;
+			}
+		}
+
+		foreach ( $posts as $post ) {
+			if ( $include_pinned && '_relevanssi_pin_for_all' === $post->meta_key ) {
+				$pinned[] = array(
+					'ID'              => $post->ID,
+					'Title'           => $post->post_title,
+					'Pinned keywords' => __( 'all keywords' ),
+				);
+			} elseif ( $include_pinned && '_relevanssi_pin' === $post->meta_key ) {
+				$pinned[] = array(
+					'ID'              => $post->ID,
+					'Title'           => $post->post_title,
+					'Pinned keywords' => $post->meta_value,
+				);
+			} elseif ( $include_unpinned && '_relevanssi_unpin' === $post->meta_key ) {
+				$unpinned[] = array(
+					'ID'                => $post->ID,
+					'Title'             => $post->post_title,
+					'Unpinned keywords' => $post->meta_value,
+				);
+			}
+		}
+
+		if ( $pinned ) {
+			if ( 'table' === $format || 'count' === $format ) {
+				$header = "\n" . __( 'Pinned posts' ) . ':';
+				WP_CLI::log( $header );
+				WP_CLI::log( str_pad( '', strlen( $header ), '=' ) );
+			}
+			WP_CLI\Utils\format_items( $format, $pinned, array( 'ID', 'Title', 'Pinned keywords' ) );
+		}
+
+		if ( $unpinned ) {
+			if ( 'table' === $format || 'count' === $format ) {
+				$header = "\n" . __( 'Unpinned posts' ) . ':';
+				WP_CLI::log( $header );
+				WP_CLI::log( str_pad( '', strlen( $header ), '=' ) );
+			}
+			WP_CLI\Utils\format_items( $format, $unpinned, array( 'ID', 'Title', 'Unpinned keywords' ) );
+		}
+
+		if ( ! $pinned && ! $unpinned ) {
+			WP_CLI::log( __( 'No pinned posts found.' ) );
+		}
+	}
+
+	/**
+	 * Lists posts in or not in the index.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--format=<format>]
+	 * : Format of the results. Possible values are "table", "json", "csv",
+	 * "yaml", and "count". Default: "table".
+	 *
+	 * [--post_type=<type>]
+	 * : Post type. Default: none, show all post types.
+	 *
+	 * [--type=<type>]
+	 * : Type of the results. Possible values are "post", "term", and "user".
+	 * Default: "post".
+	 *
+	 * [--status=<status>]
+	 * : Status of the results. Possible values are "indexed" and "unindexed".
+	 * Default: "indexed".
+	 *
+	 * ## EXAMPLES
+	 *
+	 *      wp relevanssi list
+	 *
+	 * @param array $args       Command arguments (not used).
+	 * @param array $assoc_args Command arguments as associative array.
+	 */
+	public function list( $args, $assoc_args ) {
+		global $wpdb, $relevanssi_variables;
+
+		$status    = $assoc_args['status'] ?? 'indexed';
+		$post_type = $assoc_args['post_type'] ?? '';
+		$type      = $assoc_args['type'] ?? 'post';
+
+		if ( 'indexed' === $status ) {
+			if ( 'post' === $type ) {
+				if ( $post_type ) {
+					$post_type = "AND post_type = '" . esc_sql( $post_type ) . "'";
+				}
+				$posts = $wpdb->get_results(
+					"SELECT DISTINCT(p.ID), p.post_title AS Title, p.post_type AS 'Type' FROM $wpdb->posts AS p, " .
+					"{$relevanssi_variables['relevanssi_table']} AS r WHERE p.ID = r.doc $post_type " . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					'ORDER BY p.ID ASC'
+				);
+			} elseif ( 'term' === $type ) {
+				$posts = $wpdb->get_results(
+					"SELECT DISTINCT(t.term_id) AS ID, t.name AS 'Name', tt.taxonomy AS 'Taxonomy', tt.count AS 'Count' FROM $wpdb->terms AS t, $wpdb->term_taxonomy AS tt, " .
+					"{$relevanssi_variables['relevanssi_table']} AS r " . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					'WHERE tt.term_id = t.term_id AND t.term_id = r.item AND tt.taxonomy = r.type
+					ORDER BY t.term_id ASC'
+				);
+			} elseif ( 'user' === $type ) {
+				$users_in_index = $wpdb->get_col(
+					"SELECT DISTINCT(r.item) FROM {$relevanssi_variables['relevanssi_table']} AS r " . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"WHERE r.type = 'user'"
+				);
+				$users          = relevanssi_get_users(
+					array(
+						'number'  => -1,
+						'orderby' => 'ID',
+						'order'   => 'ASC',
+						'include' => array_map( 'intval', $users_in_index ),
+					)
+				);
+				foreach ( $users as $user ) {
+					$posts[] = array(
+						'ID'    => $user->ID,
+						'Name'  => $user->display_name,
+						'Login' => $user->user_login,
+						'Roles' => implode( ', ', $user->roles ),
+					);
+				}
+			}
+		} elseif ( 'unindexed' === $status ) {
+			if ( 'post' === $type ) {
+				$indexed_post_types = str_replace( 'post.', 'p.', relevanssi_post_type_restriction() );
+				if ( $post_type ) {
+					$post_type          = "AND post_type = '" . esc_sql( $post_type ) . "'";
+					$indexed_post_types = '';
+				}
+
+				$posts = $wpdb->get_results(
+					"SELECT DISTINCT(p.ID), p.post_title AS Title, p.post_type AS 'Type' FROM $wpdb->posts AS p " .
+					"LEFT JOIN {$relevanssi_variables['relevanssi_table']} AS r ON p.ID = r.doc " . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					'WHERE r.doc IS NULL ' .
+					"$indexed_post_types $post_type " . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					'ORDER BY p.ID ASC'
+				);
+			} elseif ( 'term' === $type ) {
+				$taxonomies = get_option( 'relevanssi_index_terms' );
+				if ( ! is_array( $taxonomies ) ) {
+					$taxonomies = array();
+				}
+				$taxonomies = "'" . implode( "', '", $taxonomies ) . "'";
+
+				$posts = $wpdb->get_results(
+					"SELECT DISTINCT(t.term_id) AS ID, t.name AS 'Name', tt.taxonomy AS 'Taxonomy', tt.count AS 'Count' " .
+					"FROM $wpdb->term_taxonomy AS tt, $wpdb->terms AS t " .
+					"LEFT JOIN {$relevanssi_variables['relevanssi_table']} AS r " . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					'ON t.term_id = r.item
+					WHERE r.item IS NULL AND tt.term_id = t.term_id AND tt.taxonomy IN (' . $taxonomies . ') ' . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					'ORDER BY t.term_id ASC'
+				);
+			} elseif ( 'user' === $type ) {
+				$users_in_index = $wpdb->get_col(
+					"SELECT DISTINCT(r.item) FROM {$relevanssi_variables['relevanssi_table']} AS r " . // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+					"WHERE r.type = 'user'"
+				);
+				$users          = relevanssi_get_users(
+					array(
+						'number'  => -1,
+						'orderby' => 'ID',
+						'order'   => 'ASC',
+						'exclude' => $users_in_index,
+					)
+				);
+				foreach ( $users as $user ) {
+					$posts[] = array(
+						'ID'    => $user->ID,
+						'Name'  => $user->display_name,
+						'Login' => $user->user_login,
+						'Roles' => implode( ', ', $user->roles ),
+					);
+				}
+			}
+		}
+
+		$format = $assoc_args['format'] ?? 'table';
+		if ( 'ids' === $format ) {
+			$format = 'table';
+		}
+
+		if ( 'post' === $type ) {
+			WP_CLI\Utils\format_items( $format, $posts, array( 'ID', 'Title', 'Type' ) );
+		} elseif ( 'term' === $type ) {
+			WP_CLI\Utils\format_items( $format, $posts, array( 'ID', 'Name', 'Taxonomy', 'Count' ) );
+		} elseif ( 'user' === $type ) {
+			WP_CLI\Utils\format_items( $format, $posts, array( 'ID', 'Name', 'Login', 'Roles' ) );
+		} elseif ( 'post_type' === $type ) {
+			WP_CLI\Utils\format_items( $format, $posts, array( 'Title', 'Type' ) );
+		}
+	}
 }
 
 WP_CLI::add_command( 'relevanssi', 'Relevanssi_WP_Cli_Command' );
@@ -311,4 +713,20 @@ function relevanssi_generate_progress_bar( $title, $count ) {
 		$progress = WP_CLI\Utils\make_progress_bar( $title, $count );
 	}
 	return $progress;
+}
+
+add_filter( 'relevanssi_search_ok', 'relevanssi_cli_query_ok', 10, 2 );
+/**
+ * Sets the relevanssi_search_ok true for searches.
+ *
+ * @param boolean  $ok    Whether it's ok to do a Relevanssi search or not.
+ * @param WP_Query $query The query object.
+ *
+ * @return boolean Whether it's ok to do a Relevanssi search or not.
+ */
+function relevanssi_cli_query_ok( $ok, $query ) {
+	if ( $query->is_search() ) {
+		return true;
+	}
+	return $ok;
 }

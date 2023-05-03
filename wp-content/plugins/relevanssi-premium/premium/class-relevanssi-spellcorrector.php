@@ -38,8 +38,8 @@
  * Spell correcting feature.
  *
  * This class implements the Spell correcting feature, useful for the
- * "Did you mean" functionality on the search engine. Using a dictionary of words
- * extracted from the product catalog.
+ * "Did you mean" functionality on the search engine. Using a dictionary of
+ * words extracted from the product catalog.
  *
  * Based on the concepts of Peter Norvig: http://norvig.com/spell-correct.html
  *
@@ -75,7 +75,20 @@ class Relevanssi_SpellCorrector {
 	 * @return array A list of variations.
 	 */
 	private static function edits1( $word ) {
-		$alphabet = 'abcdefghijklmnopqrstuvwxyzäöåü';
+		/**
+		 * Filters the alphabet used for Did you mean suggestions.
+		 *
+		 * In order to use the Did you mean suggestions with non-Latin alphabets
+		 * (or even European languages with a wider range of characters than
+		 * English), Relevanssi needs to be provided with the alphabet used.
+		 *
+		 * @param string A string containing the alphabet as a string of
+		 * characters without spaces.
+		 */
+		$alphabet = apply_filters(
+			'relevanssi_didyoumean_alphabet',
+			'abcdefghijklmnopqrstuvwxyzäöåü'
+		);
 		$alphabet = preg_split( '/(?<!^)(?!$)/u', $alphabet );
 		$n        = relevanssi_strlen( $word );
 		$edits    = array();
@@ -86,22 +99,27 @@ class Relevanssi_SpellCorrector {
 		}
 		for ( $i = 0; $i < $n; $i++ ) {
 			// Removing one letter.
-			$edits[] = call_user_func( $substr_function, $word, 0, $i ) . call_user_func( $substr_function, $word, $i + 1 );
+			$edits[] = call_user_func( $substr_function, $word, 0, $i )
+				. call_user_func( $substr_function, $word, $i + 1 );
 
 			// Substituting one letter.
 			foreach ( $alphabet as $c ) {
-				$edits[] = call_user_func( $substr_function, $word, 0, $i ) . $c . call_user_func( $substr_function, $word, $i + 1 );
+				$edits[] = call_user_func( $substr_function, $word, 0, $i )
+					. $c . call_user_func( $substr_function, $word, $i + 1 );
 			}
 		}
 		for ( $i = 0; $i < $n - 1; $i++ ) {
 			// Swapping character order.
-			$edits[] = call_user_func( $substr_function, $word, 0, $i ) . $word[ $i + 1 ] . $word[ $i ] . call_user_func( $substr_function, $word, $i + 2 );
+			$edits[] = call_user_func( $substr_function, $word, 0, $i )
+				. $word[ $i + 1 ] . $word[ $i ]
+				. call_user_func( $substr_function, $word, $i + 2 );
 		}
 
 		// Inserting one character.
 		for ( $i = 0; $i < $n + 1; $i++ ) {
 			foreach ( $alphabet as $c ) {
-				$edits[] = call_user_func( $substr_function, $word, 0, $i ) . $c . call_user_func( $substr_function, $word, $i );
+				$edits[] = call_user_func( $substr_function, $word, 0, $i )
+					. $c . call_user_func( $substr_function, $word, $i );
 			}
 		}
 
@@ -109,7 +127,8 @@ class Relevanssi_SpellCorrector {
 	}
 
 	/**
-	 * Generate possible "disturbances" in a second level that exist on the dictionary.
+	 * Generate possible "disturbances" in a second level that exist on the
+	 * dictionary.
 	 *
 	 * @param string $word Word to disturb.
 	 *
@@ -128,7 +147,8 @@ class Relevanssi_SpellCorrector {
 	}
 
 	/**
-	 * Given a list of words, returns the subset that is present on the dictionary.
+	 * Given a list of words, returns the subset that is present on the
+	 * dictionary.
 	 *
 	 * @param array $words Array of words to check.
 	 * @return array Words that are in the dictionary.
@@ -146,8 +166,8 @@ class Relevanssi_SpellCorrector {
 	/**
 	 * Corrects the word.
 	 *
-	 * Returns the word that is present on the dictionary that is the most similar (and the most relevant) to the
-	 * word passed as parameter.
+	 * Returns the word that is present on the dictionary that is the most
+	 * similar (and the most relevant) to the word passed as parameter.
 	 *
 	 * @param string $word Word to correct.
 	 *

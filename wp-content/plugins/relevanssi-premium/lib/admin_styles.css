@@ -1,5 +1,5 @@
 p.important {
-    color: #dd3300;
+    color: #992000;
 }
 
 table.form-table table.widefat th {
@@ -10,7 +10,7 @@ table.form-table table.widefat th {
     width: 3em;
 }
 
-#relevanssi_trim_logs {
+#relevanssi_trim_logs, #relevanssi_trim_click_logs {
     width: 4em;
 }
 
@@ -95,4 +95,24 @@ table.form-table table.widefat th {
 
 #relevanssi-timer {
     display: none;
+}
+
+#category_inclusion_checklist ul.children, #category_exclusion_checklist ul.children {
+	margin-left: 1.5em;
+}
+
+#relevanssi_filter_list {
+	display: none;
+}
+
+#redirect_table td {
+	vertical-align: top;
+}
+
+#relevanssi_sees_container, #relevanssi_db_view_container {
+    width: 80%;
+    background: white;
+    padding: 5px 20px;
+    border: thin solid black;
+    overflow: scroll;
 }
