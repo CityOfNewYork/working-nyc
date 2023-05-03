@@ -26,7 +26,7 @@ import Vue from 'vue/dist/vue.runtime.min'; // production
  * @extends   https://github.com/CityOfNewYork/nyco-wp-archive-vue
  */
 
-import SearchArchive from '../../views/search/archive.vue';
+import SearchArchive from '../../views/search/search-results-list.vue';
 import SearchResult from '../../views/search/search-result.vue';
 
 /**
@@ -74,4 +74,4 @@ new Vue({
       }
     });
   }
-}).$mount('[data-js="search-archive"]');
+}).$mount('[data-js="search-results-list"]');

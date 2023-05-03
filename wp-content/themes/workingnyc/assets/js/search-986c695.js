@@ -1172,7 +1172,7 @@
 	const __vue_script__$1 = SearchArchive;
 
 	/* template */
-	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{staticClass:"px-4 tablet:px-6"},[_c('button',{on:{"click":function($event){return _vm.console.log('abc')}}},[_vm._v("ABC")])])};
+	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{staticClass:"px-4 tablet:px-6"},[_c('span',[_vm._v(_vm._s(_vm.strings.HOME))])])};
 	var __vue_staticRenderFns__$1 = [];
 
 	  /* style */
@@ -1379,6 +1379,6 @@
 	      }
 	    });
 	  }
-	}).$mount('[data-js="search-archive"]');
+	}).$mount('[data-js="search-results-list"]');
 
 })();

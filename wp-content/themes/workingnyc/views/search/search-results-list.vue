@@ -1,6 +1,6 @@
 <template>
     <section class="px-4 tablet:px-6">
-        <button @click="console.log('abc')">ABC</button>
+      <span>{{ strings.HOME }}</span>
       <!-- {% if term != '' %}
         {% if posts|length > 0 %}
           {% block list_sidebar %}

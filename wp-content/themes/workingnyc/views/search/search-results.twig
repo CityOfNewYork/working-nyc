@@ -20,10 +20,9 @@
       </header>
   </div>
 
-  <div data-js="search-archive">
+  <div data-js="search-results-list">
     <section class="px-4 tablet:px-6">
-      <button>ABC</button>
-      {# {% if term != '' %}
+      {% if term != '' %}
         {% if posts|length > 0 %}
           {% block list_sidebar %}
           {% endblock %}
@@ -80,7 +79,7 @@
           <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('If you still can\'t find what you\'re looking for, {{ FEEDBACK }} to improve our site.', 'WNYC')|replace({'{{ FEEDBACK }}': '<a href="https://airtable.com/shrfQGpXvo9mmmHpJ">send us feedback</a>'})}}</h5>
         </div>
         {% endif %}
-      {% endif %} #}
+      {% endif %}
     </section> 
   </div>
 {% endblock %}

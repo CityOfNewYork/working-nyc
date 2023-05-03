@@ -4,9 +4,9 @@ require_once WorkingNYC\timber_post('Jobs');
 require_once WorkingNYC\timber_post('Programs');
 
 // Add javascript for filtering search results
-add_action('wp_enqueue_scripts', function() {
-  enqueue_script('search');
-});
+// add_action('wp_enqueue_scripts', function() {
+//   enqueue_script('search');
+// });
 
 // Get the search term
 $term = (isset($_GET['s'])) ? $_GET['s'] : '';
@@ -14,7 +14,7 @@ $term = (isset($_GET['s'])) ? $_GET['s'] : '';
 // Create query
 $wp_query = new WP_Query(array(
   's' => $term,
-  'post_type' => 'any'
+  'post_type' => array('programs', 'jobs')
 ));
 
 // Redo relevanssi query and get posts in Timber format.
@@ -22,9 +22,6 @@ $wp_query = new WP_Query(array(
 $relevanssi_query = relevanssi_do_query($wp_query);
 $wp_query_ids = wp_list_pluck($wp_query->posts, 'ID');
 $posts = Timber::get_posts($wp_query_ids);
-$job_or_program_posts = array_filter($posts, function($p) {
-  return $p->post_type == 'programs' || $p->post_type == 'jobs';
-});
 
 // Set Context
 $context = Timber::get_context();
@@ -35,7 +32,7 @@ $context['posts'] = array_map(function($p) {
   } else {
     return new WorkingNYC\Jobs($p);
   }
-}, $job_or_program_posts);
+}, $posts);
 // $context['language'] = ICL_LANGUAGE_CODE;
 
 // Render view
