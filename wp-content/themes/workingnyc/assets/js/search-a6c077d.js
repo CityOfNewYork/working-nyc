@@ -965,16 +965,19 @@
 	    },
 	    strings: {
 	      type: Object
-	    }
+	    },
+	    searchTerm: {
+	      type: String
+	    },
 	  },
 	  data: function() {
 	    return {
 	      /**
-	       * This is our custom post type to query
-	       *
+	       * In the parent Archive class, this represents a post type to query, but here it is
+	       * the endpoint to use
 	       * @type {String}
 	       */
-	      type: 'jobs',
+	      type: 'search',
 
 	      /**
 	       * Setting this sets the initial app query
@@ -983,9 +986,10 @@
 	       */
 	      query: {
 	        per_page: this.perPage,
-	        page: this.page,
+	        page: 2,
 	        orderby: 'menu_order',
-	        order: 'asc'
+	        order: 'asc',
+	        s: this.searchTerm
 	      },
 
 	      /**
@@ -1025,7 +1029,7 @@
 	       */
 	      endpoints: {
 	        terms: '/wp-json/api/v1/terms/?post_type[]=jobs&cache=0',
-	        search: '/wp-json/wp/v2/search'
+	        search: '/wp-json/api/v1/searchRelevanssi'
 	      },
 
 	      /**
@@ -1039,15 +1043,14 @@
 	      maps: function() {
 	        return {
 	          /**
-	           * Data mapping function for results from the Jobs endpoint
+	           * Data mapping function for results from the Search endpoint
 	           *
-	           * @raw /wp-json/wp/v2/jobs
+	           * @raw /wp-json/api/v1/searchRelevanssi
 	           */
-	          jobs: jobs => ({
-	            id: jobs.id,
-	            title: jobs.title.rendered,
-	            link: jobs.link,
-	            context: jobs.context,
+	          search: result => ({
+	            id: result.id,
+	            title: result.title,
+	            link: result.url,
 	            raw: false
 	          }),
 
@@ -1157,11 +1160,18 @@
 	    // Add map of WP Query terms < to > Window history state
 	    this.$set(this.history, 'map', taxonomies);
 
-	    // Add custom taxonomy queries to the list of safe params
-	    this.params = [...this.params, ...Object.keys(taxonomies)];
+	    // Add custom taxonomy queries to the list of safe params, including the search param
+	    this.params = [...this.params, ...Object.keys(taxonomies), 's'];
+
+	    const initialState = this.getState(); // Get window.location.search (filter history)
+
+	    initialState.$set(initialState, 'query', {
+	      ...initialState.query,
+	      's': this.searchTerm
+	    });
 
 	    // Initialize the application
-	    this.getState()       // Get window.location.search (filter history)
+	    initialState       
 	      .queue()            // Initialize the first page request
 	      .fetch('terms')     // Get the terms from the 'terms' endpoint
 	      .catch(this.error); //
@@ -1172,7 +1182,7 @@
 	const __vue_script__$1 = SearchArchive;
 
 	/* template */
-	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{staticClass:"px-4 tablet:px-6"},[_c('span',[_vm._v(_vm._s(_vm.strings.HOME))])])};
+	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{staticClass:"px-4 tablet:px-6"},[_c('span',[_vm._v(_vm._s(_vm.strings.HOME))]),_vm._v(" "),_c('list',_vm._l((_vm.postsFlat),function(post){return _c('li',{key:post.id},[_vm._v(" "+_vm._s(post)+" ")])}),0)],1)};
 	var __vue_staticRenderFns__$1 = [];
 
 	  /* style */
@@ -1338,7 +1348,7 @@
 	 * Mount Components
 	 */
 
-	Vue.component('Search Result', __vue_component__);
+	Vue.component('Job', __vue_component__);
 
 	/**
 	 * Archive
@@ -1350,6 +1360,8 @@
 	  'content': document.querySelector('[data-js="content"]'),
 	  'suggest': document.querySelector('[data-js="suggest-a-program"]')
 	};
+
+	let params = new URLSearchParams(window.location.search);
 
 	new Vue({
 	  render: createElement => {
@@ -1375,7 +1387,8 @@
 	          SHOW_MORE: 'Show more',
 	          BACK_TO_TOP: 'Back to top',
 	          SUGGEST: (config.suggest) ? config.suggest.innerHTML : ''
-	        }
+	        },
+	        searchTerm: params.get('s'),
 	      }
 	    });
 	  }

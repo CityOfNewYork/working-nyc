@@ -27,13 +27,13 @@ import Vue from 'vue/dist/vue.runtime.min'; // production
  */
 
 import SearchArchive from '../../views/search/search-results-list.vue';
-import SearchResult from '../../views/search/search-result.vue';
+import Job from '../../views/jobs/job.vue';
 
 /**
  * Mount Components
  */
 
-Vue.component('Search Result', SearchResult);
+Vue.component('Job', Job);
 
 /**
  * Archive
@@ -45,6 +45,8 @@ let config = {
   'content': document.querySelector('[data-js="content"]'),
   'suggest': document.querySelector('[data-js="suggest-a-program"]')
 };
+
+let params = new URLSearchParams(window.location.search);
 
 new Vue({
   render: createElement => {
@@ -70,7 +72,8 @@ new Vue({
           SHOW_MORE: 'Show more',
           BACK_TO_TOP: 'Back to top',
           SUGGEST: (config.suggest) ? config.suggest.innerHTML : ''
-        }
+        },
+        searchTerm: params.get('s'),
       }
     });
   }

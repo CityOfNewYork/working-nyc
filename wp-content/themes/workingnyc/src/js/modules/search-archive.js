@@ -26,16 +26,19 @@ export default {
     },
     strings: {
       type: Object
-    }
+    },
+    searchTerm: {
+      type: String
+    },
   },
   data: function() {
     return {
       /**
-       * This is our custom post type to query
-       *
+       * In the parent Archive class, this represents a post type to query, but here it is
+       * the endpoint to use
        * @type {String}
        */
-      type: 'jobs',
+      type: 'search',
 
       /**
        * Setting this sets the initial app query
@@ -46,7 +49,8 @@ export default {
         per_page: this.perPage,
         page: this.page,
         orderby: 'menu_order',
-        order: 'asc'
+        order: 'asc',
+        s: this.searchTerm
       },
 
       /**
@@ -86,7 +90,7 @@ export default {
        */
       endpoints: {
         terms: '/wp-json/api/v1/terms/?post_type[]=jobs&cache=0',
-        search: '/wp-json/wp/v2/search'
+        search: '/wp-json/api/v1/searchRelevanssi'
       },
 
       /**
@@ -100,16 +104,15 @@ export default {
       maps: function() {
         return {
           /**
-           * Data mapping function for results from the Jobs endpoint
+           * Data mapping function for results from the Search endpoint
            *
-           * @raw /wp-json/wp/v2/jobs
+           * @raw /wp-json/api/v1/searchRelevanssi
            */
-          jobs: jobs => ({
-            id: jobs.id,
-            title: jobs.title.rendered,
-            link: jobs.link,
-            context: jobs.context,
-            raw: (process.env.NODE_ENV === 'development') ? { ...jobs } : false
+          search: result => ({
+            id: result.id,
+            title: result.title,
+            link: result.url,
+            raw: (process.env.NODE_ENV === 'development') ? { ...result } : false
           }),
 
           /**
@@ -218,11 +221,21 @@ export default {
     // Add map of WP Query terms < to > Window history state
     this.$set(this.history, 'map', taxonomies);
 
-    // Add custom taxonomy queries to the list of safe params
-    this.params = [...this.params, ...Object.keys(taxonomies)];
+    // Add custom taxonomy queries to the list of safe params, including the search param
+    this.params = [...this.params, ...Object.keys(taxonomies), 's'];
+
+    const initialState = this.getState(); // Get window.location.search (filter history)
+
+    // getState() sets all query parameters to be arrays; re-set the search term
+    // to be a string
+    // TODO there may be a cleaner implementation for this
+    initialState.$set(initialState, 'query', {
+      ...initialState.query,
+      's': this.searchTerm
+    });
 
     // Initialize the application
-    this.getState()       // Get window.location.search (filter history)
+    initialState       
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //
