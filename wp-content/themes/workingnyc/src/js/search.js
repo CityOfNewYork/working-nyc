@@ -46,8 +46,6 @@ let config = {
   'suggest': document.querySelector('[data-js="suggest-a-program"]')
 };
 
-let params = new URLSearchParams(window.location.search);
-
 new Vue({
   render: createElement => {
     return createElement(SearchArchive, {
@@ -73,7 +71,6 @@ new Vue({
           BACK_TO_TOP: 'Back to top',
           SUGGEST: (config.suggest) ? config.suggest.innerHTML : ''
         },
-        searchTerm: params.get('s'),
       }
     });
   }

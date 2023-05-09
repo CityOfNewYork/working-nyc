@@ -49,8 +49,7 @@ export default {
         per_page: this.perPage,
         page: this.page,
         orderby: 'menu_order',
-        order: 'asc',
-        s: this.searchTerm
+        order: 'asc'
       },
 
       /**
@@ -224,18 +223,16 @@ export default {
     // Add custom taxonomy queries to the list of safe params, including the search param
     this.params = [...this.params, ...Object.keys(taxonomies), 's'];
 
-    const initialState = this.getState(); // Get window.location.search (filter history)
-
-    // getState() sets all query parameters to be arrays; re-set the search term
-    // to be a string
+    // getState() sets all query parameters to be arrays; manually pass in the search term
+    // as a string
     // TODO there may be a cleaner implementation for this
-    initialState.$set(initialState, 'query', {
-      ...initialState.query,
-      's': this.searchTerm
-    });
+    const URLparams = new URLSearchParams(window.location.search);
 
-    // Initialize the application
-    initialState       
+    const query = {
+      's': URLparams.get('s')
+    };
+  
+    this.getState(query)   // Initialize the application
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //

@@ -986,10 +986,9 @@
 	       */
 	      query: {
 	        per_page: this.perPage,
-	        page: 2,
+	        page: this.page,
 	        orderby: 'menu_order',
-	        order: 'asc',
-	        s: this.searchTerm
+	        order: 'asc'
 	      },
 
 	      /**
@@ -1163,15 +1162,16 @@
 	    // Add custom taxonomy queries to the list of safe params, including the search param
 	    this.params = [...this.params, ...Object.keys(taxonomies), 's'];
 
-	    const initialState = this.getState(); // Get window.location.search (filter history)
+	    // getState() sets all query parameters to be arrays; manually pass in the search term
+	    // as a string
+	    // TODO there may be a cleaner implementation for this
+	    const URLparams = new URLSearchParams(window.location.search);
 
-	    initialState.$set(initialState, 'query', {
-	      ...initialState.query,
-	      's': this.searchTerm
-	    });
-
-	    // Initialize the application
-	    initialState       
+	    const query = {
+	      's': URLparams.get('s')
+	    };
+	  
+	    this.getState(query)   // Initialize the application
 	      .queue()            // Initialize the first page request
 	      .fetch('terms')     // Get the terms from the 'terms' endpoint
 	      .catch(this.error); //
@@ -1361,8 +1361,6 @@
 	  'suggest': document.querySelector('[data-js="suggest-a-program"]')
 	};
 
-	let params = new URLSearchParams(window.location.search);
-
 	new Vue({
 	  render: createElement => {
 	    return createElement(__vue_component__$1, {
@@ -1388,7 +1386,6 @@
 	          BACK_TO_TOP: 'Back to top',
 	          SUGGEST: (config.suggest) ? config.suggest.innerHTML : ''
 	        },
-	        searchTerm: params.get('s'),
 	      }
 	    });
 	  }
