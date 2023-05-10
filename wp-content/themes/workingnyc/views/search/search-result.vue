@@ -8,15 +8,15 @@
           </h3>
         </a>
 
-        <p class="c-card__subtitle text-alt">
+        <!-- <p class="c-card__subtitle text-alt">
           <b v-if="post.context.sector" v-html="post.context.sector"></b>
           <span v-if="post.context.sector && post.context.organization"> {{ strings.WITH }} </span>
           <span v-html="post.context.organization"></span>
-        </p>
+        </p> -->
       </span>
     </header>
 
-    <div class="c-card__body">
+    <!-- <div class="c-card__body">
       <div class="c-card__summary">
         <p v-html="post.context.summary"></p>
       </div>
@@ -70,7 +70,7 @@
 
         <pre tabindex="-1">{{ post.raw }}</pre>
       </details>
-    </div>
+    </div> -->
   </article>
 </template>
 

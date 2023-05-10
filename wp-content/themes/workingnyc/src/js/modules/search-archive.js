@@ -111,6 +111,7 @@ export default {
             id: result.id,
             title: result.title,
             link: result.url,
+            context: result.context,
             raw: (process.env.NODE_ENV === 'development') ? { ...result } : false
           }),
 

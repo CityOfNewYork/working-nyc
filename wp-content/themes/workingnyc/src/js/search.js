@@ -26,14 +26,14 @@ import Vue from 'vue/dist/vue.runtime.min'; // production
  * @extends   https://github.com/CityOfNewYork/nyco-wp-archive-vue
  */
 
-import SearchArchive from '../../views/search/search-results-list.vue';
-import Job from '../../views/jobs/job.vue';
+import SearchResultsList from '../../views/search/search-results-list.vue';
+import SearchResult from '../../views/search/search-result.vue';
 
 /**
  * Mount Components
  */
 
-Vue.component('Job', Job);
+Vue.component('SearchResult', SearchResult);
 
 /**
  * Archive
@@ -48,7 +48,7 @@ let config = {
 
 new Vue({
   render: createElement => {
-    return createElement(SearchArchive, {
+    return createElement(SearchResultsList, {
       props: {
         strings: {
           HOME: 'Home',
