@@ -9,60 +9,90 @@
  */
 
 /**
- * Prints out the post excerpt.
- *
- * Prints out the post excerpt from $post->post_excerpt, unless the post is
- * protected. Only works in the Loop.
- *
- * @global $post The global post object.
- */
-function relevanssi_the_excerpt() {
-	global $post;
-	if ( ! post_password_required( $post ) ) {
-		echo '<p>' . $post->post_excerpt . '</p>'; // WPCS: XSS ok.
-	} else {
-		echo esc_html__( 'There is no excerpt because this is a protected post.' );
-	}
-}
-
-/**
  * Generates an excerpt for a post.
  *
+ * Takes the excerpt length and type as parameters. These can be omitted, in
+ * which case the values are taken from the 'relevanssi_excerpt_length' and
+ * 'relevanssi_excerpt_type' options respectively.
+ *
  * @global $post The global post object.
  *
- * @param object $t_post The post object.
- * @param string $query  The search query.
+ * @param object $t_post         The post object.
+ * @param string $query          The search query.
+ * @param int    $excerpt_length The length of the excerpt, default null.
+ * @param string $excerpt_type   Either 'chars' or 'words', default null.
  *
  * @return string The created excerpt.
  */
-function relevanssi_do_excerpt( $t_post, $query ) {
+function relevanssi_do_excerpt( $t_post, $query, $excerpt_length = null, $excerpt_type = null ) {
 	global $post;
+
+	if ( ! $excerpt_length ) {
+		$excerpt_length = get_option( 'relevanssi_excerpt_length' );
+	}
+	if ( ! $excerpt_type ) {
+		$excerpt_type = get_option( 'relevanssi_excerpt_type' );
+	}
 
 	// Back up the global post object, and replace it with the post we're working on.
 	$old_global_post = null;
 	if ( null !== $post ) {
 		$old_global_post = $post;
 	}
-	$post = $t_post; // WPCS: override ok, must do because shortcodes etc. expect it.
+	/**
+	 * Allows filtering the indexed post before building an excerpt from it.
+	 *
+	 * @param object $post The post object.
+	 */
+	$post = apply_filters( 'relevanssi_post_to_excerpt', $t_post ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
-	$remove_stopwords = true;
+	$remove_stopwords = 'body';
 
 	/**
 	 * Filters the search query before excerpt-building.
 	 *
 	 * Allows filtering the search query before generating an excerpt. This can
-	 * useful if you modifications to the search query, and it may help when working
-	 * with stemming.
+	 * useful if you make modifications to the search query, and it may also
+	 * help when working with stemming.
 	 *
 	 * @param string $query The search query.
 	 */
 	$query = apply_filters( 'relevanssi_excerpt_query', $query );
 
-	// Minimum word length is -1, we don't care about it right now.
-	$terms = relevanssi_tokenize( $query, $remove_stopwords, -1 );
+	$min_word_length = 2;
+	/**
+	 * Allows creating one-letter highlights.
+	 *
+	 * @param boolean Set to true to enable one-letter highlights.
+	 */
+	if ( apply_filters( 'relevanssi_allow_one_letter_highlights', false ) ) {
+		$min_word_length = 1;
+	}
+
+	$terms = relevanssi_tokenize( $query, $remove_stopwords, $min_word_length, 'search_query' );
+
+	if ( is_array( $query ) ) {
+		$untokenized_terms = array_filter( $query );
+	} else {
+		$untokenized_terms = array_filter( explode( ' ', $query ) );
+	}
+	$untokenized_terms = array_map(
+		function( $term ) {
+			if ( is_numeric( $term ) ) {
+				$term = " $term";
+			}
+			return $term;
+		},
+		$untokenized_terms
+	);
+
+	$untokenized_terms = array_flip(
+		relevanssi_remove_stopwords_from_array( $untokenized_terms )
+	);
+	$terms             = array_merge( $untokenized_terms, $terms );
 
 	// These shortcodes cause problems with Relevanssi excerpts.
-	$problem_shortcodes = array( 'layerslider', 'responsive-flipbook', 'breadcrumb', 'robogallery', 'gravityview' );
+	$problem_shortcodes = array( 'layerslider', 'responsive-flipbook', 'breadcrumb', 'robogallery', 'gravityview', 'wp_show_posts' );
 	/**
 	 * Filters the excerpt-building problem shortcodes.
 	 *
@@ -73,9 +103,7 @@ function relevanssi_do_excerpt( $t_post, $query ) {
 	 * @param array $problem_shortcodes Array of problematic shortcode names.
 	 */
 	$problem_shortcodes = apply_filters( 'relevanssi_disable_shortcodes_excerpt', $problem_shortcodes );
-	foreach ( $problem_shortcodes as $shortcode ) {
-		remove_shortcode( $shortcode );
-	}
+	array_walk( $problem_shortcodes, 'remove_shortcode' );
 
 	/**
 	 * Filters the post content before 'the_content'.
@@ -89,20 +117,30 @@ function relevanssi_do_excerpt( $t_post, $query ) {
 	 */
 	$content = apply_filters( 'relevanssi_pre_excerpt_content', $post->post_content, $post, $query );
 
+	$pattern = get_shortcode_regex( $problem_shortcodes );
+	$content = preg_replace_callback( "/$pattern/", 'strip_shortcode_tag', $content );
+
 	// Add the custom field content.
 	if ( 'on' === get_option( 'relevanssi_excerpt_custom_fields' ) ) {
-		$content .= relevanssi_get_custom_field_content( $post->ID );
+		if ( 'user' === $post->post_type && function_exists( 'relevanssi_get_user_custom_field_content' ) ) {
+			$content .= relevanssi_get_user_custom_field_content( $post->ID );
+		} else {
+			$content .= relevanssi_get_custom_field_content( $post->ID );
+		}
 	}
 
-	// Autoembed discovery can really slow down excerpt-building.
-	relevanssi_kill_autoembed();
-
-	// This will print out the attachment file name in front of the excerpt, and we
-	// don't want that.
-	remove_filter( 'the_content', 'prepend_attachment' );
+	/**
+	 * Runs before Relevanssi excerpt building applies `the_content`.
+	 */
+	do_action( 'relevanssi_pre_the_content' );
 
 	/** This filter is documented in wp-includes/post-template.php */
 	$content = apply_filters( 'the_content', $content );
+
+	/**
+	 * Runs after Relevanssi excerpt building applies `the_content`.
+	 */
+	do_action( 'relevanssi_post_the_content' );
 
 	/**
 	 * Filters the post content after 'the_content'.
@@ -115,73 +153,92 @@ function relevanssi_do_excerpt( $t_post, $query ) {
 	 * @param string $query   The search query.
 	 */
 	$content = apply_filters( 'relevanssi_excerpt_content', $content, $post, $query );
-
-	// Removes <script>, <embed> &c with content.
-	$content = relevanssi_strip_invisibles( $content );
-
-	// Add spaces between tags to avoid getting words stuck together.
-	$content = preg_replace( '/(<\/[^>]+?>)(<[^>\/][^>]*?>)/', '$1 $2', $content );
-
-	// This removes the tags, but leaves the content.
-	$content = strip_tags( $content, get_option( 'relevanssi_excerpt_allowable_tags', '' ) );
+	$content = relevanssi_strip_tags( $content );
 
 	// Replace linefeeds and carriage returns with spaces.
 	$content = preg_replace( "/\n\r|\r\n|\n|\r/", ' ', $content );
+
+	// Replace spaces inside HTML tags to avoid splitting tags when doing
+	// word-based excerpts.
+	$content = preg_replace_callback(
+		'~<([!a-zA-Z\/][^>].*?)>~s',
+		function( $match ) {
+			return '<' . str_replace( ' ', '*VÄLILYÖNTI*', $match[1] ) . '>';
+		},
+		$content
+	);
 
 	if ( 'OR' === get_option( 'relevanssi_implicit_operator' ) || 'on' === get_option( 'relevanssi_index_synonyms' ) ) {
 		$query = relevanssi_add_synonyms( $query );
 	}
 
 	// Find the appropriate spot from the post.
-	$excerpt_data = relevanssi_create_excerpt( $content, $terms, $query );
+	$excerpts = relevanssi_create_excerpts( $content, $terms, $query, $excerpt_length, $excerpt_type );
+	if ( function_exists( 'relevanssi_add_source_to_excerpts' ) ) {
+		relevanssi_add_source_to_excerpts( $excerpts, 'content' );
+	}
 
+	$comment_excerpts = array();
 	if ( 'none' !== get_option( 'relevanssi_index_comments' ) ) {
-		// Use comment content as source material for excerpts.
-		$comment_content = relevanssi_get_comments( $post->ID );
-		$comment_content = preg_replace( '/(<\/[^>]+?>)(<[^>\/][^>]*?>)/', '$1 $2', $comment_content );
-		$comment_content = strip_tags( $comment_content, get_option( 'relevanssi_excerpt_allowable_tags', '' ) );
+		$comment_content = relevanssi_strip_tags( relevanssi_get_comments( $post->ID ) );
 		if ( ! empty( $comment_content ) ) {
-			$comment_excerpts = relevanssi_create_excerpt( $comment_content, $terms, $query );
-			if ( $comment_excerpts[1] > $excerpt_data[1] ) {
-				// The excerpt created from comments is better than the one created from post data.
-				$excerpt_data = $comment_excerpts;
+			$comment_excerpts = relevanssi_create_excerpts(
+				$comment_content,
+				$terms,
+				$query,
+				$excerpt_length,
+				$excerpt_type
+			);
+			if ( function_exists( 'relevanssi_add_source_to_excerpts' ) ) {
+				relevanssi_add_source_to_excerpts( $comment_excerpts, 'comments' );
+				$comment_excerpts = array_filter(
+					$comment_excerpts,
+					function( $excerpt ) {
+						return $excerpt['hits'];
+					}
+				);
+			} elseif ( is_array( $comment_excerpts ) ) {
+				if ( $comment_excerpts[0]['hits'] > $excerpts[0]['hits'] ) {
+					$excerpts = $comment_excerpts;
+				}
 			}
 		}
 	}
 
+	$excerpt_excerpts = array();
 	if ( 'off' !== get_option( 'relevanssi_index_excerpt' ) ) {
-		$excerpt_content = $post->post_excerpt;
-		$excerpt_content = strip_tags( $excerpt_content, get_option( 'relevanssi_excerpt_allowable_tags', '' ) );
-
+		$excerpt_content = relevanssi_strip_tags( $post->post_excerpt );
 		if ( ! empty( $excerpt_content ) ) {
-			$excerpt_excerpts = relevanssi_create_excerpt( $excerpt_content, $terms, $query );
-			if ( $excerpt_excerpts[1] > $excerpt_data[1] ) {
-				// The excerpt created from post excerpt is the best we found so far.
-				$excerpt_data = $excerpt_excerpts;
+			$excerpt_excerpts = relevanssi_create_excerpts(
+				$excerpt_content,
+				$terms,
+				$query,
+				$excerpt_length,
+				$excerpt_type
+			);
+			if ( function_exists( 'relevanssi_add_source_to_excerpts' ) ) {
+				relevanssi_add_source_to_excerpts( $excerpt_excerpts, 'excerpt' );
+				$excerpt_excerpts = array_filter(
+					$excerpt_excerpts,
+					function( $excerpt ) {
+						return $excerpt['hits'];
+					}
+				);
+			} elseif ( is_array( $excerpt_excerpts ) ) {
+				if ( $excerpt_excerpts[0]['hits'] > $excerpts[0]['hits'] ) {
+					$excerpts = $excerpt_excerpts;
+				}
 			}
 		}
 	}
 
-	$excerpt = $excerpt_data[0];
-	$excerpt = trim( $excerpt );
-	/**
-	 * Filters the excerpt.
-	 *
-	 * Filters the post excerpt generated by Relevanssi before the highlighting is
-	 * applied.
-	 *
-	 * @param string $excerpt The excerpt.
-	 */
-	$excerpt = apply_filters( 'relevanssi_excerpt', $excerpt );
-
-	$whole_post_excerpted = false;
-	if ( $excerpt === $post->post_content ) {
-		$whole_post_excerpted = true;
-	}
-
-	if ( empty( $excerpt ) && ! empty( $post->post_excerpt ) ) {
-		$excerpt = $post->post_excerpt;
-		$excerpt = strip_tags( $excerpt, get_option( 'relevanssi_excerpt_allowable_tags', '' ) );
+	if ( function_exists( 'relevanssi_combine_excerpts' ) ) {
+		$excerpts = relevanssi_combine_excerpts(
+			$post->ID,
+			$excerpts,
+			$comment_excerpts,
+			$excerpt_excerpts
+		);
 	}
 
 	/**
@@ -189,58 +246,145 @@ function relevanssi_do_excerpt( $t_post, $query ) {
 	 *
 	 * @param string $ellipsis Default '...'.
 	*/
-	$ellipsis = apply_filters( 'relevanssi_ellipsis', '...' );
-
+	$ellipsis  = apply_filters( 'relevanssi_ellipsis', '...' );
 	$highlight = get_option( 'relevanssi_highlight' );
-	if ( 'none' !== $highlight ) {
-		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-			$excerpt = relevanssi_highlight_terms( $excerpt, $query );
-		}
-	}
 
-	$excerpt = relevanssi_close_tags( $excerpt );
+	$excerpt_text = '';
 
-	$excerpt_is_from_beginning_of_the_post = $excerpt_data[2];
-	if ( ! $whole_post_excerpted ) {
-		if ( ! $excerpt_is_from_beginning_of_the_post && ! empty( $excerpt ) ) {
-			$excerpt = $ellipsis . $excerpt;
+	foreach ( $excerpts as $excerpt ) {
+		$whole_post_excerpted = false;
+		if ( $excerpt['text'] === $post->post_content ) {
+			$whole_post_excerpted = true;
 		}
 
-		if ( ! empty( $excerpt ) ) {
-			$excerpt = $excerpt . $ellipsis;
+		/**
+		 * Filters excerpt text.
+		 *
+		 * Filters the individual excerpt part text (full excerpt in the free
+		 * version) before highlighting and ellipsis addition.
+		 *
+		 * @param string The excerpt text.
+		 * @param int    The post ID.
+		 *
+		 * @return string
+		 */
+		$excerpt['text'] = apply_filters( 'relevanssi_excerpt', $excerpt['text'], $post->ID );
+
+		if ( 'none' !== $highlight ) {
+			if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+				$excerpt['text'] = relevanssi_highlight_terms( $excerpt['text'], $query );
+			}
 		}
+
+		if ( ! empty( $excerpt['text'] ) ) {
+			$excerpt['text'] = relevanssi_close_tags( $excerpt['text'] );
+		}
+
+		if ( ! $whole_post_excerpted ) {
+			if ( ! $excerpt['start'] && ! empty( $excerpt['text'] ) ) {
+				$excerpt['text'] = $ellipsis . $excerpt['text'];
+			}
+
+			if ( ! empty( $excerpt['text'] ) ) {
+				$excerpt['text'] = $excerpt['text'] . $ellipsis;
+			}
+		}
+
+		/**
+		 * Filters individual excerpt parts.
+		 *
+		 * Filters the individual excerpt parts (full excerpt in the free
+		 * version) after highlighting, ellipsis and the wrapping span tag have
+		 * been added.
+		 *
+		 * @param string The excerpt text.
+		 * @param array  The excerpt array (keys 'text', 'start', 'source',
+		 * 'hits').
+		 * @param int    The post ID.
+		 *
+		 * @return string
+		 */
+		$excerpt_text .= apply_filters(
+			'relevanssi_excerpt_part',
+			'<span class="excerpt_part">' . $excerpt['text'] . '</span>',
+			$excerpt,
+			$post->ID
+		);
 	}
 
 	if ( null !== $old_global_post ) {
-		$post = $old_global_post; // WPCS: override ok, returning the overridden value.
+		$post = $old_global_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 
+	return $excerpt_text;
+}
+
+/**
+ * Creates an excerpt from content.
+ *
+ * This is provided for backwards compatibility. The new version of the function
+ * supports the Premium capability to return multiple excerpts. Since that
+ * changes the return value of the function, this function is provided to
+ * return the original return value.
+ *
+ * @uses relevanssi_create_excerpts()
+ *
+ * @param string $content        The content.
+ * @param array  $terms          The search terms, tokenized.
+ * @param string $query          The search query.
+ * @param int    $excerpt_length The length of the excerpt, default 30.
+ * @param string $excerpt_type   Either 'chars' or 'words', default 'words'.
+ *
+ * @return array Element 0 is the excerpt, element 1 the number of term hits,
+ * element 2 is true, if the excerpt is from the start of the content.
+ */
+function relevanssi_create_excerpt( $content, $terms, $query, $excerpt_length = 30, $excerpt_type = 'words' ) {
+	$excerpts = relevanssi_create_excerpts( $content, $terms, $query, $excerpt_length, $excerpt_type );
+	usort(
+		$excerpts,
+		function( $a, $b ) {
+			return $b['hits'] - $a['hits'];
+		}
+	);
+
+	$excerpt = array(
+		0 => $excerpts[0]['text'],
+		1 => $excerpts[0]['hits'],
+		2 => $excerpts[0]['start'],
+	);
 	return $excerpt;
 }
 
 /**
  * Creates an excerpt from content.
  *
- * @param string $content The content.
- * @param array  $terms   The search terms, tokenized.
- * @param string $query   The search query.
+ * Relevanssi Premium has the capability to generate multiple excerpts from one
+ * post. While the free version only generates one excerpt per post, this
+ * function supports the multiple excerpt behaviour by returning an array of
+ * excerpts, even though just one excerpt is returned.
  *
- * @return array Element 0 is the excerpt, element 1 the number of term hits, element 2 is
- * true, if the excerpt is from the start of the content.
+ * @see relevanssi_create_excerpt()
+ *
+ * @param string $content        The content.
+ * @param array  $terms          The search terms, tokenized.
+ * @param string $query          The search query.
+ * @param int    $excerpt_length The length of the excerpt, default 30.
+ * @param string $excerpt_type   Either 'chars' or 'words', default 'words'.
+ *
+ * @return array An array of excerpts. In each excerpt, there are following
+ * parts: 'text' has the excerpt text, 'hits' the number of keyword matches in
+ * the excerpt, 'start' is true if the excerpt is from the beginning of the
+ * content.
  */
-function relevanssi_create_excerpt( $content, $terms, $query ) {
-	// If you need to modify these on the go, use 'pre_option_relevanssi_excerpt_length'
-	// and 'pre_option_relevanssi_excerpt_type' filters.
-	$excerpt_length = get_option( 'relevanssi_excerpt_length' );
-	$type           = get_option( 'relevanssi_excerpt_type' );
-
-	$best_excerpt_term_hits = -1;
-
-	$excerpt = '';
-	$content = ' ' . preg_replace( '/\s+/u', ' ', $content );
-
+function relevanssi_create_excerpts( $content, $terms, $query, $excerpt_length = 30, $excerpt_type = 'words' ) {
+	$content = preg_replace( '/\s+/u', ' ', $content );
+	if ( ' ' !== relevanssi_substr( $content, 0, 1 ) ) {
+		$content = ' ' . $content;
+	}
+	$content = html_entity_decode( $content );
 	// Finds all the phrases in the query.
 	$phrases = relevanssi_extract_phrases( stripslashes( $query ) );
+	$terms   = relevanssi_remove_quotes_from_array_keys( $terms );
 
 	/**
 	 * This process generates an array of terms, which has single terms and all the
@@ -249,7 +393,7 @@ function relevanssi_create_excerpt( $content, $terms, $query ) {
 	$remove_stopwords = false;
 	$non_phrase_terms = array();
 	foreach ( $phrases as $phrase ) {
-		$phrase_terms = array_keys( relevanssi_tokenize( $phrase, $remove_stopwords ) );
+		$phrase_terms = array_keys( relevanssi_tokenize( $phrase, $remove_stopwords, -1, 'search_query' ) );
 		foreach ( array_keys( $terms ) as $term ) { // array_keys(), because tokenized terms have the term as key.
 			if ( ! in_array( $term, $phrase_terms, true ) ) {
 				$non_phrase_terms[ $term ] = true;
@@ -263,91 +407,72 @@ function relevanssi_create_excerpt( $content, $terms, $query ) {
 	// Sort the longest search terms first, because those are generally more significant.
 	uksort( $terms, 'relevanssi_strlen_sort' );
 
-	$start = false;
-	if ( 'chars' === $type ) {
-		/**
-		 * Character-based excerpts use the relevanssi_extract_relevant() to figure out
-		 * the best part of the post to use.
-		 */
-		$prev_count = floor( $excerpt_length / 2 );
+	$excerpts = array();
+	$start    = false;
+	if ( 'chars' === $excerpt_type ) {
+		$prev_count = floor( $excerpt_length / 6 );
 
-		list( $excerpt, $best_excerpt_term_hits, $start ) = relevanssi_extract_relevant( array_keys( $terms ), $content, $excerpt_length, $prev_count );
+		list( $excerpt_text, $best_excerpt_term_hits, $start ) =
+		relevanssi_extract_relevant(
+			array_keys( $terms ),
+			$content,
+			$excerpt_length + 1, // There's one space in the beginning of the content.
+			$prev_count
+		);
+		$excerpt    = array(
+			'text'  => $excerpt_text,
+			'hits'  => $best_excerpt_term_hits,
+			'start' => $start,
+		);
+		$excerpts[] = $excerpt;
 	} else {
-		/**
-		 * Word-based excerpts split the content in an array of individual words and
-		 * takes slices.
-		 */
-		$words       = array_filter( explode( ' ', $content ) );
-		$i           = 0;
-		$tries       = 0;
-		$count_words = count( $words );
-		while ( $i < $count_words ) {
-			if ( $i + $excerpt_length > $count_words ) {
-				$i = $count_words - $excerpt_length;
-				if ( $i < 0 ) {
-					$i = 0;
-				}
-			}
-
-			$excerpt_slice = array_slice( $words, $i, $excerpt_length );
-			$excerpt_slice = ' ' . implode( ' ', $excerpt_slice );
-
-			$term_hits     = 0;
-			$count_matches = relevanssi_count_matches( array_keys( $terms ), $excerpt_slice );
-			if ( $count_matches > 0 ) {
-				$tries++;
-			}
-			if ( $count_matches > 0 && $count_matches > $best_excerpt_term_hits ) {
-				$best_excerpt_term_hits = $count_matches;
-				$excerpt                = $excerpt_slice;
-			}
-
-			/**
-			 * Enables the excerpt optimization.
-			 *
-			 * If your posts are very long, building excerpts can be really slow.
-			 * To speed up the process, you can enable optimization, which means
-			 * Relevanssi only creates 50 excerpt candidates.
-			 *
-			 * @param boolean Return true to enable optimization, default false.
-			 */
-			if ( apply_filters( 'relevanssi_optimize_excerpts', false ) ) {
-				if ( $tries > 50 ) {
-					// An optimization trick: try only 50 times.
-					break;
-				}
-			}
-
-			$i += $excerpt_length;
-		}
-
-		if ( '' === $excerpt ) {
-			// Nothing found, take the beginning of the post.
-			$excerpt = explode( ' ', $content, $excerpt_length );
-			array_pop( $excerpt );
-			$excerpt = implode( ' ', $excerpt );
-			$start   = true;
+		if ( function_exists( 'relevanssi_extract_multiple_excerpts' ) && get_option( 'relevanssi_max_excerpts', 1 ) > 1 ) {
+			$excerpts = relevanssi_extract_multiple_excerpts(
+				array_keys( $terms ),
+				$content,
+				$excerpt_length
+			);
+		} else {
+			list( $excerpt_text, $best_excerpt_term_hits, $start ) =
+			relevanssi_extract_relevant_words(
+				array_keys( $terms ),
+				$content,
+				$excerpt_length
+			);
+			$excerpt    = array(
+				'text'  => $excerpt_text,
+				'hits'  => $best_excerpt_term_hits,
+				'start' => $start,
+			);
+			$excerpts[] = $excerpt;
 		}
 	}
 
-	return array( $excerpt, $best_excerpt_term_hits, $start );
+	array_walk(
+		$excerpts,
+		function( &$excerpt ) {
+			$excerpt['text'] = str_replace( '*VÄLILYÖNTI*', ' ', $excerpt['text'] );
+		}
+	);
+	return $excerpts;
 }
 
 /**
  * Manages the highlighting in documents.
  *
- * Uses relevanssi_highlight_terms() and relevanssi_nonlocal_highlighting() to do
- * the highlighting. Attached to 'the_content' and 'comment_text' filter hooks.
+ * Uses relevanssi_highlight_terms() to do the highlighting. Attached to
+ * 'the_content' and 'comment_text' filter hooks.
  *
- * @global object $wp_query The global WP_Query object.
+ * @global object  $wp_query               The global WP_Query object.
+ * @global boolean $relevanssi_test_enable If true, this is a test.
  *
  * @param string $content The content to highlight.
  *
  * @return string The content with highlights.
  */
 function relevanssi_highlight_in_docs( $content ) {
-	global $wp_query;
-	if ( is_singular() && is_main_query() ) {
+	global $wp_query, $relevanssi_test_enable;
+	if ( ( is_singular() && is_main_query() ) || $relevanssi_test_enable ) {
 		if ( isset( $wp_query->query_vars['highlight'] ) ) {
 			// Local search.
 			$query   = relevanssi_add_synonyms( $wp_query->query_vars['highlight'] );
@@ -359,10 +484,6 @@ function relevanssi_highlight_in_docs( $content ) {
 				$content = $highlighted_content;
 			}
 		}
-
-		if ( function_exists( 'relevanssi_nonlocal_highlighting' ) ) {
-			$content = relevanssi_nonlocal_highlighting( $content );
-		}
 	}
 
 	return $content;
@@ -371,17 +492,19 @@ function relevanssi_highlight_in_docs( $content ) {
 /**
  * Adds highlighting to content.
  *
- * Adds highlighting to content based on Relevanssi highlighting settings (if you
- * want to override the settings, 'pre_option_relevanssi_highlight' filter hook
- * is your friend).
+ * Adds highlighting to content based on Relevanssi highlighting settings (if
+ * you want to override the settings, 'pre_option_relevanssi_highlight' filter
+ * hook is your friend).
  *
- * @param string  $content The content to highlight.
- * @param string  $query   The search query.
- * @param boolean $in_docs Are we highlighting post content? Default false.
+ * @param string       $content          The content to highlight.
+ * @param string|array $query            The search query (should be a string,
+ * can also be an array of string).
+ * @param boolean      $convert_entities Are we highlighting post content?
+ * Default false.
  *
  * @return string The $content with highlighting.
  */
-function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
+function relevanssi_highlight_terms( $content, $query, $convert_entities = false ) {
 	$type = get_option( 'relevanssi_highlight' );
 	if ( 'none' === $type ) {
 		return $content;
@@ -436,7 +559,7 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 			return $content;
 	}
 
-	$start_emp_token = '**{}[';
+	$start_emp_token = '**{[';
 	$end_emp_token   = ']}**';
 
 	if ( function_exists( 'mb_internal_encoding' ) ) {
@@ -447,6 +570,17 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 	 * Runs before tokenizing the terms in highlighting.
 	 */
 	do_action( 'relevanssi_highlight_tokenize' );
+
+	/**
+	 * Filters the query during highlighting before tokenizing it.
+	 *
+	 * This filter hook allows you to modify the search query when it is used
+	 * in highlighting. You could, for example, remove unwanted words from the
+	 * search term or to force phrase highlighting for non-phrase searches.
+	 *
+	 * @param string $query The search query.
+	 */
+	$query = apply_filters( 'relevanssi_highlight_query', $query );
 
 	// Setting min_word_length to 2, in order to avoid 1-letter highlights.
 	$min_word_length = 2;
@@ -459,8 +593,39 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 		$min_word_length = 1;
 	}
 
-	$remove_stopwords = true;
-	$terms            = array_keys( relevanssi_tokenize( $query, $remove_stopwords, $min_word_length ) );
+	$remove_stopwords = 'body';
+	$terms            = array_keys(
+		relevanssi_tokenize(
+			$query,
+			$remove_stopwords,
+			$min_word_length,
+			'search_query'
+		)
+	);
+
+	if ( ! is_array( $query ) ) {
+		$query = explode( ' ', relevanssi_strtolower( $query ) );
+	}
+
+	$body_stopwords = function_exists( 'relevanssi_fetch_body_stopwords' )
+		? relevanssi_fetch_body_stopwords()
+		: array();
+
+	$untokenized_terms = array_filter(
+		$query,
+		function( $value ) use ( $min_word_length, $body_stopwords ) {
+			if ( in_array( $value, $body_stopwords, true ) ) {
+				return false;
+			}
+			if ( relevanssi_strlen( $value ) > $min_word_length ) {
+				return true;
+			}
+			return false;
+		}
+	);
+
+	$terms = array_unique( array_merge( $untokenized_terms, $terms ) );
+	array_walk( $terms, 'relevanssi_array_walk_trim' ); // Numeric search terms begin with a space.
 
 	if ( is_array( $query ) ) {
 		$query = implode( ' ', $query );
@@ -470,7 +635,7 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 	$remove_stopwords = false;
 	$non_phrase_terms = array();
 	foreach ( $phrases as $phrase ) {
-		$phrase_terms = array_keys( relevanssi_tokenize( $phrase, $remove_stopwords ) );
+		$phrase_terms = array_keys( relevanssi_tokenize( $phrase, $remove_stopwords, -1, 'search_query' ) );
 		foreach ( $terms as $term ) {
 			if ( ! in_array( $term, $phrase_terms, true ) ) {
 				$non_phrase_terms[] = $term;
@@ -482,39 +647,79 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 
 	usort( $terms, 'relevanssi_strlen_sort' );
 
-	$word_boundaries = false;
-	if ( 'on' === get_option( 'relevanssi_word_boundaries', 'on' ) ) {
-		$word_boundaries = true;
+	$content = strtr( $content, array( "\xC2\xAD" => '' ) );
+	$content = relevanssi_entity_decode( $content, ENT_QUOTES, 'UTF-8' );
+
+	if ( ! $convert_entities ) {
+		$content = str_replace( "\n", ' ', $content );
 	}
 
 	foreach ( $terms as $term ) {
 		$pr_term = preg_quote( $term, '/' );
 		$pr_term = relevanssi_add_accent_variations( $pr_term );
 
-		$undecoded_content = $content;
-		$content           = html_entity_decode( $content, ENT_QUOTES, 'UTF-8' );
+		// Support for wildcard matching (a Premium feature).
+		$pr_term = str_replace(
+			array( '\*', '\?' ),
+			array( '\S*', '.' ),
+			$pr_term
+		);
 
-		if ( $word_boundaries ) {
-			$regex = "/(\b$pr_term\b)/iu";
-			if ( 'none' !== get_option( 'relevanssi_fuzzy' ) ) {
-				$regex = "/(\b$pr_term|$pr_term\b)/iu";
-			}
+		$regex       = "/([\W])($pr_term)([\W])/iu";
+		$three_parts = true;
 
-			$content = preg_replace( $regex, $start_emp_token . '\\1' . $end_emp_token, $content );
-			if ( empty( $content ) ) {
-				$content = preg_replace( $regex, $start_emp_token . '\\1' . $end_emp_token, $undecoded_content );
-			}
-		} else {
-			$content = preg_replace( "/($pr_term)/iu", $start_emp_token . '\\1' . $end_emp_token, $content );
-			if ( empty( $content ) ) {
-				$content = preg_replace( "/($pr_term)/iu", $start_emp_token . '\\1' . $end_emp_token, $undecoded_content );
-			}
+		if ( 'never' !== get_option( 'relevanssi_fuzzy' ) ) {
+			$regex       = "/([\W]{$pr_term}|{$pr_term}[\W])/iu";
+			$three_parts = false;
 		}
 
-		$preg_start = preg_quote( $start_emp_token );
-		$preg_end   = preg_quote( $end_emp_token );
+		if ( 'on' === get_option( 'relevanssi_expand_highlights' ) ) {
+			$regex       = "/([\w]*{$pr_term}[\W]|[\W]{$pr_term}[\w]*)/iu";
+			$three_parts = false;
+		}
 
-		if ( preg_match_all( '/<.*>/U', $content, $matches ) > 0 ) {
+		if ( $three_parts ) {
+			$replace = '\\1' . $start_emp_token . '\\2' . $end_emp_token . '\\3';
+		} else {
+			$replace = $start_emp_token . '\\1' . $end_emp_token;
+		}
+
+		// Add an extra space so that the regex that looks for a non-word
+		// character after the search term will find one, even if the word is
+		// at the end of the content (especially in titles).
+		$content .= ' ';
+
+		$content = trim(
+			preg_replace(
+				$regex,
+				$replace,
+				' ' . $content
+			)
+		);
+		/**
+		 * The method here leaves extra spaces or HTML tag closing brackets
+		 * inside the highlighting. That is cleaned away here.
+		 */
+		$replace_regex = '/(.)(' . preg_quote( $start_emp_token, '/' ) . ')(>|\s)/iu';
+		$content       = preg_replace( $replace_regex, '\1\3\2', $content );
+
+		$replace_regex = '/^(' . preg_quote( $start_emp_token, '/' ) . ')\s/iu';
+		$content       = preg_replace( $replace_regex, '\1', $content );
+
+		$replace_regex = '/(\s)(' . preg_quote( $end_emp_token, '/' ) . ')(.)/iu';
+		$content       = preg_replace( $replace_regex, '\2\1\3', $content );
+
+		$replace_regex = '/\s(' . preg_quote( $end_emp_token, '/' ) . ')/iu';
+		$content       = preg_replace( $replace_regex, '\1', $content );
+
+		// The starting tokens can get interlaced this way, let's unknot them.
+		$content = str_replace(
+			substr( $start_emp_token, 0, -1 ) . $start_emp_token . substr( $start_emp_token, -1, 1 ),
+			$start_emp_token . $start_emp_token,
+			$content
+		);
+
+		if ( preg_match_all( '/<.*>/Usm', $content, $matches ) > 0 ) {
 			// Remove highlights from inside HTML tags.
 			foreach ( $matches as $match ) {
 				$new_match = str_replace( $start_emp_token, '', $match );
@@ -523,7 +728,14 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 			}
 		}
 
-		if ( preg_match_all( '/&.*;/U', $content, $matches ) > 0 ) {
+		$start_quoted = preg_quote( $start_emp_token, '/' );
+		$end_quoted   = preg_quote( $end_emp_token, '/' );
+		if (
+			preg_match_all(
+				'/&' . $start_quoted . '([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6})' . $end_quoted . ';/U',
+				$content,
+				$matches
+			) > 0 ) {
 			// Remove highlights from inside HTML entities.
 			foreach ( $matches as $match ) {
 				$new_match = str_replace( $start_emp_token, '', $match );
@@ -532,8 +744,8 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 			}
 		}
 
-		if ( preg_match_all( '/<(style|script|object|embed)>.*<\/(style|script|object|embed)>/U', $content, $matches ) > 0 ) {
-			// Remove highlights in style, object, embed and script tags.
+		if ( preg_match_all( '/<(style|script|object|embed|pre|code).*<\/(style|script|object|embed|pre|code)>/Us', $content, $matches ) > 0 ) {
+			// Remove highlights in style, object, embed, script and pre tags.
 			foreach ( $matches as $match ) {
 				$new_match = str_replace( $start_emp_token, '', $match );
 				$new_match = str_replace( $end_emp_token, '', $new_match );
@@ -543,7 +755,29 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 	}
 
 	$content = relevanssi_remove_nested_highlights( $content, $start_emp_token, $end_emp_token );
-	$content = relevanssi_fix_entities( $content, $in_docs );
+	$content = relevanssi_fix_entities( $content, $convert_entities );
+
+	/**
+	 * Allows cleaning unwanted highlights.
+	 *
+	 * This filter lets you clean unwanted highlights, for example from within
+	 * <pre> tags. To remove a highlight, remove the matching starting and
+	 * ending tokens from the $content string.
+	 *
+	 * @param string $content         The highlighted content.
+	 * @param string $start_emp_token A token that signifies the start of a
+	 * highlight.
+	 * @param string $end_emp_token   A token that signifies the end of a
+	 * highlight.
+	 *
+	 * @return string The highlighted content.
+	 */
+	$content = apply_filters(
+		'relevanssi_clean_excerpt',
+		$content,
+		$start_emp_token,
+		$end_emp_token
+	);
 
 	$content = str_replace( $start_emp_token, $start_emp, $content );
 	$content = str_replace( $end_emp_token, $end_emp, $content );
@@ -559,18 +793,18 @@ function relevanssi_highlight_terms( $content, $query, $in_docs = false ) {
 /**
  * Fixes problems with entities.
  *
- * For excerpts, runs htmlentities() on the excerpt, then converts the allowed tags
- * back into tags.
+ * For excerpts, runs htmlentities() on the excerpt, then converts the allowed
+ * tags back into tags.
  *
  * @param string  $excerpt The excerpt to fix.
- * @param boolean $in_docs If true, we are manipulating post content, and need to
- * work in a different fashion.
+ * @param boolean $in_docs If true, we are manipulating post content, and need
+ * to work in a different fashion.
  *
  * @return string The $excerpt with entities fixed.
  */
 function relevanssi_fix_entities( $excerpt, $in_docs ) {
 	if ( ! $in_docs ) {
-		// For excerpts, use htmlentities().
+		// For excerpts, use htmlentities() to convert.
 		$excerpt = htmlentities( $excerpt, ENT_NOQUOTES, 'UTF-8' );
 
 		// Except for allowed tags, which are turned back into tags.
@@ -580,10 +814,24 @@ function relevanssi_fix_entities( $excerpt, $in_docs ) {
 
 		$closing_tags = relevanssi_generate_closing_tags( $tags );
 
-		$tags_entitied = htmlentities( implode( ' ', $tags ), ENT_NOQUOTES, 'UTF-8' );
+		$tags_entitied = htmlentities(
+			implode(
+				' ',
+				$tags
+			),
+			ENT_NOQUOTES,
+			'UTF-8'
+		);
 		$tags_entitied = explode( ' ', $tags_entitied );
 
-		$closing_tags_entitied = htmlentities( implode( ' ', $closing_tags ), ENT_NOQUOTES, 'UTF-8' );
+		$closing_tags_entitied = htmlentities(
+			implode(
+				' ',
+				$closing_tags
+			),
+			ENT_NOQUOTES,
+			'UTF-8'
+		);
 		$closing_tags_entitied = explode( ' ', $closing_tags_entitied );
 
 		$tags_entitied_regexped = array();
@@ -603,13 +851,16 @@ function relevanssi_fix_entities( $excerpt, $in_docs ) {
 
 		$closing_tags_entitied_regexped = array();
 		foreach ( $closing_tags_entitied as $tag ) {
-			$pattern = '~' . preg_quote( $tag ) . '~';
+			$pattern = '~' . preg_quote( $tag, '~' ) . '~';
 
 			$closing_tags_entitied_regexped[] = $pattern;
 		}
 
 		$tags          = array_merge( $tags, $closing_tags );
-		$tags_entitied = array_merge( $tags_entitied_regexped, $closing_tags_entitied_regexped );
+		$tags_entitied = array_merge(
+			$tags_entitied_regexped,
+			$closing_tags_entitied_regexped
+		);
 
 		$excerpt = preg_replace( $tags_entitied, $tags, $excerpt );
 
@@ -620,10 +871,28 @@ function relevanssi_fix_entities( $excerpt, $in_docs ) {
 		$excerpt = str_replace( '&#039;', "'", $excerpt );
 	} else {
 		// Running htmlentities() for whole posts tends to ruin things.
-		// However, we want to run htmlentities() for anything inside
+		// However, we may want to run htmlentities() for anything inside
 		// <pre> and <code> tags.
-		$excerpt = relevanssi_entities_inside( $excerpt, 'code' );
-		$excerpt = relevanssi_entities_inside( $excerpt, 'pre' );
+		/**
+		 * Choose whether htmlentities() is run inside <pre> tags or not. If
+		 * your pages have HTML code inside <pre> tags, set this to false.
+		 *
+		 * @param boolean If true, htmlentities() will be used inside <pre>
+		 * tags.
+		 */
+		if ( apply_filters( 'relevanssi_entities_inside_pre', true ) ) {
+			$excerpt = relevanssi_entities_inside( $excerpt, 'pre' );
+		}
+		/**
+		 * Choose whether htmlentities() is run inside <code> tags or not. If
+		 * your pages have HTML code inside <code> tags, set this to false.
+		 *
+		 * @param boolean If true, htmlentities() will be used inside <code>
+		 * tags.
+		 */
+		if ( apply_filters( 'relevanssi_entities_inside_code', true ) ) {
+			$excerpt = relevanssi_entities_inside( $excerpt, 'code' );
+		}
 	}
 	return $excerpt;
 }
@@ -634,22 +903,24 @@ function relevanssi_fix_entities( $excerpt, $in_docs ) {
  * @param string $content The content.
  * @param string $tag     The tag.
  *
- * @return string $content The content with HTML code inside the $tag tags
+ * @return string $content The content with HTML code inside the $tag tags
  * ran through htmlentities().
  */
 function relevanssi_entities_inside( $content, $tag ) {
-	$hits = preg_match_all( '/<' . $tag . '>(.*?)<\/' . $tag . '>/im', $content, $matches );
+	$hits = preg_match_all( '/<' . $tag . '.*?>(.*?)<\/' . $tag . '>/ims', $content, $matches );
 	if ( $hits > 0 ) {
 		$replacements = array();
 		foreach ( $matches[1] as $match ) {
 			if ( ! empty( $match ) ) {
-				$replacements[] = '<xxx' . $tag . '>' . htmlentities( $match, ENT_QUOTES, 'UTF-8' ) . '</xxx' . $tag . '>';
+				$replacements[] = '<xxx' . $tag . '\1>'
+					. htmlentities( $match, ENT_QUOTES, 'UTF-8' )
+					. '</xxx' . $tag . '>';
 			}
 		}
 		if ( ! empty( $replacements ) ) {
 			$count_replacements = count( $replacements );
 			for ( $i = 0; $i < $count_replacements; $i++ ) {
-				$patterns[] = '/<' . $tag . '>(.*?)<\/' . $tag . '>/im';
+				$patterns[] = '/<' . $tag . '(.*?)>(.*?)<\/' . $tag . '>/ims';
 			}
 			$content = preg_replace( $patterns, $replacements, $content, 1 );
 		}
@@ -659,29 +930,10 @@ function relevanssi_entities_inside( $content, $tag ) {
 }
 
 /**
- * Generates closing tags for an array of tags.
- *
- * @param array $tags Array of tag names.
- *
- * @return array $closing_tags Array of closing tags.
- */
-function relevanssi_generate_closing_tags( $tags ) {
-	$closing_tags = array();
-	foreach ( $tags as $tag ) {
-		$a = str_replace( '<', '</', $tag );
-		$b = str_replace( '>', '/>', $tag );
-
-		$closing_tags[] = $a;
-		$closing_tags[] = $b;
-	}
-	return $closing_tags;
-}
-
-/**
  * Removes nested highlights from a string.
  *
- * If there are highlights within highlights in a string, this function will clean
- * out the nested highlights, leaving just the outmost highlight tokens.
+ * If there are highlights within highlights in a string, this function will
+ * clean out the nested highlights, leaving just the outmost highlight tokens.
  *
  * @param string $string The content.
  * @param string $begin  The beginning highlight token.
@@ -690,46 +942,37 @@ function relevanssi_generate_closing_tags( $tags ) {
  * @return string The string with nested highlights cleaned out.
  */
 function relevanssi_remove_nested_highlights( $string, $begin, $end ) {
-	$offset     = 0;
 	$bits       = explode( $begin, $string );
 	$new_bits   = array( $bits[0] );
 	$count_bits = count( $bits );
-	$in         = false;
+	$depth      = -1;
 	for ( $i = 1; $i < $count_bits; $i++ ) {
-		if ( '' === $bits[ $i ] ) {
+		$depth++;
+		if ( 0 === $depth ) {
+			$new_bits[] = $begin;
+		}
+		if ( empty( $bits[ $i ] ) ) {
 			continue;
 		}
-
-		if ( ! $in ) {
-			array_push( $new_bits, $begin );
-			$in = true;
-		}
-		if ( substr_count( $bits[ $i ], $end ) > 0 ) {
-			$in = false;
-		}
-		if ( substr_count( $bits[ $i ], $end ) > 1 ) {
-			$more_bits = explode( $end, $bits[ $i ] );
-			$j         = 0;
-			$k         = count( $more_bits ) - 2;
-			$whole_bit = '';
-			foreach ( $more_bits as $bit ) {
-				$whole_bit .= $bit;
-				if ( $j === $k ) {
-					$whole_bit .= $end;
-				}
-				$j++;
+		$end_count = substr_count( $bits[ $i ], $end );
+		if ( $end_count ) {
+			if ( substr_count( $bits[ $i ], $end ) < $depth ) {
+				$new_bits[] = str_replace( $end, '', $bits[ $i ], $count );
+				$depth     -= $count;
+			} elseif ( substr_count( $bits[ $i ], $end ) >= $depth ) {
+				$end_p      = preg_quote( $end, '#' );
+				$new_bits[] = preg_replace( '#' . $end_p . '#', '', $bits[ $i ], $depth );
+				$depth      = -1;
 			}
-			$bits[ $i ] = $whole_bit;
+		} else {
+			$new_bits[] = $bits[ $i ];
 		}
-		array_push( $new_bits, $bits[ $i ] );
 	}
-	$whole = implode( '', $new_bits );
-
-	return $whole;
+	return join( '', $new_bits );
 }
 
 /**
- * Finds the  locations of each word.
+ * Finds the locations of each word.
  *
  * Originally lifted from http://www.boyter.org/2013/04/building-a-search-result-extract-generator-in-php/
  * Finds the location of each word in the fulltext.
@@ -781,15 +1024,38 @@ function relevanssi_extract_locations( $words, $fulltext ) {
  * @return int Number of times the words appear in the text.
  */
 function relevanssi_count_matches( $words, $complete_text ) {
-	$count          = 0;
-	$lowercase_text = relevanssi_strtolower( $complete_text, 'UTF-8' );
-	$text           = '';
+	$count = 0;
+	$text  = '';
+
+	// Add the space in case the match is the last word in the text.
+	$lowercase_text = relevanssi_strtolower( $complete_text, 'UTF-8' ) . ' ';
 
 	$count_words = count( $words );
 	for ( $t = 0; $t < $count_words; $t++ ) {
-		$word_slice = relevanssi_strtolower( $words[ $t ], 'UTF-8' );
-		$lines      = explode( $word_slice, $lowercase_text );
-		if ( count( $lines ) > 1 ) {
+		$word_slice = relevanssi_strtolower(
+			relevanssi_add_accent_variations(
+				preg_quote(
+					$words[ $t ],
+					'/'
+				)
+			),
+			'UTF-8'
+		);
+		// Support for wildcard matching (a Premium feature).
+		$word_slice = str_replace(
+			array( '\*', '\?' ),
+			array( '\S*', '.' ),
+			$word_slice
+		);
+
+		if ( 'never' !== get_option( 'relevanssi_fuzzy' ) ) {
+			$regex = "/[\W]{$word_slice}|{$word_slice}[\W]/iu";
+		} else {
+			$regex = "/[\W]{$word_slice}[\W]/iu";
+		}
+
+		$lines = preg_split( $regex, $lowercase_text );
+		if ( $lines && count( $lines ) > 1 ) {
 			$count_lines = count( $lines );
 			for ( $tt = 0; $tt < $count_lines; $tt++ ) {
 				if ( $tt < ( count( $lines ) - 1 ) ) {
@@ -803,9 +1069,6 @@ function relevanssi_count_matches( $words, $complete_text ) {
 
 	$lines = explode( '=***=', $text );
 	$count = count( $lines ) - 1;
-	if ( $count < 0 ) {
-		$count = 0;
-	}
 
 	return $count;
 }
@@ -814,10 +1077,11 @@ function relevanssi_count_matches( $words, $complete_text ) {
  * Works out which is the most relevant portion to display.
  *
  * This is done by looping over each match and finding the smallest distance
- * between two found strings. The idea being that the closer the terms are the better
- * match the snippet would be. When checking for matches we only change the location
- * if there is a better match. The only exception is where we have only two matches
- * in which case we just take the first as will be equally distant.
+ * between two found strings. The idea being that the closer the terms are the
+ * better match the snippet would be. When checking for matches we only change
+ * the location if there is a better match. The only exception is where we have
+ * only two matches in which case we just take the first as will be equally
+ * distant.
  *
  * @author Ben Boyter
  *
@@ -853,9 +1117,10 @@ function relevanssi_determine_snip_location( $locations, $prevcount ) {
 		}
 	}
 
-	$startpos = 0;
 	if ( $startpos > $prevcount ) {
-		$startpos - $prevcount;
+		$startpos = $startpos - $prevcount;
+	} else {
+		$startpos = 0;
 	}
 
 	return $startpos;
@@ -864,20 +1129,23 @@ function relevanssi_determine_snip_location( $locations, $prevcount ) {
 /**
  * Extracts relevant part of the full text.
  *
- * Finds the part of full text with as many relevant words as possible. 1/6 ratio on
- * prevcount tends to work pretty well and puts the terms in the middle of the
- * excerpt.
+ * Finds the part of full text with as many relevant words as possible. 1/6
+ * ratio on prevcount tends to work pretty well and puts the terms in the middle
+ * of the excerpt.
+ *
+ * Source: https://boyter.org/2013/04/building-a-search-result-extract-generator-in-php/
  *
  * @author Ben Boyter
  *
  * @param array  $words          An array of relevant words.
  * @param string $fulltext       The source text.
- * @param int    $excerpt_length The length of the excerpt, default 300 characters.
- * @param int    $prevcount      How much text include before the words, default 50
+ * @param int    $excerpt_length The length of the excerpt, default 300
  * characters.
+ * @param int    $prevcount      How much text include before the words, default
+ * 50 characters.
  *
- * @return array The excerpt, number of words in the excerpt, true if it's the start
- * of the $fulltext.
+ * @return array The excerpt, number of words in the excerpt, true if it's the
+ * start of the $fulltext.
  */
 function relevanssi_extract_relevant( $words, $fulltext, $excerpt_length = 300, $prevcount = 50 ) {
 	$text_length = relevanssi_strlen( $fulltext );
@@ -891,24 +1159,12 @@ function relevanssi_extract_relevant( $words, $fulltext, $excerpt_length = 300, 
 
 	// If we are going to snip too much...
 	if ( $text_length - $startpos < $excerpt_length ) {
-		$startpos = $startpos - ( $text_length - $startpos ) / 2;
+		$startpos -= ( $text_length - $startpos ) / 2;
 	}
 
-	$substr = 'substr';
-	if ( function_exists( 'mb_substr' ) ) {
-		$substr = 'mb_substr';
-	}
-	$strrpos = 'strrpos';
-	if ( function_exists( 'mb_strrpos' ) ) {
-		$strrpos = 'mb_strrpos';
-	}
+	$substr = function_exists( 'mb_substr' ) ? 'mb_substr' : 'substr';
 
 	$excerpt = call_user_func( $substr, $fulltext, $startpos, $excerpt_length );
-
-	// Check to ensure we don't snip the last word if that's the match.
-	if ( $startpos + $excerpt_length < $text_length ) {
-		$excerpt = call_user_func( $substr, $excerpt, 0, call_user_func( $strrpos, $excerpt, ' ' ) ); // Remove last word.
-	}
 
 	$start = false;
 	if ( 0 === $startpos ) {
@@ -918,6 +1174,162 @@ function relevanssi_extract_relevant( $words, $fulltext, $excerpt_length = 300, 
 	$besthits = count( relevanssi_extract_locations( $words, $excerpt ) );
 
 	return array( $excerpt, $besthits, $start );
+}
+
+/**
+ * Extracts relevant words of the full text.
+ *
+ * Finds the part of full text with as many relevant words as possible. If the
+ * excerpt length parameter is less than 1, the function will immediately
+ * return an empty excerpt in order to avoid an endless loop.
+ *
+ * @param array  $terms          An array of relevant words.
+ * @param string $content        The source text.
+ * @param int    $excerpt_length The length of the excerpt, default 30 words.
+ *
+ * @return array The excerpt, number of words in the excerpt, true if it's the
+ * start of the $fulltext.
+ */
+function relevanssi_extract_relevant_words( $terms, $content, $excerpt_length = 30 ) {
+	if ( $excerpt_length < 1 ) {
+		return array( '', 0, false );
+	}
+
+	$words       = array_filter( explode( ' ', $content ) );
+	$offset      = 0;
+	$tries       = 0;
+	$excerpt     = '';
+	$count_words = count( $words );
+	$start       = false;
+	$gap         = 0;
+
+	$best_excerpt_term_hits = -1;
+
+	$excerpt_candidates = $count_words / $excerpt_length;
+	if ( $excerpt_candidates > 200 ) {
+		/**
+		 * Adjusts the gap between excerpt candidates.
+		 *
+		 * The default value for the gap is number of words / 200 minus the
+		 * excerpt length, which means Relevanssi tries to create 200 excerpts.
+		 *
+		 * @param int The gap between excerpt candidates.
+		 * @param int $count_words    The number of words in the content.
+		 * @param int $excerpt_length The length of the excerpt.
+		 */
+		$gap = apply_filters(
+			'relevanssi_excerpt_gap',
+			floor( $count_words / 200 - $excerpt_length ),
+			$count_words,
+			$excerpt_length
+		);
+	}
+
+	while ( $offset < $count_words ) {
+		if ( $offset + $excerpt_length > $count_words ) {
+			$offset = $count_words - $excerpt_length;
+			if ( $offset < 0 ) {
+				$offset = 0;
+			}
+		}
+		$excerpt_slice = array_slice( $words, $offset, $excerpt_length );
+		$excerpt_slice = ' ' . implode( ' ', $excerpt_slice );
+		$count_matches = relevanssi_count_matches( $terms, $excerpt_slice );
+		if ( $count_matches > 0 && $count_matches > $best_excerpt_term_hits ) {
+			$best_excerpt_term_hits = $count_matches;
+			$excerpt                = $excerpt_slice;
+			if ( 0 === $offset ) {
+				$start = true;
+			} else {
+				$start = false;
+			}
+		}
+		$tries++;
+
+		/**
+		 * Enables the excerpt optimization.
+		 *
+		 * If your posts are very long, building excerpts can be really slow.
+		 * To speed up the process, you can enable optimization, which means
+		 * Relevanssi only creates 50 excerpt candidates.
+		 *
+		 * @param boolean Return true to enable optimization, default false.
+		 */
+		if ( apply_filters( 'relevanssi_optimize_excerpts', false ) ) {
+			if ( $tries > 50 ) {
+				// An optimization trick: try only 50 times.
+				break;
+			}
+		}
+
+		$offset += $excerpt_length + $gap;
+	}
+
+	if ( '' === $excerpt && $gap > 0 ) {
+		$result = relevanssi_get_first_match( $words, $terms, $excerpt_length );
+
+		$excerpt                = $result['excerpt'];
+		$start                  = $result['start'];
+		$best_excerpt_term_hits = $result['best_excerpt_term_hits'];
+	}
+
+	if ( '' === $excerpt ) {
+		/**
+		 * Nothing found, take the beginning of the post. +2, because the first
+		 * index is an empty space and the last index is the rest of the post.
+		 */
+		$excerpt = explode( ' ', $content, $excerpt_length + 2 );
+		array_pop( $excerpt );
+		$excerpt = implode( ' ', $excerpt );
+		$start   = true;
+	}
+
+	return array( trim( $excerpt ), $best_excerpt_term_hits, $start );
+}
+
+/**
+ * Finds the first match in the content.
+ *
+ * Looks for search terms in the post content and stops immediately when the
+ * first match is found. Then an excerpt is returned where the match is in the
+ * middle of the excerpt.
+ *
+ * @param array $words          An array of words to look in.
+ * @param array $terms          An array of search terms to look for.
+ * @param int   $excerpt_length The length of the excerpt.
+ *
+ * @return array The found excerpt in 'excerpt', a boolean in 'start' that's
+ * true if the excerpt was from the start of the content and the number of
+ * matches found in the excerpt in 'best_excerpt_term_hits'.
+ */
+function relevanssi_get_first_match( array $words, array $terms, int $excerpt_length ) {
+	$offset                 = 0;
+	$excerpt                = '';
+	$start                  = false;
+	$best_excerpt_term_hits = 0;
+
+	foreach ( $words as $word ) {
+		if ( in_array( $word, $terms, true ) ) {
+			$offset = floor( $offset - $excerpt_length / 2 );
+			if ( $offset < 0 ) {
+				$offset = 0;
+			}
+			$excerpt_slice = array_slice( $words, $offset, $excerpt_length );
+			$excerpt       = ' ' . implode( ' ', $excerpt_slice );
+			$start         = $offset ? false : true;
+			$count_matches = relevanssi_count_matches( $terms, $excerpt );
+
+			$best_excerpt_term_hits = $count_matches;
+			break;
+		}
+		$offset++;
+	}
+
+	return array(
+		'excerpt'                => $excerpt,
+		'start'                  => $start,
+		'best_excerpt_term_hits' => $best_excerpt_term_hits,
+	);
 }
 
 /**
@@ -936,12 +1348,34 @@ function relevanssi_add_accent_variations( $word ) {
 	 *
 	 * @param array Array of replacements. 'from' has the source characters, 'to' the replacements.
 	 */
-	$replacement_arrays = apply_filters('relevanssi_accents_replacement_arrays', array(
-		'from' => array( 'a', 'c', 'e', 'i', 'o', 'u', 'n', 'ss' ),
-		'to'   => array( '(a|á|à|â)', '(c|ç)', '(e|é|è|ê|ë)', '(i|í|ì|î|ï)', '(o|ó|ò|ô|õ)', '(u|ú|ù|ü|û)', '(n|ñ)', '(ss|ß)' ),
-	));
+	$replacement_arrays = apply_filters(
+		'relevanssi_accents_replacement_arrays',
+		array(
+			'from'    => array( 'a', 'c', 'e', 'i', 'o', 'u', 'n' ),
+			'to'      => array( '(?:a|á|à|â)', '(?:c|ç)', '(?:e|é|è|ê|ë)', '(?:i|í|ì|î|ï)', '(?:o|ó|ò|ô|õ)', '(?:u|ú|ù|ü|û)', '(?:n|ñ)' ),
+			'from_re' => array( "/(s)('|’)?$/", "/[^\(\|:]('|’)/" ),
+			'to_re'   => array( "(?:(?:'|’)?\\1|\\1(?:'|’)?)", "?('|’)?" ),
+		)
+	);
 
+	$len        = relevanssi_strlen( $word );
+	$word_array = array();
+	$escaped    = false;
+	for ( $i = 0; $i < $len; $i++ ) {
+		$char = relevanssi_substr( $word, $i, 1 );
+		if ( '\\' === $char && ! $escaped ) {
+			$escaped = true;
+			continue;
+		}
+		if ( $escaped ) {
+			$escaped = false;
+			$char    = '\\' . $char;
+		}
+		$word_array[] = $char;
+	}
+	$word = implode( '-?', $word_array );
 	$word = str_ireplace( $replacement_arrays['from'], $replacement_arrays['to'], $word );
+	$word = preg_replace( $replacement_arrays['from_re'], $replacement_arrays['to_re'], $word );
 
 	return $word;
 }
@@ -954,98 +1388,65 @@ function relevanssi_add_accent_variations( $word ) {
  * @return string The custom field content.
  */
 function relevanssi_get_custom_field_content( $post_id ) {
-	$custom_field_content     = '';
-	$remove_underscore_fields = false;
+	$custom_field_content = '';
 
-	$custom_fields = relevanssi_get_custom_fields();
-	if ( isset( $custom_fields ) && 'all' === $custom_fields ) {
-		$custom_fields = get_post_custom_keys( $post_id );
-	}
-	if ( isset( $custom_fields ) && 'visible' === $custom_fields ) {
-		$custom_fields            = get_post_custom_keys( $post_id );
-		$remove_underscore_fields = true;
-	}
-	/* Documented in lib/indexing.php. */
-	$custom_fields = apply_filters( 'relevanssi_index_custom_fields', $custom_fields );
+	$custom_fields = relevanssi_generate_list_of_custom_fields( $post_id );
 
 	if ( function_exists( 'relevanssi_get_child_pdf_content' ) ) {
 		$custom_field_content .= ' ' . relevanssi_get_child_pdf_content( $post_id );
 	}
 
-	if ( is_array( $custom_fields ) ) {
-		$custom_fields = array_unique( $custom_fields ); // No reason to index duplicates.
-
-		$repeater_fields = array();
-		if ( function_exists( 'relevanssi_add_repeater_fields' ) ) {
-			relevanssi_add_repeater_fields( $custom_fields, $post_id );
+	foreach ( $custom_fields as $field ) {
+		/* Documented in lib/indexing.php. */
+		$values = apply_filters(
+			'relevanssi_custom_field_value',
+			get_post_meta(
+				$post_id,
+				$field,
+				false
+			),
+			$field,
+			$post_id
+		);
+		if ( empty( $values ) || ! is_array( $values ) ) {
+			continue;
 		}
+		foreach ( $values as $value ) {
+			// Quick hack : allow indexing of PODS relationship custom fields. @author TMV.
+			if ( is_array( $value ) && isset( $value['post_title'] ) ) {
+				$value = $value['post_title'];
+			}
 
-		foreach ( $custom_fields as $field ) {
-			if ( $remove_underscore_fields ) {
-				if ( '_' === substr( $field, 0, 1 ) ) {
-					continue;
-				}
+			// Flatten other array data.
+			if ( is_array( $value ) ) {
+				$value_as_string = '';
+				array_walk_recursive(
+					$value,
+					function( $val ) use ( &$value_as_string ) {
+						if ( is_string( $val ) ) {
+							// Sometimes this can be something weird.
+							$value_as_string .= ' ' . $val;
+						}
+					}
+				);
+				$value = $value_as_string;
 			}
-			/* Documented in lib/indexing.php. */
-			$values = apply_filters( 'relevanssi_custom_field_value', get_post_meta( $post_id, $field, false ), $field, $post_id );
-			if ( '' === $values ) {
-				continue;
-			}
-			foreach ( $values as $value ) {
-				// Quick hack : allow indexing of PODS relationship custom fields. @author TMV.
-				if ( is_array( $value ) && isset( $value['post_title'] ) ) {
-					$value = $value['post_title'];
-				}
-
-				// Flatten other array data.
-				if ( is_array( $value ) ) {
-					$value = implode( ' ', $value );
-				}
-				$custom_field_content .= ' ' . $value;
-			}
+			$custom_field_content .= ' ' . $value;
 		}
 	}
 	/**
 	 * Filters the custom field content for excerpt use.
 	 *
 	 * @param string $custom_field_content Custom field content for excerpts.
+	 * @param int    $post_id              The post ID.
+	 * @param array  $custom_fields        The list of custom field names.
 	 */
-	return apply_filters( 'relevanssi_excerpt_custom_field_content', $custom_field_content );
-}
-
-/**
- * Removes page builder short codes from content.
- *
- * Page builder shortcodes cause problems in excerpts. This function cleans them
- * out.
- *
- * @param string $content The content to clean.
- *
- * @return string The content without page builder shortcodes.
- */
-function relevanssi_remove_page_builder_shortcodes( $content ) {
-	/**
-	 * Filters the page builder shortcode.
-	 *
-	 * @param array An array of page builder shortcode regexes.
-	 */
-	$search_array = apply_filters('relevanssi_page_builder_shortcodes', array(
-		// Remove content.
-		'/\[et_pb_code.*?\].*\[\/et_pb_code\]/',
-		'/\[et_pb_sidebar.*?\].*\[\/et_pb_sidebar\]/',
-		'/\[vc_raw_html.*?\].*\[\/vc_raw_html\]/',
-		// Remove only the tags.
-		'/\[\/?et_pb.*?\]/',
-		'/\[\/?vc.*?\]/',
-		'/\[\/?mk.*?\]/',
-		'/\[\/?cs_.*?\]/',
-		'/\[\/?av_.*?\]/',
-		'/\[\/?fusion_.*?\]/',
-		// Max Mega Menu doesn't work in excerpts.
-		'/\[maxmegamenu.*?\]/',
-	));
-	$content = preg_replace( $search_array, '', $content );
-	return $content;
+	return apply_filters(
+		'relevanssi_excerpt_custom_field_content',
+		$custom_field_content,
+		$post_id,
+		$custom_fields
+	);
 }
 
 /**
@@ -1054,17 +1455,151 @@ function relevanssi_remove_page_builder_shortcodes( $content ) {
  * @global array $wp_filter The global filter array.
  *
  * It's an object hook, so this isn't as simple as doing remove_filter(). This
- * needs to be done, because autoembed discovery can take a very, very long time.
+ * needs to be done, because autoembed discovery can take a very, very long
+ * time.
  */
 function relevanssi_kill_autoembed() {
 	global $wp_filter;
 	if ( isset( $wp_filter['the_content']->callbacks ) ) {
 		foreach ( $wp_filter['the_content']->callbacks as $priority => $bucket ) {
-			foreach ( $bucket as $key => $value ) {
+			foreach ( array_keys( $bucket ) as $key ) {
 				if ( 'autoembed' === substr( $key, -9 ) ) {
 					unset( $wp_filter['the_content']->callbacks[ $priority ][ $key ] );
 				}
 			}
 		}
 	}
+}
+
+/**
+ * Adjusts things before `the_content` is applied in excerpt-building.
+ *
+ * Removes the `prepend_attachment` filter hook and enables the `noindex`
+ * shortcode.
+ */
+function relevanssi_excerpt_pre_the_content() {
+	// This will print out the attachment file name in front of the excerpt, and we
+	// don't want that.
+	remove_filter( 'the_content', 'prepend_attachment' );
+
+	remove_shortcode( 'noindex' );
+	add_shortcode( 'noindex', 'relevanssi_noindex_shortcode_indexing' );
+}
+
+/**
+ * Adjusts things after `the_content` is applied in excerpt-building.
+ *
+ * Reapplies the `prepend_attachment` filter hook and disables the `noindex`
+ * shortcode.
+ */
+function relevanssi_excerpt_post_the_content() {
+	add_filter( 'the_content', 'prepend_attachment' );
+
+	remove_shortcode( 'noindex' );
+	add_shortcode( 'noindex', 'relevanssi_noindex_shortcode' );
+}
+
+/**
+ * Adds a highlighted title in the post object in $post->post_highlighted_title.
+ *
+ * @param WP_Post $post  The post object (passed as reference).
+ * @param string  $query The search query.
+ *
+ * @uses relevanssi_highlight_terms
+ */
+function relevanssi_highlight_post_title( &$post, $query ) {
+	$post->post_highlighted_title = wp_strip_all_tags( $post->post_title );
+	$highlight                    = get_option( 'relevanssi_highlight' );
+	if ( 'none' !== $highlight ) {
+		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			$q_for_highlight = 'on' === get_option( 'relevanssi_index_synonyms', 'off' )
+			? relevanssi_add_synonyms( $query )
+			: $query;
+
+			$post->post_highlighted_title = relevanssi_highlight_terms(
+				$post->post_highlighted_title,
+				$q_for_highlight
+			);
+		}
+	}
+}
+
+/**
+ * Replaces $post->post_excerpt with the Relevanssi-generated excerpt and puts
+ * the original excerpt in $post->original_excerpt.
+ *
+ * @param WP_Post $post           The post object (passed as reference).
+ * @param string  $query          The search query.
+ *
+ * @uses relevanssi_do_excerpt
+ */
+function relevanssi_add_excerpt( &$post, $query ) {
+	if ( isset( $post->blog_id ) ) {
+		switch_to_blog( $post->blog_id );
+	}
+	$post->original_excerpt = $post->post_excerpt;
+	/**
+	 * Filters whether an excerpt should be added to a post or not.
+	 *
+	 * If this filter hook returns false, Relevanssi does not create an excerpt
+	 * for the post. The original excerpt is still copied to
+	 * $post->original_excerpt.
+	 *
+	 * @param boolean If true, create an excerpt. Default true.
+	 * @param WP_Post $post  The post object.
+	 * @param string  $query The search query.
+	 */
+	if ( apply_filters( 'relevanssi_excerpt_post', true, $post, $query ) ) {
+		$excerpt_length     = get_option( 'relevanssi_excerpt_length' );
+		$excerpt_type       = get_option( 'relevanssi_excerpt_type' );
+		$post->post_excerpt = relevanssi_do_excerpt(
+			$post,
+			$query,
+			$excerpt_length,
+			$excerpt_type
+		);
+	}
+	if ( isset( $post->blog_id ) ) {
+		restore_current_blog();
+	}
+}
+
+/**
+ * Runs html_entity_decode(), then restores entities inside data attributes.
+ *
+ * First replace all &quot; entities inside data attributes with REL_QUOTE,
+ * then decode, then replace REL_QUOTE with &quot; to restore the data
+ * attributes.
+ *
+ * @uses html_entity_decode
+ *
+ * @param string $content The content to decode.
+ * @param int    $flags   The flags for html_entity_decode, default ENT_QUOTES.
+ * @param string $charset The charset for html_entity_decode, default 'UTF-8'.
+ *
+ * @return string The decoded content.
+ */
+function relevanssi_entity_decode( $content, $flags = ENT_QUOTES, $charset = 'UTF-8' ) {
+	if ( preg_match_all( '/data-[\w-]+?="([^"]*?)"/sm', $content, $matches ) ) {
+		$source  = array();
+		$replace = array();
+		foreach ( $matches[1] as $match ) {
+			$source[]  = $match;
+			$replace[] = str_replace( '&quot;', 'REL_QUOTE', $match );
+		}
+		$content = str_replace( $source, $replace, $content );
+	}
+	$content = html_entity_decode( $content, $flags, $charset );
+	if ( preg_match_all( '/data-[\w-]+?="([^"]*?)"/sm', $content, $matches ) ) {
+		$source  = array();
+		$replace = array();
+		foreach ( $matches[1] as $match ) {
+			$source[]  = $match;
+			$replace[] = htmlentities( $match );
+		}
+		$content = str_replace( $source, $replace, $content );
+	}
+
+	$content = str_replace( 'REL_QUOTE', '&quot;', $content );
+	return $content;
 }

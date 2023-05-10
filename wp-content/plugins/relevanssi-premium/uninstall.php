@@ -20,11 +20,11 @@ require_once 'premium/uninstall.php';
 if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	$blogids    = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs" );
 	$old_blogid = $wpdb->blogid;
-	foreach ( $blogids as $blog_id ) {
-		switch_to_blog( $blog_id );
+	foreach ( $blogids as $uninstall_blog_id ) {
+		switch_to_blog( $uninstall_blog_id );
 		relevanssi_uninstall();
+		restore_current_blog();
 	}
-	switch_to_blog( $old_blogid );
 
 	delete_site_option( 'relevanssi_api_key' );
 } else {
