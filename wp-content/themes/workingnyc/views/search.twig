@@ -27,14 +27,14 @@
         {% endblock %}
         <div class="tablet:px-6">
           {% block before_list %}
-          <h2 class="text-p font-p inline-block my-4">
+          <h2 class="text-p font-p inline-block mt-4 mb-2">
             {% if posts|length > 1 %}
               {{ __('Showing {{ TOTAL_VISIBLE }} results for "{{ TERM }}".', 'WNYC')|replace({'{{ TOTAL_VISIBLE }}': posts|length, '{{ TERM }}': term}) }}
             {% else %}
               {{ __('Showing 1 result for "{{ TERM }}".', 'WNYC')|replace({'{{ TERM }}': term}) }}
             {% endif %}
           </h2>
-          <div>
+          <div class="mb-4">
             <button class="btn-tag btn-primary" id='all-button'>{{__('All', 'WNYC')}}</button>
             <button class="btn-tag" id='jobs-button'>{{__('Jobs', 'WNYC')}}</button>
             <button class="btn-tag" id='programs-button'>{{__('Programs', 'WNYC')}}</button>
