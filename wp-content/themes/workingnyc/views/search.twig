@@ -15,7 +15,7 @@
           <div class="o-header__title mt-0" style="">
             <h1 id="page-heading" class="o-header__heading">{{ term == '' ? __('Search', 'WNYC') : __('Search results', 'WNYC')}}</h1>
           </div>
-          {% include 'partials/search-form.twig' %}
+          {% include 'search/search-form.twig' %}
           </div>
       </header>
   </div>
@@ -27,29 +27,38 @@
         {% endblock %}
         <div class="tablet:px-6">
           {% block before_list %}
-          <h2 class="text-p font-p inline-block my-4">
+          <h2 class="text-p font-p inline-block mt-4 mb-2">
             {% if posts|length > 1 %}
               {{ __('Showing {{ TOTAL_VISIBLE }} results for "{{ TERM }}".', 'WNYC')|replace({'{{ TOTAL_VISIBLE }}': posts|length, '{{ TERM }}': term}) }}
             {% else %}
               {{ __('Showing 1 result for "{{ TERM }}".', 'WNYC')|replace({'{{ TERM }}': term}) }}
             {% endif %}
           </h2>
+          <div class="mb-4">
+            <button class="btn-tag btn-primary" id='all-button'>{{__('All', 'WNYC')}}</button>
+            <button class="btn-tag" id='jobs-button'>{{__('Jobs', 'WNYC')}}</button>
+            <button class="btn-tag" id='programs-button'>{{__('Programs', 'WNYC')}}</button>
+          </div>
           {% endblock %}
           <div class="grid gap-3 desktop:grid-cols-2 mb-3">
             {% block post_list %}
               {% for post in posts %}
                 {% if post.post_type == 'jobs' %}
-                  {% include 'jobs/job.twig' with {
-                    this: {
-                      post: post
-                    }
-                  } %}
+                  <div data-js="search-result" data-js-result-type="job">
+                    {% include 'jobs/job.twig' with {
+                      this: {
+                        post: post
+                      }
+                    } %}
+                  </div>
                 {% elseif post.post_type == 'programs' %}
-                  {% include 'programs/program.twig' with {
-                    this: {
-                      post: post
-                    }
-                  } %}
+                  <div data-js="search-result" data-js-result-type="program">
+                    {% include 'programs/program.twig' with {
+                      this: {
+                        post: post
+                      }
+                    } %}
+                  </div>
                 {% endif %}
               {% endfor %}
             {% endblock %}
