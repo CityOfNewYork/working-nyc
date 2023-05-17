@@ -14,8 +14,8 @@
 
         <p class="c-card__subtitle text-alt">
           <b data-program="title" v-html="post.context.program_title"></b>
-          <span> {{ strings.BY }} </span>
-          <span v-html="post.context.program_agency"></span>
+          <span v-if="post.context.program_agency"> {{ strings.BY }} </span>
+          <span v-if="post.context.program_agency" v-html="post.context.program_agency"></span>
         </p>
       </span>
     </header>
