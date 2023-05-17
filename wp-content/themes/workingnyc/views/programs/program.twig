@@ -17,7 +17,10 @@
       </a>
 
       <p class="c-card__subtitle text-alt">
-        <b>{{ post.program_title }}</b> {{ __('by', 'WNYC') }} {{ post.program_agency }}
+        <b>{{ post.program_title }}</b> 
+        {% if post.program_agency is not empty %} 
+          {{ __('by', 'WNYC') }} {{ post.program_agency }}
+        {% endif %}
       </p>
     </span>
   </header>
