@@ -270,7 +270,7 @@ class Meta {
       case 'programs':
         $ogImage->title = $this->og_title;
         $ogImage->subtitleBold = $this->post->program_title;
-        $ogImage->subtitle = __('by', 'WNYC') . ' ' . $this->post->program_agency;
+        $ogImage->subtitle = $this->post->program_agency ? __('by', 'WNYC') . ' ' . $this->post->program_agency : '';
         $ogImage->verticalAlign = 'middle';
 
         break;
