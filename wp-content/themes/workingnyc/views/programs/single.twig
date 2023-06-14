@@ -50,7 +50,13 @@
           </div>
 
           <h2 class="o-header__subtitle">
-            <b>{{ post.program_title }}</b> {{ __('by', 'WNYC') }} {% if post.program_provider and post.program_agency %}{{ post.program_agency }} | {{ post.program_provider }}{% else %}{{ post.program_provider }}{{ post.program_agency }}{% endif %}
+            <b>{{ post.program_title }}</b> 
+            {% if post.program_provider and post.program_agency %}
+              {{ __('by', 'WNYC') }} {{ post.program_agency }} | {{ post.program_provider }}
+            {% elseif post.program_provider or post.program_agency %}
+              {{ __('by', 'WNYC') }} {{ post.program_provider }}{{ post.program_agency }}
+            {% else %}
+            {% endif %}
           </h2>
 
           {% if post.terms('recruitment_status')[0].slug == 'actively-recruiting' %}
