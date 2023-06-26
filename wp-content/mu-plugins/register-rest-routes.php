@@ -6,6 +6,11 @@
  * Author: NYC Opportunity
  */
 
+
+use RestPreparePosts\RestPreparePosts as RestPreparePosts;
+
+require_once plugin_dir_path(__FILE__) . '/rest-prepare-posts/RestPreparePosts.php';
+
 /**
  * Register REST Route shouldn't be done before the REST api init hook so we
  * will hook into that action.
@@ -190,11 +195,29 @@ add_action('rest_api_init', function() {
 
       while ($search_query->have_posts()):
         $search_query->the_post();
-        $data    = $controller->prepare_item_for_response($search_query->post, $request);
-        $posts[] = $controller->prepare_response_for_collection($data);
+        $curr_post = $search_query->post;
+
+        // only include programs and jobs in search results
+        if ($curr_post->post_type == 'programs' || $curr_post->post_type == 'jobs') {
+          $data = $controller->prepare_item_for_response($curr_post, $request);
+
+          // add logic from rest-prepare-posts
+          $taxonomies = get_taxonomies(array(
+            '_builtin' => false,
+            'show_in_rest' => true
+          ), 'objects');
+
+          $RestPreparePosts = new RestPreparePosts();
+          $RestPreparePosts->type = $data->data['type'];
+          $RestPreparePosts->taxonomies = $taxonomies;
+          $RestPreparePosts->timberNamespace = 'WorkingNYC';
+          $curr_context = $RestPreparePosts->getTimberContext($data->data['id']);
+          $data->data['context'] = $curr_context;
+
+          $posts[] = $controller->prepare_response_for_collection($data);
+        }
       endwhile;
 
-      // return results
       $response = new WP_REST_Response($posts); // Create the response object
 
       $response->set_status(200); // Add a custom status code

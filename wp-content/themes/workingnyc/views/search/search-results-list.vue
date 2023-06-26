@@ -1,10 +1,6 @@
 <template>
     <section class="px-4 tablet:px-6">
-      <span>{{ strings.HOME }}</span>
-      
-      <list>
-        <li v-for="post in postsFlat" :key="post.id"> {{ post }} </li>
-      </list>
+      <!-- <span>{{ strings.HOME }}</span> -->
 
       <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
         <SearchResult v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></SearchResult>
