@@ -1,10 +1,18 @@
 <template>
     <section class="px-4 tablet:px-6">
-      <!-- <span>{{ strings.HOME }}</span> -->
-
       <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
         <SearchResult v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></SearchResult>
       </div>
+
+      <div class="layout-content py-6 pb-8 mb-4" v-if="init">
+      <div class="wrap">
+        <button id="pagination" class="btn btn-primary w-full" @click="nextPage" data-amount="1">
+          {{ strings.SHOW_MORE }}
+        </button>
+
+        <!-- <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article> -->
+      </div>
+    </div>
 
       <!-- {% if term != '' %}
         {% if posts|length > 0 %}

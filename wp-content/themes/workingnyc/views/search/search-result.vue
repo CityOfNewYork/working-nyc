@@ -1,5 +1,4 @@
 <template>
-  <!-- <div>{{ post.raw }}</div> -->
   <article v-if="post.type == 'jobs'" class="c-card">
     <header class="c-card__header">
       <span>

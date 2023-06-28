@@ -8,8 +8,8 @@
  * Dependencies
  */
 
-// import Vue from 'vue/dist/vue.runtime';  // development
-import Vue from 'vue/dist/vue.runtime.min'; // production
+import Vue from 'vue/dist/vue.runtime';  // development
+// import Vue from 'vue/dist/vue.runtime.min'; // production
 
 /**
  * The template markup is stored in the views/jobs/archive.vue file Which
@@ -63,7 +63,7 @@ new Vue({
           SALARY: 'Salary',
           LOCATION: 'Work Location',
           LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ PROGRAM }}</span>',
-          SHOWING: 'Showing {{ TOTAL_VISIBLE }} Jobs of {{ TOTAL }}.',
+          SHOWING: 'Showing {{ TOTAL_VISIBLE }} results of {{ TOTAL }}.',
           RESET: 'Click here to reset filters',
           NO_RESULTS: 'No Results. Try deselecting some filters.',
           LOADING: 'Loading',

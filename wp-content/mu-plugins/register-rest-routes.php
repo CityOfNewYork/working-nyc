@@ -183,6 +183,8 @@ add_action('rest_api_init', function() {
         'paged' => $parameters['page']
       );
 
+      error_log(print_r($parameters, true));
+
       // run query
       $search_query = new WP_Query();
       $search_query->parse_query($args);
