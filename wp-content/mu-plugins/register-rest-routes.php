@@ -180,7 +180,8 @@ add_action('rest_api_init', function() {
       $args = array(
         's' => $parameters['s'],
         'posts_per_page' => $parameters['per_page'],
-        'paged' => $parameters['page']
+        'paged' => $parameters['page'],
+        'category_name' => 'jobs,programs' // only include programs and jobs in search results
       );
 
       error_log(print_r($parameters, true));
@@ -198,33 +199,32 @@ add_action('rest_api_init', function() {
       while ($search_query->have_posts()):
         $search_query->the_post();
         $curr_post = $search_query->post;
+        $data = $controller->prepare_item_for_response($curr_post, $request);
 
-        // only include programs and jobs in search results
-        if ($curr_post->post_type == 'programs' || $curr_post->post_type == 'jobs') {
-          $data = $controller->prepare_item_for_response($curr_post, $request);
+        // add logic from rest-prepare-posts
+        $taxonomies = get_taxonomies(array(
+          '_builtin' => false,
+          'show_in_rest' => true
+        ), 'objects');
 
-          // add logic from rest-prepare-posts
-          $taxonomies = get_taxonomies(array(
-            '_builtin' => false,
-            'show_in_rest' => true
-          ), 'objects');
+        $RestPreparePosts = new RestPreparePosts();
+        $RestPreparePosts->type = $data->data['type'];
+        $RestPreparePosts->taxonomies = $taxonomies;
+        $RestPreparePosts->timberNamespace = 'WorkingNYC';
+        $curr_context = $RestPreparePosts->getTimberContext($data->data['id']);
+        $data->data['context'] = $curr_context;
 
-          $RestPreparePosts = new RestPreparePosts();
-          $RestPreparePosts->type = $data->data['type'];
-          $RestPreparePosts->taxonomies = $taxonomies;
-          $RestPreparePosts->timberNamespace = 'WorkingNYC';
-          $curr_context = $RestPreparePosts->getTimberContext($data->data['id']);
-          $data->data['context'] = $curr_context;
-
-          $posts[] = $controller->prepare_response_for_collection($data);
-        }
+        $posts[] = $controller->prepare_response_for_collection($data);
       endwhile;
 
       $response = new WP_REST_Response($posts); // Create the response object
 
       $response->set_status(200); // Add a custom status code
 
-      // $response->set_headers();
+      $response->set_headers([
+        'X-WP-Total' => $search_query->found_posts,
+        'X-WP-TotalPages' => $search_query->max_num_pages,
+      ]);
 
       return $response;
     }

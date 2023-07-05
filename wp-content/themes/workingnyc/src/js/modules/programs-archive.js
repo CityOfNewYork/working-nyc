@@ -163,7 +163,7 @@ export default {
      */
     nextPage: function(event) {
       console.log("i");
-      console.log(this.posts.length);
+      console.log(this.posts.map(page => page.posts).flat().length);
       let _this = this;
 
       (async (_this) => {
@@ -197,7 +197,7 @@ export default {
    */
   created: function() {
     console.log("g");
-    console.log(this.posts.length);
+    console.log(this.posts.map(page => page.posts).flat().length);
     /**
      * Query Vars to map to the WP Archive Vue history state. These are
      * different from registered query vars so that they don't interfere
