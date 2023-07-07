@@ -1,7 +1,5 @@
 <template>
   <article v-if="post.type == 'jobs'" class="c-card">
-    <span>{{ post.id }}</span>
-    <span>{{ post.type }}</span>
     <header class="c-card__header">
       <span>
         <a class="c-card__header-link" :data-js="'post-' + post.id" :href="post.link">
@@ -75,8 +73,6 @@
     </div>
   </article>
   <article v-else-if="post.type == 'programs'" class="c-card">
-    <span>{{ post.id }}</span>
-    <span>{{ post.type }}</span>
     <header class="c-card__header">
       <span>
         <a class="c-card__header-link" :data-js="'post-' + post.id" :href="post.context.link" :target="(post.context.external) ? '_blank' : false" :rel="(post.context.external) ? 'noopener' : false">

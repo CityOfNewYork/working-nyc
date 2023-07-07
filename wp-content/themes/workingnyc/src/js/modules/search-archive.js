@@ -7,7 +7,7 @@ export default {
   props: {
     perPage: {
       type: Number,
-      default: 2
+      default: 8
     },
     page: {
       type: Number,

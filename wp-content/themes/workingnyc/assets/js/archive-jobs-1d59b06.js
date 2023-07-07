@@ -229,8 +229,6 @@
 	     * @type {Boolean}
 	     */
 	    loading: function() {
-	      console.log("j");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      if (!this.posts.length) return false;
 
 	      let page = this.posts[this.query.page];
@@ -253,13 +251,8 @@
 	     * @type {Boolean}
 	     */
 	    next: function() {
-	      console.log("k");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      let number = this.query.page;
 	      let total = this.headers.pages;
-
-	      console.log(number);
-	      console.log(total);
 
 	      if (!this.posts.length) return false;
 
@@ -312,8 +305,6 @@
 	     * @return  {Array}  All visible posts in one array
 	     */
 	    postsFlat() {
-	      console.log("l");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      let posts = this.posts.filter(page => {
 	        return (page && page.show) ? page.posts : false;
 	      }).map(page => {
@@ -330,8 +321,6 @@
 	     * @return  {Number}  Representing the total visible posts
 	     */
 	    totalVisible: function() {
-	      console.log("m");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      let show = this.posts.map(page => {
 	        return (page && page.show) ? page.posts.length : 0;
 	      });
@@ -451,9 +440,6 @@
 	     * @return {Promise}       The fetch request for that endpoint.
 	     */
 	    fetch: function(data = false) {
-	      console.log("h");
-	      console.log(this.posts.map(page => page.posts).flat().length);
-
 	      if (!data) return data;
 
 	      return (this[data].length) ? this[data] :
@@ -575,9 +561,6 @@
 	      return new Promise((resolve) => { // eslint-disable-line no-undef
 	        this.$set(this.query, taxonomy, terms);
 	        this.$set(this.query, 'page', 1);
-	        
-	        console.log("n");
-	        console.log(this.posts.map(page => page.posts).flat().length);
 
 	        // hide all of the posts
 	        this.posts.map((value, index) => {
@@ -629,8 +612,6 @@
 
 	      return new Promise(resolve => { // eslint-disable-line no-undef
 	        this.$set(this.query, 'page', page);
-	        console.log("o");
-	        console.log(this.posts.map(page => page.posts).flat().length);
 	        this.$set(this.posts[this.query.page], 'show', true);
 
 	        this.queue([0, change]);
@@ -662,8 +643,6 @@
 	     * @return {Object}          Vue instance.
 	     */
 	    queue: function(queries = [0, 1]) {
-	      console.log("a");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      // Set a benchmark query to compare the upcomming query to.
 	      let Obj1 = Object.assign({}, this.query); // create copy of object.
 	      delete Obj1.page; // delete the page attribute because it will be different.
@@ -700,8 +679,6 @@
 	          // structure (other than the page, which will obviously be
 	          // different). This will help us determine if we need to make a new
 	          // request.
-	          console.log("b");
-	          console.log(this.posts.map(page => page.posts).flat().length);
 	          let havePage = (this.posts[query.page]) ? true : false;
 	          let pageQueryMatches = false;
 
@@ -710,9 +687,6 @@
 	            delete Obj2.page;
 	            pageQueryMatches = (JSON.stringify(Obj1) === JSON.stringify(Obj2));
 	          }
-
-	          console.log("c");
-	          console.log(this.posts.map(page => page.posts).flat().length);
 
 	          if (havePage && pageQueryMatches) continue;
 
@@ -768,18 +742,12 @@
 	        this.buildUrlQuery(wpQuery)
 	      ].join('');
 
-	      console.log("d");
-	      console.log(this.posts.map(page => page.posts).flat().length);
-
 	      // Set posts and store a copy of the query for reference.
 	      this.$set(this.posts, query.page, {
 	        posts: [],
 	        query: Object.freeze(query),
 	        show: (this.query.page >= query.page)
 	      });
-
-	      console.log("e");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 
 	      return fetch(url);
 	    },
@@ -826,9 +794,6 @@
 	      let posts = (Array.isArray(data)) ?
 	        data.map(this.maps()[this.type]) : false;
 
-	      console.log("p");
-	      console.log(this.posts.map(page => page.posts).flat().length);
-
 	      // Set posts and store a copy of the query for reference.
 	      this.$set(this.posts[query.page], 'posts', posts);
 	      this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
@@ -856,8 +821,6 @@
 	     * @return {Object}         Query as a JSON object
 	     */
 	    getState: function(query = false) {
-	      console.log("f");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      query = (query) ? query : this.buildJsonQuery(window.location.search);
 
 	      Object.keys(query).map(key => {

@@ -181,10 +181,8 @@ add_action('rest_api_init', function() {
         's' => $parameters['s'],
         'posts_per_page' => $parameters['per_page'],
         'paged' => $parameters['page'],
-        'category_name' => 'jobs,programs' // only include programs and jobs in search results
+        'post_type' => array('jobs', 'programs') // only include programs and jobs in search results
       );
-
-      error_log(print_r($parameters, true));
 
       // run query
       $search_query = new WP_Query();

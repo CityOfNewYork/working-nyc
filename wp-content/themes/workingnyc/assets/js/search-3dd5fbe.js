@@ -229,8 +229,6 @@
 	     * @type {Boolean}
 	     */
 	    loading: function() {
-	      console.log("j");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      if (!this.posts.length) return false;
 
 	      let page = this.posts[this.query.page];
@@ -253,13 +251,8 @@
 	     * @type {Boolean}
 	     */
 	    next: function() {
-	      console.log("k");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      let number = this.query.page;
 	      let total = this.headers.pages;
-
-	      console.log(number);
-	      console.log(total);
 
 	      if (!this.posts.length) return false;
 
@@ -312,8 +305,6 @@
 	     * @return  {Array}  All visible posts in one array
 	     */
 	    postsFlat() {
-	      console.log("l");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      let posts = this.posts.filter(page => {
 	        return (page && page.show) ? page.posts : false;
 	      }).map(page => {
@@ -330,8 +321,6 @@
 	     * @return  {Number}  Representing the total visible posts
 	     */
 	    totalVisible: function() {
-	      console.log("m");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      let show = this.posts.map(page => {
 	        return (page && page.show) ? page.posts.length : 0;
 	      });
@@ -451,9 +440,6 @@
 	     * @return {Promise}       The fetch request for that endpoint.
 	     */
 	    fetch: function(data = false) {
-	      console.log("h");
-	      console.log(this.posts.map(page => page.posts).flat().length);
-
 	      if (!data) return data;
 
 	      return (this[data].length) ? this[data] :
@@ -575,9 +561,6 @@
 	      return new Promise((resolve) => { // eslint-disable-line no-undef
 	        this.$set(this.query, taxonomy, terms);
 	        this.$set(this.query, 'page', 1);
-	        
-	        console.log("n");
-	        console.log(this.posts.map(page => page.posts).flat().length);
 
 	        // hide all of the posts
 	        this.posts.map((value, index) => {
@@ -629,8 +612,6 @@
 
 	      return new Promise(resolve => { // eslint-disable-line no-undef
 	        this.$set(this.query, 'page', page);
-	        console.log("o");
-	        console.log(this.posts.map(page => page.posts).flat().length);
 	        this.$set(this.posts[this.query.page], 'show', true);
 
 	        this.queue([0, change]);
@@ -662,8 +643,6 @@
 	     * @return {Object}          Vue instance.
 	     */
 	    queue: function(queries = [0, 1]) {
-	      console.log("a");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      // Set a benchmark query to compare the upcomming query to.
 	      let Obj1 = Object.assign({}, this.query); // create copy of object.
 	      delete Obj1.page; // delete the page attribute because it will be different.
@@ -700,8 +679,6 @@
 	          // structure (other than the page, which will obviously be
 	          // different). This will help us determine if we need to make a new
 	          // request.
-	          console.log("b");
-	          console.log(this.posts.map(page => page.posts).flat().length);
 	          let havePage = (this.posts[query.page]) ? true : false;
 	          let pageQueryMatches = false;
 
@@ -710,9 +687,6 @@
 	            delete Obj2.page;
 	            pageQueryMatches = (JSON.stringify(Obj1) === JSON.stringify(Obj2));
 	          }
-
-	          console.log("c");
-	          console.log(this.posts.map(page => page.posts).flat().length);
 
 	          if (havePage && pageQueryMatches) continue;
 
@@ -768,18 +742,12 @@
 	        this.buildUrlQuery(wpQuery)
 	      ].join('');
 
-	      console.log("d");
-	      console.log(this.posts.map(page => page.posts).flat().length);
-
 	      // Set posts and store a copy of the query for reference.
 	      this.$set(this.posts, query.page, {
 	        posts: [],
 	        query: Object.freeze(query),
 	        show: (this.query.page >= query.page)
 	      });
-
-	      console.log("e");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 
 	      return fetch(url);
 	    },
@@ -826,9 +794,6 @@
 	      let posts = (Array.isArray(data)) ?
 	        data.map(this.maps()[this.type]) : false;
 
-	      console.log("p");
-	      console.log(this.posts.map(page => page.posts).flat().length);
-
 	      // Set posts and store a copy of the query for reference.
 	      this.$set(this.posts[query.page], 'posts', posts);
 	      this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
@@ -856,8 +821,6 @@
 	     * @return {Object}         Query as a JSON object
 	     */
 	    getState: function(query = false) {
-	      console.log("f");
-	      console.log(this.posts.map(page => page.posts).flat().length);
 	      query = (query) ? query : this.buildJsonQuery(window.location.search);
 
 	      Object.keys(query).map(key => {
@@ -983,7 +946,7 @@
 	  props: {
 	    perPage: {
 	      type: Number,
-	      default: 2
+	      default: 8
 	    },
 	    page: {
 	      type: Number,
@@ -1225,7 +1188,7 @@
 	const __vue_script__$1 = SearchArchive;
 
 	/* template */
-	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]),_vm._v(" "),_c('div',_vm._l((_vm.postsFlat),function(post){return _c('span',{key:post.id,attrs:{"post":post,"strings":_vm.strings}},[_vm._v(" "+_vm._s(post.id)+" ")])}),0),_vm._v(" "),_c('div',_vm._l((_vm.postsFlat),function(post){return _c('span',{key:post.id,attrs:{"post":post,"strings":_vm.strings}},[_vm._v(" "+_vm._s(post.title)+" ")])}),0),_vm._v(" "),_c('div',_vm._l((_vm.postsFlat),function(post){return _c('span',{key:post.id,attrs:{"post":post,"strings":_vm.strings}},[_vm._v(" "+_vm._s(post.context.link)+" ")])}),0),_vm._v(" "),_c('div',_vm._l((_vm.postsFlat),function(post){return _c('span',{key:post.id,attrs:{"post":post,"strings":_vm.strings}},[_vm._v(" "+_vm._s(post)+" ")])}),0),_vm._v(" "),_c('section',{staticClass:"px-4 tablet:px-6"},[_c('div',{staticClass:"grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('SearchResult',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"layout-content py-6 pb-8 mb-4"},[_c('div',{staticClass:"wrap"},[(_vm.next)?_c('button',{staticClass:"btn btn-primary w-full",attrs:{"id":"pagination","data-amount":"1"},on:{"click":_vm.nextPage}},[_vm._v("\n          "+_vm._s(_vm.strings.SHOW_MORE)+"\n        ")]):_vm._e()])]):_vm._e()])])};
+	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]),_vm._v(" "),_c('section',{staticClass:"px-4 tablet:px-6"},[_c('div',{staticClass:"grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('SearchResult',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"layout-content py-6 pb-8 mb-4"},[_c('div',{staticClass:"wrap"},[(_vm.next)?_c('button',{staticClass:"btn btn-primary w-full",attrs:{"id":"pagination","data-amount":"1"},on:{"click":_vm.nextPage}},[_vm._v("\n          "+_vm._s(_vm.strings.SHOW_MORE)+"\n        ")]):_vm._e()])]):_vm._e()])])};
 	var __vue_staticRenderFns__$1 = [];
 
 	  /* style */
@@ -1432,10 +1395,6 @@
 	//
 	//
 	//
-	//
-	//
-	//
-	//
 
 	var script = {
 	  props: {
@@ -1452,7 +1411,7 @@
 	const __vue_script__ = script;
 
 	/* template */
-	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.post.type == 'jobs')?_c('article',{staticClass:"c-card"},[_c('span',[_vm._v(_vm._s(_vm.post.id))]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.post.type))]),_vm._v(" "),_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.link}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.cardTitle)}})])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[(_vm.post.context.sector)?_c('b',{domProps:{"innerHTML":_vm._s(_vm.post.context.sector)}}):_vm._e(),_vm._v(" "),(_vm.post.context.sector && _vm.post.context.organization)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.WITH)+" ")]):_vm._e(),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.organization)}})])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[_c('div',{staticClass:"c-card__summary"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.post.context.summary)}})]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.salary)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SALARY))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-dollar-sign"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.salary)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.location)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.LOCATION))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-map-pin"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.location)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.link}},[_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-arrow-left"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-arrow-right"}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])]):(_vm.post.type == 'programs')?_c('article',{staticClass:"c-card"},[_c('span',[_vm._v(_vm._s(_vm.post.id))]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.post.type))]),_vm._v(" "),_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.program_plain_language_title)}}),_vm._v(" "),(_vm.post.context.external)?_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-external-link"}})]):_vm._e()])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[_c('b',{attrs:{"data-program":"title"},domProps:{"innerHTML":_vm._s(_vm.post.context.program_title)}}),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.BY)+" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.program_agency)}}):_vm._e()])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[(_vm.post.context.status)?_c('p',{staticClass:"c-card__status flex items-center"},[(_vm.post.context.status.recruiting)?_c('mark',{staticClass:"badge mie-2",attrs:{"data-program":"recruiting"}},[_vm._v("\n        "+_vm._s(_vm.post.context.status.recruiting.name)),_c('span',{staticClass:"sr-only"},[_vm._v(".")])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"flex mie-2"},[_c('svg',{staticClass:"icon text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.disability.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-accessibility"}})])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"sr-only"},[_vm._v(" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.status.language)?_c('span',{staticClass:"flex me-2"},[_c('svg',{staticClass:"icon-ui text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.language.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-languages"}})])]):_vm._e()]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"c-card__summary"},[_c('p',[(_vm.post.context.preview)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.preview)}}):_vm._e(),_vm._v(" "),(_vm.post.context.populations)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.populations)}}):_vm._e()])]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.services)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SERVICES))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-award"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.services)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.supports)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SUPPORTS))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-heart-handshake"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.supports)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[(_vm.post.context.external)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.link_label)}}):_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.context.program_plain_language_title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":(_vm.post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])]):_vm._e()};
+	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.post.type == 'jobs')?_c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.link}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.cardTitle)}})])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[(_vm.post.context.sector)?_c('b',{domProps:{"innerHTML":_vm._s(_vm.post.context.sector)}}):_vm._e(),_vm._v(" "),(_vm.post.context.sector && _vm.post.context.organization)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.WITH)+" ")]):_vm._e(),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.organization)}})])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[_c('div',{staticClass:"c-card__summary"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.post.context.summary)}})]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.salary)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SALARY))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-dollar-sign"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.salary)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.location)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.LOCATION))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-map-pin"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.location)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.link}},[_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-arrow-left"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-arrow-right"}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])]):(_vm.post.type == 'programs')?_c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.program_plain_language_title)}}),_vm._v(" "),(_vm.post.context.external)?_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-external-link"}})]):_vm._e()])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[_c('b',{attrs:{"data-program":"title"},domProps:{"innerHTML":_vm._s(_vm.post.context.program_title)}}),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.BY)+" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.program_agency)}}):_vm._e()])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[(_vm.post.context.status)?_c('p',{staticClass:"c-card__status flex items-center"},[(_vm.post.context.status.recruiting)?_c('mark',{staticClass:"badge mie-2",attrs:{"data-program":"recruiting"}},[_vm._v("\n        "+_vm._s(_vm.post.context.status.recruiting.name)),_c('span',{staticClass:"sr-only"},[_vm._v(".")])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"flex mie-2"},[_c('svg',{staticClass:"icon text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.disability.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-accessibility"}})])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"sr-only"},[_vm._v(" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.status.language)?_c('span',{staticClass:"flex me-2"},[_c('svg',{staticClass:"icon-ui text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.language.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-languages"}})])]):_vm._e()]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"c-card__summary"},[_c('p',[(_vm.post.context.preview)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.preview)}}):_vm._e(),_vm._v(" "),(_vm.post.context.populations)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.populations)}}):_vm._e()])]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.services)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SERVICES))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-award"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.services)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.supports)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SUPPORTS))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-heart-handshake"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.supports)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[(_vm.post.context.external)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.link_label)}}):_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.context.program_plain_language_title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":(_vm.post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])]):_vm._e()};
 	var __vue_staticRenderFns__ = [];
 
 	  /* style */
