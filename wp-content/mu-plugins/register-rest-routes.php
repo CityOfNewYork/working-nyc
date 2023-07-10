@@ -166,13 +166,12 @@ add_action('rest_api_init', function() {
      *
      * @param   WP_REST_Request  $request    Instance WP REST Request
      *
-     * Acceptable REST parameters: TODO update this
+     * Acceptable REST parameters
      *
+     * @param   String           s           The search term
      * @param   Array            post_type   The desired post type or types
-     * @param   Boolean          hide_empty
-     * @param   Boolean          cache       Wether to use transient cache results
-     *
-     * @return  Array                        Array of taxonomies and their terms
+     * @param   Integer          per_page    The number of posts per page   
+     * @param   Integer          page        The page number of search results to return
      */
     'callback' => function(WP_REST_Request $request) {
       $parameters = $request->get_query_params();
@@ -180,9 +179,14 @@ add_action('rest_api_init', function() {
       $args = array(
         's' => $parameters['s'],
         'posts_per_page' => $parameters['per_page'],
-        'paged' => $parameters['page'],
-        'post_type' => array('jobs', 'programs') // only include programs and jobs in search results
+        'paged' => $parameters['page']
       );
+
+      // The search feature currently only allows for jobs or programs, but the API 
+      // should be flexible in case we want to search other types of pages in the future
+      if (isset($parameters['post_type'])) {
+        $args['post_type'] = $parameters['post_type'];
+      }
 
       // run query
       $search_query = new WP_Query();
