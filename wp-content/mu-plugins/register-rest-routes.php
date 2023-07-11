@@ -170,7 +170,7 @@ add_action('rest_api_init', function() {
      *
      * @param   String           s           The search term
      * @param   Array            post_type   The desired post type or types
-     * @param   Integer          per_page    The number of posts per page   
+     * @param   Integer          per_page    The number of posts per page
      * @param   Integer          page        The page number of search results to return
      */
     'callback' => function(WP_REST_Request $request) {
@@ -182,7 +182,7 @@ add_action('rest_api_init', function() {
         'paged' => $parameters['page']
       );
 
-      // The search feature currently only allows for jobs or programs, but the API 
+      // The search feature currently only allows for jobs or programs, but the API
       // should be flexible in case we want to search other types of pages in the future
       if (isset($parameters['post_type'])) {
         $args['post_type'] = $parameters['post_type'];

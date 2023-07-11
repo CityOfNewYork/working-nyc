@@ -81,16 +81,96 @@ export default {
 
       /**
        * This is the endpoint list for terms and post requests
+       * The other archive files have an endpoint for filter terms, but the search page sets filter terms locally
        *
        * @type  {Object}
        *
-       * @param  {String}  terms  A required endpoint for the list of filters
-       * @param  {String}  jobs   This is based on the 'type' setting above
+       * @param  {String}  search   The API endpoint that returns search results
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=jobs&cache=0',
         search: '/wp-json/api/v1/searchRelevanssi'
       },
+
+      terms: [ {
+          name: 'Result type',
+          slug: 'result-type',
+          filters: [ {
+              id: 1,
+              name: 'Jobs',
+              slug: 'jobs',
+              parent: 'result-type',
+              checked: false
+            },
+            {
+              id: 2,
+              name: 'Programs',
+              slug: 'programs',
+              parent: 'result-type',
+              checked: false
+            }
+          ]
+        }, 
+        {
+          name: 'Locations',
+          slug: 'locations',
+          filters: [ {
+              id: 83,
+              name: 'Bronx',
+              slug: 'bronx',
+              parent: 'locations',
+              checked: false
+            },
+            {
+              id: 81,
+              name: 'Brooklyn',
+              slug: 'brooklyn',
+              parent: 'locations',
+              checked: false
+            },
+            {
+              id: 284,
+              name: 'Downstate',
+              slug: 'downstate',
+              parent: 'locations',
+              checked: false
+            },
+            {
+              id: 82,
+              name: 'Manhattan',
+              slug: 'manhattan',
+              parent: 'locations',
+              checked: false
+            },
+            {
+              id: 271,
+              name: 'NYC All Boroughs',
+              slug: 'nyc-all-boros',
+              parent: 'locations',
+              checked: false
+            },
+            {
+              id: 277,
+              name: 'Outside NYC',
+              slug: 'outside-nyc',
+              parent: 'locations',
+              checked: false
+            },
+            {
+              id: 84,
+              name: 'Queens',
+              slug: 'queens',
+              parent: 'locations',
+              checked: false
+            },
+            {
+              id: 85,
+              name: 'Staten Island',
+              slug: 'staten-island',
+              parent: 'locations',
+              checked: false
+            }]
+          }
+        ],
 
       /**
        * Each endpoint above will access a map to take the data from the request
@@ -114,27 +194,9 @@ export default {
             type: result.type,
             context: result.context,
             raw: (process.env.NODE_ENV === 'development') ? { ...result } : false
-          }),
-
-          /**
-           * Data mapping function for results from the Terms endpoint
-           *
-           * @raw /wp-json/api/v1/terms
-           */
-          terms: terms => ({
-            name: terms.taxonomy.labels.archives,
-            slug: terms.taxonomy.name,
-            filters: terms.terms.map(filters => ({
-              id: filters.term_id,
-              name: filters.name,
-              slug: filters.slug,
-              parent: terms.taxonomy.name,
-              checked: (
-                this.query.hasOwnProperty(terms.taxonomy.name) &&
-                this.query[terms.taxonomy.name].includes(filters.term_id)
-              )
-            }))
           })
+          // The other archive files have a map for terms, but the search page does
+          // not retrieve filter terms from an endpoint
         };
       }
     };
@@ -146,7 +208,7 @@ export default {
   methods: {
     /**
      * TODO: Set focus to results when the filter dropdown is closed. This
-     * method is not currently working when bound to the "close and see" button.
+     * method is not currently working when bound to the 'close and see' button.
      * That button uses the patterns scripts dialog method which interfere
      * with DOM event propagation.
      */
@@ -156,6 +218,12 @@ export default {
       this.$refs.results.setAttribute('tabindex', '-1');
 
       this.$refs.results.focus();
+    },
+
+    error: function(e) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(e);
+      }
     },
 
     /**
@@ -236,7 +304,6 @@ export default {
   
     this.getState(query)   // Initialize the application
       .queue()            // Initialize the first page request
-      .fetch('terms')     // Get the terms from the 'terms' endpoint
-      .catch(this.error); //
+      .catch(this.error); 
   }
 };

@@ -941,12 +941,12 @@
 	    undefined
 	  );
 
-	var ProgramsArchive = {
+	var SearchArchive = {
 	  extends: __vue_component__$2,
 	  props: {
 	    perPage: {
 	      type: Number,
-	      default: 24
+	      default: 8
 	    },
 	    page: {
 	      type: Number,
@@ -965,19 +965,22 @@
 	    },
 	    strings: {
 	      type: Object
-	    }
+	    },
+	    searchTerm: {
+	      type: String
+	    },
 	  },
 	  data: function() {
 	    return {
 	      /**
-	       * This is our custom post type to query
-	       *
+	       * In the parent Archive class, this represents a post type to query, but here it is
+	       * the endpoint to use
 	       * @type {String}
 	       */
-	      type: 'programs',
+	      type: 'search',
 
 	      /**
-	       * Setting this sets the initial app query.
+	       * Setting this sets the initial app query
 	       *
 	       * @type {Object}
 	       */
@@ -986,6 +989,22 @@
 	        page: this.page,
 	        orderby: 'menu_order',
 	        order: 'asc'
+	      },
+
+	      /**
+	       * Modify how the URL history is written
+	       *
+	       * @type {Object}
+	       */
+	      history: {
+	        omit: [
+	          'page',
+	          'per_page',
+	          'orderby',
+	          'order'
+	        ],
+	        map: {},
+	        filterParams: false
 	      },
 
 	      /**
@@ -1000,33 +1019,97 @@
 	      },
 
 	      /**
-	       * Modify how the URL history is written
-	       *
-	       * @type {Object}
-	       */
-	       history: {
-	        omit: [
-	          'page',
-	          'per_page',
-	          'orderby',
-	          'order'
-	        ],
-	        map: {},
-	        filterParams: false
-	      },
-
-	      /**
 	       * This is the endpoint list for terms and post requests
+	       * The other archive files have an endpoint for filter terms, but the search page sets filter terms locally
 	       *
 	       * @type  {Object}
 	       *
-	       * @param  {String}  terms  A required endpoint for the list of filters
-	       * @param  {String}  jobs   This is based on the 'type' setting above
+	       * @param  {String}  search   The API endpoint that returns search results
 	       */
 	      endpoints: {
-	        terms: '/wp-json/api/v1/terms/?post_type[]=programs&cache=0',
-	        programs: '/wp-json/wp/v2/programs'
+	        search: '/wp-json/api/v1/searchRelevanssi'
 	      },
+
+	      terms: [ {
+	          name: 'Result type',
+	          slug: 'result-type',
+	          filters: [ {
+	              id: 1,
+	              name: 'Jobs',
+	              slug: 'jobs',
+	              parent: 'result-type',
+	              checked: false
+	            },
+	            {
+	              id: 2,
+	              name: 'Programs',
+	              slug: 'programs',
+	              parent: 'result-type',
+	              checked: false
+	            }
+	          ]
+	        }, 
+	        {
+	          name: 'Locations',
+	          slug: 'locations',
+	          filters: [ {
+	              id: 83,
+	              name: 'Bronx',
+	              slug: 'bronx',
+	              parent: 'locations',
+	              checked: false
+	            },
+	            {
+	              id: 81,
+	              name: 'Brooklyn',
+	              slug: 'brooklyn',
+	              parent: 'locations',
+	              checked: false
+	            },
+	            {
+	              id: 284,
+	              name: 'Downstate',
+	              slug: 'downstate',
+	              parent: 'locations',
+	              checked: false
+	            },
+	            {
+	              id: 82,
+	              name: 'Manhattan',
+	              slug: 'manhattan',
+	              parent: 'locations',
+	              checked: false
+	            },
+	            {
+	              id: 271,
+	              name: 'NYC All Boroughs',
+	              slug: 'nyc-all-boros',
+	              parent: 'locations',
+	              checked: false
+	            },
+	            {
+	              id: 277,
+	              name: 'Outside NYC',
+	              slug: 'outside-nyc',
+	              parent: 'locations',
+	              checked: false
+	            },
+	            {
+	              id: 84,
+	              name: 'Queens',
+	              slug: 'queens',
+	              parent: 'locations',
+	              checked: false
+	            },
+	            {
+	              id: 85,
+	              name: 'Staten Island',
+	              slug: 'staten-island',
+	              parent: 'locations',
+	              checked: false
+	            }]
+	          }
+	        ],
 
 	      /**
 	       * Each endpoint above will access a map to take the data from the request
@@ -1039,38 +1122,20 @@
 	      maps: function() {
 	        return {
 	          /**
-	           * Data mapping function for results from the Programs endpoint
+	           * Data mapping function for results from the Search endpoint
 	           *
-	           * @raw /wp-json/wp/v2/jobs
+	           * @raw /wp-json/api/v1/searchRelevanssi
 	           */
-	          programs: programs => ({
-	            id: programs.id,
-	            title: programs.acf.program_title,
-	            link: programs.link,
-	            status: programs.status,
-	            context: programs.context,
+	          search: result => ({
+	            id: result.id,
+	            title: result.title,
+	            link: result.url,
+	            type: result.type,
+	            context: result.context,
 	            raw: false
-	          }),
-
-	          /**
-	           * Data mapping function for results from the Terms endpoint
-	           *
-	           * @raw /wp-json/api/v1/terms
-	           */
-	          terms: terms => ({
-	            name: terms.taxonomy.labels.archives,
-	            slug: terms.taxonomy.name,
-	            filters: terms.terms.map(filters => ({
-	              id: filters.term_id,
-	              name: filters.name,
-	              slug: filters.slug,
-	              parent: terms.taxonomy.name,
-	              checked: (
-	                this.query.hasOwnProperty(terms.taxonomy.name) &&
-	                this.query[terms.taxonomy.name].includes(filters.term_id)
-	              )
-	            }))
 	          })
+	          // The other archive files have a map for terms, but the search page does
+	          // not retrieve filter terms from an endpoint
 	        };
 	      }
 	    };
@@ -1082,7 +1147,7 @@
 	  methods: {
 	    /**
 	     * TODO: Set focus to results when the filter dropdown is closed. This
-	     * method is not currently working when bound to the "close and see" button.
+	     * method is not currently working when bound to the 'close and see' button.
 	     * That button uses the patterns scripts dialog method which interfere
 	     * with DOM event propagation.
 	     */
@@ -1094,15 +1159,16 @@
 	      this.$refs.results.focus();
 	    },
 
+	    error: function(e) {
+	    },
+
 	    /**
 	     * Proxy for pagination. This will shift focus on the next page's first
 	     * result once pagination is complete.
 	     *
 	     * @param   {Object}  event  The bound click event
 	     */
-	    nextPage: function(event) {
-	      console.log("i");
-	      console.log(this.posts.map(page => page.posts).flat().length);
+	     nextPage: function(event) {
 	      let _this = this;
 
 	      (async (_this) => {
@@ -1135,8 +1201,6 @@
 	   * @type {Function}
 	   */
 	  created: function() {
-	    console.log("g");
-	    console.log(this.posts.map(page => page.posts).flat().length);
 	    /**
 	     * Query Vars to map to the WP Archive Vue history state. These are
 	     * different from registered query vars so that they don't interfere
@@ -1154,28 +1218,37 @@
 	      'duration': 'wnyc_dur',
 	      'locations': 'wnyc_loc',
 	      'populations': 'wnyc_pop',
-	      'sectors': 'wnyc_sec'
+	      'sectors': 'wnyc_sec',
+	      'source': 'wnyc_src',
+	      'salary': 'wnyc_sal'
 	    };
 
 	    // Add map of WP Query terms < to > Window history state
 	    this.$set(this.history, 'map', taxonomies);
 
-	    // Add custom taxonomy queries to the list of safe params
-	    this.params = [...this.params, ...Object.keys(taxonomies)];
+	    // Add custom taxonomy queries to the list of safe params, including the search param
+	    this.params = [...this.params, ...Object.keys(taxonomies), 's'];
 
-	    // Initialize the application
-	    this.getState()       // Get window.location.search (filter history)
+	    // getState() sets all query parameters to be arrays; manually pass in the search term
+	    // as a string
+	    // TODO there may be a cleaner implementation for this
+	    const URLparams = new URLSearchParams(window.location.search);
+
+	    const query = {
+	      's': URLparams.get('s')
+	    };
+	  
+	    this.getState(query)   // Initialize the application
 	      .queue()            // Initialize the first page request
-	      .fetch('terms')     // Get the terms from the 'terms' endpoint
-	      .catch(this.error); //
+	      .catch(this.error); 
 	  }
 	};
 
 	/* script */
-	const __vue_script__$1 = ProgramsArchive;
+	const __vue_script__$1 = SearchArchive;
 
 	/* template */
-	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40"},[_c('div',{staticClass:"c-utility wrap"},[_c('a',{staticClass:"link-icon mie-auto",attrs:{"href":"/"}},[_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-chevron-left"}})]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.strings.HOME))])]),_vm._v(" "),_c('button',{staticClass:"btn btn-small btn-secondary light:btn-primary",attrs:{"disabled":_vm.terms.length === 0,"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"open","data-dialog-lock":"true","data-js":"dialog"}},[_c('span',{staticClass:"mie-1"},[_vm._v(_vm._s(_vm.strings.FILTERS))]),_vm._v(" "),_c('span',{staticClass:"badge badge-small status-secondary light:status-primary"},[_vm._v(_vm._s(_vm.totalFilters))])])]),_vm._v(" "),_c('div',{staticClass:"hidden",attrs:{"aria-hidden":"true","id":"aria-c-filter"}},[_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"wrap text-end relative z-20"},[_c('button',{staticClass:"btn btn-primary btn-small",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"close","data-js":"dialog","tabindex":"-1"}},[_c('svg',{staticClass:"icon-ui",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#lucide-x"}})]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.strings.CLOSE))])])])]),_vm._v(" "),_c('form',{attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"layout-content"},[_c('div',_vm._l((_vm.terms),function(term){return _c('div',{key:term.slug,staticClass:"mb-8"},[_c('fieldset',{staticClass:"fieldset mb-2",attrs:{"tabindex":"-1"}},[_c('legend',{staticClass:"h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1",attrs:{"tabindex":"-1"}},[_vm._v("\n                  "+_vm._s(term.name)+"\n                ")]),_vm._v(" "),_c('div',{staticClass:"wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3"},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.click({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-nyco-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"option__label"},[_vm._v(_vm._s(filter.name))])])])}),0)]),_vm._v(" "),_c('div',{staticClass:"pis-4"},[_c('button',{staticClass:"text-small",attrs:{"type":"button","tabindex":"-1","aria-pressed":term.filters.filter(function (f) { return f.checked; }).length === term.filters.length ? 'true' : 'false'},domProps:{"innerHTML":_vm._s(_vm.strings.TOGGLE_ALL.replace('{{ TERM }}', term.name.toLowerCase()))},on:{"click":function($event){return _vm.toggle({event: $event, data: {parent: term.slug}})}}})])])}),0)]),_vm._v(" "),_c('div',{staticClass:"layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1"},[_c('div',{staticClass:"wrap"},[_c('button',{staticClass:"btn btn-secondary w-full",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-js":"dialog","tabindex":"-1"},domProps:{"innerHTML":_vm._s(_vm.strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', _vm.headers.total))}})])])])])]),_vm._v(" "),_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"page-max"},[_c('header',{staticClass:"o-header"},[_c('div',[_c('nav',{staticClass:"o-header__breadcrumbs",attrs:{"aria-label":"Breadcrumb"}},[_c('a',{attrs:{"href":"/"}},[_vm._v(_vm._s(_vm.strings.HOME))]),_vm._v(" "),_c('svg',{staticClass:"o-header__breadcrumbs-chevron icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-chevron-right"}})]),_vm._v(" "),_c('b',{attrs:{"aria-current":"page"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])]),_vm._v(" "),_c('div',{staticClass:"o-header__title"},[_c('h1',{staticClass:"o-header__heading",attrs:{"id":"page-heading"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])]),_vm._v(" "),(_vm.strings.PAGE_CONTENT)?_c('div',{staticClass:"mb-3",domProps:{"innerHTML":_vm._s(_vm.strings.PAGE_CONTENT)}}):_vm._e()])])])]),_vm._v(" "),(_vm.init)?_c('section',{staticClass:"page-max desktop:px-6"},[(!_vm.loading)?_c('div',{staticClass:"wrap desktop:px-6"},[_c('div',{staticClass:"mb-3"},[(_vm.posts != null)?_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","data-dialog-focus-on-close":"aria-c-filter","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]):_vm._e(),_vm._v(" "),(_vm.totalFilters > 0)?_c('button',{domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}}):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('Program',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.posts != null)?_c('p',{attrs:{"data-alert":"text"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.none)?_c('div',{staticClass:"flex items-center text-em justify-center py-4"},[_c('p',[_vm._v(_vm._s(_vm.strings.NO_RESULTS)+" "),_c('button',{domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}})])]):_vm._e()]):_c('section',{staticClass:"page-max desktop:px-6"},[_c('div',{staticClass:"flex items-center text-em justify-center py-8"},[_c('svg',{staticClass:"spinner icon-4 block mie-2",attrs:{"viewBox":"0 0 24 24","version":"1.1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('circle',{staticClass:"spinner__path",attrs:{"cx":"12","cy":"12","r":"10","fill":"none"}})]),_vm._v("\n\n      "+_vm._s(_vm.strings.LOADING)+"\n    ")])]),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"layout-content py-6 pb-8 mb-4"},[_c('div',{staticClass:"wrap"},[(_vm.next)?_c('button',{staticClass:"btn btn-primary w-full",attrs:{"id":"pagination","data-amount":"1"},on:{"click":_vm.nextPage}},[_vm._v("\n        "+_vm._s(_vm.strings.SHOW_MORE)+"\n      ")]):(_vm.strings.SUGGEST)?_c('article',{staticClass:"c-alert mb-3",attrs:{"data-js":"alert-help"},domProps:{"innerHTML":_vm._s(_vm.strings.SUGGEST)}}):_vm._e()])]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"layout-content pb-2 sticky z-10 o-navigation-feedback-spacing-bottom"},[_c('div',{staticClass:"wrap text-end"},[_c('a',{staticClass:"btn btn-small tablet:btn btn-secondary",attrs:{"href":"#page-heading"}},[_vm._v(_vm._s(_vm.strings.BACK_TO_TOP))])])])])};
+	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]),_vm._v(" "),_vm._l((_vm.terms),function(term){return _c('div',{key:term.slug,staticClass:"mb-8"},[_c('div',[_c('div',[_vm._v("\n        "+_vm._s(term.name)+"\n      ")]),_vm._v(" "),_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked}}),_vm._v(" "),_c('span',{staticClass:"option__base"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-nyco-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"option__label"},[_vm._v(_vm._s(filter.name))])])])})],2)])}),_vm._v(" "),_c('section',{staticClass:"px-4 tablet:px-6"},[_c('div',{staticClass:"grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('SearchResult',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"layout-content py-6 pb-8 mb-4"},[_c('div',{staticClass:"wrap"},[(_vm.next)?_c('button',{staticClass:"btn btn-primary w-full",attrs:{"id":"pagination","data-amount":"1"},on:{"click":_vm.nextPage}},[_vm._v("\n          "+_vm._s(_vm.strings.SHOW_MORE)+"\n        ")]):_vm._e()])]):_vm._e()])],2)};
 	var __vue_staticRenderFns__$1 = [];
 
 	  /* style */
@@ -1309,6 +1382,79 @@
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 
 	var script = {
 	  props: {
@@ -1325,7 +1471,7 @@
 	const __vue_script__ = script;
 
 	/* template */
-	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.program_plain_language_title)}}),_vm._v(" "),(_vm.post.context.external)?_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-external-link"}})]):_vm._e()])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[_c('b',{attrs:{"data-program":"title"},domProps:{"innerHTML":_vm._s(_vm.post.context.program_title)}}),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.BY)+" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.program_agency)}}):_vm._e()])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[(_vm.post.status)?_c('p',{staticClass:"c-card__status flex items-center"},[(_vm.post.context.status.recruiting)?_c('mark',{staticClass:"badge mie-2",attrs:{"data-program":"recruiting"}},[_vm._v("\n        "+_vm._s(_vm.post.context.status.recruiting.name)),_c('span',{staticClass:"sr-only"},[_vm._v(".")])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"flex mie-2"},[_c('svg',{staticClass:"icon text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.disability.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-accessibility"}})])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"sr-only"},[_vm._v(" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.status.language)?_c('span',{staticClass:"flex me-2"},[_c('svg',{staticClass:"icon-ui text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.language.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-languages"}})])]):_vm._e()]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"c-card__summary"},[_c('p',[(_vm.post.context.preview)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.preview)}}):_vm._e(),_vm._v(" "),(_vm.post.context.populations)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.populations)}}):_vm._e()])]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.services)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SERVICES))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-award"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.services)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.supports)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SUPPORTS))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-heart-handshake"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.supports)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[(_vm.post.context.external)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.link_label)}}):_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.context.program_plain_language_title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":(_vm.post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])])};
+	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.post.type == 'jobs')?_c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.link}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.cardTitle)}})])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[(_vm.post.context.sector)?_c('b',{domProps:{"innerHTML":_vm._s(_vm.post.context.sector)}}):_vm._e(),_vm._v(" "),(_vm.post.context.sector && _vm.post.context.organization)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.WITH)+" ")]):_vm._e(),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.organization)}})])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[_c('div',{staticClass:"c-card__summary"},[_c('p',{domProps:{"innerHTML":_vm._s(_vm.post.context.summary)}})]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.salary)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SALARY))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-dollar-sign"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.salary)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.location)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.LOCATION))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-map-pin"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.location)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.link}},[_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-arrow-left"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-arrow-right"}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])]):(_vm.post.type == 'programs')?_c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.program_plain_language_title)}}),_vm._v(" "),(_vm.post.context.external)?_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-external-link"}})]):_vm._e()])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[_c('b',{attrs:{"data-program":"title"},domProps:{"innerHTML":_vm._s(_vm.post.context.program_title)}}),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.BY)+" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.program_agency)}}):_vm._e()])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[(_vm.post.context.status)?_c('p',{staticClass:"c-card__status flex items-center"},[(_vm.post.context.status.recruiting)?_c('mark',{staticClass:"badge mie-2",attrs:{"data-program":"recruiting"}},[_vm._v("\n        "+_vm._s(_vm.post.context.status.recruiting.name)),_c('span',{staticClass:"sr-only"},[_vm._v(".")])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"flex mie-2"},[_c('svg',{staticClass:"icon text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.disability.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-accessibility"}})])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"sr-only"},[_vm._v(" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.status.language)?_c('span',{staticClass:"flex me-2"},[_c('svg',{staticClass:"icon-ui text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.language.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-languages"}})])]):_vm._e()]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"c-card__summary"},[_c('p',[(_vm.post.context.preview)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.preview)}}):_vm._e(),_vm._v(" "),(_vm.post.context.populations)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.populations)}}):_vm._e()])]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.services)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SERVICES))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-award"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.services)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.supports)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SUPPORTS))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-heart-handshake"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.supports)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[(_vm.post.context.external)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.link_label)}}):_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.context.program_plain_language_title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":(_vm.post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])]):_vm._e()};
 	var __vue_staticRenderFns__ = [];
 
 	  /* style */
@@ -1358,20 +1504,16 @@
 	  );
 
 	/**
-	 * Programs Archive
+	 * Search results
 	 *
 	 * @author NYC Opportunity
-	 */
-
-	/**
-	 * Redirect old filtering method to WP Archive Vue filtering
 	 */
 
 	/**
 	 * Mount Components
 	 */
 
-	Vue.component('Program', __vue_component__);
+	Vue.component('SearchResult', __vue_component__);
 
 	/**
 	 * Archive
@@ -1393,25 +1535,25 @@
 	          FILTERS: (config.filters) ? config.filters.innerHTML : 'Filters',
 	          CLOSE: 'Close',
 	          TOGGLE_ALL: 'Toggle all {{ TERM }}',
-	          CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ number }} programs',
+	          CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ NUMBER }} jobs',
 	          PAGE_TITLE: (config.title) ? config.title.innerHTML : 'Posts',
 	          PAGE_CONTENT: (config.content) ? config.content.innerHTML : '',
-	          BY: 'by',
-	          SERVICES: 'Services Provided',
-	          SCHEDULE: 'Duration and Length',
-	          SUPPORTS: 'Support Provided',
-	          LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ program }}</span>',
-	          SHOWING: 'Showing {{ TOTAL_VISIBLE }} Programs of {{ TOTAL }}.',
+	          WITH: 'with',
+	          SCHEDULE: 'Employment Type and Schedule',
+	          SALARY: 'Salary',
+	          LOCATION: 'Work Location',
+	          LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ PROGRAM }}</span>',
+	          SHOWING: 'Showing {{ TOTAL_VISIBLE }} results of {{ TOTAL }}.',
 	          RESET: 'Click here to reset filters',
 	          NO_RESULTS: 'No Results. Try deselecting some filters.',
 	          LOADING: 'Loading',
 	          SHOW_MORE: 'Show more',
 	          BACK_TO_TOP: 'Back to top',
-	          SUGGEST:  (config.suggest) ? config.suggest.innerHTML : ''
-	        }
+	          SUGGEST: (config.suggest) ? config.suggest.innerHTML : ''
+	        },
 	      }
 	    });
 	  }
-	}).$mount('[data-js-archive="programs"]');
+	}).$mount('[data-js="search-results-list"]');
 
 })();
