@@ -192,11 +192,13 @@ add_action('rest_api_init', function() {
         // the 'tax_query' argument specifies the taxonomies to filter by
         // we need an array of arrays because we could filter by multiple taxonomies
         // (e.g. location, schedule, sector)
-        $args['tax_query'] = array( array( 
-          'taxonomy' => 'locations',
-          'field' => 'slug',
-          'terms' => $parameters['locations']
-        ));
+        $args['tax_query'] = array( 
+          array(
+            'taxonomy' => 'locations',
+            'field' => 'slug',
+            'terms' => $parameters['locations']
+          )
+        );
       }
 
       // run query
