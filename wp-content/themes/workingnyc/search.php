@@ -36,5 +36,5 @@ $context['posts'] = array_map(function($p) {
 // $context['language'] = ICL_LANGUAGE_CODE;
 
 // Render view
-$templates = array('search.twig');
+$templates = array('search/search-results.twig');
 Timber::render($templates, $context);
