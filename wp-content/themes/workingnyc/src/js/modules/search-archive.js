@@ -135,6 +135,13 @@ export default {
               checked: false
             },
             {
+              id: 206,
+              name: 'Hybrid',
+              slug: 'hybrid',
+              parent: 'locations',
+              checked: false
+            },
+            {
               id: 82,
               name: 'Manhattan',
               slug: 'manhattan',
@@ -168,7 +175,15 @@ export default {
               slug: 'staten-island',
               parent: 'locations',
               checked: false
-            }]
+            },
+            {
+              id: 35,
+              name: 'Virtual',
+              slug: 'virtual',
+              parent: 'locations',
+              checked: false
+            }
+          ]
           }
         ],
 
@@ -218,12 +233,6 @@ export default {
       this.$refs.results.setAttribute('tabindex', '-1');
 
       this.$refs.results.focus();
-    },
-
-    error: function(e) {
-      if (process.env.NODE_ENV === 'development') {
-        console.log(e);
-      }
     },
 
     /**
