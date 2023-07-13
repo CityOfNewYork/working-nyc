@@ -26,7 +26,7 @@ import Vue from 'vue/dist/vue.runtime.min'; // production
  * @extends   https://github.com/CityOfNewYork/nyco-wp-archive-vue
  */
 
-import SearchArchive from '../../views/search/search-results-list.vue';
+import SearchResultsList from '../../views/search/search-results-list.vue';
 import SearchResult from '../../views/search/search-result.vue';
 
 // feature flag
@@ -96,7 +96,7 @@ else {
 
     new Vue({
     render: createElement => {
-        return createElement(SearchArchive, {
+        return createElement(SearchResultsList, {
         props: {
             strings: {
             HOME: 'Home',

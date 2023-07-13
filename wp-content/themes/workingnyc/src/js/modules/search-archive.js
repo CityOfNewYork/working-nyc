@@ -31,11 +31,11 @@ export default {
   data: function() {
     return {
       /**
-       * This is our custom post type to query
-       *
+       * In the parent Archive class, this represents a post type to query, but here it is
+       * the endpoint to use
        * @type {String}
        */
-      type: 'jobs',
+      type: 'search',
 
       /**
        * Setting this sets the initial app query
@@ -218,11 +218,24 @@ export default {
     // Add map of WP Query terms < to > Window history state
     this.$set(this.history, 'map', taxonomies);
 
+    // Not from Jobs Archive: the 's' term in this.params and the following lines
+    // for getting the URL params
     // Add custom taxonomy queries to the list of safe params
-    this.params = [...this.params, ...Object.keys(taxonomies)];
+    this.params = [...this.params, ...Object.keys(taxonomies), 's'];
+
+    // getState() uses the existing query parameters from the URL and 
+    // sets them to be arrays
+    // Here, we manually pass in the search term as a string so that 
+    // it is not taken from the URL and converted into an array
+    // TODO change the WP Archive package to fix this
+    const URLparams = new URLSearchParams(window.location.search);
+
+    const query = {
+      's': URLparams.get('s')
+    };
 
     // Initialize the application
-    this.getState()       // Get window.location.search (filter history)
+    this.getState(query)       // Initialize the application
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //

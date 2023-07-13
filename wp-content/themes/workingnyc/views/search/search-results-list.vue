@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import SearchArchive from '../../src/js/modules/search-archive.js';
+  import SearchResultsList from '../../src/js/modules/search-archive.js';
 
-  export default SearchArchive;
+  export default SearchResultsList;
 </script>
