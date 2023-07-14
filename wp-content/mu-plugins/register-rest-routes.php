@@ -137,3 +137,70 @@ add_action('rest_api_init', function() {
     }
   ));
 });
+
+add_action('rest_api_init', function() {
+  /**
+   * Configuration
+   */
+
+  $v = 'api/v1'; // namespace for the current version of the API
+
+  $exp = WEEK_IN_SECONDS; // expiration of the transient caches
+
+  register_rest_route('api/v1', '/searchRelevanssi/', array(
+    'methods' => 'GET',
+    'permission_callback' => '__return_true',
+
+    /**
+     * Callback for the search with Relevanssi endpoint. 
+     * 
+     * Adapted from example by Aucor Oy
+     * Author URI: https://www.aucor.fi/
+     * Version: 1.0
+     * License: GPL2+
+     *
+     * @param   WP_REST_Request  $request    Instance WP REST Request
+     *
+     * Acceptable REST parameters: TODO update this
+     *
+     * @param   Array            post_type   The desired post type or types
+     * @param   Boolean          hide_empty
+     * @param   Boolean          cache       Whether to use transient cache results
+     *
+     * @return  Array                        Array of taxonomies and their terms
+     */
+    'callback' => function(WP_REST_Request $request) {
+      $parameters = $request->get_query_params();
+
+      $args = array(
+        's' => $parameters['s'],
+        'posts_per_page' => $parameters['per_page'],
+        'paged' => $parameters['page']
+      );
+
+      // run query
+      $search_query = new WP_Query();
+      $search_query->parse_query( $args );
+      if ( function_exists( 'relevanssi_do_query' ) ) {
+        relevanssi_do_query( $search_query );
+      }
+
+      $controller = new WP_REST_Posts_Controller('post');
+      $posts = array();
+
+      while ( $search_query->have_posts() ) : $search_query->the_post();
+        $data    = $controller->prepare_item_for_response( $search_query->post, $request );
+        $posts[] = $controller->prepare_response_for_collection( $data );
+      endwhile;
+
+      // return results
+      $response = new WP_REST_Response($posts); // Create the response object
+
+      $response->set_status(200); // Add a custom status code
+
+      // $response->set_headers();
+
+      return $response;
+    }
+  ));
+});
