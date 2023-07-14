@@ -1,10 +1,10 @@
 <div class="c-utility wrap">
-  <a class="link-icon mie-auto" href="{{ return.link }}">
+  <a class="link-icon mie-auto" href="{{ site.url }}">
     <svg aria-hidden="true" class="icon-ui rtl:flip">
       <use href="#lucide-chevron-left"></use>
     </svg>
 
-    <span>{{ return.label }}</span>
+    <span>{{ __('Home', 'WNYC') }}</span>
   </a>
 
   {% for item in cta %}

@@ -2345,6 +2345,10 @@
                 }
             ],
             "description": "Soap handler for Whoops",
+            "support": {
+                "issues": "https://github.com/whoops-php/soap/issues",
+                "source": "https://github.com/whoops-php/soap/tree/master"
+            },
             "install-path": "../whoops/soap"
         },
         {

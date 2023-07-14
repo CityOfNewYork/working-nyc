@@ -52,8 +52,8 @@ class Button extends Shortcode {
         'href' => $atts['link'],
         'external' => in_array('link-is-external', $atts)
       ) : false,
-      'function' => ($atts['function']) ? $atts['function'] : false,
-      'type' => ($atts['type']) ? $atts['type'] : false,
+      //'function' => ($atts['function']) ? $atts['function'] : false,
+     // 'type' => ($atts['type']) ? $atts['type'] : false,
     );
 
     return Timber::compile(
