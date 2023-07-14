@@ -97,7 +97,7 @@ activate_plugin('query-monitor/query-monitor.php');
  * @author NYC Opportunity
  */
 
-//header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 
 add_filter('allowed_http_origins', function($origins) {
   $origins[] = 'http://localhost:7000'; // Patterns
