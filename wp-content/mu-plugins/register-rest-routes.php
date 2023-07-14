@@ -152,8 +152,8 @@ add_action('rest_api_init', function() {
     'permission_callback' => '__return_true',
 
     /**
-     * Callback for the search with Relevanssi endpoint. 
-     * 
+     * Callback for the search with Relevanssi endpoint.
+     *
      * Adapted from example by Aucor Oy
      * Author URI: https://www.aucor.fi/
      * Version: 1.0
@@ -180,17 +180,18 @@ add_action('rest_api_init', function() {
 
       // run query
       $search_query = new WP_Query();
-      $search_query->parse_query( $args );
-      if ( function_exists( 'relevanssi_do_query' ) ) {
-        relevanssi_do_query( $search_query );
+      $search_query->parse_query($args);
+      if (function_exists('relevanssi_do_query')) {
+        relevanssi_do_query($search_query);
       }
 
       $controller = new WP_REST_Posts_Controller('post');
       $posts = array();
 
-      while ( $search_query->have_posts() ) : $search_query->the_post();
-        $data    = $controller->prepare_item_for_response( $search_query->post, $request );
-        $posts[] = $controller->prepare_response_for_collection( $data );
+      while ($search_query->have_posts()):
+        $search_query->the_post();
+        $data    = $controller->prepare_item_for_response($search_query->post, $request);
+        $posts[] = $controller->prepare_response_for_collection($data);
       endwhile;
 
       // return results
