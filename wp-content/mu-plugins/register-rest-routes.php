@@ -214,11 +214,14 @@ add_action('rest_api_init', function() {
         $posts[] = $controller->prepare_response_for_collection($data);
       endwhile;
 
-      $response = new WP_REST_Response($posts); // Create the response object
+      $response = new WP_REST_Response($posts);
 
-      $response->set_status(200); // Add a custom status code
+      $response->set_status(200);
 
-      // $response->set_headers(); TODO
+      $response->set_headers([
+        'X-WP-Total' => $search_query->found_posts,
+        'X-WP-TotalPages' => $search_query->max_num_pages,
+      ]);
 
       return $response;
     }
