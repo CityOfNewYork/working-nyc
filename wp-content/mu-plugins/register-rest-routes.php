@@ -179,9 +179,27 @@ add_action('rest_api_init', function() {
       $args = array(
         's' => $parameters['s'],
         'posts_per_page' => $parameters['per_page'],
-        'paged' => $parameters['page'],
-        'post_type' => array('jobs', 'programs')
+        'paged' => $parameters['page']
       );
+
+      // The search feature currently only allows for jobs or programs, but the API
+      // should be flexible in case we want to search other types of pages in the future
+      if (isset($parameters['post_type'])) {
+        $args['post_type'] = $parameters['post_type'];
+      }
+
+      if (isset($parameters['locations'])) {
+        // the 'tax_query' argument specifies the taxonomies to filter by
+        // we need an array of arrays because we could filter by multiple taxonomies
+        // (e.g. location, schedule, sector)
+        $args['tax_query'] = array(
+          array(
+            'taxonomy' => 'locations',
+            'field' => 'slug',
+            'terms' => $parameters['locations']
+          )
+        );
+      }
 
       // run query
       $search_query = new WP_Query();
