@@ -86,7 +86,7 @@ export default {
        */
       endpoints: {
         terms: '/wp-json/api/v1/terms/?post_type[]=jobs&cache=0',
-        jobs: '/wp-json/wp/v2/jobs'
+        search: '/wp-json/api/v1/searchRelevanssi'
       },
 
       /**
@@ -100,16 +100,17 @@ export default {
       maps: function() {
         return {
           /**
-           * Data mapping function for results from the Jobs endpoint
+           * Data mapping function for results from the Search endpoint
            *
-           * @raw /wp-json/wp/v2/jobs
+           * @raw /wp-json/api/v1/searchRelevanssi
            */
-          jobs: jobs => ({
-            id: jobs.id,
-            title: jobs.title.rendered,
-            link: jobs.link,
-            context: jobs.context,
-            raw: (process.env.NODE_ENV === 'development') ? { ...jobs } : false
+          search: result => ({
+            id: result.id,
+            title: result.title,
+            link: result.url,
+            type: result.type,
+            context: result.context,
+            raw: (process.env.NODE_ENV === 'development') ? { ...result } : false
           }),
 
           /**

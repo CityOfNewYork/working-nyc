@@ -170,7 +170,7 @@ add_action('rest_api_init', function() {
      * @param   String           s           The search term
      * @param   Integer          per_page    The number of posts per page
      * @param   Integer          page        The page number of search results to return
-     * 
+     *
      * @return  Array                        Array of formatted search results
      */
     'callback' => function(WP_REST_Request $request) {
