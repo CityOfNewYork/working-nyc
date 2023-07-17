@@ -84,12 +84,24 @@ $context['programs'] = array_map(function($post) {
 
 ### Using NPM
 
-NPM is used to manage the assets in the theme. Install dependencies to get started with modifying the front-end. One of the packages is installed from the GitHub package repository (`@hail2u`) so you will need a personal access token configured for NPM as well as the GitHub package manager in your **.npmrc**.
+NPM is used to manage the assets in the theme. Install dependencies to get started with modifying the front-end. One of the packages is installed from the GitHub package repository (`@hail2u`) so you will need a personal access token configured for NPM as well as the GitHub package manager in your **.npmrc**. Follow the instructions on the [NPM website](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-granular-access-tokens-on-the-website) and [GitHub](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) to set up your personal access tokens. Then, add them to your **.npmrc**. 
+
+Before:
 
 ```dotfile
+@hail2u:registry=https://npm.pkg.github.com
 //registry.npmjs.org/:_authToken={{ NPM Personal Access Token }}
 //npm.pkg.github.com/:_authToken={{ GitHub Personal Access Token }}
 ```
+
+After (dummy access token):
+
+```dotfile
+@hail2u:registry=https://npm.pkg.github.com
+//registry.npmjs.org/:_authToken=npm_qFeTd1MkP1kfJuqjatXbSuZo30m4Z3IY29TUVYWX
+//npm.pkg.github.com/:_authToken=ghp_M3sjMsGthoiGmaIUILa2xgbU4UypbpCtgivDh7g8
+```
+
 
 Once configured, run `npm install`.
 
