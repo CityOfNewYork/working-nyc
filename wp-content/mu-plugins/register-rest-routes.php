@@ -6,6 +6,10 @@
  * Author: NYC Opportunity
  */
 
+use RestPreparePosts\RestPreparePosts as RestPreparePosts;
+
+require_once plugin_dir_path(__FILE__) . '/rest-prepare-posts/RestPreparePosts.php';
+
 /**
  * Register REST Route shouldn't be done before the REST api init hook so we
  * will hook into that action.
@@ -161,13 +165,13 @@ add_action('rest_api_init', function() {
      *
      * @param   WP_REST_Request  $request    Instance WP REST Request
      *
-     * Acceptable REST parameters: TODO update this
+     * Acceptable REST parameters
      *
-     * @param   Array            post_type   The desired post type or types
-     * @param   Boolean          hide_empty
-     * @param   Boolean          cache       Whether to use transient cache results
-     *
-     * @return  Array                        Array of taxonomies and their terms
+     * @param   String           s           The search term
+     * @param   Integer          per_page    The number of posts per page
+     * @param   Integer          page        The page number of search results to return
+     * 
+     * @return  Array                        Array of formatted search results
      */
     'callback' => function(WP_REST_Request $request) {
       $parameters = $request->get_query_params();
@@ -175,7 +179,8 @@ add_action('rest_api_init', function() {
       $args = array(
         's' => $parameters['s'],
         'posts_per_page' => $parameters['per_page'],
-        'paged' => $parameters['page']
+        'paged' => $parameters['page'],
+        'post_type' => array('jobs', 'programs')
       );
 
       // run query
@@ -190,16 +195,30 @@ add_action('rest_api_init', function() {
 
       while ($search_query->have_posts()):
         $search_query->the_post();
-        $data    = $controller->prepare_item_for_response($search_query->post, $request);
+        $curr_post = $search_query->post;
+        $data = $controller->prepare_item_for_response($curr_post, $request);
+
+        // add logic from rest-prepare-posts
+        $taxonomies = get_taxonomies(array(
+          '_builtin' => false,
+          'show_in_rest' => true
+        ), 'objects');
+
+        $RestPreparePosts = new RestPreparePosts();
+        $RestPreparePosts->type = $data->data['type'];
+        $RestPreparePosts->taxonomies = $taxonomies;
+        $RestPreparePosts->timberNamespace = 'WorkingNYC';
+        $curr_context = $RestPreparePosts->getTimberContext($data->data['id']);
+        $data->data['context'] = $curr_context;
+
         $posts[] = $controller->prepare_response_for_collection($data);
       endwhile;
 
-      // return results
       $response = new WP_REST_Response($posts); // Create the response object
 
       $response->set_status(200); // Add a custom status code
 
-      // $response->set_headers();
+      // $response->set_headers(); TODO
 
       return $response;
     }
