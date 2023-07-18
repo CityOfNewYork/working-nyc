@@ -108,6 +108,10 @@ export default {
           ]
         }, 
         {
+          // These are the location terms for programs
+          // The individual boroughs' locations can also be used 
+          // to filter jobs, but there are other possible locations 
+          // for jobs that aren't included for now
           name: 'Locations',
           slug: 'locations',
           filters: [ {
@@ -125,13 +129,6 @@ export default {
               checked: false
             },
             {
-              id: 284,
-              name: 'Downstate',
-              slug: 'downstate',
-              parent: 'locations',
-              checked: false
-            },
-            {
               id: 206,
               name: 'Hybrid',
               slug: 'hybrid',
@@ -142,20 +139,6 @@ export default {
               id: 82,
               name: 'Manhattan',
               slug: 'manhattan',
-              parent: 'locations',
-              checked: false
-            },
-            {
-              id: 271,
-              name: 'NYC All Boroughs',
-              slug: 'nyc-all-boros',
-              parent: 'locations',
-              checked: false
-            },
-            {
-              id: 277,
-              name: 'Outside NYC',
-              slug: 'outside-nyc',
               parent: 'locations',
               checked: false
             },
