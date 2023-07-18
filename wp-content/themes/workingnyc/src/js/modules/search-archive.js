@@ -313,7 +313,6 @@ export default {
     };
   
     this.getState(query)   // Initialize the application
-      .queue()            // Initialize the first page request
-      .catch(this.error); 
+      .queue();            // Initialize the first page request 
   }
 };
