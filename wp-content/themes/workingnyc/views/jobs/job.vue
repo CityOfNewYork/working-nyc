@@ -9,8 +9,6 @@
         </a>
 
         <p class="c-card__subtitle text-alt">
-          <b v-if="post.context.sector" v-html="post.context.sector"></b>
-          <span v-if="post.context.sector && post.context.organization"> {{ strings.WITH }} </span>
           <span v-html="post.context.organization"></span>
         </p>
       </span>
@@ -35,8 +33,6 @@
         <li v-if="post.context.salary">
           <svg class="icon-ui c-card__feature-icon" role="img">
             <title>{{ strings.SALARY }}</title>
-
-            <use href="#lucide-dollar-sign"></use>
           </svg>
 
           <span v-html="post.context.salary"></span>

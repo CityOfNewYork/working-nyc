@@ -180,8 +180,7 @@ class Jobs extends Timber\Post {
    * @return  String  Summary with HTML markup stripped
    */
   public function getSummary($limit = 120) {
-    return (empty($this->custom['job_description'])) ?
-      '' : trim(substr(strip_tags($this->custom['job_description']), 0, $limit)) . '... ';
+    return '';
   }
 
   /**
@@ -302,7 +301,7 @@ class Jobs extends Timber\Post {
    */
   public function getCardTitle() {
     return ($this->location == __(self::LOCATION_DEFAULT, 'WNYC'))
-      ? $this->post_title : "$this->post_title ($this->location)";
+      ? $this->post_title : "$this->post_title";
   }
 
   /**
