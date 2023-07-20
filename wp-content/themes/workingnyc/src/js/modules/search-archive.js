@@ -273,7 +273,8 @@ export default {
       'populations': 'wnyc_pop',
       'sectors': 'wnyc_sec',
       'source': 'wnyc_src',
-      'salary': 'wnyc_sal'
+      'salary': 'wnyc_sal',
+      'result-type': 'wnyc_rt'
     };
 
     // Add map of WP Query terms < to > Window history state

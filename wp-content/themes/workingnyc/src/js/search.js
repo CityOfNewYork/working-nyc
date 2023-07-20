@@ -30,7 +30,7 @@ import SearchResultsList from '../../views/search/search-results-list.vue';
 import SearchResult from '../../views/search/search-result.vue';
 
 // feature flag
-const USE_ARCHIVE_PACKAGE = false;
+const USE_ARCHIVE_PACKAGE = true;
 
 if (!USE_ARCHIVE_PACKAGE) {
     const baseButtonClass = 'btn-tag';

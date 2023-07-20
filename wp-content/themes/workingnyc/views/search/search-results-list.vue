@@ -8,8 +8,8 @@
         <div>
           {{ term.name }}
         </div>
-        <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
-          <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked">
+        <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.id" gtm-data="test">
+          <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 
           <span class="option__base">
             <svg aria-hidden="true" class="option__graphic" tabindex="-1">
