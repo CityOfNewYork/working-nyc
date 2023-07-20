@@ -184,8 +184,8 @@ add_action('rest_api_init', function() {
 
       // The search feature currently only allows for jobs or programs, but the API
       // should be flexible in case we want to search other types of pages in the future
-      if (isset($parameters['post_type'])) {
-        $args['post_type'] = $parameters['post_type'];
+      if (isset($parameters['result-type'])) {
+        $args['post_type'] = $parameters['result-type'];
       }
 
       if (isset($parameters['locations'])) {

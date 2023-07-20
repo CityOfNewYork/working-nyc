@@ -92,14 +92,14 @@ export default {
           name: 'Result type',
           slug: 'result-type',
           filters: [ {
-              id: 1,
+              id: 'jobs',
               name: 'Jobs',
               slug: 'jobs',
               parent: 'result-type',
               checked: false
             },
             {
-              id: 2,
+              id: 'programs',
               name: 'Programs',
               slug: 'programs',
               parent: 'result-type',
