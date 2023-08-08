@@ -1,0 +1,207 @@
+.wrap > h2{
+	display:none;
+}
+
+.stp-logo{
+	float:right;
+}
+.wck-wrap{
+	font-size: 15px;
+	max-width: 1050px;
+}
+.wck-info-wrap{
+	max-width:1050px;
+	margin:25px 40px 0 20px;
+}
+
+.wck-wrap h1 {
+	color: #333333;
+    font-size: 2.8em;
+    font-weight: 300;
+    line-height: 1.2em;
+    margin:0;
+	padding-top:35px;
+}
+
+.wck-wrap p{
+	font-size:15px;
+}
+.wck-wrap .wck-callout{
+    font-size: 2em;
+    font-weight: 300;
+    line-height: 1.3;
+	margin:1.1em 0 0.2em 0;
+}
+
+.wck-wrap hr{
+	display:block;
+	clear:both;
+	margin:20px 0;
+}
+
+.wck-text{
+	font-size:1.1em;
+	margin-top:0;
+}
+#poststuff .wck-wrap h1,
+#poststuff .wck-wrap h2,
+#poststuff .wck-wrap h3,
+#poststuff .wck-wrap h4,
+#poststuff .wck-wrap h5 {
+	padding: 8px 0;
+	font-weight:300;
+}
+
+#poststuff .wck-wrap h2{
+	font-size: 2.2em;
+	font-weight:300;
+	line-height:1.3em;
+}
+
+#poststuff .wck-wrap h3{
+	font-size: 1.3em;
+}
+
+#poststuff .wck-wrap h4{
+	font-size: 1.2em;
+}
+
+.wck-wrap img{
+	max-width:100%;
+}
+.wck-wrap img.screenshot{
+	padding:10px 0;
+}
+
+
+.wck-wrap ul{
+	list-style-type:circle;
+	list-style-position:inside;
+}
+
+.wck-wrap li.description{
+    font-style: italic;
+}
+
+/* Extra Stuff */
+.nowrap {
+    white-space: nowrap;
+}
+
+.wck-fields-image{
+	margin-top:60px;
+}
+
+/* Columns :) */
+.wck-row{
+	overflow:hidden;
+}
+
+.wck-3-col > div {
+	float:left;
+	width:28%;
+	margin-right:5%;
+}
+
+.wck-2-col > div {
+	float:left;
+	width:45%;
+	margin-right:5%;
+}
+
+.wck-3-col > div:last-child,
+.wck-2-col > div:last-child{
+	margin:0;
+}
+
+/* Extra Form Styles */
+.wck-select{
+	min-width:18em;
+}
+
+.wck-wrap .form-table th {
+	width:250px;
+}
+
+.wck-metabox label{
+	display:inline-block;
+	min-width:15em;
+}
+
+/* Admin Bar Page */
+.wck-admin-bar label{
+	margin-right:30px;
+	padding:5px;
+}
+
+/* Addons Page */
+.wck-addons label{
+	margin-right:30px;
+	padding:5px;
+}
+
+/* Metabox Clone. We need this in various places to simulate the css of a normal metabox. */
+.wck-side{
+	width:300px;
+	float:right;
+	clear:both;
+}
+
+.wck-metabox h3{
+	font-size: 14px;
+    line-height: 1.4;
+    margin: 0;
+	padding:8px 12px;
+	cursor:default !important;
+}
+
+.wck-normal{
+	margin-right:320px;
+}
+
+.wck-metabox textarea{
+	resize:vertical;
+	background-color: #ecf8fd;
+    font-family: Consolas,Monaco,monospace;
+    font-size: 13px;
+}
+
+.wck-metabox .inline-wrap{
+	width:280px;
+	float:left;
+}
+.wck-highlight{
+	background:#333333;
+	background:#222222;
+	background:#fff;
+	padding:20px;
+}
+.wck-userlisting-slider{
+	display:block;
+	padding:10px;
+	border:1px solid #ccc;
+	font-family: Consolas,Monaco,monospace;
+    font-size: 13px;
+	margin-top:20px;
+}
+#wck_manage_fields .mb-list-entry-fields .row-field .field-label{
+	width: 177px;
+}
+
+#container_wck_epf_fields .row-id,
+#wck_epf_fields .row-id,
+#container_wck_rf_fields .row-id,
+#wck_rf_fields .row-id{
+	display:none;
+}
+
+.wp-core-ui .button-free-to-pro{
+	font-size:24px;
+	font-weight:bold;
+	padding:10px 20px;
+	height:auto;
+	margin-top:20px;
+}
+.wck-free-to-pro-call-to-action {
+	text-align:center;
+}

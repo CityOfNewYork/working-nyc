@@ -41,7 +41,8 @@
     "wpackagist-plugin/wp-bitly": "*",
     "wpackagist-plugin/wp-security-questions": "*",
     "wpackagist-plugin/wps-hide-login": "*",
-    "wpackagist-plugin/wpscan": "*"
+    "wpackagist-plugin/wpscan": "*",
+    "wpackagist-plugin/wck-custom-fields-and-custom-post-types-creator": "^2.3"
   },
   "require-dev": {
     "filp/whoops": "*",

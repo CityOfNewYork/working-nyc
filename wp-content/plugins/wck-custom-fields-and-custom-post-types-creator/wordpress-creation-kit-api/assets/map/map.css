@@ -1,0 +1,17 @@
+/*--------------------------------------------------------------
+Map Field
+--------------------------------------------------------------*/
+input[type=text].wck-map-search-box {
+    position: absolute;
+    top: 9px !important;
+    height: 35px;
+    width: 30%;
+    min-width: 250px;
+    background: #fff;
+    border: 0;
+    border-radius: 1px;
+    padding: 0 10px;
+    box-shadow: 0 1px 1px 0 #c1c1c1;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+}

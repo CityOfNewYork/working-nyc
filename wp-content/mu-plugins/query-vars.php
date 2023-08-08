@@ -44,6 +44,7 @@ add_filter('query_vars', function($vars) {
   array_push($vars, $prefix . 'dur'); // duration
   array_push($vars, $prefix . 'loc'); // locations
   array_push($vars, $prefix . 'pop'); // populations
+  array_push($vars, $prefix . 'age'); // age  
   array_push($vars, $prefix . 'sec'); // sectors
   array_push($vars, $prefix . 'src'); // source
   array_push($vars, $prefix . 'sal'); // salary
@@ -58,6 +59,7 @@ add_filter('query_vars', function($vars) {
 
   array_push($vars, 'services');
   array_push($vars, 'populations');
+  array_push($vars, 'age');
   array_push($vars, 'sectors');
   array_push($vars, 'recruitment_status');
   array_push($vars, 'schedule');

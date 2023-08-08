@@ -2667,6 +2667,27 @@
             "install-path": "../../wp-content/plugins/simple-custom-post-order"
         },
         {
+            "name": "wpackagist-plugin/wck-custom-fields-and-custom-post-types-creator",
+            "version": "2.3.6",
+            "version_normalized": "2.3.6.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wck-custom-fields-and-custom-post-types-creator/",
+                "reference": "tags/2.3.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wck-custom-fields-and-custom-post-types-creator.2.3.6.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "installation-source": "dist",
+            "homepage": "https://wordpress.org/plugins/wck-custom-fields-and-custom-post-types-creator/",
+            "install-path": "../../wp-content/plugins/wck-custom-fields-and-custom-post-types-creator"
+        },
+        {
             "name": "wpackagist-plugin/wordpress-importer",
             "version": "0.7",
             "version_normalized": "0.7.0.0",

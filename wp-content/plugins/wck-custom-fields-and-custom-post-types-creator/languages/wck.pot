@@ -1,0 +1,2377 @@
+# Copyright (C) 2019 WordPress Creation Kit
+# This file is distributed under the same license as the WordPress Creation Kit package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Creation Kit\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: wck-cfc.php:32
+msgid "Add New Meta Box"
+msgstr ""
+
+#: wck-cfc.php:33
+msgid "Edit Meta Box"
+msgstr ""
+
+#: wck-cfc.php:34
+msgid "New Meta Box"
+msgstr ""
+
+#: wck-cfc.php:35, wck-sas.php:56, wck-sas.php:171
+msgid "Custom Fields Creator"
+msgstr ""
+
+#: wck-cfc.php:36
+msgid "View Meta Box"
+msgstr ""
+
+#: wck-cfc.php:37
+msgid "Search Meta Boxes"
+msgstr ""
+
+#: wck-cfc.php:38
+msgid "No Meta Boxes found"
+msgstr ""
+
+#: wck-cfc.php:39
+msgid "No Meta Boxes found in Trash"
+msgstr ""
+
+#: wck-cfc.php:41
+msgid "Custom Meta Boxes"
+msgstr ""
+
+#: wck-cfc.php:121, wck-cfc.php:471
+msgid "Group Name"
+msgstr ""
+
+#: wck-cfc.php:121
+msgid "The name of the group. Must be unique, only lowercase letters, no spaces and no special characters."
+msgstr ""
+
+#: wck-cfc.php:122, wck-cfc.php:669, wck-fep.php:125
+msgid "Post Type"
+msgstr ""
+
+#: wck-cfc.php:122
+msgid "What post type the meta box should be attached to"
+msgstr ""
+
+#: wck-cfc.php:123, wck-opc.php:172
+msgid "Repeater"
+msgstr ""
+
+#: wck-cfc.php:123, wck-opc.php:172
+msgid "Whether the box supports just one entry or if it is a repeater field. By default it is a single field."
+msgstr ""
+
+#: wck-cfc.php:124, wck-opc.php:173
+msgid "Sortable"
+msgstr ""
+
+#: wck-cfc.php:124, wck-opc.php:173
+msgid "Whether the entries are sortable or not. This is valid for repeater fields."
+msgstr ""
+
+#: wck-cfc.php:125
+msgid "Post ID"
+msgstr ""
+
+#: wck-cfc.php:125
+msgid "ID of a post on which the meta box should appear. You can also input multiple IDs and separate them with \",\""
+msgstr ""
+
+#: wck-cfc.php:130
+msgid "Nested"
+msgstr ""
+
+#: wck-cfc.php:130
+msgid "Set to true if you want this metabox to be a nested repeater inside another repeater."
+msgstr ""
+
+#: wck-cfc.php:135, wck-cfc.php:670
+msgid "Page Template"
+msgstr ""
+
+#: wck-cfc.php:135
+msgid "If post type is \"page\" you can further select a page templete. The meta box will only appear  on the page that has that selected page template."
+msgstr ""
+
+#: wck-cfc.php:138
+msgid "Box Style"
+msgstr ""
+
+#: wck-cfc.php:138
+msgid "If the fields should be in a meta-box or not"
+msgstr ""
+
+#: wck-cfc.php:143, wck-cfc.php:804
+msgid "Meta Box Arguments"
+msgstr ""
+
+#: wck-cfc.php:165, wck-opc.php:201
+msgid "Field Title"
+msgstr ""
+
+#: wck-cfc.php:165, wck-opc.php:201
+msgid "Title of the field. A slug will automatically be generated."
+msgstr ""
+
+#: wck-cfc.php:166, wck-fep.php:151, wck-opc.php:202
+msgid "Field Type"
+msgstr ""
+
+#: wck-cfc.php:166, wck-fep.php:151, wck-opc.php:202
+msgid "The field type"
+msgstr ""
+
+#: wck-cfc.php:167, wck-cfc.php:473
+msgid "Field Slug"
+msgstr ""
+
+#: wck-cfc.php:167
+msgid "The meta name of the field, generated automatically from the title, by which you can query. Can be changed. Must be unique, only lowercase letters, no spaces and no special characters."
+msgstr ""
+
+#: wck-cfc.php:168, wck-cptc.php:50, wck-opc.php:203, wordpress-creation-kit-api/wck-fep/wck-fep.php:1042
+msgid "Description"
+msgstr ""
+
+#: wck-cfc.php:169, wck-fep.php:152, wck-opc.php:204
+msgid "Required"
+msgstr ""
+
+#: wck-cfc.php:169, wck-opc.php:204
+msgid "Whether the field is required or not"
+msgstr ""
+
+#: wck-cfc.php:170, wck-opc.php:205
+msgid "CPT"
+msgstr ""
+
+#: wck-cfc.php:170, wck-opc.php:205
+msgid "Select what custom post type should be used in the CPT Select."
+msgstr ""
+
+#: wck-cfc.php:171, wck-opc.php:206
+msgid "Default Value"
+msgstr ""
+
+#: wck-cfc.php:171
+msgid "Default value of the field. For Checkboxes if there are multiple values separate them with a \",\". For an Upload field input an attachment id."
+msgstr ""
+
+#: wck-cfc.php:172, wck-opc.php:207
+msgid "Default Text"
+msgstr ""
+
+#: wck-cfc.php:172, wck-opc.php:207
+msgid "Default text of the textarea."
+msgstr ""
+
+#: wck-cfc.php:173, wck-opc.php:208
+msgid "HTML Content"
+msgstr ""
+
+#: wck-cfc.php:173
+msgid "Add your HTML (or text) content."
+msgstr ""
+
+#: wck-cfc.php:174, wck-opc.php:209
+msgid "Options"
+msgstr ""
+
+#: wck-cfc.php:174, wck-opc.php:209
+msgid "Options for field types \"select\", \"checkbox\" and \"radio\". For multiple options separate them with a \",\"."
+msgstr ""
+
+#: wck-cfc.php:175, wck-cptc.php:394, wck-ctc.php:459, wck-opc.php:210
+msgid "Labels"
+msgstr ""
+
+#: wck-cfc.php:175, wck-opc.php:210
+msgid "Labels for field types \"select\", \"checkbox\" and \"radio\". For multiple options separate them with a \",\"."
+msgstr ""
+
+#: wck-cfc.php:176, wck-opc.php:211
+msgid "Phone Format"
+msgstr ""
+
+#: wck-cfc.php:176, wck-opc.php:211
+msgid "You can use: # for numbers, parentheses ( ), - sign, + sign, dot . and spaces."
+msgstr ""
+
+#: wck-cfc.php:176, wck-opc.php:211
+msgid "Eg. (###) ###-####"
+msgstr ""
+
+#: wck-cfc.php:176, wck-opc.php:211
+msgid "Empty field won't check for correct phone number."
+msgstr ""
+
+#: wck-cfc.php:177, wck-opc.php:212
+msgid "Min Number Value"
+msgstr ""
+
+#: wck-cfc.php:177, wck-opc.php:212
+msgid "Min allowed number value (0 to allow only positive numbers)"
+msgstr ""
+
+#: wck-cfc.php:177, wck-opc.php:212
+msgid "Leave it empty for no min value"
+msgstr ""
+
+#: wck-cfc.php:178, wck-opc.php:213
+msgid "Max Number Value"
+msgstr ""
+
+#: wck-cfc.php:178, wck-opc.php:213
+msgid "Max allowed number value (0 to allow only negative numbers)"
+msgstr ""
+
+#: wck-cfc.php:178, wck-opc.php:213
+msgid "Leave it empty for no max value"
+msgstr ""
+
+#: wck-cfc.php:179, wck-opc.php:214
+msgid "Number Step Value"
+msgstr ""
+
+#: wck-cfc.php:179, wck-opc.php:214
+msgid "Step value 1 to allow only integers, 0.1 to allow integers and numbers with 1 decimal"
+msgstr ""
+
+#: wck-cfc.php:179, wck-opc.php:214
+msgid "To allow multiple decimals use for eg. 0.01 (for 2 deciamls) and so on"
+msgstr ""
+
+#: wck-cfc.php:179, wck-opc.php:214
+msgid "You can also use step value to specify the legal number intervals (eg. step value 2 will allow only -4, -2, 0, 2 and so on)"
+msgstr ""
+
+#: wck-cfc.php:179, wck-opc.php:214
+msgid "Leave it empty for no restriction"
+msgstr ""
+
+#: wck-cfc.php:180
+msgid "Attach upload to post"
+msgstr ""
+
+#: wck-cfc.php:180
+msgid "Uploads will be attached to the post if this is checked"
+msgstr ""
+
+#: wck-cfc.php:181, wck-opc.php:215
+msgid "Number of rows"
+msgstr ""
+
+#: wck-cfc.php:181, wck-opc.php:215
+msgid "Number of rows for the textarea"
+msgstr ""
+
+#: wck-cfc.php:182, wck-opc.php:216
+msgid "Readonly"
+msgstr ""
+
+#: wck-cfc.php:182, wck-opc.php:216
+msgid "Whether the textarea is readonly or not"
+msgstr ""
+
+#: wck-cfc.php:183, wck-opc.php:217
+msgid "Default Latitude"
+msgstr ""
+
+#: wck-cfc.php:183, wck-opc.php:217
+msgid "The latitude at which the map should be displayed when no pins are attached."
+msgstr ""
+
+#: wck-cfc.php:184, wck-opc.php:218
+msgid "Default Longitude"
+msgstr ""
+
+#: wck-cfc.php:184, wck-opc.php:218
+msgid "The longitude at which the map should be displayed when no pins are attached."
+msgstr ""
+
+#: wck-cfc.php:185, wck-opc.php:219
+msgid "Default Zoom"
+msgstr ""
+
+#: wck-cfc.php:185, wck-opc.php:219
+msgid "Add a number from 0 to 19. The higher the number the higher the zoom."
+msgstr ""
+
+#: wck-cfc.php:186, wck-opc.php:220
+msgid "Map Height"
+msgstr ""
+
+#: wck-cfc.php:186, wck-opc.php:220
+msgid "The height of the map."
+msgstr ""
+
+#: wck-cfc.php:187, wck-opc.php:221
+msgid "Date Format"
+msgstr ""
+
+#: wck-cfc.php:187, wck-opc.php:221
+msgid "The format of the datepicker date"
+msgstr ""
+
+#: wck-cfc.php:194, wck-cfc.php:810
+msgid "Meta Box Fields"
+msgstr ""
+
+#: wck-cfc.php:207
+msgid "Enter below the arguments for the meta box."
+msgstr ""
+
+#: wck-cfc.php:304, wck-opc.php:460
+msgid "Required phone number format: "
+msgstr ""
+
+#: wck-cfc.php:478
+msgid ""
+"Choose a different %s as this one contains spaces\n"
+""
+msgstr ""
+
+#: wck-cfc.php:480
+msgid ""
+"Choose a different %s as this one is reserved\n"
+""
+msgstr ""
+
+#: wck-cfc.php:482
+msgid ""
+"Choose a different %s as this one contains uppercase letters\n"
+""
+msgstr ""
+
+#: wck-cfc.php:484
+msgid ""
+"Choose a different %s as this one already exists\n"
+""
+msgstr ""
+
+#: wck-cfc.php:560
+msgid ""
+"Choose a different Field Title as this one is reserved\n"
+""
+msgstr ""
+
+#: wck-cfc.php:668
+msgid "Id"
+msgstr ""
+
+#: wck-cfc.php:674
+msgid "Nested Repeater"
+msgstr ""
+
+#: wck-cfc.php:750, wck-cptc.php:340, wck-ctc.php:405, wck.php:51
+msgid "Wordpress Creation Kit"
+msgstr ""
+
+#: wck-cfc.php:767, wck-cptc.php:357, wck-ctc.php:422
+msgid "TranslatePress"
+msgstr ""
+
+#: wck-cfc.php:798, wck-cptc.php:388, wck-ctc.php:453, wck-fep.php:629
+msgid "Overview"
+msgstr ""
+
+#: wck-cfc.php:799
+msgid "WCK Custom Fields Creator allows you to easily create custom meta boxes for Wordpress without any programming knowledge."
+msgstr ""
+
+#: wck-cfc.php:805
+msgid "Define here the rules for the meta box. This rules are used to set up where the meta box will appear, it's type and also the meta key name stored in the database. The name of the entry (Enter title here) will be used as the meta box title."
+msgstr ""
+
+#: wck-cfc.php:811
+msgid "Define here the fields contained in the meta box. From \"Field Title\" a slug will be automatically generated and you will use this slug to display the data in the frontend."
+msgstr ""
+
+#: wck-cfc.php:816
+msgid "CFC Frontend Example"
+msgstr ""
+
+#: wck-cfc.php:817
+msgid "Let's consider we have a meta box with the following arguments:<br /> - Meta name: books <br /> - Post Type: post <br />And we also have two fields deffined:<br /> - A text field with the Field Title: Book name <br /> - And another text field with the Field Title: Author name "
+msgstr ""
+
+#: wck-cfc.php:817
+msgid "You will notice that slugs will automatically be created for the two text fields. For \"Book name\" the slug will be \"book-name\" and for \"Author name\" the slug will be \"author-name\""
+msgstr ""
+
+#: wck-cfc.php:817
+msgid "Let's see what the code for displaying the meta box values in single.php of your theme would be:"
+msgstr ""
+
+#: wck-cfc.php:817
+msgid "So as you can see the Meta Name \"books\" is used as the $key parameter of the funtion <a href=\"http://codex.wordpress.org/Function_Reference/get_post_meta\" target=\"_blank\">get_post_meta()</a> and the slugs of the text fields are used as keys for the resulting array. Basically CFC stores the entries as post meta in a multidimensioanl array. In our case the array would be: <br /><pre>array( array( \"book-name\" => \"The Hitchhiker's Guide To The Galaxy\", \"author-name\" => \"Douglas Adams\" ),  array( \"book-name\" => \"Ender's Game\", \"author-name\" => \"Orson Scott Card\" ) );</pre> This is true even for single entries."
+msgstr ""
+
+#: wck-cfc.php:845
+msgid "Metabox updated."
+msgstr ""
+
+#: wck-cfc.php:926, wordpress-creation-kit-api/wordpress-creation-kit.php:526, wordpress-creation-kit-api/wordpress-creation-kit.php:633, wordpress-creation-kit-api/wck-fep/wck-fep.php:870
+msgid "Edit"
+msgstr ""
+
+#: wck-cfc.php:927
+msgid "Overwrite Existing"
+msgstr ""
+
+#: wck-cfc.php:965
+msgid "Please enter a valid phone number for field "
+msgstr ""
+
+#: wck-cfc.php:980
+msgid "Please enter numbers only for field "
+msgstr ""
+
+#: wck-cfc.php:995
+msgid " field value must be a multiplier of "
+msgstr ""
+
+#: wck-cfc.php:1010
+msgid " field value must be greater than or equal to "
+msgstr ""
+
+#: wck-cfc.php:1024
+msgid " field value must be less than or equal to "
+msgstr ""
+
+#: wck-cfc.php:1042
+msgid "To update the meta information on posts to the new unserialized structure go to %1$sthis page%2$s and follow the instructions. Please make a backup of your database first! %3$sDismiss%4$s"
+msgstr ""
+
+#: wck-cfc.php:1067
+msgid "Processing Unserialized Fields"
+msgstr ""
+
+#: wck-cfc.php:1071
+msgid "The process has started, please be patient. This could take several minutes. You will be automatically redirected when the process is finished."
+msgstr ""
+
+#: wck-cfc.php:1073
+msgid "%d posts of %d processed"
+msgstr ""
+
+#: wck-cfc.php:1080
+msgid "The process has finished."
+msgstr ""
+
+#: wck-cptc.php:6
+msgid "WCK Post Type Creator"
+msgstr ""
+
+#: wck-cptc.php:7, wck-sas.php:175
+msgid "Post Type Creator"
+msgstr ""
+
+#: wck-cptc.php:49
+msgid "Post type"
+msgstr ""
+
+#: wck-cptc.php:49
+msgid "(max. 20 characters, can not contain capital letters, hyphens, or spaces)"
+msgstr ""
+
+#: wck-cptc.php:50
+msgid "A short descriptive summary of what the post type is."
+msgstr ""
+
+#: wck-cptc.php:51, wck-ctc.php:38
+msgid "Singular Label"
+msgstr ""
+
+#: wck-cptc.php:51
+msgid "ex. Book"
+msgstr ""
+
+#: wck-cptc.php:52, wck-ctc.php:39
+msgid "Plural Label"
+msgstr ""
+
+#: wck-cptc.php:52
+msgid "ex. Books"
+msgstr ""
+
+#: wck-cptc.php:53, wck-ctc.php:41
+msgid "Hierarchical"
+msgstr ""
+
+#: wck-cptc.php:53
+msgid "Whether the post type is hierarchical. Allows Parent to be specified."
+msgstr ""
+
+#: wck-cptc.php:54
+msgid "Has Archive"
+msgstr ""
+
+#: wck-cptc.php:54
+msgid "Enables post type archives. Will use string as archive slug. Will generate the proper rewrite rules if rewrite is enabled."
+msgstr ""
+
+#: wck-cptc.php:55
+msgid "Supports"
+msgstr ""
+
+#: wck-cptc.php:58
+msgid "Add New"
+msgstr ""
+
+#: wck-cptc.php:58
+msgid "ex. Add New"
+msgstr ""
+
+#: wck-cptc.php:59, wck-ctc.php:50
+msgid "Add New Item"
+msgstr ""
+
+#: wck-cptc.php:59
+msgid "ex. Add New Book"
+msgstr ""
+
+#: wck-cptc.php:60, wck-ctc.php:48
+msgid "Edit Item"
+msgstr ""
+
+#: wck-cptc.php:60
+msgid "ex. Edit Book"
+msgstr ""
+
+#: wck-cptc.php:61
+msgid "New Item"
+msgstr ""
+
+#: wck-cptc.php:61
+msgid "ex. New Book"
+msgstr ""
+
+#: wck-cptc.php:62, wck-ctc.php:45
+msgid "All Items"
+msgstr ""
+
+#: wck-cptc.php:62
+msgid "ex. All Books"
+msgstr ""
+
+#: wck-cptc.php:63
+msgid "View Items"
+msgstr ""
+
+#: wck-cptc.php:63
+msgid "ex. View Books"
+msgstr ""
+
+#: wck-cptc.php:64, wck-ctc.php:43
+msgid "Search Items"
+msgstr ""
+
+#: wck-cptc.php:64
+msgid "ex. Search Books"
+msgstr ""
+
+#: wck-cptc.php:65
+msgid "Not Found"
+msgstr ""
+
+#: wck-cptc.php:65
+msgid "ex. No Books Found"
+msgstr ""
+
+#: wck-cptc.php:66
+msgid "Not Found In Trash"
+msgstr ""
+
+#: wck-cptc.php:66
+msgid "ex. No Books found in Trash"
+msgstr ""
+
+#: wck-cptc.php:67, wck-ctc.php:47
+msgid "Parent Item Colon"
+msgstr ""
+
+#: wck-cptc.php:67
+msgid "the parent text. This string isn't used on non-hierarchical types. In hierarchical ones the default is Parent Page "
+msgstr ""
+
+#: wck-cptc.php:68, wck-ctc.php:55
+msgid "Menu Name"
+msgstr ""
+
+#: wck-cptc.php:73, wck-fep.php:195, wck-fep.php:406
+msgid "Featured Image"
+msgstr ""
+
+#: wck-cptc.php:73
+msgid "ex. Featured Image"
+msgstr ""
+
+#: wck-cptc.php:74
+msgid "Set Featured Image"
+msgstr ""
+
+#: wck-cptc.php:74
+msgid "ex. Set Featured Image"
+msgstr ""
+
+#: wck-cptc.php:75
+msgid "Remove Featured Image"
+msgstr ""
+
+#: wck-cptc.php:75
+msgid "ex. Remove Featured Image"
+msgstr ""
+
+#: wck-cptc.php:76
+msgid "Use Featured Image"
+msgstr ""
+
+#: wck-cptc.php:76
+msgid "ex. Use Featured Image"
+msgstr ""
+
+#: wck-cptc.php:86
+msgid "Archives"
+msgstr ""
+
+#: wck-cptc.php:86
+msgid "ex. Archives"
+msgstr ""
+
+#: wck-cptc.php:87
+msgid "Inser Into Item"
+msgstr ""
+
+#: wck-cptc.php:87
+msgid "ex. Inser Into Item"
+msgstr ""
+
+#: wck-cptc.php:88
+msgid "Uploaded to this Item"
+msgstr ""
+
+#: wck-cptc.php:88
+msgid "ex. Uploaded to this Item"
+msgstr ""
+
+#: wck-cptc.php:89
+msgid "Filter Items List"
+msgstr ""
+
+#: wck-cptc.php:89
+msgid "ex. Filter Items List"
+msgstr ""
+
+#: wck-cptc.php:90, wck-ctc.php:66
+msgid "Items List Navigation"
+msgstr ""
+
+#: wck-cptc.php:90, wck-ctc.php:66
+msgid "ex. Items List Navigation"
+msgstr ""
+
+#: wck-cptc.php:91, wck-ctc.php:67
+msgid "Items List"
+msgstr ""
+
+#: wck-cptc.php:91, wck-ctc.php:67
+msgid "ex. Items List"
+msgstr ""
+
+#: wck-cptc.php:100, wck-ctc.php:76
+msgid "Public"
+msgstr ""
+
+#: wck-cptc.php:100, wck-ctc.php:76
+msgid "Meta argument used to define default values for publicly_queriable, show_ui, show_in_nav_menus and exclude_from_search"
+msgstr ""
+
+#: wck-cptc.php:101, wck-ctc.php:77
+msgid "Show UI"
+msgstr ""
+
+#: wck-cptc.php:101, wck-ctc.php:77
+msgid "Whether to generate a default UI for managing this post type."
+msgstr ""
+
+#: wck-cptc.php:102
+msgid "Show In Nav Menus"
+msgstr ""
+
+#: wck-cptc.php:102
+msgid "Whether post_type is available for selection in navigation menus."
+msgstr ""
+
+#: wck-cptc.php:103
+msgid "Show In Menu"
+msgstr ""
+
+#: wck-cptc.php:103
+msgid "Whether to show the post type in the admin menu. show_ui must be true. \"false\" - do not display in the admin menu, \"true\" - display as a top level menu, \"some string\" - If an existing top level page such as \"tools.php\" or \"edit.php?post_type=page\", the post type will be placed as a sub menu of that."
+msgstr ""
+
+#: wck-cptc.php:104
+msgid "Menu Position"
+msgstr ""
+
+#: wck-cptc.php:104
+msgid "The position in the menu order the post type should appear."
+msgstr ""
+
+#: wck-cptc.php:105
+msgid "Menu Icon"
+msgstr ""
+
+#: wck-cptc.php:105
+msgid "The url to the icon to be used for this menu."
+msgstr ""
+
+#: wck-cptc.php:106
+msgid "Capability Type"
+msgstr ""
+
+#: wck-cptc.php:106
+msgid "The string to use to build the read, edit, and delete capabilities."
+msgstr ""
+
+#: wck-cptc.php:107
+msgid "Taxonomies"
+msgstr ""
+
+#: wck-cptc.php:108, wck-ctc.php:83
+msgid "Rewrite"
+msgstr ""
+
+#: wck-cptc.php:108, wck-ctc.php:83
+msgid "Rewrite permalinks."
+msgstr ""
+
+#: wck-cptc.php:109, wck-ctc.php:84
+msgid "With Front"
+msgstr ""
+
+#: wck-cptc.php:109, wck-ctc.php:84
+msgid "Use the defined base for permalinks."
+msgstr ""
+
+#: wck-cptc.php:110, wck-ctc.php:85
+msgid "Rewrite Slug"
+msgstr ""
+
+#: wck-cptc.php:110, wck-ctc.php:85
+msgid "Defaults to post type name."
+msgstr ""
+
+#: wck-cptc.php:111, wck-ctc.php:82
+msgid "Show in REST API"
+msgstr ""
+
+#: wck-cptc.php:111
+msgid "Make this post type available via WP REST API "
+msgstr ""
+
+#: wck-cptc.php:121
+msgid "Custom Post Type Creation"
+msgstr ""
+
+#: wck-cptc.php:150, wck-cptc.php:151, wck-cptc.php:152, wck-cptc.php:153, wck-cptc.php:154, wck-cptc.php:155, wck-cptc.php:156, wck-cptc.php:157, wck-ctc.php:118, wck-ctc.php:119, wck-ctc.php:120, wck-ctc.php:121, wck-ctc.php:122, wck-ctc.php:123, wck-ctc.php:124, wck-ctc.php:125, wck-ctc.php:126, wck-ctc.php:127, wck-ctc.php:128, wck-ctc.php:129, wordpress-creation-kit-api/wordpress-creation-kit.php:484, wordpress-creation-kit-api/wordpress-creation-kit.php:485, wordpress-creation-kit-api/wck-stp/stp-init-metabox.php:67
+msgstr ""
+
+#: wck-cptc.php:250, wck-cptc.php:250, wck-cptc.php:250, wck-cptc.php:274, wck-cptc.php:274, wck-cptc.php:274, wck-ctc.php:322, wck-ctc.php:322, wck-ctc.php:322, wck-ctc.php:346, wck-ctc.php:346, wck-ctc.php:346
+msgid "Show Advanced Label Options"
+msgstr ""
+
+#: wck-cptc.php:250, wck-cptc.php:250, wck-cptc.php:274, wck-cptc.php:274, wck-ctc.php:322, wck-ctc.php:322, wck-ctc.php:346, wck-ctc.php:346
+msgid "Hide Advanced Label Options"
+msgstr ""
+
+#: wck-cptc.php:262, wck-cptc.php:262, wck-cptc.php:262, wck-cptc.php:288, wck-cptc.php:288, wck-cptc.php:288, wck-cptc.php:317, wck-cptc.php:317, wck-cptc.php:317, wck-ctc.php:334, wck-ctc.php:334, wck-ctc.php:334, wck-ctc.php:360, wck-ctc.php:360, wck-ctc.php:360, wck-ctc.php:389, wck-ctc.php:389, wck-ctc.php:389, wck-opc.php:249, wck-opc.php:249, wck-opc.php:249, wck-opc.php:261, wck-opc.php:261, wck-opc.php:261, wck-opc.php:275, wck-opc.php:275, wck-opc.php:275
+msgid "Show Advanced Options"
+msgstr ""
+
+#: wck-cptc.php:262, wck-cptc.php:288, wck-cptc.php:288, wck-cptc.php:317, wck-cptc.php:317, wck-ctc.php:334, wck-ctc.php:334, wck-ctc.php:360, wck-ctc.php:360, wck-ctc.php:389, wck-ctc.php:389, wck-opc.php:249, wck-opc.php:249, wck-opc.php:261, wck-opc.php:261, wck-opc.php:275, wck-opc.php:275
+msgid "Hide Advanced Options"
+msgstr ""
+
+#: wck-cptc.php:303, wck-cptc.php:303, wck-cptc.php:303, wck-ctc.php:375, wck-ctc.php:375, wck-ctc.php:375
+msgid "Show Advanced Labels"
+msgstr ""
+
+#: wck-cptc.php:303, wck-cptc.php:303, wck-ctc.php:375, wck-ctc.php:375
+msgid "Hide Advanced Labels"
+msgstr ""
+
+#: wck-cptc.php:389
+msgid "WCK Custom Post Type Creator allows you to easily create custom post types for Wordpress without any programming knowledge.<br />Most of the common options for creating a post type are displayed by default while the advanced options and label are just one click away."
+msgstr ""
+
+#: wck-cptc.php:395
+msgid "For simplicity you are required to introduce only the Singular Label and Plural Label from wchich the rest of the labels will be formed.<br />For a more detailed control of the labels you just have to click the \"Show Advanced Label Options\" link and all the availabel labels will be displayed."
+msgstr ""
+
+#: wck-cptc.php:400, wck-ctc.php:465
+msgid "Advanced Options"
+msgstr ""
+
+#: wck-cptc.php:401
+msgid "The Advanced Options are set to the most common defaults for custom post types. To display them click the \"Show Advanced Options\" link."
+msgstr ""
+
+#: wck-cptc.php:482
+msgid ""
+"Post Type name must not contain any spaces\n"
+""
+msgstr ""
+
+#: wck-cptc.php:484
+msgid ""
+"Post Type name must not contain any capital letters\n"
+""
+msgstr ""
+
+#: wck-cptc.php:486
+msgid ""
+"Post Type name must not contain any hyphens\n"
+""
+msgstr ""
+
+#: wck-cptc.php:488
+msgid ""
+"Please chose a different Post Type name as this one is reserved\n"
+""
+msgstr ""
+
+#: wck-ctc.php:6
+msgid "WCK Taxonomy Creator"
+msgstr ""
+
+#: wck-ctc.php:7, wck-sas.php:179
+msgid "Taxonomy Creator"
+msgstr ""
+
+#: wck-ctc.php:37
+msgid "Taxonomy"
+msgstr ""
+
+#: wck-ctc.php:37
+msgid "(The name of the taxonomy. Name must not contain capital letters or spaces.)"
+msgstr ""
+
+#: wck-ctc.php:38
+msgid "ex. Writer"
+msgstr ""
+
+#: wck-ctc.php:39
+msgid "ex. Writers"
+msgstr ""
+
+#: wck-ctc.php:40
+msgid "Attach to"
+msgstr ""
+
+#: wck-ctc.php:41
+msgid "Is this taxonomy hierarchical (have descendants) like categories or not hierarchical like tags."
+msgstr ""
+
+#: wck-ctc.php:43
+msgid "ex. Search Writers"
+msgstr ""
+
+#: wck-ctc.php:44
+msgid "Popular Items"
+msgstr ""
+
+#: wck-ctc.php:44
+msgid "ex. Popular Writers"
+msgstr ""
+
+#: wck-ctc.php:45
+msgid "ex. All Writers"
+msgstr ""
+
+#: wck-ctc.php:46
+msgid "Parent Item"
+msgstr ""
+
+#: wck-ctc.php:46
+msgid "ex. Parent Genre"
+msgstr ""
+
+#: wck-ctc.php:47
+msgid "ex. Parent Genre:"
+msgstr ""
+
+#: wck-ctc.php:48
+msgid "ex. Edit Writer"
+msgstr ""
+
+#: wck-ctc.php:49
+msgid "Update Item"
+msgstr ""
+
+#: wck-ctc.php:49
+msgid "ex. Update Writer"
+msgstr ""
+
+#: wck-ctc.php:50
+msgid "ex. Add New Writer"
+msgstr ""
+
+#: wck-ctc.php:51
+msgid "New Item Name"
+msgstr ""
+
+#: wck-ctc.php:51
+msgid "ex. New Writer Name"
+msgstr ""
+
+#: wck-ctc.php:52
+msgid "Separate Items With Commas"
+msgstr ""
+
+#: wck-ctc.php:52
+msgid "ex. Separate writers with commas"
+msgstr ""
+
+#: wck-ctc.php:53
+msgid "Add Or Remove Items"
+msgstr ""
+
+#: wck-ctc.php:53
+msgid "ex. Add or remove writers"
+msgstr ""
+
+#: wck-ctc.php:54
+msgid "Choose From Most Used"
+msgstr ""
+
+#: wck-ctc.php:54
+msgid "ex. Choose from the most used writers"
+msgstr ""
+
+#: wck-ctc.php:59
+msgid "No Terms"
+msgstr ""
+
+#: wck-ctc.php:59
+msgid "ex. No Terms"
+msgstr ""
+
+#: wck-ctc.php:78
+msgid "Show Tagcloud"
+msgstr ""
+
+#: wck-ctc.php:78
+msgid "Whether to allow the Tag Cloud widget to use this taxonomy."
+msgstr ""
+
+#: wck-ctc.php:79
+msgid "Show Admin Column"
+msgstr ""
+
+#: wck-ctc.php:79
+msgid "Whether to allow automatic creation of taxonomy columns on associated post-types."
+msgstr ""
+
+#: wck-ctc.php:80
+msgid "Sortable Admin Column"
+msgstr ""
+
+#: wck-ctc.php:80
+msgid "Whether to make the columns sortable or not. WARNING: on a large number of posts the performance can be severely affected"
+msgstr ""
+
+#: wck-ctc.php:81
+msgid "Show in Quick Edit"
+msgstr ""
+
+#: wck-ctc.php:81
+msgid "Whether to show the taxonomy in the quick/bulk edit panel."
+msgstr ""
+
+#: wck-ctc.php:82
+msgid "Make this taxonomy available via WP REST API "
+msgstr ""
+
+#: wck-ctc.php:94
+msgid "Custom Taxonomy Creation"
+msgstr ""
+
+#: wck-ctc.php:285
+msgid ""
+"Taxonomy name must not contain any spaces\n"
+""
+msgstr ""
+
+#: wck-ctc.php:287
+msgid ""
+"Tanomony name must not contain any capital letters\n"
+""
+msgstr ""
+
+#: wck-ctc.php:289
+msgid ""
+"Please chose a different Tanomony name as this one is reserved\n"
+""
+msgstr ""
+
+#: wck-ctc.php:454
+msgid "WCK Custom Taxonomy Creator allows you to easily create custom taxonomy for Wordpress without any programming knowledge.<br />Most of the common options for creating a taxonomy are displayed by default while the advanced and label options are just one click away."
+msgstr ""
+
+#: wck-ctc.php:460
+msgid "For simplicity you are required to introduce only the Singular Label and Plural Label from wchich the rest of the labels will be formed.<br />For a more detailed control of the labels you just have to click the \"Show Advanced Label Options\" link and all the availabel labels will be displayed"
+msgstr ""
+
+#: wck-ctc.php:466
+msgid "The Advanced Options are set to the most common defaults for taxonomies. To display them click the \"Show Advanced Options\" link."
+msgstr ""
+
+#: wck-fep.php:15
+msgid "Add New Frontend Posting"
+msgstr ""
+
+#: wck-fep.php:16
+msgid "Edit Frontend Posting"
+msgstr ""
+
+#: wck-fep.php:17
+msgid "New Frontend Posting"
+msgstr ""
+
+#: wck-fep.php:18, wck-fep.php:24, wck-sas.php:61
+msgid "Frontend Posting"
+msgstr ""
+
+#: wck-fep.php:19
+msgid "View Frontend Posting"
+msgstr ""
+
+#: wck-fep.php:20
+msgid "Search Frontend Posting"
+msgstr ""
+
+#: wck-fep.php:21
+msgid "No Frontend Posting found"
+msgstr ""
+
+#: wck-fep.php:22
+msgid "No Frontend Posting found in Trash"
+msgstr ""
+
+#: wck-fep.php:125
+msgid "Select in what post type the entries of this form will be added."
+msgstr ""
+
+#: wck-fep.php:126
+msgid "Anonymous posting"
+msgstr ""
+
+#: wck-fep.php:126
+msgid "Enable anonymous posting. If enabled users can use this form without being logged in."
+msgstr ""
+
+#: wck-fep.php:127
+msgid "Assign to user"
+msgstr ""
+
+#: wck-fep.php:127
+msgid "The user that the posts are assigned to with \"Anonymous posting\". Defaults to admin"
+msgstr ""
+
+#: wck-fep.php:128
+msgid "Admin Approval"
+msgstr ""
+
+#: wck-fep.php:128
+msgid "Enable Admin Approval. If enabled the entries from this form will be set as drafts and will require an admin to approve them."
+msgstr ""
+
+#: wck-fep.php:129
+msgid "Shortcode Page"
+msgstr ""
+
+#: wck-fep.php:129
+msgid "The page on which the shortcode will be placed. You can come back and edit this later."
+msgstr ""
+
+#: wck-fep.php:135, wck-fep.php:635
+msgid "Form Setup"
+msgstr ""
+
+#: wck-fep.php:152
+msgid "Is this field required?"
+msgstr ""
+
+#: wck-fep.php:178, wck-fep.php:641
+msgid "Form Fields"
+msgstr ""
+
+#: wck-fep.php:192, wck-fep.php:397
+msgid "Post Title"
+msgstr ""
+
+#: wck-fep.php:192
+msgid "Change the \"Post Title\" label"
+msgstr ""
+
+#: wck-fep.php:193, wck-fep.php:400
+msgid "Post Content"
+msgstr ""
+
+#: wck-fep.php:193
+msgid "Change the \"Post Content\" label"
+msgstr ""
+
+#: wck-fep.php:194, wck-fep.php:403
+msgid "Post Excerpt"
+msgstr ""
+
+#: wck-fep.php:194
+msgid "Change the \"Post Excerpt\" label"
+msgstr ""
+
+#: wck-fep.php:195
+msgid "Change the \"Featured Image\" label"
+msgstr ""
+
+#: wck-fep.php:196, wordpress-creation-kit-api/wck-fep/wck-fep.php:435
+msgid "Add Post"
+msgstr ""
+
+#: wck-fep.php:196
+msgid "Change the \"Add Post\" label for the submit button"
+msgstr ""
+
+#: wck-fep.php:197, wordpress-creation-kit-api/wck-fep/wck-fep.php:433
+msgid "Update Post"
+msgstr ""
+
+#: wck-fep.php:197
+msgid "Change the \"Update Post\" label for the submit button"
+msgstr ""
+
+#: wck-fep.php:198, wordpress-creation-kit-api/wck-fep/wck-fep.php:716
+msgid "Post Added"
+msgstr ""
+
+#: wck-fep.php:198
+msgid "Change the \"Post Added\" success message"
+msgstr ""
+
+#: wck-fep.php:199, wordpress-creation-kit-api/wck-fep/wck-fep.php:718
+msgid "Post Updated"
+msgstr ""
+
+#: wck-fep.php:199
+msgid "Change the \"Post Updated\" success message"
+msgstr ""
+
+#: wck-fep.php:205
+msgid "Form Labels and Messages"
+msgstr ""
+
+#: wck-fep.php:269
+msgid "Taxonomy: "
+msgstr ""
+
+#: wck-fep.php:301
+msgid ""
+"Choose a different Field Type as this one already exists in your Form\n"
+""
+msgstr ""
+
+#: wck-fep.php:331, wordpress-creation-kit-api/fields/country select.php:16, wordpress-creation-kit-api/fields/cpt select.php:20, wordpress-creation-kit-api/fields/currency select.php:18, wordpress-creation-kit-api/fields/select multiple.php:17, wordpress-creation-kit-api/fields/select.php:16, wordpress-creation-kit-api/fields/user select.php:18
+msgid "...Choose"
+msgstr ""
+
+#: wck-fep.php:397
+msgid "The title of the post"
+msgstr ""
+
+#: wck-fep.php:400
+msgid "The content of the post"
+msgstr ""
+
+#: wck-fep.php:403
+msgid "The excerpt of the post"
+msgstr ""
+
+#: wck-fep.php:406
+msgid "The Featured Image"
+msgstr ""
+
+#: wck-fep.php:630
+msgid "WCK Frontend Posting gives you the possibility to create post ( and custom posts ) entries from the frontend, and also edit them. <br />You can create a custom form for every post type by selecting from the most common post elements( Post Title, Post Content, Excerpt, Featured Image ), the registered taxonomies for that post type  and also any Meta Box created with WCK Custom Fields Creator ( repeater or single )."
+msgstr ""
+
+#: wck-fep.php:636
+msgid "In the \"Form Setup\" metabox you set the form arguments. <br />The \"Post type\" argument determines in what post type the entries from the form will be added and also what field types you can add to the form.<br /> \"Anonymous posting\" and \"Admin Approval\" determine weather entries can be added without users being logged in and weather the posts will be automatically published.<br /> The \"Shortcode Page\" argument is used to determine on what page the form for this post type is displayed so that when we want to edit a post of this post type we are directed to the correct form (even tough this argument isn't required it needs to be set for editing posts to work correctly)."
+msgstr ""
+
+#: wck-fep.php:642
+msgid "Define here the fields contained by the form. <br />\"Field Type\" is dynamically constructed from the default fields( Post title, Post content, Excerpt, Featured image ), all the registered taxonomies and all the registered Meta Boxes for the post type selected in the \"Post Type\" option in the \"Form Setup\" Meta Box."
+msgstr ""
+
+#: wck-fep.php:647
+msgid "Frontend Usage"
+msgstr ""
+
+#: wck-fep.php:648
+msgid "To display a form in the frontend you must place it's corresponding shortcode on the desired page. You can take this shortcode from the \"Form Shortcode\" side metabox displayed on every form creation page.<br /> To display the Frontend Dashboard where you can see your posts, edit or delete them just add the following shortcode on the desired page \"<strong>[fep-dashboard]</strong>\"<br />Frontend Posting also provides a login/logout/register widget that also has a corresponding shortcode \"[fep-lilo]\"."
+msgstr ""
+
+#: wck-fep.php:662
+msgid "Form Shortcode"
+msgstr ""
+
+#: wck-fep.php:673, wck-stp.php:147
+msgid "Use this shortcode on the page you want the form to be displayed:"
+msgstr ""
+
+#: wck-fep.php:674, wck-stp.php:148
+msgid "Note: changing the Form Title also changes the shortcode!"
+msgstr ""
+
+#: wck-fep.php:680, wck-stp.php:154
+msgid "Shortcode"
+msgstr ""
+
+#: wck-fep.php:708
+msgid "Login/Logout Widget"
+msgstr ""
+
+#: wck-fep.php:776
+msgid "Login Widget"
+msgstr ""
+
+#: wck-fep.php:780
+msgid "Title:"
+msgstr ""
+
+#: wck-fep.php:875
+msgid "Frontend Posting form updated."
+msgstr ""
+
+#: wck-free-to-pro.php:13, wck-free-to-pro.php:14, wck-free-to-pro.php:119
+msgid "Front End Posting"
+msgstr ""
+
+#: wck-free-to-pro.php:26, wck-free-to-pro.php:27, wck-free-to-pro.php:53, wck-sas.php:65, wck-stp.php:17, wck-stp.php:23
+msgid "Swift Templates"
+msgstr ""
+
+#: wck-free-to-pro.php:54
+msgid "A straight forward alternative to WordPress templates"
+msgstr ""
+
+#: wck-free-to-pro.php:120
+msgid "An easy way to add and edit content from the front-end"
+msgstr ""
+
+#: wck-opc.php:32
+msgid "Add New Option Page"
+msgstr ""
+
+#: wck-opc.php:33
+msgid "Edit Option Page"
+msgstr ""
+
+#: wck-opc.php:34
+msgid "New Option Page"
+msgstr ""
+
+#: wck-opc.php:35, wck-sas.php:63
+msgid "Option Pages Creator"
+msgstr ""
+
+#: wck-opc.php:36
+msgid "View Option Page"
+msgstr ""
+
+#: wck-opc.php:37
+msgid "Search Option Pages"
+msgstr ""
+
+#: wck-opc.php:38
+msgid "No Option Pages found"
+msgstr ""
+
+#: wck-opc.php:39
+msgid "No Option Pages found in Trash"
+msgstr ""
+
+#: wck-opc.php:41
+msgid "Option Pages"
+msgstr ""
+
+#: wck-opc.php:67
+msgid "Add New Option Field"
+msgstr ""
+
+#: wck-opc.php:68
+msgid "Edit Option Field"
+msgstr ""
+
+#: wck-opc.php:69
+msgid "New Option Field"
+msgstr ""
+
+#: wck-opc.php:70
+msgid "Option Fields Creator"
+msgstr ""
+
+#: wck-opc.php:71
+msgid "View Option Field"
+msgstr ""
+
+#: wck-opc.php:72
+msgid "Search Option Fields"
+msgstr ""
+
+#: wck-opc.php:73
+msgid "No Option Fields found"
+msgstr ""
+
+#: wck-opc.php:74
+msgid "No Option Fields found in Trash"
+msgstr ""
+
+#: wck-opc.php:76
+msgid "Option Fields"
+msgstr ""
+
+#: wck-opc.php:128
+msgid "Page name in menu"
+msgstr ""
+
+#: wck-opc.php:128
+msgid "The name of the option page in the menu."
+msgstr ""
+
+#: wck-opc.php:129
+msgid "Display"
+msgstr ""
+
+#: wck-opc.php:129
+msgid "Choose where in the admin menu should the page appear"
+msgstr ""
+
+#: wck-opc.php:130
+msgid "Page Title"
+msgstr ""
+
+#: wck-opc.php:130
+msgid "The title that is displayed on the page. If this is not filled in then it's the same as Page name in menu"
+msgstr ""
+
+#: wck-opc.php:131
+msgid "Page Type"
+msgstr ""
+
+#: wck-opc.php:131
+msgid "Choose what type the page should be. IMPORTANT: this overrides the Display option."
+msgstr ""
+
+#: wck-opc.php:132
+msgid "Parent Slug (for Submenu Page)"
+msgstr ""
+
+#: wck-opc.php:132
+msgid "The slug name for the parent menu (or the file name of a standard WordPress admin page) For examples see http://codex.wordpress.org/Function_Reference/add_submenu_page $parent_slug parameter"
+msgstr ""
+
+#: wck-opc.php:133
+msgid "Position (for Toplevel Page)"
+msgstr ""
+
+#: wck-opc.php:133
+msgid "The position in the menu order this menu should appear. Available for toplevel pages only."
+msgstr ""
+
+#: wck-opc.php:134
+msgid "Capability"
+msgstr ""
+
+#: wck-opc.php:134
+msgid "The capability required for this menu to be displayed to the user. Defaults to \"edit_theme_options\""
+msgstr ""
+
+#: wck-opc.php:135
+msgid "Icon Url (for Toplevel Page)"
+msgstr ""
+
+#: wck-opc.php:135
+msgid "The icon for the menu button"
+msgstr ""
+
+#: wck-opc.php:141
+msgid "Option Page Arguments"
+msgstr ""
+
+#: wck-opc.php:169
+msgid "Group Title"
+msgstr ""
+
+#: wck-opc.php:169
+msgid "The name of the group field"
+msgstr ""
+
+#: wck-opc.php:170
+msgid "Option Page"
+msgstr ""
+
+#: wck-opc.php:170
+msgid "Select the option page here"
+msgstr ""
+
+#: wck-opc.php:171
+msgid "Option Name"
+msgstr ""
+
+#: wck-opc.php:171
+msgid "The name of the option. Must be unique, only lowercase letters, no spaces and no special characters."
+msgstr ""
+
+#: wck-opc.php:179
+msgid "Select on which option page this field group will appear"
+msgstr ""
+
+#: wck-opc.php:206
+msgid "Default value of the field. For Checkboxes if there are multiple values separate them with a \",\""
+msgstr ""
+
+#: wck-opc.php:208
+msgid "Add you HTML (or text) content."
+msgstr ""
+
+#: wck-opc.php:227
+msgid "Option Page Fields"
+msgstr ""
+
+#: wck-opc.php:305, wck-opc.php:312
+msgid "Slug:"
+msgstr ""
+
+#: wck-opc.php:312
+msgid "(Note:changing the slug when you already have a lot of existing entries may result in unexpected behavior.)"
+msgstr ""
+
+#: wck-opc.php:553
+msgid "Option Page updated."
+msgstr ""
+
+#: wck-opc.php:557
+msgid "Option Field updated."
+msgstr ""
+
+#: wck-opc.php:601
+msgid ""
+"Choose a different Option Name as this one contains spaces\n"
+""
+msgstr ""
+
+#: wck-opc.php:603
+msgid ""
+"Choose a different Option Name as this one has Uppercase letters\n"
+""
+msgstr ""
+
+#: wck-opc.php:605
+msgid ""
+"Choose a different Option Name as this one already exists\n"
+""
+msgstr ""
+
+#: wck-sas.php:15
+msgid "Start Here & General Settings"
+msgstr ""
+
+#: wck-sas.php:16
+msgid "Start and Settings"
+msgstr ""
+
+#: wck-sas.php:34
+msgid "Serial Number"
+msgstr ""
+
+#: wck-sas.php:34
+msgid "Please enter your serial number. (e.g. WCKPRO-11-SN-251r55baa4fbe7bf595b2aabb8d72985)"
+msgstr ""
+
+#: wck-sas.php:40
+msgid "Register Your Version"
+msgstr ""
+
+#: wck-sas.php:57
+msgid "Custom Post Type Creator"
+msgstr ""
+
+#: wck-sas.php:58
+msgid "Custom Taxonomy Creator"
+msgstr ""
+
+#: wck-sas.php:67
+msgid "Swift Templates and Front End Posting"
+msgstr ""
+
+#: wck-sas.php:72
+msgid "WordPress Creation Kit Tools: enable or disable the tools you want"
+msgstr ""
+
+#: wck-sas.php:88
+msgid "Google Maps API"
+msgstr ""
+
+#: wck-sas.php:88
+msgid "Enter your Google Maps API key ( <a href=\"https://console.developers.google.com/flows/enableapi?apiid=maps_backend\" target=\"_blank\">Get your API key</a> )"
+msgstr ""
+
+#: wck-sas.php:96
+msgid "Extra Settings"
+msgstr ""
+
+#: wck-sas.php:127
+msgid "<strong>You are using a very old version of PHP</strong> (5.2.x or older) which has serious security and performance issues. Please ask your hoster to provide you with an upgrade path to 5.6 or 7.0"
+msgstr ""
+
+#: wck-sas.php:134
+msgid "Welcome to %s"
+msgstr ""
+
+#: wck-sas.php:135
+msgid "WCK helps you create <strong>repeater custom fields, custom post types</strong> and <strong>taxonomies</strong> in just a couple of clicks, directly from the WordPress admin interface. WCK content types will improve the usability of the sites you build, making them easy to manage by your clients. "
+msgstr ""
+
+#: wck-sas.php:167
+msgid "Quick Start-Up Guide"
+msgstr ""
+
+#: wck-sas.php:172
+msgid "WordPress Creation Kit Pro has support for a wide list of custom fields: WYSIWYG Editor, Upload Field, Date, User, Country, Text Input, Textarea, Drop-Down, Select, Checkboxes, Radio Buttons"
+msgstr ""
+
+#: wck-sas.php:173
+msgid "Access documentation <a href=\"http://www.cozmoslabs.com/docs/wordpress-creation-kit-documentation/#Custom_Fields_Creator\" target=\"_blank\">here</a> about how to display them in your templates."
+msgstr ""
+
+#: wck-sas.php:176
+msgid "Create & manage all your custom content types"
+msgstr ""
+
+#: wck-sas.php:177
+msgid "Access documentation <a href=\"http://www.cozmoslabs.com/docs/wordpress-creation-kit-documentation/#Custom_Post_Type_Creator\" target=\"_blank\">here</a> about how to display them in your templates."
+msgstr ""
+
+#: wck-sas.php:180
+msgid "Create new taxonomies for filtering your content"
+msgstr ""
+
+#: wck-sas.php:181
+msgid "Access documentation <a href=\"http://www.cozmoslabs.com/docs/wordpress-creation-kit-documentation/#Custom_Taxonomy_Creator\" target=\"_blank\">here</a> about how to display them in your templates."
+msgstr ""
+
+#: wck-sas.php:183
+msgid "Swift Templates (available in the <a href=\"http://www.cozmoslabs.com/wck-custom-fields-custom-post-types-plugin/?utm_source=wpbackend&utm_medium=clientsite&utm_campaign=WCKFree-SAS\" target=\"_blank\">PRO</a> version)"
+msgstr ""
+
+#: wck-sas.php:184
+msgid "Build your front-end templates directly from the WordPress admin UI, without writing any PHP code."
+msgstr ""
+
+#: wck-sas.php:185
+msgid "Access documentation <a href=\"http://www.cozmoslabs.com/docs/wordpress-creation-kit-documentation/#Swift_Templates\" target=\"_blank\">here</a> on how to easily display registered custom post types, custom fields and taxonomies in your theme."
+msgstr ""
+
+#: wck-sas.php:187
+msgid "Front-End Posting (available in the <a href=\"http://www.cozmoslabs.com/wck-custom-fields-custom-post-types-plugin/?utm_source=wpbackend&utm_medium=clientsite&utm_campaign=WCKFree-SAS\" target=\"_blank\">PRO</a> version)"
+msgstr ""
+
+#: wck-sas.php:188
+msgid "Create and edit posts/pages or custom posts directly from the front-end."
+msgstr ""
+
+#: wck-sas.php:189
+msgid "Available shortcodes:"
+msgstr ""
+
+#: wck-sas.php:191
+msgid "[fep form_name=\"front-end-post-name\"] - displays your form in the front-end"
+msgstr ""
+
+#: wck-sas.php:192
+msgid "[fep-dashboard] - the quick-dashboard allows: simple profile updates, editing/deletion of posts, pages and custom post types."
+msgstr ""
+
+#: wck-sas.php:193
+msgid "[fep-lilo] - login/logout/register widget with the simple usage of a shortcode. Can be added in a page or text widget."
+msgstr ""
+
+#: wck-sas.php:195
+msgid "Access documentation <a href=\"http://www.cozmoslabs.com/docs/wordpress-creation-kit-documentation/frontend-posting/\" target=\"_blank\">here</a> about how to display them in your templates."
+msgstr ""
+
+#: wck-sas.php:197
+msgid "Option Pages (available in the <a href=\"http://www.cozmoslabs.com/wck-custom-fields-custom-post-types-plugin/?utm_source=wpbackend&utm_medium=clientsite&utm_campaign=WCKFree-SAS\" target=\"_blank\">PRO</a> version)"
+msgstr ""
+
+#: wck-sas.php:198
+msgid "The Options Page Creator Allows you to create a new menu item called \"Options\"(for example) which can hold advanced custom field groups. Perfect for theme options or a simple UI for your custom plugin (like a simple testimonials section in the front-end)."
+msgstr ""
+
+#: wck-sas.php:217
+msgid "Please enter your serial number to receive access to automatic updates and support. Need a license key? <a href=\"http://www.cozmoslabs.com/wck-custom-fields-custom-post-types-plugin/?utm_source=WCK-sas&utm_medium=dashboard&utm_campaign=WCK-SN-Purchase\" target=\"_blank\">Get One Here</a>."
+msgstr ""
+
+#: wck-sas.php:219
+msgid "Oops! Our serial verification server is down. Please try again later."
+msgstr ""
+
+#: wck-sas.php:221
+msgid "Oops! It seems the serial number you entered was not found in our database. To find out what's your serial number log-in to <a href=\"http://www.cozmoslabs.com/account/?utm_source=WCK-sas&utm_medium=dashboard&utm_campaign=WCK-Renewal\" target=\"_blank\">your account page</a> over at Cozmoslabs.com"
+msgstr ""
+
+#: wck-sas.php:223
+msgid "Wohoo! Your serial number is valid and you have access to automatic updates."
+msgstr ""
+
+#: wck-sas.php:225
+msgid "It seems your serial number has <strong>expired</strong>. To continue receiving access to product downloads, automatic updates and support please update your serial number for another year from <a href=\"http://www.cozmoslabs.com/account/?utm_source=WCK-sas&utm_medium=dashboard&utm_campaign=WCK-Renewal\" target=\"_blank\"><strong>your account page</strong></a>."
+msgstr ""
+
+#: wck-sas.php:227
+msgid "Your WordPress Creation Kit serial number is about to expire. To continue receiving access to product downloads, automatic updates and support please update your serial number for another year from <a href=\"http://www.cozmoslabs.com/account/?utm_source=WCK-sas&utm_medium=dashboard&utm_campaign=WCK-Renewal\" target=\"_blank\"><strong>your account page</strong></a>."
+msgstr ""
+
+#: wck-sas.php:343
+msgid "<p>Your <strong>WordPress Creation Kit</strong> serial number is invalid or missing. <br/>Please %1$sregister your copy%2$s of WCK to receive access to automatic updates and support. Need a license key? %3$sPurchase one now%4$s</p>"
+msgstr ""
+
+#: wck-sas.php:345
+msgid "<p style=\"position:relative;\">Your <strong>WordPress Creation Kit</strong> licence has expired. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s %5$sDismiss%6$s</p>"
+msgstr ""
+
+#: wck-sas.php:349
+msgid "<p style=\"position:relative;\">Your <strong>WordPress Creation Kit</strong> serial number is about to expire on %5$s. <br/>Please %1$sRenew Your Licence%2$s to continue receiving access to product downloads, automatic updates and support. %3$sRenew now %4$s %6$sDismiss%7$s</p>"
+msgstr ""
+
+#: wck-stp.php:14
+msgid "Add New Swift Template"
+msgstr ""
+
+#: wck-stp.php:15
+msgid "Edit Swift Template"
+msgstr ""
+
+#: wck-stp.php:16
+msgid "New Swift Template"
+msgstr ""
+
+#: wck-stp.php:18
+msgid "View Swift Template"
+msgstr ""
+
+#: wck-stp.php:19
+msgid "Search Swift Templates"
+msgstr ""
+
+#: wck-stp.php:20
+msgid "No Swift Templates found"
+msgstr ""
+
+#: wck-stp.php:21
+msgid "No Swift Templates found in Trash"
+msgstr ""
+
+#: wck-stp.php:135
+msgid "Swift Template Shortcode"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:421
+msgid "Save"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:421
+msgid "Add Entry"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:526
+msgid "Content"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:526, wordpress-creation-kit-api/wordpress-creation-kit.php:634, wordpress-creation-kit-api/wck-fep/wck-fep.php:873
+msgid "Delete"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:582
+msgid "Map Markers"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:633
+msgid "Edit this item"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:634
+msgid "Delete this item"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:823
+msgid "Please enter a value for the required field "
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:873
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:1500
+msgid "Syncronize WCK"
+msgstr ""
+
+#: wordpress-creation-kit-api/wordpress-creation-kit.php:1512
+msgid "Syncronize WCK Translation"
+msgstr ""
+
+#: wordpress-creation-kit-api/fields/map.php:14
+msgid "Search Location"
+msgstr ""
+
+#: wordpress-creation-kit-api/fields/map.php:51
+msgid "In order for the map field to work it will need a Google Maps API key. Please insert your API key <a href=\"%s\">here</a>."
+msgstr ""
+
+#: wordpress-creation-kit-api/fields/upload.php:75
+msgid "Upload "
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:337
+msgid "Wrong form for this post type"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:345
+msgid "You are not allowed to edit this post."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:802
+msgid "My Profile"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:815, wordpress-creation-kit-api/wck-fep/wck-fep.php:834
+msgid "My "
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:968
+msgid "User:"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:970, wordpress-creation-kit-api/wck-fep/wck-fep.php:995, wordpress-creation-kit-api/wck-fep/wck-fep.php:1036
+msgid "Password:"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:972
+msgid "Log in"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:975
+msgid "Remember"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:984
+msgid "Don't have a user account? "
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:985, wordpress-creation-kit-api/wck-fep/wck-fep.php:999
+msgid "Register."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:991
+msgid "Username:"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:993, wordpress-creation-kit-api/wck-fep/wck-fep.php:1033
+msgid "Email:"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:997
+msgid "Confirm Password:"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1001
+msgid "Back to login."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1009, wordpress-creation-kit-api/wck-fep/wck-fep.php:1027
+msgid "Welcome %1$s! "
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1010, wordpress-creation-kit-api/wck-fep/wck-fep.php:1027
+msgid "Logout"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1039
+msgid "Password Confirm:"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1045
+msgid "Update"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1089
+msgid "Please enter a username."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1091
+msgid "This username is invalid because it uses illegal characters. Please enter a valid username."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1094
+msgid "This username is already registered, please choose another one."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1100
+msgid "Please type your e-mail address."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1102
+msgid "The email address isn&#8217;t correct."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1105
+msgid "This email is already registered, please choose another one."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1110
+msgid "Please enter a password."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-fep/wck-fep.php:1112
+msgid "The passwords do not match."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-metabox.php:66, wordpress-creation-kit-api/wck-stp/stp-init-metabox.php:79
+msgid "Query Arguments"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-metabox.php:70
+msgid "Value"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-metabox.php:72
+msgid "The value of the selected query argument. Parameters normaly passed as arrays (some tax args, meta_query, etc) are not supported in the UI. Use the <b>wck_stp_archive_query_args</b> filter for those.  "
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-mustache.php:47
+msgid "Available image sizes for the featured image"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-mustache.php:59
+msgid "Available meta-data for the featured image"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-mustache.php:91
+msgid "Available image sizes for %1$s"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-mustache.php:104
+msgid "Available meta-data for %1$s"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-mustache.php:307, wordpress-creation-kit-api/wck-stp/stp-init-mustache.php:309
+msgid "View more"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-shortcodes.php:100
+msgid "The shortcode with the name <em>%s</em> dose not exist."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-shortcodes.php:139
+msgid "The single listing post with the name <em>%s</em> dose not exist."
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-shortcodes.php:157
+msgid "&laquo;&laquo; First"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-shortcodes.php:158
+msgid "&laquo; Prev"
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-shortcodes.php:159
+msgid "Next &raquo; "
+msgstr ""
+
+#: wordpress-creation-kit-api/wck-stp/stp-init-shortcodes.php:160
+msgid "Last &raquo;&raquo;"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:12
+msgid "Albania Lek"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:13
+msgid "Afghanistan Afghani"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:14
+msgid "Argentina Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:16
+msgid "Australia Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:17
+msgid "Azerbaijan New Manat"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:18
+msgid "Bahamas Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:19
+msgid "Barbados Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:20
+msgid "Bangladeshi taka"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:21
+msgid "Belarus Ruble"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:22
+msgid "Belize Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:23
+msgid "Bermuda Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:24
+msgid "Bolivia Boliviano"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:25
+msgid "Bosnia and Herzegovina Convertible Marka"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:26
+msgid "Botswana Pula"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:27
+msgid "Bulgaria Lev"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:28
+msgid "Brazil Real"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:29
+msgid "Brunei Darussalam Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:30
+msgid "Cambodia Riel"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:31
+msgid "Canada Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:32
+msgid "Cayman Islands Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:33
+msgid "Chile Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:34
+msgid "China Yuan Renminbi"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:35
+msgid "Colombia Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:36
+msgid "Costa Rica Colon"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:37
+msgid "Croatia Kuna"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:38
+msgid "Cuba Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:39
+msgid "Czech Republic Koruna"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:40
+msgid "Denmark Krone"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:41
+msgid "Dominican Republic Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:42
+msgid "East Caribbean Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:43
+msgid "Egypt Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:44
+msgid "El Salvador Colon"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:45
+msgid "Estonia Kroon"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:46
+msgid "Euro"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:47
+msgid "Falkland Islands (Malvinas) Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:48
+msgid "Fiji Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:49
+msgid "Ghana Cedis"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:50
+msgid "Gibraltar Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:51
+msgid "Guatemala Quetzal"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:52
+msgid "Guernsey Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:53
+msgid "Guyana Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:54
+msgid "Honduras Lempira"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:55
+msgid "Hong Kong Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:56
+msgid "Hungary Forint"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:57
+msgid "Iceland Krona"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:58
+msgid "India Rupee"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:59
+msgid "Indonesia Rupiah"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:60
+msgid "Iran Rial"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:61
+msgid "Isle of Man Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:62
+msgid "Israel Shekel"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:63
+msgid "Jamaica Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:64
+msgid "Japan Yen"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:65
+msgid "Jersey Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:66
+msgid "Jordanian Dinar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:67
+msgid "Kazakhstan Tenge"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:68
+msgid "Korea (North) Won"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:69
+msgid "Korea (South) Won"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:70
+msgid "Kyrgyzstan Som"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:71
+msgid "Laos Kip"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:72
+msgid "Latvia Lat"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:73
+msgid "Lebanon Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:74
+msgid "Liberia Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:75
+msgid "Lithuania Litas"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:76
+msgid "Macau Pataca"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:77
+msgid "Macedonia Denar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:78
+msgid "Malaysia Ringgit"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:79
+msgid "Mauritius Rupee"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:80
+msgid "Mexico Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:81
+msgid "Mongolia Tughrik"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:82
+msgid "Mozambique Metical"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:83
+msgid "Namibia Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:84
+msgid "Nepal Rupee"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:85
+msgid "Netherlands Antilles Guilder"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:86
+msgid "New Zealand Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:87
+msgid "Nicaragua Cordoba"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:88
+msgid "Nigeria Naira"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:89
+msgid "Norway Krone"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:90
+msgid "Oman Rial"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:91
+msgid "Pakistan Rupee"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:92
+msgid "Panama Balboa"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:93
+msgid "Paraguay Guarani"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:94
+msgid "Peru Nuevo Sol"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:95
+msgid "Philippines Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:96
+msgid "Poland Zloty"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:97
+msgid "Qatar Riyal"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:98
+msgid "Romania New Leu"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:99
+msgid "Russia Ruble"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:100
+msgid "Saint Helena Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:101
+msgid "Saudi Arabia Riyal"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:102
+msgid "Serbia Dinar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:103
+msgid "Seychelles Rupee"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:104
+msgid "Singapore Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:105
+msgid "Solomon Islands Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:106
+msgid "Somalia Shilling"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:107
+msgid "South Africa Rand"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:108
+msgid "Sri Lanka Rupee"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:109
+msgid "Sweden Krona"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:110
+msgid "Switzerland Franc"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:111
+msgid "Suriname Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:112
+msgid "Syria Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:113
+msgid "Taiwan New Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:114
+msgid "Thailand Baht"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:115
+msgid "Trinidad and Tobago Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:116, wordpress-creation-kit-api/assets/currency/currency-select.php:117
+msgid "Turkey Lira"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:118
+msgid "Tuvalu Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:119
+msgid "Ukraine Hryvna"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:120
+msgid "United Kingdom Pound"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:121
+msgid "Uganda Shilling"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:122
+msgid "US Dollar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:123
+msgid "Uruguay Peso"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:124
+msgid "Uzbekistan Som"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:125
+msgid "Venezuela Bolivar"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:126
+msgid "Viet Nam Dong"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:127
+msgid "Yemen Rial"
+msgstr ""
+
+#: wordpress-creation-kit-api/assets/currency/currency-select.php:128
+msgid "Zimbabwe Dollar"
+msgstr ""

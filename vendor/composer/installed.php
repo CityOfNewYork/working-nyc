@@ -478,6 +478,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'wpackagist-plugin/wck-custom-fields-and-custom-post-types-creator' => array(
+            'pretty_version' => '2.3.6',
+            'version' => '2.3.6.0',
+            'reference' => 'tags/2.3.6',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../wp-content/plugins/wck-custom-fields-and-custom-post-types-creator',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'wpackagist-plugin/wordpress-importer' => array(
             'pretty_version' => '0.7',
             'version' => '0.7.0.0',

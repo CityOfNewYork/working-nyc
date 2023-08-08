@@ -1,0 +1,12 @@
+#wck_cptc .row-supports .mb-right-column > div, #container_wck_cptc .row-supports .mb-right-column > div{
+	width:200px;	
+}
+
+#wck_cptc .row-supports .mb-right-column > div:nth-child(2n), #container_wck_cptc .row-supports .mb-right-column > div:nth-child(2n){
+	float:left;
+}
+
+#wck_cptc .row-supports .mb-right-column > div:nth-child(2n+1), #container_wck_cptc .row-supports .mb-right-column > div:nth-child(2n+1){
+	float:left;
+	clear:left;
+}

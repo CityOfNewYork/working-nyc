@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0325793174bc025628066a959f724ad3",
+    "content-hash": "cc9049a7649343aeea47c8686dc14c76",
     "packages": [
         {
             "name": "altorouter/altorouter",
@@ -2226,6 +2226,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/simple-custom-post-order/"
+        },
+        {
+            "name": "wpackagist-plugin/wck-custom-fields-and-custom-post-types-creator",
+            "version": "2.3.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wck-custom-fields-and-custom-post-types-creator/",
+                "reference": "tags/2.3.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wck-custom-fields-and-custom-post-types-creator.2.3.6.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wck-custom-fields-and-custom-post-types-creator/"
         },
         {
             "name": "wpackagist-plugin/wordpress-importer",

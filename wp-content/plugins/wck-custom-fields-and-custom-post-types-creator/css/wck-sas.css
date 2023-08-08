@@ -1,0 +1,59 @@
+.wck-badge{
+	float: right;
+	color: #fff;
+	display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    width: 150px;
+	height: 150px;
+	margin-bottom: 25px;
+    text-align: center;
+    text-rendering: optimizelegibility;
+    background-size: cover !important;
+}
+
+.wck-badge.Pro{
+	background:url(../images/wck-logo-pro.png) center no-repeat;
+}
+
+.wck-badge.Hobbyist{
+	background:url(../images/wck-logo-hobbyist.png) center no-repeat;
+}
+
+.wck-badge.Free{
+	background:url(../images/wck-logo-free.png) center no-repeat;
+}
+.wck-badge span {
+    display: inline-block;
+    text-transform: uppercase;
+    color: #fff;
+    margin-top: 125px;
+    font-size: 90%;
+}
+.serial-notification{
+	padding:10px 20px;
+	border:1px solid #ccc;
+	border-radius:3px;
+}
+.serial-notification.yellow{
+	background:#FFFFE0;
+	border-color:#E6DB55;
+}
+.serial-notification.red{
+	background:#ffd6d6;
+	border-color:#cc0000;
+}
+.serial-notification.green{
+	background:#eeffe0;
+	border-color:#4dcc00;
+}
+
+.wck_page_sas-page #poststuff .changelog h2{
+	font-size:1.4em;
+	padding-left:0;
+}
+
+.wck_page_sas-page .about-wrap .feature-section p{
+	margin-right: 0;
+	margin-left: 0;
+}
