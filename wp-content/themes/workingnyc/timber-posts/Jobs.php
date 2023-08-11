@@ -462,7 +462,7 @@ class Jobs extends Timber\Post {
     if (!empty($this->custom['job_unique_identifier'])) {
       $schema->identifier(
         Schema::PropertyValue()
-          ->name($this->source->name)
+         ->name($this->source->name)
           ->value($this->job_unique_identifier)
       );
     }

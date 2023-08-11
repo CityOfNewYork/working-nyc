@@ -9,8 +9,8 @@
     <div class="layout-content sticky top-0 bg-scale-1 z-30">
       {% include ['components/utility-nav.twig'] with {
         return: {
-          'label': __('Home', 'WNYC'),
-          'link': '/'
+          'label': __('Guides', 'WNYC'),
+          'link': post.archive
         },
         web_share: {
           'title': post.title,
