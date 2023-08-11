@@ -78,7 +78,7 @@ add_action('init', function() {
     'label' => __('Age ranges served', 'WNYC'),
     'labels' => array(
       'name' => __('Age ranges served', 'WNYC'),
-      'singular_name' => __('Age ranges served', 'WNYC'),
+      'singular_name' => __('Age range served', 'WNYC'),
     ),
     'public' => false,
     'publicly_queryable' => false,
