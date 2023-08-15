@@ -83,6 +83,7 @@ if ('programs' === $path) {
   }, [
     ['services', 'wnyc_ser'],
     ['populations', 'wnyc_pop'],
+    ['agerangeserved','wnyc_age'],
     ['sectors', 'wnyc_sec'],
     ['recruitment_status', 'wnyc_rst'],
     ['schedule', 'wnyc_sch'],
