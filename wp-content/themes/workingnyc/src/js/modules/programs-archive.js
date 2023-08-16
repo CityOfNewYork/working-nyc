@@ -211,6 +211,7 @@ export default {
       'duration': 'wnyc_dur',
       'locations': 'wnyc_loc',
       'populations': 'wnyc_pop',
+      'agerangeserved': 'wnyc_age',
       'sectors': 'wnyc_sec'
     };
 
