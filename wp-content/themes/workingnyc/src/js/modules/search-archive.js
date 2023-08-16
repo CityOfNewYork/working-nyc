@@ -264,16 +264,7 @@ export default {
      * @var {Object}
      */
     let taxonomies = {
-      'agency': 'wnyc_agy',
-      'services': 'wnyc_ser',
-      'recruitment_status': 'wnyc_rst',
-      'schedule': 'wnyc_sch',
-      'duration': 'wnyc_dur',
       'locations': 'wnyc_loc',
-      'populations': 'wnyc_pop',
-      'sectors': 'wnyc_sec',
-      'source': 'wnyc_src',
-      'salary': 'wnyc_sal',
       'result-type': 'wnyc_rt'
     };
 
