@@ -74,7 +74,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('agerangeserved', ['programs'], array(
+  register_taxonomy('age_ranges_served', ['programs'], array(
     'label' => __('Age ranges served', 'WNYC'),
     'labels' => array(
       'name' => __('Age ranges served', 'WNYC'),
@@ -88,13 +88,13 @@ add_action('init', function() {
     'show_in_nav_menus' => true,
     'query_var' => true,
     'rewrite' => array(
-      'slug' => 'agerangeserved',
+      'slug' => 'age_ranges_served',
       'with_front' => true,
     ),
     'show_admin_column' => false,
     'show_in_rest' => true, // Use this to show in the front-end filters
     'show_tagcloud' => true,
-    'rest_base' => 'agerangeserved',
+    'rest_base' => 'age_ranges_served',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
     'show_in_quick_edit' => true
   ));
