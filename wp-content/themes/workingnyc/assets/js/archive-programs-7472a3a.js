@@ -1150,6 +1150,7 @@
 	      'duration': 'wnyc_dur',
 	      'locations': 'wnyc_loc',
 	      'populations': 'wnyc_pop',
+	      'age_ranges_served': 'wnyc_age',
 	      'sectors': 'wnyc_sec'
 	    };
 
