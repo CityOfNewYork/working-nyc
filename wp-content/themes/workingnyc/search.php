@@ -7,8 +7,7 @@ require_once WorkingNYC\timber_post('Programs');
 add_action('wp_enqueue_scripts', function() {
   if (defined('USE_WP_ARCHIVE_SEARCH_RESULTS') && USE_WP_ARCHIVE_SEARCH_RESULTS) {
     enqueue_script('search-advanced');
-  }
-  else {
+  } else {
     enqueue_script('search');
   }
 });
