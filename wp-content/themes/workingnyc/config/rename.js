@@ -14,6 +14,7 @@ module.exports = [
   'assets/js/template-generic-page-development.js',
   'assets/js/template-home-page-development.js',
   'assets/js/search-development.js',
+  'assets/js/search-advanced-development.js',
   'assets/svg/feather-development.svg',
   'assets/svg/svgs-development.svg',
   'assets/svg/wknyc-development.svg',

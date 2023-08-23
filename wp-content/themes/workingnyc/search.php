@@ -5,7 +5,12 @@ require_once WorkingNYC\timber_post('Programs');
 
 // Add javascript for filtering search results
 add_action('wp_enqueue_scripts', function() {
-  enqueue_script('search');
+  if (defined('USE_WP_ARCHIVE_SEARCH_RESULTS') && USE_WP_ARCHIVE_SEARCH_RESULTS) {
+    enqueue_script('search-advanced');
+  }
+  else {
+    enqueue_script('search');
+  }
 });
 
 // Get the search term

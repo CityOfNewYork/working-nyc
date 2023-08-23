@@ -156,5 +156,17 @@ module.exports = [
     plugins: plugins,
     cache: true,
     devModule: true
+  },
+  {
+    input: './src/js/search-advanced.js',
+    output: [{
+      file: './assets/js/search-advanced-development.js',
+      format: rollup.format,
+      sourcemap: rollup.sourcemap,
+      strict: rollup.strict
+    }],
+    plugins: plugins,
+    cache: true,
+    devModule: true
   }
 ];
