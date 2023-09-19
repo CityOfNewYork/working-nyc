@@ -241,10 +241,10 @@ class Jobs extends Timber\Post {
       return '';
     }
 
-    $salary = '$' . $this->custom['job_minimum_base_salary_value'];
+    $salary = $this->custom['job_minimum_base_salary_value'];
 
     if (!empty($this->custom['job_maximum_base_salary_value'])) {
-      $salary = $salary . ' - $' . $this->custom['job_maximum_base_salary_value'];
+      $salary = $salary . ' - ' . $this->custom['job_maximum_base_salary_value'];
     }
 
     $unit = get_the_terms($this->ID, 'salary');

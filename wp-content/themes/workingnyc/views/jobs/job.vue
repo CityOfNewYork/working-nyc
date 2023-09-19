@@ -33,6 +33,7 @@
         <li v-if="post.context.salary">
           <svg class="icon-ui c-card__feature-icon" role="img">
             <title>{{ strings.SALARY }}</title>
+            <use href="#lucide-dollar-sign"></use>
           </svg>
 
           <span v-html="post.context.salary"></span>
