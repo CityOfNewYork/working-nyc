@@ -31,14 +31,14 @@ export default {
   data: function() {
     return {
       /**
-       * This is our custom post type to query
-       *
+       * In the parent Archive class, this represents a post type to query, but here it is
+       * the endpoint to use
        * @type {String}
        */
-      type: 'programs',
+      type: 'search',
 
       /**
-       * Setting this sets the initial app query.
+       * Setting this sets the initial app query
        *
        * @type {Object}
        */
@@ -47,6 +47,22 @@ export default {
         page: this.page,
         orderby: 'menu_order',
         order: 'asc'
+      },
+
+      /**
+       * Modify how the URL history is written
+       *
+       * @type {Object}
+       */
+      history: {
+        omit: [
+          'page',
+          'per_page',
+          'orderby',
+          'order'
+        ],
+        map: {},
+        filterParams: false
       },
 
       /**
@@ -61,22 +77,6 @@ export default {
       },
 
       /**
-       * Modify how the URL history is written
-       *
-       * @type {Object}
-       */
-       history: {
-        omit: [
-          'page',
-          'per_page',
-          'orderby',
-          'order'
-        ],
-        map: {},
-        filterParams: false
-      },
-
-      /**
        * This is the endpoint list for terms and post requests
        *
        * @type  {Object}
@@ -85,8 +85,8 @@ export default {
        * @param  {String}  jobs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=programs&cache=0',
-        programs: '/wp-json/wp/v2/programs'
+        terms: '/wp-json/api/v1/terms/?post_type[]=jobs&cache=0',
+        jobs: '/wp-json/wp/v2/jobs'
       },
 
       /**
@@ -100,17 +100,16 @@ export default {
       maps: function() {
         return {
           /**
-           * Data mapping function for results from the Programs endpoint
+           * Data mapping function for results from the Jobs endpoint
            *
            * @raw /wp-json/wp/v2/jobs
            */
-          programs: programs => ({
-            id: programs.id,
-            title: programs.acf.program_title,
-            link: programs.link,
-            status: programs.status,
-            context: programs.context,
-            raw: (process.env.NODE_ENV === 'development') ? { ...programs } : false
+          jobs: jobs => ({
+            id: jobs.id,
+            title: jobs.title.rendered,
+            link: jobs.link,
+            context: jobs.context,
+            raw: (process.env.NODE_ENV === 'development') ? { ...jobs } : false
           }),
 
           /**
@@ -161,7 +160,7 @@ export default {
      *
      * @param   {Object}  event  The bound click event
      */
-    nextPage: function(event) {
+     nextPage: function(event) {
       let _this = this;
 
       (async (_this) => {
@@ -211,18 +210,32 @@ export default {
       'duration': 'wnyc_dur',
       'locations': 'wnyc_loc',
       'populations': 'wnyc_pop',
-      'age_ranges_served': 'wnyc_age',
-      'sectors': 'wnyc_sec'
+      'sectors': 'wnyc_sec',
+      'source': 'wnyc_src',
+      'salary': 'wnyc_sal'
     };
 
     // Add map of WP Query terms < to > Window history state
     this.$set(this.history, 'map', taxonomies);
 
+    // Not from Jobs Archive: the 's' term in this.params and the following lines
+    // for getting the URL params
     // Add custom taxonomy queries to the list of safe params
-    this.params = [...this.params, ...Object.keys(taxonomies)];
+    this.params = [...this.params, ...Object.keys(taxonomies), 's'];
+
+    // getState() uses the existing query parameters from the URL and 
+    // sets them to be arrays
+    // Here, we manually pass in the search term as a string so that 
+    // it is not taken from the URL and converted into an array
+    // TODO change the WP Archive package to fix this
+    const URLparams = new URLSearchParams(window.location.search);
+
+    const query = {
+      's': URLparams.get('s')
+    };
 
     // Initialize the application
-    this.getState()       // Get window.location.search (filter history)
+    this.getState(query)       // Initialize the application
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //
