@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="bg-scale-1">
-  <header class="o-banner {% if post.thumbnail %}bg-banner-min-height bg-shape-wnyc-header{% endif %} relative">
+  <header class="o-banner bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-banner-min-height bg-shape-wnyc-header{% endif %} relative">
     <div class="page-max desktop:px-6">
 
       {% if post.thumbnail %}
@@ -45,8 +45,8 @@
     <div class="bg-image-grid hidden tablet:grid grid-cols-2 animated fadeIn">
       <div></div>
 
-      <div class="bg-image-grid__mask-scale-1 relative">
-        <img class="bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      <div class="relative">
+        <img class="bg-image-grid__img rounded-full" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
     </div>
     {% endif %}
