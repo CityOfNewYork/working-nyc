@@ -78,8 +78,6 @@ class Jobs extends Timber\Post {
 
     $this->organization = $this->getOrganization();
 
-    $this->summary = $this->getSummary();
-
     $this->populations = $this->getPopulations();
 
     $this->schedule = $this->getSchedule();
@@ -116,7 +114,6 @@ class Jobs extends Timber\Post {
     return array(
       'sector' => $this->getSector(),
       'organization' => $this->getOrganization(),
-      'summary' => $this->getSummary(),
       'populations' => $this->getPopulations(),
       'schedule' => $this->getSchedule(),
       'salary' => $this->getSalary(),
@@ -174,14 +171,6 @@ class Jobs extends Timber\Post {
     return $organization;
   }
 
-  /**
-   * Get the job summary, based on the description.
-   *
-   * @return  String  Summary with HTML markup stripped
-   */
-  public function getSummary($limit = 120) {
-    return '';
-  }
 
   /**
    * Construct the population string based on the taxonomy name(s).

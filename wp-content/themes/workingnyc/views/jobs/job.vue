@@ -15,9 +15,6 @@
     </header>
 
     <div class="c-card__body">
-      <div class="c-card__summary">
-        <p v-html="post.context.summary"></p>
-      </div>
 
       <ul class="c-card__features">
         <li v-if="post.context.schedule">
