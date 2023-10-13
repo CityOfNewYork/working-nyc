@@ -10,20 +10,15 @@
       <use href="#logo-jnyc-stacked"></use>
     </svg>
   </a>
-
-  {% for menu_item in header_menu.get_items %}
-  <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
-  {% endfor %}
-
-  <button class="o-navigation__item" data-js="themes">
+  <button class="o-navigation__item desktop:mr-24" aria-controls="aria-c-search" aria-expanded="false" data-dialog="open" data-js="search">
     <svg class="o-navigation__menu-icon icon-ui">
-      <use data-js-themes="icon" href="#lucide-moon"></use>
+      <title>{{__('Search', 'WNYC')}}</title>
+      <use href="#lucide-search"></use>
     </svg>
-
-    <span class="sr-only">Toggle&nbsp;</span><span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
+    <span class="o-navigation__menu-label">{{__('Search', 'WNYC') }}</span>
   </button>
 
-  <button class="o-navigation__menu-item" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+  <button class="o-navigation__menu-item desktop:mr-24" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
     <svg class="o-navigation__menu-icon icon-ui">
       <use href="#nyco-languages"></use>
     </svg>
@@ -31,12 +26,12 @@
     <span class="o-navigation__menu-label">{{ __('Languages', 'WNYC') }}</span>
   </button>
   
-  <button class="o-navigation__item desktop:m-0" aria-controls="aria-c-search" aria-expanded="false" data-dialog="open" data-js="search">
+  <button class="o-navigation__item" data-js="themes">
     <svg class="o-navigation__menu-icon icon-ui">
-      <title>{{__('Search', 'WNYC')}}</title>
-      <use href="#lucide-search"></use>
+      <use data-js-themes="icon" href="#lucide-moon"></use>
     </svg>
-    <span class="o-navigation__menu-label">{{__('Search', 'WNYC') }}</span>
+
+    <span class="sr-only">Toggle&nbsp;</span><span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
   </button>
 
   <button class="o-navigation__menu-item desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
@@ -46,6 +41,11 @@
 
     <span class="o-navigation__menu-label">{{ __('Menu', 'WNYC') }}</span>
   </button>
-
+  
   {% include 'objects/menu.twig' %}
 </nav>
+<nav aria-label="{{ header_menu.name }}" class="o-navigation o-navigation-fixed" data-js="navigation">
+   {% for menu_item in header_menu.get_items %}
+  <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
+  {% endfor %}
+  </nav>
