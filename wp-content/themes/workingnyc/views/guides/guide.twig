@@ -2,7 +2,7 @@
 {# @For    Post Type #}
 {# @Class  timber-posts/Guides.php #}
 <article class="c-card c-card-transparent h-full">
-  <header class="c-card__header items-center">
+  <header class="items-center">
     {% if post.icon == '' %}<span>{% endif %}
       {% if post.icon %}
       <svg class="c-card__icon text-blue-d-1 fill-blue-l-1" role="img">
@@ -10,10 +10,13 @@
         <use href="#program-card-{{ post.icon.slug }}"></use>
       </svg>
       {% endif %}
+    {% if post.icon == '' %}</span>{% endif %}
+  </header>
 
+  <div class="c-card__body">
       <a href="{{ post.link }}" class="c-card__header-link">
         <h3 class="c-card__title">
-          <span class="c-card__underline">
+          <span>
             {{ post.title }}
           </span>
 
@@ -24,10 +27,7 @@
           {% endif %}
         </h3>
       </a>
-    {% if post.icon == '' %}</span>{% endif %}
-  </header>
 
-  <div class="c-card__body">
     <div class="c-card__summary">
       {{ post.preview|wpautop }}
     </div>
