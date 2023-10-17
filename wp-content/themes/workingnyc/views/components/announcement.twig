@@ -4,21 +4,21 @@
 <article class="c-card c-card-transparent h-full">
   <header class="c-card__header">
     <a href="{{ this.link }}" target="{{ this.target }}" class="c-card__header-link">
-      <h3 class="c-card__title">
+      <h5 class="c-card__title">
         {% if this.date|date('U') > this.status_period|date('U') %}
         <mark class="badge" title="{{ this.status_title }}">
           {{ this.status }}
         </mark>
         {% endif %}
 
-        <span class="c-card__underline">{{ this.announcement_title }}</span>
+        <span>{{ this.announcement_title }}</span>
 
         {% if this.target == '_blank' %}
         <svg aria-hidden="true" class="icon-ui">
           <use href="#lucide-external-link"></use>
         </svg>
         {% endif %}
-      </h3>
+      </h5>
     </a>
   </header>
 
