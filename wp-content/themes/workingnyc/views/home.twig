@@ -7,7 +7,7 @@
 
       {% if post.thumbnail %}
       <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
-        <div>
+        <div class="w-90 tablet:w-90 desktop:w-142">
       {% else %}
       <div class="py-2 tablet:py-8 desktop:px-6 layout-content">
         <div class="wrap">
@@ -46,13 +46,13 @@
       <div></div>
 
       <div class="relative">
-        <img class="bg-image-grid__img rounded-full" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        <img class="rounded-full bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
     </div>
     {% endif %}
   </header>
 
-  <main id="content" class="bg-shape-wnyc-content">
+  <main id="content" class="bg-shape-wnyc-content mx-4 desktop:mx-7 tablet:mx-14">
     <div>
       {# Collections #}
       {% if collections %}
@@ -73,7 +73,7 @@
 
       {# Announcements #}
       {% if announcements %}
-      <section class="pb-8 pt-utility-anchor mx-28" id="announcements">
+      <section class="pb-8 pt-utility-anchor" id="announcements">
         <div class="layout-content py-2 tablet:py-8">
           <div class="wrap">
             <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
