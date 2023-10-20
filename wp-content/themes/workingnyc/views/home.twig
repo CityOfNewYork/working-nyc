@@ -23,7 +23,7 @@
             </h1>
           </div>
 
-          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
+          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn hidden" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
 
           {# Do not delete. Possible header utility values; #}
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
@@ -46,7 +46,7 @@
       <div></div>
 
       <div class="relative">
-        <img class="rounded-full bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        <img class="rounded-full aspect-square bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
     </div>
     {% endif %}
