@@ -1,16 +1,16 @@
 <section class="wrap relative pt-utility-anchor" id="questionnaire">
-  <div class="page-max py-4 tablet:py-8 desktop:px-6">
+  <div class="page-max py-4 tablet:py-8 desktop:px-13">
 
     {% if this.thumbnail %}
-    <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5 items-center">
+    <div class="py-2 tablet:py-6 desktop:px-6 tablet:grid grid-cols-2 gap-x-5 items-center">
       <div>
     {% else %}
-    <div class="py-2 tablet:py-8 desktop:px-6 layout-content">
+    <div class="py-2 tablet:py-6 desktop:px-6 layout-content">
       <div class="wrap">
     {% endif %}
 
         <div class="text-center">
-          <h2 class="h3 text-alt mt-0">{{ this.heading }}</h2>
+          <h3 class="h3 text-alt mt-0">{{ this.heading }}</h3>
 
           {# <img class="bg-image-square mb-2 tablet:hidden" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('tablet') }}" alt="{{ this.thumbnail.alt }}"/> #}
 
