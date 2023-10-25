@@ -97,11 +97,11 @@
                   </article>
                 </div>
 
-                {# <button class="btn btn-primary btn-next w-full" v-if="totalPosts == 0 && checkedFilters.length == 0">{{ __('Find your program now', 'WNYC-Questionnaire') }}</button> #}
+                {# <button class="btn btn-primary btn-next" v-if="totalPosts == 0 && checkedFilters.length == 0">{{ __('Find your program now', 'WNYC-Questionnaire') }}</button> #}
 
-                <button class="btn btn-primary btn-next w-full mb-2" v-if="totalPosts > 1 && checkedFilters.length > 0">{{ __('View programs now', 'WNYC-Questionnaire') }}</button>
+                <button class="btn btn-primary btn-next mb-2" v-if="totalPosts > 1 && checkedFilters.length > 0">{{ __('View programs now', 'WNYC-Questionnaire') }}</button>
 
-                <button class="btn btn-primary btn-next w-full mb-2" v-if="totalPosts == 1 && checkedFilters.length > 0">{{ __('View program now', 'WNYC-Questionnaire') }}</button>
+                <button class="btn btn-primary btn-next mb-2" v-if="totalPosts == 1 && checkedFilters.length > 0">{{ __('View program now', 'WNYC-Questionnaire') }}</button>
 
                 <p class="text-center">Or <a href="/programs">see all programs</a>.</p>
               </div>
