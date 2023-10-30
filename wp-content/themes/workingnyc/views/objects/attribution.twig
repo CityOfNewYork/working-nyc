@@ -1,15 +1,15 @@
-<footer aria-label="{{ __('Footer', 'WNYC') }}" class="o-attribution relative z-10" role="contentinfo">
+<footer aria-label="{{ __('Footer', 'WNYC') }}" style="padding-left:40px;" class="o-attribution relative z-10" role="contentinfo">
   <nav aria-label="{{ footer_menu.name }}" class="nav-block tablet:nav-inline tablet:flex items-center">
-    <a class="uppercase text-small no-underline tablet:inline-flex tablet:p-0" href="{{ fn('get_home_url') }}">
+    <a class="uppercase text-small no-underline tablet:inline-flex tablet:p-0" style="margin-right:48px;" href="{{ fn('get_home_url') }}">
       <svg class="fill-text stroke-text text-brand" width="163" height="48" role="img">
         <title>Job Ready by Jobs N Y C</title>
 
-        <use href="#logo-jnyc-horizontal-w-ribbon"></use>
+        <use href="#logo-jnyc-horizontal"></use>
       </svg>
     </a>
 
     {% for m in footer_menu.get_items %}
-    <a class="o-footer__item" href="{{ m.link }}"
+    <a class="o-footer__item" href="{{ m.link }}" style="margin-right:24px; display:inline;"
       {% if m.attr_title %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
       {% if m.target %}target="{{ m.target }}"{% endif %}
       {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
@@ -44,7 +44,7 @@
 
     <nav class="nav-block tablet:nav-inline tablet:flex items-center" aria-label="{{ footer_menu_tertiary.name }}">
       {% for m in footer_menu_tertiary.get_items %}
-      <a class="o-footer__item" href="{{ m.link }}"
+      <a class="o-footer__item" href="{{ m.link }}" style="margin-right:24px; display:inline;" 
         {% if m.attr_title %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
         {% if m.target %}target="{{ m.target }}"{% endif %}
         {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
