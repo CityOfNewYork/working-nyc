@@ -38,18 +38,18 @@
             </a>
           </p>
         </div>
-      </div>
-    </div>
 
     {% if post.thumbnail %}
-    <div class="bg-image-grid hidden tablet:grid grid-cols-2 animated fadeIn">
-      <div></div>
+    
+      <div>
 
       <div class="relative">
         <img class="rounded-full aspect-square bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
-    </div>
+      </div>
     {% endif %}
+      </div>
+    </div>
   </header>
 
   <main id="content" class="bg-shape-wnyc-content mx-4 desktop:mx-7 tablet:mx-14">
