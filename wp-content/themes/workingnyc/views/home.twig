@@ -3,13 +3,12 @@
 {% block content %}
 <div class="bg-scale-1">
   <header class="o-banner bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-banner-min-height bg-shape-wnyc-header{% endif %} relative">
-    <div class="page-max desktop:px-26">
 
       {% if post.thumbnail %}
-      <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
-        <div class="w-90 tablet:w-90 desktop:w-142">
+      <div class="py-2 tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 tablet:grid grid-cols-2 gap-x-5">
+        <div class="py-2">
       {% else %}
-      <div class="py-2 tablet:py-8 desktop:px-6 layout-content">
+      <div class="py-2 tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 layout-content">
         <div class="wrap">
       {% endif %}
 
@@ -40,16 +39,13 @@
         </div>
 
     {% if post.thumbnail %}
-    
-      <div>
 
-      <div class="relative">
-        <img class="rounded-full aspect-square bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      <div class="relative hidden desktop:block tablet:block">
+        <img class="items-center rounded-full aspect-square bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
-      </div>
+      
     {% endif %}
       </div>
-    </div>
   </header>
 
   <main id="content" class="bg-shape-wnyc-content mx-4 desktop:mx-7 tablet:mx-14">
