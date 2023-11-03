@@ -40,8 +40,8 @@
 
     {% if post.thumbnail %}
 
-      <div class="relative hidden desktop:block tablet:block">
-        <img class="items-center rounded-full aspect-square bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      <div class="relative items-center hidden desktop:block tablet:block">
+        <img class="rounded-full aspect-square bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
       
     {% endif %}
