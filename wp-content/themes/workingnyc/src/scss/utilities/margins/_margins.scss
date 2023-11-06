@@ -7,20 +7,28 @@
     margin-left: 8rem; /* 128px */
     margin-right: 8rem; /* 128px */
   }
-.mx-50 {
-    margin-left: 200px;
-    margin-right: 200px;
+@media screen and (min-width:1112px) { 
+    .desktop-mx-50 {
+        margin-left: 200px;
+        margin-right: 200px;
+    }
+}
+@media screen and (min-width: 768px) {
+    .tablet-mx-14 {
+      margin-left: 56px;
+      margin-right: 56px;
   }
+}
+@media screen and (max-width: 480px) {
+    .mobile-py-33 {
+      padding-top: 33px;
+      padding-bottom: 33px;
+  }
+}
+
 .mr-12 {
     margin-right: 48px;
   }
-  .custom-padding {
+.pl-10 {
     padding-left: 40px;
-  }
-  .custom-margin {
-    margin-right: 48px;
-  }
-  .custom-margin-display {
-    margin-right: 24px;
-    display: inline;
   }
