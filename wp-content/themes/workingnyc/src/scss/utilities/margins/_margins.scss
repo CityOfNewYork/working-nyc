@@ -25,6 +25,18 @@
       padding-bottom: 33px;
   }
 }
+@media screen and (min-width:1112px) { 
+  .desktop-py-21 {
+    padding-top: 21px;
+    padding-bottom: 21px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .tablet-py-25 {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
 
 .mr-12 {
     margin-right: 48px;
