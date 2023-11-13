@@ -2,14 +2,14 @@
 
 {% block content %}
 <div class="bg-scale-1">
-  <header class="o-banner bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-banner-min-height bg-shape-wnyc-header{% endif %} relative">
+  <header class="o-banner justify-center bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-banner-min-height bg-shape-wnyc-header{% endif %} relative">
 
       {% if post.thumbnail %}
-      <div class="py-2 tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 tablet:grid grid-cols-2 gap-x-5">
-        <div class="py-2">
+      <div class="desktop-gap-x-72 tablet-gap-x-56 tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 tablet:grid grid-cols-2">
+        <div class="my-4 desktop:my-8 tablet-my-8 tablet-width-366 desktop-width-570">
       {% else %}
-      <div class="py-2 tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 layout-content">
-        <div class="wrap">
+      <div class="tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 layout-content">
+        <div class="my-4 desktop:my-8 tablet-my-8 wrap tablet-width-366 desktop-width-570">
       {% endif %}
 
           <div class="text-center">
@@ -28,7 +28,7 @@
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
           {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
 
-          <p class="text-center">
+          <p class="text-center mt-3">
             <a class="inline-block text-center" href="#content">
               <span>{{ __('Explore', 'WNYC') }}</span><br />
               <svg aria-hidden="true" class="icon-ui icon-5">
@@ -40,8 +40,8 @@
 
     {% if post.thumbnail %}
 
-      <div class="relative items-center hidden desktop:block tablet:block">
-        <img class="rounded-full aspect-square bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      <div class="relative items-center hidden desktop:flex tablet:flex">
+        <img class="rounded-full tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
       
     {% endif %}
