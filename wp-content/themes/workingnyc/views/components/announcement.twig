@@ -2,28 +2,28 @@
 {# @For    Post Type #}
 {# @Class  timber-posts/Announcements.php #}
 <article class="c-card c-card-transparent h-full">
-  <header class="c-card__header">
+  <header class="c-card__header pb-2">
     <a href="{{ this.link }}" target="{{ this.target }}" class="c-card__header-link">
-      <h3 class="c-card__title">
+      <h5 class="c-card__title">
         {% if this.date|date('U') > this.status_period|date('U') %}
         <mark class="badge" title="{{ this.status_title }}">
           {{ this.status }}
         </mark>
         {% endif %}
 
-        <span class="c-card__underline">{{ this.announcement_title }}</span>
+        <span>{{ this.announcement_title }}</span>
 
         {% if this.target == '_blank' %}
         <svg aria-hidden="true" class="icon-ui">
           <use href="#lucide-external-link"></use>
         </svg>
         {% endif %}
-      </h3>
+      </h5>
     </a>
   </header>
 
-  <div class="c-card__body">
-    <div class="c-card__summary">
+  <div class="c-card__body pt-2 tablet:pt-3">
+    <div class="c-card__summary height-176px overflow-hidden">
       {{ this.announcement_details|wpautop }}
     </div>
 
