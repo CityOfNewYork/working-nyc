@@ -1,7 +1,8 @@
 {# @Type   Component #}
 {# @For    Post Type #}
 {# @Class  timber-posts/Guides.php #}
-<article class="c-card c-card-transparent h-full">
+<a href="{{ post.link }}" class="c-card__header-link">
+<article class="c-card c-card-transparent rounded desktop:p-4 desktop-width-400 desktop-height-214">
   <header class="items-center">
     {% if post.icon == '' %}<span>{% endif %}
       {% if post.icon %}
@@ -13,20 +14,10 @@
     {% if post.icon == '' %}</span>{% endif %}
   </header>
 
-  <div class="c-card__body">
-      <a href="{{ post.link }}" class="c-card__header-link">
-        <h3 class="c-card__title">
-          <span>
+  <div class="desktop:pt-3">
+        <span class="desktop-font-title desktop:mb-2">
             {{ post.title }}
-          </span>
-
-          {% if post.linkTarget == '_blank' %}
-          <svg aria-hidden="true" class="icon-ui rtl:flip">
-            <use href="#lucide-external-link"></use>
-          </svg>
-          {% endif %}
-        </h3>
-      </a>
+        </span>
 
     <div class="c-card__summary">
       {{ post.preview|wpautop }}
@@ -35,3 +26,4 @@
     <span></span>
   </div>
 </article>
+</a>
