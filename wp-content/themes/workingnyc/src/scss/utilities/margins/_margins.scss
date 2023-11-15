@@ -53,6 +53,12 @@
   .tablet-width-300 {
     width: 300px;
   }
+  .tablet-width-240 {
+    width: 240px;
+  }
+  .tablet-height-258 {
+    height: 258px;
+  }
   .tablet-font-size-55{
     font-size: 55px;
   }
@@ -62,15 +68,29 @@
   .tablet-gap-x-56 {
     column-gap: 56px;
   }
+  .desktop-font-title {
+    font-size: 22px;
+    font-weight: 700;
+  }
 }
 @media screen and (max-width: 480px) {
   .mobile-width-360 {
     width: 360px;
+  }
+  .mobile-width-344 {
+    width: 344px;
+  }
+  .mobile-height-200 {
+    height: 200px;
   }
   .mobile-font-size-50{
     font-size: 50px;
   }
   .mobile-font-size-18{
     font-size: 18px;
+  }
+  .mobile-font-title {
+    font-size: 20px;
+    font-weight: 700;
   }
 }
