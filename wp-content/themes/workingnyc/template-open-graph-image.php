@@ -25,6 +25,12 @@ if (file_exists($dir)) {
         $post = new WorkingNYC\Programs($post);
 
         break;
+      
+      case 'EmployerPrograms':
+
+        $post = new WorkingNYC\EmployerPrograms($post);
+
+        break;
 
       case 'Guides':
         $post = new WorkingNYC\Guides($post);

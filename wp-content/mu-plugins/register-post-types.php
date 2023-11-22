@@ -110,7 +110,7 @@ add_action('init', function() {
       'search_items' => __('Search Employer Programs')
     ),
     'description' => __('A program for employers featured on the site.'),
-    'public' => false,
+    'public' => true,
     'show_in_rest' => true,
     'exclude_from_search' => false,
     'show_ui' => true,
