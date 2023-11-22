@@ -27,7 +27,6 @@ if (file_exists($dir)) {
         break;
       
       case 'EmployerPrograms':
-
         $post = new WorkingNYC\EmployerPrograms($post);
 
         break;
