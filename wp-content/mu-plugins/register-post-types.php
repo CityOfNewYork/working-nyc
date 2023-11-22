@@ -92,6 +92,48 @@ add_action('init', function() {
   ));
 
   /**
+   * Post Type: Employer Programs
+   *
+   * @author NYC Opportunity
+   */
+  register_post_type('employer-programs', array(
+    'labels' => array(
+      'name' => __('Employer Programs'),
+      'singular_name' => __('Employer Program'),
+      'all_items' => __('All Employer Programs'),
+      'add_new' => __('Add New'),
+      'add_new_item' => __('Add New Employer Program'),
+      'edit' => __('Edit'),
+      'edit_item' => __('Edit Employer Program'),
+      'new_item' => __('New Employer Program'),
+      'view_item' => __('View Employer Program'),
+      'search_items' => __('Search Employer Programs')
+    ),
+    'description' => __('A program for employers featured on the site.'),
+    'public' => false,
+    'show_in_rest' => true,
+    'exclude_from_search' => false,
+    'show_ui' => true,
+    'hierarchical' => false,
+    'supports' => ['title'],
+
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
+    'menu_icon' => 'dashicons-store',
+
+    /**
+     * Use the registration order to enforce menu position
+     */
+    'menu_position' => 21,
+    'has_archive' => true,
+    'rewrite' => array(
+      'slug' => 'employer-programs',
+      'with_front' => false
+    )
+  ));
+
+  /**
    * Post Type: Jobs
    *
    * @author NYC Opportunity
