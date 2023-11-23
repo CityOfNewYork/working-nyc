@@ -42,7 +42,7 @@ class Announcements extends Timber\Post {
     $this->target = ($this->announcement_is_external === 'Yes')
       ? '_blank' : '_self';
 
-    $this->date = $this->getDate();
+    $this->date_updated = $this->getDateUpdated();
 
     $this->status = __('New', 'WNYC');
 
@@ -105,11 +105,11 @@ class Announcements extends Timber\Post {
   }
 
   /**
-   * Get the appropriate display date based on the link type
+   * Get the date the post was updated
    *
-   * @return  String  The announcement date in UTC format
+   * @return  String  The date the post was updated in UTC format
    */
-  public function getDate() {
+  public function getDateUpdated() {
     return $this->post_modified;
   }
 }
