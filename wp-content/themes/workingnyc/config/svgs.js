@@ -49,7 +49,7 @@ module.exports = [
       'copy.svg', 'check.svg', 'facebook.svg', 'twitter.svg', 'menu.svg',
       'translate.svg', 'search.svg', 'info.svg', 'external-link.svg',
       'share-2.svg', 'sun.svg', 'moon.svg', 'map-pin.svg', 'dollar-sign.svg',
-      'clipboard.svg', 'heart-handshake.svg'
+      'clipboard.svg', 'heart-handshake.svg', 'clock.svg',
     ],
     write: {
       source: false
