@@ -8,6 +8,13 @@
 
 require_once WorkingNYC\timber_post('EmployerPrograms');
 
+// only allow logged in users to view employer content for now
+if (is_user_logged_in() === false) {
+    wp_redirect('/404');
+
+    exit;
+}
+
 /**
  * Set the Timber view context
  *
