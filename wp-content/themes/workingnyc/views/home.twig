@@ -53,6 +53,7 @@
   </header>
 
   <main id="content" class="bg-shape-wnyc-content">
+
     <div>
       {# Collections #}
       {% if collections %}
@@ -87,7 +88,10 @@
             </div>
           </div>
         </div>
+    
       </section>
+      {# Containers #}
+    {% include containers.template with {this: containers} %}
       {% endif %}
 
       {% include 'components/back-to-top.twig' %}

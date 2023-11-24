@@ -74,6 +74,15 @@ $context['collections'] = array_map(function($collection) {
 $context['questionnaire'] = new WorkingNYC\Questionnaire($post);
 
 /**
+ * Set context for the Containers
+ *
+ * @author NYC Opportunity
+ */
+
+$context['containers'] = new WorkingNYC\Containers($post);
+
+
+/**
  * Render the view
  *
  * @author NYC Opportunity
