@@ -6,7 +6,7 @@
 
       {% if post.thumbnail %}
       <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 tablet:grid grid-cols-[3fr_2fr] m-auto">
-        <div class="my-4 desktop:my-8 tablet-my-8 tablet-width-366 desktop-width-570 text-center">
+        <div class="my-4 desktop:my-8 tablet-my-8 text-center">
       {% else %}
       <div class="tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 layout-content">
         <div class="my-4 desktop:my-8 tablet-my-8 wrap tablet-width-366 desktop-width-570">
@@ -41,7 +41,7 @@
 
     {% if post.thumbnail %}
 
-      <div class="relative items-center hidden desktop:flex tablet:flex">
+      <div class="my-4 desktop:my-8 tablet-my-8 relative items-center hidden desktop:flex tablet:flex">
         <img class="rounded-full tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
       
