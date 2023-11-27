@@ -5,8 +5,13 @@
 // Creating classes as copies of the tailwind classes because some imports aren't working
 @media screen and (min-width:1112px) { 
     .desktop-mx-50 {
-        margin-left: 200px!important;
-        margin-right: 200px!important;
+      margin-left: 200px!important;
+      margin-right: 200px!important;
+    }
+
+    .desktop-mx-26 {
+      margin-left: 104px!important;
+      margin-right: 104px!important;
     }
 
     .desktop-gap-x-72 {
