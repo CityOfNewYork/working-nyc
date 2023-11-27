@@ -77,6 +77,13 @@
   .tablet-gap-x-56 {
     column-gap: 56px;
   }
+  .tablet-mx-56 {
+    margin-left: 56px;
+    margin-right: 56px;
+  }
+  .tablet-h-400 {
+    height: 400px;
+  }
 }
 @media screen and (max-width: 480px) {
   .mobile-width-360 {
@@ -87,5 +94,12 @@
   }
   .mobile-font-size-18{
     font-size: 18px;
+  }
+  .mobile-h-300 {
+    height: 300px;
+  }
+  .mobile-mx-16 {
+    margin-left: 16px;
+    margin-right: 16px;
   }
 }

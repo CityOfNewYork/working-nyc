@@ -1,12 +1,12 @@
-<section class="desktop-max-w-1440 desktop:my-6 desktop-mx-104"id="containers">
-    <div class="tablet:grid grid-cols-2 items-center desktop-gap-x-72">
+<section class="desktop-max-w-1440 desktop:my-6 tablet:my-5 desktop-mx-104 tablet-mx-56 mobile-mx-16"id="containers">
+    <div class="desktop:grid-cols-2 items-center desktop-gap-x-72">
+      {% if this.thumbnail %}
+      <div class="pb-3 tablet:pb-5 desktop-w-500 desktop-h-400 tablet-h-400 mobile-h-300" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+        <img class="bg-image-square tablet:block" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('tablet') }}" alt="{{ this.thumbnail.alt }}"/>
+      </div>
+      {% endif %}
       <div class="desktop-max-h-304 desktop-w-660">
         {{ this.description }}
       </div>
-      {% if this.thumbnail %}
-      <div class="desktop-w-500 desktop-h-400" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-        <img class="bg-image-square hidden tablet:block" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('tablet') }}" alt="{{ this.thumbnail.alt }}"/>
-      </div>
-      {% endif %}
     </div>
 </section>
