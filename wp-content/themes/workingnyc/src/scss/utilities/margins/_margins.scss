@@ -3,25 +3,6 @@
  */
 
 // Creating this class as a copy of the tailwind class because the import isn't working
-.mx-28 {
-  margin-left: 8rem; /* 128px */
-  margin-right: 8rem; /* 128px */
-}
-.ml-95 {
-  margin-left: 95px;
-}
-.px-7{
-  padding-left: 56px;
-  padding-right: 56px;
-}
-.px-26 {
-  padding-left: 104px;
-  padding-right: 104px;
-}
-.py-5{
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
 @media screen and (min-width:1112px) { 
   .desktop-gap-x-72 {
     column-gap: 72px;
