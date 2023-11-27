@@ -5,42 +5,25 @@
 // Creating classes as copies of the tailwind classes because some imports aren't working
 @media screen and (min-width:1112px) { 
     .desktop-mx-50 {
-        margin-left: 200px;
-        margin-right: 200px;
+        margin-left: 200px!important;
+        margin-right: 200px!important;
+    }
+
+    .desktop-gap-x-72 {
+      column-gap: 72px!important;
     }
 }
 @media screen and (min-width: 768px) {
     .tablet-mx-14 {
-      margin-left: 56px;
-      margin-right: 56px;
+      margin-left: 56px!important;
+      margin-right: 56px!important;
   }
-}
-@media screen and (max-width: 480px) {
-    .mobile-py-33 {
-      padding-top: 33px;
-      padding-bottom: 33px;
-  }
-}
-@media screen and (min-width:1112px) { 
-  .desktop-py-21 {
-    padding-top: 21px;
-    padding-bottom: 21px;
-  }
-}
-@media screen and (min-width: 768px) {
-  .tablet-py-25 {
-    padding-top: 25px;
-    padding-bottom: 25px;
+
+  .tablet-gap-x-56 {
+    column-gap: 56px!important;
   }
 }
 
-@media screen and (min-width:1112px) { 
-  .desktop-gap-x-72 {
-    column-gap: 72px;
-  }
-}
-@media screen and (min-width: 768px) and (max-width:1112px) {
-  .tablet-gap-x-56 {
-    column-gap: 56px;
-  }
+.site-max-width {
+  max-width: var(--nyco-dimension-site-max-width);
 }
