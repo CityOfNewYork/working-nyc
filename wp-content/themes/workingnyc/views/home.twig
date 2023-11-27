@@ -88,15 +88,13 @@
 
       {% include 'components/back-to-top.twig' %}
     </div>
-
-    {% if options.feedback is defined %}
-    {% include 'objects/feedback.twig' %}
-    {% endif %}
-
-    {% if show_newsletter is not defined %}
-    {% include 'objects/newsletter.twig' %}
-    {% endif %}
   </main>
+  {% if options.feedback is defined %}
+  {% include 'objects/feedback.twig' %}
+  {% endif %}
 
+  {% if show_newsletter is not defined %}
+  {% include 'objects/newsletter.twig' %}
+  {% endif %}
 </div>
 {% endblock %}
