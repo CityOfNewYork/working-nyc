@@ -1,0 +1,15 @@
+/**
+ * Margins
+ */
+
+// Creating this class as a copy of the tailwind class because the import isn't working
+@media screen and (min-width:1112px) { 
+  .desktop-gap-x-72 {
+    column-gap: 72px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width:1112px) {
+  .tablet-gap-x-56 {
+    column-gap: 56px;
+  }
+}
