@@ -24,9 +24,8 @@
 
           {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn hidden" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
 
-          {# Do not delete. Possible header utility values; #}
+          {# The post content can include html tags and CSS classes. The following line is an example of some classes that were used in the past #}
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
-          {# {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }} #}
           <h1 class="my-3">{{ post.post_content }}</h1>
 
           <p class="text-center mt-3">
