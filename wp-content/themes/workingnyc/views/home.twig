@@ -5,11 +5,11 @@
   <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
 
       {% if post.thumbnail %}
-      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 tablet:grid grid-cols-[3fr_2fr] m-auto">
-        <div class="my-4 desktop:my-8 tablet-my-8 text-center">
+      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 tablet:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto tablet:py-7 py-4 desktop:py-6">
+        <div class="text-center">
       {% else %}
       <div class="tablet:py-5 tablet:px-7 desktop:px-26 desktop:py-6 layout-content">
-        <div class="my-4 desktop:my-8 tablet-my-8 wrap tablet-width-366 desktop-width-570">
+        <div class="wrap">
       {% endif %}
 
           <div class="text-center">
@@ -27,12 +27,12 @@
           {# Do not delete. Possible header utility values; #}
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
           {# {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }} #}
-          <h1>{{ post.post_content }}</h1>
+          <h1 class="my-3">{{ post.post_content }}</h1>
 
           <p class="text-center mt-3">
             <a class="inline-block text-center" href="#content">
               <span>{{ __('Explore', 'WNYC') }}</span><br />
-              <svg aria-hidden="true" class="icon-ui icon-5">
+              <svg aria-hidden="true" class="icon-ui icon-3">
                 <use href="#lucide-chevron-down"></use>
               </svg>
             </a>
@@ -41,7 +41,7 @@
 
     {% if post.thumbnail %}
 
-      <div class="my-4 desktop:my-8 tablet-my-8 relative items-center hidden desktop:flex tablet:flex">
+      <div class="relative items-center hidden tablet:flex">
         <img class="rounded-full tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
       
