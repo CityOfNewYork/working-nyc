@@ -2,7 +2,7 @@
 {# @For    Post Type #}
 {# @Class  timber-posts/Guides.php #}
 <a href="{{ post.link }}" class="c-card__header-link">
-<article class="c-card c-card-transparent rounded desktop:p-4 p-3 mobile-width-344 mobile-height-200 desktop-width-400 desktop-height-214 tablet-width-240 tablet-height-258">
+<article class="desktop:p-4 p-3">
   <header class="items-center">
     {% if post.icon == '' %}<span>{% endif %}
       {% if post.icon %}
@@ -15,7 +15,7 @@
   </header>
 
   <div class="pt-3">
-        <span class="desktop-font-title mobile-font-title desktop:mb-2 tablet:mb-2">
+        <span class="h6 desktop:h5 mb-2">
             {{ post.title }}
         </span>
 
