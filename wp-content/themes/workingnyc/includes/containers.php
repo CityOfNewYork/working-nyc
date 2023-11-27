@@ -25,8 +25,6 @@ class Containers {
     $this->description = $this->getDescription();
 
     $this->thumbnail = $this->getThumbnail();
-
-    return $this;
   }
 
   
@@ -47,7 +45,7 @@ class Containers {
    * @return  Object  Instance of Timber\Image
    */
   public function getThumbnail() {
-    $id = get_field(self::FIELD_IMAGE, $this->post->id);
+    $id = get_field(self::FIELD_IMAGE, $this->post->ID);
 
     if (false === $id) {
       return false;
