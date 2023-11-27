@@ -1,48 +1,51 @@
 {# @Type   Component #}
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
-<section class="page-max pt-utility-anchor" data-active-navigation-observe-item="heading" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
-  <div class="py-4 tablet:py-8">
+<section class="page-max" data-active-navigation-observe-item="heading" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
+  <div class="py-4 tablet:py-5 desktop:py-6">
     {% if this.display == 'cards' %}
-    <div class="layout-content{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
-      <div class="wrap">
-        <h2 class="h3 text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
-        {{ this.description }}
-      </div>
-    </div>
+      {% if this.heading or this.description %}
+        <div class="layout-content{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
+          <div class="wrap">
+            <h2 class="h3 text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
-    {% if this.posts %}
-    <div class="pb-2 desktop:pb-5 desktop:px-6">
-      {% if this.guides %}
-      <div class="wrap py-4 grid gap-x-2 gap-y-6 tablet:grid tablet:grid-cols-2 desktop:grid-cols-3 tablet:px-3 desktop:px-6">
-      {% else %}
-      <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:grid tablet:grid-cols-2 tablet:gap-3 desktop:gap-5 py-2 tablet:px-3 desktop:px-6">
-      {% endif %}
-        {% for post in this.posts %}
-        <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-          {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
-            post: post
-          } %}
+            {{ this.description }}
+          </div>
         </div>
-        {% endfor %}
-      </div>
-    </div>
-    {% endif %}
+      {% endif %}
 
-    {% if this.archive.link %}
-    <div class="layout-content">
-      <div class="wrap tablet:pt-6">
-        <a class="btn btn-primary btn-next w-full" href="{{ this.archive.link }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
-          <span>{{ this.archive.label }}</span>
-
-          <svg aria-hidden="true" class="icon-ui rtl:flip">
-            <use href="#lucide-{% if this.archive.external %}external-link{% else %}arrow-right{% endif %}"></use>
-          </svg>
-        </a>
+      {% if this.posts %}
+      <div class="pb-2 desktop:pb-5 desktop:px-6">
+        {% if this.guides %}
+        <div class="grid gap-x-2 gap-y-6 tablet:grid tablet:grid-cols-2 desktop:grid-cols-3">
+        {% else %}
+        <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset tablet:grid tablet:grid-cols-2 tablet:gap-3 desktop:gap-5 py-2 tablet:px-3 desktop:px-6">
+        {% endif %}
+          {% for post in this.posts %}
+          <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+            {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
+              post: post
+            } %}
+          </div>
+          {% endfor %}
+        </div>
       </div>
-    </div>
-    {% endif %}
+      {% endif %}
+
+      {% if this.archive.link %}
+      <div class="layout-content">
+        <div class="wrap tablet:pt-6">
+          <a class="btn btn-primary btn-next w-full" href="{{ this.archive.link }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
+            <span>{{ this.archive.label }}</span>
+
+            <svg aria-hidden="true" class="icon-ui rtl:flip">
+              <use href="#lucide-{% if this.archive.external %}external-link{% else %}arrow-right{% endif %}"></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+      {% endif %}
     {% endif %}
 
     {% if this.display == 'callout' %}
