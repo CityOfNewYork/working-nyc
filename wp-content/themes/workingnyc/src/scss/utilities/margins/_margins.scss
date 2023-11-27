@@ -2,95 +2,36 @@
  * Margins
  */
 
-// Creating this class as a copy of the tailwind class because the import isn't working
-.mx-28 {
-  margin-left: 8rem; /* 128px */
-  margin-right: 8rem; /* 128px */
-}
-.ml-95 {
-  margin-left: 95px;
-}
-.px-7{
-  padding-left: 56px;
-  padding-right: 56px;
-}
-.px-26 {
-  padding-left: 104px;
-  padding-right: 104px;
-}
-.py-5{
-  padding-top: 40px;
-  padding-bottom: 40px;
-}
+// Creating classes as copies of the tailwind classes because some imports aren't working
 @media screen and (min-width:1112px) { 
-  .desktop-width-570 {
-    width: 570px;
-  }
-  .desktop-width-400 {
-    width: 400px;
-  }
-  .desktop-height-214 {
-    height: 214px;
-  }
-  .desktop-font-size-55{
-    font-size: 55px;
-  }
-  .desktop-font-size-20{
-    font-size: 20px;
-  }
-  .desktop-gap-x-72 {
-    column-gap: 72px;
-  }
-  .desktop-font-title {
-    font-size: 22px;
-    font-weight: 700;
-  }
+    .desktop-mx-50 {
+        margin-left: 200px!important;
+        margin-right: 200px!important;
+    }
+
+    .desktop-gap-x-72 {
+      column-gap: 72px!important;
+    }
+
+    .desktop-height-214 {
+      height: 214px;
+    }
 }
-@media screen and (min-width: 768px) and (max-width:1112px) {
-  .tablet-width-366 {
-    width: 366px;
+@media screen and (min-width: 768px) {
+  .tablet-mx-14 {
+    margin-left: 56px!important;
+    margin-right: 56px!important;
   }
-  .tablet-width-300 {
-    width: 300px;
+
+  .tablet-gap-x-56 {
+    column-gap: 56px!important;
   }
-  .tablet-width-240 {
-    width: 240px;
-  }
+
   .tablet-height-258 {
     height: 258px;
   }
-  .tablet-font-size-55{
-    font-size: 55px;
-  }
-  .tablet-font-size-20{
-    font-size: 20px;
-  }
-  .tablet-gap-x-56 {
-    column-gap: 56px;
-  }
-  .desktop-font-title {
-    font-size: 22px;
-    font-weight: 700;
-  }
 }
-@media screen and (max-width: 480px) {
-  .mobile-width-360 {
-    width: 360px;
-  }
-  .mobile-width-344 {
-    width: 344px;
-  }
-  .mobile-height-200 {
-    height: 200px;
-  }
-  .mobile-font-size-50{
-    font-size: 50px;
-  }
-  .mobile-font-size-18{
-    font-size: 18px;
-  }
-  .mobile-font-title {
-    font-size: 20px;
-    font-weight: 700;
-  }
+
+.site-max-width {
+  max-width: var(--nyco-dimension-site-max-width);
 }

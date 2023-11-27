@@ -1,10 +1,10 @@
 {
     "key": "group_5fc55dfb96cdd",
-    "title": "Announcement Fields",
+    "title": "Announcement Details",
     "fields": [
         {
             "key": "field_5fc55e19cfde8",
-            "label": "Title",
+            "label": "Announcement Title",
             "name": "announcement_title",
             "type": "text",
             "instructions": "",
@@ -23,10 +23,10 @@
         },
         {
             "key": "field_5fc55e34cfde9",
-            "label": "Details",
+            "label": "Announcement Details",
             "name": "announcement_details",
             "type": "wysiwyg",
-            "instructions": "This is the short description for the announcement. It will appear on the homepage and underneath the page title if it to a dedictated page with the announcement details.",
+            "instructions": "",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -45,7 +45,7 @@
             "label": "External URL",
             "name": "announcement_is_external",
             "type": "radio",
-            "instructions": "Is this link to an external website? Select \"No\" to link to existing site content. Select self to link to a dedictated page with the announcement details.",
+            "instructions": "Is this link to an external website?",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -55,8 +55,7 @@
             },
             "choices": {
                 "Yes": "Yes",
-                "No": "No",
-                "Self": "Self"
+                "No": "No"
             },
             "allow_null": 0,
             "other_choice": 0,
@@ -116,6 +115,78 @@
             "multiple": 0,
             "return_format": "object",
             "ui": 1
+        },
+        {
+            "key": "field_655e8253d7973",
+            "label": "Date",
+            "name": "announcement_date",
+            "type": "date_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "F j, Y",
+            "return_format": "F j, Y",
+            "first_day": 1
+        },
+        {
+            "key": "field_655e829ed7974",
+            "label": "Start time",
+            "name": "announcement_start_time",
+            "type": "time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "g:i a",
+            "return_format": "g:i a"
+        },
+        {
+            "key": "field_655e82d2d7975",
+            "label": "End time",
+            "name": "announcement_end_time",
+            "type": "time_picker",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "display_format": "g:i a",
+            "return_format": "g:i a"
+        },
+        {
+            "key": "field_655e82eed7976",
+            "label": "Location",
+            "name": "announcement_location",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -130,11 +201,11 @@
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "left",
+    "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1666984507
+    "modified": 1700692751
 }
