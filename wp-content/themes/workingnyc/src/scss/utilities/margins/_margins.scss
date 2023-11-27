@@ -2,11 +2,7 @@
  * Margins
  */
 
-// Creating this class as a copy of the tailwind class because the import isn't working
-.mx-28 {
-    margin-left: 8rem; /* 128px */
-    margin-right: 8rem; /* 128px */
-  }
+// Creating classes as copies of the tailwind classes because some imports aren't working
 @media screen and (min-width:1112px) { 
     .desktop-mx-50 {
         margin-left: 200px;
@@ -38,9 +34,13 @@
   }
 }
 
-.mr-12 {
-    margin-right: 48px;
+@media screen and (min-width:1112px) { 
+  .desktop-gap-x-72 {
+    column-gap: 72px;
   }
-.pl-10 {
-    padding-left: 40px;
+}
+@media screen and (min-width: 768px) and (max-width:1112px) {
+  .tablet-gap-x-56 {
+    column-gap: 56px;
   }
+}

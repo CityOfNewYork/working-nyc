@@ -2,14 +2,13 @@
 
 {% block content %}
 <div class="bg-scale-1">
-  <header class="o-banner {% if post.thumbnail %}bg-banner-min-height bg-shape-wnyc-header{% endif %} relative">
-    <div class="page-max desktop:px-6">
+  <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
 
       {% if post.thumbnail %}
-      <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
-        <div>
+      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 tablet:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto tablet:py-7 py-4 desktop:py-6">
+        <div class="text-center">
       {% else %}
-      <div class="py-2 tablet:py-8 desktop:px-6 layout-content">
+      <div class="layout-content">
         <div class="wrap">
       {% endif %}
 
@@ -23,36 +22,33 @@
             </h1>
           </div>
 
-          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
+          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn hidden" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
 
-          {# Do not delete. Possible header utility values; #}
+          {# The post content can include html tags and CSS classes. The following line is an example of some classes that were used in the past #}
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
-          {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
+          <h1 class="my-3">{{ post.post_content }}</h1>
 
-          <p class="text-center">
+          <p class="text-center mt-3">
             <a class="inline-block text-center" href="#content">
               <span>{{ __('Explore', 'WNYC') }}</span><br />
-              <svg aria-hidden="true" class="icon-ui icon-5">
+              <svg aria-hidden="true" class="icon-ui icon-3">
                 <use href="#lucide-chevron-down"></use>
               </svg>
             </a>
           </p>
         </div>
-      </div>
-    </div>
 
     {% if post.thumbnail %}
-    <div class="bg-image-grid hidden tablet:grid grid-cols-2 animated fadeIn">
-      <div></div>
 
-      <div class="bg-image-grid__mask-scale-1 relative">
-        <img class="bg-image-grid__img" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      <div class="relative items-center hidden tablet:flex">
+        <img class="rounded-full tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
-    </div>
+      
     {% endif %}
+      </div>
   </header>
 
-  <main id="content" class="bg-shape-wnyc-content">
+  <main id="content" class="bg-shape-wnyc-content mx-4 desktop:mx-7 tablet:mx-14">
     <div>
       {# Collections #}
       {% if collections %}
@@ -73,7 +69,7 @@
 
       {# Announcements #}
       {% if announcements %}
-      <section class="page-max pb-8 pt-utility-anchor" id="announcements">
+      <section class="pb-8 pt-utility-anchor" id="announcements">
         <div class="layout-content py-2 tablet:py-8">
           <div class="wrap">
             <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
@@ -102,8 +98,5 @@
     {% endif %}
   </main>
 
-  <div class="bg-shape-wnyc-position bg-shape-wnyc-b bg-shape-wnyc-position-background"></div>
-
-  <div class="bg-shape-wnyc-position bg-shape-wnyc-ac bg-shape-wnyc-position-foreground"></div>
 </div>
 {% endblock %}
