@@ -106,9 +106,7 @@ class EmployerPrograms extends Timber\Post {
   public function getSchema() {
     $schemas = array();
 
-    $arr_ed = array('University', 'College');
-
-    $ed = false;
+    // TODO: implement this. see Programs.php for an example
 
     return $schemas;
   }
