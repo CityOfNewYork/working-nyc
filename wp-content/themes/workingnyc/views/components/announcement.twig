@@ -5,7 +5,7 @@
   <header class="c-card__header pb-2">
     <a href="{{ this.link }}" target="{{ this.target }}" class="c-card__header-link">
       <h5 class="c-card__title">
-        {% if this.date|date('U') > this.status_period|date('U') %}
+        {% if this.date_updated|date('U') > this.status_period|date('U') %}
         <mark class="badge" title="{{ this.status_title }}">
           {{ this.status }}
         </mark>
@@ -24,6 +24,44 @@
 
   <div class="c-card__body pt-2 tablet:pt-3">
     <div class="c-card__summary height-176px overflow-hidden">
+    <ul class="c-card__features">
+      {% if this.announcement_date is not empty %}
+        <li>
+          <svg class="icon-ui c-card__feature-icon" role="img">
+            <title>{{ __('Date', 'WNYC') }}</title>
+
+            <use href="#lucide-calendar"></use>
+          </svg>
+          <span>{{ this.announcement_date|date(fn('get_option', 'date_format')) }}</span>
+        </li>
+      {% endif %}
+      {% if this.announcement_start_time is not empty %}
+        <li>
+          <svg class="icon-ui c-card__feature-icon" role="img">
+            <title>{{ __('Time', 'WNYC') }}</title>
+
+            <use href="#temp-lucide-clock"></use>
+          </svg>
+          <span>
+            {{ this.announcement_start_time|date(fn('get_option', 'time_format')) }}
+            {% if this.announcement_end_time is not empty %}
+              {{ __('to', 'WNYC') }}
+              {{ this.announcement_end_time|date(fn('get_option', 'time_format')) }}
+            {% endif %}
+          </span>
+        </li>
+      {% endif %}
+      {% if this.announcement_location is not empty %}
+        <li>
+          <svg class="icon-ui c-card__feature-icon" role="img">
+            <title>{{ __('Location', 'WNYC') }}</title>
+
+            <use href="#lucide-map-pin"></use>
+          </svg>
+          <span>{{ this.announcement_location }}</span>
+        </li>
+      {% endif %}
+      </ul>
       {{ this.announcement_details|wpautop }}
     </div>
 
@@ -37,8 +75,8 @@
 
         <span>
           {{ __('Updated', 'WNYC') }}
-          {{ this.date|date(fn('get_option', 'date_format')) }}
-          {{ this.date|date(fn('get_option', 'time_format')) }}
+          {{ this.date_updated|date(fn('get_option', 'date_format')) }}
+          {{ this.date_updated|date(fn('get_option', 'time_format')) }}
         </span>
       </li>
     </ul>
