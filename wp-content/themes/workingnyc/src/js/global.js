@@ -72,58 +72,6 @@ new Icons(sprites.dataset.wknyc);
 sprites.remove();
 
 /**
- * Themes Configuration
- */
-
-let themeLight = {
-  label: 'Dark Theme',
-  classname: 'default',
-  icon: 'lucide-moon',
-  version: VERSION
-};
-
-let themeDark = {
-  label: 'Light Theme',
-  classname: 'dark',
-  icon: 'lucide-sun',
-  version: VERSION
-};
-
-// This block ensures compatibility with the previous site theme configuration
-
-let themePreferenceStr = localStorage.getItem(Themes.storage.THEME);
-
-if (themePreferenceStr) {
-  let themePreference = JSON.parse(themePreferenceStr);
-
-  if (false === themePreference.hasOwnProperty('version')) {
-    switch(themePreference.classname) {
-      case 'default':
-        console.dir(themeDark);
-        localStorage.setItem(Themes.storage.THEME, JSON.stringify(themeDark));
-        break;
-
-      case 'light':
-        console.dir(themeLight);
-        localStorage.setItem(Themes.storage.THEME, JSON.stringify(themeLight));
-        break;
-    }
-  }
-}
-
-new Themes({
-  themes: [
-    themeLight,
-    themeDark
-  ],
-  after: thms => document.querySelectorAll(thms.selectors.TOGGLE)
-    .forEach(element => {
-      element.querySelector('[data-js-themes="icon"]')
-        .setAttribute('href', `#${thms.theme.icon}`);
-    })
-});
-
-/**
  * Web Share Configuration
  */
 
