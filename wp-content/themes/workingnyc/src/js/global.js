@@ -6,7 +6,6 @@ import Dialog from '@nycopportunity/pttrn-scripts/src/dialog/dialog';
 import Copy from '@nycopportunity/pttrn-scripts/src/copy/copy';
 import Icons from '@nycopportunity/pttrn-scripts/src/icons/icons';
 import SetHeightProperties from '@nycopportunity/pttrn-scripts/src/set-height-properties/set-height-properties';
-import Themes from '@nycopportunity/pttrn-scripts/src/themes/themes';
 import Toggle from '@nycopportunity/pttrn-scripts/src/toggle/toggle';
 import Track from '@nycopportunity/pttrn-scripts/src/track/track';
 import WebShare from '@nycopportunity/pttrn-scripts/src/web-share/web-share';
