@@ -6,7 +6,14 @@
  * @author NYC Opportunity
  */
 
-require_once WorkingNYC\timber_post('Programs');
+require_once WorkingNYC\timber_post('EmployerPrograms');
+
+// only allow logged in users to view employer content for now
+if (is_user_logged_in() === false) {
+    wp_redirect('/404');
+
+    exit;
+}
 
 /**
  * Set the Timber view context
@@ -18,7 +25,7 @@ $context = Timber::get_context();
 
 $post = Timber::get_post();
 
-$post = new WorkingNYC\Programs($post);
+$post = new WorkingNYC\EmployerPrograms($post);
 
 $context['post'] = $post;
 
@@ -42,4 +49,4 @@ $context['schema'] = json_encode(array_merge($schema, $post->schema), JSON_UNESC
  * @author NYC Opportunity
  */
 
-Timber::render('programs/single.twig', $context);
+Timber::render('employer-programs/single.twig', $context);
