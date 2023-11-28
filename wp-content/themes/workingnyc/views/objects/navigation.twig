@@ -15,14 +15,6 @@
   <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
   {% endfor %}
 
-  <button class="o-navigation__item" data-js="themes">
-    <svg class="o-navigation__menu-icon icon-ui">
-      <use data-js-themes="icon" href="#lucide-moon"></use>
-    </svg>
-
-    <span class="sr-only">Toggle&nbsp;</span><span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
-  </button>
-
   <button class="o-navigation__menu-item" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
     <svg class="o-navigation__menu-icon icon-ui">
       <use href="#nyco-languages"></use>
