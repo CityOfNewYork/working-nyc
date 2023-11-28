@@ -6,7 +6,7 @@
   <header class="items-center">
     {% if post.icon == '' %}<span>{% endif %}
       {% if post.icon %}
-      <svg class="c-card__icon text-blue-d-1 fill-none" role="img">
+      <svg class="c-card__icon fill-none" role="img">
         <title>{{ post.icon.name }}</title>
         <use href="#program-card-{{ post.icon.slug }}"></use>
       </svg>
