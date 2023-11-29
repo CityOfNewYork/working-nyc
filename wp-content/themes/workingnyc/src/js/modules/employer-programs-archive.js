@@ -109,6 +109,10 @@ export default {
            */
           'employer-programs': employer_program => ({
             id: employer_program.id,
+            title: employer_program.acf.employer_program_title,
+            provider: employer_program.acf.employer_program_provider,
+            preview: employer_program.acf.employer_program_preview,
+            logo: employer_program.acf.employer_program_provider_logo,
             raw: (process.env.NODE_ENV === 'development') ? { ...employer_program } : false
           }),
 
