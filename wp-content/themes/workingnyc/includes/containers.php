@@ -53,6 +53,6 @@ class Containers {
 
     $thumbnail = new Timber\Image($id);
 
-    return (null == $thumbnail->ID) ? false : $thumbnail;
+    return (null === $thumbnail->ID) ? false : $thumbnail;
   }
 }
