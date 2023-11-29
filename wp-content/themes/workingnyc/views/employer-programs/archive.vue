@@ -92,8 +92,6 @@
               <h1 id="page-heading" class="o-header__heading">{{ strings.PAGE_TITLE }}</h1>
             </div>
 
-            <!-- <h2 class="o-header__subtitle" v-if="checkedFilters.length">Exploring <span v-for="f, i in checkedFilters"><span v-if="checkedFilters.length > 1 && i == checkedFilters.length - 1">and </span>v{ f.name }<span v-if="checkedFilters.length > 2 && i < checkedFilters.length - 1">,</span><span v-if="i == checkedFilters.length - 1">.</span><span v-else>&nbsp;</span></span></h2> -->
-
             <div class="mb-3" v-if="strings.PAGE_CONTENT" v-html="strings.PAGE_CONTENT"></div>
           </div>
         </header>
@@ -111,7 +109,7 @@
         </div>
 
         <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
-          <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
+          <EmployerProgram v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></EmployerProgram>
         </div>
 
         <p data-alert="text" v-if="posts != null" v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></p>
@@ -151,7 +149,7 @@
 </template>
 
 <script>
-  import ProgramsArchive from '../../src/js/modules/programs-archive.js';
+  import EmployerProgramsArchive from '../../src/js/modules/employer-programs-archive.js';
 
-  export default ProgramsArchive;
+  export default EmployerProgramsArchive;
 </script>

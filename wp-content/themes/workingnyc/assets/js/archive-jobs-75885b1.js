@@ -742,6 +742,8 @@
 	        this.buildUrlQuery(wpQuery)
 	      ].join('');
 
+	      console.log(url);
+
 	      // Set posts and store a copy of the query for reference.
 	      this.$set(this.posts, query.page, {
 	        posts: [],

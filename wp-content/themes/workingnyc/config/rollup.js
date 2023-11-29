@@ -99,6 +99,18 @@ module.exports = [
     devModule: true
   },
   {
+    input: './src/js/archive-employer-programs.js',
+    output: [{
+      file: './assets/js/archive-employer-programs-development.js',
+      format: rollup.format,
+      sourcemap: false,
+      strict: rollup.strict
+    }],
+    plugins: plugins,
+    cache: true,
+    devModule: true
+  },
+  {
     input: './src/js/newsletter.js',
     output: [{
       file: './assets/js/newsletter-development.js',

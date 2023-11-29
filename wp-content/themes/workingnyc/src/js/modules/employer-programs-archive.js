@@ -35,7 +35,7 @@ export default {
        *
        * @type {String}
        */
-      type: 'programs',
+      type: 'employer-programs',
 
       /**
        * Setting this sets the initial app query.
@@ -78,15 +78,18 @@ export default {
 
       /**
        * This is the endpoint list for terms and post requests
+       * Note that the employer-programs query fails without the 'rest_employer-programs_collection_params'
+       * filter in wp-content/mu-plugins/rest-collection-params.php, because the orderby query parameter
+       * must be added as an option there
        *
        * @type  {Object}
        *
        * @param  {String}  terms  A required endpoint for the list of filters
-       * @param  {String}  jobs   This is based on the 'type' setting above
+       * @param  {String}  employer-programs   This is based on the 'type' setting above
        */
       endpoints: {
         terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&cache=0',
-        employer_programs: '/wp-json/wp/v2/employer-programs'
+        'employer-programs': '/wp-json/wp/v2/employer-programs'
       },
 
       /**
@@ -104,12 +107,8 @@ export default {
            *
            * @raw /wp-json/wp/v2/employer-programs
            */
-          employer_programs: employer_program => ({
+          'employer-programs': employer_program => ({
             id: employer_program.id,
-            title: employer_program.acf.program_title,
-            link: employer_program.link,
-            status: employer_program.status,
-            context: employer_program.context,
             raw: (process.env.NODE_ENV === 'development') ? { ...employer_program } : false
           }),
 
