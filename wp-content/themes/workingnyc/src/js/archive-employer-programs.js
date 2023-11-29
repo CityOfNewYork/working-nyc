@@ -26,8 +26,8 @@ import Vue from 'vue/dist/vue.runtime.min'; // production
  * @extends   https://github.com/CityOfNewYork/nyco-wp-archive-vue
  */
 
-import ProgramsArchive from '../../views/programs/archive.vue';
-import Program from '../../views/programs/program.vue';
+import EmployerProgramsArchive from '../../views/employer-programs/archive.vue';
+import EmployerProgram from '../../views/employer-programs/employer-program.vue';
 
 /**
  * Redirect old filtering method to WP Archive Vue filtering
@@ -37,7 +37,7 @@ import Program from '../../views/programs/program.vue';
  * Mount Components
  */
 
-Vue.component('Program', Program);
+Vue.component('EmployerProgram', EmployerProgram);
 
 /**
  * Archive
@@ -52,7 +52,7 @@ let config = {
 
 new Vue({
   render: createElement => {
-    return createElement(ProgramsArchive, {
+    return createElement(EmployerProgramsArchive, {
       props: {
         strings: {
           HOME: 'Home',
@@ -78,4 +78,4 @@ new Vue({
       }
     });
   }
-}).$mount('[data-js-archive="programs"]');
+}).$mount('[data-js-archive="employer-programs"]');

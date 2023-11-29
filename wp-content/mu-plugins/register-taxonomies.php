@@ -314,7 +314,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('agency', ['programs', 'jobs', 'guides'], array(
+  register_taxonomy('agency', ['programs', 'jobs', 'guides', 'employer-programs'], array(
     'label' => __('Agency', 'WNYC'),
     'labels' => array(
       'name' => __('Agency', 'WNYC'),
@@ -395,6 +395,126 @@ add_action('init', function() {
     'show_in_rest' => false, // Use this to show in the front-end filters
     'show_tagcloud' => true,
     'rest_base' => 'funding',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true
+  ));
+
+  /**
+   * Taxonomy: Employer needs
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('employer_needs', ['employer-programs'], array(
+    'label' => __('Employer needs', 'WNYC'),
+    'labels' => array(
+      'name' => __('Employer needs', 'WNYC'),
+      'singular_name' => __('Employer need', 'WNYC'),
+    ),
+    'public' => false,
+    'publicly_queryable' => false,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'employer_needs',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true, // Use this to show in the front-end filters
+    'show_tagcloud' => true,
+    'rest_base' => 'employer_needs',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true
+  ));
+
+  /**
+   * Taxonomy: Industries
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('Industries', ['employer-programs'], array(
+    'label' => __('Industries', 'WNYC'),
+    'labels' => array(
+      'name' => __('Industries', 'WNYC'),
+      'singular_name' => __('Industry', 'WNYC'),
+    ),
+    'public' => false,
+    'publicly_queryable' => false,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'industries',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true, // Use this to show in the front-end filters
+    'show_tagcloud' => true,
+    'rest_base' => 'industries',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true
+  ));
+
+  /**
+   * Taxonomy: Talent availability
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('talent_availability', ['employer-programs'], array(
+    'label' => __('Talent availability', 'WNYC'),
+    'labels' => array(
+      'name' => __('Talent availability', 'WNYC'),
+      'singular_name' => __('Talent availability', 'WNYC'),
+    ),
+    'public' => false,
+    'publicly_queryable' => false,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'talent_availability',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true, // Use this to show in the front-end filters
+    'show_tagcloud' => true,
+    'rest_base' => 'talent_availability',
+    'rest_controller_class' => 'WP_REST_Terms_Controller',
+    'show_in_quick_edit' => true
+  ));
+
+  /**
+   * Taxonomy: Occupation
+   *
+   * @author NYC Opportunity
+   */
+  register_taxonomy('occupations', ['employer-programs'], array(
+    'label' => __('Occupations', 'WNYC'),
+    'labels' => array(
+      'name' => __('Occupations', 'WNYC'),
+      'singular_name' => __('Occupation', 'WNYC'),
+    ),
+    'public' => false,
+    'publicly_queryable' => false,
+    'hierarchical' => true,
+    'show_ui' => true,
+    'show_in_menu' => true,
+    'show_in_nav_menus' => true,
+    'query_var' => true,
+    'rewrite' => array(
+      'slug' => 'occupations',
+      'with_front' => true
+    ),
+    'show_admin_column' => false,
+    'show_in_rest' => true, // Use this to show in the front-end filters
+    'show_tagcloud' => true,
+    'rest_base' => 'occupations',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
     'show_in_quick_edit' => true
   ));
