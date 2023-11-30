@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="layout-content">
       <div class="page-max">
         <header class="o-header">
@@ -24,6 +23,21 @@
         </header>
       </div>
     </div>
+
+    <div class="bg-scale-4 p-4">
+      <form class="o-search__form w-full">
+        <div class="input o-search__input rounded">
+            <input class="rounded border-0"/>
+            <button type="submit" class="o-search__submit">
+                <svg class="icon-ui">
+                    <title>Submit</title>
+                    <use href="#lucide-search"></use>
+                </svg>
+            </button>
+        </div>
+      </form>
+    </div>
+  
 
   <div class="grid grid-cols-[1fr_2fr]">
     <section>
