@@ -24,12 +24,12 @@ switch ($path) {
     $class = ucfirst($path);
     break;
   case 'employer-programs':
-    // only allow logged in users to view employer content for now
-    if (is_user_logged_in() === false) {
-      wp_redirect('/404');
+    // // only allow logged in users to view employer content for now
+    // if (is_user_logged_in() === false) {
+    //   wp_redirect('/404');
 
-      exit;
-    }
+    //   exit;
+    // }
     $class = 'EmployerPrograms';
     break;
   default:
