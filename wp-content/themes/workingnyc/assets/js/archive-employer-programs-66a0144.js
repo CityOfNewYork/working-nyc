@@ -1049,9 +1049,11 @@
 	          'employer-programs': employer_program => ({
 	            id: employer_program.id,
 	            title: employer_program.acf.employer_program_title,
+	            link: employer_program.link,
 	            provider: employer_program.acf.employer_program_provider,
 	            preview: employer_program.acf.employer_program_preview,
 	            logo: employer_program.acf.employer_program_provider_logo,
+	            tags: employer_program.acf.employer_program_tags,
 	            raw: false
 	          }),
 
@@ -1237,6 +1239,12 @@
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
 
 	var script = {
 	  props: {
@@ -1253,7 +1261,7 @@
 	const __vue_script__ = script;
 
 	/* template */
-	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header grid grid-cols-[1fr_4fr]"},[(_vm.post.logo)?_c('img',{attrs:{"src":_vm.post.logo.url,"loading":"lazy","alt":_vm.post.logo.alt}}):_c('div'),_vm._v(" "),_c('span',[_c('a',{staticClass:"c-card__header-link"},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline"},[_vm._v(_vm._s(_vm.post.title))])])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[_c('b',{attrs:{"data-program":"title"}},[_vm._v(_vm._s(_vm.post.provider))])])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[_c('div',{staticClass:"c-card__summary"},[_c('p',[_vm._v("\n        "+_vm._s(_vm.post.preview)+"\n      ")])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])])};
+	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header grid grid-cols-[1fr_4fr]"},[(_vm.post.logo)?_c('img',{attrs:{"src":_vm.post.logo.url,"loading":"lazy","alt":_vm.post.logo.alt}}):_c('div'),_vm._v(" "),_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"href":_vm.post.link}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline"},[_vm._v(_vm._s(_vm.post.title))])])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[_c('b',{attrs:{"data-program":"title"}},[_vm._v(_vm._s(_vm.post.provider))])])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[_c('div',{staticClass:"c-card__summary"},[_c('p',[_vm._v("\n        "+_vm._s(_vm.post.preview)+"\n      ")])]),_vm._v(" "),_c('div',_vm._l((_vm.post.tags),function(tag){return _c('div',{key:tag.employer_program_tag},[_vm._v("\n          "+_vm._s(tag.employer_program_tag)+"\n      ")])}),0),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])])};
 	var __vue_staticRenderFns__ = [];
 
 	  /* style */

@@ -4,7 +4,7 @@
       <img v-if="post.logo" :src="post.logo.url" loading="lazy" :alt="post.logo.alt"/>
       <div v-else></div>
       <span>
-        <a class="c-card__header-link">
+        <a class="c-card__header-link" :href="post.link">
           <h3 class="c-card__title">
             <span class="c-card__underline">{{ post.title }}</span>
           </h3>
@@ -21,6 +21,12 @@
         <p>
           {{ post.preview }}
         </p>
+      </div>
+
+      <div>
+        <div v-for="tag in post.tags" :key="tag.employer_program_tag">
+            {{ tag.employer_program_tag }}
+        </div>
       </div>
 
       <details v-if="post.raw">
