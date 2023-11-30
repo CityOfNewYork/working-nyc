@@ -1286,7 +1286,7 @@
 	  );
 
 	/**
-	 * Programs Archive
+	 * Employer Programs Archive
 	 *
 	 * @author NYC Opportunity
 	 */

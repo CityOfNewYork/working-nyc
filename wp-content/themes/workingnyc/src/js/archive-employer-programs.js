@@ -1,5 +1,5 @@
 /**
- * Programs Archive
+ * Employer Programs Archive
  *
  * @author NYC Opportunity
  */
@@ -21,8 +21,8 @@ import Vue from 'vue/dist/vue.runtime.min'; // production
  * repository is needed for configuration, template mapping, and template
  * markup.
  *
- * @template  ../../views/programs/archive.vue
- * @script    ./modules/program-archive.js
+ * @template  ../../views/employer-programs/archive.vue
+ * @script    ./modules/employer-programs-archive.js
  * @extends   https://github.com/CityOfNewYork/nyco-wp-archive-vue
  */
 
