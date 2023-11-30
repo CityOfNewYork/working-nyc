@@ -434,7 +434,7 @@ add_action('init', function() {
    *
    * @author NYC Opportunity
    */
-  register_taxonomy('Industries', ['employer-programs'], array(
+  register_taxonomy('industries', ['employer-programs'], array(
     'label' => __('Industries', 'WNYC'),
     'labels' => array(
       'name' => __('Industries', 'WNYC'),
