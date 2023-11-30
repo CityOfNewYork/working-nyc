@@ -1625,14 +1625,14 @@
    */
 
   let themeLight = {
-    label: 'Theme',
+    label: 'Dark Theme',
     classname: 'default',
     icon: 'lucide-moon',
     version: '3.0.0'
   };
 
   let themeDark = {
-    label: 'Theme',
+    label: 'Light Theme',
     classname: 'dark',
     icon: 'lucide-sun',
     version: '3.0.0'
