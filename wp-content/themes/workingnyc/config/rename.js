@@ -8,6 +8,7 @@ module.exports = [
   'assets/js/archive-programs-development.js',
   'assets/js/archive-jobs-development.js',
   'assets/js/archive-guides-development.js',
+  'assets/js/archive-employer-programs-development.js',
   'assets/js/global-development.js',
   'assets/js/newsletter-development.js',
   'assets/js/polyfills-development.js',

@@ -33,6 +33,7 @@ add_filter('query_vars', function($vars) {
    *
    * wp-content/themes/workingnyc/src/js/programs-archive.js
    * wp-content/themes/workingnyc/src/js/jobs-archive.js
+   * wp-content/themes/workingnyc/src/js/employer-programs-archive.js
    *
    * @author NYC Opportunity
    */
@@ -48,6 +49,11 @@ add_filter('query_vars', function($vars) {
    array_push($vars, $prefix . 'sec'); // sectors
    array_push($vars, $prefix . 'src'); // source
    array_push($vars, $prefix . 'sal'); // salary
+   array_push($vars, $prefix . 'emn'); // employer_needs
+   array_push($vars, $prefix . 'ind'); // industries
+   array_push($vars, $prefix . 'avl'); // talent_availability
+   array_push($vars, $prefix . 'occ'); // occupations
+
  
    /**
     * These need to be added to support mapping the previous /programs archive

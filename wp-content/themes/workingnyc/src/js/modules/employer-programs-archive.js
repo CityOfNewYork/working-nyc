@@ -35,7 +35,7 @@ export default {
        *
        * @type {String}
        */
-      type: 'programs',
+      type: 'employer-programs',
 
       /**
        * Setting this sets the initial app query.
@@ -78,15 +78,18 @@ export default {
 
       /**
        * This is the endpoint list for terms and post requests
+       * Note that the employer-programs query fails without the 'rest_employer-programs_collection_params'
+       * filter in wp-content/mu-plugins/rest-collection-params.php, because the orderby query parameter
+       * must be added as an option there
        *
        * @type  {Object}
        *
        * @param  {String}  terms  A required endpoint for the list of filters
-       * @param  {String}  programs   This is based on the 'type' setting above
+       * @param  {String}  employer-programs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=programs&cache=0',
-        programs: '/wp-json/wp/v2/programs'
+        terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&cache=0',
+        'employer-programs': '/wp-json/wp/v2/employer-programs'
       },
 
       /**
@@ -102,15 +105,15 @@ export default {
           /**
            * Data mapping function for results from the Programs endpoint
            *
-           * @raw /wp-json/wp/v2/programs
+           * @raw /wp-json/wp/v2/employer-programs
            */
-          programs: programs => ({
-            id: programs.id,
-            title: programs.acf.program_title,
-            link: programs.link,
-            status: programs.status,
-            context: programs.context,
-            raw: (process.env.NODE_ENV === 'development') ? { ...programs } : false
+          'employer-programs': employer_program => ({
+            id: employer_program.id,
+            title: employer_program.acf.employer_program_title,
+            provider: employer_program.acf.employer_program_provider,
+            preview: employer_program.acf.employer_program_preview,
+            logo: employer_program.acf.employer_program_provider_logo,
+            raw: (process.env.NODE_ENV === 'development') ? { ...employer_program } : false
           }),
 
           /**
@@ -205,14 +208,10 @@ export default {
      */
     let taxonomies = {
       'agency': 'wnyc_agy',
-      'services': 'wnyc_ser',
-      'recruitment_status': 'wnyc_rst',
-      'schedule': 'wnyc_sch',
-      'duration': 'wnyc_dur',
-      'locations': 'wnyc_loc',
-      'populations': 'wnyc_pop',
-      'age_ranges_served': 'wnyc_age',
-      'sectors': 'wnyc_sec'
+      'employer_needs': 'wnyc_emn',
+      'industries': 'wnyc_ind',
+      'talent_availability': 'wnyc_avl',
+      'occupations': 'wnyc_occ'
     };
 
     // Add map of WP Query terms < to > Window history state
