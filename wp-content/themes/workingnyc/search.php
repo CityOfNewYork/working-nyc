@@ -1,6 +1,5 @@
 <?php
 
-require_once WorkingNYC\timber_post('Jobs');
 require_once WorkingNYC\timber_post('Programs');
 
 // Get the search term
@@ -24,6 +23,8 @@ $context['term'] = $term;
 $context['posts'] = array_map(function($p) {
     return new WorkingNYC\Programs($p);
 }, $posts);
+
+// TODO: add translations to search
 // $context['language'] = ICL_LANGUAGE_CODE;
 
 // Render view
