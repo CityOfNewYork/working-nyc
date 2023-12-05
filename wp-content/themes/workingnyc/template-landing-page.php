@@ -45,7 +45,7 @@ if ($post->slug === 'newsletter') {
   // Populated email from newsletter object
   if (isset($_REQUEST['EMAIL'])) {
     if ($_REQUEST['EMAIL'] != "") {
-      $context['email'] = $_REQUEST['EMAIL'];
+      $context['email'] = htmlspecialchars($_REQUEST['EMAIL'], 'ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401');
       $context['newsletter_message'] = true;
     }
 
