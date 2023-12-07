@@ -6,6 +6,8 @@
  * Author: NYC Opportunity
  */
 
+ use RestPreparePosts\RestPreparePosts as RestPreparePosts;
+
 /**
  * Register REST Route shouldn't be done before the REST api init hook so we
  * will hook into that action.
@@ -151,7 +153,7 @@ add_action('rest_api_init', function() {
     'methods' => 'GET',
     'permission_callback' => '__return_true',
 
-    /**
+    /** 
      * Callback for the search with Relevanssi endpoint.
      *
      * Adapted from example by Aucor Oy
@@ -161,22 +163,69 @@ add_action('rest_api_init', function() {
      *
      * @param   WP_REST_Request  $request    Instance WP REST Request
      *
-     * Acceptable REST parameters: TODO update this
+     * Acceptable REST parameters: 
      *
-     * @param   Array            post_type   The desired post type or types
-     * @param   Boolean          hide_empty
-     * @param   Boolean          cache       Whether to use transient cache results
+     * @param   Array            post_type   The desired post type or types. Allowed values are jobs, programs, and employer-programs
+     * @param   String           s           The search term
+     * @param   Integer          per_page    The number of posts per page
+     * @param   Integer          page        The page number of search results to return
      *
-     * @return  Array                        Array of taxonomies and their terms
+     * @return  Array                        A list of search results matching the parameters
      */
     'callback' => function(WP_REST_Request $request) {
       $parameters = $request->get_query_params();
 
+      $post_types = [];
+
+      // validate post type parameter
+      $ALLOWED_POST_TYPES = array('jobs', 'programs', 'employer-programs');
+
+      if (isset($parameters['post_type'])) {
+        if (gettype($parameters['post_type']) === 'string') {
+          $post_types = array($parameters['post_type']);
+        }
+        else {
+          $post_types = $parameters['post_type'];
+        }
+
+        if (count(array_intersect($post_types, $ALLOWED_POST_TYPES)) < count($post_types)) {
+          throw new Exception('Invalid post type');
+        }
+      }
+      else {
+        $post_types = array('jobs', 'programs', 'employer-programs');
+      }
+
+      // create the taxonomy parameter for the WP Query based on the incoming query parameters
+      $wp_query_taxonomy = [];
+
+      // get all public taxonomies that can be used in the REST API
+      foreach (get_taxonomies(array('_builtin' => false,'show_in_rest' => true), 'objects') as $tax) {
+
+        // only include taxonomies that match the post types being searched for
+        if (count(array_intersect($post_types, $tax->object_type)) > 0) {
+
+          // add the query parameter for the taxonomy to the WP Query array
+          if (isset($parameters[$tax->name])) {
+            $wp_query_taxonomy[] = array(
+              'taxonomy' => $tax->name,
+              'field' => 'id',
+              'terms' => $parameters[$tax->name]
+            );
+          }
+        } 
+      }
+
       $args = array(
-        's' => $parameters['s'],
+        's' => (isset($parameters['s'])) ? $parameters['s'] : '',
         'posts_per_page' => $parameters['per_page'],
-        'paged' => $parameters['page']
+        'paged' => $parameters['page'],
+        'post_type' => $post_types,
       );
+
+      if (count($wp_query_taxonomy) > 0) {
+        $args['tax_query'] = $wp_query_taxonomy;
+      }
 
       // run query
       $search_query = new WP_Query();
@@ -191,15 +240,32 @@ add_action('rest_api_init', function() {
       while ($search_query->have_posts()):
         $search_query->the_post();
         $data    = $controller->prepare_item_for_response($search_query->post, $request);
+        
+        // add logic from rest-prepare-posts
+        $taxonomies = get_taxonomies(array(
+          '_builtin' => false,
+          'show_in_rest' => true
+        ), 'objects');
+
+        $RestPreparePosts = new RestPreparePosts();
+        $RestPreparePosts->type = $data->data['type'];
+        $RestPreparePosts->taxonomies = $taxonomies;
+        $RestPreparePosts->timberNamespace = 'WorkingNYC';
+        $context = $RestPreparePosts->getTimberContext($data->data['id']);
+        $data->data['context'] = $context;
+
         $posts[] = $controller->prepare_response_for_collection($data);
       endwhile;
 
       // return results
-      $response = new WP_REST_Response($posts); // Create the response object
+      $response = new WP_REST_Response($posts);
 
-      $response->set_status(200); // Add a custom status code
+      $response->set_status(200);
 
-      // $response->set_headers();
+      $response->set_headers([
+              'X-WP-Total' => $search_query->found_posts,
+              'X-WP-TotalPages' => $search_query->max_num_pages,
+            ]);
 
       return $response;
     }

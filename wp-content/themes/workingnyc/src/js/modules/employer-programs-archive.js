@@ -43,6 +43,7 @@ export default {
        * @type {Object}
        */
       query: {
+        post_type: 'employer-programs',
         per_page: this.perPage,
         page: this.page,
         orderby: 'menu_order',
@@ -70,7 +71,8 @@ export default {
           'page',
           'per_page',
           'orderby',
-          'order'
+          'order',
+          'post_type'
         ],
         map: {},
         filterParams: false
@@ -89,7 +91,7 @@ export default {
        */
       endpoints: {
         terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&cache=0',
-        'employer-programs': '/wp-json/wp/v2/employer-programs'
+        'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
       /**
@@ -220,7 +222,7 @@ export default {
     this.$set(this.history, 'map', taxonomies);
 
     // Add custom taxonomy queries to the list of safe params
-    this.params = [...this.params, ...Object.keys(taxonomies)];
+    this.params = [...this.params, ...Object.keys(taxonomies), 'post_type', 's'];
 
     // Initialize the application
     this.getState()       // Get window.location.search (filter history)
