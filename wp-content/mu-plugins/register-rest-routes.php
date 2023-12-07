@@ -215,7 +215,7 @@ add_action('rest_api_init', function() {
 
       // TODO remove
       // The current implementation of the WP Archive package unnecessarily sets the search_term
-      // query parameter to be an array. This is a temporary fix that can be removed once the 
+      // query parameter to be an array. This is a temporary fix that can be removed once the
       // WP Archive package is changed
       $search_term = $parameters['search_term'];
 
