@@ -153,7 +153,7 @@ add_action('rest_api_init', function() {
     'methods' => 'GET',
     'permission_callback' => '__return_true',
 
-    /** 
+    /**
      * Callback for the search with Relevanssi endpoint.
      *
      * Adapted from example by Aucor Oy
@@ -163,9 +163,10 @@ add_action('rest_api_init', function() {
      *
      * @param   WP_REST_Request  $request    Instance WP REST Request
      *
-     * Acceptable REST parameters: 
+     * Acceptable REST parameters:
      *
-     * @param   Array            post_type   The desired post type or types. Allowed values are jobs, programs, and employer-programs
+     * @param   Array            post_type   The desired post type or types.
+     *                                       Allowed values are jobs, programs, and employer-programs
      * @param   String           s           The search term
      * @param   Integer          per_page    The number of posts per page
      * @param   Integer          page        The page number of search results to return
@@ -183,16 +184,14 @@ add_action('rest_api_init', function() {
       if (isset($parameters['post_type'])) {
         if (gettype($parameters['post_type']) === 'string') {
           $post_types = array($parameters['post_type']);
-        }
-        else {
+        } else {
           $post_types = $parameters['post_type'];
         }
 
         if (count(array_intersect($post_types, $ALLOWED_POST_TYPES)) < count($post_types)) {
           throw new Exception('Invalid post type');
         }
-      }
-      else {
+      } else {
         $post_types = array('jobs', 'programs', 'employer-programs');
       }
 
@@ -201,10 +200,8 @@ add_action('rest_api_init', function() {
 
       // get all public taxonomies that can be used in the REST API
       foreach (get_taxonomies(array('_builtin' => false,'show_in_rest' => true), 'objects') as $tax) {
-
         // only include taxonomies that match the post types being searched for
         if (count(array_intersect($post_types, $tax->object_type)) > 0) {
-
           // add the query parameter for the taxonomy to the WP Query array
           if (isset($parameters[$tax->name])) {
             $wp_query_taxonomy[] = array(
@@ -213,7 +210,7 @@ add_action('rest_api_init', function() {
               'terms' => $parameters[$tax->name]
             );
           }
-        } 
+        }
       }
 
       $args = array(
@@ -263,9 +260,9 @@ add_action('rest_api_init', function() {
       $response->set_status(200);
 
       $response->set_headers([
-              'X-WP-Total' => $search_query->found_posts,
-              'X-WP-TotalPages' => $search_query->max_num_pages,
-            ]);
+        'X-WP-Total' => $search_query->found_posts,
+        'X-WP-TotalPages' => $search_query->max_num_pages,
+      ]);
 
       return $response;
     }
