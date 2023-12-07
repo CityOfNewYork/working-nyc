@@ -145,55 +145,6 @@ export default {
   },
 
   /**
-   * @type {Object}
-   */
-  methods: {
-    /**
-     * TODO: Set focus to results when the filter dropdown is closed. This
-     * method is not currently working when bound to the "close and see" button.
-     * That button uses the patterns scripts dialog method which interfere
-     * with DOM event propagation.
-     */
-    resultsFocus: function() {
-      document.querySelector('body').style.overflow = ''; // unlocks the dialog
-
-      this.$refs.results.setAttribute('tabindex', '-1');
-
-      this.$refs.results.focus();
-    },
-
-    /**
-     * Proxy for pagination. This will shift focus on the next page's first
-     * result once pagination is complete.
-     *
-     * @param   {Object}  event  The bound click event
-     */
-    nextPage: function(event) {
-      let _this = this;
-
-      (async (_this) => {
-        await _this.paginate(event);
-
-        if (_this.totalVisible <= 1)
-          return false;
-
-        let pages = _this.posts.filter(page => {
-          return (page && page.show);
-        });
-
-        if (pages) {
-          let posts = pages[pages.length - 1].posts;
-          let element = document.querySelector(`[data-js='post-${posts[0].id}']`);
-
-          if (element) {
-            element.focus();
-          }
-        }
-      })(_this);
-    }
-  },
-
-  /**
    * The created hook starts the application
    *
    * @url https://vuejs.org/v2/api/#created
@@ -222,7 +173,7 @@ export default {
     this.$set(this.history, 'map', taxonomies);
 
     // Add custom taxonomy queries to the list of safe params
-    this.params = [...this.params, ...Object.keys(taxonomies), 'post_type', 's'];
+    this.params = [...this.params, ...Object.keys(taxonomies), 'post_type', 'search_term'];
 
     // Initialize the application
     this.getState()       // Get window.location.search (filter history)
