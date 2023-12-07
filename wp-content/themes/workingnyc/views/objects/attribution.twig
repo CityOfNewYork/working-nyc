@@ -1,54 +1,48 @@
-<footer aria-label="{{ __('Footer', 'WNYC') }}" class="o-attribution relative z-10" role="contentinfo">
-  <nav aria-label="{{ footer_menu.name }}" class="nav-block tablet:nav-inline tablet:flex items-center">
-    <a class="uppercase text-small no-underline tablet:inline-flex tablet:p-0 mr-6" href="{{ fn('get_home_url') }}">
-      <svg class="fill-text stroke-text text-brand" width="163" height="48" role="img">
-        <title>Job Ready by Jobs N Y C</title>
-
-        <use href="#logo-jnyc-footer"></use>
-      </svg>
-    </a>
-
-    {% for m in footer_menu.get_items %}
-    <a class="o-footer__item inline mr-2 desktop:mr-3 tablet:mr-3" href="{{ m.link }}"
-      {% if m.attr_title %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
-      {% if m.target %}target="{{ m.target }}"{% endif %}
-      {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
-        {{ m.title }}
-    </a>
-    {% endfor %}
+<footer aria-label="{{ __('Footer', 'WNYC') }}" class="relative my-2 mx-3 desktop:my-5 desktop:mx-8" role="contentinfo">
+  <div class="pb-3 desktop:pb-5" name="service-footer-container">
+  <nav class="o-attribution__flex pb-3"> 
+     <div class="tablet:float-left desktop:float-left pb-2 tablet:pb-0 desktop:pb-0">
+       <h5>{{ __('How can we help you today?', 'WNYC') }}</h5>
+    </div>
+    <div class="tablet:float-right desktop:float-right">
+      <a class="btn btn-small tablet:btn btn-secondary pointer-events-auto" href="#page-heading">Send us feedback</a>
+    </div>
   </nav>
-
-  <div class="o-attribution__flex o-footer__divider">
-    <div>
-
-      <svg style="max-width: 100%" width="573" height="65" viewBox="0 0 1509 171" class="fill-text" role="img">
-        <title>{{ __('Logo for The New York City Mayor\'s Office for Economic Opportunity and Mayor\'s Office of Talent and Workforce Development', 'WNYC') }}</title>
-        <use href="#logo-partnership-workdev-opportunity"></use>
+  <nav class="o-attribution__flex border-t border-slate-300 pt-3 tablet:pt-0 desktop:pt-0">
+    <div class="tablet:float-left desktop:float-left pb-2 tablet:pb-0 desktop:pb-0">
+       <span class="text-lg">
+       {{ __('We support business owners in NYC', 'WNYC') }}</span>
+    </div>
+    <div class="grid grid-rows-3 gap-1 tablet:float-right desktop:float-right tablet:pt-3">
+       <span class="text-sm">nav item</span>
+       <span class="text-sm">nav item</span>
+       <span class="text-sm">nav item</span>
+    </div>
+  </nav>
+  </div>
+  <div class="pt-3 desktop:pt-5 bg-color-F8F9FB" name="global-footer-container">
+  <nav class="o-attribution__flex border-b border-slate-200 pb-3 desktop:pb-2">
+    <div class="tablet:float-left desktop:float-left pb-3 tablet:pb-0 desktop:pb-0">
+      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="96" height="31">
+        <use href="#logo-nyc-black"></use>
       </svg>
+      </br>
+      <span class="text-lg">
+         {{ __('Connecting you to NYC services.', 'WNYC') }}</span>
     </div>
-  </div>
-
-  <div class="o-attribution__copyright o-attribution__flex border-grey-light">
+    <div class="tablet:float-right desktop:float-right inline-grid grid-cols-2 grid-rows-2 gap-1">
+       <span class="text-sm">my citySupport</span>
+       <span class="text-sm">Privacy policy</span>
+       <span class="text-sm">terms of use</span>
+       <span class="text-sm">Digital Accessabilities</span>
+    </div>
+  </nav>
+  <nav class="o-attribution__flex border-grey-light pt-3 desktop:pt-2">
     <div>
-      <p class="small mb-2 tablet:m-0">
-        <svg class="o-attribution__logo-nyc" width="45" height="21" viewBox="0 0 45 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M44.063 6.55069L45 5.62603V2.81301L42.187 0H32.813L30 2.81301V0.939041L29.063 0H25.313L24.376 0.939041V2.81301L22.5 4.68904L20.626 2.81301V0.939041L19.687 0H15.937L15 0.939041L14.063 0H10.313L9.37603 0.939041V4.68904L4.68699 0H0.936986L0 0.939041V14.063L0.936986 15H4.68699L5.62603 14.063V10.313L10.313 15H14.063L15 14.063V6.56301L19.687 11.25V14.063L20.626 15H24.376L25.313 14.063V11.25L30 6.56301V12.189L32.813 15H42.187L45 12.189V9.37603L44.063 8.43699H39.374V9.37603H35.626V5.62603H39.374V6.55069H44.063Z" fill="currentColor"/>
-          <path d="M44.3322 0.632918C44.4206 0.632918 44.4966 0.624699 44.4966 0.521959C44.4966 0.435658 44.4123 0.425384 44.3425 0.425384H44.2007V0.632918H44.3322ZM44.2027 1.03566H44.0856V0.326754H44.3548C44.5253 0.326754 44.6137 0.386343 44.6137 0.530178C44.6137 0.659631 44.5356 0.711 44.4288 0.723329L44.6281 1.03566H44.4966L44.3137 0.731548H44.2048V1.03566H44.2027ZM44.3281 0.139768C44.0507 0.139768 43.8349 0.357576 43.8349 0.669905C43.8349 0.961685 44.024 1.20004 44.3281 1.20004C44.6034 1.20004 44.8192 0.984288 44.8192 0.669905C44.8192 0.357576 44.6034 0.139768 44.3281 0.139768ZM44.3281 1.311C43.9603 1.311 43.6973 1.03566 43.6973 0.669905C43.6973 0.283603 43.989 0.0288086 44.3281 0.0288086C44.663 0.0288086 44.9548 0.283603 44.9548 0.669905C44.9569 1.05415 44.6651 1.311 44.3281 1.311Z" fill="currentColor"/>
-        </svg>{{ __('© City of New York,', 'WNYC') ~ ' ' ~ 'now' | date('Y') ~ ' ' ~ __('All Rights Reserved.', 'WNYC') }}
-        <br>
-        {{ __('NYC is a trademark and service mark of the City of New York.', 'WNYC') }}</p>
+      <span class="text-sm">
+        {{ __('© City of New York,', 'WNYC') ~ ' ' ~ 'now' | date('Y') ~ ' ' ~ __('All Rights Reserved.', 'WNYC') }}
+        {{ __('NYC is a trademark and service mark of the City of New York.', 'WNYC') }}</span>
     </div>
-
-    <nav class="nav-block tablet:nav-inline tablet:flex items-center" aria-label="{{ footer_menu_tertiary.name }}">
-      {% for m in footer_menu_tertiary.get_items %}
-      <a class="o-footer__item inline mr-3" href="{{ m.link }}" 
-        {% if m.attr_title %}title="{{ m.attr_title }}"{% else %}title="{{ m.title }}"{% endif %}
-        {% if m.target %}target="{{ m.target }}"{% endif %}
-        {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
-          {{ m.title }}</a>
-      {% endfor %}
-    </nav>
+  </nav>
   </div>
-    {# </div> #}
-  {# </div> #}
 </footer>

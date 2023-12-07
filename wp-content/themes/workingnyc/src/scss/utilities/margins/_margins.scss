@@ -21,6 +21,26 @@
     .desktop-height-214 {
       height: 214px;
     }
+    .h-267 {
+      height: 267px;
+    }
+    .desktop-h-213 {
+      height: 213.69px;
+    }
+    .bg-color-F8F9FB {
+      background-color: #F8F9FB;
+    }
+}
+@media screen and (min-width: 768px) and (max-width:1112px) {
+    .tablet-w-834 {
+      width: 834px;
+    }
+    .h-267 {
+      height: 267px;
+    }
+    .tablet-h-241 {
+      height: 241px;
+    }
 }
 @media screen and (min-width: 768px) {
   .tablet-mx-14 {
@@ -35,8 +55,23 @@
   .tablet-height-258 {
     height: 258px;
   }
+  .mobile-h-587 {
+    height: 587px;
+  }
+  .mobile-h-308 {
+    height: 308px;
+  }
 }
 
 .site-max-width {
   max-width: var(--nyco-dimension-site-max-width);
+}
+.text-lg {
+  font-size: 18px;
+}
+.text-sm {
+  font-size: 14px;
+}
+.bg-color-F8F9FB {
+  background-color: #F8F9FB;
 }
