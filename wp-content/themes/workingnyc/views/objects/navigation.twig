@@ -1,35 +1,18 @@
-<nav aria-label="{{ header_menu.name }}" class="bgcolor-white px-2 tablet:px-5 desktop:px-3 desktop:py-1 o-navigation" data-js="navigation">
-  <a class="center-align tablet:pr-2" href="{{ site.url }}">
-    <svg aria-hidden="true" class="o-navigation__svg desktop:hidden fill-text text-brand" width="56" height="18">
+<nav aria-label="{{ header_menu.name }}" class="bgcolor-white px-2 tablet:px-5 desktop:px-3 o-navigation" data-js="navigation">
+  <a class="center-align" href="{{ site.url }}">
+    <svg aria-hidden="true" class="o-navigation__svg desktop:block fill-text text-brand" width="56" height="18">
       <use href="#logo-nyc-black"></use>
     </svg>
   </a>
-    <span class="hidden tablet:block desktop:block o-navigation__home center-align float-left desktop-font-size-13">Official website of the City of New York</span>
-
+    <span class="hidden tablet:block desktop:block desktop:pl-1 o-navigation__home center-align float-left desktop-font-size-13">Official website of the City of New York</span>
   <button class="o-navigation__menu-item desktop:mr-24" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
     <svg class="o-navigation__menu-icon icon-ui">
       <use href="#nyco-languages"></use>
     </svg>
-
     <span class="o-navigation__menu-label">{{ __('Translate', 'WNYC') }}</span>
   </button>
-  <button class="o-navigation__item desktop:mr-24" aria-controls="aria-c-search" aria-expanded="false" data-dialog="open" data-js="search">
-    <svg class="o-navigation__menu-icon icon-ui">
-      <title>{{__('Search', 'WNYC')}}</title>
-      <use href="#lucide-search"></use>
-    </svg>
-  </button>
-  <button class="o-navigation__item" data-js="themes">
-    <svg class="o-navigation__menu-icon icon-ui">
-      <use data-js-themes="icon" href="#lucide-moon"></use>
-    </svg>
-
-    <span class="sr-only">Toggle&nbsp;</span><span class="o-navigation__menu-label" data-js-themes="label">{{ __('Theme', 'WNYC') }}</span>
-  </button>
-  
-  {% include 'objects/menu.twig' %}
 </nav>
-<nav aria-label="{{ header_menu.name }}" class="desktop-nav-border px-2 tablet:px-5 desktop:px-3 desktop:pb-3 o-navigation" data-js="navigation">
+<nav aria-label="{{ header_menu.name }}" class="desktop:hidden desktop-nav-border px-2 tablet:px-5 desktop:px-3 desktop:pb-3 o-navigation" data-js="navigation">
   <div class="o-navigation__home center-align bg-scale-1 tablet:bg-transparent">
   <a class="pr-2 hidden tablet:hidden desktop:block" href="{{ site.url }}">
     <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="56" height="18">
