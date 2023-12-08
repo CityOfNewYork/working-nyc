@@ -217,7 +217,7 @@ add_action('rest_api_init', function() {
       // The current implementation of the WP Archive package unnecessarily sets the search_term
       // query parameter to be an array. This is a temporary fix that can be removed once the
       // WP Archive package is changed
-      $search_term = $parameters['search_term'];
+      $search_term = isset($parameters['search_term']) ? $parameters['search_term'] : '';
 
       if (gettype($search_term) === 'array' && count($search_term) > 0) {
         $search_term = $search_term[0];
@@ -225,8 +225,8 @@ add_action('rest_api_init', function() {
 
       $args = array(
         's' => $search_term,
-        'posts_per_page' => $parameters['per_page'],
-        'paged' => $parameters['page'],
+        'posts_per_page' => isset($parameters['per_page']) ? $parameters['per_page'] : 24,
+        'paged' => isset($parameters['page']) ? $parameters['page'] : 1,
         'post_type' => $post_types,
       );
 
