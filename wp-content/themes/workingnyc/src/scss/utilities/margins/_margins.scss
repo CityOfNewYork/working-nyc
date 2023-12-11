@@ -30,6 +30,13 @@
   display: flex;
 }
 @media screen and (min-width:1112px) { 
+  .desktop-h-112 {
+    height: 112px;
+  }
+  .desktop-px-120 {
+    padding-left: 120px;
+    padding-right: 120px;
+  }
   .desktop-width-570 {
     width: 570px;
   }
