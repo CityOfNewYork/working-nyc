@@ -22,8 +22,6 @@ $context['meta'] = new WorkingNYC\Meta($post);
 
 $context['sections'] = Templating\get_sections();
 
-$context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
-
 /**
  * Render the view
  *

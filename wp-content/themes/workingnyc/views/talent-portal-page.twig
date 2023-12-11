@@ -28,18 +28,6 @@
           </div>
 
           {% if post.content %}{{ post.content }}{% endif %}
-
-          <p class="small flex items-center">
-            <svg class="icon-ui mie-1 icon-2" role="img">
-              <title>{{ __('Last updated', 'WNYC-Date') }}</title>
-
-              <use href="#lucide-info"></use>
-            </svg>
-
-            {{ __('Last updated', 'WNYC-Date') }}
-
-            {{ modified_date }}
-          </p>
         </div>
       </header>
     </div>
