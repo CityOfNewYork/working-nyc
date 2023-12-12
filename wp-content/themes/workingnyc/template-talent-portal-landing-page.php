@@ -34,6 +34,6 @@ $context['meta'] = new WorkingNYC\Meta($post);
  * @author NYC Opportunity
  */
 
-$compiled = new WorkingNYC\CompileImgPreload('talent-portal-home.twig', $context);
+$compiled = new WorkingNYC\CompileImgPreload('talent-portal-landing-page.twig', $context);
 
 echo $compiled->html;
