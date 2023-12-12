@@ -1,0 +1,98 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-1">
+  <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
+      <h1>Talent Portal home page</h1>
+
+      {% if post.thumbnail %}
+      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 tablet:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto tablet:py-7 py-4 desktop:py-6">
+        <div class="text-center">
+      {% else %}
+      <div class="layout-content">
+        <div class="wrap">
+      {% endif %}
+
+          <div class="text-center">
+            <h1 id="page-heading" class="m-0" style="line-height: 0">
+              <svg class="fill-text stroke-text text-brand" width="256" height="79" role="img">
+                <title>Job Ready by Jobs N Y C</title>
+
+                <use href="#logo-jnyc-horizontal-w-ribbon"></use>
+              </svg>
+            </h1>
+          </div>
+
+          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn hidden" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
+
+          {# The post content can include html tags and CSS classes. The following line is an example of some classes that were used in the past #}
+          {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
+          <h1 class="my-3">{{ post.post_content }}</h1>
+
+          <p class="text-center mt-3">
+            <a class="inline-block text-center" href="#content">
+              <span>{{ __('Explore', 'WNYC') }}</span><br />
+              <svg aria-hidden="true" class="icon-ui icon-3">
+                <use href="#lucide-chevron-down"></use>
+              </svg>
+            </a>
+          </p>
+        </div>
+
+    {% if post.thumbnail %}
+
+      <div class="relative items-center hidden tablet:flex">
+        <img class="rounded-full tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      </div>
+      
+    {% endif %}
+      </div>
+  </header>
+
+  <main id="content" class="bg-shape-wnyc-content mx-2 tablet:mx-7 desktop-mx-26">
+    <div>
+      {# Collections #}
+      {% if collections %}
+      {% for collection in collections %}
+
+      {% if loop.index == 1 and questionnaire.position == 0 %}
+      {% include questionnaire.template with {this: questionnaire} %}
+      {% endif %}
+
+      {% include collection.template with {this: collection} only %}
+
+      {% if loop.index == questionnaire.position %}
+      {% include questionnaire.template with {this: questionnaire} %}
+      {% endif %}
+
+      {% endfor %}
+      {% endif %}
+
+      {# Announcements #}
+      {% if announcements %}
+      <section class="pb-8" id="announcements">
+        <div class="layout-content py-2 tablet:py-8">
+          <div class="wrap">
+            <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
+
+            <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
+              {% for announcement in announcements %}
+              <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+                {% include 'components/announcement.twig' with {this: announcement} only %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </section>
+      {% endif %}
+
+      {% include 'components/back-to-top.twig' %}
+    </div>
+  </main>
+  {% if options.feedback is defined %}
+  {% include 'objects/feedback.twig' %}
+  {% endif %}
+
+</div>
+{% endblock %}
