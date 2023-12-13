@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: Talent Portal Home Page
+ * Template Name: Talent Portal Landing Page
  *
  * @author NYC Opportunity
  */
