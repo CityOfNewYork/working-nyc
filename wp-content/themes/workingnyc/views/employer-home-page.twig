@@ -14,13 +14,13 @@
       {% endif %}
 
           <div class="text-center">
-            <h1 id="page-heading" class="m-0" style="line-height: 0">
+            <div id="page-heading" class="m-0" style="line-height: 0">
               <svg class="fill-text stroke-text text-brand" width="256" height="79" role="img">
                 <title>Job Ready by Jobs N Y C</title>
 
                 <use href="#logo-jnyc-horizontal-w-ribbon"></use>
               </svg>
-            </h1>
+            </div>
           </div>
 
           {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn hidden" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}

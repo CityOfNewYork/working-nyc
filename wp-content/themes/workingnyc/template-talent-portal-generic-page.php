@@ -8,8 +8,6 @@
 
 /**
  * Context
- *
- * @author NYC Opportunity
  */
 
 $context = Timber::get_context();
@@ -24,8 +22,6 @@ $context['sections'] = Templating\get_sections();
 
 /**
  * Render the view
- *
- * @author NYC Opportunity
  */
 
 $compiled = new WorkingNYC\CompileImgPreload('talent-portal-page.twig', $context);

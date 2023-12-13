@@ -8,8 +8,6 @@
 
 /**
  * Context
- *
- * @author NYC Opportunity
  */
 
 $context = Timber::get_context();
@@ -22,16 +20,12 @@ $context['post'] = $post;
 
 /**
  * Set Meta context
- *
- * @author NYC Opportunity
  */
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
 /**
  * Render the view
- *
- * @author NYC Opportunity
  */
 
 $compiled = new WorkingNYC\CompileImgPreload('talent-portal-landing-page.twig', $context);
