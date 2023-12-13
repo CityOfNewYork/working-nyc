@@ -14,7 +14,7 @@ require_once plugin_dir_path(__FILE__) . '/rest-prepare-posts/RestPreparePosts.p
 
 // Add custom fields to each post type in our list
 add_action('rest_api_init', function() {
-  $types = ['programs', 'jobs', 'guides'];
+  $types = ['programs', 'jobs', 'guides', 'employer-programs'];
 
   $taxonomies = get_taxonomies(array(
     '_builtin' => false,

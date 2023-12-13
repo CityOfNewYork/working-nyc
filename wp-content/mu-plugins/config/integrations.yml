@@ -94,12 +94,12 @@
     path: config/integrations/scripts/ie11-custom-properties.js
     position: before
 
-- handle: google-fonts-montserrat
-  name: Google Fonts, Montserrat
-  instructions: Enables the use of Montserrat on the homepage tagline.
+- handle: google-fonts-rubik
+  name: Google Fonts, Rubik
+  instructions: Enables the use of Rubik on the homepage tagline.
   in_footer: false
   style:
-    path: config/integrations/styles/google-fonts-montserrat.css
+    path: config/integrations/styles/google-fonts-rubik.css
 
 - handle: animate-on-scroll
   name: Animate on Scroll

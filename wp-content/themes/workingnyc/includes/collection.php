@@ -46,6 +46,7 @@ class Collection {
     require_once WorkingNYC\timber_post('Programs');
     require_once WorkingNYC\timber_post('Jobs');
     require_once WorkingNYC\timber_post('Guides');
+    require_once WorkingNYC\timber_post('EmployerPrograms');
 
     $posts = $this->fields['featured_posts_objects'];
 
@@ -63,6 +64,11 @@ class Collection {
 
         case 'guides':
           $post = new WorkingNYC\Guides($post);
+
+          break;
+        
+        case 'employer-programs':
+          $post = new WorkingNYC\EmployerPrograms($post);
 
           break;
       }

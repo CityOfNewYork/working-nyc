@@ -1021,7 +1021,7 @@
 	       * @type  {Object}
 	       *
 	       * @param  {String}  terms  A required endpoint for the list of filters
-	       * @param  {String}  jobs   This is based on the 'type' setting above
+	       * @param  {String}  programs   This is based on the 'type' setting above
 	       */
 	      endpoints: {
 	        terms: '/wp-json/api/v1/terms/?post_type[]=programs&cache=0',
@@ -1041,7 +1041,7 @@
 	          /**
 	           * Data mapping function for results from the Programs endpoint
 	           *
-	           * @raw /wp-json/wp/v2/jobs
+	           * @raw /wp-json/wp/v2/programs
 	           */
 	          programs: programs => ({
 	            id: programs.id,

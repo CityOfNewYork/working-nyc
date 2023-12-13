@@ -35,24 +35,10 @@
                 {{ __('Showing 1 result for "{{ TERM }}".', 'WNYC')|replace({'{{ TERM }}': term}) }}
               {% endif %}
             </h2>
-            <div class="mb-4">
-              <button class="btn-tag btn-primary" id='all-button'>{{__('All', 'WNYC')}}</button>
-              <button class="btn-tag" id='jobs-button'>{{__('Jobs', 'WNYC')}}</button>
-              <button class="btn-tag" id='programs-button'>{{__('Programs', 'WNYC')}}</button>
-            </div>
             {% endblock %}
             <div class="grid gap-3 desktop:grid-cols-2 mb-3">
               {% block post_list %}
                 {% for post in posts %}
-                  {% if post.post_type == 'jobs' %}
-                    <div data-js="search-result" data-js-result-type="job">
-                      {% include 'jobs/job.twig' with {
-                        this: {
-                          post: post
-                        }
-                      } %}
-                    </div>
-                  {% elseif post.post_type == 'programs' %}
                     <div data-js="search-result" data-js-result-type="program">
                       {% include 'programs/program.twig' with {
                         this: {
@@ -60,7 +46,6 @@
                         }
                       } %}
                     </div>
-                  {% endif %}
                 {% endfor %}
               {% endblock %}
             </div>
