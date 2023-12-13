@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: Home Page
+ * Template Name: Employer Home Page
  *
  * @author NYC Opportunity
  */
@@ -10,26 +10,30 @@ require_once WorkingNYC\timber_post('Announcements');
 
 /**
  * Enqueue
+ *
+ * @author NYC Opportunity
  */
 
 add_action('wp_enqueue_scripts', function() {
-  enqueue_inline('google-fonts-rubik');
-  enqueue_inline('animate-on-scroll');
   enqueue_script('template-home-page');
 });
 
 /**
  * Context
+ *
+ * @author NYC Opportunity
  */
 
 $context = Timber::get_context();
 
-$post = Timber::get_post(get_option('page_on_front'));
+$post = Timber::get_post();
 
 $context['post'] = $post;
 
 /**
  * Get the 4 top announcements based on menu order
+ *
+ * @author NYC Opportunity
  */
 
 $context['announcements'] = array_map(function($post) {
@@ -43,12 +47,16 @@ $context['announcements'] = array_map(function($post) {
 
 /**
  * Set Meta context
+ *
+ * @author NYC Opportunity
  */
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
 /**
  * Create template friendly data for collections template
+ *
+ * @author NYC Opportunity
  */
 
 $context['collections'] = array_map(function($collection) {
@@ -57,14 +65,18 @@ $context['collections'] = array_map(function($collection) {
 
 /**
  * Set context for the Questionnaire
+ *
+ * @author NYC Opportunity
  */
 
 $context['questionnaire'] = new WorkingNYC\Questionnaire($post);
 
 /**
  * Render the view
+ *
+ * @author NYC Opportunity
  */
 
-$compiled = new WorkingNYC\CompileImgPreload('home.twig', $context);
+$compiled = new WorkingNYC\CompileImgPreload('employer-home-page.twig', $context);
 
 echo $compiled->html;

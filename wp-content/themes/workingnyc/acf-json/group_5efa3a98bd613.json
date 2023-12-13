@@ -77,16 +77,23 @@
                 "operator": "==",
                 "value": "template-generic-page.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-talent-portal-generic-page.php"
+            }
         ]
     ],
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "left",
+    "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1666886514
+    "modified": 1702321885
 }
