@@ -1,36 +1,28 @@
-<nav aria-label="{{ header_menu.name }}" class="bgcolor-white px-2 tablet:px-5 desktop:px-3 o-navigation" data-js="navigation">
+<nav aria-label="{{ header_menu.name }}" class="tablet-border-b bgcolor-white px-2 tablet:px-3 tablet:py-1 desktop:px-3 o-navigation" data-js="navigation">
   <a class="center-align" href="{{ site.url }}">
-    <svg aria-hidden="true" class="o-navigation__svg desktop:block fill-text text-brand" width="56" height="18">
+    <svg aria-hidden="true" class="o-navigation__svg tablet:hidden desktop:block fill-text text-brand" width="56" height="18">
       <use href="#logo-nyc-black"></use>
     </svg>
   </a>
-    <span class="hidden tablet:block desktop:block desktop:pl-1 o-navigation__home center-align float-left desktop-font-size-13">Official website of the City of New York</span>
-  <button class="float-right" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <div class="hidden tablet:block desktop:block desktop:pl-1 o-navigation__home center-align float-left desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC') }}</div>
+  <div class="border-b-line py-1 px-1 float-right" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
     <svg class="o-navigation__menu-icon icon-ui">
-      <use href="#nyco-languages"></use>
+      <use href="#languages-nav"></use>
     </svg>
     <span class="">{{ __('Language | English', 'WNYC') }}</span>
-  </button>
+  </div>
 </nav>
-<nav aria-label="{{ header_menu.name }}" class="desktop:hidden desktop-nav-border px-2 tablet:px-5 desktop:px-3 desktop:pb-3 o-navigation" data-js="navigation">
+<nav aria-label="{{ header_menu.name }}" class="desktop:hidden px-2 tablet:px-3 desktop:px-3 desktop:pb-3 o-navigation" data-js="navigation">
   <div class="o-navigation__home center-align bg-scale-1 tablet:bg-transparent">
-  <a class="pr-2 hidden tablet:hidden desktop:block" href="{{ site.url }}">
+  <a class="pr-2 hidden tablet:block" href="{{ site.url }}">
     <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="56" height="18">
       <use href="#logo-nyc-black"></use>
     </svg>
   </a>
-   <span class="desktop:pl-2 desktop:border-l desktop:border-solid desktop:border-slate-300 desktop:text-lg desktop:font-semibold">Talent Portal</span>
   </div>
    {% for menu_item in header_menu.get_items %}
   <a class="o-navigation__item mr-2 desktop:py-2 desktop-px-12" width="84" height="70" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
   {% endfor %}
-  <button class="o-navigation__menu-item desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
-    <svg class="o-navigation__menu-icon icon-ui">
-      <use href="#lucide-menu"></use>
-    </svg>
-
-    <span class="o-navigation__menu-label"></span>
-  </button>
 </nav>
 <nav class="border-t border-solid border-slate-300 tablet:hidden desktop:hidden o-navigation" data-js="navigation">
      <span class="o-navigation__home center-align py-2 mobile-font-size-13">Official website of the City of New York</span>

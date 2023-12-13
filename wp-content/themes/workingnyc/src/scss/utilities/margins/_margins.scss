@@ -29,6 +29,9 @@
   align-items: center;
   display: flex;
 }
+.border-b-line{
+  border-bottom: 2px solid #2D3282;
+}
 @media screen and (min-width:1112px) { 
   .desktop-h-112 {
     height: 112px;
@@ -76,8 +79,11 @@
   .tablet-gap-x-56 {
     column-gap: 56px;
   }
-  .desktop-nav-border{
+  .desktop-nav-border {
     border-top: 4px solid #2D3282;
+  }
+  .tablet-border-b {
+    border-bottom: 1px solid #D4D7DC;
   }
 }
 @media screen and (max-width: 480px) {
