@@ -1,15 +1,19 @@
-<section class="page-max desktop:my-6 tablet:my-5 tablet-mx-56 mobile-mx-16">
-    <div class="desktop:grid desktop:grid-cols-2 items-center desktop-gap-x-72">
+<section>
+    {% if this.fields.container_image_side == 'left' %}
+    <div class="desktop:grid desktop:grid-cols-[1fr_1.75fr] items-center desktop-gap-x-72">
+    {% else %}
+    <div class="desktop:grid desktop:grid-cols-[1.75fr_1fr] items-center desktop-gap-x-72">
+    {% endif %}
     {# Desktop: image on the left if container_image_side is 'left', tablet and mobile: image on top #}
     {% if this.fields.container_image_side == 'left' %}
-      <div class="pb-3 tablet:pb-5 desktop-w-500 desktop-h-400 tablet-h-400 mobile-h-300">
+      <div class="pb-3 tablet:pb-5 desktop:pb-0 desktop-w-500 desktop-h-400 tablet-h-400 mobile-h-300">
     {% else %}
-      <div class="pb-5 desktop:hidden tablet-h-400 mobile-h-300">
+      <div class="desktop:hidden pb-5 tablet-h-400 mobile-h-300">
     {% endif %}
         <img class="bg-image-square tablet:block" src="{{ this.fields.container_image }}"/>
       </div>
       <div class="desktop-max-h-304 desktop-w-660">
-        <h2>{{ this.heading }}</h2>
+        <h2 class="mb-3 tablet:mb-4">{{ this.heading }}</h2>
         {{ this.description }}
 
         {% set container_button_class = '' %}
@@ -23,10 +27,10 @@
           {% set container_button_class = 'btn-styled' %}
         {% endif %}
 
-        <a class="btn btn-small tablet:btn {{ container_button_class }} pointer-events-auto" href="{{ this.fields.container_button_link }}">{{ this.fields.container_button_text }}</a>
+        <a class="mt-2 btn btn-small tablet:btn {{ container_button_class }} pointer-events-auto" href="{{ this.fields.container_button_link }}">{{ this.fields.container_button_text }}</a>
       </div>
     {% if this.fields.container_image_side == 'right' %}
-      <div class="pb-3 desktop-w-500 desktop-h-400 hidden desktop:block">
+      <div class="desktop-w-500 desktop-h-400 hidden desktop:block">
         <img class="bg-image-square tablet:block" src="{{ this.fields.container_image }}"/>
       </div>
     {% endif %}
