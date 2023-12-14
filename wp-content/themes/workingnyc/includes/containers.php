@@ -27,7 +27,6 @@ class Containers {
     $this->thumbnail = $this->getThumbnail();
   }
 
-  
   /**
    * Get the questionnaire section description
    *
