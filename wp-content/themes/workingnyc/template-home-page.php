@@ -61,6 +61,7 @@ $context['collections'] = array_map(function($collection) {
 
 $context['questionnaire'] = new WorkingNYC\Questionnaire($post);
 
+
 /**
  * Render the view
  */

@@ -1,6 +1,6 @@
 {
     "key": "group_5efa3a98bd613",
-    "title": "Sections",
+    "title": "Generic Page Sections",
     "fields": [
         {
             "key": "field_5efa3bc7b2e45",
@@ -95,5 +95,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1702321885
+    "modified": 1702522000
 }
