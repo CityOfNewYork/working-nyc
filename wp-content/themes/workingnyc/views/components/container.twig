@@ -1,0 +1,31 @@
+<section class="page-max desktop:my-6 tablet:my-5 tablet-mx-56 mobile-mx-16">
+    <div class="desktop:grid desktop:grid-cols-2 items-center desktop-gap-x-72">
+    {% if this.fields.container_image_side == 'left' %}
+      <div class="pb-3 tablet:pb-5 desktop-w-500 desktop-h-400 tablet-h-400 mobile-h-300">
+        <img class="bg-image-square tablet:block" src="{{ this.fields.container_image }}"/>
+      </div>
+    {% endif %}
+      <div class="desktop-max-h-304 desktop-w-660">
+        <h2>{{ this.heading }}</h2>
+        {{ this.description }}
+
+        {% set container_button_class = '' %}
+        {% if this.fields.container_button_type == 'primary' %}
+          {% set container_button_class = 'btn-primary' %}
+        {% elseif this.fields.container_button_type == 'secondary' %}
+          {% set container_button_class = 'btn-secondary' %}
+        {% elseif this.fields.container_button_type == 'tertiary' %}
+          {% set container_button_class = 'btn-tertiary' %}
+        {% else %}
+          {% set container_button_class = 'btn-styled' %}
+        {% endif %}
+
+        <a class="btn btn-small tablet:btn {{ container_button_class }} pointer-events-auto" href="{{ this.fields.container_button_link }}">{{ this.fields.container_button_text }}</a>
+      </div>
+    {% if this.fields.container_image_side == 'right' %}
+      <div class="pb-3 tablet:pb-5 desktop-w-500 desktop-h-400 tablet-h-400 mobile-h-300">
+        <img class="bg-image-square tablet:block" src="{{ this.fields.container_image }}"/>
+      </div>
+    {% endif %}
+    </div>
+</section>

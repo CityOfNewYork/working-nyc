@@ -18,7 +18,7 @@
         </div>
 
         <div class="py-4">
-          <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+          <div class="transform-none">
 
             {% if this.questions %}
             <form :action="'{{ fn('get_post_type_archive_link', 'programs') }}'+query" class="c-card" data-js="validate-and-query" method="post" id="answer-a-few-questions" data-post-type="{{ this.type }}" data-post-threshold="{{ this.threshold }}">
@@ -114,20 +114,10 @@
       </div>
 
       {% if this.thumbnail %}
-      <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+      <div class="transform-none">
         <img class="bg-image-square hidden tablet:block" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('tablet') }}" alt="{{ this.thumbnail.alt }}"/>
       </div>
       {% endif %}
     </div>
   </div>
-
-  {# {% if this.thumbnail %}
-  <div class="bg-image-grid hidden tablet:grid grid-cols-2">
-    <div></div>
-
-    <div class="bg-image-grid__mask-scale-1 relative transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-      <img class="bg-image-grid__img" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('desktop') }}" alt="{{ this.thumbnail.alt }}"/>
-    </div>
-  </div>
-  {% endif %} #}
 </section>

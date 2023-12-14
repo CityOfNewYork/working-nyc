@@ -1,13 +1,13 @@
 {
     "key": "group_5f298dbb5dda2",
-    "title": "Featured Posts",
+    "title": "Home Page Sections",
     "fields": [
         {
             "key": "field_5f298dc24e4dc",
-            "label": "Featured Posts",
+            "label": "Home Page Sections",
             "name": "featured_posts",
             "type": "flexible_content",
-            "instructions": "Add multiple collections of posts, separated by a heading, description, post list, and follow-up link. Short-codes can be used in the description for additional dynamic content.",
+            "instructions": "Add multiple containers and collections of posts, separated by a heading, description, post list, and follow-up link. Short-codes can be used in the description for additional dynamic content.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -15,13 +15,39 @@
                 "class": "",
                 "id": ""
             },
+            "relevanssi_exclude": 0,
             "layouts": {
                 "layout_5f298dd0c2dc2": {
                     "key": "layout_5f298dd0c2dc2",
                     "name": "featured_posts_select",
-                    "label": "Select Featured Posts",
+                    "label": "Select section",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_635a91574f18d",
+                            "label": "Post List or Container Display",
+                            "name": "featured_posts_display",
+                            "type": "button_group",
+                            "instructions": "Choose how the container or collection will display. All display types show the heading, description, and link (if desired). <b>Cards<\/b> are the default display. Different post types have different card types. <b>Callouts<\/b> display a large image for the first post in the collection. <b>Gallery<\/b> displays a grid of featured post images.",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "choices": {
+                                "cards": "<span class=\"dashicons dashicons-grid-view\"><\/span> Cards (default)",
+                                "callout": "<span class=\"dashicons dashicons-excerpt-view\"><\/span> Callout",
+                                "gallery": "<span class=\"dashicons dashicons-schedule\"><\/span> Gallery",
+                                "container": "Container"
+                            },
+                            "allow_null": 0,
+                            "default_value": "cards",
+                            "layout": "horizontal",
+                            "return_format": "value"
+                        },
                         {
                             "key": "field_5f298deb4e4dd",
                             "label": "Heading",
@@ -67,12 +93,21 @@
                             "type": "relationship",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "!=",
+                                        "value": "container"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
                                 "id": ""
                             },
+                            "relevanssi_exclude": 0,
                             "post_type": [
                                 "programs",
                                 "jobs",
@@ -90,41 +125,27 @@
                             "return_format": "object"
                         },
                         {
-                            "key": "field_635a91574f18d",
-                            "label": "Post List Display",
-                            "name": "featured_posts_display",
-                            "type": "button_group",
-                            "instructions": "Choose how the collection will display. All display types show the heading, description, and link (if desired). <b>Cards<\/b> are the default display. Different post types have different card types. <b>Callouts<\/b> display a large image for the first post in the collection. <b>Gallery<\/b> displays a grid of featured post images.",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "choices": {
-                                "cards": "<span class=\"dashicons dashicons-grid-view\"><\/span> Cards (default)",
-                                "callout": "<span class=\"dashicons dashicons-excerpt-view\"><\/span> Callout",
-                                "gallery": "<span class=\"dashicons dashicons-schedule\"><\/span> Gallery"
-                            },
-                            "allow_null": 0,
-                            "default_value": "cards",
-                            "layout": "horizontal",
-                            "return_format": "value"
-                        },
-                        {
                             "key": "field_635a8d141dce1",
                             "label": "Show Archive Link",
                             "name": "featured_posts_archive",
                             "type": "true_false",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "!=",
+                                        "value": "container"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
                                 "id": ""
                             },
+                            "relevanssi_exclude": 0,
                             "message": "",
                             "default_value": 1,
                             "ui": 0,
@@ -215,6 +236,160 @@
                             "prepend": "",
                             "append": "",
                             "maxlength": ""
+                        },
+                        {
+                            "key": "field_657a6ddc59bdc",
+                            "label": "Container image side",
+                            "name": "container_image_side",
+                            "type": "radio",
+                            "instructions": "Decide whether the image should be on the left or right side of the text (on a desktop). On tablet and mobile, the image will be above the text.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "choices": {
+                                "left": "left",
+                                "right": "right"
+                            },
+                            "allow_null": 0,
+                            "other_choice": 0,
+                            "default_value": "left",
+                            "layout": "vertical",
+                            "return_format": "value",
+                            "save_other_choice": 0
+                        },
+                        {
+                            "key": "field_657a6eee59bdd",
+                            "label": "Container image",
+                            "name": "container_image",
+                            "type": "image",
+                            "instructions": "The image to be displayed in the container",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "return_format": "url",
+                            "preview_size": "medium",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": ""
+                        },
+                        {
+                            "key": "field_657a70ca9b9a7",
+                            "label": "Container button type",
+                            "name": "container_button_type",
+                            "type": "radio",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "choices": {
+                                "primary": "primary",
+                                "secondary": "secondary",
+                                "tertiary": "tertiary",
+                                "styled": "styled"
+                            },
+                            "allow_null": 0,
+                            "other_choice": 0,
+                            "default_value": "",
+                            "layout": "vertical",
+                            "return_format": "value",
+                            "save_other_choice": 0
+                        },
+                        {
+                            "key": "field_657a71429b9a8",
+                            "label": "Container button text",
+                            "name": "container_button_text",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_657a717b9b9a9",
+                            "label": "Container button link",
+                            "name": "container_button_link",
+                            "type": "url",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "default_value": "",
+                            "placeholder": ""
                         }
                     ],
                     "min": "",
@@ -251,5 +426,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1702497164
+    "modified": 1702569204
 }

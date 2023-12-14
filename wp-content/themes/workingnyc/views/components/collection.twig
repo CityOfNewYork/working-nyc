@@ -3,6 +3,9 @@
 {# @Class  includes/collection.php #}
 <section class="page-max" data-active-navigation-observe-item="heading" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
   <div class="py-4 tablet:py-5 desktop:py-6">
+    {% if this.display == 'container' %}
+      {% include 'components/container.twig' %}
+    {% endif %}
     {% if this.display == 'cards' %}
 
       {% if this.heading or this.description %}
