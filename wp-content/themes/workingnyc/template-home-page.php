@@ -10,8 +10,6 @@ require_once WorkingNYC\timber_post('Announcements');
 
 /**
  * Enqueue
- *
- * @author NYC Opportunity
  */
 
 add_action('wp_enqueue_scripts', function() {
@@ -22,8 +20,6 @@ add_action('wp_enqueue_scripts', function() {
 
 /**
  * Context
- *
- * @author NYC Opportunity
  */
 
 $context = Timber::get_context();
@@ -34,8 +30,6 @@ $context['post'] = $post;
 
 /**
  * Get the 4 top announcements based on menu order
- *
- * @author NYC Opportunity
  */
 
 $context['announcements'] = array_map(function($post) {
@@ -49,16 +43,12 @@ $context['announcements'] = array_map(function($post) {
 
 /**
  * Set Meta context
- *
- * @author NYC Opportunity
  */
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
 /**
  * Create template friendly data for collections template
- *
- * @author NYC Opportunity
  */
 
 $context['collections'] = array_map(function($collection) {
@@ -67,25 +57,13 @@ $context['collections'] = array_map(function($collection) {
 
 /**
  * Set context for the Questionnaire
- *
- * @author NYC Opportunity
  */
 
 $context['questionnaire'] = new WorkingNYC\Questionnaire($post);
 
-/**
- * Set context for the Containers
- *
- * @author NYC Opportunity
- */
-
-$context['containers'] = new WorkingNYC\Containers($post);
-
 
 /**
  * Render the view
- *
- * @author NYC Opportunity
  */
 
 $compiled = new WorkingNYC\CompileImgPreload('home.twig', $context);
