@@ -3,8 +3,29 @@
  */
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
+.bgcolor-white {
+  background-color: #FFFFFF;
+}
+.center-align {
+  align-items: center;
+  display: flex;
+}
+.desktop-px-12 {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.desktop-nav-border{
+  border-top: 4px solid #2D3282;
+}
 @media screen and (min-width:1112px) { 
-    .desktop-mx-50 {
+  .desktop-font-size-13 {
+    font-size: 13px;
+  }
+  .desktop-nav-border{
+    border-top: 4px solid #2D3282;
+  }
+
+  .desktop-mx-50 {
       margin-left: 200px!important;
       margin-right: 200px!important;
     }
@@ -34,6 +55,12 @@
 
   .tablet-height-258 {
     height: 258px;
+  }
+  .desktop-nav-border{
+    border-top: 4px solid #2D3282;
+  }
+  .mobile-font-size-13 {
+    font-size: 13px;
   }
 }
 
