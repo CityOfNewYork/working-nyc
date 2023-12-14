@@ -82,7 +82,7 @@
             {
                 "param": "page_template",
                 "operator": "==",
-                "value": "default"
+                "value": "template-talent-portal-generic-page.php"
             }
         ]
     ],
