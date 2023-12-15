@@ -4,39 +4,74 @@
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
 @media screen and (min-width:1112px) { 
-    .desktop-mx-50 {
-      margin-left: 200px!important;
-      margin-right: 200px!important;
-    }
+  .desktop-mx-50 {
+    margin-left: 200px!important;
+    margin-right: 200px!important;
+  }
 
-    .desktop-mx-26 {
-      margin-left: 104px!important;
-      margin-right: 104px!important;
-    }
+  .desktop-mx-26 {
+    margin-left: 104px!important;
+    margin-right: 104px!important;
+  }
 
-    .desktop-gap-x-72 {
-      column-gap: 72px!important;
-    }
+  .desktop-gap-x-72 {
+    column-gap: 72px!important;
+  }
 
-    .desktop-height-214 {
-      height: 214px;
-    }
+  .desktop-height-214 {
+    height: 214px;
+  }
+  .h-267 {
+    height: 267px;
+  }
+  .desktop-h-213 {
+    height: 213.69px;
+  }
+  .bg-color-F8F9FB {
+    background-color: #F8F9FB;
+  }
+}
+@media screen and (min-width: 768px) and (max-width:1112px) {
+  .tablet-w-834 {
+    width: 834px;
+  }
+  .h-267 {
+    height: 267px;
+  }
+  .tablet-h-241 {
+    height: 241px;
+  }
 }
 @media screen and (min-width: 768px) {
-  .tablet-mx-14 {
-    margin-left: 56px!important;
-    margin-right: 56px!important;
-  }
+.tablet-mx-14 {
+  margin-left: 56px!important;
+  margin-right: 56px!important;
+}
 
-  .tablet-gap-x-56 {
-    column-gap: 56px!important;
-  }
+.tablet-gap-x-56 {
+  column-gap: 56px!important;
+}
 
-  .tablet-height-258 {
-    height: 258px;
-  }
+.tablet-height-258 {
+  height: 258px;
+}
+.mobile-h-587 {
+  height: 587px;
+}
+.mobile-h-308 {
+  height: 308px;
+}
 }
 
 .site-max-width {
-  max-width: var(--nyco-dimension-site-max-width);
+max-width: var(--nyco-dimension-site-max-width);
+}
+.text-lg {
+font-size: 18px;
+}
+.text-sm {
+font-size: 14px;
+}
+.bg-color-F8F9FB {
+background-color: #F8F9FB;
 }
