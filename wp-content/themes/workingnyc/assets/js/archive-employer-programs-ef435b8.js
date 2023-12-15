@@ -1054,7 +1054,7 @@
 	            link: employer_program.link,
 	            provider: employer_program.acf.employer_program_provider,
 	            preview: employer_program.acf.employer_program_preview,
-	            logo: employer_program.acf.employer_program_provider_logo,
+	            logo: employer_program.acf.employer_program_logo,
 	            tags: employer_program.acf.employer_program_tags,
 	            raw: false
 	          }),
