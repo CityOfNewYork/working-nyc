@@ -41,7 +41,8 @@
         <h6>CUNY Cultural Corps is provided by</h6>
         <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
       </div>
-      <div>
+      {# TODO: add related by taxonomy #}
+      {# <div>
         <h6>Related</h6>
         <div>
           {% for term in post.terms %}
@@ -50,7 +51,7 @@
             </div>
           {% endfor %}
         </div>
-      </div>
+      </div> #}
     </div>
   </div>
   <div class="mb-7 mx-3 tablet-mx-14 desktop-mx-26">
