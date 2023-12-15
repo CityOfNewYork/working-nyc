@@ -1,31 +1,30 @@
-<nav aria-label="{{ header_menu.name }}" class="bgcolor-white px-2 tablet:px-5 desktop:px-3 o-navigation" data-js="navigation">
+<nav aria-label="{{ header_menu.name }}" class="bgcolor-white px-2 py-0 tablet:px-5 desktop:px-3 o-navigation" data-js="navigation">
   <a class="center-align" href="{{ site.url }}">
-    <svg aria-hidden="true" class="o-navigation__svg desktop:hidden fill-text text-brand" width="56" height="18">
-      <use href="#logo-nyc-black"></use>
+    <svg aria-hidden="true" width="70" height="10">
+      <use href="#NYC MyCity Logo 1"></use>
     </svg>
   </a>
-  <span class="hidden tablet:block desktop:block desktop:pl-1 o-navigation__home center-align float-left desktop-font-size-13">Official website of the City of New York</span>
+  <span class="my-auto hidden tablet:block desktop:block desktop:pl-1 o-navigation__home float-left desktop-font-size-13">Official website of the City of New York</span>
   <div class="border-b-line py-1 px-1 float-right" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
-    <svg class="h-3 w-3">
+    <svg class="my-auto" height="20" width="20">
       <use href="#nyco-languages"></use>
     </svg>
-    <span class="text-xs desktop:text-sm">{{ __('Language | English', 'WNYC') }}</span>
-    <span class="text-xs desktop:text-sm">{{ __('Jobseeker', 'WNYC') }}</span>
-    <span class="text-xs desktop:text-sm">{{ __('Employer', 'WNYC') }}</span>
+    <span class="my-auto desktop-font-12">{{ __('Language | English', 'WNYC') }}</span>
   </div>
 </nav>
 <nav aria-label="{{ header_menu.name }}" class="desktop-nav-border px-2 tablet:px-5 desktop:px-3 desktop:pb-3 o-navigation" data-js="navigation">
   <div class="o-navigation__home center-align bg-scale-1 tablet:bg-transparent">
   <a class="pr-2 hidden tablet:hidden desktop:block" href="{{ site.url }}">
-    <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="56" height="18">
-      <use href="#logo-nyc-black"></use>
+    <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="100" height="18">
+      <use href="#logo"></use>
     </svg>
   </a>
-   <span class="desktop:pl-2 desktop:border-l desktop:border-solid desktop:border-slate-300 desktop:text-lg desktop:font-semibold">Talent Portal</span>
+   <span class="desktop:pl-2 desktop:border-l desktop:border-solid desktop:border-slate-300 desktop:text-lg desktop:font-semibold">{{ __('Employers', 'WNYC') }}</span>
   </div>
-   {% for menu_item in header_menu.get_items %}
-  <a class="o-navigation__item mr-2 desktop:py-2 desktop-px-12" width="84" height="70" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
-  {% endfor %}
+   
+  <span class="mr-2 desktop:py-2 desktop-px-12" href="#">{{ __('Hire or develop talent', 'WNYC') }}</span>
+  <span class="mr-2 desktop:py-2 desktop-px-12" href="#">{{ __('Jobseeker', 'WNYC') }}</span>
+  <span class="mr-2 desktop:py-2 desktop-px-12" href="#">{{ __('Employer', 'WNYC') }}</span>
   <button class="o-navigation__menu-item desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
     <svg class="o-navigation__menu-icon icon-ui">
       <use href="#lucide-menu"></use>
