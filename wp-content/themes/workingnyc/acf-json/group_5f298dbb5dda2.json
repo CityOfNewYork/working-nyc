@@ -111,7 +111,8 @@
                             "post_type": [
                                 "programs",
                                 "jobs",
-                                "guides"
+                                "guides",
+                                "employer-programs"
                             ],
                             "taxonomy": "",
                             "filters": [
@@ -415,6 +416,13 @@
                 "operator": "==",
                 "value": "guides"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-employer-home-page.php"
+            }
         ]
     ],
     "menu_order": 1,
@@ -426,5 +434,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1702569204
+    "modified": 1702612745
 }
