@@ -24,6 +24,12 @@
   .desktop-font-12 {
     font-size: 12px;
   }
+  .desktop-font-14 {
+    font-size: 14px;
+  }
+  .desktop-font-18 {
+    font-size: 18px;
+  }
   .desktop-nav-border{
     border-top: 4px solid #2D3282;
   }
@@ -45,6 +51,23 @@
     .desktop-height-214 {
       height: 214px;
     }
+}
+@media screen and (min-width: 768px) and (max-width:1112px) {
+  .desktop-font-size-13 {
+    font-size: 13px;
+  }
+  .desktop-font-12 {
+    font-size: 12px;
+  }
+  .desktop-font-14 {
+    font-size: 14px;
+  }
+  .desktop-font-18 {
+    font-size: 18px;
+  }
+  .desktop-nav-border{
+    border-top: 4px solid #2D3282;
+  }
 }
 @media screen and (min-width: 768px) {
   .tablet-mx-14 {
