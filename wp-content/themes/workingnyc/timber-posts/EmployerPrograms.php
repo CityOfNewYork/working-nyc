@@ -56,8 +56,6 @@ class EmployerPrograms extends Timber\Post {
 
     $this->sections = $this->getSections();
 
-    $this->custom = $this->custom;
-
     return $this;
   }
 
@@ -96,6 +94,7 @@ class EmployerPrograms extends Timber\Post {
   /**
    * Get the external button link label for the program which is the domain
    * of the link it is going to.
+   * TODO: update this
    *
    * @return  String  The link label
    */
