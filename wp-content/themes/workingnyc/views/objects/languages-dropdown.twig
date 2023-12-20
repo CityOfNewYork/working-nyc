@@ -1,10 +1,8 @@
-<div class="desktop-px-120 desktop:py-4 relative z-10 hidden" id="aria-c-text-controller">
-    <div class="desktop-h-112">
-      <div class="desktop:float-left desktop:mr-8">
+<div class="desktop-px-120 desktop:py-4 relative z-10" id="aria-c-text-controller">
+      <div class="hidden desktop:block desktop:float-left desktop:mr-8">
       <span class="h4">{{ __('Select your language', 'WNYC - Navigation') }}</span>
       </div>
-      <div class="o-languages-dropdown__languages desktop:float-right inline-grid grid-cols-3 grid-rows-3 gap-1">
+      <div class="language-list-style">
       {% do action('wpml_add_language_selector') %}
       </div>
-    </div>
 </div>
