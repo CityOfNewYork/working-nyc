@@ -29,7 +29,10 @@
   align-items: center;
   display: flex;
 }
-.border-b-line{
+.border-b-line {
+  border-bottom: none;
+}
+.border-b-line:hover {
   border-bottom: 2px solid #2D3282;
 }
 @media screen and (min-width:1112px) { 
@@ -59,7 +62,7 @@
     padding-left: 12px;
     padding-right: 12px;
   }
-  .desktop-nav-border{
+  .desktop-nav-border:hover {
     border-top: 4px solid #2D3282;
   }
   .language-list-style ul {
@@ -86,6 +89,9 @@
     list-style-type: none;
     padding-left: 0px;
    }
+  .language-list-style li {
+    margin-bottom: 4px;
+  }
   .tablet-width-366 {
     width: 366px;
   }
@@ -115,7 +121,7 @@
     position: absolute;
     width: 50%;
     margin-left: 48%;
-    padding: 16px 8px 16px 8px;
+    padding: 8px 16px 8px 16px;
   }
   .language-list-style ul {
     list-style-type: none;
