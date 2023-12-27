@@ -3,8 +3,46 @@
  */
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
+.bgcolor-white {
+  background-color: #FFFFFF;
+}
+.center-align {
+  align-items: center;
+  display: flex;
+}
+.desktop-px-12 {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.desktop-nav-border{
+  border-top: 4px solid #2D3282;
+}
 @media screen and (min-width:1112px) { 
-    .desktop-mx-50 {
+  .cards-wh {
+    width: 604px;
+    height: 276px;
+  }
+  .desktop-margin {
+    margin-left: 5%; 
+    margin-top: 40%;
+  }
+  .desktop-font-size-13 {
+    font-size: 13px;
+  }
+  .desktop-font-12 {
+    font-size: 12px;
+  }
+  .desktop-font-14 {
+    font-size: 14px;
+  }
+  .desktop-font-18 {
+    font-size: 18px;
+  }
+  .desktop-nav-border{
+    border-top: 4px solid #2D3282;
+  }
+
+  .desktop-mx-50 {
       margin-left: 200px!important;
       margin-right: 200px!important;
     }
@@ -21,8 +59,85 @@
     .desktop-height-214 {
       height: 214px;
     }
+    .language-list-style ul {
+      list-style-type: none;
+      -webkit-column-count: 3;
+       -moz-column-count: 3;
+       column-count: 3;
+     }
+     .language-list-style li {
+       margin-bottom: 0px;
+     }
+     .desktop-h-112 {
+      height: 112px;
+    }
+    .desktop-px-120 {
+      padding-left: 120px;
+      padding-right: 120px;
+    }
+    .language-style {
+      background-color: #FFFFFF;
+      margin-top: -68px;
+    }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width:1112px) {
+  .cards-wh {
+    width: 604px;
+    height: 276px;
+  }
+  .tablet-margin {
+    margin-left: 9%; 
+    margin-top: 2%;
+  }
+  .language-list-style {
+    margin-top: -63px;
+    background-color: #FFFFFF;
+    position: absolute;
+    width: 25%;
+    margin-left: 72%;
+    padding: 16px 8px 16px 8px;
+  }
+  .language-list-style ul {
+    list-style-type: none;
+    padding-left: 0px;
+   }
+  .desktop-font-size-13 {
+    font-size: 13px;
+  }
+  .desktop-font-12 {
+    font-size: 12px;
+  }
+  .desktop-font-14 {
+    font-size: 14px;
+  }
+  .desktop-font-18 {
+    font-size: 18px;
+  }
+  .desktop-nav-border{
+    border-top: 4px solid #2D3282;
+  }
+}
+@media screen and (max-width: 768px) {
+  .cards-wh {
+    width: 343px;
+    height: 324px;
+  }
+  .mobile-margin {
+    margin-left: 5%; 
+    margin-top: 20%;
+  }
+  .language-list-style {
+    margin-top: -103px;
+    background-color: #FFFFFF;
+    position: absolute;
+    width: 50%;
+    margin-left: 48%;
+    padding: 16px 8px 16px 8px;
+  }
+  .language-list-style ul {
+    list-style-type: none;
+    padding-left: 0px;
+   }
   .tablet-mx-14 {
     margin-left: 56px!important;
     margin-right: 56px!important;
@@ -34,6 +149,12 @@
 
   .tablet-height-258 {
     height: 258px;
+  }
+  .desktop-nav-border{
+    border-top: 4px solid #2D3282;
+  }
+  .mobile-font-size-13 {
+    font-size: 13px;
   }
 }
 
