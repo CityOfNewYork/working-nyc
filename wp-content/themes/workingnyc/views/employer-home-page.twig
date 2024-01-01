@@ -4,8 +4,8 @@
 <div class="bg-scale-1">
   <header class="employer-header-gradient {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
       {% if post.thumbnail %}
-      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 desktop:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto mobile-py-40 tablet-py-48 desktop-py-121">
-        <div>
+      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 desktop:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto mobile-py-40 tablet-py-48">
+        <div class="desktop-py-121">
       {% else %}
       <div class="layout-content">
         <div class="wrap">
@@ -26,15 +26,15 @@
             </div>
           </div>
         </div>
-
     {% if post.thumbnail %}
-      <div class="relative items-center desktop:flex hidden">
-        <img class="tablet-width-300" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+      <div class="pt-7 hidden desktop:block">
+        <span class="span-class">
+          <img class="image-background" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        </span>
       </div>
     {% endif %}
-      </div>
+    </div>
   </header>
-
   <main id="content" class="bg-shape-wnyc-content mx-2 tablet:mx-7 desktop-mx-26">
     <div>
       {# Collections #}
