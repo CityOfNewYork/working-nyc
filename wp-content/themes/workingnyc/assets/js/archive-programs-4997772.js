@@ -1223,89 +1223,6 @@
 	//
 	//
 	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 
 	var script = {
 	  props: {
@@ -1322,8 +1239,8 @@
 	const __vue_script__ = script;
 
 	/* template */
-	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[_c('header',{staticClass:"c-card__header"},[_c('span',[_c('a',{staticClass:"c-card__header-link",attrs:{"data-js":'post-' + _vm.post.id,"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[_c('h3',{staticClass:"c-card__title"},[_c('span',{staticClass:"c-card__underline",domProps:{"innerHTML":_vm._s(_vm.post.context.program_plain_language_title)}}),_vm._v(" "),(_vm.post.context.external)?_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-external-link"}})]):_vm._e()])]),_vm._v(" "),_c('p',{staticClass:"c-card__subtitle text-alt"},[_c('b',{attrs:{"data-program":"title"},domProps:{"innerHTML":_vm._s(_vm.post.context.program_title)}}),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.BY)+" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.program_agency)}}):_vm._e()])])]),_vm._v(" "),_c('div',{staticClass:"c-card__body"},[(_vm.post.status)?_c('p',{staticClass:"c-card__status flex items-center"},[(_vm.post.context.status.recruiting)?_c('mark',{staticClass:"badge mie-2",attrs:{"data-program":"recruiting"}},[_vm._v("\n        "+_vm._s(_vm.post.context.status.recruiting.name)),_c('span',{staticClass:"sr-only"},[_vm._v(".")])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"flex mie-2"},[_c('svg',{staticClass:"icon text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.disability.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-accessibility"}})])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"sr-only"},[_vm._v(" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.status.language)?_c('span',{staticClass:"flex me-2"},[_c('svg',{staticClass:"icon-ui text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.language.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-languages"}})])]):_vm._e()]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"c-card__summary"},[_c('p',[(_vm.post.context.preview)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.preview)}}):_vm._e(),_vm._v(" "),(_vm.post.context.populations)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.populations)}}):_vm._e()])]),_vm._v(" "),_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.services)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SERVICES))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-award"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.services)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.supports)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SUPPORTS))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-heart-handshake"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.supports)}})]):_vm._e()]),_vm._v(" "),_c('a',{staticClass:"c-card__cta",attrs:{"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[(_vm.post.context.external)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.link_label)}}):_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.context.program_plain_language_title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":(_vm.post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])])};
-	var __vue_staticRenderFns__ = [];
+	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"desktop-sm-card-style tablet-sm-card-style mobile-sm-card-style grid m-auto"},[_vm._m(0),_vm._v(" "),_c('div',[_c('div',{staticClass:"mx-3 my-2 desktop:m-3"},[_c('svg',{staticClass:"fill-text stroke-text text-brand",attrs:{"width":"163","height":"48","role":"img"}},[_c('title',[_vm._v("Job Ready by Jobs N Y C")]),_vm._v(" "),_c('use',{attrs:{"href":"#logo-jnyc-footer"}})])]),_vm._v(" "),_c('div',{staticClass:"desktop-mb-18 mx-3 title-font-style"},[_vm._v("Lorem ipsum")]),_vm._v(" "),_c('div',{staticClass:"mx-3 my-2 desktop:m-3"},[_vm._v("Lorem ipsum dolor sit amet consectetur. Metus faucibus tortor lacus integer integer.")])])])};
+	var __vue_staticRenderFns__ = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('header',[_c('div',{staticClass:"px-3 py-1 desktop:py-2 background-style float-right"},[_c('span',{staticClass:"text-style my-auto"},[_vm._v("Actively recruiting")])])])}];
 
 	  /* style */
 	  const __vue_inject_styles__ = undefined;

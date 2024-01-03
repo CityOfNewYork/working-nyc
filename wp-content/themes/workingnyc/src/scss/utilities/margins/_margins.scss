@@ -3,7 +3,32 @@
  */
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
+    .text-style {
+      font-size: 16px;
+      font-weight: 600;
+      color: #115123;
+    }
+    .background-style {
+      background-color: #EDF7F1;
+      width: Hug (171px);
+      height: Hug (42px);
+      padding: 8px, 12px, 8px, 12px;
+      border-radius: 10px;
+      gap: 8px;
+    }
+    .title-font-style {
+      font-size: 22.781px;
+      font-style: normal;
+      font-weight: 600;
+    }
 @media screen and (min-width:1112px) { 
+    .desktop-mb-18 {
+      margin-bottom: 18px;
+    }
+    .desktop-sm-card-style {
+      width: 400px;
+      height: 332px;
+    }
     .desktop-mx-50 {
       margin-left: 200px!important;
       margin-right: 200px!important;
@@ -22,7 +47,17 @@
       height: 214px;
     }
 }
+@media screen and (min-width: 768px) and (max-width:1112px) {
+  .tablet-sm-card-style {
+    width: 343px;
+    height: 294px;
+  }
+}
 @media screen and (min-width: 768px) {
+  .mobile-sm-card-style {
+    width: 343px;
+    height: 278px;
+  }
   .tablet-mx-14 {
     margin-left: 56px!important;
     margin-right: 56px!important;
