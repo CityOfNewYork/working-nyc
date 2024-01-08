@@ -10,7 +10,7 @@
 </div>
 
 {% if post.thumbnail %}
-    <div class="relative">
+    <div class="relative flex flex-wrap justify-center">
         <div class="absolute grid desktop:grid-cols-2 gap-4 text-center mobile-margin tablet-margin desktop-margin">
             <div class="bg-white cards-wh py-4">
                 <h3>{{ post.meta('subtitle_1') }}</h3>
@@ -28,9 +28,14 @@
 {% endif %}
 <div class="layout-content text-center my-5 tablet:my-6 desktop:my-7">
     <h1>Agency Partners</h1>
-   <div class="mt-4 mx-2 tablet:mx-7 desktop-mx-26">
-   <img loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
-   </div>
+    <div class="mt-4 mx-2 tablet:mx-7 desktop-mx-26 flex flex-wrap justify-center tablet:gap-3 desktop:gap-x-3">
+        <div class="desktop-p-1"><img loading="lazy" src="http://localhost:8080/wp-content/uploads/2024/01/logo_1.png" alt="{{ post.thumbnail.alt }}"/></div>
+        <div class="desktop-p-1"><img loading="lazy" src="http://localhost:8080/wp-content/uploads/2024/01/WF2_Logo.png" alt="{{ post.thumbnail.alt }}"/></div>
+        <div class="desktop-p-1"><img loading="lazy" src="http://localhost:8080/wp-content/uploads/2024/01/WF1_Logo.png" alt="{{ post.thumbnail.alt }}"/></div>
+        <div class="desktop-p-1"><img loading="lazy" src="http://localhost:8080/wp-content/uploads/2024/01/logo_1.png" alt="{{ post.thumbnail.alt }}"/></div>
+        <div class="desktop-p-1"><img loading="lazy" src="http://localhost:8080/wp-content/uploads/2024/01/WF2_Logo.png" alt="{{ post.thumbnail.alt }}"/></div>
+        <div class="desktop-p-1"><img loading="lazy" src="http://localhost:8080/wp-content/uploads/2024/01/WF1_Logo.png" alt="{{ post.thumbnail.alt }}"/></div>
+    </div>
 </div>
 </div>
 {% endblock %}

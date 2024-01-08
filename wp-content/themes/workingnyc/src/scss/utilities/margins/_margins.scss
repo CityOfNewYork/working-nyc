@@ -18,6 +18,9 @@
   border-top: 4px solid #2D3282;
 }
 @media screen and (min-width:1112px) { 
+  .desktop-p-1{
+    padding:4px 4px 4px 4px;
+  }
   .cards-wh {
     width: 604px;
     height: 276px;
@@ -82,8 +85,8 @@
 }
 @media screen and (min-width: 768px) and (max-width:1112px) {
   .cards-wh {
-    width: 604px;
-    height: 276px;
+    width: 304px;
+    height: 176px;
   }
   .tablet-margin {
     margin-left: 9%; 
@@ -119,8 +122,8 @@
 }
 @media screen and (max-width: 768px) {
   .cards-wh {
-    width: 343px;
-    height: 324px;
+    width: 200px;
+    height: 200px;
   }
   .mobile-margin {
     margin-left: 5%; 
