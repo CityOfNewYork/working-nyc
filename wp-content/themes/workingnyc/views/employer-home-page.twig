@@ -27,10 +27,11 @@
           </div>
         </div>
     {% if post.thumbnail %}
-      <div class="pt-7 hidden desktop:block">
-        <span class="span-class">
-          <img class="image-background" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
-        </span>
+      <div class="hidden desktop:block">
+        <div class="absolute inline-block">
+          <div class="bg-shape-employer-thumbnail"></div> {# image background shape #}
+          <img class="relative mt-7 h-[547px]" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        </div>
       </div>
     {% endif %}
     </div>
