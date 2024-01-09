@@ -4,33 +4,30 @@
 <div class="bg-scale-1">
   <header class="employer-header-gradient {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
       {% if post.thumbnail %}
-      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 desktop:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto mobile-py-40 tablet-py-48">
+      <div class="desktop:gap-x-5 tablet-gap-x-56 desktop:flex desktop:pl-[104px] max-w-[1440px] desktop:w-full tablet:w-10/12 tablet:px-0 px-2 mx-auto mobile-py-40 tablet-py-48">
         <div class="desktop-py-121">
       {% else %}
       <div class="layout-content">
         <div class="wrap">
       {% endif %}
-          {# The post content can include html tags and CSS classes. The following line is an example of some classes that were used in the past #}
-          {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
           <h1 class="mb-4 tablet:mb-6 desktop:mb-7 text-[#FEFEFE]">{{ post.post_title }}</h1>
           <div class="text-[#FEFEFE] grid tablet:grid-cols-2 text-left">
             <div class="pb-3 tablet:pb-0 desktop:pb-0 tablet:pr-3 desktop:pr-3">
-              <h3>{{ post.meta('subtitle_1') }}</h3>
-              <p>{{ post.meta('description_1') }}</p>
+              <h3 class="mb-3">{{ post.meta('subtitle_1') }}</h3>
+              <p class="mb-3">{{ post.meta('description_1') }}</p>
               <a class="mt-2 btn btn-small tablet:btn btn-styled pointer-events-auto" href="{{ post.meta('button_link_1') }}">{{ post.meta('button_label_1') }}</a>
             </div>
             <div class="pt-3 tablet:pt-0 desktop:pt-0 border-t-3 tablet:border-t-0 desktop:border-t-0 tablet:border-l-3 desktop:border-l-3 border-slate-300 tablet:pl-3 desktop:pl-3">
-              <h3>{{ post.meta('subtitle_2') }}</h3>
-              <p>{{ post.meta('description_2') }}</p>
+              <h3 class="mb-3">{{ post.meta('subtitle_2') }}</h3>
+              <p class="mb-3">{{ post.meta('description_2') }}</p>
               <a class="mt-2 btn btn-small tablet:btn btn-styled pointer-events-auto" href="{{ post.meta('button_link_2') }}">{{ post.meta('button_label_2') }}</a>
             </div>
           </div>
         </div>
     {% if post.thumbnail %}
       <div class="hidden desktop:block">
-        <div class="absolute inline-block">
-          <div class="bg-shape-employer-thumbnail"></div> {# image background shape #}
-          <img class="relative mt-7 h-[547px]" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        <div class="inline-block">
+          <img class="mt-7" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
         </div>
       </div>
     {% endif %}
