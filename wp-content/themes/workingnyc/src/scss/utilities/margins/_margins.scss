@@ -52,9 +52,3 @@
 .site-max-width {
   max-width: var(--nyco-dimension-site-max-width);
 }
-@media screen and (max-width: 768px) {
-  .mobile-py-40 {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-}
