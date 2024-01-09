@@ -63,6 +63,17 @@
   height: 100%;
 }
 
+.bg-shape-employer-thumbnail {
+  position: absolute;
+  left: 0;
+  top: 120px;
+  right: 0;
+  bottom: 0;
+  background: #DAE6FF;
+  border-radius: 200px 200px 0 0;
+  width: 400px;
+}
+
 .bg-shape-wnyc-position-foreground {
   z-index: 0;
 }
