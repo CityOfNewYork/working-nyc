@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div>
+<div class="bg-white">
 
     <div class="layout-content text-center my-5">
         <h1>{{ post.post_title }}</h1>
@@ -29,6 +29,16 @@
                     <a class="mx-auto btn btn-small tablet:btn btn-primary pointer-events-auto" href="{{ post.meta('button_link_2') }}">{{ post.meta('button_label_2') }}</a>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="layout-content text-center py-5 tablet:py-6 desktop:py-7 px-2 tablet:px-7">
+        <h2 class="mb-4">{{ __('Agency Partners', 'WNYC')}}</h2>
+
+        <div class="flex justify-center flex-wrap gap-3">
+        {% for partner in post.meta('agency_partners') %}
+            <img class="w-[172px] object-contain" src="{{ partner.logo.url }}" alt="{{ partner.logo.alt }}"/>
+        {% endfor %}
         </div>
     </div>
 
