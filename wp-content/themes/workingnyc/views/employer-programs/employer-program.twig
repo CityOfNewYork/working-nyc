@@ -1,0 +1,26 @@
+{# @Type   Component #}
+{# @For    Post Type #}
+{# @Class  timber-posts/Programs.php #}
+<article class="rounded border border-scale-3 p-3">
+  <header class="border-b border-scale-3 pb-2">
+    <img class="w-[50px] h-5 mb-3 object-cover" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
+    <a href="{{ post.link }}">
+      <h5 class="pb-1">{{ post.employer_program_title }}</h5>
+    </a>
+    <p>
+      {{ post.employer_program_provider }}
+    </p>
+  </header>
+
+  <div class="pt-2">
+    {{ post.employer_program_preview }}
+
+    <div class="mt-2 flex gap-x-1">
+      {% for tag in post.meta('employer_program_tags') %}
+        <div class="rounded p-1 bg-scale-2">
+            {{ tag.employer_program_tag }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</article>

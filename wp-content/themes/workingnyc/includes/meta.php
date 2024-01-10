@@ -73,6 +73,11 @@ class Meta {
 
           break;
 
+        case 'employer-programs':
+          $description = 'Test employer programs meta';
+
+          break;
+
         case 'jobs':
           $description = $this->post->summary;
 

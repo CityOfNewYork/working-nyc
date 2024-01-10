@@ -11,7 +11,31 @@
  */
 
 $path = $wp->request; // Request should match the page permalink and post type
-$class = ucfirst($path);
+
+$class = '';
+
+switch ($path) {
+  case 'announcements':
+  case 'guides':
+  case 'jobs':
+  case 'page':
+  case 'programs':
+  case 'site':
+    $class = ucfirst($path);
+    break;
+  case 'employer-programs':
+    // only allow logged in users to view employer content for now
+    if (is_user_logged_in() === false) {
+      wp_redirect('/404');
+
+      exit;
+    }
+    $class = 'EmployerPrograms';
+    break;
+  default:
+    wp_redirect('/404');
+    exit;
+}
 
 require_once WorkingNYC\timber_post($class);
 

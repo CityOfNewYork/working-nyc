@@ -1,16 +1,16 @@
-<section class="wrap relative pt-utility-anchor" id="questionnaire">
-  <div class="page-max py-4 tablet:py-8 desktop:px-6">
+<section class="wrap relative" id="questionnaire">
+  <div class="page-max py-4 tablet:py-5 desktop:py-6">
 
     {% if this.thumbnail %}
-    <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5 items-center">
+    <div class="tablet:grid grid-cols-2 gap-x-5 items-center">
       <div>
     {% else %}
-    <div class="py-2 tablet:py-8 desktop:px-6 layout-content">
+    <div class="py-2 tablet:py-6 desktop:px-6 layout-content">
       <div class="wrap">
     {% endif %}
 
         <div class="text-center">
-          <h2 class="h3 text-alt mt-0">{{ this.heading }}</h2>
+          <h3 class="h3 text-alt mt-0">{{ this.heading }}</h3>
 
           {# <img class="bg-image-square mb-2 tablet:hidden" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('tablet') }}" alt="{{ this.thumbnail.alt }}"/> #}
 
@@ -18,7 +18,7 @@
         </div>
 
         <div class="py-4">
-          <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+          <div class="transform-none">
 
             {% if this.questions %}
             <form :action="'{{ fn('get_post_type_archive_link', 'programs') }}'+query" class="c-card" data-js="validate-and-query" method="post" id="answer-a-few-questions" data-post-type="{{ this.type }}" data-post-threshold="{{ this.threshold }}">
@@ -97,11 +97,11 @@
                   </article>
                 </div>
 
-                {# <button class="btn btn-primary btn-next w-full" v-if="totalPosts == 0 && checkedFilters.length == 0">{{ __('Find your program now', 'WNYC-Questionnaire') }}</button> #}
+                {# <button class="btn btn-primary btn-next" v-if="totalPosts == 0 && checkedFilters.length == 0">{{ __('Find your program now', 'WNYC-Questionnaire') }}</button> #}
 
-                <button class="btn btn-primary btn-next w-full mb-2" v-if="totalPosts > 1 && checkedFilters.length > 0">{{ __('View programs now', 'WNYC-Questionnaire') }}</button>
+                <button class="btn btn-primary btn-next mb-2" v-if="totalPosts > 1 && checkedFilters.length > 0">{{ __('View programs now', 'WNYC-Questionnaire') }}</button>
 
-                <button class="btn btn-primary btn-next w-full mb-2" v-if="totalPosts == 1 && checkedFilters.length > 0">{{ __('View program now', 'WNYC-Questionnaire') }}</button>
+                <button class="btn btn-primary btn-next mb-2" v-if="totalPosts == 1 && checkedFilters.length > 0">{{ __('View program now', 'WNYC-Questionnaire') }}</button>
 
                 <p class="text-center">Or <a href="/programs">see all programs</a>.</p>
               </div>
@@ -114,20 +114,10 @@
       </div>
 
       {% if this.thumbnail %}
-      <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+      <div class="transform-none">
         <img class="bg-image-square hidden tablet:block" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('tablet') }}" alt="{{ this.thumbnail.alt }}"/>
       </div>
       {% endif %}
     </div>
   </div>
-
-  {# {% if this.thumbnail %}
-  <div class="bg-image-grid hidden tablet:grid grid-cols-2">
-    <div></div>
-
-    <div class="bg-image-grid__mask-scale-1 relative transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
-      <img class="bg-image-grid__img" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('desktop') }}" alt="{{ this.thumbnail.alt }}"/>
-    </div>
-  </div>
-  {% endif %} #}
 </section>

@@ -1,0 +1,13 @@
+/**
+ * Margins
+ */
+
+// Creating classes as copies of the tailwind classes because some imports aren't working
+.fill-none{
+    fill: none;    
+}
+
+// Employer homepage header custom gradient
+.employer-header-gradient {
+    background: linear-gradient(130deg, #33488D 11.21%, #30374F 79.88%);
+}

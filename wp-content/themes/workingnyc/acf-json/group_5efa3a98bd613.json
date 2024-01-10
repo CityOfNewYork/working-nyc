@@ -1,6 +1,6 @@
 {
     "key": "group_5efa3a98bd613",
-    "title": "Sections",
+    "title": "Generic Page Sections",
     "fields": [
         {
             "key": "field_5efa3bc7b2e45",
@@ -77,16 +77,23 @@
                 "operator": "==",
                 "value": "template-generic-page.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "default"
+            }
         ]
     ],
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "left",
+    "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1666886514
+    "modified": 1702670942
 }
