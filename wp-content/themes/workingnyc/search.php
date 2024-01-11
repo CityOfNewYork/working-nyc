@@ -3,7 +3,7 @@
 require_once WorkingNYC\timber_post('Programs');
 
 // Get the search term
-$term = (isset($_GET['s'])) ? $_GET['s'] : '';
+$term = (isset($_GET['s'])) ? trim($_GET['s']) : '';
 
 // Create query
 $wp_query = new WP_Query(array(
