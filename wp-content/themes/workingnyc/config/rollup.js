@@ -75,6 +75,18 @@ module.exports = [
     devModule: true
   },
   {
+    input: './src/js/employer-program-single-page.js',
+    output: [{
+      file: './assets/js/employer-program-single-page.js',
+      format: rollup.format,
+      sourcemap: false,
+      strict: rollup.strict
+    }],
+    plugins: plugins,
+    cache: true,
+    devModule: true
+  },
+  {
     input: './src/js/archive-jobs.js',
     output: [{
       file: './assets/js/archive-jobs-development.js',

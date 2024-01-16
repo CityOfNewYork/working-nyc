@@ -16,6 +16,7 @@ require_once WorkingNYC\timber_post('Announcements');
 
 add_action('wp_enqueue_scripts', function() {
   enqueue_script('template-home-page');
+  enqueue_script('employer-program-single-page');
 });
 
 /**
