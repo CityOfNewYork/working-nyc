@@ -19,7 +19,7 @@
       <nav class="o-menu__nav" aria-label="{{ __('Menu', 'WNYC') }}">
         <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC') }}</a>
 
-        {% for menu_item in header_menu.get_items %}
+        {% for menu_item in job_seeker_header_menu.get_items %}
         <a class="o-menu__nav-item" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
         {% endfor %}
       </nav>

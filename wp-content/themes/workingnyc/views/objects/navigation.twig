@@ -1,4 +1,4 @@
-<nav aria-label="{{ header_menu.name }}" class="mobile-border-b-line tablet-border-b bgcolor-white px-3 o-navigation" data-js="navigation">
+<nav aria-label="{{ job_seeker_header_menu.name }}" class="mobile-border-b-line tablet-border-b bgcolor-white px-3 o-navigation" data-js="navigation">
   <a href="{{ site.url }}" class="my-auto">
     <svg aria-hidden="true" class="o-navigation__svg hidden tablet:hidden desktop:block fill-text text-brand" width="51" height="16">
       <use href="#logo-nyc-black"></use>
@@ -12,7 +12,7 @@
     </svg>
   </button>
 </nav>
-<nav aria-label="{{ header_menu.name }}" class="bgcolor-white mobile-border-b-line desktop:hidden px-3 py-1 o-navigation" data-js="navigation">
+{# <nav aria-label="{{ header_menu.name }}" class="bgcolor-white mobile-border-b-line desktop:hidden px-3 py-1 o-navigation" data-js="navigation">
   <div class="o-navigation__home m-auto tablet:ml-0 bg-scale-1 tablet:bg-transparent">
   <a class="pr-2" href="{{ site.url }}">
     <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="51" height="16">
@@ -22,6 +22,22 @@
   </div>
    {% for menu_item in header_menu.get_items %}
   <a class="o-navigation__item mr-2 desktop:py-2 desktop-px-12" width="84" height="70" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
+</nav> #}
+<nav aria-label="{{ job_seeker_header_menu.name }}" class="o-navigation o-navigation-fixed" data-js="navigation">
+  <a class="o-navigation__home o-navigation__menu-item bg-scale-1 tablet:bg-transparent" href="{{ site.url }}">
+    <span class="sr-only">Job Ready by Jobs N Y C</span>
+
+    <svg aria-hidden="true" class="o-navigation__svg hidden tablet:inline fill-text text-brand" width="160" height="23">
+      <use href="#logo-jnyc-horizontal"></use>
+    </svg>
+
+    <svg aria-hidden="true" class="o-navigation__svg tablet:hidden fill-text text-brand" width="78" height="48">
+      <use href="#logo-jnyc-stacked"></use>
+    </svg>
+  </a>
+
+  {% for menu_item in job_seeker_header_menu.get_items %}
+  <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
   {% endfor %}
 </nav>
 <nav class="bgcolor-white tablet:hidden desktop:hidden o-navigation" data-js="navigation">
