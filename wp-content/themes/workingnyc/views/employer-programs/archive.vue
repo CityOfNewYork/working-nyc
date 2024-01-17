@@ -58,6 +58,9 @@
                       </svg>
 
                       <span class="font-normal">{{ filter.name }}</span>
+                      <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                        <use href="#down-arrow"></use>
+                      </svg>
                     </span>
                   </label>
                 </div>
