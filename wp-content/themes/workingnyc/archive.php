@@ -144,6 +144,11 @@ $context['posts'] = array_map(function($p) use ($class) {
   return new $class($p);
 }, Timber::get_posts());
 
+if ($path === 'employer-programs') {
+  // set this to true for all employer-side pages
+  $context['employer'] = true;
+}
+
 /**
  * Render the view
  *

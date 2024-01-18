@@ -18,6 +18,8 @@ $post = Timber::get_post();
 
 $context['post'] = $post;
 
+$context['talent_portal_landing_page'] = true;
+
 /**
  * Set Meta context
  */

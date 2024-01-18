@@ -30,6 +30,9 @@ $post = Timber::get_post();
 
 $context['post'] = $post;
 
+// set this to true for all employer-side pages
+$context['employer'] = true;
+
 /**
  * Get the 4 top announcements based on menu order
  *
