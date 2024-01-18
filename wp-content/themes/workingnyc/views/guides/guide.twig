@@ -1,37 +1,25 @@
 {# @Type   Component #}
 {# @For    Post Type #}
 {# @Class  timber-posts/Guides.php #}
-<article class="c-card c-card-transparent h-full">
-  <header class="c-card__header items-center">
-    {% if post.icon == '' %}<span>{% endif %}
-      {% if post.icon %}
-      <svg class="c-card__icon text-blue-d-1 fill-blue-l-1" role="img">
-        <title>{{ post.icon.name }}</title>
-        <use href="#program-card-{{ post.icon.slug }}"></use>
-      </svg>
-      {% endif %}
-
-      <a href="{{ post.link }}" class="c-card__header-link">
-        <h3 class="c-card__title">
-          <span class="c-card__underline">
-            {{ post.title }}
-          </span>
-
-          {% if post.linkTarget == '_blank' %}
-          <svg aria-hidden="true" class="icon-ui rtl:flip">
-            <use href="#lucide-external-link"></use>
-          </svg>
-          {% endif %}
-        </h3>
-      </a>
-    {% if post.icon == '' %}</span>{% endif %}
+<a href="{{ post.link }}" class="c-card__header-link">
+<article class="desktop:p-4 p-3">
+  <header class="items-center">
+    {% if post.icon %}
+    <svg class="c-card__icon fill-none" role="img">
+      <title>{{ post.icon.name }}</title>
+      <use href="#program-card-{{ post.icon.slug }}"></use>
+    </svg>
+    {% endif %}
   </header>
 
-  <div class="c-card__body">
-    <div class="c-card__summary">
+  <div class="pt-3">
+        <h5>
+            {{ post.title }}
+        </h5>
+
+    <div>
       {{ post.preview|wpautop }}
     </div>
-
-    <span></span>
   </div>
 </article>
+</a>
