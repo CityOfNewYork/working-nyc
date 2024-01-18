@@ -1,5 +1,7 @@
-{% if employer == true %}
-<nav aria-label="TODO" class="o-navigation o-navigation-fixed" data-js="navigation">
+{% if talent_portal_landing_page == true %}
+<nav aria-label="{{ __('Header Menu', 'Header Menu') }}" class="o-navigation o-navigation-fixed" data-js="navigation">
+{% elseif employer == true %}
+<nav aria-label="{{ employer_header_menu.name }}" class="o-navigation o-navigation-fixed" data-js="navigation">
 {% else %}
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="o-navigation o-navigation-fixed" data-js="navigation">
 {% endif %}
@@ -17,7 +19,9 @@
 
   {% if talent_portal_landing_page == false %}
     {% if employer == true %}
-    {# Add employer menu items here #}
+      {% for menu_item in employer_header_menu.get_items %}
+      <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
+      {% endfor %}
     {% else %}
       {% for menu_item in job_seeker_header_menu.get_items %}
       <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>

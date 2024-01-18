@@ -48,6 +48,8 @@ class Site extends TimberSite {
 
     $context['job_seeker_header_menu'] = new TimberMenu('job_seeker_header_menu');
 
+    $context['employer_header_menu'] = new TimberMenu('employer_header_menu');
+
     $context['footer_menu'] = new TimberMenu('footer_menu');
 
     $context['footer_menu_secondary'] = new TimberMenu('footer_menu_secondary'); // not in use
