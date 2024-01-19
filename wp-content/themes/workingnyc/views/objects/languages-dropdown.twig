@@ -1,4 +1,4 @@
-<div aria-hidden="true" class="o-languages-dropdown o-languages-dropdown-fixed relative z-10 hidden" id="aria-c-text-controller">
+{# <div aria-hidden="true" class="o-languages-dropdown o-languages-dropdown-fixed relative z-10 hidden" id="aria-c-text-controller">
   <div class="o-languages-dropdown__inner pb-6">
     <div>
       <div class="text-end">
@@ -32,4 +32,16 @@
   </div>
 </div>
 
-<div id="google_translate_element" class="hidden"></div>
+<div id="google_translate_element" class="hidden"></div> #}
+
+<div class="hidden desktop-px-120 desktop:py-4 relative z-10" id="aria-c-text-controller">
+      <div class="hidden desktop:block desktop:float-left desktop:mr-8">
+      <span class="h4">{{ __('Select your language', 'WNYC - Navigation') }}</span>
+      </div>
+      {# <div class="o-languages-dropdown__languages"> #}
+        <div class="notranslate language-list-style">
+          {% do action('wpml_add_language_selector') %}
+        </div>
+      {# </div> #}
+      <span class="sr-only">{{ __('Powered by Google Translate', 'WNYC - Navigation') }}</span>
+</div>

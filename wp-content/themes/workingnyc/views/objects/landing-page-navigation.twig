@@ -1,0 +1,30 @@
+<nav aria-label="Header menu" class="bgcolor-white px-3 relative shadow-none desktop:shadow-[2px_2px_20px_0px_#D4D7DC] desktop:border-0 border-b-2 border-[#D4D7DC]" data-js="navigation">
+  <div class="desktop:bg-white bg-slate-300 flex justify-between">
+    <div class="flex">
+      <a href="{{ site.url }}" class="my-auto">
+        <svg aria-hidden="true" class="o-navigation__svg hidden tablet:hidden desktop:block fill-text text-brand" width="51" height="16">
+          <use href="#logo-nyc-black"></use>
+        </svg>
+      </a>
+      <div class="hidden tablet:block desktop:block desktop:pl-1 my-auto float-left desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC') }}</div>
+    </div>
+    <button class="border-b-line py-1 px-1 float-right" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+      <svg class="h-3 w-3">
+        <use href="#languages-nav"></use>
+        <span class="text-xs desktop:text-sm">{{ __('Language | English', 'WNYC - Navigation') }}</span>
+      </svg>
+    </button>
+  </div>
+</nav>
+<nav aria-label="Header menu" class="relative bg-white mobile-border-b-line desktop:hidden px-3 py-1 shadow-none tablet:shadow-[2px_2px_20px_0px_#D4D7DC] tablet:border-0 border-b-2 border-[#D4D7DC]" data-js="navigation">
+  <div class="o-navigation__home m-auto tablet:ml-0 bg-scale-1 tablet:bg-transparent">
+  <a class="pr-2" href="{{ site.url }}">
+    <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="51" height="16">
+      <use href="#logo-nyc-black"></use>
+    </svg>
+  </a>
+  </div>
+</nav>
+<nav class="px-3 relative bg-white tablet:hidden shadow-[2px_2px_20px_0px_#D4D7DC]" data-js="navigation">
+     <span class="py-1 m-auto mobile-font-size-13">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
+</nav>
