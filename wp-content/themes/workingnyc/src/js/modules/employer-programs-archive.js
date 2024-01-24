@@ -43,6 +43,7 @@ export default {
        * @type {Object}
        */
       query: {
+        post_type: 'employer-programs',
         per_page: this.perPage,
         page: this.page,
         orderby: 'menu_order',
@@ -70,7 +71,8 @@ export default {
           'page',
           'per_page',
           'orderby',
-          'order'
+          'order',
+          'post_type'
         ],
         map: {},
         filterParams: false
@@ -89,7 +91,7 @@ export default {
        */
       endpoints: {
         terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&cache=0',
-        'employer-programs': '/wp-json/wp/v2/employer-programs'
+        'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
       /**
@@ -110,9 +112,11 @@ export default {
           'employer-programs': employer_program => ({
             id: employer_program.id,
             title: employer_program.acf.employer_program_title,
+            link: employer_program.link,
             provider: employer_program.acf.employer_program_provider,
             preview: employer_program.acf.employer_program_preview,
-            logo: employer_program.acf.employer_program_provider_logo,
+            logo: employer_program.acf.employer_program_logo,
+            tags: employer_program.acf.employer_program_tags,
             raw: (process.env.NODE_ENV === 'development') ? { ...employer_program } : false
           }),
 
@@ -138,55 +142,6 @@ export default {
         };
       }
     };
-  },
-
-  /**
-   * @type {Object}
-   */
-  methods: {
-    /**
-     * TODO: Set focus to results when the filter dropdown is closed. This
-     * method is not currently working when bound to the "close and see" button.
-     * That button uses the patterns scripts dialog method which interfere
-     * with DOM event propagation.
-     */
-    resultsFocus: function() {
-      document.querySelector('body').style.overflow = ''; // unlocks the dialog
-
-      this.$refs.results.setAttribute('tabindex', '-1');
-
-      this.$refs.results.focus();
-    },
-
-    /**
-     * Proxy for pagination. This will shift focus on the next page's first
-     * result once pagination is complete.
-     *
-     * @param   {Object}  event  The bound click event
-     */
-    nextPage: function(event) {
-      let _this = this;
-
-      (async (_this) => {
-        await _this.paginate(event);
-
-        if (_this.totalVisible <= 1)
-          return false;
-
-        let pages = _this.posts.filter(page => {
-          return (page && page.show);
-        });
-
-        if (pages) {
-          let posts = pages[pages.length - 1].posts;
-          let element = document.querySelector(`[data-js='post-${posts[0].id}']`);
-
-          if (element) {
-            element.focus();
-          }
-        }
-      })(_this);
-    }
   },
 
   /**
@@ -218,7 +173,7 @@ export default {
     this.$set(this.history, 'map', taxonomies);
 
     // Add custom taxonomy queries to the list of safe params
-    this.params = [...this.params, ...Object.keys(taxonomies)];
+    this.params = [...this.params, ...Object.keys(taxonomies), 'post_type', 'search_term'];
 
     // Initialize the application
     this.getState()       // Get window.location.search (filter history)

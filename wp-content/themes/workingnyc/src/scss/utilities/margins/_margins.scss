@@ -4,6 +4,10 @@
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
 @media screen and (min-width:1112px) { 
+    .desktop-py-121 {
+      padding-top: 121px;
+      padding-bottom: 121px;
+    }
     .desktop-mx-50 {
       margin-left: 200px!important;
       margin-right: 200px!important;
@@ -42,7 +46,11 @@
       height: 241px;
     }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width:1112px) {
+  .tablet-py-48 {
+      padding-top: 48px;
+      padding-bottom: 48px;
+  }
   .tablet-mx-14 {
     margin-left: 56px!important;
     margin-right: 56px!important;

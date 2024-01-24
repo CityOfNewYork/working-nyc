@@ -4,21 +4,66 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div class="bg-scale-2">
-  <main class="bg-scale-1" id="content">
+<div>
+  <header class="mt-5 tablet:mt-6 desktop:mt-7 mx-3 tablet-mx-14 desktop-mx-26">
+    <div class="w-full grid tablet:grid-cols-[1fr_4fr] tablet:gap-x-4 ">
+      <img class="w-[200px]" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
+      <div>
+        <div class="o-header__title">
+          <h1 id="page-heading" class="o-header__heading">{{ post.employer_program_title }}</h1>
+        </div>
 
-    <div class="layout-content">
-      <header class="o-header">
-        <div class="w-full">
-
-          <div class="o-header__title">
-            <h1 id="page-heading" class="o-header__heading">{{ 'Placeholder title' }}</h1>
+        <h6>{{ post.employer_program_preview }}</h6>
+      </div>
+  </header>
+  <div class="mt-7 grid desktop:grid-cols-[2fr_1fr] desktop:gap-x-[100px] mx-3 tablet-mx-14 desktop-mx-26">
+    <div class="pb-8 mb-8">
+      {% for section in post.meta('sections') %}
+        <section>
+          {% if section.section_title %}
+          <div>
+            <div>
+              <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3" data-active-navigation-item="focus">
+                {{ section.section_title }}
+              </h3>
+            </div>
           </div>
+          {% endif %}
 
-          <h2 class="o-header__subtitle">
-            <b>{{ post.employer_program_title }}</b> 
-          </h2>
-  </main>
+          <div>
+            {{ section.section_content }}
+          </div>
+        </section>
+      {% endfor %}
+    </div>
+    <div>
+      <div>
+        <h6>{{ post.employer_program_title }} is provided by</h6>
+        <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
+      </div>
+      {# TODO: add related by taxonomy #}
+      {# <div>
+        <h6>Related</h6>
+        <div>
+          {% for term in post.terms %}
+            <div class="rounded p-1 bg-scale-2 m-1">
+              {{ term.name }}
+            </div>
+          {% endfor %}
+        </div>
+      </div> #}
+    </div>
+  </div>
+  <div class="mb-7 mx-3 tablet-mx-14 desktop-mx-26">
+    <h3>Similar programs</h3>
+    <div class="grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
+      {% for program in post.meta('similar_programs') %}
+      <div>
+      {% include 'employer-programs/employer-program.twig' with { post: program } %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </div>
 {% endblock %}
 

@@ -1,43 +1,7 @@
-<nav aria-label="{{ header_menu.name }}" class="o-navigation o-navigation-fixed" data-js="navigation">
-  <a class="o-navigation__home o-navigation__menu-item bg-scale-1 tablet:bg-transparent" href="{{ site.url }}">
-    <span class="sr-only">Job Ready by Jobs N Y C</span>
-
-    <svg aria-hidden="true" class="o-navigation__svg hidden tablet:inline fill-text text-brand" width="160" height="23">
-      <use href="#logo-jnyc-horizontal"></use>
-    </svg>
-
-    <svg aria-hidden="true" class="o-navigation__svg tablet:hidden fill-text text-brand" width="78" height="48">
-      <use href="#logo-jnyc-stacked"></use>
-    </svg>
-  </a>
-
-  {% for menu_item in header_menu.get_items %}
-  <a class="o-navigation__item" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
-  {% endfor %}
-
-  <button class="o-navigation__menu-item" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
-    <svg class="o-navigation__menu-icon icon-ui">
-      <use href="#nyco-languages"></use>
-    </svg>
-
-    <span class="o-navigation__menu-label">{{ __('Languages', 'WNYC') }}</span>
-  </button>
-  
-  <button class="o-navigation__item desktop:m-0" aria-controls="aria-c-search" aria-expanded="false" data-dialog="open" data-js="search">
-    <svg class="o-navigation__menu-icon icon-ui">
-      <title>{{__('Search', 'WNYC')}}</title>
-      <use href="#lucide-search"></use>
-    </svg>
-    <span class="o-navigation__menu-label">{{__('Search', 'WNYC') }}</span>
-  </button>
-
-  <button class="o-navigation__menu-item desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
-    <svg class="o-navigation__menu-icon icon-ui">
-      <use href="#lucide-menu"></use>
-    </svg>
-
-    <span class="o-navigation__menu-label">{{ __('Menu', 'WNYC') }}</span>
-  </button>
-
-  {% include 'objects/menu.twig' %}
-</nav>
+{% if talent_portal_landing_page == true %}
+{% include 'objects/landing-page-navigation.twig' %}
+{% elseif employer == true %}
+{% include 'objects/employer-navigation.twig' %}
+{% else %}
+{% include 'objects/job-seeker-navigation.twig' %}
+{% endif %}

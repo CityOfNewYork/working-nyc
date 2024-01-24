@@ -1,106 +1,26 @@
 {# @Type   Component #}
 {# @For    Post Type #}
 {# @Class  timber-posts/Programs.php #}
-<article class="c-card h-full {{ post.classes }}">
-  <header class="c-card__header">
-    <span>
-      <a class="c-card__header-link" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>
-        <h3 class="c-card__title">
-          <span class="c-card__underline">{{ post.program_plain_language_title }}</span>
-
-          {% if post.external %}
-          <svg aria-hidden="true" class="icon-ui rtl:flip">
-            <use href="#lucide-external-link"></use>
-          </svg>
-          {% endif %}
-        </h3>
-      </a>
-
-      <p class="c-card__subtitle text-alt">
-        <b>{{ post.program_title }}</b> 
-        {% if post.program_agency is not empty %} 
-          {{ __('by', 'WNYC') }} {{ post.program_agency }}
-        {% endif %}
-      </p>
-    </span>
+<article class="rounded border border-scale-3 p-3">
+  <header class="border-b border-scale-3 pb-2">
+    <img class="w-[50px] h-5 mb-3 object-cover" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
+    <a href="{{ post.link }}">
+      <h5 class="pb-1">{{ post.employer_program_title }}</h5>
+    </a>
+    <p>
+      {{ post.employer_program_provider }}
+    </p>
   </header>
 
-  <div class="c-card__body">
-    {% if post.status %}<p class="c-card__status">
-      {% if post.status.recruiting %}<mark class="badge">
-        {{ post.status.recruiting.name }}<span class="sr-only">.</span>
-      </mark>{% endif %}
+  <div class="pt-2">
+    {{ post.employer_program_preview }}
 
-      {% if post.status.disability %}<span>
-        <svg class="icon text-em" role="img">
-          <title>{{ post.status.disability.name }}</title>
-
-          <use href="#nyco-accessibility"></use>
-        </svg>
-
-        <span class="sr-only">{{ post.status.disability.name }}</span>
-      </span> <span class="sr-only">&nbsp;</span>{% endif %}
-
-      {% if post.status.language %}<span>
-        <svg class="icon-ui text-em" role="img">
-          <title>{{ post.status.language.name }}</title>
-
-          <use href="#nyco-languages"></use>
-        </svg>
-
-        <span class="sr-only">{{ post.status.language.name }}</span>
-      </span>{% endif %}
-    </p>{% endif %}
-
-    {% if post.intro or post.populations %}<div class="c-card__summary">
-      <p>
-        {{ post.preview }}
-        {{ post.populations }}
-      </p>
-    </div>{% endif %}
-
-    <ul class="c-card__features">
-      {% if post.services %}<li>
-        <svg class="icon-ui c-card__feature-icon" role="img">
-          <title>{{ __('Services Provided', 'WNYC') }}</title>
-
-          <use href="#lucide-award"></use>
-        </svg>
-
-        <span>{{ post.services }}</span>
-      </li>{% endif %}
-
-      {% if post.schedule %}<li>
-        <svg class="icon-ui c-card__feature-icon" role="img">
-          <title>{{ __('Duration and Length', 'WNYC') }}</title>
-
-          <use href="#lucide-calendar"></use>
-        </svg>
-
-        <span>{{ post.schedule }}</span>
-      </li>{% endif %}
-
-      {% if post.supports %}<li>
-        <svg class="icon-ui c-card__feature-icon" role="img">
-          <title>{{ __('Support Provided', 'WNYC') }}</title>
-
-          <use href="#lucide-heart-handshake"></use>
-        </svg>
-
-        <span>{{ post.supports }}</span>
-      </li>{% endif %}
-    </ul>
-
-    <a class="c-card__cta" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>
-      {% if post.external %}
-      <span>{{ post.link_label }}</span>
-      {% else %}
-      <span>{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ post.program_title }}</span></span></span>
-      {% endif %}
-
-      <svg aria-hidden="true" class="icon-ui rtl:flip">
-        <use href="#lucide-{% if post.external %}external-link{% else %}arrow-right{% endif %}"></use>
-      </svg>
-    </a>
+    <div class="mt-2 flex gap-x-1">
+      {% for tag in post.meta('employer_program_tags') %}
+        <div class="rounded p-1 bg-scale-2">
+            {{ tag.employer_program_tag }}
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </article>

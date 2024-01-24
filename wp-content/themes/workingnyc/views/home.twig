@@ -76,7 +76,7 @@
 
             <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
               {% for announcement in announcements %}
-              <div class="transform-none aos-init aos-animate" data-aos="fade-in" data-aos-anchor-placement="top-bottom" data-aos-delay="300">
+              <div class="transform-none">
                 {% include 'components/announcement.twig' with {this: announcement} only %}
               </div>
               {% endfor %}

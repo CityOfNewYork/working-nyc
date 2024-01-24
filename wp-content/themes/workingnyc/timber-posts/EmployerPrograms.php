@@ -16,6 +16,7 @@ use Spatie\SchemaOrg\Schema;
 
 class EmployerPrograms extends Timber\Post {
   const SINGULAR = 'employer-program'; // todo: see where this is used
+  const SECTION_ID = 'field_657c7258fba7a';
 
   /**
    * Constructor
@@ -52,6 +53,8 @@ class EmployerPrograms extends Timber\Post {
     $this->link_label = $this->getLinkLabel();
 
     $this->schema = $this->getSchema();
+
+    $this->sections = $this->getSections();
 
     return $this;
   }
@@ -91,6 +94,7 @@ class EmployerPrograms extends Timber\Post {
   /**
    * Get the external button link label for the program which is the domain
    * of the link it is going to.
+   * TODO: update this
    *
    * @return  String  The link label
    */
@@ -109,5 +113,9 @@ class EmployerPrograms extends Timber\Post {
     // TODO: implement this. see Programs.php for an example
 
     return $schemas;
+  }
+
+  public function getSections() {
+    return get_field(SECTION_ID, $this->id);
   }
 }

@@ -8,13 +8,6 @@
 
 require_once WorkingNYC\timber_post('EmployerPrograms');
 
-// only allow logged in users to view employer content for now
-if (is_user_logged_in() === false) {
-    wp_redirect('/404');
-
-    exit;
-}
-
 /**
  * Set the Timber view context
  *
@@ -32,6 +25,9 @@ $context['post'] = $post;
 $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
 $context['meta'] = new WorkingNYC\Meta($post);
+
+// set this to true for all employer-side pages
+$context['employer'] = true;
 
 /**
  * Generate schema for page

@@ -24,12 +24,6 @@ switch ($path) {
     $class = ucfirst($path);
     break;
   case 'employer-programs':
-    // // only allow logged in users to view employer content for now
-    // if (is_user_logged_in() === false) {
-    //   wp_redirect('/404');
-
-    //   exit;
-    // }
     $class = 'EmployerPrograms';
     break;
   default:
@@ -149,6 +143,11 @@ $context['posts'] = array_map(function($p) use ($class) {
 
   return new $class($p);
 }, Timber::get_posts());
+
+if ($path === 'employer-programs') {
+  // set this to true for all employer-side pages
+  $context['employer'] = true;
+}
 
 /**
  * Render the view

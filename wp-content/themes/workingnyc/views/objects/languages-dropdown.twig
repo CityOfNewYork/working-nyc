@@ -1,35 +1,9 @@
-<div aria-hidden="true" class="o-languages-dropdown o-languages-dropdown-fixed relative z-10 hidden" id="aria-c-text-controller">
-  <div class="o-languages-dropdown__inner pb-6">
-    <div>
-      <div class="text-end">
-        <button aria-controls="aria-c-text-controller" aria-expanded="false" class="btn btn-primary btn-small" data-dialog="close" data-js="dialog" tabindex="-1">
-          <svg aria-hidden="true" class="icon-ui" tabindex="-1">
-            <use href="#lucide-x"></use>
-          </svg>
-
-          <span>{{ __('Close', 'WNYC - Navigation') }}</span>
-        </button>
-      </div>
-
-      <p class="h4 block w-full m-0 py-2 text-alt">{{ __('Translate Text', 'WNYC - Navigation') }}</p>
-
-      <div class="o-languages-dropdown__options">
-        <div class="o-languages-dropdown__languages">
-          <div class="notranslate">
-            {% do action('wpml_add_language_selector') %}
-          </div>
-
-          <p>
-            <span class="sr-only">{{ __('Powered by Google Translate', 'WNYC - Navigation') }}</span>
-
-            <svg aria-hidden="true" class="icon-logo-google-translate" tabindex="-1">
-              <use href="#logo-google-translate"></use>
-            </svg>
-          </p>
-        </div>
-      </div>
-    </div>
+<div class="hidden fixed py-1 desktop:py-4 px-2 z-10 desktop:w-screen desktop:left-0 bg-white mt-[52px] desktop:ml-0 -ml-1 flex justify-center desktop:shadow-none shadow-[2px_2px_20px_0px_#D4D7DC]" id="aria-c-text-controller">
+  <div class="hidden desktop:block desktop:mr-8">
+    <span class="h4">{{ __('Select your language', 'WNYC - Navigation') }}</span>
   </div>
+  <div class="notranslate language-list">
+    {% do action('wpml_add_language_selector') %}
+  </div>
+  <span class="sr-only">{{ __('Powered by Google Translate', 'WNYC - Navigation') }}</span>
 </div>
-
-<div id="google_translate_element" class="hidden"></div>

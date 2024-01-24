@@ -1,35 +1,39 @@
 <template>
-  <article class="c-card">
-    <header class="c-card__header grid grid-cols-[1fr_4fr]">
+  <a :href="post.link" class="no-underline text-inherit">
+    <article class="grid grid-cols-[60px_minmax(300px,1fr)] gap-x-3 p-3 rounded border border-scale-3">
       <img v-if="post.logo" :src="post.logo.url" loading="lazy" :alt="post.logo.alt"/>
       <div v-else></div>
-      <span>
-        <a class="c-card__header-link">
-          <h3 class="c-card__title">
-            <span class="c-card__underline">{{ post.title }}</span>
-          </h3>
-        </a>
+      <div>
+        <header class="border-b border-scale-3">
+          <span>
+            <h3 class="c-card__title">{{ post.title }}</h3>
 
-        <p class="c-card__subtitle text-alt">
-          <b data-program="title">{{ post.provider }}</b>
-        </p>
-      </span>
-    </header>
+            <p class="c-card__subtitle text-alt mb-2">{{ post.provider }}</p>
+          </span>
+        </header>
 
-    <div class="c-card__body">
-      <div class="c-card__summary">
-        <p>
-          {{ post.preview }}
-        </p>
+        <div>
+          <div class="c-card__summary mt-2">
+            <p>
+              {{ post.preview }}
+            </p>
+          </div>
+
+          <div class="flex gap-x-1">
+            <div class="rounded p-1 bg-scale-2" v-for="tag in post.tags" :key="tag.employer_program_tag">
+                {{ tag.employer_program_tag }}
+            </div>
+          </div>
+
+          <details v-if="post.raw">
+            <summary>Raw</summary>
+
+            <pre tabindex="-1">{{ post.raw }}</pre>
+          </details>
+        </div>
       </div>
-
-      <details v-if="post.raw">
-        <summary>Raw</summary>
-
-        <pre tabindex="-1">{{ post.raw }}</pre>
-      </details>
-    </div>
-  </article>
+    </article>
+  </a>
 </template>
 
 <script>

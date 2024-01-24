@@ -1,0 +1,16 @@
+@media screen and (min-width:1112px) { 
+    .language-list ul {
+      list-style-type: none;
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+    }
+    .language-list li {
+        margin-right: 40px;
+    }
+}
+
+.language-list ul {
+    list-style-type: none;
+    padding-left: 0;
+}
