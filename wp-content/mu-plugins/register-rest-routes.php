@@ -59,7 +59,9 @@ add_action('rest_api_init', function() {
 
       $cache = (isset($params['cache'])) ? filter_var($params['cache'], FILTER_VALIDATE_BOOLEAN) : true;
 
-      /** */
+      $orderby = (isset($params['orderby'])) ? $params['orderby'] : 'name';
+
+      $order = (isset($params['order'])) ? $params['order'] : 'ASC';
 
       $type = ($postTypes) ? implode('_', $postTypes) : '';
 
@@ -70,6 +72,8 @@ add_action('rest_api_init', function() {
       $key = implode('_', ['rest_terms_json', $type, $empty, $lang]);
 
       $data = ($cache) ? get_transient($key) : false;
+
+      $res = [];
 
       if (false === $data) {
         $data = [];
@@ -91,8 +95,10 @@ add_action('rest_api_init', function() {
           );
         }
 
+        $res = $data;
+
         // Get the terms for each taxonomy
-        $data = array_map(function($tax) use ($postTypes, $hideEmpty) {
+        $data = array_map(function($tax) use ($postTypes, $hideEmpty, $orderby, $order) {
           // Get used terms limited to the post type, requires
           // a work around by getting all the posts.
           if ($postTypes) {
@@ -103,26 +109,23 @@ add_action('rest_api_init', function() {
                 'posts_per_page' => -1,
               ));
 
-              $tax['terms'] = wp_get_object_terms($posts, $tax['taxonomy']->name, ['ids']);
+              $tax['terms'] = wp_get_object_terms($posts, $tax['taxonomy']->name, array(
+                'orderby' => $orderby,
+                'order' => 'ASC'
+              ));
             }
           // Get all terms regardless of post type or count.
           } else {
             $tax['terms'] = get_terms(array(
               'taxonomy' => $tax['taxonomy']->name,
-              'hide_empty' => $hideEmpty
+              'hide_empty' => $hideEmpty,
+              'orderby' => $orderby,
+              'order' => 'ASC'
             ));
           }
 
           return $tax;
         }, $data);
-
-        // $headers = array(
-        //   'post_types' => $postTypes,
-        //   'hide_empty' => $hideEmpty,
-        //   'cached' => $cache,
-        //   'transient_key' => $key,
-        //   'expires' => WEEK_IN_SECONDS
-        // );
 
         if ($cache) {
           set_transient($key, $data, WEEK_IN_SECONDS);
@@ -132,8 +135,6 @@ add_action('rest_api_init', function() {
       $response = new WP_REST_Response($data); // Create the response object
 
       $response->set_status(200); // Add a custom status code
-
-      // $response->set_headers();
 
       return $response;
     }
