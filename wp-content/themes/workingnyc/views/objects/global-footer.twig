@@ -1,27 +1,24 @@
-<footer aria-label="{{ __('Footer', 'WNYC') }}" class="relative my-3 mx-2 tablet:my-5 tablet:mx-8 desktop:my-5 desktop:mx-8" role="contentinfo">
-  <div class="bg-color-F8F9FB" name="global-footer-container">
-  <nav class="o-attribution__flex border-b border-slate-200 pb-3 desktop:pb-3">
-    <div class="tablet:float-left desktop:float-left pb-3 tablet:pb-0 desktop:pb-0">
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="97" height="32">
-        <use href="#logo-nyc-black"></use>
-      </svg>
-      </br>
-      <span class="text-lg">
-         {{ __('Connecting you to NYC services.', 'WNYC') }}</span>
-    </div>
-    <div class="tablet:float-right desktop:float-right inline-grid grid-cols-2 grid-rows-2 gap-1">
-       <span class="text-sm">my citySupport</span>
-       <span class="text-sm">Privacy policy</span>
-       <span class="text-sm">terms of use</span>
-       <span class="text-sm">Digital Accessabilities</span>
-    </div>
-  </nav>
-  <nav class="o-attribution__flex border-grey-light pt-3 desktop:pt-3">
-    <div>
-      <span class="text-sm">
-        {{ __('© ' ~ 'now' | date('Y') ~ ' City of New York,', 'WNYC') ~ ' ' ~ __('All Rights Reserved.', 'WNYC') }}
-        {{ __('NYC is a trademark and service mark of the City of New York.', 'WNYC') }}</span>
-    </div>
-  </nav>
-  </div>
+<footer aria-label="{{ __('Footer', 'WNYC') }}" class="bg-[#F8F9FB] relative py-3 px-2 tablet:py-5 tablet:px-8" role="contentinfo">
+    <nav class="o-attribution__flex border-b border-slate-200 pb-3 desktop:pb-3">
+        <div class="tablet:float-left desktop:float-left pb-3 tablet:pb-0 desktop:pb-0">
+            <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand pb-1" width="97" height="32">
+                <use href="#logo-nyc-black"></use>
+            </svg>
+            </br>
+            <span>{{ __('Connecting you to NYC services.', 'WNYC') }}</span>
+        </div>
+        <div class="tablet:float-right desktop:float-right inline-grid grid-cols-2 grid-rows-2 gap-1">
+        <span class="text-sm">my citySupport</span>
+        <span class="text-sm">Privacy policy</span>
+        <span class="text-sm">terms of use</span>
+        <span class="text-sm">Digital Accessabilities</span>
+        </div>
+    </nav>
+    <nav class="o-attribution__flex border-grey-light pt-3 desktop:pt-3">
+        <div>
+        <span class="text-sm">
+            {{ __('© ' ~ 'now' | date('Y') ~ ' City of New York,', 'WNYC') ~ ' ' ~ __('All Rights Reserved.', 'WNYC') }}
+            {{ __('NYC is a trademark and service mark of the City of New York.', 'WNYC') }}</span>
+        </div>
+    </nav>
 </footer>
