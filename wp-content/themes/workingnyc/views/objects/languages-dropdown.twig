@@ -1,8 +1,8 @@
-<div class="hidden fixed py-1 desktop:py-4 px-2 z-10 desktop:w-screen desktop:left-0 bg-white my-[60px]" id="aria-c-text-controller">
-  <div class="hidden desktop:block desktop:float-left desktop:mr-8">
+<div class="hidden fixed py-1 desktop:py-4 px-2 z-10 desktop:w-screen desktop:left-0 bg-white mt-[52px] desktop:ml-0 -ml-1 flex justify-center desktop:shadow-none shadow-[2px_2px_20px_0px_#D4D7DC]" id="aria-c-text-controller">
+  <div class="hidden desktop:block desktop:mr-8">
     <span class="h4">{{ __('Select your language', 'WNYC - Navigation') }}</span>
   </div>
-  <div class="notranslate language-list-no-bullet">
+  <div class="notranslate language-list">
     {% do action('wpml_add_language_selector') %}
   </div>
   <span class="sr-only">{{ __('Powered by Google Translate', 'WNYC - Navigation') }}</span>
