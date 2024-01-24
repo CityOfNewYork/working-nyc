@@ -1,7 +1,7 @@
 @media screen and (min-width:1112px) { 
     .language-list-style ul {
-     list-style-type: none;
-     -webkit-column-count: 3;
+      list-style-type: none;
+      -webkit-column-count: 3;
       -moz-column-count: 3;
       column-count: 3;
     }
@@ -26,6 +26,10 @@
     .language-list-style li {
       margin-bottom: 4px;
     }
+}
+
+.language-list-no-bullet ul {
+    list-style-type: none;
 }
 
 @media screen and (max-width: 480px) {

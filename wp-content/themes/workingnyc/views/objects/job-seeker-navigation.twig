@@ -14,6 +14,7 @@
       </svg>
       <span class="text-xs desktop:text-sm">{{ __('Language | English', 'WNYC - Navigation') }}</span>
     </button>
+    {% include 'objects/languages-dropdown.twig' %}
   </div>
 </nav>
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3" data-js="navigation">
@@ -42,4 +43,3 @@
     </svg>
   </button>
 </nav>
-{% include 'objects/menu.twig' %}
