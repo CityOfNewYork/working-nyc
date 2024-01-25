@@ -7,11 +7,15 @@
             </br>
             <span>{{ __('Connecting you to NYC services.', 'WNYC') }}</span>
         </div>
-        <div class="tablet:float-right desktop:float-right inline-grid grid-cols-2 grid-rows-2 gap-1">
-        <span class="text-sm">my citySupport</span>
-        <span class="text-sm">Privacy policy</span>
-        <span class="text-sm">terms of use</span>
-        <span class="text-sm">Digital Accessabilities</span>
+        <div class="tablet:float-right desktop:float-right inline-grid grid-cols-2 gap-1">
+        {% for m in global_footer_menu.get_items %}
+            <a class="inline mr-2 desktop:mr-3 tablet:mr-3" href="{{ m.link }}"
+            {% if m.attr_title %}title="{{ m.attr_title }}"{% endif %}
+            {% if m.target %}target="{{ m.target }}"{% endif %}
+            {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
+                {{ m.title }}
+            </a>
+        {% endfor %}
         </div>
     </nav>
     <nav class="o-attribution__flex border-grey-light pt-3 desktop:pt-3">

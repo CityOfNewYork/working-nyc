@@ -9,15 +9,20 @@
       <a class="btn btn-small tablet:btn btn-secondary pointer-events-auto" href="https://airtable.com/appHMkkbuN08pgjwz/shrfQGpXvo9mmmHpJ">Send us feedback</a>
     </div>
   </nav>
-  <nav class="o-attribution__flex border-t border-slate-300 pt-3 tablet:pt-0 desktop:pt-0">
+  <nav class="o-attribution__flex border-t border-slate-300 pt-3 items-start">
     <div class="tablet:float-left desktop:float-left pb-2 tablet:pb-0 desktop:pb-0">
        <span>
        {{ __('We support business owners in NYC', 'WNYC') }}</span>
     </div>
-    <div class="grid grid-rows-3 gap-1 tablet:float-right desktop:float-right tablet:pt-3">
-       <span class="text-sm">nav item</span>
-       <span class="text-sm">nav item</span>
-       <span class="text-sm">nav item</span>
+    <div class="grid grid-cols-2 gap-1 tablet:float-right desktop:float-right pt-2 tablet:pt-0">
+        {% for m in employer_footer_menu.get_items %}
+            <a class="inline mr-2 desktop:mr-3 tablet:mr-3" href="{{ m.link }}"
+            {% if m.attr_title %}title="{{ m.attr_title }}"{% endif %}
+            {% if m.target %}target="{{ m.target }}"{% endif %}
+            {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
+                {{ m.title }}
+            </a>
+        {% endfor %}
     </div>
   </nav>
   </div>
