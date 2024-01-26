@@ -108,7 +108,7 @@
       {% include 'components/back-to-top.twig' %}
     </div>
 
-    {% if options.feedback is defined %}
+    {% if options.feedback is defined and show_feedback is not defined %}
     {% include 'objects/feedback.twig' %}
     {% endif %}
 
