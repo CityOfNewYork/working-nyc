@@ -1,0 +1,7 @@
+{% if talent_portal_landing_page == true %}
+{% include 'objects/global-footer.twig' %}
+{% elseif employer == true %}
+{% include 'objects/employer-footer.twig' %}
+{% else %}
+{% include 'objects/job-seeker-footer.twig' %}
+{% endif %}

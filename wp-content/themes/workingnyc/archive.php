@@ -147,6 +147,8 @@ $context['posts'] = array_map(function($p) use ($class) {
 if ($path === 'employer-programs') {
   // set this to true for all employer-side pages
   $context['employer'] = true;
+  $context['show_newsletter'] = false;
+  $context['show_feedback'] = false;
 }
 
 /**
