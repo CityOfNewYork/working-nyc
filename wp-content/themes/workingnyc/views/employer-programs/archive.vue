@@ -5,7 +5,7 @@
         <header class="o-header">
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
-              <a href="/">{{ strings.HOME }}</a>
+              <a href="/employers">{{ strings.HOME }}</a>
             </nav>
 
             <div class="o-header__title">
