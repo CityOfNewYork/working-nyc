@@ -14,11 +14,9 @@ require_once WorkingNYC\timber_post('EmployerPrograms');
  * @author NYC Opportunity
  */
 
-add_action('wp_enqueue_scripts', function() {
-    enqueue_script('employer-program-single-page');
-});
+ wp_enqueue_script('employer-program-single-page', get_template_directory_uri() . '/assets/js/employer-program-single-page-development.js', array('jquery'), null, true);
 
-/**
+ /**
  * Set the Timber view context
  *
  * @author NYC Opportunity

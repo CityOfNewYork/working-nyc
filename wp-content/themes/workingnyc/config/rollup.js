@@ -77,7 +77,7 @@ module.exports = [
   {
     input: './src/js/employer-program-single-page.js',
     output: [{
-      file: './assets/js/employer-program-single-page.js',
+      file: './assets/js/employer-program-single-page-development.js',
       format: rollup.format,
       sourcemap: false,
       strict: rollup.strict
