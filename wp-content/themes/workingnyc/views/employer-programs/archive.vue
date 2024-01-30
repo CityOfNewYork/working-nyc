@@ -31,94 +31,65 @@
         </header>
       </div>
     </div>
+    <div>
+      <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-40">
+        <div class="desktop:hidden">
+          <button :disabled="terms.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="false" data-js="dialog">
+            <span class="mie-1">{{ strings.FILTERS }}</span>
 
-  <div>
-    <button :disabled="terms.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="true" data-js="dialog">
-      <span class="mie-1">{{ strings.FILTERS }}</span>
+            <span class="badge badge-small status-secondary light:status-primary">{{ totalFilters }}</span>
+          </button>
+        </div>
 
-      <span class="badge badge-small status-secondary light:status-primary">{{ totalFilters }}</span>
-    </button>
-  </div>
+        <div aria-hidden="true" class="hidden " id="aria-c-filter">
+          <div class="layout-content">
+            <div class="wrap text-end relative z-20">
+              <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-primary btn-small" data-dialog="close" data-js="dialog" tabindex="-1">
+                <svg aria-hidden="true" class="icon-ui" tabindex="-1">
+                  <use href="#lucide-x"></use>
+                </svg>
 
-  <div aria-hidden="true" class="hidden" id="aria-c-filter">
-    <div class="layout-content">
-      <div class="wrap text-end relative z-20">
-        <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-primary btn-small" data-dialog="close" data-js="dialog" tabindex="-1">
-          <svg aria-hidden="true" class="icon-ui" tabindex="-1">
-            <use href="#lucide-x"></use>
-          </svg>
-
-          <span>{{ strings.CLOSE }}</span>
-        </button>
-      </div>
-    </div>
-
-    <form tabindex="-1">
-      <div class="layout-content">
-        <!-- <div>
-          <div class="mb-8" v-for="term in terms" :key="term.slug">
-            <fieldset class="fieldset mb-2" tabindex="-1">
-              <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">
-                {{ term.name }}
-              </legend>
-
-              <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
-                <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
-                  <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
-
-                  <span class="option__base">
-                    <svg aria-hidden="true" class="option__graphic" tabindex="-1">
-                      <use href="#option-nyco-checkbox"></use>
-                    </svg>
-
-                    <span class="option__label">{{ filter.name }}</span>
-                  </span>
-                </label>
-              </div>
-            </fieldset>
-
-            <div class="pis-4">
-              <button class="text-small" type="button" tabindex="-1"
-                @click="toggle({event: $event, data: {parent: term.slug}})"
-                :aria-pressed="term.filters.filter(f => f.checked).length === term.filters.length ? 'true' : 'false'"
-                v-html="strings.TOGGLE_ALL.replace('{{ TERM }}', term.name.toLowerCase())">
+                <span>{{ strings.CLOSE }}</span>
               </button>
             </div>
           </div>
-        </div> -->
-        <div v-for="term in terms" :key="term.slug">
-          <fieldset class="fieldset mb-3" tabindex="-1">
-            <div class="border-b border-scale-3">
-              <legend class="h6 mb-2 font-bold">
-                {{ term.name }}
-              </legend>
+
+          <form>
+            <div class="layout-content">
+              <div>
+                <div class="mb-8" v-for="term in terms" :key="term.slug">
+                  <fieldset class="fieldset mb-2" tabindex="-1">
+                    <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">
+                      {{ term.name }}
+                    </legend>
+
+                    <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
+                      <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
+                        <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
+
+                        <span class="option__base">
+                          <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                            <use href="#option-nyco-checkbox"></use>
+                          </svg>
+
+                          <span class="option__label">{{ filter.name }}</span>
+                        </span>
+                      </label>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
             </div>
 
-            <div class="grid gap-1">
-              <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
-                <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
-
-                <span class="option__base bg-transparent">
-                  <svg aria-hidden="true" class="option__graphic" tabindex="-1">
-                    <use href="#option-nyco-checkbox"></use>
-                  </svg>
-
-                  <span class="font-normal">{{ filter.name }}</span>
-                </span>
-              </label>
+            <div class="desktop:hidden">
+              <div class="wrap">
+                <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1" v-html="strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', headers.total)"></button>
+              </div>
             </div>
-          </fieldset>
+          </form>
         </div>
       </div>
-
-      <div class="layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1">
-        <div class="wrap">
-          <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1" v-html="strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', headers.total)"></button>
-        </div>
-      </div>
-    </form>
-  </div>
-
+    </div>
   <div class="flex m-auto justify-center gap-x-8 mt-7" v-if="init">
     <section class="hidden desktop:flex w-[350px] p-3 rounded border border-scale-3">
       <form>
