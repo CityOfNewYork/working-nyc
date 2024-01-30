@@ -32,76 +32,22 @@
       </div>
     </div>
     <div>
-      <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 z-40">
-        <div class="desktop:hidden">
-          <button :disabled="terms.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="false" data-js="dialog">
-            <span class="mie-1">{{ strings.FILTERS }}</span>
+      <div class="desktop:hidden py-2 px-2 tablet:px-7" v-show="!filtersExpanded">
+        <button :disabled="terms.length === 0" @click="filtersExpanded = true" class="btn btn-small btn-secondary">
+          <span class="mie-1">{{ strings.FILTERS }}</span>
 
-            <span class="badge badge-small status-secondary light:status-primary">{{ totalFilters }}</span>
-          </button>
-        </div>
-
-        <div aria-hidden="true" class="hidden " id="aria-c-filter">
-          <div class="layout-content">
-            <div class="wrap text-end relative z-20">
-              <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-primary btn-small" data-dialog="close" data-js="dialog" tabindex="-1">
-                <svg aria-hidden="true" class="icon-ui" tabindex="-1">
-                  <use href="#lucide-x"></use>
-                </svg>
-
-                <span>{{ strings.CLOSE }}</span>
-              </button>
-            </div>
-          </div>
-
-          <form>
-            <div class="layout-content">
-              <div>
-                <div class="mb-8" v-for="term in terms" :key="term.slug">
-                  <fieldset class="fieldset mb-2" tabindex="-1">
-                    <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">
-                      {{ term.name }}
-                    </legend>
-
-                    <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
-                      <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
-                        <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
-
-                        <span class="option__base">
-                          <svg aria-hidden="true" class="option__graphic" tabindex="-1">
-                            <use href="#option-nyco-checkbox"></use>
-                          </svg>
-
-                          <span class="option__label">{{ filter.name }}</span>
-                        </span>
-                      </label>
-                    </div>
-                  </fieldset>
-                </div>
-              </div>
-            </div>
-
-            <div class="desktop:hidden">
-              <div class="wrap">
-                <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1" v-html="strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', headers.total)"></button>
-              </div>
-            </div>
-          </form>
-        </div>
+          <span class="badge badge-small bg-white">{{ totalFilters }}</span>
+        </button>
       </div>
-    </div>
-  <div class="flex m-auto justify-center gap-x-8 mt-7" v-if="init">
-    <section class="hidden desktop:flex w-[350px] p-3 rounded border border-scale-3">
-      <form>
+      <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-show="filtersExpanded">
         <div>
-          <h6 class="font-bold">
-            {{ strings.FILTERS }}
+          <h6 class="mb-3">
+            {{ strings.FILTER_BY }}
           </h6>
-          <div>
             <div v-for="term in terms" :key="term.slug">
               <fieldset class="fieldset mb-3" tabindex="-1">
                 <div class="border-b border-scale-3">
-                  <legend class="h6 mb-2 font-bold">
+                  <legend class="h6 mb-2">
                     {{ term.name }}
                   </legend>
                 </div>
@@ -121,34 +67,70 @@
                 </div>
               </fieldset>
             </div>
-          </div>
-        </div>
-      </form>
-    </section>
-    <div class="w-1/2">
-      <section class="page-max">
-        <div v-if="!loading">
-          <div class="mb-3">
-            <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
-              <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
-            </h2>
-
-            <!-- <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button> -->
-          </div>
-
-          <div class="grid gap-3 mb-3">
-            <EmployerProgram v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></EmployerProgram>
-          </div>
-
-          <p data-alert="text" v-if="posts != null" v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></p>
         </div>
 
-        <div class="flex items-center text-em justify-center py-4" v-if="none">
-          <p>{{ strings.NO_RESULTS }} <button v-html="strings.RESET" @click="reset"></button></p>
+        <div class="wrap gap-3 flex justify-center">
+          <button class="btn btn-secondary" :disabled="totalFilters == 0" v-html="strings.RESET" @click="reset"></button>
+          <button class="btn btn-secondary" @click="filtersExpanded = false">{{ strings.APPLY_FILTERS }}</button>
         </div>
+      </div>
+    </div>
+  
+  <div v-if="init" v-show="!filtersExpanded">
+    <div class="flex mx-auto justify-center gap-x-8 my-5 tablet:my-6 desktop:my-7">
+      <section class="hidden desktop:flex w-[350px] p-3 rounded border border-scale-3">
+        <form>
+          <div>
+            <h6 class="font-bold">
+              {{ strings.FILTER_BY }}
+            </h6>
+            <div>
+              <div v-for="term in terms" :key="term.slug">
+                <fieldset class="fieldset mb-3" tabindex="-1">
+                  <div class="border-b border-scale-3">
+                    <legend class="h6 mb-2 font-bold">
+                      {{ term.name }}
+                    </legend>
+                  </div>
+
+                  <div class="grid gap-1">
+                    <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
+                      <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
+
+                      <span class="option__base bg-transparent">
+                        <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                          <use href="#option-nyco-checkbox"></use>
+                        </svg>
+
+                        <span class="font-normal">{{ filter.name }}</span>
+                      </span>
+                    </label>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </form>
       </section>
+      <div class="desktop:w-1/2">
+        <section class="page-max mx-2 tablet:mx-7 desktop:mx-0">
+          <div v-if="!loading">
+            <div class="mb-3">
+              <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
+                <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
+              </h2>
+            </div>
 
-      
+            <div class="grid gap-3 mb-3">
+              <EmployerProgram v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></EmployerProgram>
+            </div>
+          </div>
+
+          <div class="flex items-center text-em justify-center py-4" v-if="none">
+            <p>{{ strings.NO_RESULTS }} <button v-html="strings.RESET" @click="reset"></button></p>
+          </div>
+        </section>      
+      </div>
     </div>
   </div>
 
