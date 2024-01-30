@@ -46,6 +46,9 @@
                   <legend class="h6 mb-2 font-bold">
                     {{ term.name }}
                   </legend>
+                  <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                    <use href="#down-arrow"></use>
+                  </svg>
                 </div>
 
                 <div class="grid gap-1">
@@ -58,9 +61,7 @@
                       </svg>
 
                       <span class="font-normal">{{ filter.name }}</span>
-                      <svg aria-hidden="true" class="option__graphic" tabindex="-1">
-                        <use href="#down-arrow"></use>
-                      </svg>
+    
                     </span>
                   </label>
                 </div>
