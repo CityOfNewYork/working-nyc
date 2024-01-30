@@ -1,3 +1,5 @@
+console.log("testing js connection");
+
 const prev = document.querySelector(".prev");
 const next = document.querySelector(".next");
 const carousel = document.querySelector(".carousel-container");
