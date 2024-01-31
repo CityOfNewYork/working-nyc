@@ -43,14 +43,14 @@
             <div v-for="term in terms" :key="term.slug">
               <fieldset class="fieldset mb-3" tabindex="-1">
                 <div class="border-b border-scale-3">
-                  <legend class="h6 mb-2 font-bold">
+                  <legend class="h6 mb-2 font-bold flex ">
                     {{ term.name }}
-                  </legend>
+                  </legend>    
                   <svg aria-hidden="true" class="option__graphic" tabindex="-1">
                     <use href="#down-arrow"></use>
-                  </svg>
+                  </svg>           
                 </div>
-
+                  
                 <div class="grid gap-1">
                   <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
                     <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
