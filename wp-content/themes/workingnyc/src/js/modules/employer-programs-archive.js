@@ -37,6 +37,8 @@ export default {
        */
       type: 'employer-programs',
 
+      filtersExpanded: false,
+
       /**
        * Setting this sets the initial app query.
        *

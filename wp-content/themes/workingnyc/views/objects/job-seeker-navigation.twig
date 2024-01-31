@@ -1,6 +1,12 @@
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="bg-[#F8F9FB] px-2 tablet:px-5 desktop:px-3 py-1 flex justify-between align-middle items-center" data-js="navigation">
   <div class="flex">
-    <a class="desktop:hidden tablet:pr-2" href="{{ site.url }}">
+    <a class="desktop:hidden tablet:pr-2" 
+    {% if options.job_seekers_link is defined %}
+      href="{{ options.job_seekers_link }}"
+    {% else %}
+      href="{{ site.url }}"
+    {% endif %}
+    >
       <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="56" height="18">
         <use href="#logo-nyc-black"></use>
       </svg>
@@ -37,7 +43,13 @@
 {% include 'search/search-overlay.twig' %}
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3" data-js="navigation">
   <div class="items-center flex bg-scale-1 tablet:bg-transparent">
-    <a class="pr-2 hidden desktop:block" href="{{ site.url }}">
+    <a class="pr-2 hidden desktop:block" 
+    {% if options.job_seekers_link is defined %}
+      href="{{ options.job_seekers_link }}"
+    {% else %}
+      href="{{ site.url }}"
+    {% endif %}
+    >
       <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="56" height="18">
         <use href="#logo-nyc-black"></use>
       </svg>
