@@ -111,7 +111,7 @@ add_action('rest_api_init', function() {
 
               $tax['terms'] = wp_get_object_terms($posts, $tax['taxonomy']->name, array(
                 'orderby' => $orderby,
-                'order' => 'ASC'
+                'order' => $order
               ));
             }
           // Get all terms regardless of post type or count.
@@ -120,7 +120,7 @@ add_action('rest_api_init', function() {
               'taxonomy' => $tax['taxonomy']->name,
               'hide_empty' => $hideEmpty,
               'orderby' => $orderby,
-              'order' => 'ASC'
+              'order' => $order
             ));
           }
 
