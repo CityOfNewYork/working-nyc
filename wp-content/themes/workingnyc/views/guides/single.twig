@@ -7,10 +7,23 @@
 <div class="bg-scale-2">
   <main class="bg-scale-1">
     <div class="layout-content sticky top-0 bg-scale-1 z-30">
+      {% if employer == true %}
+        {% if options.employers_link is defined %}
+          {% set home_link = options.employers_link %}
+        {% else %}
+          {% set home_link = site.url %}
+        {% endif %}
+      {% else %}
+        {% if options.job_seekers_link is defined %}
+          {% set home_link = options.job_seekers_link %}
+        {% else %}
+          {% set home_link = site.url %}
+        {% endif %}
+      {% endif %}
       {% include ['components/utility-nav.twig'] with {
         return: {
           'label': __('Home', 'WNYC'),
-          'link': '/'
+          'link': home_link
         },
         web_share: {
           'title': post.title,

@@ -5,7 +5,7 @@
         <header class="o-header">
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
-              <a href="/employers">{{ strings.HOME }}</a>
+              <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
             </nav>
 
             <div class="o-header__title">
