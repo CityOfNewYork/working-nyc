@@ -1,14 +1,19 @@
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="bg-[#F8F9FB] px-2 tablet:px-5 desktop:px-3 py-1 flex justify-between align-middle items-center" data-js="navigation">
   <div class="flex">
-    <a class="desktop:hidden tablet:pr-2" 
+    <a class="tablet:hidden" 
     {% if options.job_seekers_link is defined %}
       href="{{ options.job_seekers_link }}"
     {% else %}
       href="{{ site.url }}"
     {% endif %}
     >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="56" height="18">
-        <use href="#logo-nyc-black"></use>
+      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="60" height="11">
+        <use href="#logo-jnyc-horizontal"></use>
+      </svg>
+    </a>
+    <a class="hidden tablet:flex tablet:pr-2" href="https://mycity.nyc.gov/">
+      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+        <use href="#logo-nyc-mycity"></use>
       </svg>
     </a>
     <span class="hidden tablet:block desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
@@ -18,7 +23,7 @@
       <svg class="h-3 w-3 mr-[4px]">
         <use href="#languages-nav"></use>
       </svg>
-      <span class="text-xs desktop:text-sm">{{ __('Language', 'WNYC - Navigation') }}</span>
+      <span>{{ __('Language', 'WNYC - Navigation') }}</span>
       <svg class="h-3 w-3 fill-none stroke-black">
         <use href="#lucide-chevron-down"></use>
       </svg>
@@ -29,7 +34,7 @@
         <title>{{__('Search', 'WNYC - Navigation')}}</title>
         <use href="#lucide-search"></use>
       </svg>
-      <span class="o-navigation__menu-label">{{__('Search', 'WNYC') }}</span>
+      <span>{{__('Search', 'WNYC') }}</span>
     </button>
     <a class="flex desktop:hidden" href="{{ site.url }}/?s=">
       <svg class="icon-ui mr-[4px]">
@@ -41,20 +46,20 @@
   </div>
 </nav>
 {% include 'search/search-overlay.twig' %}
-<nav aria-label="{{ job_seeker_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3" data-js="navigation">
+<nav aria-label="{{ job_seeker_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3 bg-white" data-js="navigation">
   <div class="items-center flex bg-scale-1 tablet:bg-transparent">
-    <a class="pr-2 hidden desktop:block" 
+    <a class="pr-2 hidden tablet:block" 
     {% if options.job_seekers_link is defined %}
       href="{{ options.job_seekers_link }}"
     {% else %}
       href="{{ site.url }}"
     {% endif %}
     >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="56" height="18">
-        <use href="#logo-nyc-black"></use>
+      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="100" height="18">
+        <use href="#logo-jnyc-horizontal"></use>
       </svg>
     </a>
-    <h6 class="mt-0 desktop:pl-2 desktop:border-l desktop:border-solid desktop:border-slate-300 desktop:text-lg desktop:font-semibold">{{ __('Job seekers', 'WNYC - Navigation') }}</h6>
+    <h6 class="mt-0 tablet:pl-2 tablet:border-l tablet:border-solid tablet:border-slate-300">{{ __('Job seekers', 'WNYC - Navigation') }}</h6>
   </div>
   <div>
     {% for menu_item in job_seeker_header_menu.get_items %}
@@ -66,4 +71,13 @@
       <use href="#lucide-menu"></use>
     </svg>
   </button>
+</nav>
+{% include 'objects/menu.twig' %}
+<nav class="z-10 px-3 py-1 relative flex flex-col border-t-2 border-[#D4D7DC] items-center bg-white tablet:hidden" data-js="navigation">
+  <a href="https://mycity.nyc.gov/">
+    <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+      <use href="#logo-nyc-mycity"></use>
+    </svg>
+  </a>
+  <span class="m-auto">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
 </nav>
