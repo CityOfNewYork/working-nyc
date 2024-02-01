@@ -56,7 +56,9 @@ new Vue({
       props: {
         strings: {
           HOME: 'Home',
-          FILTERS: 'Filter by:',
+          FILTERS: 'Filters',
+          FILTER_BY: 'Filter by:',
+          APPLY_FILTERS: 'Apply filters',
           CLOSE: 'Close',
           TOGGLE_ALL: 'Toggle all {{ TERM }}',
           CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ number }} programs',
@@ -69,7 +71,7 @@ new Vue({
           SUPPORTS: 'Support Provided',
           LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ program }}</span>',
           SHOWING: 'Showing {{ TOTAL_VISIBLE }} Programs of {{ TOTAL }}',
-          RESET: 'Click here to reset filters',
+          RESET: 'Clear all filters',
           NO_RESULTS: 'No Results. Try deselecting some filters.',
           LOADING: 'Loading',
           SHOW_MORE: 'Show more',
