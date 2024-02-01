@@ -7,4 +7,4 @@
  *
  */
 
-require 'template-home-page.php';
+require 'template-talent-portal-landing-page.php';
