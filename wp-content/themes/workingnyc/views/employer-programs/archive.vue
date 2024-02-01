@@ -40,20 +40,23 @@
             {{ strings.FILTERS }}
           </h6>
           <div>
-            <div v-for="term in terms" :key="term.slug">
+            <div v-for="(term, index) in terms" :key="index">
               <fieldset class="fieldset mb-3" tabindex="-1">
-                <div class="border-b border-scale-3 flex accordion">
+                <div class="border-b border-scale-3 flex accordion-header" @click="toggleAccordion(index)">
                   <legend class="h6 mb-2 font-bold">
                     {{ term.name }}
                   </legend>    
-                  <span class="ml-auto" style="margin-left:auto;" >
-                    <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                  <span class="ml-auto">
+                    <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="index === activeIndex">
+                      <use href="#up-arrow"></use>
+                    </svg> 
+                    <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="index !== activeIndex">
                       <use href="#down-arrow"></use>
                     </svg>   
                   </span>        
                 </div>
                   
-                <div class="grid gap-1 panel" style="display:none;">
+                <div class="grid gap-1 panel accordion-content" v-if="index === activeIndex">
                   <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
                     <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 

@@ -29,7 +29,7 @@ export default {
     }
   },
   data: function() {
-    console.log("data function");
+
     return {
       /**
        * This is our custom post type to query
@@ -37,6 +37,8 @@ export default {
        * @type {String}
        */
       type: 'employer-programs',
+      activeIndex: null,
+      
 
       /**
        * Setting this sets the initial app query.
@@ -95,6 +97,9 @@ export default {
         'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
+      toggleAccordion(index) {
+        this.activeIndex = (this.activeIndex === index) ? null : index;
+      },
       /**
        * Each endpoint above will access a map to take the data from the request
        * and transform it for the app's display purposes
@@ -104,28 +109,7 @@ export default {
        * @return  {Object}    Object with a mapping function for each endpoint
        */
       maps: function() {
-        console.log("maps function");
-
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-        console.log("acc length");
-        console.log(acc.length);
-
-        for (i = 0; i < acc.length; i++) {
-          acc[i].addEventListener("click", function() {
-            /* Toggle between adding and removing the "active" class,
-            to highlight the button that controls the panel */
-            this.classList.toggle("active");
-
-            /* Toggle between hiding and showing the active panel */
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-              panel.style.display = "none";
-            } else {
-              panel.style.display = "block";
-            }
-          });
-        }
+       
         return {
           /**
            * Data mapping function for results from the Programs endpoint
@@ -175,7 +159,7 @@ export default {
    * @type {Function}
    */
   created: function() {
-    console.log("created function");
+ 
     /**
      * Query Vars to map to the WP Archive Vue history state. These are
      * different from registered query vars so that they don't interfere

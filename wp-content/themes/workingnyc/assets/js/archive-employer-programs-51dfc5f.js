@@ -968,7 +968,7 @@
 	    }
 	  },
 	  data: function() {
-	    console.log("data function");
+
 	    return {
 	      /**
 	       * This is our custom post type to query
@@ -976,6 +976,8 @@
 	       * @type {String}
 	       */
 	      type: 'employer-programs',
+	      activeIndex: null,
+	      
 
 	      /**
 	       * Setting this sets the initial app query.
@@ -1034,6 +1036,9 @@
 	        'employer-programs': '/wp-json/api/v1/searchRelevanssi'
 	      },
 
+	      toggleAccordion(index) {
+	        this.activeIndex = (this.activeIndex === index) ? null : index;
+	      },
 	      /**
 	       * Each endpoint above will access a map to take the data from the request
 	       * and transform it for the app's display purposes
@@ -1043,28 +1048,7 @@
 	       * @return  {Object}    Object with a mapping function for each endpoint
 	       */
 	      maps: function() {
-	        console.log("maps function");
-
-	        var acc = document.getElementsByClassName("accordion");
-	        var i;
-	        console.log("acc length");
-	        console.log(acc.length);
-
-	        for (i = 0; i < acc.length; i++) {
-	          acc[i].addEventListener("click", function() {
-	            /* Toggle between adding and removing the "active" class,
-	            to highlight the button that controls the panel */
-	            this.classList.toggle("active");
-
-	            /* Toggle between hiding and showing the active panel */
-	            var panel = this.nextElementSibling;
-	            if (panel.style.display === "block") {
-	              panel.style.display = "none";
-	            } else {
-	              panel.style.display = "block";
-	            }
-	          });
-	        }
+	       
 	        return {
 	          /**
 	           * Data mapping function for results from the Programs endpoint
@@ -1114,7 +1098,7 @@
 	   * @type {Function}
 	   */
 	  created: function() {
-	    console.log("created function");
+	 
 	    /**
 	     * Query Vars to map to the WP Archive Vue history state. These are
 	     * different from registered query vars so that they don't interfere
@@ -1150,7 +1134,7 @@
 	const __vue_script__$1 = EmployerProgramsArchive;
 
 	/* template */
-	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"layout-content bg-scale-3"},[_c('div',{staticClass:"page-max"},[_c('header',{staticClass:"o-header"},[_c('div',[_c('nav',{staticClass:"o-header__breadcrumbs",attrs:{"aria-label":"Breadcrumb"}},[_c('a',{attrs:{"href":"/"}},[_vm._v(_vm._s(_vm.strings.HOME))])]),_vm._v(" "),_c('div',{staticClass:"o-header__title"},[_c('h1',{staticClass:"o-header__heading",attrs:{"id":"page-heading"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])]),_vm._v(" "),_c('div',{staticClass:"mb-2"},[_c('p',[_vm._v(_vm._s(_vm.strings.PAGE_SUBTITLE))])]),_vm._v(" "),_c('form',{staticClass:"o-search__form w-full",on:{"submit":function($event){$event.preventDefault();return _vm.wp.apply(null, arguments)}}},[_c('div',{staticClass:"input o-search__input rounded"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.query.search_term),expression:"query.search_term"}],staticClass:"rounded border-0",domProps:{"value":(_vm.query.search_term)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.query, "search_term", $event.target.value);}}}),_vm._v(" "),_c('button',{staticClass:"o-search__submit",attrs:{"type":"submit"}},[_c('svg',{staticClass:"icon-ui"},[_c('title',[_vm._v("Submit")]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-search"}})])])])])])])])]),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"flex m-auto justify-center gap-x-8 mt-7"},[_c('section',{staticClass:"w-[350px] p-3 rounded border border-scale-3"},[_c('form',[_c('div',[_c('h6',{staticClass:"font-bold"},[_vm._v("\n          "+_vm._s(_vm.strings.FILTERS)+"\n        ")]),_vm._v(" "),_c('div',_vm._l((_vm.terms),function(term){return _c('div',{key:term.slug},[_c('fieldset',{staticClass:"fieldset mb-3",attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"border-b border-scale-3 flex accordion"},[_c('legend',{staticClass:"h6 mb-2 font-bold"},[_vm._v("\n                  "+_vm._s(term.name)+"\n                ")]),_vm._v(" "),_c('span',{staticClass:"ml-auto",staticStyle:{"margin-left":"auto"}},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#down-arrow"}})])])]),_vm._v(" "),_c('div',{staticClass:"grid gap-1 panel",staticStyle:{"display":"none"}},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.click({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base bg-transparent"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-nyco-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"font-normal"},[_vm._v(_vm._s(filter.name))])])])}),0)])])}),0)])])]),_vm._v(" "),_c('div',{staticClass:"w-1/2"},[_c('section',{staticClass:"page-max"},[(!_vm.loading)?_c('div',[_c('div',{staticClass:"mb-3"},[(_vm.posts != null)?_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","data-dialog-focus-on-close":"aria-c-filter","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"grid gap-3 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('EmployerProgram',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.posts != null)?_c('p',{attrs:{"data-alert":"text"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.none)?_c('div',{staticClass:"flex items-center text-em justify-center py-4"},[_c('p',[_vm._v(_vm._s(_vm.strings.NO_RESULTS)+" "),_c('button',{domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}})])]):_vm._e()])])]):_c('section',{staticClass:"page-max desktop:px-6"},[_c('div',{staticClass:"flex items-center text-em justify-center py-8"},[_c('svg',{staticClass:"spinner icon-4 block mie-2",attrs:{"viewBox":"0 0 24 24","version":"1.1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('circle',{staticClass:"spinner__path",attrs:{"cx":"12","cy":"12","r":"10","fill":"none"}})]),_vm._v("\n\n    "+_vm._s(_vm.strings.LOADING)+"\n  ")])])])};
+	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"layout-content bg-scale-3"},[_c('div',{staticClass:"page-max"},[_c('header',{staticClass:"o-header"},[_c('div',[_c('nav',{staticClass:"o-header__breadcrumbs",attrs:{"aria-label":"Breadcrumb"}},[_c('a',{attrs:{"href":"/"}},[_vm._v(_vm._s(_vm.strings.HOME))])]),_vm._v(" "),_c('div',{staticClass:"o-header__title"},[_c('h1',{staticClass:"o-header__heading",attrs:{"id":"page-heading"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])]),_vm._v(" "),_c('div',{staticClass:"mb-2"},[_c('p',[_vm._v(_vm._s(_vm.strings.PAGE_SUBTITLE))])]),_vm._v(" "),_c('form',{staticClass:"o-search__form w-full",on:{"submit":function($event){$event.preventDefault();return _vm.wp.apply(null, arguments)}}},[_c('div',{staticClass:"input o-search__input rounded"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.query.search_term),expression:"query.search_term"}],staticClass:"rounded border-0",domProps:{"value":(_vm.query.search_term)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.query, "search_term", $event.target.value);}}}),_vm._v(" "),_c('button',{staticClass:"o-search__submit",attrs:{"type":"submit"}},[_c('svg',{staticClass:"icon-ui"},[_c('title',[_vm._v("Submit")]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-search"}})])])])])])])])]),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"flex m-auto justify-center gap-x-8 mt-7"},[_c('section',{staticClass:"w-[350px] p-3 rounded border border-scale-3"},[_c('form',[_c('div',[_c('h6',{staticClass:"font-bold"},[_vm._v("\n          "+_vm._s(_vm.strings.FILTERS)+"\n        ")]),_vm._v(" "),_c('div',_vm._l((_vm.terms),function(term,index){return _c('div',{key:index},[_c('fieldset',{staticClass:"fieldset mb-3",attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"border-b border-scale-3 flex accordion-header",on:{"click":function($event){return _vm.toggleAccordion(index)}}},[_c('legend',{staticClass:"h6 mb-2 font-bold"},[_vm._v("\n                  "+_vm._s(term.name)+"\n                ")]),_vm._v(" "),_c('span',{staticClass:"ml-auto"},[(index === _vm.activeIndex)?_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#up-arrow"}})]):_vm._e(),_vm._v(" "),(index !== _vm.activeIndex)?_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#down-arrow"}})]):_vm._e()])]),_vm._v(" "),(index === _vm.activeIndex)?_c('div',{staticClass:"grid gap-1 panel accordion-content"},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.click({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base bg-transparent"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-nyco-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"font-normal"},[_vm._v(_vm._s(filter.name))])])])}),0):_vm._e()])])}),0)])])]),_vm._v(" "),_c('div',{staticClass:"w-1/2"},[_c('section',{staticClass:"page-max"},[(!_vm.loading)?_c('div',[_c('div',{staticClass:"mb-3"},[(_vm.posts != null)?_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","data-dialog-focus-on-close":"aria-c-filter","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"grid gap-3 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('EmployerProgram',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.posts != null)?_c('p',{attrs:{"data-alert":"text"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.none)?_c('div',{staticClass:"flex items-center text-em justify-center py-4"},[_c('p',[_vm._v(_vm._s(_vm.strings.NO_RESULTS)+" "),_c('button',{domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}})])]):_vm._e()])])]):_c('section',{staticClass:"page-max desktop:px-6"},[_c('div',{staticClass:"flex items-center text-em justify-center py-8"},[_c('svg',{staticClass:"spinner icon-4 block mie-2",attrs:{"viewBox":"0 0 24 24","version":"1.1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('circle',{staticClass:"spinner__path",attrs:{"cx":"12","cy":"12","r":"10","fill":"none"}})]),_vm._v("\n\n    "+_vm._s(_vm.strings.LOADING)+"\n  ")])])])};
 	var __vue_staticRenderFns__$1 = [];
 
 	  /* style */
