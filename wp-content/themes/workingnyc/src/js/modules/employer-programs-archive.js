@@ -37,8 +37,7 @@ export default {
        * @type {String}
        */
       type: 'employer-programs',
-      activeIndex: null,
-      
+      indexArr: [],
 
       /**
        * Setting this sets the initial app query.
@@ -98,7 +97,11 @@ export default {
       },
 
       toggleAccordion(index) {
-        this.activeIndex = (this.activeIndex === index) ? null : index;
+        if(this.indexArr.indexOf(index) === -1){
+          this.indexArr.push(index);
+        }else{
+          this.indexArr.splice(this.indexArr.indexOf(index), 1);
+        }
       },
       /**
        * Each endpoint above will access a map to take the data from the request
