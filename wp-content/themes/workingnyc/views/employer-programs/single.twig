@@ -56,23 +56,32 @@
   </div>
   <div class="mb-7 mx-3 tablet-mx-14 desktop-mx-26">
     <h3>Similar programs</h3>
-  <div class="carousel-container">
-    <div class="inner-carousel">
-      <div class="track grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
-        {% for program in post.meta('similar_programs') %}
-        <div class="card-container">
-        {% include 'employer-programs/employer-program.twig' with { post: program } %}
-        </div>
-        {% endfor %}
-        <div class="nav">
-          <button class="prev"><i class="fas fa-arrow-left fa-2x"></i></button>
-          <button class="next"><i class="fas fa-arrow-right fa-2x"></i></button>
+    <div class="nav">
+      <button class="prev">
+        <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+          <use href="#left-arrow"></use>
+        </svg>
+      </button>
+      <button class="next">
+        <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+          <use href="#right-arrow"></use>
+        </svg>
+      </button>
+    </div>
+    <div class="carousel-container">
+      <div class="inner-carousel">
+        <div class="track grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
+          {% for program in post.meta('similar_programs') %}
+          <div class="card-container">
+          {% include 'employer-programs/employer-program.twig' with { post: program } %}
+          </div>
+          {% endfor %}
+
         </div>
       </div>
     </div>
   </div>
-</div>
-    </div>
+  </div>
   </div>
 </div>
 {% endblock %}
