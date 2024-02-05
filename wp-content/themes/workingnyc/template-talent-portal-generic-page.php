@@ -20,6 +20,9 @@ $context['meta'] = new WorkingNYC\Meta($post);
 
 $context['sections'] = Templating\get_sections();
 
+// set this to true for all employer-side pages
+$context['employer'] = true;
+
 /**
  * Render the view
  */

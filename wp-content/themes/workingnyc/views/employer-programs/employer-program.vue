@@ -1,7 +1,7 @@
 <template>
   <a :href="post.link" class="no-underline text-inherit">
-    <article class="grid grid-cols-[60px_minmax(300px,1fr)] gap-x-3 p-3 rounded border border-scale-3">
-      <img v-if="post.logo" :src="post.logo.url" loading="lazy" :alt="post.logo.alt"/>
+    <article class="tablet:grid tablet:grid-cols-[60px_minmax(300px,1fr)] gap-x-3 p-3 rounded border border-scale-3">
+      <img class="w-[60px] tablet:w-full mb-3" v-if="post.logo" :src="post.logo.url" loading="lazy" :alt="post.logo.alt"/>
       <div v-else></div>
       <div>
         <header class="border-b border-scale-3">
@@ -20,7 +20,7 @@
           </div>
 
           <div class="flex gap-x-1">
-            <div class="rounded p-1 bg-scale-2" v-for="tag in post.tags" :key="tag.employer_program_tag">
+            <div class="small rounded p-1 bg-scale-2" v-for="tag in post.tags" :key="tag.employer_program_tag">
                 {{ tag.employer_program_tag }}
             </div>
           </div>

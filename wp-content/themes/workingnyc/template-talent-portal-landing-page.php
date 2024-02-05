@@ -12,11 +12,11 @@
 
 $context = Timber::get_context();
 
-// TODO: add this when we launch the talent portal
-// $post = Timber::get_post(get_option('page_on_front'));
-$post = Timber::get_post();
+$post = Timber::get_post(get_option('page_on_front'));
 
 $context['post'] = $post;
+
+$context['talent_portal_landing_page'] = true;
 
 /**
  * Set Meta context

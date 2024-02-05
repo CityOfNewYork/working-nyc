@@ -9,10 +9,13 @@
 add_action('init', function() {
   register_nav_menus(
     array(
-      'header_menu' => __('Header Menu', 'Header Menu'),
-      'footer_menu' => __('Footer Menu', 'Footer Menu'),
-      'footer_menu_secondary' => __('Secondary Footer', 'Footer Menu'),
-      'footer_menu_tertiary' => __('Tertiary Footer', 'Footer Menu')
+      'job_seeker_header_menu' => __('Job Seeker Header Menu', 'Header Menu'),
+      'employer_header_menu' => __('Employer Header Menu', 'Header Menu'),
+      'job_seeker_footer_menu' => __('Job Seeker Footer Menu', 'Footer Menu'),
+      'job_seeker_footer_menu_secondary' => __('Secondary Job Seeker Footer', 'Footer Menu'),
+      'job_seeker_footer_menu_tertiary' => __('Tertiary Job Seeker Footer', 'Footer Menu'),
+      'employer_footer_menu' => __('Employer Footer Menu', 'Footer Menu'),
+      'global_footer_menu' => __('Global Footer Menu', 'Footer Menu'),
     )
   );
 });

@@ -39,6 +39,8 @@ export default {
       type: 'employer-programs',
       indexArr: [],
 
+      filtersExpanded: false,
+
       /**
        * Setting this sets the initial app query.
        *
@@ -92,7 +94,7 @@ export default {
        * @param  {String}  employer-programs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&cache=0',
+        terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&orderby=slug&order=ASC&cache=0',
         'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
