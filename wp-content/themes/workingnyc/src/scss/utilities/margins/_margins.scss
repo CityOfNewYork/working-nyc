@@ -92,33 +92,19 @@ img {
     width: 184px;
   }
 }
-.card {
-  width: 100%;
-  height: 100%;
-  /*display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;*/
-  background-position: center bottom;
-  background-size: center;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-}
-
 .nav button {
   width: 60px;
   height: 60px;
-  border-radius: 50%;
   outline: none;
   border: 1px solid #000;
   cursor: pointer;
 }
 .nav .prev {
-  display: none;
+  display: block;
 }
 .nav .prev.show {
   display: block;
 }
 .nav .next.hide {
-  display: none;
+  display: block;
 }
