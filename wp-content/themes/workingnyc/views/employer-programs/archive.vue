@@ -88,8 +88,8 @@
   
   <div v-if="init" v-show="!filtersExpanded">
     <div class="flex mx-auto justify-center gap-x-8 my-5 tablet:my-6 desktop:my-7">
-      <section class="hidden desktop:flex p-3 rounded border border-scale-3">
-        <form>
+      <section class="hidden desktop:flex w-[350px] p-3 rounded border border-scale-3">
+        <form class="w-full">
           <div>
             <h6 class="font-bold">
               {{ strings.FILTER_BY }}
