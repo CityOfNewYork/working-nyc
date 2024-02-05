@@ -113,8 +113,8 @@
                       <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
                         <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 
-                        <span class="option__base bg-transparent">
-                          <svg aria-hidden="true" class="option__graphic" tabindex="-1">
+                        <span class="option__base bg-transparent border-0 items-center">
+                          <svg aria-hidden="true" class="option__graphic w-3 h-3" tabindex="-1">
                             <use href="#option-nyco-checkbox"></use>
                           </svg>
 
