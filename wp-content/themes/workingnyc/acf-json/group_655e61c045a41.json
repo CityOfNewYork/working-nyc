@@ -268,6 +268,26 @@
             "min": "",
             "max": 3,
             "return_format": "object"
+        },
+        {
+            "key": "field_65c25573a533e",
+            "label": "Provided text",
+            "name": "provided_text",
+            "type": "text",
+            "instructions": "The text that says \"[program name] is provided by [provider name]\", to be displayed on the right side of the program's individual page",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -288,5 +308,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 1,
-    "modified": 1707166321
+    "modified": 1707234750
 }

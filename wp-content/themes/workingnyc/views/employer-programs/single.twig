@@ -17,7 +17,7 @@
       </div>
   </header>
   <div class="mt-7 grid desktop:grid-cols-[2fr_1fr] desktop:gap-x-[100px] mx-3 tablet-mx-14 desktop-mx-26">
-    <div class="pb-8 mb-8">
+    <div class="mb-4 tablet:mb-5 desktop:mb-7">
       {% for section in post.meta('sections') %}
         <section>
           {% if section.section_title %}
@@ -36,26 +36,30 @@
         </section>
       {% endfor %}
     </div>
-    <div>
+    <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-1 gap-x-4 rounded border-[#E6E6EB] border p-3 h-fit mb-5 tablet:mb-6 desktop:mb-7">
       <div>
-        <h6>{{ post.employer_program_title }} {{ __('is provided by', 'WNYC') }}</h6>
-        <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
+        <h6>{{ post.provided_text }}</h6>
+        {% if post.meta('employer_program_provider_logo') is not null %}
+          <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
+        {% endif %}
       </div>
-      <div>
-        <h6>{{ __('Related', 'WNYC') }}</h6>
-        <div class="flex flex-wrap">
-          {% for tag in tags %}
-              <a class="font-normal no-underline text-black" href="{{ tag.employer_program_tag_link }}">
-                <div class="rounded p-1 bg-scale-2 mr-1 mb-1">
-                  {{ tag.employer_program_tag }}
-                </div>
-              </a>
-          {% endfor %}
+      {% if tags|length > 0 %}
+        <div>
+          <h6 class="mb-3 tablet:mb-2">{{ __('Related', 'WNYC') }}</h6>
+            <div class="flex flex-wrap">
+              {% for tag in tags %}
+                  <a class="font-normal no-underline text-black" href="{{ tag.employer_program_tag_link }}">
+                    <div class="rounded p-1 bg-scale-2 mr-1 mb-1">
+                      {{ tag.employer_program_tag }}
+                    </div>
+                  </a>
+              {% endfor %}
+            </div>
         </div>
-      </div>
+      {% endif %}
     </div>
   </div>
-  <div class="mb-7 mx-3 tablet-mx-14 desktop-mx-26">
+  <div class="mt-5 tablet:mt-6 desktop:mt-7 mb-7 mx-3 tablet-mx-14 page-max desktop-mx-26">
     <h3>{{ __('Similar services', 'WNYC') }}</h3>
     <div class="grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
       {% for program in post.meta('similar_programs') %}
