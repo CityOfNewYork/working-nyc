@@ -1070,7 +1070,7 @@
 	           * @raw /wp-json/api/v1/terms
 	           */
 	          terms: terms => ({
-	            name: terms.taxonomy.labels.archives,
+	            name: terms.taxonomy.labels.display_name,
 	            slug: terms.taxonomy.name,
 	            filters: terms.terms.map(filters => ({
 	              id: filters.term_id,
