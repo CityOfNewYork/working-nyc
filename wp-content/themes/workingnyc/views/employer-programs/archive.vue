@@ -38,9 +38,9 @@
           + (termsChecked ? 'desktop:pb-5' : 'desktop:pb-0')" 
           v-if="!filtersExpanded">
           <div class="desktop:hidden pr-2">
-            <button :disabled="terms.length === 0" @click="filtersExpanded = true" class="btn btn-small btn-secondary">
+            <button :disabled="terms.length === 0" @click="filtersExpanded = true" class="btn btn-small btn-secondary bg-white text-[#30374F] border-[#30374F]">
               <span class="mie-1">{{ strings.FILTERS }}</span>
-              <span class="badge badge-small bg-white">{{ totalFilters }}</span>
+              <span class="badge badge-small bg-[#30374F] text-white font-normal">{{ totalFilters }}</span>
             </button>
           </div>
           <div class="hidden desktop:flex pr-2" v-if="termsChecked">Active filters</div>
