@@ -33,7 +33,10 @@
     </div>
     <div class="page-max mx-auto">
       <div class="desktop:flex desktop:justify-center">
-        <div class="desktop:w-4/5 desktop:p-0 py-2 px-2 tablet:px-7 flex flex-wrap gap-y-2 justify-start items-center" v-if="!filtersExpanded">
+        <div 
+          v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex flex-wrap gap-y-2 justify-start items-center ' 
+          + (termsChecked ? 'desktop:pb-5' : 'desktop:pb-0')" 
+          v-if="!filtersExpanded">
           <div class="desktop:hidden pr-2">
             <button :disabled="terms.length === 0" @click="filtersExpanded = true" class="btn btn-small btn-secondary">
               <span class="mie-1">{{ strings.FILTERS }}</span>
@@ -55,7 +58,7 @@
           </template>
           <button class="hidden desktop:flex small text-black no-underline" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
         </div>
-        <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-show="filtersExpanded">
+        <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
           <div>
             <h6 class="mb-3">
               {{ strings.FILTER_BY }}
@@ -99,72 +102,71 @@
           </div>
         </div>
       </div>
-    
-    <div class="my-5 tablet:my-6 desktop:my-7" v-if="init" v-show="!filtersExpanded">
-      <div class="flex justify-center gap-x-[5%]">
-        <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
-          <form class="w-full">
-            <div>
-              <h6 class="font-bold">
-                {{ strings.FILTER_BY }}
-              </h6>
+      <div class="mb-5 tablet:mb-6 desktop:mb-7 mt-5 tablet:mt-6 desktop:mt-0" v-if="init" v-show="!filtersExpanded">
+        <div class="flex justify-center gap-x-[5%]">
+          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
+            <form class="w-full">
               <div>
-                <div v-for="(term, index) in terms" :key="term.slug">
-                  <fieldset class="fieldset mb-3" tabindex="-1">
-                    <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
-                      <legend class="h6 mb-2 font-bold">
-                        {{ term.name }}
-                      </legend>
-                      <span class="ml-auto">
-                        <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="indexArr.indexOf(index) !== -1">
-                          <use href="#up-arrow"></use>
-                        </svg> 
-                        <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="indexArr.indexOf(index) === -1">
-                          <use href="#down-arrow"></use>
-                        </svg>   
-                      </span>
-                    </div>
-
-                    <div class="grid gap-1" v-if="indexArr.indexOf(index) !== -1">
-                      <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
-                        <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
-
-                        <span class="option__base bg-transparent border-0 items-center">
-                          <svg aria-hidden="true" class="option__graphic w-3 h-3" tabindex="-1">
-                            <use href="#option-nyco-checkbox"></use>
-                          </svg>
-
-                          <span class="font-normal">{{ filter.name }}</span>
+                <h6 class="font-bold">
+                  {{ strings.FILTER_BY }}
+                </h6>
+                <div>
+                  <div v-for="(term, index) in terms" :key="term.slug">
+                    <fieldset class="fieldset mb-3" tabindex="-1">
+                      <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                        <legend class="h6 mb-2 font-bold">
+                          {{ term.name }}
+                        </legend>
+                        <span class="ml-auto">
+                          <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="indexArr.indexOf(index) !== -1">
+                            <use href="#up-arrow"></use>
+                          </svg> 
+                          <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="indexArr.indexOf(index) === -1">
+                            <use href="#down-arrow"></use>
+                          </svg>   
                         </span>
-                      </label>
-                    </div>
-                  </fieldset>
+                      </div>
+
+                      <div class="grid gap-1" v-if="indexArr.indexOf(index) !== -1">
+                        <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
+                          <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
+
+                          <span class="option__base bg-transparent border-0 items-center">
+                            <svg aria-hidden="true" class="option__graphic w-3 h-3" tabindex="-1">
+                              <use href="#option-nyco-checkbox"></use>
+                            </svg>
+
+                            <span class="font-normal">{{ filter.name }}</span>
+                          </span>
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div>
                 </div>
               </div>
-            </div>
-          </form>
-        </section>
-        <div class="desktop:w-1/2">
-          <section class="page-max mx-2 tablet:mx-7 desktop:mx-0">
-            <div v-if="!loading">
-              <div class="mb-3">
-                <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
-                  <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
-                </h2>
+            </form>
+          </section>
+          <div class="desktop:w-1/2">
+            <section class="page-max mx-2 tablet:mx-7 desktop:mx-0">
+              <div v-if="!loading">
+                <div class="mb-3">
+                  <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
+                    <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
+                  </h2>
+                </div>
+
+                <div class="grid gap-3 mb-3">
+                  <EmployerProgram v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></EmployerProgram>
+                </div>
               </div>
 
-              <div class="grid gap-3 mb-3">
-                <EmployerProgram v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></EmployerProgram>
+              <div class="flex items-center text-em justify-center py-4" v-if="none">
+                <p>{{ strings.NO_RESULTS }} <button v-html="strings.RESET" @click="reset"></button></p>
               </div>
-            </div>
-
-            <div class="flex items-center text-em justify-center py-4" v-if="none">
-              <p>{{ strings.NO_RESULTS }} <button v-html="strings.RESET" @click="reset"></button></p>
-            </div>
-          </section>      
+            </section>      
+          </div>
         </div>
       </div>
-    </div>
 
     <section class="page-max desktop:px-6" v-else>
       <div class="flex items-center text-em justify-center py-8">
