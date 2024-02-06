@@ -38,24 +38,25 @@
     </div>
     <div>
       <div>
-        <h6>{{ post.employer_program_title }} is provided by</h6>
+        <h6>{{ post.employer_program_title }} {{ __('is provided by', 'WNYC') }}</h6>
         <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
       </div>
-      {# TODO: add related by taxonomy #}
-      {# <div>
-        <h6>Related</h6>
-        <div>
-          {% for term in post.terms %}
-            <div class="rounded p-1 bg-scale-2 m-1">
-              {{ term.name }}
-            </div>
+      <div>
+        <h6>{{ __('Related', 'WNYC') }}</h6>
+        <div class="flex flex-wrap">
+          {% for tag in tags %}
+              <a class="font-normal no-underline text-black" href="{{ tag.employer_program_tag_link }}">
+                <div class="rounded p-1 bg-scale-2 mr-1 mb-1">
+                  {{ tag.employer_program_tag }}
+                </div>
+              </a>
           {% endfor %}
         </div>
-      </div> #}
+      </div>
     </div>
   </div>
   <div class="mb-7 mx-3 tablet-mx-14 desktop-mx-26">
-    <h3>Similar programs</h3>
+    <h3>{{ __('Similar services', 'WNYC') }}</h3>
     <div class="grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
       {% for program in post.meta('similar_programs') %}
       <div>

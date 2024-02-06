@@ -18,6 +18,7 @@ const FEATURED_POSTS_ID = 'field_5f298dc24e4dc';
 const QUESTIONNAIRE_POST_TYPE = 'field_5f2a065e594db';
 const QUESTIONNAIRE_THRESHOLD = 'field_5f2c6ee0454a2';
 const QUESTIONNAIRE_QS = 'field_5f2a0535594d6';
+const EMPLOYER_PROGRAM_TAGS = 'field_656906e8673b1';
 
 /**
  * Functions
@@ -116,4 +117,15 @@ function get_filter_label($path) {
   }
 
   return $label;
+}
+
+/**
+ * Gets the tags for an employer program by ACF field id
+ *
+ * @return  Array  The collection of tags for the program.
+ */
+function get_employer_program_tags($id = null) {
+  $tags = get_field(EMPLOYER_PROGRAM_TAGS, $id);
+
+  return $tags;
 }
