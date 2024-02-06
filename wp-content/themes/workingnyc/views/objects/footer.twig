@@ -1,7 +1,37 @@
-{% if talent_portal_landing_page == true %}
-{% include 'objects/global-footer.twig' %}
-{% elseif employer == true %}
-{% include 'objects/employer-footer.twig' %}
-{% else %}
-{% include 'objects/job-seeker-footer.twig' %}
+{% if talent_portal_landing_page == false %}
+    <footer aria-label="{{ __('Footer', 'WNYC') }}" class="relative px-2 py-3 tablet:px-8 tablet:py-5 " role="contentinfo">
+    <div class="pb-3 desktop:pb-5">
+    <nav class="o-attribution__flex pb-3"> 
+        <div class="tablet:float-left desktop:float-left pb-2 tablet:pb-0 desktop:pb-0">
+        <h5>{{ options.feedback_prompt }}</h5>
+        </div>
+        <div class="tablet:float-right desktop:float-right">
+        {# TODO: feedback URL should come from global field + shortcode #}
+        <a class="btn btn-small tablet:btn btn-secondary pointer-events-auto" href="https://airtable.com/appHMkkbuN08pgjwz/shrfQGpXvo9mmmHpJ">Send us feedback</a>
+        </div>
+    </nav>
+    <nav class="o-attribution__flex border-t border-slate-300 pt-3 items-start">
+        <div class="tablet:float-left desktop:float-left pb-2 tablet:pb-0 desktop:pb-0">
+        <span>
+        {{ employer ? options.employers_footer_tagline : options.job_seekers_footer_tagline }}</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1 tablet:float-right desktop:float-right pt-2 tablet:pt-0">
+            {% if employer %}
+                {% set footer_menu_to_use = employer_footer_menu %}
+            {% else %}
+                {% set footer_menu_to_use = job_seeker_footer_menu %}
+            {% endif %}
+            {% for m in employer_footer_menu.get_items %}
+                <a class="inline mr-2 desktop:mr-3 tablet:mr-3" href="{{ m.link }}"
+                {% if m.attr_title %}title="{{ m.attr_title }}"{% endif %}
+                {% if m.target %}target="{{ m.target }}"{% endif %}
+                {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
+                    {{ m.title }}
+                </a>
+            {% endfor %}
+        </div>
+    </nav>
+    </div>
+    </footer>
 {% endif %}
+{% include 'objects/global-footer.twig' %}

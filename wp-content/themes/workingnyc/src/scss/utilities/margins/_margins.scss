@@ -3,6 +3,12 @@
  */
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
+    .ml-auto {
+      margin-left: auto;
+    }
+    .accordion-item.active .accordion-content {
+      display: block;
+     }
 @media screen and (min-width:1112px) { 
     .desktop-py-121 {
       padding-top: 121px;
