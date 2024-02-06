@@ -98,13 +98,6 @@ export default {
         'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
-      toggleAccordion(index) {
-        if(this.indexArr.indexOf(index) === -1){
-          this.indexArr.push(index);
-        }else{
-          this.indexArr.splice(this.indexArr.indexOf(index), 1);
-        }
-      },
       /**
        * Each endpoint above will access a map to take the data from the request
        * and transform it for the app's display purposes
@@ -154,6 +147,16 @@ export default {
         };
       }
     };
+  },
+
+  methods: {
+    toggleAccordion(index) {
+      if(this.indexArr.indexOf(index) === -1){
+        this.indexArr.push(index);
+      }else{
+        this.indexArr.splice(this.indexArr.indexOf(index), 1);
+      }
+    }
   },
 
   computed: {
