@@ -29,6 +29,7 @@ export default {
     }
   },
   data: function() {
+
     return {
       /**
        * This is our custom post type to query
@@ -36,6 +37,7 @@ export default {
        * @type {String}
        */
       type: 'employer-programs',
+      indexArr: [],
 
       filtersExpanded: false,
 
@@ -96,6 +98,13 @@ export default {
         'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
+      toggleAccordion(index) {
+        if(this.indexArr.indexOf(index) === -1){
+          this.indexArr.push(index);
+        }else{
+          this.indexArr.splice(this.indexArr.indexOf(index), 1);
+        }
+      },
       /**
        * Each endpoint above will access a map to take the data from the request
        * and transform it for the app's display purposes
@@ -105,6 +114,7 @@ export default {
        * @return  {Object}    Object with a mapping function for each endpoint
        */
       maps: function() {
+       
         return {
           /**
            * Data mapping function for results from the Programs endpoint
@@ -154,6 +164,7 @@ export default {
    * @type {Function}
    */
   created: function() {
+ 
     /**
      * Query Vars to map to the WP Archive Vue history state. These are
      * different from registered query vars so that they don't interfere
