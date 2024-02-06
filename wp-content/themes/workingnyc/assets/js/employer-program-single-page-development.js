@@ -1,7 +1,6 @@
 (function () {
   'use strict';
 
-  console.log("js connecting");
   const prev = document.querySelector(".prev");
   const next = document.querySelector(".next");
   const carousel = document.querySelector(".carousel-container");
@@ -27,6 +26,9 @@
       prev.classList.remove("show");
     }
     track.style.transform = "translateX(" + index * -width + "px)";
+  });
+  $(document).ready(function() {
+  console.log("inside jquery");
   });
 
 })();

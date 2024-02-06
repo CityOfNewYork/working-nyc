@@ -58,13 +58,11 @@
 img {
   max-width: 100%;
 }
-.carousel-container {
-  width: 1100px;
-  margin: 50px auto;
-  position: relative;
-  border-left-width: 4px;
-  border-left-style: solid;
-  border-left-color: #aaa;
+@media screen and (min-width:1112px) { 
+  .carousel-container {
+    width: 100%;
+    position: relative;
+  }
 }
 @media (max-width: 768px) {
   .carousel-container {
@@ -92,19 +90,4 @@ img {
     width: 184px;
   }
 }
-.nav button {
-  width: 60px;
-  height: 60px;
-  outline: none;
-  border: 1px solid #000;
-  cursor: pointer;
-}
-.nav .prev {
-  display: block;
-}
-.nav .prev.show {
-  display: block;
-}
-.nav .next.hide {
-  display: block;
-}
+
