@@ -47,7 +47,8 @@ let config = {
   'filters': document.querySelector('[data-js="filters-label"]'),
   'title': document.querySelector('[data-js="title"]'),
   'content': document.querySelector('[data-js="content"]'),
-  'suggest': document.querySelector('[data-js="suggest-a-program"]')
+  'suggest': document.querySelector('[data-js="suggest-a-program"]'),
+  'home_link': document.querySelector('[data-js="home-link"]')
 };
 
 new Vue({
@@ -56,6 +57,7 @@ new Vue({
       props: {
         strings: {
           HOME: 'Home',
+          HOME_LINK: (config.home_link) ? config.home_link.href : '/',
           FILTERS: 'Filters',
           FILTER_BY: 'Filter by:',
           APPLY_FILTERS: 'Apply filters',
