@@ -5,7 +5,7 @@
         <header class="o-header">
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
-              <a href="/employers">{{ strings.HOME }}</a>
+              <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
             </nav>
 
             <div class="o-header__title">
@@ -89,21 +89,29 @@
   <div v-if="init" v-show="!filtersExpanded">
     <div class="flex mx-auto justify-center gap-x-8 my-5 tablet:my-6 desktop:my-7">
       <section class="hidden desktop:flex w-[350px] p-3 rounded border border-scale-3">
-        <form>
+        <form class="w-full">
           <div>
             <h6 class="font-bold">
               {{ strings.FILTER_BY }}
             </h6>
             <div>
-              <div v-for="term in terms" :key="term.slug">
+              <div v-for="(term, index) in terms" :key="index">
                 <fieldset class="fieldset mb-3" tabindex="-1">
-                  <div class="border-b border-scale-3">
+                  <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
                     <legend class="h6 mb-2 font-bold">
                       {{ term.name }}
                     </legend>
+                    <span class="ml-auto">
+                      <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="indexArr.indexOf(index) !== -1">
+                        <use href="#up-arrow"></use>
+                      </svg> 
+                      <svg aria-hidden="true" class="option__graphic" tabindex="-1" v-if="indexArr.indexOf(index) === -1">
+                        <use href="#down-arrow"></use>
+                      </svg>   
+                    </span>  
                   </div>
 
-                  <div class="grid gap-1">
+                  <div class="grid gap-1" v-if="indexArr.indexOf(index) !== -1">
                     <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
                       <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 

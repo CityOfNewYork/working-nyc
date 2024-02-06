@@ -6,7 +6,20 @@
     <div data-js-archive="{{ post_type }}">
       <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
         <div class="c-utility wrap">
-          <a class="link-icon mie-auto" href="{{ site.url }}">
+          <a class="link-icon mie-auto" data-js="home-link" {% if employer == true %}
+            {% if options.employers_link is defined %}
+              href="{{ options.employers_link }}"
+            {% else %}
+              href="{{ site.url }}"
+            {% endif %}
+          {% else %}
+            {% if options.job_seekers_link is defined %}
+              href="{{ options.job_seekers_link }}"
+            {% else %}
+              href="{{ site.url }}"
+            {% endif %}
+          {% endif %}
+          >
             <svg aria-hidden="true" class="icon-ui rtl:flip">
               <use href="#lucide-chevron-left"></use>
             </svg>
@@ -107,10 +120,6 @@
 
       {% include 'components/back-to-top.twig' %}
     </div>
-
-    {% if options.feedback is defined and show_feedback is not defined %}
-    {% include 'objects/feedback.twig' %}
-    {% endif %}
 
     {% if show_newsletter is not defined %}
     {% include 'objects/newsletter.twig' %}
