@@ -53,27 +53,10 @@
         </section>
       {% endfor %}
     </div>
-    <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-1 gap-x-4 rounded border-[#E6E7EB] border p-3 h-fit mb-5 tablet:mb-6 desktop:mb-7">
+    <div class="rounded border-[#E6E7EB] border p-3 h-fit w-fit mb-5 tablet:mb-6 desktop:mb-7">
       <div>
         <h6>{{ post.provided_text }}</h6>
-        {% if post.meta('employer_program_provider_logo') is not null %}
-          <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
-        {% endif %}
       </div>
-      {% if tags|length > 0 %}
-        <div>
-          <h6 class="mb-3 tablet:mb-2">{{ __('Related', 'WNYC') }}</h6>
-            <div class="flex flex-wrap">
-              {% for tag in tags %}
-                  <a class="font-normal no-underline text-black" href="{{ tag.employer_program_tag_link }}">
-                    <div class="rounded p-1 bg-scale-2 mr-1 mb-1">
-                      {{ tag.employer_program_tag }}
-                    </div>
-                  </a>
-              {% endfor %}
-            </div>
-        </div>
-      {% endif %}
     </div>
   </div>
   <div class="mt-5 tablet:mt-6 desktop:mt-7 mb-7 mx-3 tablet-mx-14 desktop-mx-26">
