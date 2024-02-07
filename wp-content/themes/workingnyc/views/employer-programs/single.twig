@@ -4,20 +4,37 @@
 {% extends "base.twig" %}
 
 {% block content %}
-<div>
-  <header class="mt-5 tablet:mt-6 desktop:mt-7 mx-3 tablet-mx-14 desktop-mx-26">
-    <div class="w-full grid tablet:grid-cols-[1fr_4fr] tablet:gap-x-4 ">
+<header class="bg-[#EEF4FF]">
+  <div class="py-5 tablet:py-6 desktop:py-7 px-3 tablet:px-7 desktop:px-[104px] page-max">
+    {% include 'components/breadcrumbs.twig' with {
+        crumbs: [
+          {
+            'label': post.title,
+            'link': ''
+          }
+        ]
+      }
+    %}
+    <div class="w-full grid desktop:grid-cols-[1fr_4fr] desktop:gap-x-4 mt-3 tablet:mt-5 desktop:mt-6">
       <img class="w-[200px]" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
       <div>
-        <div class="o-header__title">
+        <div class="o-header__title mt-3 tablet:mt-4 desktop:mt-0">
           <h1 id="page-heading" class="o-header__heading">{{ post.employer_program_title }}</h1>
         </div>
 
-        <h6>{{ post.employer_program_preview }}</h6>
+        <p class="mt-1 tablet:mt-2">{{ post.employer_program_preview }}</p>
+        {% if post.meta('header_link') %}
+        <a href="{{ post.meta('header_link').url }}" target="{{ post.meta('header_link').target }}" class="text-[#30374F] no-underline mt-2 tablet:mt-3">
+          <h6 class="font-bold">{{ post.meta('header_link').title }}</h6>
+        </a>
+        {% endif %}
       </div>
-  </header>
+    </div>
+  </div>
+</header>
+<div class="page-max">
   <div class="mt-7 grid desktop:grid-cols-[2fr_1fr] desktop:gap-x-[100px] mx-3 tablet-mx-14 desktop-mx-26">
-    <div class="pb-8 mb-8">
+    <div class="mb-4 tablet:mb-5 desktop:mb-7">
       {% for section in post.meta('sections') %}
         <section>
           {% if section.section_title %}
@@ -36,26 +53,31 @@
         </section>
       {% endfor %}
     </div>
-    <div>
+    <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-1 gap-x-4 rounded border-[#E6E7EB] border p-3 h-fit mb-5 tablet:mb-6 desktop:mb-7">
       <div>
-        <h6>{{ post.employer_program_title }} is provided by</h6>
-        <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
+        <h6>{{ post.provided_text }}</h6>
+        {% if post.meta('employer_program_provider_logo') is not null %}
+          <img class="w-[200px] mb-4" loading="lazy" src="{{ post.meta('employer_program_provider_logo').url }}" alt="{{ post.meta('employer_program_provider_logo').alt }}"/>
+        {% endif %}
       </div>
-      {# TODO: add related by taxonomy #}
-      {# <div>
-        <h6>Related</h6>
+      {% if tags|length > 0 %}
         <div>
-          {% for term in post.terms %}
-            <div class="rounded p-1 bg-scale-2 m-1">
-              {{ term.name }}
+          <h6 class="mb-3 tablet:mb-2">{{ __('Related', 'WNYC') }}</h6>
+            <div class="flex flex-wrap">
+              {% for tag in tags %}
+                  <a class="font-normal no-underline text-black" href="{{ tag.employer_program_tag_link }}">
+                    <div class="rounded p-1 bg-scale-2 mr-1 mb-1">
+                      {{ tag.employer_program_tag }}
+                    </div>
+                  </a>
+              {% endfor %}
             </div>
-          {% endfor %}
         </div>
-      </div> #}
+      {% endif %}
     </div>
   </div>
-  <div class="mb-7 mx-3 tablet-mx-14 desktop-mx-26">
-    <h3>Similar programs</h3>
+  <div class="mt-5 tablet:mt-6 desktop:mt-7 mb-7 mx-3 tablet-mx-14 desktop-mx-26">
+    <h3>{{ __('Similar services', 'WNYC') }}</h3>
     <div class="grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
       {% for program in post.meta('similar_programs') %}
       <div>
