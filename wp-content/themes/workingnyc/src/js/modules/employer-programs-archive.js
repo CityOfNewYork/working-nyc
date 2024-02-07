@@ -98,13 +98,6 @@ export default {
         'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
-      toggleAccordion(index) {
-        if(this.indexArr.indexOf(index) === -1){
-          this.indexArr.push(index);
-        }else{
-          this.indexArr.splice(this.indexArr.indexOf(index), 1);
-        }
-      },
       /**
        * Each endpoint above will access a map to take the data from the request
        * and transform it for the app's display purposes
@@ -138,7 +131,7 @@ export default {
            * @raw /wp-json/api/v1/terms
            */
           terms: terms => ({
-            name: terms.taxonomy.labels.archives,
+            name: terms.taxonomy.labels.display_name,
             slug: terms.taxonomy.name,
             filters: terms.terms.map(filters => ({
               id: filters.term_id,
@@ -154,6 +147,32 @@ export default {
         };
       }
     };
+  },
+
+  methods: {
+    toggleAccordion(index) {
+      if(this.indexArr.indexOf(index) === -1){
+        this.indexArr.push(index);
+      }else{
+        this.indexArr.splice(this.indexArr.indexOf(index), 1);
+      }
+    }
+  },
+
+  computed: {
+    termsChecked: function() {
+      let numChecked = 0;
+      for (let i in this.terms) {
+        // numChecked.push(term);
+        let term = this.terms[i];
+        for (let j in term.filters) {
+          if (term.filters[j].checked) {
+            numChecked += 1;
+          }
+        }
+      }
+      return numChecked > 0;
+    },
   },
 
   /**

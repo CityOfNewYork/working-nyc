@@ -409,6 +409,7 @@ add_action('init', function() {
     'labels' => array(
       'name' => __('Employer needs', 'WNYC'),
       'singular_name' => __('Employer need', 'WNYC'),
+      'display_name' => __('What do you need?', 'WNYC')
     ),
     'public' => false,
     'publicly_queryable' => false,
@@ -452,7 +453,7 @@ add_action('init', function() {
       'with_front' => true
     ),
     'show_admin_column' => false,
-    'show_in_rest' => true, // Use this to show in the front-end filters
+    'show_in_rest' => false,
     'show_tagcloud' => true,
     'rest_base' => 'industries',
     'rest_controller_class' => 'WP_REST_Terms_Controller',
@@ -469,6 +470,7 @@ add_action('init', function() {
     'labels' => array(
       'name' => __('Talent availability', 'WNYC'),
       'singular_name' => __('Talent availability', 'WNYC'),
+      'display_name' => __('When do you need talent?', 'WNYC')
     ),
     'public' => false,
     'publicly_queryable' => false,
@@ -499,6 +501,7 @@ add_action('init', function() {
     'labels' => array(
       'name' => __('Occupations', 'WNYC'),
       'singular_name' => __('Occupation', 'WNYC'),
+      'display_name' => __('What roles are you hiring for?', 'WNYC')
     ),
     'public' => false,
     'publicly_queryable' => false,
