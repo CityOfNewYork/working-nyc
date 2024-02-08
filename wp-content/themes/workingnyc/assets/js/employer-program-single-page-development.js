@@ -2,9 +2,17 @@
   'use strict';
 
   let items = document.querySelectorAll('#featureContainer .carousel .carousel-item');
+  var width = $(window).width();
+  console.log("screen: "+width);
+  if(width<768){
+    var minPerSlide = 1;
+  }else if(width<1112 && width>768){
+    var minPerSlide = 2;
+  }else {
+    var minPerSlide = 3;
+  }
   items.forEach((el) => {
-    const minPerSlide = 3;
-    let next = el.nextElementSibling;
+      let next = el.nextElementSibling;
     for (var i=1; i<minPerSlide; i++) {
       if (!next) {
         // wrap carousel by using first child
