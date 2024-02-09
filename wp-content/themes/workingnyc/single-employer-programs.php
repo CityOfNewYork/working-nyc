@@ -34,6 +34,11 @@ $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
+// set this to true for all employer-side pages
+$context['employer'] = true;
+
+$context['tags'] = Templating\get_employer_program_tags($post->ID);
+
 /**
  * Generate schema for page
  *

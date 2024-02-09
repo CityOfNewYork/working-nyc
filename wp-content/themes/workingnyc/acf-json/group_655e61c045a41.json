@@ -244,7 +244,7 @@
             "sub_fields": [
                 {
                     "key": "field_6569070c673b2",
-                    "label": "Tag",
+                    "label": "Tag name",
                     "name": "employer_program_tag",
                     "type": "text",
                     "instructions": "",
@@ -261,6 +261,23 @@
                     "prepend": "",
                     "append": "",
                     "maxlength": ""
+                },
+                {
+                    "key": "field_65c14a42dbfc1",
+                    "label": "Tag link",
+                    "name": "employer_program_tag_link",
+                    "type": "url",
+                    "instructions": "The link will only be usable on the individual service page, not on the service catalog",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "placeholder": ""
                 }
             ]
         },
@@ -479,7 +496,7 @@
             "label": "Similar programs",
             "name": "similar_programs",
             "type": "relationship",
-            "instructions": "Choose up to three similar employer programs",
+            "instructions": "Choose similar employer programs to display",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {

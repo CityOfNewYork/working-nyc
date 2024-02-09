@@ -29,6 +29,7 @@ export default {
     }
   },
   data: function() {
+
     return {
       /**
        * This is our custom post type to query
@@ -36,6 +37,9 @@ export default {
        * @type {String}
        */
       type: 'employer-programs',
+      indexArr: [],
+
+      filtersExpanded: false,
 
       /**
        * Setting this sets the initial app query.
@@ -90,7 +94,7 @@ export default {
        * @param  {String}  employer-programs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&cache=0',
+        terms: '/wp-json/api/v1/terms/?post_type[]=employer-programs&orderby=slug&order=ASC&cache=0',
         'employer-programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
@@ -103,6 +107,7 @@ export default {
        * @return  {Object}    Object with a mapping function for each endpoint
        */
       maps: function() {
+       
         return {
           /**
            * Data mapping function for results from the Programs endpoint
@@ -126,7 +131,7 @@ export default {
            * @raw /wp-json/api/v1/terms
            */
           terms: terms => ({
-            name: terms.taxonomy.labels.archives,
+            name: terms.taxonomy.labels.display_name,
             slug: terms.taxonomy.name,
             filters: terms.terms.map(filters => ({
               id: filters.term_id,
@@ -144,6 +149,32 @@ export default {
     };
   },
 
+  methods: {
+    toggleAccordion(index) {
+      if(this.indexArr.indexOf(index) === -1){
+        this.indexArr.push(index);
+      }else{
+        this.indexArr.splice(this.indexArr.indexOf(index), 1);
+      }
+    }
+  },
+
+  computed: {
+    termsChecked: function() {
+      let numChecked = 0;
+      for (let i in this.terms) {
+        // numChecked.push(term);
+        let term = this.terms[i];
+        for (let j in term.filters) {
+          if (term.filters[j].checked) {
+            numChecked += 1;
+          }
+        }
+      }
+      return numChecked > 0;
+    },
+  },
+
   /**
    * The created hook starts the application
    *
@@ -152,6 +183,7 @@ export default {
    * @type {Function}
    */
   created: function() {
+ 
     /**
      * Query Vars to map to the WP Archive Vue history state. These are
      * different from registered query vars so that they don't interfere

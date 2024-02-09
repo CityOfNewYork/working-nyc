@@ -1,28 +1,17 @@
-<aside class="o-menu o-menu-fixed hidden block" id="aria-c-menu" aria-hidden="true">
-  <button class="float-right" aria-controls="aria-c-menu" data-js="menu" data-js-menu="close" tabindex="-1">
-    <svg aria-hidden="true" class="icon-ui" tabindex="-1">
-      <use href="#lucide-x"></use>
-    </svg>
-  </button>
-  <div class="flex items-center h-full">
+<div class="hidden fixed z-50 w-full bg-[#F8F9FB] px-2 tablet:px-5 py-2 h-full tablet:h-auto" id="aria-c-menu" aria-hidden="true">
+  <div class="flex items-center mb-auto">
     <div class="o-menu__wrap">
-      <a class="o-menu__nav-item" href="{{ site.url }}/?s=" tabindex="-1">
-        <svg class="icon-ui" tabindex="-1">
-          <title>{{__('Search', 'WNYC')}}</title>
-          <use href="#lucide-search"></use>
-        </svg>
-        <span>{{__('Search', 'WNYC') }}</span>
-      </a>
-
-      <hr />
-
       <nav class="o-menu__nav" aria-label="{{ __('Menu', 'WNYC') }}">
-        <a class="o-menu__nav-item" href="{{ site.url }}" tabindex="-1">{{ __('Home', 'WNYC') }}</a>
-
-        {% for menu_item in header_menu.get_items %}
-        <a class="o-menu__nav-item" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
-        {% endfor %}
+        {% if employer == true %}
+          {% for menu_item in employer_header_menu.get_items %}
+            <a class="o-menu__nav-item py-2" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
+          {% endfor %}
+        {% else %}
+          {% for menu_item in job_seeker_header_menu.get_items %}
+            <a class="o-menu__nav-item py-2" href="{{ menu_item.link }}" tabindex="-1">{{ menu_item.title }}</a>
+          {% endfor %}
+        {% endif %}
       </nav>
     </div>
   </div>
-</aside>
+</div>

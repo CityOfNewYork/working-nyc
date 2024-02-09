@@ -117,11 +117,11 @@
             "delay": 0
         },
         {
-            "key": "field_60ca172bfebdf",
-            "label": "Default Open Graph (OG) Background Image",
-            "name": "og_image_default",
-            "type": "image",
-            "instructions": "The required image dimensions are 1200 × 628 pixels. This will be the preview image background when links are shared in messages or social media posts. Individual pages, posts, or custom post types may have their own background image specified.",
+            "key": "field_65b7c06469d7f",
+            "label": "Job seekers link",
+            "name": "job_seekers_link",
+            "type": "page_link",
+            "instructions": "This is the home link for navigation on the job seeker side",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -129,23 +129,19 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id",
-            "preview_size": "full",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "png"
+            "relevanssi_exclude": 0,
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "allow_archives": 1,
+            "multiple": 0
         },
         {
-            "key": "field_6372aa9ca0fff",
-            "label": "Default OG Logo Image",
-            "name": "og_image_logo",
-            "type": "image",
-            "instructions": "The required image dimensions are 1200 × 628 pixels. This logo image will be added to the preview image when links are shared in messages or social media posts.",
+            "key": "field_65b7c09269d80",
+            "label": "Employers link",
+            "name": "employers_link",
+            "type": "page_link",
+            "instructions": "This is the home link for navigation on the employer side",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -153,16 +149,92 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id",
-            "preview_size": "full",
-            "library": "all",
-            "min_width": "",
-            "min_height": "",
-            "min_size": "",
-            "max_width": "",
-            "max_height": "",
-            "max_size": "",
-            "mime_types": "png"
+            "relevanssi_exclude": 0,
+            "post_type": "",
+            "taxonomy": "",
+            "allow_null": 0,
+            "allow_archives": 1,
+            "multiple": 0
+        },
+        {
+            "key": "field_65bbc6fe88355",
+            "label": "Feedback prompt",
+            "name": "feedback_prompt",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "How can we help you today?",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_65bbc72c88356",
+            "label": "Employers footer tagline",
+            "name": "employers_footer_tagline",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "We support business owners in NYC",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_65bbc75888357",
+            "label": "Job seekers footer tagline",
+            "name": "job_seekers_footer_tagline",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_65bbc78a88358",
+            "label": "NYC footer tagline",
+            "name": "nyc_footer_tagline",
+            "type": "text",
+            "instructions": "Appears below the NYC logo in the global footer",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "Connecting you to NYC services",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -171,17 +243,22 @@
                 "param": "options_page",
                 "operator": "==",
                 "value": "wknyc-general-settings"
+            },
+            {
+                "param": "current_user_role",
+                "operator": "==",
+                "value": "administrator"
             }
         ]
     ],
     "menu_order": 0,
     "position": "normal",
     "style": "default",
-    "label_placement": "left",
+    "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1668462912
+    "modified": 1706805507
 }

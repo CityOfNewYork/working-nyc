@@ -2,7 +2,7 @@
   <div>
     <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
       <div class="c-utility wrap">
-        <a class="link-icon mie-auto" href="/">
+        <a class="link-icon mie-auto" v-bind:href="strings.HOME_LINK">
           <svg aria-hidden="true" class="icon-ui rtl:flip">
             <use href="#lucide-chevron-left"></use>
           </svg>
@@ -79,7 +79,7 @@
         <header class="o-header">
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
-              <a href="/">{{ strings.HOME }}</a>
+              <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
 
               <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
                 <use href="#lucide-chevron-right"></use>
