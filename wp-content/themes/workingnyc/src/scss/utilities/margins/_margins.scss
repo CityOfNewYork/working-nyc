@@ -3,62 +3,76 @@
  */
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
-    .ml-auto {
-      margin-left: auto;
-    }
-    .accordion-item.active .accordion-content {
-      display: block;
-     }
 @media screen and (min-width:1112px) { 
-    .carousal-item-width {
-      width: 400px;
-    }
-    .desktop-py-121 {
-      padding-top: 121px;
-      padding-bottom: 121px;
-    }
-    .desktop-mx-50 {
-      margin-left: 200px!important;
-      margin-right: 200px!important;
-    }
+  #featureContainer .carousel-inner .carousel-item-end,
+  #featureContainer .carousel-inner .carousel-item-start {
+    transform: translateX(0);
+  }
+  #featureContainer .carousel-inner .carousel-item-next {
+    transform: translateX(33.8%);
+  }
+  #featureContainer .carousel-inner .carousel-item-prev {
+    transform: translateX(-33.8%);
+  }
+  .carousal-item-width {
+    width: 420px;
+  }
+  .desktop-py-121 {
+    padding-top: 121px;
+    padding-bottom: 121px;
+  }
+  .desktop-mx-50 {
+    margin-left: 200px!important;
+    margin-right: 200px!important;
+  }
 
-    .desktop-mx-26 {
-      margin-left: 104px!important;
-      margin-right: 104px!important;
-    }
+  .desktop-mx-26 {
+    margin-left: 104px!important;
+    margin-right: 104px!important;
+  }
 
-    .desktop-gap-x-72 {
-      column-gap: 72px!important;
-    }
+  .desktop-gap-x-72 {
+    column-gap: 72px!important;
+  }
 
-    .desktop-height-214 {
-      height: 214px;
-    }
+  .desktop-height-214 {
+    height: 214px;
+  }
 }
 @media screen and (min-width: 768px) and (max-width:1112px) {
-  .carousal-item-width {
-    width: 300px;
+  #featureContainer .carousel-inner .carousel-item-end,
+  #featureContainer .carousel-inner .carousel-item-start {
+    transform: translateX(0);
   }
-  .tablet-py-48 {
-      padding-top: 48px;
-      padding-bottom: 48px;
+  #featureContainer .carousel-inner .carousel-item-next {
+    transform: translateX(25%);
   }
-  .tablet-mx-14 {
-    margin-left: 56px!important;
-    margin-right: 56px!important;
+  #featureContainer .carousel-inner .carousel-item-prev {
+    transform: translateX(-25%);
   }
+.carousal-item-width {
+  width: 300px;
+}
+.tablet-py-48 {
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
+.tablet-mx-14 {
+  margin-left: 56px!important;
+  margin-right: 56px!important;
+}
 
-  .tablet-gap-x-56 {
-    column-gap: 56px!important;
-  }
+.tablet-gap-x-56 {
+  column-gap: 56px!important;
+}
 
-  .tablet-height-258 {
-    height: 258px;
-  }
+.tablet-height-258 {
+  height: 258px;
+}
 }
 
 .site-max-width {
-  max-width: var(--nyco-dimension-site-max-width);
+max-width: var(--nyco-dimension-site-max-width);
 }
 
 #featureContainer .carousel-inner .carousel-item.active,
@@ -68,9 +82,9 @@ display: flex;
 }
 /* mobile */
 @media (max-width: 768px) {
-  .carousal-item-width {
-    width: 400px;
-  }
+.carousal-item-width {
+  width: 400px;
+}
 #featureContainer .carousel-inner .carousel-item > div {
 display: none;
 }
@@ -81,10 +95,11 @@ display: block;
 
 /* tablet and desktop*/
 @media screen and (min-width: 768px) {
-  #featureContainer .carousel-item{
-  justify-content: space-between;
-  }
+#featureContainer .carousel-item{
+justify-content: space-between;
+}
 }
 
 
+  
 
