@@ -56,7 +56,7 @@
   <div class="mb-7 mx-3 tablet-mx-14 desktop-mx-26">
    
     {#  slider  #}
-
+        {% if post.meta('similar_programs') %}
         <div class="nav flex mb-5">
 			    <h3>Similar programs</h3>
             <a class="indicator ml-auto" href="#featureCarousel" role="button" data-bs-slide="prev">
@@ -74,20 +74,21 @@
               </span>
             </a>
         </div>
-  <div class="container" id="featureContainer">
-		<div class="row my-auto justify-content-center">
-			<div id="featureCarousel" class="carousel slide" data-bs-ride="carousel">
-				<div class="carousel-inner" role="listbox">
-          {% for program in post.meta('similar_programs') %}
-					<div class="carousel-item {% if loop.first %}active{% endif %}">
-                {% include 'employer-programs/employer-program.twig' with { post: program } %}
-					</div>
-		     {% endfor %}
-				</div>
-				
-			</div>
-		</div>
-  </div>
+        <div class="container" id="featureContainer">
+          <div class="row my-auto justify-content-center">
+            <div id="featureCarousel" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner" role="listbox">
+                {% for program in post.meta('similar_programs') %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                      {% include 'employer-programs/employer-program.twig' with { post: program } %}
+                </div>
+              {% endfor %}
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        {% endif %}
     {# slider end #}
   </div>
   </div>
