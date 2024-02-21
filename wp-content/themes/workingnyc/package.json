@@ -17,6 +17,7 @@
     "axios": "^0.25.0",
     "regenerator-runtime": "^0.13.9",
     "vue": "^2.6.12",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^3.3.4",
     "vue-template-compiler": "^2.6.12"
   },
