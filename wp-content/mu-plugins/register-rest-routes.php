@@ -208,7 +208,8 @@ add_action('rest_api_init', function() {
             $wp_query_taxonomy[] = array(
               'taxonomy' => $tax->name,
               'field' => 'id',
-              'terms' => $parameters[$tax->name]
+              'terms' => $parameters[$tax->name],
+              'operator' => $post_types == array('employer-programs') ? 'AND' : 'IN';
             );
           }
         }
@@ -266,7 +267,7 @@ add_action('rest_api_init', function() {
       endwhile;
 
       // return results
-      $response = new WP_REST_Response($posts);
+      $response = new WP_REST_Response($wp_query_taxonomy);
 
       $response->set_status(200);
 
