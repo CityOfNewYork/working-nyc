@@ -53,7 +53,7 @@
             </h6>
               <div v-for="(term, index) in terms" :key="term.slug">
                 <fieldset class="fieldset mb-3" tabindex="-1">
-                  <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                  <div class="border-b border-scale-3 flex" @click="x(index)">
                     <legend class="h6 mb-2">
                       {{ term.name }}
                     </legend>
@@ -85,8 +85,8 @@
           </div>
 
           <div class="wrap gap-3 flex justify-center">
-            <button class="btn btn-secondary" :disabled="totalFilters == 0" v-html="strings.RESET" @click="reset"></button>
-            <button class="btn btn-secondary" @click="filtersExpanded = false">{{ strings.APPLY_FILTERS }}</button>
+            <button class="btn btn-small tablet:btn desktop:btn btn-styled" :disabled="totalFilters == 0" v-html="strings.RESET" @click="reset"></button>
+            <button class="btn btn-small tablet:btn desktop:btn btn-secondary" @click="filtersExpanded = false">{{ strings.APPLY_FILTERS }}</button>
           </div>
         </div>
       </div>
