@@ -15,18 +15,6 @@
             <div class="mb-2">
               <p>{{ strings.PAGE_SUBTITLE }}</p>
             </div>
-
-            <form class="o-search__form w-full" @submit.prevent="wp">
-              <div class="input o-search__input rounded">
-                  <input class="rounded border-0" v-model="query.search_term"/>
-                  <button type="submit" class="o-search__submit">
-                      <svg class="icon-ui">
-                          <title>Submit</title>
-                          <use href="#lucide-search"></use>
-                      </svg>
-                  </button>
-              </div>
-            </form>
           </div>
         </header>
       </div>
