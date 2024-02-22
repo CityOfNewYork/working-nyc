@@ -4,8 +4,8 @@
 <div class="bg-scale-1">
   <header class="employer-header-gradient {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full flex justify-center">
       {% if post.thumbnail %}
-      <div class="desktop:gap-x-5 tablet-gap-x-56 desktop:flex desktop:pl-[104px] site-max-width w-full desktop:px-0 tablet:px-5 px-2 py-4 tablet:py-5 desktop:py-0">
-        <div class="desktop-py-121">
+      <div class="site-max-width w-full desktop:gap-x-5 tablet-gap-x-56 desktop:flex desktop:px-[104px] tablet:px-5 px-2 py-4 tablet:py-5 desktop:py-[121px] items-center">
+        <div>
       {% else %}
       <div class="layout-content">
         <div class="wrap">
@@ -26,9 +26,7 @@
         </div>
     {% if post.thumbnail %}
       <div class="hidden desktop:block">
-        <div class="inline-block">
-          <img class="mt-7" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
-        </div>
+          <img class="" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
     {% endif %}
     </div>
