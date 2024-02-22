@@ -37,7 +37,7 @@ export default {
        * @type {String}
        */
       type: 'employer-programs',
-      indexArr: [],
+      indexArr: [0],
 
       filtersExpanded: false,
 
