@@ -208,7 +208,7 @@ add_action('rest_api_init', function() {
             $current_tax_query = array(
               'taxonomy' => $tax->name,
               'field' => 'id',
-              'terms' => $parameters[$tax->name],
+              'terms' => $parameters[$tax->name]
             );
 
             // custom filtering logic for employer programs
