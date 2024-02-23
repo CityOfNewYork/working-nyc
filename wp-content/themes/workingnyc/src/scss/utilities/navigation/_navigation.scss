@@ -14,3 +14,20 @@
     list-style-type: none;
     padding-left: 0;
 }
+
+.language-list li {
+    font-weight: 500;
+    text-decoration: none;
+    color: #080707;
+}
+
+.language-list a {
+    font-weight: 500;
+    text-decoration: none;
+    color: #080707;
+    border-bottom: 2px solid transparent;
+}
+
+.language-list a:hover {
+    border-bottom: 2px solid #080707;
+}
