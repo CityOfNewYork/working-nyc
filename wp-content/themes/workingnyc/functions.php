@@ -138,7 +138,7 @@ add_filter('wp_resource_hints', function($urls, $relation_type) {
 // https://jobs.nyc.gov/es/employers -> https://jobs.nyc.gov/es/employers
 // If locale is 'en':
 // https://jobs.nyc.gov/employers -> https://jobs.nyc.gov/employers
-if (! function_exists('convert_link_locale') ) {
+if (! function_exists('convert_link_locale')) {
   function convert_link_locale($original_url, $site_url, $site_url_localized) {
     if (! strpos($original_url, $site_url_localized)) {
       $site_url_localized_to_use = $site_url_localized;
@@ -148,6 +148,6 @@ if (! function_exists('convert_link_locale') ) {
       return str_replace($site_url, $site_url_localized_to_use, $original_url);
     }
     // if original url is already localized, return it
-    return $original_url;    
+    return $original_url;
   }
 }
