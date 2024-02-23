@@ -22,7 +22,7 @@
                 {% set footer_menu_to_use = job_seeker_footer_menu %}
             {% endif %}
             {% for m in footer_menu_to_use.get_items %}
-                <a class="inline mr-2 desktop:mr-3 tablet:mr-3" href="{{ m.link }}"
+                <a class="inline mr-2 desktop:mr-3 tablet:mr-3" href="{{ function('convert_link_locale', m.link, site.site_url, site.url) }}"
                 {% if m.attr_title %}title="{{ m.attr_title }}"{% endif %}
                 {% if m.target %}target="{{ m.target }}"{% endif %}
                 {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
