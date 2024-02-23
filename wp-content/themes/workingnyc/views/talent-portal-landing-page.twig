@@ -13,7 +13,7 @@
     <div class="relative">
         {% if post.thumbnail %}
             <div>
-                <img class="w-full h-[830px] desktop:h-[600px] object-contain" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+                <img class="w-full h-[830px] desktop:h-[600px] object-cover" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
             </div>
         {% endif %}
 
