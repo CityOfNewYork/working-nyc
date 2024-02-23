@@ -85,8 +85,8 @@
           </div>
 
           <div class="wrap gap-3 flex justify-center">
-            <button class="btn btn-secondary" :disabled="totalFilters == 0" v-html="strings.RESET" @click="reset"></button>
-            <button class="btn btn-secondary" @click="filtersExpanded = false">{{ strings.APPLY_FILTERS }}</button>
+            <button class="btn-small tablet:btn desktop:btn btn-styled" :disabled="totalFilters == 0" v-html="strings.RESET" @click="reset"></button>
+            <button class="btn-small tablet:btn desktop:btn btn-secondary" @click="scrollToTop">{{ strings.APPLY_FILTERS }}</button>
           </div>
         </div>
       </div>
