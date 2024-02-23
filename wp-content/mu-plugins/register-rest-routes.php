@@ -205,11 +205,18 @@ add_action('rest_api_init', function() {
         if (count(array_intersect($post_types, $tax->object_type)) > 0) {
           // add the query parameter for the taxonomy to the WP Query array
           if (isset($parameters[$tax->name])) {
-            $wp_query_taxonomy[] = array(
+            $current_tax_query = array(
               'taxonomy' => $tax->name,
               'field' => 'id',
               'terms' => $parameters[$tax->name]
             );
+
+            // custom filtering logic for employer programs
+            if (count(array_intersect($post_types, ['employer-programs'])) > 0) {
+              $current_tax_query['operator'] = 'AND';
+            }
+
+            $wp_query_taxonomy[] = $current_tax_query;
           }
         }
       }
