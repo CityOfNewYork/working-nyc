@@ -22,7 +22,7 @@
     <div class="page-max mx-auto">
       <div class="desktop:flex desktop:justify-center">
         <div 
-          v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex flex-wrap gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
+          v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
           + (termsChecked ? 'desktop:pb-5' : 'desktop:pb-0')" 
           v-if="!filtersExpanded">
           <div class="desktop:hidden pr-2">
