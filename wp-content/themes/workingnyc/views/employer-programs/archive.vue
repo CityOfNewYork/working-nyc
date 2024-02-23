@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="layout-content bg-scale-3">
+    <div class="layout-content bg-[#EEF4FF]">
       <div class="page-max">
         <header class="o-header">
           <div>
