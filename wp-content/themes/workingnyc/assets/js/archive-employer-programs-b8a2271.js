@@ -1097,7 +1097,6 @@
 	      }
 	    },
 	    scrollToTop() {
-	      console.log("I am going up");
 	      window.scrollTo({
 	        top: 0,
 	        behavior: "smooth"
