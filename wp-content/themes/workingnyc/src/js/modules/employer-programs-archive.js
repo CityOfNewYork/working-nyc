@@ -156,6 +156,13 @@ export default {
       }else{
         this.indexArr.splice(this.indexArr.indexOf(index), 1);
       }
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+        });
+      this.filtersExpanded = false;
     }
   },
 
