@@ -8,22 +8,24 @@
     {% endif %}
     >
       <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="60" height="11">
+        <title>{{ __('Jobs NYC employer homepage', 'WNYC - Navigation') }}</title>
         <use href="#logo-jnyc-horizontal"></use>
       </svg>
     </a>
     <a class="hidden tablet:flex tablet:pr-2" href="https://mycity.nyc.gov/">
       <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+        <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
         <use href="#logo-nyc-mycity"></use>
       </svg>
     </a>
     <span class="hidden tablet:block desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
   </div>
   <div>
-    <button class="border-b-line py-1 px-1 flex items-center" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <button class="py-1 px-1 flex items-center" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
       <svg class="h-3 w-3 mr-[4px]">
         <use href="#languages-nav"></use>
       </svg>
-      <span>{{ __('Language', 'WNYC - Navigation') }}</span>
+      <span class="text-xs font-[500] desktop:text-sm">{{ __('Language', 'WNYC - Navigation') }}</span>
       <svg class="h-3 w-3 fill-none stroke-black">
         <use href="#lucide-chevron-down"></use>
       </svg>
@@ -41,6 +43,7 @@
       {% endif %}
     >
       <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="100" height="18">
+        <title>{{ __('Jobs NYC employer homepage', 'WNYC - Navigation') }}</title>
         <use href="#logo-jnyc-horizontal"></use>
       </svg>
     </a>
@@ -48,11 +51,12 @@
   </div>
   <div>
     {% for menu_item in employer_header_menu.get_items %}
-      <a class="o-navigation__item mr-2 desktop:py-2 desktop-px-12" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
+      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
     {% endfor %}
   </div>
   <button class="desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
     <svg class="icon-ui m-0 w-3 h-3">
+      <title>{{ __('Menu', 'WNYC - Navigation') }}</title>
       <use href="#lucide-menu"></use>
     </svg>
   </button>
@@ -61,6 +65,7 @@
 <nav class="z-10 px-3 py-1 relative flex flex-col border-t-2 border-[#D4D7DC] items-center bg-white tablet:hidden" data-js="navigation">
   <a href="https://mycity.nyc.gov/">
     <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+      <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
       <use href="#logo-nyc-mycity"></use>
     </svg>
   </a>
