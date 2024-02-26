@@ -50,8 +50,6 @@ class EmployerPrograms extends Timber\Post {
 
     $this->link = $this->getLink();
 
-    $this->link_label = $this->getLinkLabel();
-
     $this->schema = $this->getSchema();
 
     $this->sections = $this->getSections();
@@ -89,17 +87,6 @@ class EmployerPrograms extends Timber\Post {
    */
   public function getLink() {
     return get_permalink($this->ID);
-  }
-
-  /**
-   * Get the external button link label for the program which is the domain
-   * of the link it is going to.
-   * TODO: update this
-   *
-   * @return  String  The link label
-   */
-  public function getLinkLabel() {
-    return 'test link label!';
   }
 
   /**
