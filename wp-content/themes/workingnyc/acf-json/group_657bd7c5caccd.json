@@ -202,6 +202,26 @@
                     "mime_types": ""
                 }
             ]
+        },
+        {
+            "key": "field_65dcfc8588c06",
+            "label": "Agency partners text",
+            "name": "agency_partners_text",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "Partners",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -222,5 +242,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1704917518
+    "modified": 1708981417
 }
