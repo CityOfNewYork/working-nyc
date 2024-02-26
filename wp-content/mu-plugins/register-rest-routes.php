@@ -236,6 +236,8 @@ add_action('rest_api_init', function() {
         'posts_per_page' => isset($parameters['per_page']) ? $parameters['per_page'] : 24,
         'paged' => isset($parameters['page']) ? $parameters['page'] : 1,
         'post_type' => $post_types,
+        'orderby' => 'menu_order',
+        'order' => 'ASC'
       );
 
       if (count($wp_query_taxonomy) > 0) {

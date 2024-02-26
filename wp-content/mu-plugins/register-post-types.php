@@ -115,7 +115,7 @@ add_action('init', function() {
     'exclude_from_search' => false,
     'show_ui' => true,
     'hierarchical' => false,
-    'supports' => ['title'],
+    'supports' => ['title', 'page-attributes'],
 
     /**
      * @source https://developer.wordpress.org/resource/dashicons/
