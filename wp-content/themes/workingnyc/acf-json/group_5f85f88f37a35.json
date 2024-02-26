@@ -238,8 +238,25 @@
         },
         {
             "key": "field_65d8dcf16903e",
-            "label": "Feedback form link",
+            "label": "Employer feedback form link",
             "name": "feedback_form_link",
+            "type": "url",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_65dcac58b7871",
+            "label": "Jobseeker feedback form link",
+            "name": "feedback_form_link_jobseeker",
             "type": "url",
             "instructions": "",
             "required": 0,
@@ -277,5 +294,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1708711168
+    "modified": 1708960877
 }
