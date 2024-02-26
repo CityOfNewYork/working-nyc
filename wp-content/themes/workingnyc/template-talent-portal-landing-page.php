@@ -12,7 +12,7 @@
 
 $context = Timber::get_context();
 
-$post = Timber::get_post(get_option('page_on_front'));
+$post = Timber::get_post();
 
 $context['post'] = $post;
 
