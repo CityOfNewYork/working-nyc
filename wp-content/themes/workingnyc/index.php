@@ -7,7 +7,7 @@
  *
  */
 
-// Use the landing page template but with the homepage 
+// Use the landing page template but with the homepage
 
 /**
  * Context
