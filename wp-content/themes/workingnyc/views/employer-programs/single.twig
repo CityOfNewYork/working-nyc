@@ -36,7 +36,7 @@
   <div class="mt-7 grid desktop:grid-cols-[2fr_1fr] desktop:gap-x-[100px] mx-3 tablet-mx-14 desktop-mx-26">
     <div class="mb-4 tablet:mb-5 desktop:mb-7">
       {% for section in post.meta('sections') %}
-        <section>
+        <section id="{{ 'section-' ~ loop.index }}">
           {% if section.section_title %}
           <div>
             <div>
