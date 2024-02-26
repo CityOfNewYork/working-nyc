@@ -141,12 +141,6 @@
         <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
       </div>
     </div>
-
-    <div class="layout-content pb-2 sticky z-10 o-navigation-feedback-spacing-bottom">
-      <div class="wrap text-end">
-        <a class="btn btn-small tablet:btn btn-secondary" href="#page-heading">{{ strings.BACK_TO_TOP }}</a>
-      </div>
-    </div>
   </div>
 </template>
 
