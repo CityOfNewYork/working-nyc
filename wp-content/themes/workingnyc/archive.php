@@ -10,7 +10,9 @@
  * @author NYC Opportunity
  */
 
-$path = $wp->request; // Request should match the page permalink and post type
+$full_path = $wp->request; // Request should match the page permalink and post type
+
+$path = end(explode('/', $full_path));
 
 $class = '';
 
