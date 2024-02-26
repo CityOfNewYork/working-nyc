@@ -74,7 +74,7 @@ class Meta {
           break;
 
         case 'employer-programs':
-          $description = 'Test employer programs meta';
+          $description = $this->post->preview;
 
           break;
 
