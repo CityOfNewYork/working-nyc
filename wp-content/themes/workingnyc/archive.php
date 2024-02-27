@@ -26,6 +26,7 @@ switch ($path) {
     $class = ucfirst($path);
     break;
   case 'employer-programs':
+  case 'services':
     $class = 'EmployerPrograms';
     break;
   default:
@@ -125,6 +126,10 @@ if ('programs' === $path) {
  */
 
 $context = Timber::get_context();
+
+$post = Timber::get_post();
+
+$context['archive_post'] = $post;
 
 $context['page_title'] = Templating\get_title($path);
 
