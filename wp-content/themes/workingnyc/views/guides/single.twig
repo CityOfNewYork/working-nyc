@@ -104,17 +104,19 @@
     }} %}
 
     <div class="bg-scale-0" id="explore">
-      <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
-        {% if collections %}
-        {% for collection in collections %}
-        {% include collection.template with {this: collection} only %}
-        {% endfor %}
-        {% endif %}
+      <div class="layout-content pb-8 mb-8">
+        <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
+          {% if collections %}
+          {% for collection in collections %}
+          {% include collection.template with {this: collection} only %}
+          {% endfor %}
+          {% endif %}
 
-        {# <section class="bg-scale-2 layout-content">
-          <div class="py-4 wrap">
-          </div>
-        </section> #}
+          {# <section class="bg-scale-2 layout-content">
+            <div class="py-4 wrap">
+            </div>
+          </section> #}
+        </div>
       </div>
     </div>
 
