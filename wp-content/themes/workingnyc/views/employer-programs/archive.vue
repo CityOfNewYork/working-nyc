@@ -76,7 +76,7 @@
                           <use href="#option-nyco-checkbox"></use>
                         </svg>
 
-                        <span class="font-normal">{{ filter.name }}</span>
+                        <span class="font-normal w-full">{{ filter.name }}</span>
                       </span>
                     </label>
                   </div>
@@ -124,7 +124,7 @@
                               <use href="#option-nyco-checkbox"></use>
                             </svg>
 
-                            <span class="font-normal">{{ filter.name }}</span>
+                            <span class="font-normal w-full">{{ filter.name }}</span>
                           </span>
                         </label>
                       </div>
