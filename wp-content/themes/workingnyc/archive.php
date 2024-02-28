@@ -43,7 +43,10 @@ require_once WorkingNYC\timber_post($class);
  */
 
 add_action('wp_enqueue_scripts', function() use ($path) {
-  if ('guides' !== $path) {
+  if ('services' === $path) {
+    enqueue_script("archive-employer-programs");
+  }
+  elseif ('guides' !== $path) {
     enqueue_script("archive-$path");
   }
 });
@@ -54,7 +57,7 @@ add_action('wp_enqueue_scripts', function() use ($path) {
  * @author NYC Opportunity
  */
 
-$post = get_page_by_path($path);
+$post = get_page_by_path($full_path);
 
 /**
  * Get status and logged in state, redirect if page isn't public
@@ -83,7 +86,7 @@ if ($post->post_status === 'draft' && false === is_user_logged_in()) {
 $ID = $post->ID;
 
 $ID = defined('ICL_LANGUAGE_CODE') ?
-  icl_object_id(get_page_by_path($path)->ID, 'page', true, ICL_LANGUAGE_CODE) : $ID;
+  icl_object_id(get_page_by_path($full_path)->ID, 'page', true, ICL_LANGUAGE_CODE) : $ID;
 
 /**
  * Convert previous program Query variable filters to the new syntax and
@@ -127,17 +130,17 @@ if ('programs' === $path) {
 
 $context = Timber::get_context();
 
-$post = Timber::get_post();
-
 $context['archive_post'] = $post;
 
 $context['page_title'] = Templating\get_title($path);
 
 $context['page_content'] = Templating\get_content($path);
 
-$context['post_type'] = $path;
+$post_type = $path === 'services' ? 'employer-programs' : $path;
 
-$context['post_type_object'] = get_post_type_object($path);
+$context['post_type'] = $post_type;
+
+$context['post_type_object'] = get_post_type_object($post_type);
 
 $context['post_type_singular'] = str_replace('s', '', $context['post_type']);
 
@@ -151,7 +154,7 @@ $context['posts'] = array_map(function($p) use ($class) {
   return new $class($p);
 }, Timber::get_posts());
 
-if ($path === 'employer-programs') {
+if ($path === 'employer-programs' || $path === 'services') {
   // set this to true for all employer-side pages
   $context['employer'] = true;
   $context['show_newsletter'] = false;
