@@ -45,8 +45,7 @@ require_once WorkingNYC\timber_post($class);
 add_action('wp_enqueue_scripts', function() use ($path) {
   if ('services' === $path) {
     enqueue_script("archive-employer-programs");
-  }
-  elseif ('guides' !== $path) {
+  } elseif ('guides' !== $path) {
     enqueue_script("archive-$path");
   }
 });
