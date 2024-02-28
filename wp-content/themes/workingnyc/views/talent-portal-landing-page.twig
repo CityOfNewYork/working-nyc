@@ -36,6 +36,21 @@
         </div>
     </div>
 
+    <div>
+        <div class="desktop:grid desktop:grid-cols-[1fr_1.75fr] items-center desktop-gap-x-72">
+        <div class="pb-3 tablet:pb-5 desktop:pb-0 desktop-w-500 desktop-h-400 tablet-h-400 mobile-h-300">
+            <img class="tablet:block" src="{{ post.meta('container_image').url }}" alt="{{ post.meta('container_image').alt }}"/>
+        </div>
+        <div class="desktop-max-h-304 desktop-w-660">
+            <h3 class="mb-3 tablet:mb-4">{{ post.meta('container_header') }}</h3>
+            <div>{{ post.meta('container_subtitle') }}</div>
+            <div>
+                <a class="mt-2 btn btn-small tablet:btn btn-styled pointer-events-auto" href="post.meta('container_link').url">{{ post.meta('container_link').title }}</a>
+            </div>
+        </div>
+        </div>
+    </div>
+
     <div class="layout-content text-center py-5 tablet:py-6 desktop:py-7 px-2 tablet:px-7">
         <h2 class="mb-4">{{ post.meta('agency_partners_text') }}</h2>
 
