@@ -3,34 +3,53 @@
 {% block content %}
 <div class="bg-white">
 
-    <div class="layout-content text-center py-5">
-      <svg aria-hidden="true" class="h-5 mb-2">
+    <div class="flex justify-center tablet:justify-start px-2 tablet:px-[104px] py-5 tablet:py-7">
+      <svg aria-hidden="true" class="h-5 max-w-[200px]">
         <title>{{ __('Jobs NYC', 'WNYC') }}</title>
-        <use href="#Jobs-NYC-Telent-Portal-logo"></use>
+        <use href="#logo-jobs-nyc-black"></use>
       </svg>
-      <div>
-        {{ post.post_content }}
-      </div>
     </div>
 
     <div class="relative">
         {% if post.thumbnail %}
-            <div>
-                <img class="w-full h-[830px] desktop:h-[600px] object-cover" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+            <div class="talent-portal-gradient">
+                <img class="w-full h-[1100px] tablet:h-[746px] object-cover" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
             </div>
         {% endif %}
 
-        <div class="absolute top-[168px] tablet:top-[250px] desktop:top-[300px] w-full">
-            <div class="relative grid desktop:grid-cols-2 gap-3">
-                <div class="mx-3 tablet:mx-auto desktop:ml-auto desktop:mr-0 tablet:w-4/5 grid bg-white p-4">
+        <div class="absolute h-[1054px] tablet:h-[646px] top-7 tablet:top-[100px] w-full px-3 tablet:px-[104px] z-20">
+            <h1 class="text-white mb-2 font-[600]">{{ post.post_title }}</h1>
+            <div class="text-white text-[20px] mb-8">
+                {{ post.post_content }}
+            </div>
+            <div class="relative grid tablet:grid-cols-2 gap-3">
+                <div class="grid bg-white p-4 w-full">
                     <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_1') }}</h3>
                     <p class="mx-auto mb-4 text-center">{{ post.meta('description_1') }}</p>
                     <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_1'), site.site_url, site.url)  }}">{{ post.meta('button_label_1') }}</a>
                 </div>
-                <div class="mx-3 tablet:mx-auto desktop:mr-auto desktop:ml-0 tablet:w-4/5 grid bg-white p-4">
+                <div class="grid bg-white p-4 w-full">
                     <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_2') }}</h3>
                     <p class="mx-auto mb-4 text-center">{{ post.meta('description_2') }}</p>
                     <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_2'), site.site_url, site.url)  }}">{{ post.meta('button_label_2') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-[#F4F7FA] tablet:bg-white tablet:px-[104px] tablet:py-7">
+        <div class="desktop:grid desktop:grid-cols-[1fr_1.15fr] items-center tablet:gap-x-6">
+            <img class="w-full h-[420px] object-cover mb-4 desktop:mb-0" src="{{ post.meta('container_image').url }}" alt="{{ post.meta('container_image').alt }}"/>
+            <div class="text-center tablet:text-left px-3 tablet:px-0 desktop-max-h-304 w-full">
+                <h2 class="mb-4 font-[600]">{{ post.meta('container_header') }}</h2>
+                <div class="text-[16px] mb-4">{{ post.meta('container_subtitle') }}</div>
+                <div>
+                    <a class="btn btn-styled text-[#30374F] border-[#30374F] font-[600] pointer-events-auto" target="_blank" rel="noopener" href="post.meta('container_link').URL">
+                        {{ post.meta('container_link').title }}
+                        <svg aria-hidden="true" class="icon-ui w-[20px] h-[20px] mr-0 rtl:flip">
+                            <use href="#lucide-arrow-right"></use>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
