@@ -48,7 +48,7 @@
                           <use href="#option-nyco-checkbox"></use>
                         </svg>
 
-                        <span class="option__label">{{ filter.name }}</span>
+                        <span class="option__label w-full">{{ filter.name }}</span>
                       </span>
                     </label>
                   </div>
