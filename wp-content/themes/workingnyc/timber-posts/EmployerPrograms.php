@@ -51,8 +51,6 @@ class EmployerPrograms extends Timber\Post {
 
     $this->schema = $this->getSchema();
 
-    $this->sections = $this->getSections();
-
     return $this;
   }
 
