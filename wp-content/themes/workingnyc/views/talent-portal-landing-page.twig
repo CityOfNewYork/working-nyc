@@ -6,7 +6,7 @@
     <div class="flex justify-center tablet:justify-start px-2 tablet:px-[104px] py-5 tablet:py-7">
       <svg aria-hidden="true" class="h-5 max-w-[200px]">
         <title>{{ __('Jobs NYC', 'WNYC') }}</title>
-        <use href="#logo-jobs-nyc-black"></use>
+        <use href="#logo-jobs-nyc-black-blue"></use>
       </svg>
     </div>
 
@@ -17,11 +17,9 @@
             </div>
         {% endif %}
 
-        <div class="absolute h-[1054px] tablet:h-[646px] top-7 tablet:top-[100px] w-full px-3 tablet:px-[104px] z-20">
-            <h1 class="text-white mb-2 font-[600]">{{ post.post_title }}</h1>
-            <div class="text-white text-[20px] mb-8">
-                {{ post.post_content }}
-            </div>
+        <div class="absolute h-[1054px] tablet:h-[746px] flex flex-col justify-center top-0 w-full px-3 tablet:px-[104px] z-20">
+            <h2 class="h1 text-white my-0 font-[600]">{{ post.meta('header_text_1') }}</h2>
+            <h2 class="h1 text-white mt-0 mb-8 font-[600]">{{ post.meta('header_text_2') }}</h2>
             <div class="relative grid tablet:grid-cols-2 gap-3">
                 <div class="grid bg-white p-4 w-full">
                     <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_1') }}</h3>
