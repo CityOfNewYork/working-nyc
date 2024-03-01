@@ -3,6 +3,46 @@
     "title": "Landing page",
     "fields": [
         {
+            "key": "field_65e1f4ee4ae07",
+            "label": "Header text 1",
+            "name": "header_text_1",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_65e1f4fd4ae08",
+            "label": "Header text 2",
+            "name": "header_text_2",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_657bd7c5ef372",
             "label": "Subtitle 1",
             "name": "subtitle_1",
@@ -323,5 +363,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1709139154
+    "modified": 1709307164
 }
