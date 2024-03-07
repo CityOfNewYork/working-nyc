@@ -27,7 +27,7 @@
           {% set container_button_class = 'btn-styled' %}
         {% endif %}
 
-        <a class="mt-2 btn {{ container_button_class }} pointer-events-auto" href="{{ function('convert_link_locale', this.fields.container_button_link, site.site_url, site.url) }}">{{ this.fields.container_button_text }}</a>
+        <a class="mt-2 btn {{ container_button_class }} pointer-events-auto w-full tablet:w-fit desktop:w-fit" href="{{ function('convert_link_locale', this.fields.container_button_link, site.site_url, site.url) }}">{{ this.fields.container_button_text }}</a>
       </div>
     {% if this.fields.container_image_side == 'right' %}
       <div class="desktop-w-500 desktop-h-400 hidden desktop:block">
