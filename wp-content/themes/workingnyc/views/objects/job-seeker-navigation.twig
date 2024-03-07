@@ -7,13 +7,13 @@
       href="{{ site.url }}"
     {% endif %}
     >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="60" height="11">
+      <svg class="o-navigation__svg fill-text text-brand" width="60" height="11">
         <title>{{ __('Jobs NYC jobseeker homepage', 'WNYC - Navigation') }}</title>
-        <use href="#logo-jnyc-horizontal"></use>
+        <use href="#logo-jobs-nyc-black-blue"></use>
       </svg>
     </a>
     <a class="hidden tablet:flex tablet:pr-2" href="https://mycity.nyc.gov/" target="_blank" rel="noopener">
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+      <svg class="o-navigation__svg fill-text text-brand" width="110" height="18">
         <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
         <use href="#logo-nyc-mycity"></use>
       </svg>
@@ -55,12 +55,12 @@
       href="{{ site.url }}"
     {% endif %}
     >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="100" height="18">
+      <svg class="o-navigation__svg fill-text text-brand" width="206" height="22">
         <title>{{ __('Jobs NYC jobseeker homepage', 'WNYC - Navigation') }}</title>
-        <use href="#logo-jnyc-horizontal"></use>
+        <use href="#logo-jobs-nyc-jobseeker"></use>
       </svg>
     </a>
-    <h6 class="mt-0 tablet:pl-2 tablet:border-l tablet:border-solid tablet:border-slate-300">{{ __('Jobseekers', 'WNYC - Navigation') }}</h6>
+    <h6 class="mt-0 tablet:hidden">{{ __('Jobseekers', 'WNYC - Navigation') }}</h6>
   </div>
   <div>
     {% for menu_item in job_seeker_header_menu.get_items %}
@@ -77,7 +77,7 @@
 {% include 'objects/menu.twig' %}
 <nav class="z-10 px-3 py-1 relative flex flex-col border-t-2 border-[#D4D7DC] items-center bg-white tablet:hidden" data-js="navigation">
   <a href="https://mycity.nyc.gov/" target="_blank" rel="noopener">
-    <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+    <svg class="o-navigation__svg fill-text text-brand" width="110" height="18">
       <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
       <use href="#logo-nyc-mycity"></use>
     </svg>
