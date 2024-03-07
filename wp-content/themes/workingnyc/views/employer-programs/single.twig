@@ -61,7 +61,7 @@
   </div>
   <div class="mt-5 tablet:mt-6 desktop:mt-7 mb-7 mx-3 tablet-mx-14 desktop-mx-26">
     <h3>{{ __('Similar services', 'WNYC') }}</h3>
-    <div class="w-full grid grid-cols-1 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
+    <div class="w-full grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2">
       {% for program in post.meta('similar_programs') %}
       <div>
       {% include 'employer-programs/similar-employer-program.twig' with { post: program } %}
