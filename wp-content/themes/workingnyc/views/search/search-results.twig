@@ -3,8 +3,8 @@
 {% block content %}
   <div class="bg-scale-4">
       <header class="o-header block px-4 tablet:px-6">
-        <div class="tablet:px-6" style="max-width: var(--nyco-dimension-content-width)"> {# TODO: figure out how to import px-12 from tailwind #}
-          <div class="c-utility p-0 min-h-0" style="margin-bottom: calc(var(--nyco-typography-margin-bottom) * 1.5);">
+        <div class="tablet:px-6 max-w-[896px]">
+          <div class="c-utility p-0 min-h-0 mb-3">
             <a class="link-icon mie-auto" 
             {% if employer == true %}
               {% if options.employers_link is defined %}
@@ -72,7 +72,7 @@
           <list>
             <li class="m-0">{{__('Check your search for typos', 'WNYC')}}</li>
             <li class="m-0">{{__('Use generic search terms', 'WNYC')}}</li>
-            <li class="m-0">{{__('Browse our <a href="{{ PROGRAMS_URL }}">programs</a> and <a href="{{ JOBS_URL }}">jobs</a>', 'WNYC')|replace({'{{ PROGRAMS_URL }}': site.url|last == '/' ? site.url ~ 'programs' : site.url ~ '/programs', '{{ JOBS_URL }}': site.url|last == '/' ? site.url ~ 'jobs' : site.url ~ '/jobs'})}}</li>
+            <li class="m-0">{{__('Browse our <a href="{{ PROGRAMS_URL }}">programs</a>', 'WNYC')|replace({'{{ PROGRAMS_URL }}': site.url|last == '/' ? site.url ~ 'jobseekers/programs' : site.url ~ '/jobseekers/programs'})}}</li>
           </list>
           <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('If you still can\'t find what you\'re looking for, {{ FEEDBACK }} to improve our site.', 'WNYC')|replace({'{{ FEEDBACK }}': 
             '<a class="link-icon" href="https://airtable.com/shrfQGpXvo9mmmHpJ">send us feedback <svg aria-hidden="true" class="icon-ui rtl:flip"><use href="#lucide-external-link"></use></svg></a>'})}}</h5>
