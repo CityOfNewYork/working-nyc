@@ -20,16 +20,24 @@
       {% if this.posts %}
       <div>
         {% if this.guides %}
-        <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2">
+        <div class="grid tablet:grid-cols-3">
         {% else %}
         <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2 desktop:gap-3 py-2">
         {% endif %}
           {% for post in this.posts %}
-          <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0">
-            {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
-              post: post
-            } %}
-          </div>
+            {% if post.post_type == 'employer-programs' %}
+              <div class="max-w-full">
+                {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
+                  post: post
+                } %}
+              </div>
+            {% else %}
+              <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0">
+                {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
+                  post: post
+                } %}
+              </div>
+            {% endif %}
           {% endfor %}
         </div>
       </div>
