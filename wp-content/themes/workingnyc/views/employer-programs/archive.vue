@@ -47,6 +47,16 @@
           <button class="hidden desktop:flex small text-black no-underline" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
+          <div class="desktop:hidden">
+            <div class="cursor-pointer small rounded p-1 flex justify-end gap-x-[4px]">
+              <button  @click="reset">
+                <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
+                          <use href="#close"></use>
+                </svg>
+              </button>
+              <span class="text-nowrap text-[18px] font-[600]" @click="reset">{{ strings.CLOSE }}</span>
+            </div>
+          </div>
           <div>
             <h6 class="mb-3">
               {{ strings.FILTER_BY }}
