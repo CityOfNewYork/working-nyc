@@ -19,7 +19,7 @@
             </p>
           </div>
 
-          <div class="flex gap-x-1">
+          <div class="flex gap-x-1 bg-[#EEF4FF]">
             <div class="small rounded p-1 bg-scale-2" v-for="tag in post.tags" :key="tag.employer_program_tag">
                 {{ tag.employer_program_tag }}
             </div>

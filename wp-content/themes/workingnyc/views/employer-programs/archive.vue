@@ -34,8 +34,8 @@
           <div class="hidden desktop:flex pr-2" v-if="termsChecked">Active filters</div>
           <template v-for="term in terms">
             <template v-for="filter in term.filters">
-              <div class="small rounded p-1 bg-scale-2 mr-1 flex" v-if="filter.checked">
-                  <span class="text-nowrap">{{ filter.name }}</span>
+              <div class="small rounded p-1 bg-scale-2 mr-1 flex bg-[#EFF1F5]" v-if="filter.checked">
+                  <span class="text-nowrap ">{{ filter.name }}</span>
                   <button @click="click({event: $event, data: filter})">
                     <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
                       <use href="#lucide-x"></use>
