@@ -6,6 +6,11 @@
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
               <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
+              <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
+                <use href="#lucide-chevron-right"></use>
+              </svg>
+
+              <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
             </nav>
 
             <div class="o-header__title">
