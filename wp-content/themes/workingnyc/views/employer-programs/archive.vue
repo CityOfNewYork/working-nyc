@@ -50,9 +50,9 @@
           <div class="desktop:hidden">
             <div class="cursor-pointer small rounded p-1 flex justify-end gap-x-[4px]">
               <button  @click="reset">
-                <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
-                          <use href="#close"></use>
-                </svg>
+               <svg class="icon-ui">
+                   <use href="#lucide-x"></use>
+              </svg>
               </button>
               <span class="text-nowrap text-[18px] font-[600]" @click="reset">{{ strings.CLOSE }}</span>
             </div>
