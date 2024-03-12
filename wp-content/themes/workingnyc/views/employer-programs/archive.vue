@@ -44,17 +44,17 @@
               </div>
             </template>
           </template>
-          <button class="hidden desktop:flex small text-black no-underline" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
+          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
           <div>
-            <h6 class="mb-3">
+            <div class="mb-3 font-[500] text-[18px]">
               {{ strings.FILTER_BY }}
-            </h6>
+            </div>
               <div v-for="(term, index) in terms" :key="term.slug">
                 <fieldset class="fieldset mb-3" tabindex="-1">
                   <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
-                    <legend class="h6 mb-2">
+                    <legend class="mb-2 font-[600] text-[18px]">
                       {{ term.name }}
                     </legend>
                     <span class="ml-auto">
@@ -95,14 +95,14 @@
           <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
             <form class="w-full">
               <div>
-                <h6 class="font-bold">
+                <div class="font-[500] text-[20px] mb-3">
                   {{ strings.FILTER_BY }}
-                </h6>
+                </div>
                 <div>
                   <div v-for="(term, index) in terms" :key="term.slug">
                     <fieldset class="fieldset mb-3" tabindex="-1">
                       <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
-                        <legend class="h6 mb-2 font-bold">
+                        <legend class="mb-2 font-[600] text-[20px]">
                           {{ term.name }}
                         </legend>
                         <span class="ml-auto">
