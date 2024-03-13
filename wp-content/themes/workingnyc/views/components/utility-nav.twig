@@ -1,4 +1,5 @@
 <div class="c-utility wrap">
+  {% if return %}
   <a class="link-icon mie-auto" href="{{ return.link }}">
     <svg aria-hidden="true" class="icon-ui rtl:flip">
       <use href="#lucide-chevron-left"></use>
@@ -6,6 +7,7 @@
 
     <span>{{ return.label }}</span>
   </a>
+  {% endif %}
 
   {% for item in cta %}
   <a class="text-inherit {{ item.class }}" href="{{ item.link }}">{{ item.label }}</a>
