@@ -112,6 +112,13 @@
                 "operator": "==",
                 "value": "guides"
             }
+        ],
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "employer-programs"
+            }
         ]
     ],
     "menu_order": 5,
@@ -123,5 +130,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1666881035
+    "modified": 1708983842
 }

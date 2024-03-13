@@ -3,37 +3,58 @@
 {% block content %}
 <div class="bg-white">
 
-    <div class="layout-content text-center py-5">
-        <h1>{{ post.post_title }}</h1>
-
-        {{ post.post_content }}
+    <div class="flex justify-center tablet:justify-start px-2 tablet:px-[104px] py-3">
+      <svg aria-hidden="true" class="h-5 max-w-[210px]">
+        <title>{{ __('Jobs NYC', 'WNYC') }}</title>
+        <use href="#logo-jobs-nyc-black-blue"></use>
+      </svg>
     </div>
 
     <div class="relative">
         {% if post.thumbnail %}
-            <div>
-                <img class="w-full h-[830px] desktop:h-[600px] object-cover" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+            <div class="hidden tablet:block talent-portal-gradient">
+                <img class="w-full h-[1100px] tablet:h-[746px] object-cover" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
             </div>
         {% endif %}
 
-        <div class="absolute top-[168px] tablet:top-[250px] desktop:top-[300px] w-full">
-            <div class="relative grid desktop:grid-cols-2 gap-3">
-                <div class="mx-3 tablet:mx-auto desktop:ml-auto desktop:mr-0 tablet:w-4/5 grid bg-white p-4">
+        <div class="relative tablet:absolute tablet:h-[746px] flex flex-col justify-center tablet:top-0 w-full px-3 py-5 tablet:px-[104px] z-20 bg-[#202431] tablet:bg-transparent">
+            <h2 class="text-[40px] tablet:text-[50px] desktop:text-[55px] tablet:h1 text-white my-0 font-[600]">{{ post.meta('header_text_1') }}</h2>
+            <h2 class="text-[40px] tablet:text-[50px] desktop:text-[55px] tablet:h1 text-white mt-0 mb-4 tablet:mb-6 desktop:mb-8 font-[600]">{{ post.meta('header_text_2') }}</h2>
+            <div class="relative grid tablet:grid-cols-2 gap-3 max-w-[1232px] w-full mx-auto">
+                <div class="grid bg-white p-4 w-full">
                     <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_1') }}</h3>
                     <p class="mx-auto mb-4 text-center">{{ post.meta('description_1') }}</p>
-                    <a class="mx-auto btn btn-small tablet:btn btn-primary pointer-events-auto" href="{{ post.meta('button_link_1') }}">{{ post.meta('button_label_1') }}</a>
+                    <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_1'), site.site_url, site.url)  }}">{{ post.meta('button_label_1') }}</a>
                 </div>
-                <div class="mx-3 tablet:mx-auto desktop:mr-auto desktop:ml-0 tablet:w-4/5 grid bg-white p-4">
+                <div class="grid bg-white p-4 w-full">
                     <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_2') }}</h3>
                     <p class="mx-auto mb-4 text-center">{{ post.meta('description_2') }}</p>
-                    <a class="mx-auto btn btn-small tablet:btn btn-primary pointer-events-auto" href="{{ post.meta('button_link_2') }}">{{ post.meta('button_label_2') }}</a>
+                    <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_2'), site.site_url, site.url)  }}">{{ post.meta('button_label_2') }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-[#F4F7FA] tablet:bg-white tablet:px-[104px] tablet:py-7">
+        <div class="desktop:grid desktop:grid-cols-[1fr_1.15fr] items-center tablet:gap-x-6">
+            <img class="w-full h-[420px] object-cover mb-4 desktop:mb-0" src="{{ post.meta('container_image').url }}" alt="{{ post.meta('container_image').alt }}"/>
+            <div class="text-center tablet:text-left px-3 tablet:px-0 desktop-max-h-304 w-full">
+                <h2 class="mb-4 font-[600]">{{ post.meta('container_header') }}</h2>
+                <div class="text-[16px] mb-4">{{ post.meta('container_subtitle') }}</div>
+                <div>
+                    <a class="btn btn-styled text-[#30374F] border-[#30374F] font-[600] pointer-events-auto" target="{{ post.meta('container_link').target }}" href="{{ post.meta('container_link').url }}">
+                        {{ post.meta('container_link').title }}
+                        <svg aria-hidden="true" class="icon-ui w-[20px] h-[20px] mr-0 rtl:flip">
+                            <use href="#lucide-arrow-right"></use>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="layout-content text-center py-5 tablet:py-6 desktop:py-7 px-2 tablet:px-7">
-        <h2 class="mb-4">{{ __('Agency Partners', 'WNYC')}}</h2>
+        <h2 class="mb-4">{{ post.meta('agency_partners_text') }}</h2>
 
         <div class="flex justify-center flex-wrap gap-3">
         {% for partner in post.meta('agency_partners') %}

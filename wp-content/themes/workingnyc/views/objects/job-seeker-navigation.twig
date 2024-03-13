@@ -7,23 +7,25 @@
       href="{{ site.url }}"
     {% endif %}
     >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="60" height="11">
-        <use href="#logo-jnyc-horizontal"></use>
+      <svg class="o-navigation__svg fill-text text-brand" width="60" height="11">
+        <title>{{ __('Jobs NYC jobseeker homepage', 'WNYC - Navigation') }}</title>
+        <use href="#logo-jobs-nyc-black-blue"></use>
       </svg>
     </a>
-    <a class="hidden tablet:flex tablet:pr-2" href="https://mycity.nyc.gov/">
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+    <a class="hidden tablet:flex tablet:pr-2" href="https://mycity.nyc.gov/" target="_blank" rel="noopener">
+      <svg class="o-navigation__svg fill-text text-brand" width="110" height="18">
+        <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
         <use href="#logo-nyc-mycity"></use>
       </svg>
     </a>
     <span class="hidden tablet:block desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
   </div>
   <div class="flex items-center">
-    <button class="border-b-line py-1 px-1 flex items-center" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <button class="py-1 px-1 flex items-center" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
       <svg class="h-3 w-3 mr-[4px]">
         <use href="#languages-nav"></use>
       </svg>
-      <span>{{ __('Language', 'WNYC - Navigation') }}</span>
+      <span class="text-xs font-[500] desktop:text-sm">{{ __('Language', 'WNYC - Navigation') }}</span>
       <svg class="h-3 w-3 fill-none stroke-black">
         <use href="#lucide-chevron-down"></use>
       </svg>
@@ -31,14 +33,12 @@
     {% include 'objects/languages-dropdown.twig' %}
     <button class="o-navigation__item mr-0" aria-controls="aria-c-search" aria-expanded="false" data-dialog="open" data-js="search">
       <svg class="icon-ui mr-[4px]">
-        <title>{{__('Search', 'WNYC - Navigation')}}</title>
         <use href="#lucide-search"></use>
       </svg>
-      <span>{{__('Search', 'WNYC') }}</span>
+      <span class="font-[500]">{{__('Search', 'WNYC') }}</span>
     </button>
     <a class="flex desktop:hidden" href="{{ site.url }}/?s=">
       <svg class="icon-ui mr-[4px]">
-        <title>{{__('Search', 'WNYC - Navigation')}}</title>
         <use href="#lucide-search"></use>
       </svg>
       <span>{{__('Search', 'WNYC') }}</span>
@@ -55,27 +55,30 @@
       href="{{ site.url }}"
     {% endif %}
     >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="100" height="18">
-        <use href="#logo-jnyc-horizontal"></use>
+      <svg class="o-navigation__svg fill-text text-brand" width="206" height="22">
+        <title>{{ __('Jobs NYC jobseeker homepage', 'WNYC - Navigation') }}</title>
+        <use href="#logo-jobs-nyc-jobseeker"></use>
       </svg>
     </a>
-    <h6 class="mt-0 tablet:pl-2 tablet:border-l tablet:border-solid tablet:border-slate-300">{{ __('Jobseekers', 'WNYC - Navigation') }}</h6>
+    <h6 class="mt-0 tablet:hidden">{{ __('Jobseekers', 'WNYC - Navigation') }}</h6>
   </div>
   <div>
     {% for menu_item in job_seeker_header_menu.get_items %}
-      <a class="o-navigation__item mr-2 desktop:py-2 desktop-px-12" width="84" height="70" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
+      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12" width="84" height="70" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
     {% endfor %}
   </div>
   <button class="desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
     <svg class="icon-ui m-0 w-3 h-3">
+      <title>{{ __('Menu', 'WNYC - Navigation') }}</title>
       <use href="#lucide-menu"></use>
     </svg>
   </button>
 </nav>
 {% include 'objects/menu.twig' %}
 <nav class="z-10 px-3 py-1 relative flex flex-col border-t-2 border-[#D4D7DC] items-center bg-white tablet:hidden" data-js="navigation">
-  <a href="https://mycity.nyc.gov/">
-    <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+  <a href="https://mycity.nyc.gov/" target="_blank" rel="noopener">
+    <svg class="o-navigation__svg fill-text text-brand" width="110" height="18">
+      <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
       <use href="#logo-nyc-mycity"></use>
     </svg>
   </a>

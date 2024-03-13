@@ -6,11 +6,11 @@
     {% endif %}
     {# Desktop: image on the left if container_image_side is 'left', tablet and mobile: image on top #}
     {% if this.fields.container_image_side == 'left' %}
-      <div class="pb-3 tablet:pb-5 desktop:pb-0 desktop-w-500 desktop-h-400 tablet-h-400 mobile-h-300">
+      <div class="pb-3 tablet:pb-5 desktop:pb-0 h-[300px] tablet:h-[400px] w-full desktop:w-[500px]">
     {% else %}
-      <div class="desktop:hidden pb-5 tablet-h-400 mobile-h-300">
+      <div class="desktop:hidden pb-5 h-[300px] tablet:h-[400px] w-full">
     {% endif %}
-        <img class="bg-image-square tablet:block" src="{{ this.fields.container_image }}"/>
+        <img class="tablet:block object-cover w-full h-full" src="{{ this.fields.container_image.url }}" alt="{{ this.fields.container_image.alt }}"/>
       </div>
       <div class="desktop-max-h-304 desktop-w-660">
         <h2 class="mb-3 tablet:mb-4">{{ this.heading }}</h2>
@@ -27,11 +27,11 @@
           {% set container_button_class = 'btn-styled' %}
         {% endif %}
 
-        <a class="mt-2 btn btn-small tablet:btn {{ container_button_class }} pointer-events-auto" href="{{ this.fields.container_button_link }}">{{ this.fields.container_button_text }}</a>
+        <a class="mt-2 btn {{ container_button_class }} pointer-events-auto w-full tablet:w-fit desktop:w-fit" href="{{ function('convert_link_locale', this.fields.container_button_link, site.site_url, site.url) }}">{{ this.fields.container_button_text }}</a>
       </div>
     {% if this.fields.container_image_side == 'right' %}
-      <div class="desktop-w-500 desktop-h-400 hidden desktop:block">
-        <img class="bg-image-square tablet:block" src="{{ this.fields.container_image }}"/>
+      <div class="h-[300px] tablet:h-[400px] w-full desktop:w-[500px] hidden desktop:block">
+        <img class="tablet:block object-cover w-full h-full" src="{{ this.fields.container_image.url }}" alt="{{ this.fields.container_image.alt }}"/>
       </div>
     {% endif %}
     </div>

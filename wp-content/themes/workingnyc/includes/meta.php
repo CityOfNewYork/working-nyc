@@ -74,7 +74,7 @@ class Meta {
           break;
 
         case 'employer-programs':
-          $description = 'Test employer programs meta';
+          $description = $this->post->preview;
 
           break;
 
@@ -138,6 +138,11 @@ class Meta {
 
           break;
 
+        case 'employer-programs':
+          $description = $this->post->employer_program_title;
+
+          break;
+
         case 'guides':
           $title = $this->post->title;
 
@@ -174,6 +179,11 @@ class Meta {
           break;
 
         case 'programs':
+          $description = $this->post->preview;
+
+          break;
+
+        case 'employer-programs':
           $description = $this->post->preview;
 
           break;
@@ -276,6 +286,14 @@ class Meta {
         $ogImage->title = $this->og_title;
         $ogImage->subtitleBold = $this->post->program_title;
         $ogImage->subtitle = $this->post->program_agency ? __('by', 'WNYC') . ' ' . $this->post->program_agency : '';
+        $ogImage->verticalAlign = 'middle';
+
+        break;
+      
+      case 'employer-programs':
+        $ogImage->title = $this->og_title;
+        $ogImage->subtitleBold = $this->post->employer_program_provider;
+        $ogImage->subtitle = $this->post->employer_program_preview;
         $ogImage->verticalAlign = 'middle';
 
         break;

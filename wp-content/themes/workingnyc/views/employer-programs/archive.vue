@@ -1,11 +1,16 @@
 <template>
   <div>
-    <div class="layout-content bg-scale-3">
+    <div class="layout-content bg-[#EEF4FF]">
       <div class="page-max">
         <header class="o-header">
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
               <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
+              <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
+                <use href="#lucide-chevron-right"></use>
+              </svg>
+
+              <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
             </nav>
 
             <div class="o-header__title">
@@ -15,18 +20,6 @@
             <div class="mb-2">
               <p>{{ strings.PAGE_SUBTITLE }}</p>
             </div>
-
-            <form class="o-search__form w-full" @submit.prevent="wp">
-              <div class="input o-search__input rounded">
-                  <input class="rounded border-0" v-model="query.search_term"/>
-                  <button type="submit" class="o-search__submit">
-                      <svg class="icon-ui">
-                          <title>Submit</title>
-                          <use href="#lucide-search"></use>
-                      </svg>
-                  </button>
-              </div>
-            </form>
           </div>
         </header>
       </div>
@@ -34,7 +27,7 @@
     <div class="page-max mx-auto">
       <div class="desktop:flex desktop:justify-center">
         <div 
-          v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex flex-wrap gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
+          v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
           + (termsChecked ? 'desktop:pb-5' : 'desktop:pb-0')" 
           v-if="!filtersExpanded">
           <div class="desktop:hidden pr-2">
@@ -46,8 +39,8 @@
           <div class="hidden desktop:flex pr-2" v-if="termsChecked">Active filters</div>
           <template v-for="term in terms">
             <template v-for="filter in term.filters">
-              <div class="small rounded p-1 bg-scale-2 mr-1 flex" v-if="filter.checked">
-                  <span class="text-nowrap">{{ filter.name }}</span>
+              <div class="small rounded p-1 bg-scale-2 mr-1 flex bg-[#EFF1F5]" v-if="filter.checked">
+                  <span class="text-nowrap ">{{ filter.name }}</span>
                   <button @click="click({event: $event, data: filter})">
                     <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
                       <use href="#lucide-x"></use>
@@ -56,17 +49,27 @@
               </div>
             </template>
           </template>
-          <button class="hidden desktop:flex small text-black no-underline" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
+          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
+          <div class="desktop:hidden">
+            <div class="flex justify-end mb-5">
+              <button class="no-underline flex items-center decoration-[#080707] hover:underline active:underline" @click="scrollToTop">
+               <svg class="stroke-black w-3 h-3 mr-[4px]">
+                   <use href="#lucide-x"></use>
+              </svg>
+              <span class="text-nowrap text-[18px] font-[600] text-[#080707]">{{ strings.CLOSE }}</span>
+              </button>
+            </div>
+          </div>
           <div>
-            <h6 class="mb-3">
+            <div class="mb-3 font-[500] text-[18px]">
               {{ strings.FILTER_BY }}
-            </h6>
+            </div>
               <div v-for="(term, index) in terms" :key="term.slug">
                 <fieldset class="fieldset mb-3" tabindex="-1">
                   <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
-                    <legend class="h6 mb-2">
+                    <legend class="mb-2 font-[600] text-[18px]">
                       {{ term.name }}
                     </legend>
                     <span class="ml-auto">
@@ -88,7 +91,7 @@
                           <use href="#option-nyco-checkbox"></use>
                         </svg>
 
-                        <span class="font-normal">{{ filter.name }}</span>
+                        <span class="font-normal w-full">{{ filter.name }}</span>
                       </span>
                     </label>
                   </div>
@@ -97,8 +100,8 @@
           </div>
 
           <div class="wrap gap-3 flex justify-center">
-            <button class="btn btn-secondary" :disabled="totalFilters == 0" v-html="strings.RESET" @click="reset"></button>
-            <button class="btn btn-secondary" @click="filtersExpanded = false">{{ strings.APPLY_FILTERS }}</button>
+            <button class="btn-small tablet:btn desktop:btn btn-styled" :disabled="totalFilters == 0" v-html="strings.RESET" @click="reset"></button>
+            <button class="btn-small tablet:btn desktop:btn btn-secondary" @click="scrollToTop">{{ strings.APPLY_FILTERS }}</button>
           </div>
         </div>
       </div>
@@ -107,14 +110,14 @@
           <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
             <form class="w-full">
               <div>
-                <h6 class="font-bold">
+                <div class="font-[500] text-[20px] mb-3">
                   {{ strings.FILTER_BY }}
-                </h6>
+                </div>
                 <div>
                   <div v-for="(term, index) in terms" :key="term.slug">
                     <fieldset class="fieldset mb-3" tabindex="-1">
                       <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
-                        <legend class="h6 mb-2 font-bold">
+                        <legend class="mb-2 font-[600] text-[20px]">
                           {{ term.name }}
                         </legend>
                         <span class="ml-auto">
@@ -136,7 +139,7 @@
                               <use href="#option-nyco-checkbox"></use>
                             </svg>
 
-                            <span class="font-normal">{{ filter.name }}</span>
+                            <span class="font-normal w-full">{{ filter.name }}</span>
                           </span>
                         </label>
                       </div>

@@ -86,7 +86,7 @@ add_action('init', function() {
     'menu_position' => 21,
     'has_archive' => true,
     'rewrite' => array(
-      'slug' => 'programs',
+      'slug' => 'jobseekers/programs',
       'with_front' => false
     )
   ));
@@ -115,7 +115,7 @@ add_action('init', function() {
     'exclude_from_search' => false,
     'show_ui' => true,
     'hierarchical' => false,
-    'supports' => ['title'],
+    'supports' => ['title', 'page-attributes'],
 
     /**
      * @source https://developer.wordpress.org/resource/dashicons/
@@ -128,7 +128,7 @@ add_action('init', function() {
     'menu_position' => 21,
     'has_archive' => true,
     'rewrite' => array(
-      'slug' => 'employer-programs',
+      'slug' => 'employers/services',
       'with_front' => false
     )
   ));
@@ -254,7 +254,7 @@ add_action('init', function() {
     'menu_position' => 21,
     'has_archive' => true,
     'rewrite' => array(
-      'slug' => 'guides',
+      'slug' => 'jobseekers/guides',
       'with_front' => false
     )
   ));
