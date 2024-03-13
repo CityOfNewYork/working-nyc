@@ -45,8 +45,8 @@ export default {
       query: {
         per_page: this.perPage,
         page: this.page,
-        orderby: 'menu_order',
-        order: 'asc'
+        orderby: 'date',
+        order: 'desc'
       },
 
       /**
