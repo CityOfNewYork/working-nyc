@@ -10,7 +10,7 @@
       </svg>
     </div>
 
-    <div class="flex justify-center">
+    <div class="relative flex justify-center">
         {% if post.thumbnail %}
             <div class="hidden tablet:block talent-portal-gradient">
                 <img class="w-full h-[1100px] tablet:h-[746px] object-cover" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
