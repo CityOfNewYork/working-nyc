@@ -72,7 +72,7 @@ new Vue({
           SCHEDULE: 'Duration and Length',
           SUPPORTS: 'Support Provided',
           LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ program }}</span>',
-          SHOWING: 'Showing {{ TOTAL_VISIBLE }} Programs of {{ TOTAL }}',
+          SHOWING: 'Showing {{ TOTAL_VISIBLE }} Services of {{ TOTAL }}',
           RESET: 'Clear all filters',
           NO_RESULTS: 'No Results. Try deselecting some filters.',
           LOADING: 'Loading',
