@@ -52,6 +52,16 @@
           <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
+          <div class="desktop:hidden">
+            <div class="flex justify-end mb-5">
+              <button class="no-underline flex items-center decoration-[#080707] hover:underline active:underline" @click="scrollToTop">
+               <svg class="stroke-black w-3 h-3 mr-[4px]">
+                   <use href="#lucide-x"></use>
+              </svg>
+              <span class="text-nowrap text-[18px] font-[600] text-[#080707]">{{ strings.CLOSE }}</span>
+              </button>
+            </div>
+          </div>
           <div>
             <div class="mb-3 font-[500] text-[18px]">
               {{ strings.FILTER_BY }}
