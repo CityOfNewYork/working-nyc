@@ -4,7 +4,7 @@
     <nav class="o-attribution__flex items-start">
         <div class="grid gap-y-4">
             <div>
-            <span class="footer-font">Let us know how we can improve</span>
+            <span class="footer-font">{{ employer ? options.employers_footer_tagline : options.job_seekers_footer_tagline }}</span>
             </div>
             <div class="tablet:float-left desktop:float-left">
             {# TODO: feedback URL should come from global field + shortcode #}
