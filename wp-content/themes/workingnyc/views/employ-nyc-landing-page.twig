@@ -1,0 +1,67 @@
+{% extends "base.twig" %}
+
+{% block content %}
+<div class="bg-scale-2">
+  <main class="bg-scale-1" id="content">
+    <div class="layout-content bg-scale-1">
+      {% include ['components/utility-nav.twig'] with {
+        return: {
+          'label': __('Home', 'WNYC'),
+          'link': site.url
+        },
+        web_share: {
+          'title': post.title,
+          'text': (post.web_share_text) ? post.web_share_text,
+          'url': fn('wp_get_shortlink')
+        }
+      } %}
+    </div>
+
+    {# Header Section #}
+    <div class="layout-content">
+      <header class="o-header">
+        <div class="w-full">
+          <div class="o-header__title">
+            <h1 id="page-heading" class="o-header__heading">
+              {% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}
+            </h1>
+          </div>
+
+          {% if post.content %}{{ post.content }}{% endif %}
+        </div>
+      </header>
+    </div>
+
+    {% if sections %}
+    <div class="bg-scale-0">
+      <div class="layout-content pb-8 mb-8">
+        <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
+          {% for section in sections %}
+          <section data-active-navigation-observe-item="heading" {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
+            {% if section.section_title %}
+            <div class="pt-utility-anchor bg-scale-0 sticky top-0 z-10">
+              <div class="wrap">
+                <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3" data-active-navigation-item="focus">
+                  {{ section.section_title }}
+                </h3>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="wrap">
+              {{ section.section_content }}
+            </div>
+          </section>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if show_newsletter is not defined %}
+    {% include 'objects/newsletter.twig' %}
+    {% endif %}
+  </main>
+</div>
+{% endblock %}
+
