@@ -10,32 +10,34 @@
       </svg>
     </div>
 
-    <div class="relative flex justify-center">
+    <div class="relative">
         {% if post.thumbnail %}
             <div class="hidden tablet:block talent-portal-gradient">
                 <img class="w-full h-[1100px] tablet:h-[746px] object-cover" loading="lazy" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
             </div>
         {% endif %}
 
-        <div class="relative tablet:absolute tablet:h-[746px] flex flex-col justify-center tablet:top-0 max-w-[1232px] w-full px-3 py-5 tablet:px-[104px] z-20 bg-[#202431] tablet:bg-transparent">
-            <h2 class="text-[40px] tablet:text-[50px] desktop:text-[55px] tablet:h1 text-white my-0 font-[600]">{{ post.meta('header_text_1') }}</h2>
-            <h2 class="text-[40px] tablet:text-[50px] desktop:text-[55px] tablet:h1 text-white mt-0 mb-4 tablet:mb-6 desktop:mb-8 font-[600]">{{ post.meta('header_text_2') }}</h2>
-            <div class="relative grid tablet:grid-cols-2 gap-3 w-full mx-auto">
-                <div class="grid bg-white p-4 w-full">
-                    <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_1') }}</h3>
-                    <p class="mx-auto mb-4 text-center">{{ post.meta('description_1') }}</p>
-                    <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto w-full tablet:w-fit desktop:w-fit" href="{{ function('convert_link_locale', post.meta('button_link_1'), site.site_url, site.url)  }}">{{ post.meta('button_label_1') }}</a>
-                </div>
-                <div class="grid bg-white p-4 w-full">
-                    <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_2') }}</h3>
-                    <p class="mx-auto mb-4 text-center">{{ post.meta('description_2') }}</p>
-                    <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto " href="{{ function('convert_link_locale', post.meta('button_link_2'), site.site_url, site.url)  }}">{{ post.meta('button_label_2') }}</a>
+        <div class="flex justify-center">
+            <div class="relative tablet:absolute tablet:h-[746px] flex flex-col justify-center tablet:top-0 max-w-[1440px] w-full px-3 py-5 tablet:px-[104px] z-20 bg-[#202431] tablet:bg-transparent">
+                <h2 class="text-[40px] tablet:text-[50px] desktop:text-[55px] tablet:h1 text-white my-0 font-[600]">{{ post.meta('header_text_1') }}</h2>
+                <h2 class="text-[40px] tablet:text-[50px] desktop:text-[55px] tablet:h1 text-white mt-0 mb-4 tablet:mb-6 desktop:mb-8 font-[600]">{{ post.meta('header_text_2') }}</h2>
+                <div class="relative grid tablet:grid-cols-2 gap-3 w-full mx-auto">
+                    <div class="grid bg-white p-4 w-full">
+                        <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_1') }}</h3>
+                        <p class="mx-auto mb-4 text-center">{{ post.meta('description_1') }}</p>
+                        <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_1'), site.site_url, site.url)  }}">{{ post.meta('button_label_1') }}</a>
+                    </div>
+                    <div class="grid bg-white p-4 w-full">
+                        <h3 class="mx-auto mb-4 text-center">{{ post.meta('subtitle_2') }}</h3>
+                        <p class="mx-auto mb-4 text-center">{{ post.meta('description_2') }}</p>
+                        <a class="mx-auto btn tablet:btn btn-secondary pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_2'), site.site_url, site.url)  }}">{{ post.meta('button_label_2') }}</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="bg-[#F4F7FA] tablet:bg-white tablet:px-[104px] max-w-[1232px] desktop:mx-auto tablet:py-7">
+    <div class="bg-[#F4F7FA] tablet:bg-white tablet:px-[104px] max-w-[1440px] desktop:mx-auto tablet:py-7">
         <div class="desktop:grid desktop:grid-cols-[1fr_1.15fr] items-center tablet:gap-x-6">
             <img class="w-full h-[420px] object-cover mb-4 desktop:mb-0" src="{{ post.meta('container_image').url }}" alt="{{ post.meta('container_image').alt }}"/>
             <div class="text-center tablet:text-left px-3 tablet:px-0 desktop-max-h-304 w-full">
