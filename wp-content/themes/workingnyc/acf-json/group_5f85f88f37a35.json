@@ -117,89 +117,9 @@
             "delay": 0
         },
         {
-            "key": "field_65b7c06469d7f",
-            "label": "Job seekers link",
-            "name": "job_seekers_link",
-            "type": "page_link",
-            "instructions": "This is the home link for navigation on the job seeker side",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "post_type": "",
-            "taxonomy": "",
-            "allow_null": 0,
-            "allow_archives": 1,
-            "multiple": 0
-        },
-        {
-            "key": "field_65b7c09269d80",
-            "label": "Employers link",
-            "name": "employers_link",
-            "type": "page_link",
-            "instructions": "This is the home link for navigation on the employer side",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "post_type": "",
-            "taxonomy": "",
-            "allow_null": 0,
-            "allow_archives": 1,
-            "multiple": 0
-        },
-        {
-            "key": "field_65bbc6fe88355",
-            "label": "Feedback prompt",
-            "name": "feedback_prompt",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "default_value": "How can we help you today?",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_65bbc72c88356",
-            "label": "Employers footer tagline",
-            "name": "employers_footer_tagline",
-            "type": "text",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "default_value": "We support business owners in NYC",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_65bbc75888357",
-            "label": "Job seekers footer tagline",
-            "name": "job_seekers_footer_tagline",
+            "key": "field_65f4a787af12e",
+            "label": "Newsletter Description",
+            "name": "newsletter_description",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -215,60 +135,6 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
-        },
-        {
-            "key": "field_65bbc78a88358",
-            "label": "NYC footer tagline",
-            "name": "nyc_footer_tagline",
-            "type": "text",
-            "instructions": "Appears below the NYC logo in the global footer",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "default_value": "Connecting you to NYC services",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_65d8dcf16903e",
-            "label": "Employer feedback form link",
-            "name": "feedback_form_link",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "default_value": "",
-            "placeholder": ""
-        },
-        {
-            "key": "field_65dcac58b7871",
-            "label": "Jobseeker feedback form link",
-            "name": "feedback_form_link_jobseeker",
-            "type": "url",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "relevanssi_exclude": 0,
-            "default_value": "",
-            "placeholder": ""
         }
     ],
     "location": [
@@ -294,5 +160,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1708960877
+    "modified": 1710553696
 }
