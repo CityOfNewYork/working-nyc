@@ -4,7 +4,7 @@
 <div class="bg-scale-1">
   <header class="employer-header-gradient {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full flex justify-center">
       {% if post.thumbnail %}
-      <div class="site-max-width w-full desktop:gap-x-5 tablet-gap-x-56 desktop:flex desktop:px-[104px] tablet:px-5 px-2 py-4 tablet:py-5 desktop:py-[121px] items-center">
+      <div class="max-w-[1232px] w-full desktop:gap-x-5 tablet-gap-x-56 desktop:flex desktop:px-0 desktop:mx-[104px] tablet:px-5 px-2 py-4 tablet:py-5 desktop:py-[121px] items-center">
         <div>
       {% else %}
       <div class="layout-content">
@@ -31,8 +31,8 @@
     {% endif %}
     </div>
   </header>
-  <main id="content" class="bg-shape-wnyc-content mx-2 tablet:mx-7 desktop-mx-26">
-    <div>
+  <main id="content" class="flex justify-center bg-shape-wnyc-content mx-2 tablet:mx-7 desktop-mx-26">
+    <div class="max-w-[1232px]">
       {# Collections #}
       {% if collections %}
         {% for collection in collections %}
