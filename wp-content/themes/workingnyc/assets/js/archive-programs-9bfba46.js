@@ -1305,7 +1305,6 @@
 	//
 	//
 	//
-	//
 
 	var script = {
 	  props: {
