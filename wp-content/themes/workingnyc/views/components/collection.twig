@@ -11,7 +11,7 @@
       {% if this.heading or this.description %}
        
      
-            <h2 class="text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
+            <h2 class="text-alt mt-0 desktop:mb-4" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
             {{ this.description }}
   
@@ -20,7 +20,7 @@
       {% if this.posts %}
       <div>
         {% if this.guides %}
-        <div class="grid tablet:grid-cols-3">
+        <div class="grid tablet:grid-cols-2 gap-3">
         {% else %}
         <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2 desktop:gap-3 py-2">
         {% endif %}
