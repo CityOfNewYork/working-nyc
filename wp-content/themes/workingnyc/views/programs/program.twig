@@ -52,12 +52,13 @@
       </span>{% endif %}
     </p>{% endif %}
 
-    {% if post.intro or post.populations %}<div class="c-card__summary">
-      <p>
-        {{ post.preview }}
-        {{ post.populations }}
-      </p>
-    </div>{% endif %}
+    {% if post.preview %}
+      <div class="c-card__summary">
+        <p>
+          {{ post.preview }}
+        </p>
+      </div>
+    {% endif %}
 
     <ul class="c-card__features">
       {% if post.services %}<li>

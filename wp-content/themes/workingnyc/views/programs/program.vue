@@ -46,7 +46,6 @@
       <div class="c-card__summary">
         <p>
           <span v-if="post.context.preview" v-html="post.context.preview"></span>
-          <span v-if="post.context.populations" v-html="post.context.populations"></span>
         </p>
       </div>
 
