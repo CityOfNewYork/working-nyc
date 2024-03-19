@@ -65,17 +65,6 @@
             {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
 
             {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
-
-            {% if post.thumbnail %}
-            <p class="text-center">
-              <a class="inline-block text-center" href="#explore">
-                <span>{{ __('Explore', 'WNYC') }}</span><br />
-                <svg aria-hidden="true" class="icon-ui icon-5">
-                  <use href="#lucide-chevron-down"></use>
-                </svg>
-              </a>
-            </p>
-            {% endif %}
     {% if post.thumbnail %}
           </div>
         </div>
