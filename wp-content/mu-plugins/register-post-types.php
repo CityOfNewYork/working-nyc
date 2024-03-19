@@ -300,5 +300,4 @@ add_action('init', function() {
       'with_front' => false
     )
   ));
-
 });
