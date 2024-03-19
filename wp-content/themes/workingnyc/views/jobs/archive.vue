@@ -2,14 +2,6 @@
   <div>
     <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
       <div class="c-utility wrap">
-        <a class="link-icon mie-auto" href="/">
-          <svg aria-hidden="true" class="icon-ui rtl:flip">
-            <use href="#lucide-chevron-left"></use>
-          </svg>
-
-          <span>{{ strings.HOME }}</span>
-        </a>
-
         <button :disabled="terms.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="true" data-js="dialog">
           <span class="mie-1">{{ strings.FILTERS }}</span>
 
