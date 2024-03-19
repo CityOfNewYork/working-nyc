@@ -18,10 +18,6 @@
         {% endif %}
       {% endif %}
       {% include ['components/utility-nav.twig'] with {
-        return: {
-          'label': __('Home', 'WNYC'),
-          'link': home_link
-        },
         web_share: {
           'title': post.title,
           'text': (post.web_share_text) ? post.web_share_text,

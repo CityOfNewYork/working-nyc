@@ -19,10 +19,6 @@
       {% endif %}
 
       {% include ['components/utility-nav.twig'] with {
-        return: {
-          'label': __('Home', 'WNYC'),
-          'link': home_link
-        },
         web_share: {
           'title': post.title,
           'text': post.web_share_text,
@@ -46,10 +42,10 @@
           %}
 
           <h1 id="page-heading" class="o-header__title">{{ post.title }}</h1>
+            <div>{{options.newsletter_description}}</div>
         </div>
       </header>
     </div>
-
     <section class="layout-content">
       <div class="wrap">
         <div class="pb-8 mb-8">
