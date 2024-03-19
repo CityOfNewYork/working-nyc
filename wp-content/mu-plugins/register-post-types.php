@@ -258,4 +258,47 @@ add_action('init', function() {
       'with_front' => false
     )
   ));
+
+  /**
+   * Post Type: Employer Programs
+   *
+   * @author NYC Opportunity
+   */
+  register_post_type('job-boards', array(
+    'labels' => array(
+      'name' => __('Job Boards'),
+      'singular_name' => __('Job Board'),
+      'all_items' => __('All Job Boards'),
+      'add_new' => __('Add New'),
+      'add_new_item' => __('Add New Job Board'),
+      'edit' => __('Edit'),
+      'edit_item' => __('Edit Job Board'),
+      'new_item' => __('New Job Board'),
+      'view_item' => __('View Job Board'),
+      'search_items' => __('Search Job Boards')
+    ),
+    'description' => __('Job boards'),
+    'public' => true,
+    'show_in_rest' => true,
+    'exclude_from_search' => false,
+    'show_ui' => true,
+    'hierarchical' => false,
+    'supports' => ['title', 'page-attributes'],
+
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
+    'menu_icon' => 'dashicons-store',
+
+    /**
+     * Use the registration order to enforce menu position
+     */
+    'menu_position' => 21,
+    'has_archive' => true,
+    'rewrite' => array(
+      'slug' => 'jobseekers/job-boards',
+      'with_front' => false
+    )
+  ));
+
 });
