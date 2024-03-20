@@ -479,6 +479,34 @@
                                     },
                                     "relevanssi_exclude": 0,
                                     "return_format": "array"
+                                },
+                                {
+                                    "key": "field_65fb51e836a0b",
+                                    "label": "Logo",
+                                    "name": "logo",
+                                    "type": "select",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "relevanssi_exclude": 0,
+                                    "choices": {
+                                        "government": "Government",
+                                        "briefcase": "Briefcase",
+                                        "handshake": "Handshake",
+                                        "education": "Education"
+                                    },
+                                    "default_value": "briefcase",
+                                    "allow_null": 0,
+                                    "multiple": 0,
+                                    "ui": 0,
+                                    "return_format": "value",
+                                    "ajax": 0,
+                                    "placeholder": ""
                                 }
                             ]
                         }
@@ -524,5 +552,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1710968852
+    "modified": 1710969457
 }
