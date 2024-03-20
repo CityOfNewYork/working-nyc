@@ -10,8 +10,7 @@
 
       {% if this.heading or this.description %}
        
-     
-            <h2 class="text-alt mt-0 desktop:mb-4" data-active-navigation-item="focus">{{ this.heading }}</h2>
+            <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 desktop:mb-4" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
             {{ this.description }}
   
@@ -62,7 +61,7 @@
     <div class="wrap tablet:px-3 desktop:px-6">
       <div class="desktop:px-6 tablet:grid items-center grid-cols-2 gap-x-5">
         <div>
-          <h2 class="h3 text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
+          <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
           <img class="bg-image-square mb-2 tablet:hidden" loading="lazy" style="object-position: {{ this.post.thumbnail.focal_point }};" src="{{ this.post.thumbnail.src('tablet') }}" alt="{{ this.post.thumbnail.alt }}"/>
 
@@ -89,7 +88,7 @@
     {% if this.display == 'gallery' %}
     <div class="layout-content{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
       <div class="wrap">
-        <h2 class="h3 text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
+        <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
         {{ this.description }}
       </div>

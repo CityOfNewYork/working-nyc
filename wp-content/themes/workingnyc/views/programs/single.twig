@@ -8,10 +8,6 @@
   <main class="bg-scale-1" id="content">
     <div class="layout-content sticky top-0 bg-scale-1 z-20">
       {% include ['components/utility-nav.twig'] with {
-        return: {
-          'label': __('Programs', 'WNYC'),
-          'link': post.archive
-        },
         cta: (post.get_field('program_next_steps')) ? [
           {
             'label': __('Next Steps', 'WNYC'),

@@ -112,7 +112,8 @@
                                 "programs",
                                 "jobs",
                                 "guides",
-                                "employer-programs"
+                                "employer-programs",
+                                "job-boards"
                             ],
                             "taxonomy": "",
                             "filters": [
@@ -434,5 +435,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1708719931
+    "modified": 1710944509
 }
