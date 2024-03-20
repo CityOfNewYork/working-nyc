@@ -15,7 +15,7 @@ use Timber;
 use Spatie\SchemaOrg\Schema;
 
 class EmployerPrograms extends Timber\Post {
-  const SINGULAR = 'employer-program'; // todo: see where this is used
+  const SINGULAR = 'employer-program'; // used to render card in collection.twig
 
   /**
    * Constructor
