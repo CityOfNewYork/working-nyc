@@ -288,7 +288,7 @@ add_action('init', function() {
     /**
      * @source https://developer.wordpress.org/resource/dashicons/
      */
-    'menu_icon' => 'dashicons-store',
+    'menu_icon' => 'dashicons-clipboard',
 
     /**
      * Use the registration order to enforce menu position
