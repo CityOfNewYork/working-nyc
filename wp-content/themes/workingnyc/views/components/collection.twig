@@ -2,7 +2,7 @@
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
 <section class="page-max" data-active-navigation-observe-item="heading" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
-  <div class="py-4 tablet:py-5 desktop:py-6">
+  <div class="py-6">
     {% if this.display == 'container' %}
       {% include 'components/container.twig' %}
     {% endif %}
@@ -32,7 +32,7 @@
                 } %}
               </div>
             {% else %}
-              <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0">
+              <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0 border border-[#D4D7DC] rounded-[5px]">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
                   post: post
                 } %}
