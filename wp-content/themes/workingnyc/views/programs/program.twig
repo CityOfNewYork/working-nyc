@@ -2,9 +2,9 @@
 {# @For    Post Type #}
 {# @Class  timber-posts/Programs.php #}
 <article class="c-card h-full {{ post.classes }}">
-  <header class="c-card__header">
+  <header class="c-card__header py-3 px-5 desktop:pt-3 desktop:pb-3 tablet:px-5 tablet:px-5">
     <span>
-      <a class="c-card__header-link" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>
+      <a class="c-card__header-link pb-2 desktop:pt-3 pt-2" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>
         <h3 class="c-card__title">
           <span class="c-card__underline">{{ post.program_plain_language_title }}</span>
 
@@ -16,7 +16,7 @@
         </h3>
       </a>
 
-      <p class="c-card__subtitle text-alt">
+      <p class="c-card__subtitle text-alt pb-2 desktop:pb-3">
         <b>{{ post.program_title }}</b> 
         {% if post.program_agency is not empty %} 
           {{ __('by', 'WNYC') }} {{ post.program_agency }}
@@ -25,7 +25,7 @@
     </span>
   </header>
 
-  <div class="c-card__body">
+  <div class="c-card__body py-3 px-5 desktop:pt-5 desktop:pb-5 tablet:px-5 tablet:px-5">
     {% if post.status %}<p class="c-card__status">
       {% if post.status.recruiting %}<mark class="badge">
         {{ post.status.recruiting.name }}<span class="sr-only">.</span>
@@ -54,7 +54,7 @@
 
     {% if post.preview %}
       <div class="c-card__summary">
-        <p>
+        <p class="pb-3">
           {{ post.preview }}
         </p>
       </div>
@@ -62,44 +62,43 @@
 
     <ul class="c-card__features">
       {% if post.services %}<li>
-        <svg class="icon-ui c-card__feature-icon" role="img">
+        <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
           <title>{{ __('Services Provided', 'WNYC') }}</title>
 
           <use href="#lucide-award"></use>
         </svg>
 
-        <span>{{ post.services }}</span>
+        <span class="pb-1">{{ post.services }}</span>
       </li>{% endif %}
 
       {% if post.schedule %}<li>
-        <svg class="icon-ui c-card__feature-icon" role="img">
+        <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
           <title>{{ __('Duration and Length', 'WNYC') }}</title>
 
           <use href="#lucide-calendar"></use>
         </svg>
 
-        <span>{{ post.schedule }}</span>
+        <span class="pb-1">{{ post.schedule }}</span>
       </li>{% endif %}
 
       {% if post.supports %}<li>
-        <svg class="icon-ui c-card__feature-icon" role="img">
+        <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
           <title>{{ __('Support Provided', 'WNYC') }}</title>
 
           <use href="#lucide-heart-handshake"></use>
         </svg>
 
-        <span>{{ post.supports }}</span>
+        <span class="pb-3">{{ post.supports }}</span>
       </li>{% endif %}
     </ul>
 
-    <a class="c-card__cta" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>
+    <a class="c-card__cta w-fit px-3 pt-2 pb-2  text-22 font-[700]" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>
       {% if post.external %}
       <span>{{ post.link_label }}</span>
       {% else %}
       <span>{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ post.program_title }}</span></span></span>
       {% endif %}
-
-      <svg aria-hidden="true" class="icon-ui rtl:flip">
+      <svg aria-hidden="true" class="icon-ui rtl:flip h-22 w-22">
         <use href="#lucide-{% if post.external %}external-link{% else %}arrow-right{% endif %}"></use>
       </svg>
     </a>

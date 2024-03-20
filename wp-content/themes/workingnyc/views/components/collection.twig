@@ -1,7 +1,7 @@
 {# @Type   Component #}
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
-<section class="page-max" data-active-navigation-observe-item="heading" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
+<section data-active-navigation-observe-item="heading" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
   <div class="py-4 tablet:py-5 desktop:py-6">
     {% if this.display == 'container' %}
       {% include 'components/container.twig' %}
@@ -11,7 +11,7 @@
       {% if this.heading or this.description %}
        
      
-            <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
+            <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt desktop:mb-4 tablet:mb-4" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
             {{ this.description }}
   
@@ -22,7 +22,7 @@
         {% if this.guides %}
         <div class="grid tablet:grid-cols-3">
         {% else %}
-        <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2 desktop:gap-3 py-2">
+        <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-2 gap-2 desktop:gap-3 py-2">
         {% endif %}
           {% for post in this.posts %}
             {% if post.post_type == 'employer-programs' %}
