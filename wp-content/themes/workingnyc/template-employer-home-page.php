@@ -9,16 +9,6 @@
 require_once WorkingNYC\timber_post('Announcements');
 
 /**
- * Enqueue
- *
- * @author NYC Opportunity
- */
-
-add_action('wp_enqueue_scripts', function() {
-  enqueue_script('template-home-page');
-});
-
-/**
  * Context
  *
  * @author NYC Opportunity
@@ -65,14 +55,6 @@ $context['meta'] = new WorkingNYC\Meta($post);
 $context['collections'] = array_map(function($collection) {
   return new WorkingNYC\Collection($collection);
 }, Templating\get_featured_posts($post->ID));
-
-/**
- * Set context for the Questionnaire
- *
- * @author NYC Opportunity
- */
-
-$context['questionnaire'] = new WorkingNYC\Questionnaire($post);
 
 /**
  * Render the view

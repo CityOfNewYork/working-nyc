@@ -34,19 +34,9 @@
     <div>
       {# Collections #}
       {% if collections %}
-      {% for collection in collections %}
-
-      {% if loop.index == 1 and questionnaire.position == 0 %}
-      {% include questionnaire.template with {this: questionnaire} %}
-      {% endif %}
-
-      {% include collection.template with {this: collection} only %}
-
-      {% if loop.index == questionnaire.position %}
-      {% include questionnaire.template with {this: questionnaire} %}
-      {% endif %}
-
-      {% endfor %}
+        {% for collection in collections %}
+          {% include collection.template with {this: collection} only %}
+        {% endfor %}
       {% endif %}
 
       {# Announcements #}
