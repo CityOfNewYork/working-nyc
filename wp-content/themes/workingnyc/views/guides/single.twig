@@ -6,29 +6,6 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1">
-    <div class="site-max-width sticky top-0 bg-scale-1 z-30">
-      {% if employer == true %}
-        {% if options.employers_link is defined %}
-          {% set home_link = options.employers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
-      {% else %}
-        {% if options.job_seekers_link is defined %}
-          {% set home_link = options.job_seekers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
-      {% endif %}
-      {% include ['components/utility-nav.twig'] with {
-        web_share: {
-          'title': post.title,
-          'text': (post.web_share_text) ? post.web_share_text,
-          'url': fn('wp_get_shortlink')
-        }
-      } %}
-    </div>
-
     {# Header Section #}
     {% if post.thumbnail %}
     <header class="o-header px-0 relative">
@@ -93,14 +70,9 @@
     </div>
     {% endif %}
 
-    {% include 'components/active-navigation.twig' with {this: {
-      items: collections|map(item => {title: item.heading}),
-      classes: 'pt-utility-anchor'
-    }} %}
-
     <div class="bg-scale-0" id="explore">
       <div class="pb-8 mb-8">
-        <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
+        <div class="py-4">
           {% if collections %}
           {% for collection in collections %}
           {% include collection.template with {this: collection} only %}
