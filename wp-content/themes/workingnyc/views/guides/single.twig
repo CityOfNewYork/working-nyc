@@ -30,25 +30,52 @@
     </div>
 
     {# Header Section #}
-    {% if post.thumbnail %}
+    <div>{{ post.thumbnail }}</div>
+    {# {% if post.thumbnail %}
     <header class="o-header bg-banner-min-height-with-utility relative">
-      <div class="site-max-width desktop:px-6">
-        <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
-          <div>
-    {% else %}
-    <div class="site-max-width">
-      <header class="o-header">
-        <div class="w-full">
-    {% endif %}
+      <div class="site-max-width py-2 tablet:py-8 tablet:grid grid-cols-2 gap-x-5">
+        <div>
+          {% include 'components/breadcrumbs.twig' with {
+            crumbs: [
+              {
+                'label': post.title,
+                'link': ''
+              }
+            ]
+          } %}
 
+          <div class="o-header__title">
+            {% if post.icon %}
+            <svg class="o-header__icon text-blue-d-1 fill-blue-l-1" role="img">
+              <title>{{ post.icon.name }}</title>
+
+              <use href="#program-card-{{ post.icon.slug }}"></use>
+            </svg>
+            {% endif %}
+
+            <h1 id="page-heading" class="o-header__heading">{{ post.title }}</h1>
+          </div>
+
+          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
+          {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
+        </div>
+        <div class="relative">
+          <img class="bg-image-grid__img" loading="eager" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        </div>
+      </div>
+    </header>
+      {% else %}
+      <div class="site-max-width">
+        <header class="o-header">
+          <div class="w-full">
             {% include 'components/breadcrumbs.twig' with {
-              crumbs: [
-                {
-                  'label': post.title,
-                  'link': ''
-                }
-              ]
-            } %}
+                crumbs: [
+                  {
+                    'label': post.title,
+                    'link': ''
+                  }
+                ]
+              } %}
 
             <div class="o-header__title">
               {% if post.icon %}
@@ -65,23 +92,13 @@
             {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
 
             {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
-    {% if post.thumbnail %}
-          </div>
-        </div>
+            </div>
       </div>
-
-      <div class="bg-image-grid hidden tablet:grid grid-cols-2 gap-x-5 animated fadeIn">
-        <div></div>
-        <div class="bg-image-grid__mask-scale-1 relative">
-          <img class="bg-image-grid__img" loading="eager" {% if post.thumbnail.focal_point %} style="object-position: {{ post.thumbnail.focal_point }};"{% endif %} src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
-        </div>
-      </div>
-    </header>
-    {% else %}
+    </div>
         </div>
       </header>
     </div>
-    {% endif %}
+    {% endif %} #}
 
     {% include 'components/active-navigation.twig' with {this: {
       items: collections|map(item => {title: item.heading}),
