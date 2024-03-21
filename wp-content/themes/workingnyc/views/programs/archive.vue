@@ -58,7 +58,7 @@
           </div>
 
           <div class="site-max-width shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1">
-            <div class="wrap">
+            <div>
               <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1" v-html="strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', headers.total)"></button>
             </div>
           </div>
@@ -125,7 +125,7 @@
     </section>
 
     <div class="site-max-width py-6 pb-8 mb-4" v-if="init">
-      <div class="wrap">
+      <div>
         <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
           {{ strings.SHOW_MORE }}
         </button>

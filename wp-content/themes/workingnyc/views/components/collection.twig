@@ -88,7 +88,7 @@
 
     {% if this.display == 'gallery' %}
     <div class="{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
-      <div class="wrap">
+      <div>
         <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
 
         {{ this.description }}
@@ -96,8 +96,8 @@
     </div>
 
     {% if this.posts %}
-    <div class="pb-2 desktop:pb-5 desktop:px-6">
-      <div class="wrap py-4 grid gap-3 tablet:grid tablet:grid-cols-2 tablet:gap-2 desktop:grid-cols-3 py-2 tablet:px-3 desktop:px-6">
+    <div class="pb-2 desktop:pb-5">
+      <div class="py-4 grid gap-3 tablet:grid tablet:grid-cols-2 tablet:gap-2 desktop:grid-cols-3 py-2">
         {% for post in this.posts %}
         <div class="flex transform-none">
           {% include 'components/card.twig' with {

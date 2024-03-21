@@ -45,7 +45,7 @@
       margin-right: auto;
     }
 }
-@media screen and (min-width: 768px) and (max-width:1111px) {
+@media screen and (min-width:768px) and (max-width:1111px) {
   .tablet-py-48 {
       padding-top: 48px;
       padding-bottom: 48px;
@@ -68,5 +68,12 @@
     padding-right: 56px;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media screen and (max-width:767px) {
+  .site-max-width {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }
