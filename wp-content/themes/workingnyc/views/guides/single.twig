@@ -8,17 +8,44 @@
   <main class="bg-scale-1">
     {# Header Section #}
     {% if post.thumbnail %}
-    <header class="o-header bg-banner-min-height-with-utility relative">
-      <div class="page-max desktop:px-6">
-        <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
-          <div>
-    {% else %}
-    <div class="layout-content">
-      <header class="o-header">
-        <div class="w-full">
-    {% endif %}
+    <header class="px-0 relative">
+      <div class="site-max-width py-2 tablet:py-8 tablet:grid grid-cols-2 gap-x-5">
+        <div>
+          {% include 'components/breadcrumbs.twig' with {
+            crumbs: [
+              {
+                'label': post.title,
+                'link': ''
+              }
+            ]
+          } %}
 
-            {% include 'components/breadcrumbs.twig' with {
+          <div class="o-header__title">
+            {% if post.icon %}
+            <svg class="o-header__icon text-blue-d-1 fill-blue-l-1" role="img">
+              <title>{{ post.icon.name }}</title>
+
+              <use href="#program-card-{{ post.icon.slug }}"></use>
+            </svg>
+            {% endif %}
+
+            <h1 id="page-heading" class="o-header__heading">{{ post.title }}</h1>
+            {# <div>{{ dump(post.thumbnail) }}</div> #}
+          </div>
+
+          {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
+          {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
+        </div>
+        <div class="hidden tablet:flex">
+          <img class="w-full object-cover aspect-[4/3]" style="object-position: {{ post.thumbnail.focal_point }};" loading="eager" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        </div>
+      </div>
+    </header>
+    {% else %}
+    <div class="site-max-width">
+      <header class="o-header px-0">
+        <div class="w-full">
+          {% include 'components/breadcrumbs.twig' with {
               crumbs: [
                 {
                   'label': post.title,
@@ -27,41 +54,25 @@
               ]
             } %}
 
-            <div class="o-header__title">
-              {% if post.icon %}
-              <svg class="o-header__icon text-blue-d-1 fill-blue-l-1" role="img">
-                <title>{{ post.icon.name }}</title>
+          <div class="o-header__title">
+            {% if post.icon %}
+            <svg class="o-header__icon text-blue-d-1 fill-blue-l-1" role="img">
+              <title>{{ post.icon.name }}</title>
 
-                <use href="#program-card-{{ post.icon.slug }}"></use>
-              </svg>
-              {% endif %}
+              <use href="#program-card-{{ post.icon.slug }}"></use>
+            </svg>
+            {% endif %}
 
-              <h1 id="page-heading" class="o-header__heading">{{ post.title }}</h1>
-            </div>
-
-            {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
-
-            {{ post.post_content|replace({"<!-- featured_image -->": featured_image}) }}
-    {% if post.thumbnail %}
+            <h1 id="page-heading" class="o-header__heading">{{ post.title }}</h1>
           </div>
-        </div>
-      </div>
-
-      <div class="bg-image-grid hidden tablet:grid grid-cols-2 gap-x-5 animated fadeIn">
-        <div></div>
-        <div class="bg-image-grid__mask-scale-1 relative">
-          <img class="bg-image-grid__img" loading="eager" {% if post.thumbnail.focal_point %} style="object-position: {{ post.thumbnail.focal_point }};"{% endif %} src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
-        </div>
-      </div>
-    </header>
-    {% else %}
+          {{ post.post_content }}
         </div>
       </header>
     </div>
     {% endif %}
 
     <div class="bg-scale-0" id="explore">
-      <div class="layout-content pb-8 mb-8">
+      <div class="pb-8 mb-8">
         <div class="py-4">
           {% if collections %}
           {% for collection in collections %}

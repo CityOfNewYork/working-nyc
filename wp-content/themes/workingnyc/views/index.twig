@@ -3,7 +3,7 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="layout-content bg-scale-1">
+    <div class="site-max-width bg-scale-1">
       {% if employer == true %}
         {% if options.employers_link is defined %}
           {% set home_link = options.employers_link %}
@@ -31,7 +31,7 @@
     </div>
 
     {# Header Section #}
-    <div class="layout-content">
+    <div class="site-max-width">
       <header class="o-header">
         <div class="w-full">
           <div class="o-header__title">
@@ -59,13 +59,13 @@
 
     {% if sections %}
     <div class="bg-scale-0">
-      <div class="layout-content pb-8 mb-8">
+      <div class="site-max-width pb-8 mb-8">
         <div class="py-4">
           {% for section in sections %}
           <section {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
             {% if section.section_title %}
             <div class="pt-utility-anchor bg-scale-0 sticky top-0 z-10">
-              <div class="wrap">
+              <div>
                 <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
                   {{ section.section_title }}
                 </h3>
@@ -73,7 +73,7 @@
             </div>
             {% endif %}
 
-            <div class="wrap">
+            <div>
               {{ section.section_content }}
             </div>
           </section>
