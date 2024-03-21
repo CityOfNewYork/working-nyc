@@ -6,29 +6,6 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1">
-    <div class="layout-content sticky top-0 bg-scale-1 z-30">
-      {% if employer == true %}
-        {% if options.employers_link is defined %}
-          {% set home_link = options.employers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
-      {% else %}
-        {% if options.job_seekers_link is defined %}
-          {% set home_link = options.job_seekers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
-      {% endif %}
-      {% include ['components/utility-nav.twig'] with {
-        web_share: {
-          'title': post.title,
-          'text': (post.web_share_text) ? post.web_share_text,
-          'url': fn('wp_get_shortlink')
-        }
-      } %}
-    </div>
-
     {# Header Section #}
     {% if post.thumbnail %}
     <header class="o-header bg-banner-min-height-with-utility relative">
@@ -91,11 +68,6 @@
           {% include collection.template with {this: collection} only %}
           {% endfor %}
           {% endif %}
-
-          {# <section class="bg-scale-2 layout-content">
-            <div class="py-4 wrap">
-            </div>
-          </section> #}
         </div>
       </div>
     </div>
