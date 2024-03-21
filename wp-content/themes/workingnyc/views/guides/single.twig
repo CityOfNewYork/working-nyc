@@ -83,14 +83,9 @@
     </div>
     {% endif %}
 
-    {% include 'components/active-navigation.twig' with {this: {
-      items: collections|map(item => {title: item.heading}),
-      classes: 'pt-utility-anchor'
-    }} %}
-
     <div class="bg-scale-0" id="explore">
       <div class="layout-content pb-8 mb-8">
-        <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
+        <div class="py-4">
           {% if collections %}
           {% for collection in collections %}
           {% include collection.template with {this: collection} only %}
