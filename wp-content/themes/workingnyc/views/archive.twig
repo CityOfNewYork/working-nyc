@@ -4,7 +4,7 @@
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
     <div data-js-archive="{{ post_type }}">
-      <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
+      <div class="c-dropdown c-dropdown-max site-max-width sticky top-0 bg-scale-1 relative z-40">
         <div class="c-utility wrap">
           {% if 'guides' != post_type %}
           <button disabled class="btn btn-small btn-secondary light:btn-primary">
@@ -16,8 +16,8 @@
         </div>
       </div>
 
-      <div class="layout-content">
-        <div class="page-max">
+      <div class="site-max-width">
+        <div>
           <header class="o-header">
             <div>
               <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <section class="page-max desktop:px-6" id="{{ post_type }}">
+      <section class="site-max-width desktop:px-6" id="{{ post_type }}">
         <div class="wrap desktop:px-6">
           <div class="mb-3">
             <h2 class="text-p font-p inline-block m-0">
@@ -89,25 +89,8 @@
         </div>
       </section>
 
-      <div class="layout-content py-6 pb-8 mb-4">
-        <div class="wrap">
-          {# <button id="pagination" data-amount="1" class="btn btn-primary w-full">Show more</button> #}
-
-          {# {% if post_type == 'programs' %}
-          <article class="c-alert mb-3" data-js="suggest-a-program">
-            <div class="c-alert__graphic">
-              <svg aria-hidden="true" class="icon-ui">
-                <use href="#lucide-help-circle"></use>
-              </svg>
-            </div>
-
-            <div class="c-alert__body">
-              <b class="text-alt mb-1">{{ options.new_program_heading }}</b>
-
-              <p data-js-alert="text">{{ options.new_program_body | striptags('<a><svg><title><use>') }}</p>
-            </div>
-          </article>
-          {% endif %} #}
+      <div class="site-max-width py-6 pb-8 mb-4">
+        <div>
         </div>
       </div>
     </div>
