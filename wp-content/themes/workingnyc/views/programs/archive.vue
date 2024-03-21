@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
+    <div class="c-dropdown c-dropdown-max site-max-width sticky top-0 bg-scale-1 relative z-40">
       <div class="c-utility wrap">
         <button :disabled="terms.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="true" data-js="dialog">
           <span class="mie-1">{{ strings.FILTERS }}</span>
@@ -10,7 +10,7 @@
       </div>
 
       <div aria-hidden="true" class="hidden" id="aria-c-filter">
-        <div class="layout-content">
+        <div class="site-max-width">
           <div class="wrap text-end relative z-20">
             <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-primary btn-small" data-dialog="close" data-js="dialog" tabindex="-1">
               <svg aria-hidden="true" class="icon-ui" tabindex="-1">
@@ -23,7 +23,7 @@
         </div>
 
         <form tabindex="-1">
-          <div class="layout-content">
+          <div class="site-max-width">
             <div>
               <div class="mb-8" v-for="term in terms" :key="term.slug">
                 <fieldset class="fieldset mb-2" tabindex="-1">
@@ -57,7 +57,7 @@
             </div>
           </div>
 
-          <div class="layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1">
+          <div class="site-max-width shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1">
             <div class="wrap">
               <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1" v-html="strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', headers.total)"></button>
             </div>
@@ -66,7 +66,7 @@
       </div>
     </div>
 
-    <div class="layout-content">
+    <div class="site-max-width">
       <div class="page-max">
         <header class="o-header">
           <div>
@@ -124,7 +124,7 @@
       </div>
     </section>
 
-    <div class="layout-content py-6 pb-8 mb-4" v-if="init">
+    <div class="site-max-width py-6 pb-8 mb-4" v-if="init">
       <div class="wrap">
         <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
           {{ strings.SHOW_MORE }}

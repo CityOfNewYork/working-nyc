@@ -8,7 +8,7 @@
       <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 tablet:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto tablet:py-7 py-4 desktop:py-6">
         <div class="text-center">
       {% else %}
-      <div class="layout-content">
+      <div class="site-max-width">
         <div class="wrap">
       {% endif %}
 
@@ -52,7 +52,7 @@
       {# Announcements #}
       {% if announcements %}
       <section class="pb-8" id="announcements">
-        <div class="layout-content py-2 tablet:py-8">
+        <div class="site-max-width py-2 tablet:py-8">
           <div class="wrap">
             <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
 

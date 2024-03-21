@@ -6,7 +6,7 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="layout-content sticky top-0 bg-scale-1 z-20">
+    <div class="site-max-width sticky top-0 bg-scale-1 z-20">
       {% include ['components/utility-nav.twig'] with {
         cta: (post.get_field('program_next_steps')) ? [
           {
@@ -25,7 +25,7 @@
     </div>
 
     {# Header Section #}
-    <div class="layout-content">
+    <div class="site-max-width">
       <header class="o-header">
         <div class="w-full">
           {% include 'components/breadcrumbs.twig' with {
@@ -170,7 +170,7 @@
     </div>
 
     {# Sections #}
-    <div class="bg-scale-2 layout-content">
+    <div class="bg-scale-2 site-max-width">
       <div class="py-4 wrap">
         <section class="pt-utility-anchor" id="more-information">
           {% if post.get_field('program_intro') or post.preview %}
@@ -283,7 +283,7 @@
     </div>
 
     {# Links #}
-    <section class="layout-content bg-scale-1 py-4 pb-8" id="contact">
+    <section class="site-max-width bg-scale-1 py-4 pb-8" id="contact">
       <nav class="wrap grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
         {% if post.program_learn_more %}
         <a class="btn btn-secondary w-full" href="{{ post.program_learn_more }}" target="_blank" rel="noopener">
@@ -321,7 +321,7 @@
     </section>
 
     {# Suggest Update #}
-    <section class="layout-content bg-scale-1 pb-4 pb-8 mb-8" id="suggest-update">
+    <section class="site-max-width bg-scale-1 pb-4 pb-8 mb-8" id="suggest-update">
       <div class="wrap">
         <article class="c-alert" data-js="alert-help">
           <div class="c-alert__graphic">
@@ -340,23 +340,6 @@
         </article>
       </div>
     </section>
-    {# Suggest Update end #}
-
-    {# More #}
-    {# <section class="bg-scale-1 layout-content tablet:pb-6">
-      <div class="page-max">
-        <div class="text-center text-alt mb-1">—</div>
-        <nav class="py-2 wrap">
-          <a class="btn btn-primary btn-next w-full" href="#">
-            <svg aria-hidden="true" class="icon-ui">
-              <use href="#arrow-left"></use>
-            </svg>{{ __('More programs at', 'WNYC') }} {{post.program_provider}}<svg aria-hidden="true" class="icon-ui">
-              <use href="#arrow-right"></use>
-            </svg>
-          </a>
-        </nav>
-      </div>
-    </section> #}
     {% if show_newsletter is not defined %}
     {% include 'objects/newsletter.twig' %}
     {% endif %}

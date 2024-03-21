@@ -6,7 +6,7 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1">
-    <div class="layout-content sticky top-0 bg-scale-1 z-30">
+    <div class="site-max-width sticky top-0 bg-scale-1 z-30">
       {% if employer == true %}
         {% if options.employers_link is defined %}
           {% set home_link = options.employers_link %}
@@ -32,11 +32,11 @@
     {# Header Section #}
     {% if post.thumbnail %}
     <header class="o-header bg-banner-min-height-with-utility relative">
-      <div class="page-max desktop:px-6">
+      <div class="site-max-width desktop:px-6">
         <div class="py-2 tablet:py-8 desktop:px-6 tablet:grid grid-cols-2 gap-x-5">
           <div>
     {% else %}
-    <div class="layout-content">
+    <div class="site-max-width">
       <header class="o-header">
         <div class="w-full">
     {% endif %}
@@ -89,18 +89,13 @@
     }} %}
 
     <div class="bg-scale-0" id="explore">
-      <div class="layout-content pb-8 mb-8">
+      <div class="site-max-width pb-8 mb-8">
         <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
           {% if collections %}
           {% for collection in collections %}
           {% include collection.template with {this: collection} only %}
           {% endfor %}
           {% endif %}
-
-          {# <section class="bg-scale-2 layout-content">
-            <div class="py-4 wrap">
-            </div>
-          </section> #}
         </div>
       </div>
     </div>
