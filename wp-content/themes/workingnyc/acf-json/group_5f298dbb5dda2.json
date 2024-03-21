@@ -41,7 +41,8 @@
                                 "cards": "<span class=\"dashicons dashicons-grid-view\"><\/span> Cards (default)",
                                 "callout": "<span class=\"dashicons dashicons-excerpt-view\"><\/span> Callout",
                                 "gallery": "<span class=\"dashicons dashicons-schedule\"><\/span> Gallery",
-                                "container": "Container"
+                                "container": "<span class=\"dashicons dashicons-align-pull-left\"><\/span> Container",
+                                "two-card": "<span class=\"dashicons dashicons-columns\"><\/span> Two cards"
                             },
                             "allow_null": 0,
                             "default_value": "cards",
@@ -99,6 +100,11 @@
                                         "field": "field_635a91574f18d",
                                         "operator": "!=",
                                         "value": "container"
+                                    },
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "!=",
+                                        "value": "two-card"
                                     }
                                 ]
                             ],
@@ -139,6 +145,11 @@
                                         "field": "field_635a91574f18d",
                                         "operator": "!=",
                                         "value": "container"
+                                    },
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "!=",
+                                        "value": "two-card"
                                     }
                                 ]
                             ],
@@ -392,6 +403,112 @@
                             "relevanssi_exclude": 0,
                             "default_value": "",
                             "placeholder": ""
+                        },
+                        {
+                            "key": "field_65fb4f94d9324",
+                            "label": "Cards information",
+                            "name": "cards_information",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "collapsed": "",
+                            "min": 2,
+                            "max": 2,
+                            "layout": "table",
+                            "button_label": "",
+                            "sub_fields": [
+                                {
+                                    "key": "field_65fb4fbfd9325",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "relevanssi_exclude": 0,
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": ""
+                                },
+                                {
+                                    "key": "field_65fb4fdbd9326",
+                                    "label": "Description",
+                                    "name": "description",
+                                    "type": "text",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "relevanssi_exclude": 0,
+                                    "default_value": "",
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "maxlength": ""
+                                },
+                                {
+                                    "key": "field_65fb4fe5d9327",
+                                    "label": "CTA",
+                                    "name": "cta",
+                                    "type": "link",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "relevanssi_exclude": 0,
+                                    "return_format": "array"
+                                },
+                                {
+                                    "key": "field_65fb51e836a0b",
+                                    "label": "Logo",
+                                    "name": "logo",
+                                    "type": "select",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "relevanssi_exclude": 0,
+                                    "choices": {
+                                        "government": "Government",
+                                        "briefcase": "Briefcase",
+                                        "handshake": "Handshake",
+                                        "education": "Education"
+                                    },
+                                    "default_value": "briefcase",
+                                    "allow_null": 0,
+                                    "multiple": 0,
+                                    "ui": 0,
+                                    "return_format": "value",
+                                    "ajax": 0,
+                                    "placeholder": ""
+                                }
+                            ]
                         }
                     ],
                     "min": "",
@@ -435,5 +552,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1710944509
+    "modified": 1710969457
 }
