@@ -10,7 +10,6 @@
 
       {% if this.heading or this.description %}
        
-     
             <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
 
             {{ this.description }}
@@ -22,7 +21,7 @@
         {% if this.guides %}
         <div class="grid tablet:grid-cols-3">
         {% else %}
-        <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2 desktop:gap-3 py-2">
+        <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-2 gap-2 desktop:gap-3 py-2">
         {% endif %}
           {% for post in this.posts %}
               <div class="max-w-full">

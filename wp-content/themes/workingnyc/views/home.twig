@@ -41,7 +41,7 @@
       {# Collections #}
       {% if collections %}
         {% for collection in collections %}
-          {% include collection.template with {this: collection} only %}
+          {% include collection.template with {this: collection, is_home: true} only %}
         {% endfor %}
       {% endif %}
 
