@@ -1,8 +1,17 @@
 {# @Type   Component #}
 {# @For    Post Type #}
-<article class="c-card h-full">
-  <div>{{ post.post_title }}</div>
-  <div>{{ post.description }}</div>
-  <div>{{ post.agency }}</div>
-  <a href="{{ post.cta_link.url }}" target="{{ post.cta_link.target }}">{{ post.cta_link.title }}</a>
+<article class="w-full h-full border-4 border-[#F0F6FA]">
+  <header class="min-h-[142px] bg-[#F0F6FA] px-5 py-3">
+    <div class="text-[20px] tablet:text-[23px] font-[600] text-[#004CBE] mb-1">{{ post.post_title }}</div>
+    <div class="text-[18px] tablet:text-[20px] text-[#0C264D]">{{ post.agency}}</div>
+  </header>
+  <div class="py-3 px-5">
+    <div class="text-[18px] tablet:text-[20px] mb-3 min-h-[75px]">{{ post.description }}</div>
+    <a class="no-underline hover:underline hover:decoration-[#30374F] text-[20px] font-[600] text-[#30374F] flex items-center" href="{{ post.cta_link.url }}" target="{{ post.cta_link.target }}">
+      <span class="leading-[22px]">{{ post.cta_link.title }}</span>
+      <svg aria-hidden="true" class="w-3 h-3 mx-[4px] icon-ui rtl:flip">
+        <use href="#lucide-arrow-right"></use>
+      </svg>
+    </a>
+  </div>
 </article>
