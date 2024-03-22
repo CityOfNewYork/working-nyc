@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="bg-scale-1">
-  <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
+  <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full h-fit">
 
       {% if post.thumbnail %}
-      <div class="desktop-gap-x-72 tablet-gap-x-56 site-max-width tablet:grid grid-cols-[3fr_2fr] tablet:py-7 py-4 desktop:py-6">
-        <div class="text-left">
+      <div class="gap-x-4 site-max-width tablet:grid grid-cols-[3fr_2fr] py-5 tablet:py-6 desktop:py-7 desktop:min-h-[582px]">
+        <div class="text-left flex flex-col justify-center">
       {% else %}
       <div class="site-max-width">
         <div>
