@@ -6,24 +6,6 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="desktop:max-w-[963px] site-max-width sticky top-0 bg-scale-1 z-20">
-      {% include ['components/utility-nav.twig'] with {
-        cta: (post.get_field('program_next_steps')) ? [
-          {
-            'label': __('Next Steps', 'WNYC'),
-            'link': '#next-steps'
-          }
-        ] : [],
-        languages: post.languages,
-        web_share: {
-          'title': post.program_title,
-          'text': (post.web_share_text) ? post.web_share_text : post.get_field('program_intro')|striptags,
-          'url': fn('wp_get_shortlink'),
-          'subject': post.program_title
-        }
-      } %}
-    </div>
-
     {# Header Section #}
     <div class="desktop:max-w-[963px] site-max-width">
       <header class="o-header px-0">
