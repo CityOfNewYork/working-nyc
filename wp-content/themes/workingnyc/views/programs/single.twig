@@ -6,7 +6,7 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="site-max-width sticky top-0 bg-scale-1 z-20">
+    <div class="desktop:max-w-[963px] site-max-width sticky top-0 bg-scale-1 z-20">
       {% include ['components/utility-nav.twig'] with {
         cta: (post.get_field('program_next_steps')) ? [
           {
@@ -25,8 +25,8 @@
     </div>
 
     {# Header Section #}
-    <div class="site-max-width">
-      <header class="o-header">
+    <div class="desktop:max-w-[963px] site-max-width">
+      <header class="o-header px-0">
         <div class="w-full">
           {% include 'components/breadcrumbs.twig' with {
             crumbs: [
@@ -170,13 +170,11 @@
     </div>
 
     {# Sections #}
-    <div class="bg-scale-2 site-max-width">
-      <div class="py-4 wrap">
+    <div class="bg-scale-2 desktop:max-w-[963px] site-max-width">
+      <div class="py-4">
         <section class="pt-utility-anchor" id="more-information">
           {% if post.get_field('program_intro') or post.preview %}
           <blockquote class="text-alt mt-0 {% if post.get_field('program_intro') %}{% elseif post.preview %}pb-8{% endif %}">
-            <span aria-hidden="true" class="blockquote__mark">—</span>
-
             {% if post.get_field('program_intro') %}
             <p>{{ post.get_field('program_intro') }}</p>
             {% elseif post.preview %}
@@ -283,8 +281,8 @@
     </div>
 
     {# Links #}
-    <section class="site-max-width bg-scale-1 py-4 pb-8" id="contact">
-      <nav class="wrap grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
+    <section class="desktop:max-w-[963px] site-max-width bg-scale-1 py-4 pb-8" id="contact">
+      <nav class="grid gap-1" aria-label="{{ __('Contact Information', 'WNYC') }}">
         {% if post.program_learn_more %}
         <a class="btn btn-secondary w-full" href="{{ post.program_learn_more }}" target="_blank" rel="noopener">
           <span>{{ post.link_label }}</span>
@@ -321,7 +319,7 @@
     </section>
 
     {# Suggest Update #}
-    <section class="site-max-width bg-scale-1 pb-4 pb-8 mb-8" id="suggest-update">
+    <section class="desktop:max-w-[963px] site-max-width bg-scale-1 pb-4 pb-8 mb-8" id="suggest-update">
       <div>
         <article class="c-alert" data-js="alert-help">
           <div class="c-alert__graphic">
