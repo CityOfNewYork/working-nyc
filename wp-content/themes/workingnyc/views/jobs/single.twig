@@ -221,22 +221,6 @@
     </section>
     {% endif %}
 
-    {# More #}
-    {# <section class="bg-scale-1 layout-content tablet:pb-6">
-      <div class="page-max">
-        <div class="text-center text-alt mb-1">—</div>
-        <nav class="py-2 wrap">
-          <a class="btn btn-primary btn-next w-full" href="#">
-            <svg aria-hidden="true" class="icon-ui">
-              <use href="#arrow-left"></use>
-            </svg>{{ __('More programs at', 'WNYC') }} {{ post.program_provider }}<svg aria-hidden="true" class="icon-ui">
-              <use href="#arrow-right"></use>
-            </svg>
-          </a>
-        </nav>
-      </div>
-    </section> #}
-
     {% if show_newsletter is not defined %}
     {% include 'objects/newsletter.twig' %}
     {% endif %}
