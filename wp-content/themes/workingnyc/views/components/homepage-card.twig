@@ -14,18 +14,22 @@
     {% set svg_path = '#program-card-education' %}
   {% endif %}
   <header>
-    <svg class="c-card__icon w-8 h-8 fill-none" role="img">
+    <svg class="c-card__icon w-[50px] h-[50px] fill-none" role="img">
       <title>{{ title }}</title>
       <use href="{{ svg_path }}"></use>
     </svg>
   </header>
-  <div class="py-3">
-    <h5 class="text-[23px] text-[#0C264D] font-[700] mb-2">
+  <div class="pt-3 pb-2 tablet:pb-3">
+    <h5 class="text-[20px] desktop:text-[23px] text-[#0C264D] font-[700] mb-2">
         {{ this.title }}
     </h5>
-    <p class="min-h-[90px] text-[20px] text-[#0C264D]">
+    <p class="min-h-[81px] tablet:min-h-[90px] text-[18px] desktop:text-[20px] text-[#0C264D]">
       {{ this.description }}
     </p>
   </div>
-  <a class="font-600 text-[#0C264D]" href="{{ this.cta.url }}" target="{{ this.cta.target }}">{{ this.cta.title }}</a>
+  <a class="h-5 flex flex-col justify-center w-fit" href="{{ this.cta.url }}" target="{{ this.cta.target }}">
+    <div class="font-600 text-[#0C264D] text-[16px]">
+      {{ this.cta.title }}
+    </div>
+  </a>
 </article>
