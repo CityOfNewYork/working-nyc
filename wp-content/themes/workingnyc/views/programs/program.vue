@@ -81,9 +81,9 @@
         </li>
       </ul>
 
-      <a class="c-card__cta w-fit pb-2 px-3 pt-2" :href="post.context.link" :target="(post.context.external) ? '_blank' : false" :rel="(post.context.external) ? 'noopener' : false">
-        <span v-if="post.context.external" v-html="post.context.link_label"></span>
-        <span v-else v-html="strings.LEARN_MORE_ABOUT.replace('{{ program }}', post.context.program_plain_language_title)"></span>
+<a class="btn btn-secondary desktop:w-fit w-full pb-2 px-3 pt-2 " :href="post.context.link" :target="(post.context.external) ? '_blank' : false" :rel="(post.context.external) ? 'noopener' : false">
+        <span class="text-[22px] font-[700]" v-if="post.context.external" v-html="post.context.link_label"></span>
+        <span class="text-[22px] font-[700]" v-else v-html="strings.LEARN_MORE_ABOUT.replace('{{ program }}', post.context.program_plain_language_title)"></span>
         <svg aria-hidden="true" class="icon-ui rtl:flip h-22 w-22">
           <use :href="(post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'"></use>
         </svg>
