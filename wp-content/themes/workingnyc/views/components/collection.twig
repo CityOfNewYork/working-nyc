@@ -19,7 +19,7 @@
       {% if this.posts %}
       <div>
         {% if this.guides %}
-        <div class="grid tablet:grid-cols-3">
+        <div class="grid tablet:grid-cols-2 gap-3">
         {% else %}
         <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-2 gap-2 desktop:gap-3 py-2">
         {% endif %}
@@ -118,6 +118,21 @@
       </div>
     </div>
     {% endif %}
+    {% endif %}
+    {% if this.display == 'two-card' %}
+      {% if this.heading or this.description %}
+        <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+        {{ this.description }}
+      {% endif %}
+      <div class="w-full grid tablet:grid-cols-2 gap-3 auto-rows-max">
+        {% include 'components/homepage-card.twig' with {
+            this: this.cards_information[0]
+          } only %}
+        {% include 'components/homepage-card.twig' with {
+            this: this.cards_information[1]
+          } only %}
+      </div>
+      {# {{ dump(this.cards_information) }} #}
     {% endif %}
   </div>
 </section>

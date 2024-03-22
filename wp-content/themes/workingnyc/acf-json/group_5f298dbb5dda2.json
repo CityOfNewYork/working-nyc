@@ -411,7 +411,15 @@
                             "type": "repeater",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "two-card"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -552,5 +560,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1710969457
+    "modified": 1711122864
 }
