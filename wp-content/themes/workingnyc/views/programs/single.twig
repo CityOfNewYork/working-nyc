@@ -6,18 +6,6 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="desktop:max-w-[963px] site-max-width sticky top-0 bg-scale-1 z-20">
-      {% include ['components/utility-nav.twig'] with {
-        cta: (post.get_field('program_next_steps')) ? [
-          {
-            'label': __('Next Steps', 'WNYC'),
-            'link': '#next-steps'
-          }
-        ] : [],
-        languages: post.languages
-      } %}
-    </div>
-
     {# Header Section #}
     <div class="desktop:max-w-[963px] site-max-width">
       <header class="o-header px-0">
