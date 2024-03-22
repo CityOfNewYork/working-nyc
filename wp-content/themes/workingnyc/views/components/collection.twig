@@ -1,8 +1,8 @@
 {# @Type   Component #}
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
-<section class="page-max" data-active-navigation-observe-item="heading" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
-  <div class="py-6">
+<section class="site-max-width" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
+  <div class="py-4 tablet:py-5 desktop:py-6">
     {% if this.display == 'container' %}
       {% include 'components/container.twig' %}
     {% endif %}
@@ -10,7 +10,8 @@
 
       {% if this.heading or this.description %}
        
-            <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 desktop:mb-4" data-active-navigation-item="focus">{{ this.heading }}</h2>
+     
+            <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
 
             {{ this.description }}
   
@@ -24,26 +25,18 @@
         <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2 desktop:gap-3 py-2">
         {% endif %}
           {% for post in this.posts %}
-            {% if post.post_type == 'employer-programs' %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
                   post: post
                 } %}
               </div>
-            {% else %}
-              <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0 border border-[#D4D7DC] rounded-[5px]">
-                {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
-                  post: post
-                } %}
-              </div>
-            {% endif %}
           {% endfor %}
         </div>
       </div>
       {% endif %}
 
       {% if this.archive.link %}
-      <div class="layout-content">
+      <div>
         <div class="wrap tablet:pt-6">
           <a class="btn btn-primary btn-next w-full" href="{{ this.archive.link }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
             <span>{{ this.archive.label }}</span>
@@ -61,7 +54,7 @@
     <div class="wrap tablet:px-3 desktop:px-6">
       <div class="desktop:px-6 tablet:grid items-center grid-cols-2 gap-x-5">
         <div>
-          <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
+          <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
 
           <img class="bg-image-square mb-2 tablet:hidden" loading="lazy" style="object-position: {{ this.post.thumbnail.focal_point }};" src="{{ this.post.thumbnail.src('tablet') }}" alt="{{ this.post.thumbnail.alt }}"/>
 
@@ -86,17 +79,17 @@
     {% endif %}
 
     {% if this.display == 'gallery' %}
-    <div class="layout-content{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
-      <div class="wrap">
-        <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0" data-active-navigation-item="focus">{{ this.heading }}</h2>
+    <div class="{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
+      <div>
+        <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
 
         {{ this.description }}
       </div>
     </div>
 
     {% if this.posts %}
-    <div class="pb-2 desktop:pb-5 desktop:px-6">
-      <div class="wrap py-4 grid gap-3 tablet:grid tablet:grid-cols-2 tablet:gap-2 desktop:grid-cols-3 py-2 tablet:px-3 desktop:px-6">
+    <div class="pb-2 desktop:pb-5">
+      <div class="py-4 grid gap-3 tablet:grid tablet:grid-cols-2 tablet:gap-2 desktop:grid-cols-3 py-2">
         {% for post in this.posts %}
         <div class="flex transform-none">
           {% include 'components/card.twig' with {
@@ -114,7 +107,7 @@
     {% endif %}
 
     {% if this.archive.link %}
-    <div class="layout-content">
+    <div>
       <div class="wrap tablet:pt-6">
         <a class="btn btn-primary btn-next w-full" href="{{ this.archive.link }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
           <span>{{ this.archive.label }}</span>

@@ -3,7 +3,7 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="layout-content sticky top-0 bg-scale-1 z-10">
+    <div class="site-max-width sticky top-0 bg-scale-1 z-10">
       {% if employer == true %}
         {% if options.employers_link is defined %}
           {% set home_link = options.employers_link %}
@@ -28,8 +28,8 @@
     </div>
 
     {# Header Section #}
-    <div class="layout-content">
-      <header class="o-header">
+    <div class="site-max-width">
+      <header class="o-header px-0">
         <div>
           {% include 'components/breadcrumbs.twig' with {
               crumbs: [
@@ -46,8 +46,8 @@
         </div>
       </header>
     </div>
-    <section class="layout-content">
-      <div class="wrap">
+    <section class="site-max-width">
+      <div>
         <div class="pb-8 mb-8">
           {% if newsletter_message %}
           <article class="c-alert c-alert-status-primary mt-5" data-js="alert-warning">

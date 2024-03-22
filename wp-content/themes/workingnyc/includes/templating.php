@@ -15,9 +15,6 @@ const POST_TYPE = 'field_5f1749717b140';
 const FILTERS = 'field_5f1747cb7b13d';
 const FILTERS_LABEL = 'field_5f1f45154ceb5';
 const FEATURED_POSTS_ID = 'field_5f298dc24e4dc';
-const QUESTIONNAIRE_POST_TYPE = 'field_5f2a065e594db';
-const QUESTIONNAIRE_THRESHOLD = 'field_5f2c6ee0454a2';
-const QUESTIONNAIRE_QS = 'field_5f2a0535594d6';
 const EMPLOYER_PROGRAM_TAGS = 'field_656906e8673b1';
 
 /**

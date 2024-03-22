@@ -5,19 +5,25 @@
   <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
 
       {% if post.thumbnail %}
-      <div class="desktop-gap-x-72 tablet-gap-x-56 desktop:w-9/12 tablet:w-10/12 tablet:grid grid-cols-[3fr_2fr] tablet:px-0 px-2 mx-auto tablet:py-7 py-4 desktop:py-6">
-        <div class="text-center">
+      <div class="desktop-gap-x-72 tablet-gap-x-56 site-max-width tablet:grid grid-cols-[3fr_2fr] tablet:py-7 py-4 desktop:py-6">
+        <div class="text-left">
       {% else %}
-      <div class="layout-content">
-        <div class="wrap">
+      <div class="site-max-width">
+        <div>
       {% endif %}
 
           {% set featured_image = '<img class="bg-image-square mb-2 tablet:hidden animated fadeIn hidden" loading="eager" style="object-position: ' ~ post.thumbnail.focal_point ~ ';" src="' ~ post.thumbnail.src('tablet') ~ '" alt="' ~ post.thumbnail.alt ~ '"/>' %}
 
           {# The post content can include html tags and CSS classes. The following line is an example of some classes that were used in the past #}
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
-          <h1 class="my-3">{{ post.post_content }}</h1>
+          <h1 class="mt-3 mb-5 tablet:mb-3 desktop: mb-6">{{ post.post_content }}</h1>
 
+          <a class="btn btn-secondary w-full tablet:w-fit" href="/jobseekers/programs">
+            <div>{{ __('Explore programs', 'WNYC') }}</div>
+            <svg aria-hidden="true" class="w-[20px] h-[20px] ml-[4px] icon-ui rtl:flip">
+              <use href="#lucide-arrow-right"></use>
+            </svg>
+          </a>
         </div>
 
     {% if post.thumbnail %}
@@ -30,30 +36,20 @@
       </div>
   </header>
 
-  <main id="content" class="bg-shape-wnyc-content mx-2 tablet:mx-7 desktop-mx-26">
+  <main id="content" class="bg-shape-wnyc-content">
     <div>
       {# Collections #}
       {% if collections %}
-      {% for collection in collections %}
-
-      {% if loop.index == 1 and questionnaire.position == 0 %}
-      {% include questionnaire.template with {this: questionnaire} %}
-      {% endif %}
-
-      {% include collection.template with {this: collection} only %}
-
-      {% if loop.index == questionnaire.position %}
-      {% include questionnaire.template with {this: questionnaire} %}
-      {% endif %}
-
-      {% endfor %}
+        {% for collection in collections %}
+          {% include collection.template with {this: collection} only %}
+        {% endfor %}
       {% endif %}
 
       {# Announcements #}
       {% if announcements %}
       <section class="pb-8" id="announcements">
-        <div class="layout-content py-2 tablet:py-8">
-          <div class="wrap">
+        <div class="site-max-width py-2 tablet:py-8">
+          <div>
             <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
 
             <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
