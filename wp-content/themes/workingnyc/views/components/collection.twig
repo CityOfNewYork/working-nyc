@@ -34,7 +34,8 @@
             {% else %}
               <div class="{% if this.guides %}{% else %}wrap-start {% if loop.last %}wrap-end{% endif %}{% endif %} transform-none tablet:p-0">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
-                  post: post
+                  post: post,
+                  is_home: is_home
                 } %}
               </div>
             {% endif %}

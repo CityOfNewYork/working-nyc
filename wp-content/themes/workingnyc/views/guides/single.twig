@@ -93,7 +93,7 @@
         <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
           {% if collections %}
           {% for collection in collections %}
-          {% include collection.template with {this: collection} only %}
+          {% include collection.template with {this: collection, is_home: false} only %}
           {% endfor %}
           {% endif %}
 

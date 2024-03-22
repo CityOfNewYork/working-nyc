@@ -40,7 +40,7 @@
       {% include questionnaire.template with {this: questionnaire} %}
       {% endif %}
 
-      {% include collection.template with {this: collection} only %}
+      {% include collection.template with {this: collection, is_home: true} only %}
 
       {% if loop.index == questionnaire.position %}
       {% include questionnaire.template with {this: questionnaire} %}

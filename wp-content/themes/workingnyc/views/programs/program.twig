@@ -26,7 +26,11 @@
 
   <div class="c-card__body py-3 px-5 desktop:pt-5 desktop:pb-5 tablet:px-5 tablet:px-5">
     {% if post.status %}<p class="c-card__status">
-
+      {% if not is_home %}
+      <mark class="badge" data-program="recruiting">
+          {{ post.status.recruiting.name }}<span class="sr-only">.</span>
+      </mark>
+      {% endif %}
       {% if post.status.disability %}<span>
         <svg class="icon text-em" role="img">
           <title>{{ post.status.disability.name }}</title>
