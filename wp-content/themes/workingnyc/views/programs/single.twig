@@ -14,13 +14,7 @@
             'link': '#next-steps'
           }
         ] : [],
-        languages: post.languages,
-        web_share: {
-          'title': post.program_title,
-          'text': (post.web_share_text) ? post.web_share_text : post.get_field('program_intro')|striptags,
-          'url': fn('wp_get_shortlink'),
-          'subject': post.program_title
-        }
+        languages: post.languages
       } %}
     </div>
 
