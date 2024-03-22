@@ -124,7 +124,7 @@
         <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
         {{ this.description }}
       {% endif %}
-      <div class="w-full grid tablet:grid-cols-2 gap-3">
+      <div class="w-full grid tablet:grid-cols-2 gap-3 auto-rows-max">
         {% include 'components/homepage-card.twig' with {
             this: this.cards_information[0]
           } only %}
