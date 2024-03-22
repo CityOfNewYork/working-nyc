@@ -18,12 +18,12 @@
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
           <h1 class="mt-3 mb-5 tablet:mb-3 desktop: mb-6">{{ post.post_content }}</h1>
 
-          <button class="btn btn-secondary w-full tablet:w-fit" href="/jobseekers/programs">
+          <a class="btn btn-secondary w-full tablet:w-fit" href="/jobseekers/programs">
             <div>{{ __('Explore programs', 'WNYC') }}</div>
             <svg aria-hidden="true" class="w-[20px] h-[20px] ml-[4px] icon-ui rtl:flip">
               <use href="#lucide-arrow-right"></use>
             </svg>
-          </button>
+          </a>
         </div>
 
     {% if post.thumbnail %}
