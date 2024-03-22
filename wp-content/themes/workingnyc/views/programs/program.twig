@@ -1,104 +1,101 @@
 {# @Type   Component #}
 {# @For    Post Type #}
 {# @Class  timber-posts/Programs.php #}
-<article class="c-card h-full {{ post.classes }}">
-  <header class="c-card__header py-3 px-5 desktop:pt-3 desktop:pb-3 tablet:px-5 tablet:px-5">
-    <span>
-  <a class="c-card__header-link pb-2 desktop:pt-3 pt-2" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>        <h3 class="c-card__title">
-          <span class="c-card__underline">{{ post.program_plain_language_title }}</span>
-
-          {% if post.external %}
-          <svg aria-hidden="true" class="icon-ui rtl:flip">
-            <use href="#lucide-external-link"></use>
-          </svg>
-          {% endif %}
-        </h3>
-      </a>
-
-      <p class="c-card__subtitle text-alt pb-2 desktop:pb-3">
+<article class="c-card h-full">
+  <header class="bg-[#F0F6FA] py-2 tablet:py-3 px-5 min-h-[128px]">
+      <h3 class="text-[20px] tablet:text-[23px] font-[600] text-[#004CBE] mb-2">{{ post.program_plain_language_title }}</h3>
+      <p class="text-[18px] desktop:text-[20px] text-alt">
         <b>{{ post.program_title }}</b> 
         {% if post.program_agency is not empty %} 
           {{ __('by', 'WNYC') }} {{ post.program_agency }}
         {% endif %}
       </p>
-    </span>
   </header>
 
-  <div class="c-card__body py-3 px-5 desktop:pt-5 desktop:pb-5 tablet:px-5 tablet:px-5">
-    {% if post.status %}<p class="c-card__status">
-      {% if not is_home %}
-      <mark class="badge" data-program="recruiting">
-          {{ post.status.recruiting.name }}<span class="sr-only">.</span>
-      </mark>
-      {% endif %}
-      {% if post.status.disability %}<span>
-        <svg class="icon text-em" role="img">
-          <title>{{ post.status.disability.name }}</title>
+  <div class="c-card__body py-3 px-5 tablet:py-5 min-h-[206px] justify-between">
+    <div>
+      {% if post.status and not is_home %}
+        <p class="c-card__status">
+          {% if post.status.recruiting %}
+          <mark class="badge" data-program="recruiting">
+              {{ post.status.recruiting.name }}<span class="sr-only">.</span>
+          </mark>
+          {% endif %}
+          {% if post.status.disability %}<span>
+            <svg class="icon text-em" role="img">
+              <title>{{ post.status.disability.name }}</title>
 
-          <use href="#nyco-accessibility"></use>
-        </svg>
+              <use href="#nyco-accessibility"></use>
+            </svg>
 
-        <span class="sr-only">{{ post.status.disability.name }}</span>
-      </span> <span class="sr-only">&nbsp;</span>{% endif %}
+            <span class="sr-only">{{ post.status.disability.name }}</span>
+          </span> <span class="sr-only">&nbsp;</span>{% endif %}
 
-      {% if post.status.language %}<span>
-        <svg class="icon-ui text-em" role="img">
-          <title>{{ post.status.language.name }}</title>
+          {% if post.status.language %}
+            <span>
+              <svg class="icon-ui text-em" role="img">
+                <title>{{ post.status.language.name }}</title>
 
-          <use href="#nyco-languages"></use>
-        </svg>
+                <use href="#nyco-languages"></use>
+              </svg>
 
-        <span class="sr-only">{{ post.status.language.name }}</span>
-      </span>{% endif %}
-    </p>{% endif %}
-    {% if post.preview %}
-      <div class="c-card__summary">
-        <p class="pb-3">
-          {{ post.preview }}
+              <span class="sr-only">{{ post.status.language.name }}</span>
+            </span>
+          {% endif %}
         </p>
-      </div>
-    {% endif %}
-    
-    <ul class="c-card__features">
-      {% if post.services %}<li>
-        <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
-          <title>{{ __('Services Provided', 'WNYC') }}</title>
-
-          <use href="#lucide-award"></use>
-        </svg>
-
-        <span class="pb-1">{{ post.services }}</span>
-      </li>{% endif %}
-
-      {% if post.schedule %}<li>
-        <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
-          <title>{{ __('Duration and Length', 'WNYC') }}</title>
-
-          <use href="#lucide-calendar"></use>
-        </svg>
-
-        <span class="pb-1">{{ post.schedule }}</span>
-      </li>{% endif %}
-
-      {% if post.supports %}<li>
-        <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
-          <title>{{ __('Support Provided', 'WNYC') }}</title>
-
-          <use href="#lucide-heart-handshake"></use>
-        </svg>
-
-        <span class="pb-3">{{ post.supports }}</span>
-      </li>{% endif %}
-    </ul>
-
-   <a class="btn btn-secondary desktop:w-fit w-full px-3 pt-3 pb-3" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>      {% if post.external %}
-      <span class="text-[22px] font-[700]">{{ post.link_label }}</span>
-      {% else %}
-      <span class="text-[22px] font-[700]">{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ post.program_title }}</span></span></span>
       {% endif %}
-      <svg aria-hidden="true" class="icon-ui rtl:flip h-22 w-22">
-        <use href="#lucide-{% if post.external %}external-link{% else %}arrow-right{% endif %}"></use>
-      </svg>
-    </a>
+      {% if post.preview %}
+          <p class="mb-3">
+            {{ post.preview }}
+          </p>
+      {% endif %}
+    </div>
+    
+    <div>
+      {% if post.services or post.schedule or post.supports %}
+      <ul class="c-card__features">
+        {% if post.services %}<li>
+          <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
+            <title>{{ __('Services Provided', 'WNYC') }}</title>
+
+            <use href="#lucide-award"></use>
+          </svg>
+
+          <span>{{ post.services }}</span>
+        </li>{% endif %}
+
+        {% if post.schedule %}<li>
+          <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
+            <title>{{ __('Duration and Length', 'WNYC') }}</title>
+
+            <use href="#lucide-calendar"></use>
+          </svg>
+
+          <span>{{ post.schedule }}</span>
+        </li>{% endif %}
+
+        {% if post.supports %}<li>
+          <svg class="icon-ui c-card__feature-icon h-22 w-22" role="img">
+            <title>{{ __('Support Provided', 'WNYC') }}</title>
+
+            <use href="#lucide-heart-handshake"></use>
+          </svg>
+
+          <span>{{ post.supports }}</span>
+        </li>{% endif %}
+      </ul>
+      {% endif %}
+
+    <a class="btn btn-secondary desktop:w-fit w-full p-3" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>      
+        {% if post.external %}
+        <span class="text-[22px] font-[700]">{{ post.link_label }}</span>
+        {% else %}
+        <span class="text-[22px] font-[700]">{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ post.program_title }}</span></span></span>
+        {% endif %}
+        <svg aria-hidden="true" class="icon-ui rtl:flip h-22 w-22">
+          <use href="#lucide-{% if post.external %}external-link{% else %}arrow-right{% endif %}"></use>
+        </svg>
+      </a>
+    </div>
   </div>
 </article>
