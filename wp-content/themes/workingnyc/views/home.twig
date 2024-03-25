@@ -29,7 +29,7 @@
     {% if post.thumbnail %}
 
       <div class="relative items-center hidden tablet:flex">
-        <img class="rounded-full tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        <img class="object-contain tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
       
     {% endif %}
