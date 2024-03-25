@@ -10,8 +10,8 @@
     </header>
 
     <div class="c-card__body py-3 px-5 tablet:py-5 min-h-[206px] justify-between">
-      <div>
-        <p class="c-card__status flex items-center" v-if="post.status">
+      <div class="mb-0">
+        <p class="c-card__status flex items-center" v-if="post.context.status">
           <mark class="badge mie-2" data-program="recruiting" v-if="post.context.status.recruiting">
             {{ post.context.status.recruiting.name }}<span class="sr-only">.</span>
           </mark>
