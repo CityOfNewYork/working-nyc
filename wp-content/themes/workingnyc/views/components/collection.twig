@@ -2,7 +2,7 @@
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
 <section class="site-max-width" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
-  <div class="py-4 tablet:py-5 desktop:py-6">
+  <div class="py-5 tablet:py-6">
     {% if this.display == 'container' %}
       {% include 'components/container.twig' %}
     {% endif %}
@@ -10,7 +10,7 @@
 
       {% if this.heading or this.description %}
        
-            <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+            <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-4">{{ this.heading }}</h2>
 
             {{ this.description }}
   
@@ -21,7 +21,7 @@
         {% if this.guides %}
         <div class="grid tablet:grid-cols-2 gap-3">
         {% else %}
-        <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-2 gap-2 desktop:gap-3 py-2">
+        <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3">
         {% endif %}
           {% for post in this.posts %}
               <div class="max-w-full">
@@ -53,7 +53,7 @@
     <div class="wrap tablet:px-3 desktop:px-6">
       <div class="desktop:px-6 tablet:grid items-center grid-cols-2 gap-x-5">
         <div>
-          <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+          <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-4">{{ this.heading }}</h2>
 
           <img class="bg-image-square mb-2 tablet:hidden" loading="lazy" style="object-position: {{ this.post.thumbnail.focal_point }};" src="{{ this.post.thumbnail.src('tablet') }}" alt="{{ this.post.thumbnail.alt }}"/>
 
@@ -78,30 +78,25 @@
     {% endif %}
 
     {% if this.display == 'gallery' %}
-    <div class="{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
-      <div>
-        <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
-
-        {{ this.description }}
-      </div>
+    <div>
+      <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-4">{{ this.heading }}</h2>
+      {{ this.description }}
     </div>
 
     {% if this.posts %}
-    <div class="pb-2 desktop:pb-5">
-      <div class="py-4 grid gap-3 tablet:grid tablet:grid-cols-2 tablet:gap-2 desktop:grid-cols-3 py-2">
-        {% for post in this.posts %}
-        <div class="flex transform-none">
-          {% include 'components/card.twig' with {
-            this: {
-              title: post.title,
-              link: post.link,
-              id: post.type ~ '-' ~ post.id,
-              thumbnail: post.thumbnail
-            }
-          } only %}
-        </div>
-        {% endfor %}
+    <div class="grid gap-x-2 gap-y-3 tablet:grid tablet:grid-cols-2 desktop:grid-cols-4">
+      {% for post in this.posts %}
+      <div class="flex transform-none">
+        {% include 'components/card.twig' with {
+          this: {
+            title: post.title,
+            link: post.link,
+            id: post.type ~ '-' ~ post.id,
+            thumbnail: post.thumbnail
+          }
+        } only %}
       </div>
+      {% endfor %}
     </div>
     {% endif %}
 
@@ -121,7 +116,7 @@
     {% endif %}
     {% if this.display == 'two-card' %}
       {% if this.heading or this.description %}
-        <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+        <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-2 tablet:mb-4">{{ this.heading }}</h2>
         {{ this.description }}
       {% endif %}
       <div class="w-full grid tablet:grid-cols-2 gap-3 auto-rows-max">
@@ -132,7 +127,6 @@
             this: this.cards_information[1]
           } only %}
       </div>
-      {# {{ dump(this.cards_information) }} #}
     {% endif %}
   </div>
 </section>
