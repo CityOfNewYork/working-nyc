@@ -47,10 +47,10 @@
 
       {# Announcements #}
       {% if announcements %}
-      <section class="pb-8" id="announcements">
-        <div class="site-max-width py-2 pt-5 tablet:py-8">
+      <section class="pb-8 mx-2 tablet:mx-7 desktop:mx-[104px]" id="announcements">
+        <div class="py-2 pt-5 tablet:py-8">
           <div>
-            <h2 class="h3 text-alt mt-0 pb-4">{{ __('Announcements', 'WNYC') }}</h2>
+            <h2 class="h3 text-alt my-0 pb-4">{{ __('Announcements', 'WNYC') }}</h2>
 
             <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
               {% for announcement in announcements %}

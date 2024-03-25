@@ -1,8 +1,8 @@
 {# @Type   Component #}
 {# @For    Post Type #}
 {# @Class  timber-posts/Announcements.php #}
-<article class="c-card c-card-transparent h-full px-4 pt-4 pb-4">
-  <header class="c-card__header">
+<article class="c-card c-card-transparent h-full px-4 pb-4">
+  <header class="pb-2">
     <a href="{{ this.link }}" target="{{ this.target }}" class="c-card__header-link pt-4">
       <h5 class="c-card__title">
         {% if this.date_updated|date('U') > this.status_period|date('U') %}
@@ -24,7 +24,7 @@
 
   <div class="c-card__body tablet:pt-3">
     <div class="overflow-hidden">
-    <ul class="c-card__features">
+    <ul class="list-none pl-0 mb-3">
       {% if this.announcement_date is not empty %}
         <li>
           <svg class="icon-ui c-card__feature-icon" role="img">
@@ -65,7 +65,7 @@
       {{ this.announcement_details|wpautop }}
     </div>
 
-    <ul class="c-card__features pb-3">
+    <ul class="list-none pl-0 my-3">
       <li>
         <svg class="icon-ui c-card__feature-icon" role="img">
           <title>{{ __('Last Updated', 'WNYC') }}</title>
