@@ -9,7 +9,7 @@
       </p>
     </header>
 
-    <div class="c-card__body my-3 mx-5 tablet:my-5 min-h-[206px] justify-between">
+    <div class="c-card__body py-3 px-5 tablet:py-5 min-h-[206px] justify-between">
       <div class="mb-0">
         <p class="c-card__status flex items-center" v-if="post.context.status">
           <mark class="badge mie-2" data-program="recruiting" v-if="post.context.status.recruiting">
