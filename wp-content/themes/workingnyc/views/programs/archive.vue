@@ -66,9 +66,9 @@
       </div>
     </div>
 
-    <div class="site-max-width">
+    <div class="px-2 tablet:px-7 desktop:px-[104px] bg-[#E3F1FD]">
       <div class="page-max">
-        <header class="o-header">
+      <header class="desktop:py-7 tablet:py-6 py-5">
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
               <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
@@ -80,8 +80,8 @@
               <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
             </nav>
 
-            <div class="o-header__title">
-              <h1 id="page-heading" class="o-header__heading">{{ strings.PAGE_TITLE }}</h1>
+          <div class="desktop:mt-6 mt-3 tablet:mb-2 desktop:mb-3 mb-1">
+              <h1 id="page-heading" class="desktop:text-[55px] tablet:text-[50px] text-[40px] font-[600]">{{ strings.PAGE_TITLE }}</h1>
             </div>
 
             <!-- <h2 class="o-header__subtitle" v-if="checkedFilters.length">Exploring <span v-for="f, i in checkedFilters"><span v-if="checkedFilters.length > 1 && i == checkedFilters.length - 1">and </span>v{ f.name }<span v-if="checkedFilters.length > 2 && i < checkedFilters.length - 1">,</span><span v-if="i == checkedFilters.length - 1">.</span><span v-else>&nbsp;</span></span></h2> -->

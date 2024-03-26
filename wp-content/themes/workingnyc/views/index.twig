@@ -4,8 +4,8 @@
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
     {# Header Section #}
-    <div class="site-max-width">
-      <header class="o-header px-0">
+    <div class="px-2 tablet:px-7 desktop:px-[104px] bg-[#E3F1FD] ">
+      <header class="desktop:py-7 tablet:py-6 py-5">
         <div class="w-full">
         {% include 'components/breadcrumbs.twig' with {
               crumbs: [
@@ -16,8 +16,8 @@
               ]
             }
           %}
-          <div class="o-header__title">
-            <h1 id="page-heading" class="o-header__heading">
+          <div class="desktop:mt-6 mt-3 tablet:mb-2 desktop:mb-3 mb-1">
+            <h1 id="page-heading" class="desktop:text-[55px] tablet:text-[50px] text-[40px] font-[600]">
               {% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}
             </h1>
           </div>
