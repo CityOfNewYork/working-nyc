@@ -1,8 +1,8 @@
 {# @Type   Component #}
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
-<section class="site-max-width" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
-  <div class="py-4 tablet:py-5 desktop:py-6">
+<section class="mx-2 tablet:mx-7 desktop:mx-[104px]" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
+  <div class="py-5 tablet:py-6 desktop:py-6">
     {% if this.display == 'container' %}
       {% include 'components/container.twig' %}
     {% endif %}
@@ -78,9 +78,9 @@
     {% endif %}
 
     {% if this.display == 'gallery' %}
-    <div class="{% if this.posts %} pb-2 desktop:pb-5{% endif %}">
+    <div class="{% if this.posts %} pb-2 desktop:pb-4{% endif %}">
       <div>
-        <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+        <h2 class="h3 text-[30px] font-[600] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
 
         {{ this.description }}
       </div>
@@ -88,7 +88,7 @@
 
     {% if this.posts %}
     <div class="pb-2 desktop:pb-5">
-      <div class="py-4 grid gap-3 tablet:grid tablet:grid-cols-2 tablet:gap-2 desktop:grid-cols-3 py-2">
+      <div class="py-4 grid gap-3 tablet:grid tablet:grid-cols-2 tablet:gap-x-2 tablet:gap-y-3 desktop:grid-cols-4 desktop:gap-x-2 desktop:gap-y-3 py-2">
         {% for post in this.posts %}
         <div class="flex transform-none">
           {% include 'components/card.twig' with {
