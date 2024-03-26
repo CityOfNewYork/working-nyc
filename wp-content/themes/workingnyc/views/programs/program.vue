@@ -9,9 +9,9 @@
       </p>
     </header>
 
-    <div class="c-card__body py-3 px-5 tablet:py-5 min-h-[206px] justify-between">
-      <div>
-        <p class="c-card__status flex items-center" v-if="post.status">
+    <div class="c-card__body my-3 mx-5 tablet:my-5 min-h-[206px] justify-between">
+      <div class="mb-0">
+        <p class="c-card__status flex items-center" v-if="post.context.status">
           <mark class="badge mie-2" data-program="recruiting" v-if="post.context.status.recruiting">
             {{ post.context.status.recruiting.name }}<span class="sr-only">.</span>
           </mark>
@@ -70,9 +70,9 @@
           </li>
         </ul>
 
-        <a class="btn btn-secondary desktop:w-fit w-full p-3" :href="post.context.link" :target="(post.context.external) ? '_blank' : false" :rel="(post.context.external) ? 'noopener' : false">
-          <span class="text-[22px] font-[700]" v-if="post.context.external" v-html="post.context.link_label"></span>
-          <span class="text-[22px] font-[700]" v-else v-html="strings.LEARN_MORE_ABOUT.replace('{{ program }}', post.context.program_plain_language_title)"></span>
+        <a class="btn btn-secondary desktop:w-fit w-full break-words" :href="post.context.link" :target="(post.context.external) ? '_blank' : false" :rel="(post.context.external) ? 'noopener' : false">
+          <span class="text-[22px] font-[700] break-words" v-if="post.context.external" v-html="post.context.link_label"></span>
+          <span class="text-[22px] font-[700] break-words" v-else v-html="strings.LEARN_MORE_ABOUT.replace('{{ program }}', post.context.program_plain_language_title)"></span>
           <svg aria-hidden="true" class="icon-ui rtl:flip h-22 w-22">
             <use :href="(post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'"></use>
           </svg>

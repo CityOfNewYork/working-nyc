@@ -7,8 +7,8 @@
 <div class="bg-scale-2">
   <main class="bg-scale-1">
     {# Header Section #}
-    <div class="px-2 tablet:px-7 desktop:px-[104px] bg-[#E3F1FD]">
-      <header class="desktop:py-7 tablet:py-6 py-5">
+    <div class="bg-[#E3F1FD]">
+      <header class="site-max-width desktop:py-7 tablet:py-6 py-5">
         <div class="w-full">
           {% include 'components/breadcrumbs.twig' with {
               crumbs: [
@@ -20,7 +20,7 @@
             } %}
 
           <div class="desktop:mt-6 mt-3 tablet:mb-2 desktop:mb-3 mb-1">
-            <h1 id="page-heading" class="text-[55px] font-[600]">{{ post.title }}</h1>
+            <h1 id="page-heading" class="text-[40px] tablet:text-[50px] desktop:text-[55px] font-[600]">{{ post.title }}</h1>
           </div>
           {{ post.post_content }}
         </div>
