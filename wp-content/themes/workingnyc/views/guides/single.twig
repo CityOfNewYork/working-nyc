@@ -32,7 +32,7 @@
         <div class="py-4">
           {% if collections %}
           {% for collection in collections %}
-          {% include collection.template with {this: collection, is_home: false} only %}
+          {% include collection.template with {this: collection, is_home: false, site: site} only %}
           {% endfor %}
           {% endif %}
         </div>
