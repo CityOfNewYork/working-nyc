@@ -1,3 +1,23 @@
 .text-nowrap {
     text-wrap: nowrap;
 }
+
+@media screen and (min-width:1112px) { 
+    .footer-font{
+      font-size: 22px;
+      font-weight: 500;
+     }
+}
+@media screen and (min-width:768px) and (max-width:1111px) {
+  .footer-font{
+    font-size: 22px;
+    font-weight: 500;
+   }
+}
+
+@media screen and (max-width:767px) {
+  .footer-font{
+    font-size: 20px;
+    font-weight: 500;
+   }
+}
