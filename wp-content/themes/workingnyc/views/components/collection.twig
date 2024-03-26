@@ -10,7 +10,7 @@
 
       {% if this.heading or this.description %}
        
-            <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+            <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-4">{{ this.heading }}</h2>
 
             {{ this.description }}
   
@@ -21,7 +21,7 @@
         {% if this.guides %}
         <div class="grid tablet:grid-cols-2 gap-3">
         {% else %}
-        <div class="scroll scroll-x scroll-x-snap-start scroll-peek tablet:scroll-reset grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-2 gap-2 desktop:gap-3 py-2">
+        <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3">
         {% endif %}
           {% for post in this.posts %}
               <div class="max-w-full">
@@ -53,7 +53,7 @@
     <div class="wrap tablet:px-3 desktop:px-6">
       <div class="desktop:px-6 tablet:grid items-center grid-cols-2 gap-x-5">
         <div>
-          <h2 class="h3 text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+          <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-4">{{ this.heading }}</h2>
 
           <img class="bg-image-square mb-2 tablet:hidden" loading="lazy" style="object-position: {{ this.post.thumbnail.focal_point }};" src="{{ this.post.thumbnail.src('tablet') }}" alt="{{ this.post.thumbnail.alt }}"/>
 
@@ -102,6 +102,7 @@
         </div>
         {% endfor %}
       </div>
+      {% endfor %}
     </div>
     {% endif %}
 
@@ -121,7 +122,7 @@
     {% endif %}
     {% if this.display == 'two-card' %}
       {% if this.heading or this.description %}
-        <h2 class="text-[30px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0">{{ this.heading }}</h2>
+        <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-2 tablet:mb-4">{{ this.heading }}</h2>
         {{ this.description }}
       {% endif %}
       <div class="w-full grid tablet:grid-cols-2 gap-3 auto-rows-max">
@@ -132,7 +133,6 @@
             this: this.cards_information[1]
           } only %}
       </div>
-      {# {{ dump(this.cards_information) }} #}
     {% endif %}
   </div>
 </section>
