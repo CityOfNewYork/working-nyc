@@ -107,7 +107,7 @@
       </div>
       <div class="mb-5 tablet:mb-6 desktop:mb-7 mt-5 tablet:mt-6 desktop:mt-0" v-if="init" v-show="!filtersExpanded">
         <div class="flex justify-center gap-x-[5%]">
-          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
+          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3 h-fit">
             <form class="w-full">
               <div>
                 <div class="font-[500] text-[20px] mb-3">

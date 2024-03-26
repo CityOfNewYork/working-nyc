@@ -59,6 +59,8 @@ new Vue({
           HOME: 'Home',
           HOME_LINK: (config.home_link) ? config.home_link.href : '/',
           FILTERS: (config.filters) ? config.filters.innerHTML : 'Filters',
+          FILTER_BY: 'Filter by:',
+          APPLY_FILTERS: 'Apply filters',
           CLOSE: 'Close',
           TOGGLE_ALL: 'Toggle all {{ TERM }}',
           CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ number }} programs',
