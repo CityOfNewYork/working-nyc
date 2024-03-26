@@ -5,17 +5,9 @@
   <main class="bg-scale-1" id="content">
     <div class="layout-content bg-scale-1">
       {% if employer == true %}
-        {% if options.employers_link is defined %}
-          {% set home_link = options.employers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
+          {% set home_link = function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) %}
       {% else %}
-        {% if options.job_seekers_link is defined %}
-          {% set home_link = options.job_seekers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
+          {% set home_link = function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) %}
       {% endif %}
       {% include ['components/utility-nav.twig'] with {
         return: {

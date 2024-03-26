@@ -1,19 +1,11 @@
 {# @Type   Element #}
 {# @For    Generic Templates #}
-<nav class="breadcrumbs flex" aria-label="Breadcrumb">
+<nav class="breadcrumbs flex flex-wrap" aria-label="Breadcrumb">
   <a
   {% if employer == true %}
-    {% if options.employers_link is defined %}
-      href="{{ options.employers_link }}"
-    {% else %}
-      href="{{ site.url }}"
-    {% endif %}
+      href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}"
   {% else %}
-    {% if options.job_seekers_link is defined %}
-      href="{{ options.job_seekers_link }}"
-    {% else %}
-      href="{{ site.url }}"
-    {% endif %}
+      href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}"
   {% endif %}
   >{{ __('Home', 'WNYC') }}</a>
 

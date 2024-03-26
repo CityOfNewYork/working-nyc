@@ -121,10 +121,12 @@
       {% endif %}
       <div class="w-full grid tablet:grid-cols-2 gap-3 auto-rows-max">
         {% include 'components/homepage-card.twig' with {
-            this: this.cards_information[0]
+            this: this.cards_information[0],
+            site: site
           } only %}
         {% include 'components/homepage-card.twig' with {
-            this: this.cards_information[1]
+            this: this.cards_information[1],
+            site: site
           } only %}
       </div>
     {% endif %}
