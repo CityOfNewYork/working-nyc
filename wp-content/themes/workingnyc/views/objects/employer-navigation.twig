@@ -15,11 +15,11 @@
     <span class="hidden tablet:block desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
   </div>
   <div>
-    <button class="py-1 px-1 flex items-center" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <button class="py-1 px-1 flex items-center no-underline hover:underline active:underline" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
       <svg class="h-3 w-3 mr-[4px]">
         <use href="#languages-nav"></use>
       </svg>
-      <span class="text-xs font-[500] desktop:text-sm">{{ __('Language', 'WNYC - Navigation') }}</span>
+      <span class="text-xs font-[500] desktop:text-sm text-[#080707]">{{ __('Language', 'WNYC - Navigation') }}</span>
       <svg class="h-3 w-3 fill-none stroke-black">
         <use href="#lucide-chevron-down"></use>
       </svg>
@@ -39,7 +39,7 @@
   </div>
   <div>
     {% for menu_item in employer_header_menu.get_items %}
-      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
+      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12 text-[#080707] no-underline hover:underline active:underline" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
     {% endfor %}
   </div>
   <button class="desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
