@@ -1,12 +1,6 @@
 <nav aria-label="{{ employer_header_menu.name }}" class="bg-[#F8F9FB] px-2 tablet:px-5 desktop:px-3 py-1 flex justify-between align-middle items-center" data-js="navigation">
   <div class="flex">
-    <a class="tablet:hidden" 
-    {% if options.employers_link is defined %}
-      href="{{ options.employers_link }}"
-    {% else %}
-      href="{{ site.url }}"
-    {% endif %}
-    >
+    <a class="tablet:hidden" href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}">
       <svg class="o-navigation__svg fill-text text-brand" width="60" height="11">
         <title>{{ __('Jobs NYC employer homepage', 'WNYC - Navigation') }}</title>
         <use href="#logo-jobs-nyc-black-blue"></use>
@@ -35,13 +29,7 @@
 </nav>
 <nav aria-label="{{ employer_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3 bg-white" data-js="navigation">
   <div class="items-center flex bg-scale-1 tablet:bg-transparent">
-    <a class="pr-2 hidden tablet:block" 
-      {% if options.employers_link is defined %}
-        href="{{ options.employers_link }}"
-      {% else %}
-        href="{{ site.url }}"
-      {% endif %}
-    >
+    <a class="pr-2 hidden tablet:block" href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}">
       <svg class="o-navigation__svg fill-text text-brand" width="196" height="22">
         <title>{{ __('Jobs NYC employer homepage', 'WNYC - Navigation') }}</title>
         <use href="#logo-jobs-nyc-employer"></use>

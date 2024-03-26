@@ -1,6 +1,6 @@
 {# @Type   Element #}
 {# @For    Generic Templates #}
-<nav class="breadcrumbs" aria-label="Breadcrumb">
+<nav class="breadcrumbs flex" aria-label="Breadcrumb">
   <a
   {% if employer == true %}
     {% if options.employers_link is defined %}
@@ -19,6 +19,7 @@
 
   {% if crumbs %}
   {% for crumb in crumbs %}
+  <div>
     <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
       <use href="#lucide-chevron-right"></use>
     </svg>
@@ -28,6 +29,7 @@
     {% else %}
     <b aria-current="page">{{ crumb.label }}</b>
     {% endif %}
+  </div>
   {% endfor %}
   {% endif %}
 </nav>
