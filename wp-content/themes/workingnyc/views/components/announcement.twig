@@ -3,7 +3,7 @@
 {# @Class  timber-posts/Announcements.php #}
 <article class="c-card c-card-transparent h-full">
   <header class="c-card__header pb-2">
-    <a href="{{ this.link }}" target="{{ this.target }}" class="c-card__header-link">
+    <a href="{{ function('convert_link_locale', this.link , site.site_url, site.url) }}" target="{{ this.target }}" class="c-card__header-link">
       <h5 class="c-card__title">
         {% if this.date_updated|date('U') > this.status_period|date('U') %}
         <mark class="badge" title="{{ this.status_title }}">

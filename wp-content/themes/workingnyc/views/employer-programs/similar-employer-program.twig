@@ -16,9 +16,9 @@
   <div class="pt-2">
     {{ post.employer_program_preview }}
 
-    <div class="mt-2 flex gap-x-1">
+    <div class="mt-2 flex flex-wrap gap-1">
       {% for tag in post.meta('employer_program_tags') %}
-        <div class="rounded p-1 bg-scale-2">
+        <div class="rounded p-1 bg-scale-2 text-nowrap">
             {{ tag.employer_program_tag }}
         </div>
       {% endfor %}

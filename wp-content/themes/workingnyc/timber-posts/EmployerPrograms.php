@@ -15,8 +15,7 @@ use Timber;
 use Spatie\SchemaOrg\Schema;
 
 class EmployerPrograms extends Timber\Post {
-  const SINGULAR = 'employer-program'; // todo: see where this is used
-  const SECTION_ID = 'field_657c7258fba7a';
+  const SINGULAR = 'employer-program'; // used to render card in collection.twig
 
   /**
    * Constructor
@@ -51,8 +50,6 @@ class EmployerPrograms extends Timber\Post {
     $this->link = $this->getLink();
 
     $this->schema = $this->getSchema();
-
-    $this->sections = $this->getSections();
 
     return $this;
   }
@@ -100,9 +97,5 @@ class EmployerPrograms extends Timber\Post {
     // TODO: implement this. see Programs.php for an example
 
     return $schemas;
-  }
-
-  public function getSections() {
-    return get_field(SECTION_ID, $this->id);
   }
 }

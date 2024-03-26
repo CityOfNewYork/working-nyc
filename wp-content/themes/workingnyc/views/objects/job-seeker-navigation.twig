@@ -1,19 +1,13 @@
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="bg-[#F8F9FB] px-2 tablet:px-5 desktop:px-3 py-1 flex justify-between align-middle items-center" data-js="navigation">
   <div class="flex">
-    <a class="tablet:hidden" 
-    {% if options.job_seekers_link is defined %}
-      href="{{ options.job_seekers_link }}"
-    {% else %}
-      href="{{ site.url }}"
-    {% endif %}
-    >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="60" height="11">
+    <a class="tablet:hidden" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}">
+      <svg class="o-navigation__svg fill-text text-brand" width="60" height="11">
         <title>{{ __('Jobs NYC jobseeker homepage', 'WNYC - Navigation') }}</title>
-        <use href="#logo-jnyc-horizontal"></use>
+        <use href="#logo-jobs-nyc-black-blue"></use>
       </svg>
     </a>
     <a class="hidden tablet:flex tablet:pr-2" href="https://mycity.nyc.gov/" target="_blank" rel="noopener">
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+      <svg class="o-navigation__svg fill-text text-brand" width="110" height="18">
         <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
         <use href="#logo-nyc-mycity"></use>
       </svg>
@@ -48,23 +42,17 @@
 {% include 'search/search-overlay.twig' %}
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3 bg-white" data-js="navigation">
   <div class="items-center flex bg-scale-1 tablet:bg-transparent">
-    <a class="pr-2 hidden tablet:block" 
-    {% if options.job_seekers_link is defined %}
-      href="{{ options.job_seekers_link }}"
-    {% else %}
-      href="{{ site.url }}"
-    {% endif %}
-    >
-      <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="100" height="18">
+    <a class="pr-2 hidden tablet:block" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}">
+      <svg class="o-navigation__svg fill-text text-brand" width="206" height="22">
         <title>{{ __('Jobs NYC jobseeker homepage', 'WNYC - Navigation') }}</title>
-        <use href="#logo-jnyc-horizontal"></use>
+        <use href="#logo-jobs-nyc-jobseeker"></use>
       </svg>
     </a>
-    <h6 class="mt-0 tablet:pl-2 tablet:border-l tablet:border-solid tablet:border-slate-300">{{ __('Jobseekers', 'WNYC - Navigation') }}</h6>
+    <h6 class="mt-0 tablet:hidden">{{ __('Jobseekers', 'WNYC - Navigation') }}</h6>
   </div>
   <div>
     {% for menu_item in job_seeker_header_menu.get_items %}
-      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12" width="84" height="70" href="{{ menu_item.link }}">{{ menu_item.title }}</a>
+      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
     {% endfor %}
   </div>
   <button class="desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
@@ -77,7 +65,7 @@
 {% include 'objects/menu.twig' %}
 <nav class="z-10 px-3 py-1 relative flex flex-col border-t-2 border-[#D4D7DC] items-center bg-white tablet:hidden" data-js="navigation">
   <a href="https://mycity.nyc.gov/" target="_blank" rel="noopener">
-    <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand" width="110" height="18">
+    <svg class="o-navigation__svg fill-text text-brand" width="110" height="18">
       <title>{{ __('My City NYC', 'WNYC - Navigation') }}</title>
       <use href="#logo-nyc-mycity"></use>
     </svg>

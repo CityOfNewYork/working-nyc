@@ -123,30 +123,6 @@ module.exports = [
     devModule: true
   },
   {
-    input: './src/js/template-generic-page.js',
-    output: [{
-      file: './assets/js/template-generic-page-development.js',
-      format: rollup.format,
-      sourcemap: rollup.sourcemap,
-      strict: rollup.strict
-    }],
-    plugins: plugins,
-    cache: true,
-    devModule: true
-  },
-  {
-    input: './src/js/template-home-page.js',
-    output: [{
-      file: './assets/js/template-home-page-development.js',
-      format: rollup.format,
-      sourcemap: rollup.sourcemap,
-      strict: rollup.strict
-    }],
-    plugins: plugins,
-    cache: true,
-    devModule: true
-  },
-  {
     input: './src/js/polyfills.js',
     output: [{
       file: './assets/js/polyfills-development.js',
@@ -156,17 +132,5 @@ module.exports = [
     }],
     plugins: plugins,
     cache: true
-  },
-  {
-    input: './src/js/search.js',
-    output: [{
-      file: './assets/js/search-development.js',
-      format: rollup.format,
-      sourcemap: rollup.sourcemap,
-      strict: rollup.strict
-    }],
-    plugins: plugins,
-    cache: true,
-    devModule: true
   }
 ];

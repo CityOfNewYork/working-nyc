@@ -4,21 +4,21 @@
 <div class="bg-scale-1">
   <header class="employer-header-gradient {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full flex justify-center">
       {% if post.thumbnail %}
-      <div class="site-max-width w-full desktop:gap-x-5 tablet-gap-x-56 desktop:flex desktop:px-[104px] tablet:px-5 px-2 py-4 tablet:py-5 desktop:py-[121px] items-center">
+      <div class="max-w-[1232px] w-full desktop:gap-x-5 tablet-gap-x-56 desktop:flex desktop:px-0 desktop:mx-[104px] tablet:px-5 px-2 py-4 tablet:py-5 desktop:py-[121px] items-center">
         <div>
       {% else %}
       <div class="layout-content">
         <div class="wrap">
       {% endif %}
-          <h1 class="mb-4 desktop:mb-5 text-[#FEFEFE]">{{ post.post_title }}</h1>
-          <div class="text-[#FEFEFE] grid tablet:grid-cols-2 text-left">
+           <h1 class="font-[600] mb-4 desktop:mb-5 text-[30px] tablet:text-[50px] desktop:text-[55px] text-[#FEFEFE]">{{ post.post_title }}</h1>         
+            <div class="text-[#FEFEFE] grid tablet:grid-cols-2 text-left">
             <div class="pb-3 tablet:pb-0 desktop:pb-0 tablet:pr-3 desktop:pr-3">
-              <h3 class="mb-3">{{ post.meta('subtitle_1') }}</h3>
+              <h3 class="text-[25px] tablet:text-[30px] desktop:text-[33px] mb-3">{{ post.meta('subtitle_1') }}</h3>
               <p class="mb-3">{{ post.meta('description_1') }}</p>
               <a class="btn bg-white border-[#30374F] text-[#30374F] hover:bg-[#30374F] hover:text-white pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_1'), site.site_url, site.url) }}">{{ post.meta('button_label_1') }}</a>
             </div>
             <div class="pt-3 tablet:pt-0 desktop:pt-0 border-t-3 tablet:border-t-0 desktop:border-t-0 tablet:border-l-3 desktop:border-l-3 border-slate-300 tablet:pl-3 desktop:pl-3">
-              <h3 class="mb-3">{{ post.meta('subtitle_2') }}</h3>
+              <h3 class="text-[25px] tablet:text-[30px] desktop:text-[33px]  mb-3">{{ post.meta('subtitle_2') }}</h3>
               <p class="mb-3">{{ post.meta('description_2') }}</p>
               <a class="btn bg-white border-[#30374F] text-[#30374F] hover:bg-[#30374F] hover:text-white pointer-events-auto" href="{{ function('convert_link_locale', post.meta('button_link_2'), site.site_url, site.url) }}">{{ post.meta('button_label_2') }}</a>
             </div>
@@ -31,7 +31,7 @@
     {% endif %}
     </div>
   </header>
-  <main id="content" class="bg-shape-wnyc-content mx-2 tablet:mx-7 desktop-mx-26">
+  <main id="content" class="flex justify-center bg-shape-wnyc-content">
     <div>
       {# Collections #}
       {% if collections %}

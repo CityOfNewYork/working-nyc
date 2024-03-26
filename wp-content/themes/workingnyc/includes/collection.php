@@ -34,6 +34,8 @@ class Collection {
 
     $this->guides = $this->guides();
 
+    $this->cards_information = $this->fields['cards_information'];
+
     return $this;
   }
 
@@ -47,6 +49,7 @@ class Collection {
     require_once WorkingNYC\timber_post('Jobs');
     require_once WorkingNYC\timber_post('Guides');
     require_once WorkingNYC\timber_post('EmployerPrograms');
+    require_once WorkingNYC\timber_post('JobBoards');
 
     $posts = $this->fields['featured_posts_objects'];
 
@@ -69,6 +72,10 @@ class Collection {
         
         case 'employer-programs':
           $post = new WorkingNYC\EmployerPrograms($post);
+
+          break;
+        case 'job-boards':
+          $post = new WorkingNYC\JobBoards($post);
 
           break;
       }

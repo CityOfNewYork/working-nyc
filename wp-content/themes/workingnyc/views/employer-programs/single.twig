@@ -33,14 +33,14 @@
   </div>
 </header>
 <div class="page-max">
-  <div class="mt-7 grid desktop:grid-cols-[2fr_1fr] desktop:gap-x-[100px] mx-3 tablet-mx-14 desktop-mx-26">
+  <div class="mt-5 tablet:mt-6 desktop:mt-7 grid desktop:grid-cols-[2fr_1fr] desktop:gap-x-[100px] mx-2 tablet-mx-14 desktop-mx-26">
     <div class="mb-4 tablet:mb-5 desktop:mb-7">
       {% for section in post.meta('sections') %}
-        <section id="{{ 'section-' ~ loop.index }}">
+        <section class="mb-4 tablet:mb-5 desktop:mb-7" id="{{ 'section-' ~ loop.index }}">
           {% if section.section_title %}
           <div>
             <div>
-              <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3" data-active-navigation-item="focus">
+              <h3 class="h5 pb-2 mb-3 text-alt border-b border-scale-4" data-active-navigation-item="focus">
                 {{ section.section_title }}
               </h3>
             </div>
@@ -61,7 +61,7 @@
   </div>
   <div class="mt-5 tablet:mt-6 desktop:mt-7 mb-7 mx-3 tablet-mx-14 desktop-mx-26">
     <h3>{{ __('Similar services', 'WNYC') }}</h3>
-    <div class="grid grid-cols-2 gap-2 desktop:grid-cols-3 desktop:gap-x-2">
+    <div class="w-full grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2">
       {% for program in post.meta('similar_programs') %}
       <div>
       {% include 'employer-programs/similar-employer-program.twig' with { post: program } %}

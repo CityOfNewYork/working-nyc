@@ -1,29 +1,32 @@
-<footer aria-label="{{ __('Footer', 'WNYC') }}" class="bg-[#F8F9FB] relative py-3 px-2 tablet:py-5 tablet:px-8" role="contentinfo">
-    <nav class="o-attribution__flex border-b border-slate-200 pb-3 desktop:pb-3">
-        <div class="tablet:float-left desktop:float-left pb-3 tablet:pb-0 desktop:pb-0">
-            <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand pb-1" width="97" height="32">
-                <title>{{ __('NYC', 'WNYC - Navigation') }}</title>
-                <use href="#logo-nyc-black"></use>
-            </svg>
-            </br>
-            <span>{{ __('Connecting you to NYC services.', 'WNYC') }}</span>
-        </div>
-        <div class="tablet:float-right desktop:float-right inline-grid grid-cols-2 gap-1">
-        {% for m in global_footer_menu.get_items %}
-            <a class="inline mr-2 desktop:mr-3 tablet:mr-3" href="{{ m.link }}"
-            {% if m.attr_title %}title="{{ m.attr_title }}"{% endif %}
-            {% if m.target %}target="{{ m.target }}"{% endif %}
-            {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
-                {{ m.title }}
-            </a>
-        {% endfor %}
-        </div>
-    </nav>
-    <nav class="o-attribution__flex border-grey-light pt-3 desktop:pt-3">
+<footer aria-label="{{ __('Footer', 'WNYC') }}" class="bg-[#F8F9FB] relative py-3 tablet:py-5" role="contentinfo">
+    <div class="site-max-width">
+        <nav class="o-attribution__flex border-b border-[#ADB2B9] pb-3 desktop:pb-3">
+            <div class="tablet:float-left desktop:float-left pb-3 tablet:pb-0 desktop:pb-0">
+                <svg aria-hidden="true" class="o-navigation__svg fill-text text-brand pb-1" width="97" height="32">
+                    <title>{{ __('NYC', 'WNYC - Navigation') }}</title>
+                    <use href="#logo-nyc-black"></use>
+                </svg>
+                </br>
+                <span class="text-[18px]">{{ __('Connecting you to NYC services.', 'WNYC') }}</span>
+            </div>
+            <div class="tablet:float-right desktop:float-right inline-grid grid-cols-2 gap-y-1 gap-x-2 tablet:gap-x-5 w-full tablet:w-fit desktop:w-[440px]">
+            {% for m in global_footer_menu.get_items %}
+                <a class="inline mr-2 desktop:mr-3 tablet:mr-3 text-[14px] font-[500] text-[#080707] no-underline hover:underline active:underline" href="{{ m.link }}"
+                {% if m.attr_title %}title="{{ m.attr_title }}"{% endif %}
+                {% if m.target %}target="{{ m.target }}"{% endif %}
+                {% if m.xfn %}rel="{{ m.xfn }}"{% endif %}>
+                    {{ m.title }}
+                </a>
+            {% endfor %}
+            </div>
+        </nav>
+        <nav class="o-attribution__flex border-[#ADB2B9] pt-3 desktop:pt-3">
         <div>
-        <span class="text-sm">
-            {{ __('© ' ~ 'now' | date('Y') ~ ' City of New York,', 'WNYC') ~ ' ' ~ __('All Rights Reserved.', 'WNYC') }}
-            {{ __('NYC is a trademark and service mark of the City of New York.', 'WNYC') }}</span>
-        </div>
-    </nav>
+                <span class="text-[13px]">
+                    {{ __('© ' ~ 'now' | date('Y') ~ ' City of New York,', 'WNYC') ~ ' ' ~ __('All Rights Reserved.', 'WNYC')}}
+                    {{ __('NYC is a trademark and service mark of the City of New York.', 'WNYC') }}
+                </span>
+            </div>
+        </nav>
+    </div>
 </footer>
