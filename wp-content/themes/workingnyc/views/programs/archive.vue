@@ -71,7 +71,7 @@
         <div>
           <header class="o-header px-0 pb-5 tablet:pb-6 desktop:pb-7">
             <div>
-              <nav class="o-header__breadcrumbs flex" aria-label="Breadcrumb">
+              <nav class="o-header__breadcrumbs flex flex-wrap" aria-label="Breadcrumb">
                 <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
 
                 <div>
