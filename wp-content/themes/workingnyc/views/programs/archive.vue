@@ -2,14 +2,6 @@
   <div>
     <div class="bg-[#E3F1FD]">
       <div class="c-dropdown c-dropdown-max site-max-width sticky top-0 bg-transparent relative z-40">
-        <div class="c-utility wrap">
-          <button :disabled="terms.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="true" data-js="dialog">
-            <span class="mie-1">{{ strings.FILTERS }}</span>
-
-            <span class="badge badge-small status-secondary light:status-primary">{{ totalFilters }}</span>
-          </button>
-        </div>
-
         <div aria-hidden="true" class="hidden" id="aria-c-filter">
           <div class="site-max-width">
             <div class="wrap text-end relative z-20">
@@ -129,13 +121,7 @@
     </section>
 
     <div class="site-max-width py-6 pb-8 mb-4" v-if="init">
-      <div>
-        <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
-          {{ strings.SHOW_MORE }}
-        </button>
-
-        <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
-      </div>
+    
     </div>
   </div>
 </template>
