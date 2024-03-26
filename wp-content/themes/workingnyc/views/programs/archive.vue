@@ -68,16 +68,18 @@
 
     <div class="site-max-width">
       <div class="page-max">
-        <header class="o-header">
+        <header class="o-header px-0">
           <div>
-            <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
+            <nav class="o-header__breadcrumbs flex" aria-label="Breadcrumb">
               <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
 
-              <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
-                <use href="#lucide-chevron-right"></use>
-              </svg>
+              <div>
+                <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
+                  <use href="#lucide-chevron-right"></use>
+                </svg>
 
-              <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
+                <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
+              </div>
             </nav>
 
             <div class="o-header__title">
@@ -92,8 +94,8 @@
       </div>
     </div>
 
-    <section class="page-max desktop:px-6" v-if="init">
-      <div class="wrap desktop:px-6" v-if="!loading">
+    <section class="site-max-width" v-if="init">
+      <div v-if="!loading">
         <div class="mb-3">
           <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
             <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
@@ -114,7 +116,7 @@
       </div>
     </section>
 
-    <section class="page-max desktop:px-6" v-else>
+    <section class="site-max-width" v-else>
       <div class="flex items-center text-em justify-center py-8">
         <svg class="spinner icon-4 block mie-2" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
           <circle class="spinner__path" cx="12" cy="12" r="10" fill="none"></circle>
