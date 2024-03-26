@@ -102,7 +102,7 @@
           <button v-if="totalFilters > 0" v-html="strings.RESET" @click="reset"></button>
         </div>
 
-        <div class="grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3">
+        <div class="grid gap-3 grid-cols-1 tablet:grid-cols-2 desktop:gap-5 mb-3 max-w-full">
           <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
         </div>
 
