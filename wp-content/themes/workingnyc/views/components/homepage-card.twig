@@ -27,7 +27,7 @@
       {{ this.description }}
     </p>
   </div>
-  <a class="h-5 flex flex-col justify-center w-fit" href="{{ this.cta.url }}" target="{{ this.cta.target }}" rel="noopener">
+  <a class="h-5 flex flex-col justify-center w-fit" href="{{ function('convert_link_locale', this.cta.url , site.site_url, site.url) }}" target="{{ this.cta.target }}" rel="noopener">
     <div class="font-600 text-[#0C264D] text-[16px]">
       {{ this.cta.title }}
     </div>
