@@ -3,39 +3,21 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="layout-content bg-scale-1">
-      {% if employer == true %}
-        {% if options.employers_link is defined %}
-          {% set home_link = options.employers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
-      {% else %}
-        {% if options.job_seekers_link is defined %}
-          {% set home_link = options.job_seekers_link %}
-        {% else %}
-          {% set home_link = site.url %}
-        {% endif %}
-      {% endif %}
-      {% include ['components/utility-nav.twig'] with {
-        return: {
-          'label': __('Home', 'WNYC'),
-          'link': home_link
-        },
-        web_share: {
-          'title': post.title,
-          'text': (post.web_share_text) ? post.web_share_text,
-          'url': fn('wp_get_shortlink')
-        }
-      } %}
-    </div>
-
     {# Header Section #}
-    <div class="layout-content">
-      <header class="o-header">
+    <div class="bg-[#E3F1FD]">
+      <header class="site-max-width desktop:py-7 tablet:py-6 py-5">
         <div class="w-full">
-          <div class="o-header__title">
-            <h1 id="page-heading" class="o-header__heading">
+        {% include 'components/breadcrumbs.twig' with {
+              crumbs: [
+                {
+                  'label': post.title,
+                  'link': ''
+                }
+              ]
+            }
+          %}
+          <div class="desktop:mt-6 mt-3 tablet:mb-2 desktop:mb-3 mb-1">
+            <h1 id="page-heading" class="desktop:text-[55px] tablet:text-[50px] text-[40px] font-[600]">
               {% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}
             </h1>
           </div>
@@ -57,27 +39,23 @@
       </header>
     </div>
 
-    {% include 'components/active-navigation.twig' with {this: {
-      items: sections|map(item => {title: item.section_title})
-    }} %}
-
     {% if sections %}
     <div class="bg-scale-0">
-      <div class="layout-content pb-8 mb-8">
-        <div class="py-4" data-active-navigation="observe" data-active-navigation-observe-items="heading">
+      <div class="site-max-width pb-8 mb-8">
+        <div>
           {% for section in sections %}
-          <section data-active-navigation-observe-item="heading" {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
+          <section {% if not loop.last %}class="desktop:pb-7 tablet:pb-6 pb-5"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
             {% if section.section_title %}
-            <div class="pt-utility-anchor bg-scale-0 sticky top-0 z-10">
-              <div class="wrap">
-                <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3" data-active-navigation-item="focus">
+            <div class="pt-5 tablet:pt-6 desktop:pt-7 bg-scale-0 sticky top-0 z-10">
+              <div>
+                <h3 class="mb-3 text-alt border-b border-scale-4 pb-2 tablet:pb-3">
                   {{ section.section_title }}
                 </h3>
               </div>
             </div>
             {% endif %}
 
-            <div class="wrap">
+            <div>
               {{ section.section_content }}
             </div>
           </section>

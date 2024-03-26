@@ -170,8 +170,7 @@ Script Name                                                 | PHP Template      
 [global.js](src/js/global.js)                               |                                                        | Site-wide functionality required for every website view.
 [archive.js](src/js/archive.js)                             | [archive.php](archive.php)                             | Functionality required for the /programs archive. The main dependency used is [Vue.js](https://vuejs.org/).
 [newsletter.js](src/js/newsletter.js)                       | [template-landing-page.php](template-landing-page.php) | Functionality for the /newsletter view.
-[template-generic-page.js](src/js/template-generic-page.js) | [template-generic-page.php](template-generic-page.php) | Functionality for the general page template.
-[template-home-page.js](src/js/template-home-page.js)       | [template-home-page.php](template-home-page.php)       | Functionality for the home page.
+
 
 Other directories in the [./src/js](src/js) directory are shared modules and dependencies of the main view entry-points.
 

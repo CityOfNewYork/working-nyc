@@ -15,7 +15,6 @@ require_once WorkingNYC\timber_post('Announcements');
 add_action('wp_enqueue_scripts', function() {
   enqueue_inline('google-fonts-rubik');
   enqueue_inline('animate-on-scroll');
-  enqueue_script('template-home-page');
 });
 
 /**
@@ -54,13 +53,6 @@ $context['meta'] = new WorkingNYC\Meta($post);
 $context['collections'] = array_map(function($collection) {
   return new WorkingNYC\Collection($collection);
 }, Templating\get_featured_posts($post->ID));
-
-/**
- * Set context for the Questionnaire
- */
-
-$context['questionnaire'] = new WorkingNYC\Questionnaire($post);
-
 
 /**
  * Render the view

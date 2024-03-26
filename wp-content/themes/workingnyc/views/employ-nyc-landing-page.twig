@@ -3,22 +3,22 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-scale-1" id="content">
-    <div class="layout-content bg-scale-1">
-      {% if employer == true %}
-          {% set home_link = function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) %}
-      {% else %}
-          {% set home_link = function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) %}
-      {% endif %}
+    <div class="site-max-width bg-scale-1">
       {% include ['components/utility-nav.twig'] with {
         return: {
           'label': __('Home', 'WNYC'),
-          'link': home_link
+          'link': site.url
+        },
+        web_share: {
+          'title': post.title,
+          'text': (post.web_share_text) ? post.web_share_text,
+          'url': fn('wp_get_shortlink')
         }
       } %}
     </div>
 
     {# Header Section #}
-    <div class="layout-content">
+    <div class="site-max-width">
       <header class="o-header">
         <div class="w-full">
           <div class="o-header__title">
@@ -34,7 +34,7 @@
 
     {% if sections %}
     <div class="bg-scale-0">
-      <div class="layout-content pb-8 mb-8">
+      <div class="site-max-width pb-8 mb-8">
         <div class="py-4">
           {% for section in sections %}
           <section {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
@@ -57,7 +57,6 @@
       </div>
     </div>
     {% endif %}
-
   </main>
 </div>
 {% endblock %}

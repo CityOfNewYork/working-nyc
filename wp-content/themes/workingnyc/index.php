@@ -19,7 +19,7 @@
  
  $context['post'] = $post;
  
- $context['talent_portal_landing_page'] = true;
+ $context['hide_jobseeker_and_employer_navigation'] = true;
  
  /**
   * Set Meta context

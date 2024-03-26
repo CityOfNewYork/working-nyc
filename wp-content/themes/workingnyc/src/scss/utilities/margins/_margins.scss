@@ -3,16 +3,16 @@
  */
 
 // Creating classes as copies of the tailwind classes because some imports aren't working
-    .ml-auto {
-      margin-left: auto;
-    }
-    .accordion-item.active .accordion-content {
-      display: block;
-     }
-     .footer-font{
-      font-size: 22px;
-      font-weight: 500;
-     }
+.ml-auto {
+  margin-left: auto;
+}
+.accordion-item.active .accordion-content {
+  display: block;
+}
+.footer-font{
+  font-size: 22px;
+  font-weight: 500;
+ }
 @media screen and (min-width:1112px) { 
     .desktop-py-121 {
       padding-top: 121px;
@@ -41,8 +41,15 @@
     .desktop-h-400 {
       height: 400px;
     }
+    .site-max-width {
+      max-width: 1440px;
+      padding-left: 104px;
+      padding-right: 104px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 }
-@media screen and (min-width: 768px) and (max-width:1112px) {
+@media screen and (min-width:768px) and (max-width:1111px) {
   .tablet-py-48 {
       padding-top: 48px;
       padding-bottom: 48px;
@@ -59,8 +66,18 @@
   .tablet-height-258 {
     height: 258px;
   }
+  .site-max-width {
+    max-width: 834px;
+    padding-left: 56px;
+    padding-right: 56px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
-.site-max-width {
-  max-width: var(--nyco-dimension-site-max-width);
+@media screen and (max-width:767px) {
+  .site-max-width {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
