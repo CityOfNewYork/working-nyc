@@ -18,7 +18,7 @@
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
           <h1 class="text-[40px] desktop:text-[55px] mt-3 mb-5 tablet:mb-3 desktop:mb-6">{{ post.post_content }}</h1>
 
-          <a class="btn btn-secondary w-full tablet:w-fit" href="/jobseekers/programs">
+          <a class="btn btn-secondary w-full tablet:w-fit" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers/programs' , site.site_url, site.url) }}">
             <div>{{ __('Explore programs', 'WNYC') }}</div>
             <svg aria-hidden="true" class="w-[20px] h-[20px] ml-[4px] icon-ui rtl:flip">
               <use href="#lucide-arrow-right"></use>
