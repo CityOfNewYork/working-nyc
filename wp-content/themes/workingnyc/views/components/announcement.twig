@@ -4,7 +4,7 @@
 <article class="c-card c-card-transparent h-full px-4 pb-4">
   <header class="pb-2 border-b-2 border-[#F0F6FA]">
     <a href="{{ function('convert_link_locale', this.link , site.site_url, site.url) }}" target="{{ this.target }}" class="c-card__header-link pt-4">
-      <h5 class="c-card__title">
+      <h5 class="c-card__title text-[20px] desktop:text-[22px]">
         {% if this.date_updated|date('U') > this.status_period|date('U') %}
         <mark class="badge" title="{{ this.status_title }}">
           {{ this.status }}
@@ -68,7 +68,7 @@
     </div>
 
     <ul class="list-none pl-0 my-3">
-      <li>
+      <li class="text-[16px]">
         <svg class="icon-ui c-card__feature-icon" role="img">
           <title>{{ __('Last Updated', 'WNYC') }}</title>
 
