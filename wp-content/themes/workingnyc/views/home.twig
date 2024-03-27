@@ -47,15 +47,15 @@
 
       {# Announcements #}
       {% if announcements %}
-      <section class="pb-8" id="announcements">
-        <div class="site-max-width py-2 tablet:py-8">
+      <section class="pb-8 site-max-width" id="announcements">
+        <div class="py-2 pt-5 tablet:py-8">
           <div>
-            <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
+            <h2 class="text-alt mt-0 text-[26px] tablet:text-[40px] desktop:text-[44px]">{{ __('Announcements', 'WNYC') }}</h2>
 
-            <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
+            <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
               {% for announcement in announcements %}
-              <div class="transform-none">
-                {% include 'components/announcement.twig' with {this: announcement} only %}
+              <div class="transform-none border-2 border-[#F0F6FA] rounded-[5px]">
+                {% include 'components/announcement.twig' with {this: announcement, site:site } only %}
               </div>
               {% endfor %}
             </div>
