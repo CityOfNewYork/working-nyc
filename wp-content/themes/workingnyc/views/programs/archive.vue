@@ -31,7 +31,7 @@
     <div class="page-max mx-auto">
       <div class="desktop:flex desktop:justify-center">
         <div 
-          v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
+          v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-5 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
           + (totalFilters > 0 ? 'desktop:pb-5' : 'desktop:pb-0')" 
           v-if="!filtersExpanded">
           <div class="desktop:hidden pr-2">
@@ -72,7 +72,7 @@
             </div>
               <div v-for="(term, index) in terms" :key="term.slug">
                 <fieldset class="fieldset mb-3" tabindex="-1">
-                  <div class="cursor-pointer border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                  <div class="cursor-pointer border-b border-[#D4D7DC] flex" @click="toggleAccordion(index)">
                     <legend class="mb-2 font-[600] text-[18px]">
                       {{ term.name }}
                     </legend>
@@ -109,9 +109,9 @@
           </div>
         </div>
       </div>
-      <div class="mb-5 tablet:mb-6 desktop:mb-7 mt-5 tablet:mt-6 desktop:mt-0" v-if="init" v-show="!filtersExpanded">
+      <div class="mb-5 tablet:mb-6 desktop:mb-7 mt-5 desktop:mt-0" v-if="init" v-show="!filtersExpanded">
         <div class="flex justify-center gap-x-[5%]">
-          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
+          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-[#D4D7DC]">
             <form class="w-full">
               <div>
                 <div class="font-[500] text-[20px] mb-3">
@@ -120,7 +120,7 @@
                 <div>
                   <div v-for="(term, index) in terms" :key="term.slug">
                     <fieldset class="fieldset mb-3" tabindex="-1">
-                      <div class="cursor-pointer border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                      <div class="cursor-pointer border-b border-[#D4D7DC] flex" @click="toggleAccordion(index)">
                         <legend class="mb-2 font-[600] text-[20px]">
                           {{ term.name }}
                         </legend>
@@ -162,7 +162,7 @@
                   </h2>
                 </div>
 
-                <div class="grid gap-3 mb-3">
+                <div class="grid grid-cols-1 gap-3 mb-3">
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
               </div>
