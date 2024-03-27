@@ -29,40 +29,29 @@ export default {
     }
   },
   data: function() {
+
     return {
       /**
-       * In the parent Archive class, this represents a post type to query, but here it is
-       * the endpoint to use
+       * This is our custom post type to query
+       *
        * @type {String}
        */
-      type: 'search',
+      type: 'programs',
+      indexArr: [0],
+
+      filtersExpanded: false,
 
       /**
-       * Setting this sets the initial app query
+       * Setting this sets the initial app query.
        *
        * @type {Object}
        */
       query: {
+        post_type: 'programs',
         per_page: this.perPage,
         page: this.page,
         orderby: 'menu_order',
         order: 'asc'
-      },
-
-      /**
-       * Modify how the URL history is written
-       *
-       * @type {Object}
-       */
-      history: {
-        omit: [
-          'page',
-          'per_page',
-          'orderby',
-          'order'
-        ],
-        map: {},
-        filterParams: false
       },
 
       /**
@@ -77,16 +66,33 @@ export default {
       },
 
       /**
+       * Modify how the URL history is written
+       *
+       * @type {Object}
+       */
+       history: {
+        omit: [
+          'page',
+          'per_page',
+          'orderby',
+          'order',
+          'post_type'
+        ],
+        map: {},
+        filterParams: false
+      },
+
+      /**
        * This is the endpoint list for terms and post requests
        *
        * @type  {Object}
        *
        * @param  {String}  terms  A required endpoint for the list of filters
-       * @param  {String}  jobs   This is based on the 'type' setting above
+       * @param  {String}  employer-programs   This is based on the 'type' setting above
        */
       endpoints: {
-        terms: '/wp-json/api/v1/terms/?post_type[]=jobs&cache=0',
-        jobs: '/wp-json/wp/v2/jobs'
+        terms: '/wp-json/api/v1/terms/?post_type[]=programs&orderby=slug&order=ASC&cache=0',
+        'programs': '/wp-json/api/v1/searchRelevanssi'
       },
 
       /**
@@ -98,18 +104,20 @@ export default {
        * @return  {Object}    Object with a mapping function for each endpoint
        */
       maps: function() {
+       
         return {
           /**
-           * Data mapping function for results from the Jobs endpoint
+           * Data mapping function for results from the Programs endpoint
            *
-           * @raw /wp-json/wp/v2/jobs
+           * @raw /wp-json/wp/v2/programs
            */
-          jobs: jobs => ({
-            id: jobs.id,
-            title: jobs.title.rendered,
-            link: jobs.link,
-            context: jobs.context,
-            raw: (process.env.NODE_ENV === 'development') ? { ...jobs } : false
+          programs: programs => ({
+            id: programs.id,
+            title: programs.acf.program_title,
+            link: programs.link,
+            status: programs.status,
+            context: programs.context,
+            raw: (process.env.NODE_ENV === 'development') ? { ...programs } : false
           }),
 
           /**
@@ -136,52 +144,20 @@ export default {
     };
   },
 
-  /**
-   * @type {Object}
-   */
   methods: {
-    /**
-     * TODO: Set focus to results when the filter dropdown is closed. This
-     * method is not currently working when bound to the "close and see" button.
-     * That button uses the patterns scripts dialog method which interfere
-     * with DOM event propagation.
-     */
-    resultsFocus: function() {
-      document.querySelector('body').style.overflow = ''; // unlocks the dialog
-
-      this.$refs.results.setAttribute('tabindex', '-1');
-
-      this.$refs.results.focus();
+    toggleAccordion(index) {
+      if(this.indexArr.indexOf(index) === -1){
+        this.indexArr.push(index);
+      }else{
+        this.indexArr.splice(this.indexArr.indexOf(index), 1);
+      }
     },
-
-    /**
-     * Proxy for pagination. This will shift focus on the next page's first
-     * result once pagination is complete.
-     *
-     * @param   {Object}  event  The bound click event
-     */
-     nextPage: function(event) {
-      let _this = this;
-
-      (async (_this) => {
-        await _this.paginate(event);
-
-        if (_this.totalVisible <= 1)
-          return false;
-
-        let pages = _this.posts.filter(page => {
-          return (page && page.show);
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
         });
-
-        if (pages) {
-          let posts = pages[pages.length - 1].posts;
-          let element = document.querySelector(`[data-js='post-${posts[0].id}']`);
-
-          if (element) {
-            element.focus();
-          }
-        }
-      })(_this);
+      this.filtersExpanded = false;
     }
   },
 
@@ -193,6 +169,7 @@ export default {
    * @type {Function}
    */
   created: function() {
+ 
     /**
      * Query Vars to map to the WP Archive Vue history state. These are
      * different from registered query vars so that they don't interfere
@@ -210,24 +187,20 @@ export default {
       'duration': 'wnyc_dur',
       'locations': 'wnyc_loc',
       'populations': 'wnyc_pop',
-      'sectors': 'wnyc_sec',
-      'source': 'wnyc_src',
-      'salary': 'wnyc_sal'
+      'age_ranges_served': 'wnyc_age',
+      'sectors': 'wnyc_sec'
     };
 
     // Add map of WP Query terms < to > Window history state
     this.$set(this.history, 'map', taxonomies);
 
-    // Not from Jobs Archive: the 's' term in this.params and the following lines
-    // for getting the URL params
     // Add custom taxonomy queries to the list of safe params
-    this.params = [...this.params, ...Object.keys(taxonomies), 's'];
+    this.params = [...this.params, ...Object.keys(taxonomies), 'post_type', 's'];
 
-    // getState() uses the existing query parameters from the URL and 
-    // sets them to be arrays
-    // Here, we manually pass in the search term as a string so that 
-    // it is not taken from the URL and converted into an array
-    // TODO change the WP Archive package to fix this
+    // getState() sets all query parameters to be arrays; manually pass in the search term
+    // as a string
+    // TODO there may be a cleaner implementation for this
+
     const URLparams = new URLSearchParams(window.location.search);
 
     const query = {
@@ -235,7 +208,7 @@ export default {
     };
 
     // Initialize the application
-    this.getState(query)       // Initialize the application
+    this.getState(query)       // Get window.location.search (filter history)
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //

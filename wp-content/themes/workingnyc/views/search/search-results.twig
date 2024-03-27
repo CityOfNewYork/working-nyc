@@ -1,6 +1,29 @@
 {% extends "base.twig" %}
 
 {% block content %}
+{% if term == ''%}
+<div>
+  <div class="bg-scale-4">
+      <header class="o-header block px-4 tablet:px-6">
+        <div class="tablet:px-6 max-w-[896px]">
+          <div class="c-utility p-0 min-h-0 mb-3">
+            <a class="link-icon mie-auto" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}">
+              <svg aria-hidden="true" class="icon-ui rtl:flip">
+                <use href="#lucide-chevron-left"></use>
+              </svg>
+              <span>{{ __('Home', 'WNYC') }}</span>
+            </a>
+          </div>
+          <div class="o-header__title mt-0" style="">
+            <h1 id="page-heading" class="o-header__heading">{{ term == '' ? __('Search', 'WNYC') : __('Search results', 'WNYC')}}</h1>
+          </div>
+          {% include 'search/search-form.twig' %}
+          </div>
+      </header>
+  </div>
+</div>
+{% else %}
+<div data-js-archive="search">
   <div class="bg-scale-4">
       <header class="o-header block px-4 tablet:px-6">
         <div class="tablet:px-6 max-w-[896px]">
@@ -20,7 +43,7 @@
       </header>
   </div>
 
-  <div data-js="search-results-list">
+  <div>
     <section class="px-4 tablet:px-6">
       {% if term != '' %}
         {% if posts|length > 0 %}
@@ -68,4 +91,6 @@
       {% endif %}
     </section>
   </div>
+</div>
+{% endif %}  
 {% endblock %}

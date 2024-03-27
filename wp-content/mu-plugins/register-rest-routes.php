@@ -180,7 +180,7 @@ add_action('rest_api_init', function() {
       $post_types = [];
 
       // validate post type parameter
-      $ALLOWED_POST_TYPES = array('jobs', 'programs', 'employer-programs');
+      $ALLOWED_POST_TYPES = array('programs', 'employer-programs');
 
       if (isset($parameters['post_type'])) {
         if (gettype($parameters['post_type']) === 'string') {
@@ -193,7 +193,7 @@ add_action('rest_api_init', function() {
           throw new Exception('Invalid post type');
         }
       } else {
-        $post_types = array('jobs', 'programs', 'employer-programs');
+        $post_types = array('programs', 'employer-programs');
       }
 
       // create the taxonomy parameter for the WP Query based on the incoming query parameters
@@ -225,7 +225,7 @@ add_action('rest_api_init', function() {
       // The current implementation of the WP Archive package unnecessarily sets the search_term
       // query parameter to be an array. This is a temporary fix that can be removed once the
       // WP Archive package is changed
-      $search_term = isset($parameters['search_term']) ? $parameters['search_term'] : '';
+      $search_term = isset($parameters['s']) ? $parameters['s'] : '';
 
       if (gettype($search_term) === 'array' && count($search_term) > 0) {
         $search_term = $search_term[0];
