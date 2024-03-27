@@ -1,12 +1,6 @@
 <nav aria-label="{{ employer_header_menu.name }}" class="bg-[#F8F9FB] px-2 tablet:px-5 desktop:px-3 py-1 flex justify-between align-middle items-center" data-js="navigation">
   <div class="flex">
-    <a class="tablet:hidden" 
-    {% if options.employers_link is defined %}
-      href="{{ options.employers_link }}"
-    {% else %}
-      href="{{ site.url }}"
-    {% endif %}
-    >
+    <a class="tablet:hidden" href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}">
       <svg class="o-navigation__svg fill-text text-brand" width="60" height="11">
         <title>{{ __('Jobs NYC employer homepage', 'WNYC - Navigation') }}</title>
         <use href="#logo-jobs-nyc-black-blue"></use>
@@ -21,11 +15,11 @@
     <span class="hidden tablet:block desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
   </div>
   <div>
-    <button class="py-1 px-1 flex items-center" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <button class="py-1 px-1 flex items-center no-underline hover:underline active:underline" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
       <svg class="h-3 w-3 mr-[4px]">
         <use href="#languages-nav"></use>
       </svg>
-      <span class="text-xs font-[500] desktop:text-sm">{{ __('Language', 'WNYC - Navigation') }}</span>
+      <span class="text-xs font-[500] desktop:text-sm text-[#080707]">{{ __('Language', 'WNYC - Navigation') }}</span>
       <svg class="h-3 w-3 fill-none stroke-black">
         <use href="#lucide-chevron-down"></use>
       </svg>
@@ -35,13 +29,7 @@
 </nav>
 <nav aria-label="{{ employer_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3 bg-white" data-js="navigation">
   <div class="items-center flex bg-scale-1 tablet:bg-transparent">
-    <a class="pr-2 hidden tablet:block" 
-      {% if options.employers_link is defined %}
-        href="{{ options.employers_link }}"
-      {% else %}
-        href="{{ site.url }}"
-      {% endif %}
-    >
+    <a class="pr-2 hidden tablet:block" href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}">
       <svg class="o-navigation__svg fill-text text-brand" width="196" height="22">
         <title>{{ __('Jobs NYC employer homepage', 'WNYC - Navigation') }}</title>
         <use href="#logo-jobs-nyc-employer"></use>
@@ -51,7 +39,7 @@
   </div>
   <div>
     {% for menu_item in employer_header_menu.get_items %}
-      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
+      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12 text-[#080707] no-underline hover:underline active:underline" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
     {% endfor %}
   </div>
   <button class="desktop:hidden mie-0" aria-controls="aria-c-menu" aria-expanded="false" data-js="menu" data-js-menu="open">
