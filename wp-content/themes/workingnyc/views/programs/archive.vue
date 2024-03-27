@@ -32,7 +32,7 @@
       <div class="desktop:flex desktop:justify-center">
         <div 
           v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
-          + (termsChecked ? 'desktop:pb-5' : 'desktop:pb-0')" 
+          + (totalFilters > 0 ? 'desktop:pb-5' : 'desktop:pb-0')" 
           v-if="!filtersExpanded">
           <div class="desktop:hidden pr-2">
             <button :disabled="terms.length === 0" @click="filtersExpanded = true" class="btn btn-small btn-secondary bg-white text-[#30374F] border-[#30374F]">
@@ -40,7 +40,7 @@
               <span class="badge badge-small bg-[#30374F] text-white font-normal">{{ totalFilters }}</span>
             </button>
           </div>
-          <div class="hidden desktop:flex pr-2" v-if="termsChecked">Active filters</div>
+          <div class="hidden desktop:flex pr-2" v-if="totalFilters > 0">Active filters</div>
           <template v-for="term in terms">
             <template v-for="filter in term.filters">
               <div class="small rounded p-1 bg-scale-2 mr-1 flex bg-[#EFF1F5]" v-if="filter.checked">
