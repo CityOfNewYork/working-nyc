@@ -2,14 +2,14 @@
 {# @For    Generic Templates, Short-codes #}
 <article class="c-card {{ this.classes }}" id="{{ this.id }}">
   {% if this.thumbnail %}
-  <img class="bg-image-video block" loading="lazy" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('mobile') }}" alt="{{ this.thumbnail.alt }}"/>
+  <img class="h-full w-full object-cover aspect-[4/3] block" loading="lazy" style="object-position: {{ this.thumbnail.focal_point }};" src="{{ this.thumbnail.src('mobile') }}" alt="{{ this.thumbnail.alt }}"/>
   {% endif %}
 
-  <header class="c-card__header{% if post.body == '' %} h-full{% endif %}">
+  <header class="c-card__header h-full p-3">
     <span>
       {% if this.title %}
       {% if this.link %}<a class="c-card__header-link" data-js="{{ this.id }}" href="{{ this.link }}"{% if this.link_target == '_blank' %} target="{{ this.link_target }}" rel="noopener"{% endif %}>{% endif %}
-        <{% if this.body or this.subtitle %}h3{% else %}p{% endif %} class="c-card__title">
+        <div class="c-card__title text-[16px] font-[600]">
           {% if this.link %}<span class="c-card__underline">{% endif %}{{ this.title }}{% if this.link %}</span>{% endif %}
 
           {% if this.link and this.link_target == '_blank' %}
@@ -17,7 +17,7 @@
             <use href="#lucide-external-link"></use>
           </svg>
           {% endif %}
-        </{% if this.body or this.subtitle %}h3{% else %}p{% endif %}>
+        </div>
       {% if this.link %}</a>{% endif %}
       {% endif %}
 
@@ -26,26 +26,4 @@
       </p>{% endif %}
     </span>
   </header>
-
-  {% if this.body %}<div class="c-card__body">
-    {{ this.body|wpautop }}
-
-    {% if this.link %}
-    <a class="c-card__cta" href="{{ this.link }}" {% if this.link_target == '_blank' %} target="{{ this.link_target }}" rel="noopener"{% endif %}>
-      {% if this.link_target == '_blank' %}
-      <span>{{ this.link_label }}</span>
-      {% else %}
-      <span>{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ this.title }}</span></span></span>
-      {% endif %}
-
-      <svg aria-hidden="true" class="icon-ui rtl:flip">
-        <use href="#lucide-{% if this.link_target == '_blank' %}external-link{% else %}arrow-right{% endif %}"></use>
-      </svg>
-    </a>
-    {% else %}
-    {# @span This empty span tag currently assists the stylesheet in removing margin on the last visible element in the card. #}
-    {# <span></span> #}
-    {% endif %}
-  </div>
-  {% endif %}
 </article>
