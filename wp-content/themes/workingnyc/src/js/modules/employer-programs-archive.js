@@ -170,7 +170,6 @@ export default {
     termsChecked: function() {
       let numChecked = 0;
       for (let i in this.terms) {
-        // numChecked.push(term);
         let term = this.terms[i];
         for (let j in term.filters) {
           if (term.filters[j].checked) {
