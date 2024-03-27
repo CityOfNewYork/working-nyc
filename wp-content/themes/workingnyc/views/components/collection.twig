@@ -1,8 +1,8 @@
 {# @Type   Component #}
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
-<section class="mx-2 tablet:mx-7 desktop:mx-[104px]" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
-  <div class="py-5 tablet:py-6 desktop:py-6">
+<section class="site-max-width" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
+  <div class="py-5 tablet:py-6">
     {% if this.display == 'container' %}
       {% include 'components/container.twig' %}
     {% endif %}
