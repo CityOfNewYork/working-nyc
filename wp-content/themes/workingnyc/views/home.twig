@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="bg-scale-1">
-  <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full">
+  <header class="bg-gradient-to-r from-[#E5F4FF] to-[#fefefe] {% if post.thumbnail %}bg-shape-wnyc-header{% endif %} w-full h-fit">
 
       {% if post.thumbnail %}
-      <div class="desktop-gap-x-72 tablet-gap-x-56 site-max-width tablet:grid grid-cols-[3fr_2fr] tablet:py-7 py-4 desktop:py-6">
-        <div class="text-left">
+      <div class="gap-x-4 site-max-width tablet:grid grid-cols-[3fr_2fr] py-5 tablet:py-6 desktop:py-7 desktop:min-h-[582px]">
+        <div class="text-left flex flex-col justify-center">
       {% else %}
       <div class="site-max-width">
         <div>
@@ -16,9 +16,9 @@
 
           {# The post content can include html tags and CSS classes. The following line is an example of some classes that were used in the past #}
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
-          <h1 class="mt-3 mb-5 tablet:mb-3 desktop: mb-6">{{ post.post_content }}</h1>
+          <h1 class="text-[40px] desktop:text-[55px] mt-3 mb-5 tablet:mb-3 desktop:mb-6">{{ post.post_content }}</h1>
 
-          <a class="btn btn-secondary w-full tablet:w-fit" href="/jobseekers/programs">
+          <a class="btn btn-secondary w-full tablet:w-fit" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers/programs' , site.site_url, site.url) }}">
             <div>{{ __('Explore programs', 'WNYC') }}</div>
             <svg aria-hidden="true" class="w-[20px] h-[20px] ml-[4px] icon-ui rtl:flip">
               <use href="#lucide-arrow-right"></use>
@@ -29,7 +29,7 @@
     {% if post.thumbnail %}
 
       <div class="relative items-center hidden tablet:flex">
-        <img class="rounded-full tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
+        <img class="object-contain tablet-width-300 aspect-square bg-image-grid__img max-h-[100%]" loading="lazy" style="object-position: {{ post.thumbnail.focal_point }};" src="{{ post.thumbnail.src('desktop') }}" alt="{{ post.thumbnail.alt }}"/>
       </div>
       
     {% endif %}
@@ -41,21 +41,21 @@
       {# Collections #}
       {% if collections %}
         {% for collection in collections %}
-          {% include collection.template with {this: collection} only %}
+          {% include collection.template with {this: collection, is_home: true, site: site} only %}
         {% endfor %}
       {% endif %}
 
       {# Announcements #}
       {% if announcements %}
-      <section class="pb-8 mx-2 tablet:mx-7 desktop:mx-[104px]" id="announcements">
+      <section class="pb-8 site-max-width" id="announcements">
         <div class="py-2 pt-5 tablet:py-8">
           <div>
-            <h2 class="h3 text-alt my-0 pb-4">{{ __('Announcements', 'WNYC') }}</h2>
+            <h2 class="text-alt mt-0 text-[26px] tablet:text-[40px] desktop:text-[44px]">{{ __('Announcements', 'WNYC') }}</h2>
 
             <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
               {% for announcement in announcements %}
               <div class="transform-none border-2 border-[#F0F6FA] rounded-[5px]">
-                {% include 'components/announcement.twig' with {this: announcement} only %}
+                {% include 'components/announcement.twig' with {this: announcement, site:site } only %}
               </div>
               {% endfor %}
             </div>

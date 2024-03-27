@@ -34,6 +34,8 @@ class Collection {
 
     $this->guides = $this->guides();
 
+    $this->cards_information = $this->fields['cards_information'];
+
     return $this;
   }
 

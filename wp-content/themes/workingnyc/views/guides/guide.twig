@@ -1,8 +1,8 @@
 {# @Type   Component #}
 {# @For    Post Type #}
 {# @Class  timber-posts/Guides.php #}
-<a href="{{ post.link }}" class="c-card__header-link">
-<article class="desktop:p-4 p-3">
+<a href="{{ post.link }}" class="c-card__header-link mb-2 desktop:mb-3">
+<article class="p-4">
   <header class="items-center">
     {% if post.icon %}
     <svg class="c-card__icon fill-none" role="img">
@@ -21,5 +21,6 @@
       {{ post.preview|wpautop }}
     </div>
   </div>
+  <p class="font-[600]"><a href="{{ post.link }}">Apply Here</a></p>
 </article>
 </a>
