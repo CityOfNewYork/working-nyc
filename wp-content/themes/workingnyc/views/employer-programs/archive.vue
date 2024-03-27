@@ -49,7 +49,7 @@
               </div>
             </template>
           </template>
-          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
+          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="totalFilters > 0" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
           <div class="desktop:hidden">

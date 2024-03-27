@@ -5,7 +5,7 @@
         <div>
           <header class="o-header px-0 pb-5 tablet:pb-6 desktop:pb-7">
             <div>
-              <nav class="o-header__breadcrumbs flex flex-wrap" aria-label="Breadcrumb">
+              <nav class="o-header__breadcrumbs mb-0 flex flex-wrap" aria-label="Breadcrumb">
                 <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
 
                 <div>
@@ -17,8 +17,8 @@
                 </div>
               </nav>
 
-              <div class="o-header__title">
-                <h1 id="page-heading" class="o-header__heading">{{ strings.PAGE_TITLE }}</h1>
+              <div class="desktop:mt-6 mt-5 tablet:mb-2 desktop:mb-3 mb-1">
+                <h1 id="page-heading" class="text-[40px] tablet:text-[50px] desktop:text-[55px] font-[600]">{{ strings.PAGE_TITLE }}</h1>
               </div>
 
               <div v-if="strings.PAGE_CONTENT" v-html="strings.PAGE_CONTENT"></div>
@@ -53,7 +53,7 @@
               </div>
             </template>
           </template>
-          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
+          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="totalFilters > 0" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
           <div class="desktop:hidden">
