@@ -18,7 +18,7 @@
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
           <h1 class="text-[40px] desktop:text-[55px] mt-3 mb-5 tablet:mb-3 desktop:mb-6">{{ post.post_content }}</h1>
 
-          <a class="btn btn-secondary w-full tablet:w-fit" href="/jobseekers/programs">
+          <a class="btn btn-secondary w-full tablet:w-fit" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers/programs' , site.site_url, site.url) }}">
             <div>{{ __('Explore programs', 'WNYC') }}</div>
             <svg aria-hidden="true" class="w-[20px] h-[20px] ml-[4px] icon-ui rtl:flip">
               <use href="#lucide-arrow-right"></use>
@@ -41,7 +41,7 @@
       {# Collections #}
       {% if collections %}
         {% for collection in collections %}
-          {% include collection.template with {this: collection, is_home: true} only %}
+          {% include collection.template with {this: collection, is_home: true, site: site} only %}
         {% endfor %}
       {% endif %}
 
@@ -50,7 +50,7 @@
       <section class="pb-8" id="announcements">
         <div class="site-max-width py-2 tablet:py-8">
           <div>
-            <h2 class="h3 text-alt mt-0">{{ __('Announcements', 'WNYC') }}</h2>
+            <h2 class="text-alt mt-0 text-[26px] tablet:text-[40px] desktop:text-[44px]">{{ __('Announcements', 'WNYC') }}</h2>
 
             <div class="py-4 grid gap-6 tablet:grid-cols-2 tablet:gap-8">
               {% for announcement in announcements %}
