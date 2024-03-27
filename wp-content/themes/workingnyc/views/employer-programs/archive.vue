@@ -41,7 +41,7 @@
             <template v-for="filter in term.filters">
               <div class="small rounded p-1 bg-scale-2 mr-1 flex bg-[#EFF1F5]" v-if="filter.checked">
                   <span class="text-nowrap ">{{ filter.name }}</span>
-                  <button @click="click({event: $event, data: filter})">
+                  <button class="rounded hover:bg-[#DCDFEA] active:bg-[#DCDFEA]" @click="click({event: $event, data: filter})">
                     <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
                       <use href="#lucide-x"></use>
                     </svg>
@@ -49,7 +49,7 @@
               </div>
             </template>
           </template>
-          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="totalFilters > 0" @click="reset">{{ strings.RESET }}</button>
+          <button class="hidden desktop:flex small text-black no-underline hover:underline active:underline font-[600]" v-if="totalFilters > 0" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
           <div class="desktop:hidden">
@@ -68,7 +68,7 @@
             </div>
               <div v-for="(term, index) in terms" :key="term.slug">
                 <fieldset class="fieldset mb-3" tabindex="-1">
-                  <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                  <div class="cursor-pointer border-b border-scale-3 flex" @click="toggleAccordion(index)">
                     <legend class="mb-2 font-[600] text-[18px]">
                       {{ term.name }}
                     </legend>
@@ -116,7 +116,7 @@
                 <div>
                   <div v-for="(term, index) in terms" :key="term.slug">
                     <fieldset class="fieldset mb-3" tabindex="-1">
-                      <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                      <div class="cursor-pointer border-b border-scale-3 flex" @click="toggleAccordion(index)">
                         <legend class="mb-2 font-[600] text-[20px]">
                           {{ term.name }}
                         </legend>
