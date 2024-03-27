@@ -12,6 +12,7 @@ module.exports = [
   'assets/js/global-development.js',
   'assets/js/newsletter-development.js',
   'assets/js/polyfills-development.js',
+  'assets/js/search-development.js',
   'assets/svg/feather-development.svg',
   'assets/svg/svgs-development.svg',
   'assets/svg/wknyc-development.svg',
