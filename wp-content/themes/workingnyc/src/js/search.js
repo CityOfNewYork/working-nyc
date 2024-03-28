@@ -32,7 +32,8 @@ import SearchResult from '../../views/search/search-result.vue';
 Vue.component('SearchResult', SearchResult);
 
 let config = {
-    'no_results': document.querySelector('[data-js="no-results"]')
+    'title': document.querySelector('[data-js="title"]'),
+    'home_link': document.querySelector('[data-js="home-link"]')
   };
 
 new Vue({
@@ -41,6 +42,7 @@ render: createElement => {
     props: {
         strings: {
         HOME: 'Home',
+        HOME_LINK: (config.home_link) ? config.home_link.href : '/',
         FILTERS: 'Filters',
         FILTER_BY: 'Filter by:',
         APPLY_FILTERS: 'Apply filters',
