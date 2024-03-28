@@ -38,6 +38,7 @@ export default {
        */
       type: 'programs',
       indexArr: [0],
+      currentSearchTerm: '',
 
       filtersExpanded: false,
 
@@ -144,6 +145,16 @@ export default {
     };
   },
 
+  computed: {
+    loading: function() {
+      if (!this.posts.posts || !this.posts.posts.length) return false;
+
+      let page = this.posts.posts[this.query.page];
+
+      return this.init && !page.posts.length && page.show;
+    }
+  },
+
   methods: {
     toggleAccordion(index) {
       if(this.indexArr.indexOf(index) === -1){
@@ -158,6 +169,10 @@ export default {
         behavior: "smooth"
         });
       this.filtersExpanded = false;
+    },
+    submitSearch() {
+      this.wp();
+      this.currentSearchTerm = this.query.s;
     }
   },
 
@@ -202,9 +217,10 @@ export default {
     // TODO there may be a cleaner implementation for this
 
     const URLparams = new URLSearchParams(window.location.search);
+    this.currentSearchTerm = URLparams.get('s');
 
     const query = {
-      's': URLparams.get('s')
+      's': this.currentSearchTerm
     };
 
     // Initialize the application

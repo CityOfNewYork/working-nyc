@@ -32,9 +32,8 @@ import SearchResult from '../../views/search/search-result.vue';
 Vue.component('SearchResult', SearchResult);
 
 let config = {
-    'title': document.querySelector('[data-js="title"]'),
     'home_link': document.querySelector('[data-js="home-link"]')
-  };
+};
 
 new Vue({
 render: createElement => {
@@ -49,7 +48,6 @@ render: createElement => {
         CLOSE: 'Close',
         TOGGLE_ALL: 'Toggle all {{ TERM }}',
         CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ NUMBER }} results',
-        PAGE_TITLE: 'Posts',
         PAGE_CONTENT: '',
         WITH: 'with',
         SCHEDULE: 'Employment Type and Schedule',
