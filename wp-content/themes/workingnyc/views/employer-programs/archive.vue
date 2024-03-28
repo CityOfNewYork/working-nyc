@@ -68,7 +68,7 @@
             </div>
               <div v-for="(term, index) in terms" :key="term.slug">
                 <fieldset class="fieldset mb-3" tabindex="-1">
-                  <div class="cursor-pointer border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                  <div class="cursor-pointer border-b border-[#D4D7DC] flex" @click="toggleAccordion(index)">
                     <legend class="mb-2 font-[600] text-[18px]">
                       {{ term.name }}
                     </legend>
@@ -107,7 +107,7 @@
       </div>
       <div class="mb-5 tablet:mb-6 desktop:mb-7 mt-5 tablet:mt-6 desktop:mt-0" v-if="init" v-show="!filtersExpanded">
         <div class="flex justify-center gap-x-[5%]">
-          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
+          <section class="hidden desktop:flex w-1/4 p-3 rounded border-2 border-[#ECEFF2] h-fit">
             <form class="w-full">
               <div>
                 <div class="font-[500] text-[20px] mb-3">
@@ -116,7 +116,7 @@
                 <div>
                   <div v-for="(term, index) in terms" :key="term.slug">
                     <fieldset class="fieldset mb-3" tabindex="-1">
-                      <div class="cursor-pointer border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                      <div class="cursor-pointer border-b border-[#D4D7DC] flex" @click="toggleAccordion(index)">
                         <legend class="mb-2 font-[600] text-[20px]">
                           {{ term.name }}
                         </legend>
