@@ -30,7 +30,8 @@
           {% for post in this.posts %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
-                  post: post
+                  post: post,
+                  is_home:is_home
                 } %}
               </div>
           {% endfor %}
