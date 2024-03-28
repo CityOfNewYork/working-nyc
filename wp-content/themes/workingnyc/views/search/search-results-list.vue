@@ -207,7 +207,7 @@
 
                 <!-- Otherwise, display the list of posts-->
                 <div v-else>
-                  <div class="mb-3" v-if="!loading">
+                  <div class="mb-3">
                     <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
                       <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
                     </h2>
