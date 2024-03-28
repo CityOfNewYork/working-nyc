@@ -2,7 +2,7 @@
   <article class="c-card">
     <header class="bg-[#F0F6FA] py-2 tablet:py-3 px-5 min-h-[128px]" :data-js="'post-' + post.id">
       <h3 class="text-[20px] tablet:text-[23px] text-[#080707] mb-2" v-html="post.context.program_plain_language_title"></h3>
-      <p class="text-[18px] desktop:text-[20px] font-[400] text-alt">
+      <p class="text-[18px] desktop:text-[20px] text-alt">
         <span data-program="title" v-html="post.context.program_title"></span>
         <span v-if="post.context.program_agency"> {{ strings.BY }} </span>
         <span v-if="post.context.program_agency" v-html="post.context.program_agency"></span>

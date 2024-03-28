@@ -4,8 +4,8 @@
 <article class="c-card h-full">
   <header class="bg-[#F0F6FA] py-2 tablet:py-3 px-5 min-h-[128px]">
       <h3 class="text-[20px] tablet:text-[23px] text-[#080707] mb-2">{{ post.program_plain_language_title }}</h3>
-      <p class="text-[18px] desktop:text-[20px] font-[400] text-alt">
-        <span>{{ post.program_title }}</span> 
+      <p class="text-[18px] desktop:text-[20px] text-alt">
+        {{ post.program_title }}
         {% if post.program_agency is not empty %} 
           {{ __('by', 'WNYC') }} {{ post.program_agency }}
         {% endif %}
