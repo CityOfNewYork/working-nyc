@@ -28,7 +28,7 @@
       <div class="desktop:flex desktop:justify-center">
         <div 
           v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
-          + (termsChecked ? 'desktop:pb-5' : 'desktop:pb-0')" 
+          + (totalFilters > 0 ? 'desktop:pb-5' : 'desktop:pb-0')" 
           v-if="!filtersExpanded">
           <div class="desktop:hidden pr-2">
             <button :disabled="terms.length === 0" @click="filtersExpanded = true" class="btn btn-small btn-secondary bg-white text-[#30374F] border-[#30374F]">
@@ -36,12 +36,12 @@
               <span class="badge badge-small bg-[#30374F] text-white font-normal">{{ totalFilters }}</span>
             </button>
           </div>
-          <div class="hidden desktop:flex pr-2" v-if="termsChecked">Active filters</div>
+          <div class="hidden desktop:flex pr-2" v-if="totalFilters > 0">Active filters</div>
           <template v-for="term in terms">
             <template v-for="filter in term.filters">
               <div class="small rounded p-1 bg-scale-2 mr-1 flex bg-[#EFF1F5]" v-if="filter.checked">
                   <span class="text-nowrap ">{{ filter.name }}</span>
-                  <button @click="click({event: $event, data: filter})">
+                  <button class="rounded hover:bg-[#DCDFEA] active:bg-[#DCDFEA]" @click="click({event: $event, data: filter})">
                     <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
                       <use href="#lucide-x"></use>
                     </svg>
@@ -49,7 +49,7 @@
               </div>
             </template>
           </template>
-          <button class="hidden desktop:flex small text-black no-underline font-[600]" v-if="termsChecked" @click="reset">{{ strings.RESET }}</button>
+          <button class="hidden desktop:flex small text-black no-underline hover:underline active:underline font-[600]" v-if="totalFilters > 0" @click="reset">{{ strings.RESET }}</button>
         </div>
         <div class="py-5 tablet:py-6 px-2 tablet:px-7" v-else>
           <div class="desktop:hidden">
@@ -68,7 +68,7 @@
             </div>
               <div v-for="(term, index) in terms" :key="term.slug">
                 <fieldset class="fieldset mb-3" tabindex="-1">
-                  <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                  <div class="cursor-pointer border-b border-[#D4D7DC] flex" @click="toggleAccordion(index)">
                     <legend class="mb-2 font-[600] text-[18px]">
                       {{ term.name }}
                     </legend>
@@ -107,7 +107,7 @@
       </div>
       <div class="mb-5 tablet:mb-6 desktop:mb-7 mt-5 tablet:mt-6 desktop:mt-0" v-if="init" v-show="!filtersExpanded">
         <div class="flex justify-center gap-x-[5%]">
-          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
+          <section class="hidden desktop:flex w-1/4 p-3 rounded border-2 border-[#ECEFF2] h-fit">
             <form class="w-full">
               <div>
                 <div class="font-[500] text-[20px] mb-3">
@@ -116,7 +116,7 @@
                 <div>
                   <div v-for="(term, index) in terms" :key="term.slug">
                     <fieldset class="fieldset mb-3" tabindex="-1">
-                      <div class="border-b border-scale-3 flex" @click="toggleAccordion(index)">
+                      <div class="cursor-pointer border-b border-[#D4D7DC] flex" @click="toggleAccordion(index)">
                         <legend class="mb-2 font-[600] text-[20px]">
                           {{ term.name }}
                         </legend>

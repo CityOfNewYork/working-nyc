@@ -37,6 +37,9 @@ export default {
        */
       type: 'programs',
 
+      indexArr: [0],
+      filtersExpanded: false,
+
       /**
        * Setting this sets the initial app query.
        *
@@ -141,18 +144,19 @@ export default {
    * @type {Object}
    */
   methods: {
-    /**
-     * TODO: Set focus to results when the filter dropdown is closed. This
-     * method is not currently working when bound to the "close and see" button.
-     * That button uses the patterns scripts dialog method which interfere
-     * with DOM event propagation.
-     */
-    resultsFocus: function() {
-      document.querySelector('body').style.overflow = ''; // unlocks the dialog
-
-      this.$refs.results.setAttribute('tabindex', '-1');
-
-      this.$refs.results.focus();
+    toggleAccordion(index) {
+      if(this.indexArr.indexOf(index) === -1){
+        this.indexArr.push(index);
+      }else{
+        this.indexArr.splice(this.indexArr.indexOf(index), 1);
+      }
+    },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+        });
+      this.filtersExpanded = false;
     },
 
     /**
