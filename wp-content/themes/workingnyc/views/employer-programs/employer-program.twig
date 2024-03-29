@@ -4,15 +4,15 @@
 {# For homepage collection #}
 <article class="rounded border border-[#ECEFF2] p-3 w-full h-full">
   <header class="pb-2 desktop:pb-3">
-    <img class="w-[140px] h-8 object-contain object-left" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
+    <img class="w-[150px] h-70 object-contain object-left" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
   </header>
   <div>
-    <div class="pb-2 desktop:pb-3">
+    <div class="pb-2 desktop:pb-3 max-h-[90px]">
       <a href="{{ post.link }}">
-        <h5 class="pb-1 font-[600]">{{ post.employer_program_title }}</h5>
+        <h5 class="pb-1 font-[600] text-[22.78px]">{{ post.employer_program_title }}</h5>
       </a>
     </div>
-    <div>
+    <div class="pb-2 desktop:pb-3 text-[20.25px] max-h-[90px]">
       {{ post.employer_program_preview }}
     </div>
   </div>
