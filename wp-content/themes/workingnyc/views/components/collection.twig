@@ -21,12 +21,17 @@
         {% if this.guides %}
         <div class="grid tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
         {% else %}
-        <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
+          {% if this.post.post_type == 'job-boards' and not is_home %}
+          <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-3 auto-rows-[1fr]">
+          {% else %}
+          <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
+          {% endif %}
         {% endif %}
           {% for post in this.posts %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
-                  post: post
+                  post: post,
+                  is_home:is_home
                 } %}
               </div>
           {% endfor %}
