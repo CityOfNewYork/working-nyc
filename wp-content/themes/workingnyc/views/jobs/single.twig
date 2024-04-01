@@ -5,8 +5,8 @@
 
 {% block content %}
 <div class="bg-scale-2">
-  <main class="bg-scale-1" id="content">
-    <div class="layout-content sticky top-0 bg-scale-1 z-20">
+  <main class="bg-scale-0" id="content">
+    <div class="layout-content sticky top-0 bg-scale-0 z-20">
       {% if (post.job_learn_more or post.job_apply) %}
       {% set cta = '#learn-more-and-apply' %}
       {% endif %}
@@ -180,7 +180,7 @@
 
     {# Links #}
     {% if post.job_learn_more or post.job_apply %}
-    <section class="layout-content bg-scale-1 pb-8">
+    <section class="layout-content bg-scale-0 pb-8">
       <div class="wrap">
         <div class="pt-utility-anchor" id="learn-more-and-apply">
           <h3 class="h5 flex items-center mb-3 text-alt pb-2 tablet:pb-3">
