@@ -941,7 +941,7 @@
 	    undefined
 	  );
 
-	var ProgramsArchive = {
+	var GuidesArchive = {
 	  extends: __vue_component__$2,
 	  props: {
 	    perPage: {
@@ -974,10 +974,7 @@
 	       *
 	       * @type {String}
 	       */
-	      type: 'programs',
-
-	      indexArr: [0],
-	      filtersExpanded: false,
+	      type: 'guides',
 
 	      /**
 	       * Setting this sets the initial app query.
@@ -987,8 +984,8 @@
 	      query: {
 	        per_page: this.perPage,
 	        page: this.page,
-	        orderby: 'date',
-	        order: 'desc'
+	        orderby: 'menu_order',
+	        order: 'asc'
 	      },
 
 	      /**
@@ -1024,11 +1021,11 @@
 	       * @type  {Object}
 	       *
 	       * @param  {String}  terms  A required endpoint for the list of filters
-	       * @param  {String}  programs   This is based on the 'type' setting above
+	       * @param  {String}  jobs   This is based on the 'type' setting above
 	       */
 	      endpoints: {
-	        terms: '/wp-json/api/v1/terms/?post_type[]=programs&cache=0',
-	        programs: '/wp-json/wp/v2/programs'
+	        terms: '/wp-json/api/v1/terms/?post_type[]=guides&cache=0',
+	        guides: '/wp-json/wp/v2/guides'
 	      },
 
 	      /**
@@ -1042,16 +1039,17 @@
 	      maps: function() {
 	        return {
 	          /**
-	           * Data mapping function for results from the Programs endpoint
+	           * Data mapping function for results from the Guides endpoint
 	           *
-	           * @raw /wp-json/wp/v2/programs
+	           * @raw /wp-json/wp/v2/guides
 	           */
-	          programs: programs => ({
-	            id: programs.id,
-	            title: programs.acf.program_title,
-	            link: programs.link,
-	            status: programs.status,
-	            context: programs.context,
+	          guides: guides => ({
+	            id: guides.id,
+	            title: guides.title,
+	            link: guides.link,
+	            preview: guides.preview,
+	            icon: guides.icon,
+	            context: guides.context,
 	            raw: false
 	          }),
 
@@ -1083,19 +1081,18 @@
 	   * @type {Object}
 	   */
 	  methods: {
-	    toggleAccordion(index) {
-	      if(this.indexArr.indexOf(index) === -1){
-	        this.indexArr.push(index);
-	      }else {
-	        this.indexArr.splice(this.indexArr.indexOf(index), 1);
-	      }
-	    },
-	    scrollToTop() {
-	      window.scrollTo({
-	        top: 0,
-	        behavior: "smooth"
-	        });
-	      this.filtersExpanded = false;
+	    /**
+	     * TODO: Set focus to results when the filter dropdown is closed. This
+	     * method is not currently working when bound to the "close and see" button.
+	     * That button uses the patterns scripts dialog method which interfere
+	     * with DOM event propagation.
+	     */
+	    resultsFocus: function() {
+	      document.querySelector('body').style.overflow = ''; // unlocks the dialog
+
+	      this.$refs.results.setAttribute('tabindex', '-1');
+
+	      this.$refs.results.focus();
 	    },
 
 	    /**
@@ -1154,7 +1151,6 @@
 	      'duration': 'wnyc_dur',
 	      'locations': 'wnyc_loc',
 	      'populations': 'wnyc_pop',
-	      'age_ranges_served': 'wnyc_age',
 	      'sectors': 'wnyc_sec'
 	    };
 
@@ -1173,11 +1169,10 @@
 	};
 
 	/* script */
-	const __vue_script__$1 = ProgramsArchive;
+	const __vue_script__$1 = GuidesArchive;
 
 	/* template */
-	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"bg-[#E3F1FD]"},[_c('div',{staticClass:"site-max-width"},[_c('div',[_c('header',{staticClass:"o-header px-0 pb-5 tablet:pb-6 desktop:pb-7"},[_c('div',[_c('nav',{staticClass:"o-header__breadcrumbs mb-0 flex flex-wrap",attrs:{"aria-label":"Breadcrumb"}},[_c('a',{attrs:{"href":_vm.strings.HOME_LINK}},[_vm._v(_vm._s(_vm.strings.HOME))]),_vm._v(" "),_c('div',[_c('svg',{staticClass:"o-header__breadcrumbs-chevron icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-chevron-right"}})]),_vm._v(" "),_c('b',{attrs:{"aria-current":"page"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])])]),_vm._v(" "),_c('div',{staticClass:"desktop:mt-6 mt-5 tablet:mb-2 desktop:mb-3 mb-1"},[_c('h1',{staticClass:"text-[40px] tablet:text-[50px] desktop:text-[55px] font-[600]",attrs:{"id":"page-heading"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])]),_vm._v(" "),(_vm.strings.PAGE_CONTENT)?_c('div',{domProps:{"innerHTML":_vm._s(_vm.strings.PAGE_CONTENT)}}):_vm._e()])])])])]),_vm._v(" "),_c('div',{staticClass:"page-max mx-auto"},[_c('div',{staticClass:"desktop:flex desktop:justify-center"},[(!_vm.filtersExpanded)?_c('div',{class:'desktop:w-4/5 py-2 px-2 desktop:pt-5 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
-	        + (_vm.totalFilters > 0 ? 'desktop:pb-5' : 'desktop:pb-0')},[_c('div',{staticClass:"desktop:hidden pr-2"},[_c('button',{staticClass:"btn btn-small btn-secondary bg-white text-[#30374F] border-[#30374F]",attrs:{"disabled":_vm.terms.length === 0},on:{"click":function($event){_vm.filtersExpanded = true;}}},[_c('span',{staticClass:"mie-1"},[_vm._v(_vm._s(_vm.strings.FILTERS))]),_vm._v(" "),_c('span',{staticClass:"badge badge-small bg-[#30374F] text-white font-normal"},[_vm._v(_vm._s(_vm.totalFilters))])])]),_vm._v(" "),(_vm.totalFilters > 0)?_c('div',{staticClass:"hidden desktop:flex pr-2"},[_vm._v("Active filters")]):_vm._e(),_vm._v(" "),_vm._l((_vm.terms),function(term){return [_vm._l((term.filters),function(filter){return [(filter.checked)?_c('div',{staticClass:"small rounded p-1 bg-scale-2 mr-1 flex bg-[#EFF1F5]"},[_c('span',{staticClass:"text-nowrap "},[_vm._v(_vm._s(filter.name))]),_vm._v(" "),_c('button',{staticClass:"rounded hover:bg-[#DCDFEA] active:bg-[#DCDFEA]",on:{"click":function($event){return _vm.click({event: $event, data: filter})}}},[_c('svg',{staticClass:"icon-ui stroke-black",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#lucide-x"}})])])]):_vm._e()]})]}),_vm._v(" "),(_vm.totalFilters > 0)?_c('button',{staticClass:"hidden desktop:flex small text-black no-underline hover:underline active:underline font-[600]",on:{"click":_vm.reset}},[_vm._v(_vm._s(_vm.strings.RESET))]):_vm._e()],2):_c('div',{staticClass:"py-5 tablet:py-6 px-2 tablet:px-7"},[_c('div',{staticClass:"desktop:hidden"},[_c('div',{staticClass:"flex justify-end mb-5"},[_c('button',{staticClass:"no-underline flex items-center decoration-[#080707] hover:underline active:underline",on:{"click":_vm.scrollToTop}},[_c('svg',{staticClass:"stroke-black w-3 h-3 mr-[4px]"},[_c('use',{attrs:{"href":"#lucide-x"}})]),_vm._v(" "),_c('span',{staticClass:"text-nowrap text-[18px] font-[600] text-[#080707]"},[_vm._v(_vm._s(_vm.strings.CLOSE))])])])]),_vm._v(" "),_c('div',[_c('div',{staticClass:"mb-3 font-[500] text-[18px]"},[_vm._v("\n            "+_vm._s(_vm.strings.FILTER_BY)+"\n          ")]),_vm._v(" "),_vm._l((_vm.terms),function(term,index){return _c('div',{key:term.slug},[_c('fieldset',{staticClass:"fieldset mb-3",attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"cursor-pointer border-b border-[#D4D7DC] flex",on:{"click":function($event){return _vm.toggleAccordion(index)}}},[_c('legend',{staticClass:"mb-2 font-[600] text-[18px]"},[_vm._v("\n                    "+_vm._s(term.name)+"\n                  ")]),_vm._v(" "),_c('span',{staticClass:"ml-auto"},[(_vm.indexArr.indexOf(index) !== -1)?_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#up-arrow"}})]):_vm._e(),_vm._v(" "),(_vm.indexArr.indexOf(index) === -1)?_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#down-arrow"}})]):_vm._e()])]),_vm._v(" "),(_vm.indexArr.indexOf(index) !== -1)?_c('div',{staticClass:"grid gap-1"},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.click({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base bg-transparent"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-nyco-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"font-normal w-full"},[_vm._v(_vm._s(filter.name))])])])}),0):_vm._e()])])})],2),_vm._v(" "),_c('div',{staticClass:"wrap gap-3 flex justify-center"},[_c('button',{staticClass:"btn-small tablet:btn desktop:btn btn-styled",attrs:{"disabled":_vm.totalFilters == 0},domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}}),_vm._v(" "),_c('button',{staticClass:"btn-small tablet:btn desktop:btn btn-secondary",on:{"click":_vm.scrollToTop}},[_vm._v(_vm._s(_vm.strings.APPLY_FILTERS))])])])]),_vm._v(" "),(_vm.init)?_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.filtersExpanded),expression:"!filtersExpanded"}],staticClass:"mb-5 tablet:mb-6 desktop:mb-7 mt-5 desktop:mt-0"},[_c('div',{staticClass:"flex justify-center gap-x-[5%]"},[_c('section',{staticClass:"hidden desktop:flex w-1/4 p-3 rounded border-2 border-[#ECEFF2] h-fit"},[_c('form',{staticClass:"w-full"},[_c('div',[_c('div',{staticClass:"font-[500] text-[20px] mb-3"},[_vm._v("\n                "+_vm._s(_vm.strings.FILTER_BY)+"\n              ")]),_vm._v(" "),_c('div',_vm._l((_vm.terms),function(term,index){return _c('div',{key:term.slug},[_c('fieldset',{staticClass:"fieldset mb-3",attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"cursor-pointer border-b border-[#D4D7DC] flex",on:{"click":function($event){return _vm.toggleAccordion(index)}}},[_c('legend',{staticClass:"mb-2 font-[600] text-[20px]"},[_vm._v("\n                        "+_vm._s(term.name)+"\n                      ")]),_vm._v(" "),_c('span',{staticClass:"ml-auto"},[(_vm.indexArr.indexOf(index) !== -1)?_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#up-arrow"}})]):_vm._e(),_vm._v(" "),(_vm.indexArr.indexOf(index) === -1)?_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#down-arrow"}})]):_vm._e()])]),_vm._v(" "),(_vm.indexArr.indexOf(index) !== -1)?_c('div',{staticClass:"grid gap-1"},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.click({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base bg-transparent border-0 items-center"},[_c('svg',{staticClass:"option__graphic w-3 h-3",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-nyco-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"font-normal w-full"},[_vm._v(_vm._s(filter.name))])])])}),0):_vm._e()])])}),0)])])]),_vm._v(" "),_c('div',{staticClass:"w-full desktop:w-1/2"},[_c('section',{staticClass:"page-max mx-2 tablet:mx-7 desktop:mx-0"},[(!_vm.loading)?_c('div',[_c('div',{staticClass:"mb-3"},[(_vm.posts != null)?_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","data-dialog-focus-on-close":"aria-c-filter","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"grid grid-cols-1 gap-3 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('Program',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1)]):_vm._e(),_vm._v(" "),(_vm.none)?_c('div',{staticClass:"flex items-center text-em justify-center py-4"},[_c('p',[_vm._v(_vm._s(_vm.strings.NO_RESULTS)+" "),_c('button',{domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}})])]):_vm._e()])])])]):_c('section',{staticClass:"page-max desktop:px-6"},[_c('div',{staticClass:"flex items-center text-em justify-center py-8"},[_c('svg',{staticClass:"spinner icon-4 block mie-2",attrs:{"viewBox":"0 0 24 24","version":"1.1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('circle',{staticClass:"spinner__path",attrs:{"cx":"12","cy":"12","r":"10","fill":"none"}})]),_vm._v("\n\n      "+_vm._s(_vm.strings.LOADING)+"\n    ")])])]),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"site-max-width py-6 pb-8 mb-4"}):_vm._e()])};
+	var __vue_render__$1 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-0 relative z-40"},[_c('div',{staticClass:"c-utility wrap"},[_c('button',{staticClass:"btn btn-small btn-secondary light:btn-primary",attrs:{"disabled":_vm.terms.length === 0,"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"open","data-dialog-lock":"true","data-js":"dialog"}},[_c('span',{staticClass:"mie-1"},[_vm._v(_vm._s(_vm.strings.FILTERS))]),_vm._v(" "),_c('span',{staticClass:"badge badge-small status-secondary light:status-primary"},[_vm._v(_vm._s(_vm.totalFilters))])])]),_vm._v(" "),_c('div',{staticClass:"hidden",attrs:{"aria-hidden":"true","id":"aria-c-filter"}},[_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"wrap text-end relative z-20"},[_c('button',{staticClass:"btn btn-primary btn-small",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-dialog":"close","data-js":"dialog","tabindex":"-1"}},[_c('svg',{staticClass:"icon-ui",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#lucide-x"}})]),_vm._v(" "),_c('span',[_vm._v(_vm._s(_vm.strings.CLOSE))])])])]),_vm._v(" "),_c('form',{attrs:{"tabindex":"-1"}},[_c('div',{staticClass:"layout-content"},[_c('div',_vm._l((_vm.terms),function(term){return _c('div',{key:term.slug,staticClass:"mb-8"},[_c('fieldset',{staticClass:"fieldset mb-2",attrs:{"tabindex":"-1"}},[_c('legend',{staticClass:"h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-0",attrs:{"tabindex":"-1"}},[_vm._v("\n                  "+_vm._s(term.name)+"\n                ")]),_vm._v(" "),_c('div',{staticClass:"wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3"},_vm._l((term.filters),function(filter){return _c('label',{key:filter.slug,staticClass:"option w-full m-0",attrs:{"tabindex":"-1","gtm-data":"test"}},[_c('input',{attrs:{"type":"checkbox","tabindex":"-1"},domProps:{"value":filter.slug,"checked":filter.checked},on:{"change":function($event){return _vm.click({event: $event, data: filter})}}}),_vm._v(" "),_c('span',{staticClass:"option__base"},[_c('svg',{staticClass:"option__graphic",attrs:{"aria-hidden":"true","tabindex":"-1"}},[_c('use',{attrs:{"href":"#option-nyco-checkbox"}})]),_vm._v(" "),_c('span',{staticClass:"option__label w-full"},[_vm._v(_vm._s(filter.name))])])])}),0)]),_vm._v(" "),_c('div',{staticClass:"pis-4"},[_c('button',{staticClass:"text-small",attrs:{"type":"button","tabindex":"-1","aria-pressed":term.filters.filter(function (f) { return f.checked; }).length === term.filters.length ? 'true' : 'false'},domProps:{"innerHTML":_vm._s(_vm.strings.TOGGLE_ALL.replace('{{ TERM }}', term.name.toLowerCase()))},on:{"click":function($event){return _vm.toggle({event: $event, data: {parent: term.slug}})}}})])])}),0)]),_vm._v(" "),_c('div',{staticClass:"layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-0"},[_c('div',{staticClass:"wrap"},[_c('button',{staticClass:"btn btn-secondary w-full",attrs:{"aria-controls":"aria-c-filter","aria-expanded":"false","data-js":"dialog","tabindex":"-1"},domProps:{"innerHTML":_vm._s(_vm.strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', _vm.headers.total))}})])])])])]),_vm._v(" "),_c('div',{staticClass:"layout-content"},[_c('div',{staticClass:"page-max"},[_c('header',{staticClass:"o-header"},[_c('div',[_c('nav',{staticClass:"o-header__breadcrumbs",attrs:{"aria-label":"Breadcrumb"}},[_c('a',{attrs:{"href":"/"}},[_vm._v(_vm._s(_vm.strings.HOME))]),_vm._v(" "),_c('svg',{staticClass:"o-header__breadcrumbs-chevron icon-ui rtl:flip",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":"#lucide-chevron-right"}})]),_vm._v(" "),_c('b',{attrs:{"aria-current":"page"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])]),_vm._v(" "),_c('div',{staticClass:"o-header__title"},[_c('h1',{staticClass:"o-header__heading",attrs:{"id":"page-heading"}},[_vm._v(_vm._s(_vm.strings.PAGE_TITLE))])]),_vm._v(" "),(_vm.strings.PAGE_CONTENT)?_c('div',{staticClass:"mb-3",domProps:{"innerHTML":_vm._s(_vm.strings.PAGE_CONTENT)}}):_vm._e()])])])]),_vm._v(" "),(_vm.init)?_c('section',{staticClass:"page-max desktop:px-6"},[(!_vm.loading)?_c('div',{staticClass:"wrap desktop:px-6"},[_c('div',{staticClass:"mb-3"},[(_vm.posts != null)?_c('h2',{staticClass:"text-p font-p inline-block m-0",attrs:{"data-alert":"text","data-dialog-focus-on-close":"aria-c-filter","aria-live":"polite"}},[_c('span',{domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}})]):_vm._e(),_vm._v(" "),(_vm.totalFilters > 0)?_c('button',{domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}}):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"grid gap-3 tablet:grid-cols-2 desktop:gap-5 mb-3"},_vm._l((_vm.postsFlat),function(post){return _c('Guide',{key:post.id,attrs:{"post":post,"strings":_vm.strings}})}),1),_vm._v(" "),(_vm.posts != null)?_c('p',{attrs:{"data-alert":"text"},domProps:{"innerHTML":_vm._s(_vm.strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', _vm.totalVisible).replace('{{ TOTAL }}', _vm.headers.total))}}):_vm._e()]):_vm._e(),_vm._v(" "),(_vm.none)?_c('div',{staticClass:"flex items-center text-em justify-center py-4"},[_c('p',[_vm._v(_vm._s(_vm.strings.NO_RESULTS)+" "),_c('button',{domProps:{"innerHTML":_vm._s(_vm.strings.RESET)},on:{"click":_vm.reset}})])]):_vm._e()]):_c('section',{staticClass:"page-max desktop:px-6"},[_c('div',{staticClass:"flex items-center text-em justify-center py-8"},[_c('svg',{staticClass:"spinner icon-4 block mie-2",attrs:{"viewBox":"0 0 24 24","version":"1.1","xmlns":"http://www.w3.org/2000/svg","xmlns:xlink":"http://www.w3.org/1999/xlink"}},[_c('circle',{staticClass:"spinner__path",attrs:{"cx":"12","cy":"12","r":"10","fill":"none"}})]),_vm._v("\n\n      "+_vm._s(_vm.strings.LOADING)+"\n    ")])]),_vm._v(" "),(_vm.init)?_c('div',{staticClass:"layout-content py-6 pb-8 mb-4"},[_c('div',{staticClass:"wrap"},[(_vm.next)?_c('button',{staticClass:"btn btn-primary w-full",attrs:{"id":"pagination","data-amount":"1"},on:{"click":_vm.nextPage}},[_vm._v("\n        "+_vm._s(_vm.strings.SHOW_MORE)+"\n      ")]):_vm._e()])]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"layout-content pb-2 sticky z-10 o-navigation-feedback-spacing-bottom"},[_c('div',{staticClass:"wrap text-end"},[_c('a',{staticClass:"btn btn-small tablet:btn btn-secondary",attrs:{"href":"#page-heading"}},[_vm._v(_vm._s(_vm.strings.BACK_TO_TOP))])])])])};
 	var __vue_staticRenderFns__$1 = [];
 
 	  /* style */
@@ -1299,6 +1294,17 @@
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 
 	var script = {
 	  props: {
@@ -1315,7 +1321,7 @@
 	const __vue_script__ = script;
 
 	/* template */
-	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[_c('header',{staticClass:"bg-[#F0F6FA] py-2 tablet:py-3 px-5 min-h-[128px]",attrs:{"data-js":'post-' + _vm.post.id}},[_c('h3',{staticClass:"text-[20px] tablet:text-[23px] font-[600] text-[#080707] mb-2",domProps:{"innerHTML":_vm._s(_vm.post.context.program_plain_language_title)}}),_vm._v(" "),_c('p',{staticClass:"text-[18px] desktop:text-[20px] text-alt"},[_c('span',{attrs:{"data-program":"title"},domProps:{"innerHTML":_vm._s(_vm.post.context.program_title)}}),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',[_vm._v(" "+_vm._s(_vm.strings.BY)+" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.program_agency)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.program_agency)}}):_vm._e()])]),_vm._v(" "),_c('div',{staticClass:"c-card__body py-3 px-5 tablet:py-5 min-h-[206px] justify-between"},[_c('div',{staticClass:"mb-0"},[(_vm.post.context.status)?_c('p',{staticClass:"c-card__status flex items-center"},[(_vm.post.context.status.recruiting)?_c('mark',{staticClass:"badge mie-2",attrs:{"data-program":"recruiting"}},[_vm._v("\n          "+_vm._s(_vm.post.context.status.recruiting.name)),_c('span',{staticClass:"sr-only"},[_vm._v(".")])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"flex mie-2"},[_c('svg',{staticClass:"icon text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.disability.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-accessibility"}})])]):_vm._e(),_vm._v(" "),(_vm.post.context.status.disability)?_c('span',{staticClass:"sr-only"},[_vm._v(" ")]):_vm._e(),_vm._v(" "),(_vm.post.context.status.language)?_c('span',{staticClass:"flex me-2"},[_c('svg',{staticClass:"icon-ui text-em",attrs:{"role":"img"}},[_c('title',{domProps:{"innerHTML":_vm._s(_vm.post.context.status.language.name)}}),_vm._v(" "),_c('use',{attrs:{"href":"#nyco-languages"}})])]):_vm._e()]):_vm._e(),_vm._v(" "),_c('p',{staticClass:"mb-3"},[(_vm.post.context.preview)?_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.preview)}}):_vm._e()])]),_vm._v(" "),_c('div',[(_vm.post.context.services || _vm.post.context.schedule || _vm.post.context.supports)?_c('ul',{staticClass:"c-card__features"},[(_vm.post.context.services)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon h-22 w-22",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SERVICES))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-award"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.services)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.schedule)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon h-22 w-22",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SCHEDULE))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-calendar"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.schedule)}})]):_vm._e(),_vm._v(" "),(_vm.post.context.supports)?_c('li',[_c('svg',{staticClass:"icon-ui c-card__feature-icon h-22 w-22",attrs:{"role":"img"}},[_c('title',[_vm._v(_vm._s(_vm.strings.SUPPORTS))]),_vm._v(" "),_c('use',{attrs:{"href":"#lucide-heart-handshake"}})]),_vm._v(" "),_c('span',{domProps:{"innerHTML":_vm._s(_vm.post.context.supports)}})]):_vm._e()]):_vm._e(),_vm._v(" "),_c('a',{staticClass:"btn btn-secondary desktop:w-fit w-full break-words",attrs:{"href":_vm.post.context.link,"target":(_vm.post.context.external) ? '_blank' : false,"rel":(_vm.post.context.external) ? 'noopener' : false}},[(_vm.post.context.external)?_c('span',{staticClass:"text-[22px] font-[700] break-words",domProps:{"innerHTML":_vm._s(_vm.post.context.link_label)}}):_c('span',{staticClass:"text-[22px] font-[700] break-words",domProps:{"innerHTML":_vm._s(_vm.strings.LEARN_MORE_ABOUT.replace('{{ program }}', _vm.post.context.program_plain_language_title))}}),_vm._v(" "),_c('svg',{staticClass:"icon-ui rtl:flip h-22 w-22",attrs:{"aria-hidden":"true"}},[_c('use',{attrs:{"href":(_vm.post.context.external) ? '#lucide-external-link' : '#lucide-arrow-right'}})])]),_vm._v(" "),(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])])])};
+	var __vue_render__ = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('article',{staticClass:"c-card"},[(_vm.post.raw)?_c('details',[_c('summary',[_vm._v("Raw")]),_vm._v(" "),_c('pre',{attrs:{"tabindex":"-1"}},[_vm._v(_vm._s(_vm.post.raw))])]):_vm._e()])};
 	var __vue_staticRenderFns__ = [];
 
 	  /* style */
@@ -1361,7 +1367,7 @@
 	 * Mount Components
 	 */
 
-	Vue.component('Program', __vue_component__);
+	Vue.component('Guide', __vue_component__);
 
 	/**
 	 * Archive
@@ -1371,8 +1377,7 @@
 	  'filters': document.querySelector('[data-js="filters-label"]'),
 	  'title': document.querySelector('[data-js="title"]'),
 	  'content': document.querySelector('[data-js="content"]'),
-	  'suggest': document.querySelector('[data-js="suggest-a-program"]'),
-	  'home_link': document.querySelector('[data-js="home-link"]')
+	  'suggest': document.querySelector('[data-js="suggest-a-program"]')
 	};
 
 	new Vue({
@@ -1381,10 +1386,7 @@
 	      props: {
 	        strings: {
 	          HOME: 'Home',
-	          HOME_LINK: (config.home_link) ? config.home_link.href : '/',
 	          FILTERS: (config.filters) ? config.filters.innerHTML : 'Filters',
-	          FILTER_BY: 'Filter by:',
-	          APPLY_FILTERS: 'Apply filters',
 	          CLOSE: 'Close',
 	          TOGGLE_ALL: 'Toggle all {{ TERM }}',
 	          CLOSE_AND_SEE_PROGRAMS: 'Close and see {{ number }} programs',
@@ -1395,7 +1397,7 @@
 	          SCHEDULE: 'Duration and Length',
 	          SUPPORTS: 'Support Provided',
 	          LEARN_MORE_ABOUT: 'Learn more <span class="sr-only">about {{ program }}</span>',
-	          SHOWING: 'Showing {{ TOTAL_VISIBLE }} Programs of {{ TOTAL }}.',
+	          SHOWING: 'Showing {{ TOTAL_VISIBLE }} Guides of {{ TOTAL }}.',
 	          RESET: 'Click here to reset filters',
 	          NO_RESULTS: 'No Results. Try deselecting some filters.',
 	          LOADING: 'Loading',
@@ -1406,6 +1408,6 @@
 	      }
 	    });
 	  }
-	}).$mount('[data-js-archive="programs"]');
+	}).$mount('[data-js-archive="guides"]');
 
 })();
