@@ -7,12 +7,12 @@
     <img class="w-[150px] h-[70px] object-contain object-left p-[4px] pb-0" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
   </header>
   <div>
-    <div class="pb-2 desktop:pb-3 max-h-[90px]">
+    <div class="pb-2 desktop:pb-3 min-h-[90px]">
       <a href="{{ post.link }}" class="no-underline">
-        <h5 class="font-[600] text-[22.78px]">{{ post.employer_program_title }}</h5>
+        <h5 class="font-[600] text-[23px]">{{ post.employer_program_title }}</h5>
       </a>
     </div>
-    <div class="text-[20.25px] max-h-[90px]">
+    <div class="text-[20px] max-h-[90px]">
       {{ post.employer_program_preview }}
     </div>
   </div>
