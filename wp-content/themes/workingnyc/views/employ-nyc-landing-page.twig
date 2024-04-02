@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="bg-scale-2">
-  <main class="bg-scale-0" id="content">
-    <div class="site-max-width bg-scale-0">
+  <main class="bg-[#E9F4FD]" id="content">
+    <div class="site-max-width">
       {% include ['components/utility-nav.twig'] with {
         return: {
           'label': __('Home', 'WNYC'),
@@ -18,11 +18,11 @@
     </div>
 
     {# Header Section #}
-    <div class="site-max-width">
-      <header class="o-header">
+    <div class="bg-[#E9F4FD]">
+      <header class="site-max-width desktop:py-7 tablet:py-6 py-5">
         <div class="w-full">
-          <div class="o-header__title">
-            <h1 id="page-heading" class="o-header__heading">
+          <div>
+            <h1 id="page-heading" class="text-[40px] tablet:text-[50px] desktop:text-[55px] font-[600]">
               {% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}
             </h1>
           </div>
