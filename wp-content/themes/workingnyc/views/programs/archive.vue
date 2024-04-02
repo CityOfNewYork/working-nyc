@@ -165,6 +165,11 @@
                 <div class="grid grid-cols-1 gap-3 mb-3">
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
+
+                <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
+                  {{ strings.SHOW_MORE }}
+                </button>
+                <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
               </div>
 
               <div class="flex items-center text-em justify-center py-4" v-if="none">
