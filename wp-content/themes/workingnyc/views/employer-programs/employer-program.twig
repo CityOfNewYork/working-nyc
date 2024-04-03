@@ -2,17 +2,17 @@
 {# @For    Post Type #}
 {# @Class  timber-posts/Programs.php #}
 {# For homepage collection #}
-<article class="rounded border border-[#ECEFF2] p-3 w-full h-full">
+<article class="rounded-[5px] border-2 border-[#ECEFF2]  p-3 w-full h-full">
   <header class="pb-2 desktop:pb-3">
-    <img class="w-[140px] h-8 object-contain object-left" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
+    <img class="w-[150px] h-[70px] object-contain object-left p-[4px] pb-0" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
   </header>
   <div>
     <div class="pb-2 desktop:pb-3">
-      <a href="{{ post.link }}">
-        <h5 class="pb-1 font-[600]">{{ post.employer_program_title }}</h5>
+      <a href="{{ post.link }}" class="no-underline">
+        <h5 class="font-[600] text-[23px] tablet:text-[20px] text-[18px]">{{ post.employer_program_title }}</h5>
       </a>
     </div>
-    <div>
+    <div class="desktop:text-[20px] tablet:text-[18px] text-[16px] min-h-[90px]">
       {{ post.employer_program_preview }}
     </div>
   </div>
