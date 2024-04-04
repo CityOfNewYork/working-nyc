@@ -3,23 +3,22 @@
 {% block content %}
 <div class="bg-scale-2">
   <main class="bg-[#E9F4FD]" id="content">
-    <div class="site-max-width">
-      {% include ['components/utility-nav.twig'] with {
-        return: {
-          'label': __('Home', 'WNYC'),
-          'link': site.url
-        },
-        web_share: {
-          'title': post.title,
-          'text': (post.web_share_text) ? post.web_share_text,
-          'url': fn('wp_get_shortlink')
-        }
-      } %}
-    </div>
-
-    {# Header Section #}
-    <div class="bg-[#E9F4FD]">
-      <header class="site-max-width desktop:py-7 tablet:py-6 py-5">
+   {# Header Section #}
+    <div>
+      <header class="site-max-width pt-7 pb-[72px]">
+      <div>
+        {% include ['components/utility-nav.twig'] with {
+          return: {
+            'label': __('Home', 'WNYC'),
+            'link': site.url
+          },
+          web_share: {
+            'title': post.title,
+            'text': (post.web_share_text) ? post.web_share_text,
+            'url': fn('wp_get_shortlink')
+          }
+        } %}
+      </div>
         <div class="w-full">
           <div>
             <h1 id="page-heading" class="text-[40px] tablet:text-[50px] desktop:text-[55px] font-[600]">
@@ -39,9 +38,9 @@
           {% for section in sections %}
           <section {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
             {% if section.section_title %}
-            <div class="pt-utility-anchor bg-scale-0 sticky top-0 z-10">
+            <div class="bg-scale-0 sticky top-0 z-10 pt-5">
               <div class="wrap">
-                <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-2 tablet:py-3">
+                <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-3">
                   {{ section.section_title }}
                 </h3>
               </div>
