@@ -1,27 +1,29 @@
 <template>
   <div>
-    <div class="layout-content bg-[#EEF4FF]">
-      <div class="page-max">
-        <header class="o-header">
-          <div>
-            <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
-              <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
-              <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
-                <use href="#lucide-chevron-right"></use>
-              </svg>
+    <div class="bg-[#E3F1FD]">
+      <div class="site-max-width">
+        <div class="page-max">
+          <header class="o-header">
+            <div>
+              <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
+                <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
+                <svg aria-hidden="true" class="o-header__breadcrumbs-chevron icon-ui rtl:flip">
+                  <use href="#lucide-chevron-right"></use>
+                </svg>
 
-              <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
-            </nav>
+                <b aria-current="page">{{ strings.PAGE_TITLE }}</b>
+              </nav>
 
-            <div class="o-header__title">
-              <h1 id="page-heading" class="o-header__heading">{{ strings.PAGE_TITLE }}</h1>
+              <div class="o-header__title">
+                <h1 id="page-heading" class="o-header__heading">{{ strings.PAGE_TITLE }}</h1>
+              </div>
+
+              <div class="mb-2">
+                <p>{{ strings.PAGE_SUBTITLE }}</p>
+              </div>
             </div>
-
-            <div class="mb-2">
-              <p>{{ strings.PAGE_SUBTITLE }}</p>
-            </div>
-          </div>
-        </header>
+          </header>
+        </div>
       </div>
     </div>
     <div class="page-max mx-auto">

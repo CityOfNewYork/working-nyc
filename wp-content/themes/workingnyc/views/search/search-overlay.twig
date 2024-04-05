@@ -1,12 +1,12 @@
-<div class="o-search bg-scale-4 absolute z-50 hidden" aria-hidden="false" class="active" id="aria-c-search">
+<div class="o-search bg-[#E3F1FD] absolute z-50 hidden" aria-hidden="false" class="active" id="aria-c-search">
   <button class="o-search__close float-right" data-js="search" tabindex="-1" aria-controls="aria-c-search" data-dialog="close" aria-expanded="true">
     <svg class="icon-ui">
       <title>{{__('Close search', 'WNYC')}}</title>
       <use href="#lucide-x"></use>
     </svg>
   </button>
-  <div class="py-2 tablet:py-8">
-    <div class="justify-center flex">
+  <div class="py-2 tablet:py-8 site-max-width">
+    <div class="flex">
       <div class="block w-full" style="max-width: var(--nyco-dimension-content-width)">
         <label class="label pb-1">{{__('Search for work or services', 'WNYC')}}</label>
         {% include 'search/search-form.twig' %}
