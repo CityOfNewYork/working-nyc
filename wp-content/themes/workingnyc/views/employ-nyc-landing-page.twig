@@ -5,7 +5,7 @@
   <main class="bg-[#E9F4FD]" id="content">
    {# Header Section #}
     <div>
-      <header class="site-max-width pt-7 pb-[72px]">
+      <header class="site-max-width py-5 tablet:py-6 desktop:py-7">
       <div>
         {% include ['components/utility-nav.twig'] with {
           return: {
@@ -34,7 +34,7 @@
     {% if sections %}
     <div class="bg-scale-0">
       <div class="site-max-width pb-8 mb-8">
-        <div class="py-4">
+        <div class="py-2">
           {% for section in sections %}
           <section {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
             {% if section.section_title %}
