@@ -6,18 +6,21 @@
    {# Header Section #}
     <div>
       <header class="site-max-width py-5 tablet:py-6 desktop:py-7">
-      <div>
-        {% include ['components/utility-nav.twig'] with {
-          return: {
-            'label': __('Home', 'WNYC'),
-            'link': site.url
-          }
-        } %}
+      <div class="pb-2">
+        {% include 'components/breadcrumbs.twig' with {
+              crumbs: [
+                {
+                  'label': post.title,
+                  'link': ''
+                }
+              ]
+            }
+          %}
       </div>
         <div class="w-full">
           <div>
             <h1 id="page-heading" class="text-[40px] tablet:text-[50px] desktop:text-[55px] font-[600]">
-              {% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}
+              {{ post.title }}
             </h1>
           </div>
 

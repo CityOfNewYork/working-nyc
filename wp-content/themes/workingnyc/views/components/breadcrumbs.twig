@@ -2,7 +2,9 @@
 {# @For    Generic Templates #}
 <nav class="breadcrumbs flex flex-wrap" aria-label="Breadcrumb">
   <a
-  {% if employer == true %}
+  {% if hide_jobseeker_and_employer_navigation == true %}
+      href="{{ site.url }}"
+  {% elseif employer == true %}
       href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}"
   {% else %}
       href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}"
