@@ -47,7 +47,7 @@
                   <label class="c-question__label" for="{{ field.id }}">{{ field.label }}</label>
 
                   <div class="c-question__container">
-                    <div class="c-question__input">
+                    <div class="c-question__input desktop:w-[600px]">
                       <div class="input">
                         <input id="{{ field.id }}" name="{{ field.name }}" {% if field.required == "true" %}required="{{ field.required }}"{% endif %} type="{{ field.type }}" value="{% if field.name == 'EMAIL'%}{{ email }}{% endif %}">
                       </div>

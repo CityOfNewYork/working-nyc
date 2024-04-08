@@ -5,24 +5,22 @@
   <main class="bg-[#E9F4FD]" id="content">
    {# Header Section #}
     <div>
-      <header class="site-max-width pt-7 pb-[72px]">
-      <div>
-        {% include ['components/utility-nav.twig'] with {
-          return: {
-            'label': __('Home', 'WNYC'),
-            'link': site.url
-          },
-          web_share: {
-            'title': post.title,
-            'text': (post.web_share_text) ? post.web_share_text,
-            'url': fn('wp_get_shortlink')
-          }
-        } %}
+      <header class="site-max-width py-5 tablet:py-6 desktop:py-7">
+      <div class="pb-2">
+        {% include 'components/breadcrumbs.twig' with {
+              crumbs: [
+                {
+                  'label': post.title,
+                  'link': ''
+                }
+              ]
+            }
+          %}
       </div>
         <div class="w-full">
           <div>
             <h1 id="page-heading" class="text-[40px] tablet:text-[50px] desktop:text-[55px] font-[600]">
-              {% if function('is_404') %}{{ __('Page Not Found', 'WNYC') }}{% else %}{{ post.title }}{% endif %}
+              {{ post.title }}
             </h1>
           </div>
 
@@ -34,12 +32,12 @@
     {% if sections %}
     <div class="bg-scale-0">
       <div class="site-max-width pb-8 mb-8">
-        <div class="py-4">
+        <div class="py-2">
           {% for section in sections %}
           <section {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
             {% if section.section_title %}
             <div class="bg-scale-0 sticky top-0 z-10 pt-5">
-              <div class="wrap">
+              <div>
                 <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-3">
                   {{ section.section_title }}
                 </h3>
@@ -47,7 +45,7 @@
             </div>
             {% endif %}
 
-            <div class="wrap">
+            <div>
               {{ section.section_content }}
             </div>
           </section>
