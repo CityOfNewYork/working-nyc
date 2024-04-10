@@ -24,7 +24,7 @@
 
         <p class="mt-1 tablet:mt-2">{{ post.employer_program_preview }}</p>
         {% if post.meta('header_link') %}
-        <a href="{{ post.meta('header_link').url }}" target="{{ post.meta('header_link').target }}" class="text-[#30374F] no-underline mt-2 tablet:mt-3">
+        <a href="{{ post.meta('header_link').url }}" target="{{ post.meta('header_link').target }}" class="text-[#30374F] no-underline hover:underline mt-2 tablet:mt-3">
           <h6 class="font-bold">{{ post.meta('header_link').title }}</h6>
         </a>
         {% endif %}
