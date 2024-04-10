@@ -1,9 +1,9 @@
 {% extends "base.twig" %}
 
 {% block content %}
-  <div class="bg-scale-4">
-      <header class="o-header block px-4 tablet:px-6">
-        <div class="tablet:px-6 max-w-[896px]">
+  <div class="bg-[#E9F4FD]">
+      <header class="site-max-width block py-5 tablet:py-6 desktop:py-7">
+        <div class="max-w-[896px]">
           <div class="c-utility p-0 min-h-0 mb-3">
             <a class="link-icon mie-auto" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}">
               <svg aria-hidden="true" class="icon-ui rtl:flip">
@@ -20,13 +20,13 @@
       </header>
   </div>
 
-  <div data-js="search-results-list">
-    <section class="px-4 tablet:px-6">
+  <div class="site-max-width" data-js="search-results-list">
+    <section>
       {% if term != '' %}
         {% if posts|length > 0 %}
           {% block list_sidebar %}
           {% endblock %}
-          <div class="tablet:px-6">
+          <div>
             {% block before_list %}
             <h2 class="text-p font-p inline-block mt-4 mb-2">
               {% if posts|length > 1 %}
@@ -53,7 +53,7 @@
             {% endblock %}
           </div> 
         {% else %}
-        <div class="my-3 tablet:my-4 tablet:px-6">
+        <div class="my-3 tablet:my-4">
           <h4>{{__('No results for "{{ TERM }}"', 'WNYC')|replace({'{{ TERM }}': term})}}</h4>
           <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('Search help', 'WNYC')}}</h5>
           <list>
