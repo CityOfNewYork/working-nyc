@@ -2,18 +2,18 @@
 {# @For    Post Type #}
 {# @Class  timber-posts/Programs.php #}
 {# For homepage collection #}
-<article class="rounded-[5px] border-2 border-[#ECEFF2] p-3 w-full h-full">
-  <header class="pb-2 desktop:pb-3">
-    <img class="w-[150px] h-[70px] object-contain object-left p-[4px] pb-0" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
-  </header>
-  <div>
-    <div class="pb-2 desktop:pb-3">
-      <a href="{{ post.link }}" class="no-underline">
+<a href="{{ post.link }}" class="no-underline text-inherit font-[400] hover:shadow-[0_0_20px_3px_#EFF1F5]">
+  <article class="rounded-[5px] border-2 border-[#ECEFF2] p-3 w-full h-full">
+    <header class="pb-2 desktop:pb-3">
+      <img class="w-[150px] h-[70px] object-contain object-left p-[4px] pb-0" loading="lazy" src="{{ post.meta('employer_program_logo').url }}" alt="{{ post.meta('employer_program_logo').alt }}"/>
+    </header>
+    <div>
+      <div class="pb-2 desktop:pb-3">
         <h5 class="font-[600] text-[23px] tablet:text-[20px] text-[18px]">{{ post.employer_program_title }}</h5>
-      </a>
+      </div>
+      <div class="desktop:text-[20px] tablet:text-[18px] text-[16px] desktop:min-h-[90px] tablet:min-h-[81px] min-h-[96px]">
+        {{ post.employer_program_preview }}
+      </div>
     </div>
-    <div class="desktop:text-[20px] tablet:text-[18px] text-[16px] desktop:min-h-[90px] tablet:min-h-[81px] min-h-[96px]">
-      {{ post.employer_program_preview }}
-    </div>
-  </div>
-</article>
+  </article>
+</a>

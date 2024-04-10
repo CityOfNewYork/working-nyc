@@ -63,9 +63,7 @@
     <h3>{{ __('Similar services', 'WNYC') }}</h3>
     <div class="w-full grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2">
       {% for program in post.meta('similar_programs') %}
-      <div>
       {% include 'employer-programs/similar-employer-program.twig' with { post: program } %}
-      </div>
       {% endfor %}
     </div>
   </div>
