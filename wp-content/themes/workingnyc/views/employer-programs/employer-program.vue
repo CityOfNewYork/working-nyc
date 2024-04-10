@@ -1,6 +1,6 @@
 <template>
-  <a :href="post.link" class="no-underline text-inherit">
-    <article class="tablet:grid tablet:grid-cols-[140px_minmax(300px,1fr)] gap-x-3 p-3 rounded border border-scale-3">
+  <a :href="post.link" class="no-underline text-inherit hover:shadow-[0_0_20px_3px_#EFF1F5]">
+    <article class="tablet:grid tablet:grid-cols-[140px_minmax(300px,1fr)] gap-x-3 p-3 rounded border-2 border-[#ECEFF2]">
       <img class="w-[140px] h-[64px] object-contain object-left mb-3" v-if="post.logo" :src="post.logo.url" loading="lazy" :alt="post.logo.alt"/>
       <div v-else></div>
       <div>
