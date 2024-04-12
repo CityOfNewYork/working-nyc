@@ -44,14 +44,12 @@
             <div class="hidden desktop:flex pr-2" v-if="totalFilters > 0">Active filters</div>
             <template v-for="term in terms">
               <template v-for="filter in term.filters">
-                <div class="small rounded p-1 bg-scale-2 mr-1 flex bg-[#EFF1F5]" v-if="filter.checked">
+                <button class="small rounded p-1 bg-scale-2 mr-1 flex items-center bg-[#EFF1F5] hover:bg-[#DCDFEA] active:bg-[#DCDFEA] no-underline text-[#080707]" v-if="filter.checked" @click="click({event: $event, data: filter})">
                     <span class="text-nowrap ">{{ filter.name }}</span>
-                    <button class="rounded hover:bg-[#DCDFEA] active:bg-[#DCDFEA]" @click="click({event: $event, data: filter})">
-                      <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
-                        <use href="#lucide-x"></use>
-                      </svg>
-                    </button>
-                </div>
+                    <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
+                      <use href="#lucide-x"></use>
+                    </svg>
+                </button>
               </template>
             </template>
             <button class="hidden desktop:flex small text-black no-underline hover:underline active:underline font-[600]" v-if="totalFilters > 0" @click="reset">{{ strings.RESET }}</button>
