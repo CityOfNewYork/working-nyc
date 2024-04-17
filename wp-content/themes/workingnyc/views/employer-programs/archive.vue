@@ -44,7 +44,7 @@
               <template v-for="filter in term.filters">
                 <button class="small rounded p-1 bg-scale-2 mr-1 flex items-center bg-[#EFF1F5] hover:bg-[#DCDFEA] active:bg-[#DCDFEA] no-underline text-[#080707]" v-if="filter.checked" @click="click({event: $event, data: filter})">
                     <span class="text-nowrap ">{{ filter.name }}</span>
-                    <svg aria-hidden="true" class="icon-ui stroke-black" tabindex="-1">
+                    <svg width="16" height="16" class="icon-ui stroke-black mr-2" tabindex="-1">
                       <use href="#lucide-x"></use>
                     </svg>
                 </button>
