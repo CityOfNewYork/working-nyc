@@ -39,7 +39,7 @@
 
     <div class="bg-[#F4F7FA] tablet:bg-white tablet:px-[104px] max-w-[1440px] desktop:mx-auto pb-5 tablet:py-7">
         <div class="desktop:grid desktop:grid-cols-[1fr_1.15fr] items-center tablet:gap-x-6">
-            <img class="w-full h-[420px] object-cover mb-4 desktop:mb-0" src="{{ post.meta('container_image').url }}" alt="{{ post.meta('container_image').alt }}"/>
+            <img class="w-full h-[420px] object-cover mb-4 desktop:mb-0" src="{{ post.meta('container_image').url }}" alt="{{ post.meta('container_image').alt }}" style="object-position: {{ post.meta('container_image_focal_point') }};"/>
             <div class="text-center tablet:text-left px-3 tablet:px-0 desktop-max-h-304 w-full">
                 <h2 class="mb-4 font-[600]">{{ post.meta('container_header') }}</h2>
                 <div class="text-[16px] mb-4">{{ post.meta('container_subtitle') }}</div>
@@ -58,7 +58,7 @@
     {% if post.meta('container_header_2') != "" %}
     <div class="bg-[#F4F7FA] tablet:bg-white tablet:px-[104px] max-w-[1440px] desktop:mx-auto pb-5 tablet:py-7">
         <div class="desktop:grid desktop:grid-cols-[1fr_1.15fr] items-center tablet:gap-x-6">
-            <img class="w-full h-[420px] object-cover mb-4 desktop:hidden" src="{{ post.meta('container_image_2').url }}" alt="{{ post.meta('container_image_2').alt }}"/>
+            <img class="w-full h-[420px] object-cover mb-4 desktop:hidden" src="{{ post.meta('container_image_2').url }}" alt="{{ post.meta('container_image_2').alt }}" style="object-position: {{ post.meta('container_image_2_focal_point') }};"/>
             <div class="text-center tablet:text-left px-3 tablet:px-0 desktop-max-h-304 w-full">
                 <h2 class="mb-4 font-[600]">{{ post.meta('container_header_2') }}</h2>
                 <div class="text-[16px] mb-4">{{ post.meta('container_subtitle_2') }}</div>
@@ -71,7 +71,7 @@
                     </a>
                 </div>
             </div>
-            <img class="w-full h-[420px] object-cover mb-0 hidden desktop:block" src="{{ post.meta('container_image_2').url }}" alt="{{ post.meta('container_image_2').alt }}"/>
+            <img class="w-full h-[420px] object-cover mb-0 hidden desktop:block" src="{{ post.meta('container_image_2').url }}" alt="{{ post.meta('container_image_2').alt }}" style="object-position: {{ post.meta('container_image_2_focal_point') }};"/>
         </div>
     </div>
     {% endif %}
