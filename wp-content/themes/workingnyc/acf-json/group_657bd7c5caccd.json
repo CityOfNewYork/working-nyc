@@ -262,6 +262,26 @@
             "mime_types": ""
         },
         {
+            "key": "field_662bed4c70b98",
+            "label": "Container image focal point",
+            "name": "container_image_focal_point",
+            "type": "text",
+            "instructions": "The focal point is expressed as an \"x y\" coordinate and will be set to the \"object position\" CSS property. When the image is resized within the browser window, this coordinate of the image will mostly be kept in view. Both the x and the y value should be percentages points that generally intersect with the position on the image that needs to be focused on. For example; 50% 50% would center the image, 25% 75% would keep the top right part of the image in view.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "50% 50%",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_65df64bdf93d5",
             "label": "Container link",
             "name": "container_link",
@@ -341,6 +361,26 @@
             "max_height": "",
             "max_size": "",
             "mime_types": ""
+        },
+        {
+            "key": "field_662bed8770b99",
+            "label": "Container image 2 focal point",
+            "name": "container_image_2_focal_point",
+            "type": "text",
+            "instructions": "The focal point is expressed as an \"x y\" coordinate and will be set to the \"object position\" CSS property. When the image is resized within the browser window, this coordinate of the image will mostly be kept in view. Both the x and the y value should be percentages points that generally intersect with the position on the image that needs to be focused on. For example; 50% 50% would center the image, 25% 75% would keep the top right part of the image in view.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "50% 50%",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         },
         {
             "key": "field_6605ad1a7a0ff",
@@ -444,5 +484,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1711648073
+    "modified": 1714154918
 }
