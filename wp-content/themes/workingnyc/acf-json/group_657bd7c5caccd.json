@@ -283,9 +283,9 @@
         },
         {
             "key": "field_65df64bdf93d5",
-            "label": "Container link",
-            "name": "container_link",
-            "type": "link",
+            "label": "Container links",
+            "name": "container_links",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -295,7 +295,29 @@
                 "id": ""
             },
             "relevanssi_exclude": 0,
-            "return_format": "array"
+            "collapsed": "",
+            "min": 1,
+            "max": 2,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_662fef6fc0384",
+                    "label": "link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "return_format": ""
+                }
+            ]
         },
         {
             "key": "field_6605ace97a0fc",
@@ -383,10 +405,10 @@
             "maxlength": ""
         },
         {
-            "key": "field_6605ad1a7a0ff",
-            "label": "Container link 2",
-            "name": "container_link_2",
-            "type": "link",
+            "key": "field_662fef86c0385",
+            "label": "Container 2 links",
+            "name": "container_2_links",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -396,7 +418,29 @@
                 "id": ""
             },
             "relevanssi_exclude": 0,
-            "return_format": "array"
+            "collapsed": "",
+            "min": 1,
+            "max": 2,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_662fef86c0386",
+                    "label": "link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "return_format": "array"
+                }
+            ]
         },
         {
             "key": "field_659ef71c52afa",
@@ -484,5 +528,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714154918
+    "modified": 1714417576
 }
