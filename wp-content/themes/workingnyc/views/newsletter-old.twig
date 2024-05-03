@@ -25,29 +25,59 @@
     <section class="site-max-width">
       <div>
         <div class="pb-8 mb-8">
+          {% if newsletter_message %}
+          <article class="c-alert c-alert-status-primary mt-5" data-js="alert-warning">
+            <div class="c-alert__graphic">
+              <svg aria-hidden="true" class="icon-ui">
+                <use href="#lucide-info"></use>
+              </svg>
+            </div>
+
+            <div class="c-alert__body">
+              <p data-js-alert="text">{{ __('To receive the most relevant information, please answer the following optional questions.', 'WNYC-Newsletter')}}</p>
+            </div>
+          </article>
+          {% endif %}
+
           <div data-js="newsletter-form">
             <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank" novalidate="true">
-              <div class="c-question">
-                <label class="c-question__label" for="mce-EMAIL">{{ __('Email', 'WNYC') . '*' }}</label>
-                <div class="c-question__container">
-                  <div class="c-question__input desktop:w-[600px]">
-                    <div class="input">
-                      <input id="mce-EMAIL" name="EMAIL" required type="email" value="{{ email }}">
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {% for field in form_fields%}
+                {% if field.type != 'checkbox' %}
+                <div class="c-question">
+                  <label class="c-question__label" for="{{ field.id }}">{{ field.label }}</label>
 
-              <div class="c-question">
-                <label class="c-question__label" for="mce-ZIPCODE">{{ __('Zipcode', 'WNYC') . '*' }}</label>
-                <div class="c-question__container">
-                  <div class="c-question__input desktop:w-[600px]">
-                    <div class="input">
-                      <input id="mce-ZIPCODE" name="ZIPCODE" required type="text" pattern="[0-9]{5}">
+                  <div class="c-question__container">
+                    <div class="c-question__input desktop:w-[600px]">
+                      <div class="input">
+                        <input id="{{ field.id }}" name="{{ field.name }}" {% if field.required == "true" %}required="{{ field.required }}"{% endif %} type="{{ field.type }}" value="{% if field.name == 'EMAIL'%}{{ email }}{% endif %}">
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+                {% else %}
+                <fieldset	class="c-question">
+                  <legend class="c-question__label">{{ field.legend }}</legend>
+
+                  <div class="c-question__container grid grid-cols-1 tablet:grid-cols-2 gap-2">
+                    {% for subfield in field.fields%}
+                    <label class="option" for="{{ subfield.for }}">
+                      <span class="sr-only">Select interests (option {{ loop.index }} of {{ field.fields|length }}): </span>
+
+                      <input id="{{ subfield.id }}" name="{{ subfield.name }}" type="checkbox" value="{{ subfield.value }}">
+
+                      <span class="option__base">
+                        <svg aria-hidden="true" class="option__graphic">
+                          <use href="#option-nyco-checkbox"></use>
+                        </svg>
+
+                        <span class="option__label">{{ subfield.label }}</span>
+                      </span>
+                    </label>
+                    {% endfor %}
+                  </div>
+                </fieldset>
+                {% endif %}
+              {% endfor %}
 
               <button class="btn-primary" type="submit">Submit</button>
 
