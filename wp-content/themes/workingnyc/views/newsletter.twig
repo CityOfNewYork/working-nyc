@@ -4,8 +4,8 @@
 <div class="bg-scale-2">
   <main class="bg-scale-0" id="content">
     {# Header Section #}
-    <div class="site-max-width">
-      <header class="o-header px-0">
+    <div class="bg-[#E3F1FD]">
+      <header class="site-max-width py-5 tablet:py-6 desktop:py-7">
         <div>
           {% include 'components/breadcrumbs.twig' with {
               crumbs: [
@@ -17,77 +17,61 @@
             }
           %}
 
-          <h1 id="page-heading" class="o-header__title">{{ post.title }}</h1>
-            <div>{{options.newsletter_description}}</div>
+          <h1 id="page-heading" class="o-header__title mt-3 tablet:mt-5 desktop:mt-6 mb-1 tablet:mb-2">{{ post.title }}</h1>
+          <div>{{post.content}}</div>
         </div>
       </header>
     </div>
     <section class="site-max-width">
-      <div>
-        <div class="pb-8 mb-8">
-          <div data-js="newsletter-form">
-            <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank" novalidate="true">
-              <div class="c-question">
-                <label class="c-question__label" for="mce-EMAIL">{{ __('Email', 'WNYC') . '*' }}</label>
-                <div class="c-question__container">
-                  <div class="c-question__input desktop:w-[600px]">
-                    <div class="input">
-                      <input id="mce-EMAIL" name="EMAIL" required type="email" value="{{ email }}">
-                    </div>
-                  </div>
-                </div>
+      <div class="py-5 tablet:py-6">
+        <div data-js="newsletter-form">
+          <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank" novalidate="true">
+            <div class="flex flex-col">
+              <label class="mb-1" for="mce-EMAIL">{{ __('Email', 'WNYC') ~ '*' }}</label>
+              <input class="w-full max-w-[342px] rounded border border-[#C1C6CB] mb-1" id="mce-EMAIL" name="EMAIL" required type="email" value="{{ email }}">
+              
+              <label class="mb-1" for="mce-ZIPCODE">{{ __('Zipcode', 'WNYC') ~ '*' }}</label>
+              <input class="w-full max-w-[160px] tablet:max-w-[100px] rounded border border-[#C1C6CB] mb-3" id="mce-ZIPCODE" name="ZIPCODE" required type="text" pattern="[0-9]{5}">
+            </div>
+
+            <button class="btn-secondary" type="submit">Submit</button>
+
+            <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-info"></use>
+                </svg>
               </div>
 
-              <div class="c-question">
-                <label class="c-question__label" for="mce-ZIPCODE">{{ __('Zipcode', 'WNYC') . '*' }}</label>
-                <div class="c-question__container">
-                  <div class="c-question__input desktop:w-[600px]">
-                    <div class="input">
-                      <input id="mce-ZIPCODE" name="ZIPCODE" required type="text" pattern="[0-9]{5}">
-                    </div>
-                  </div>
-                </div>
+              <div class="c-alert__body">
+                <p data-js-alert="text">{{ __('Please fill out the required fields and submit again.', 'WNYC') }}</p>
+              </div>
+            </article>
+
+            <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-info"></use>
+                </svg>
               </div>
 
-              <button class="btn-primary" type="submit">Submit</button>
+              <div class="c-alert__body">
+                <p data-js-alert="text"></p>
+              </div>
+            </article>
 
-              <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
-                <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-ui">
-                    <use href="#lucide-info"></use>
-                  </svg>
-                </div>
+            <article aria-hidden="true" class="c-alert c-alert-status-secondary mt-5 hidden" data-js="alert-success" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-info"></use>
+                </svg>
+              </div>
 
-                <div class="c-alert__body">
-                  <p data-js-alert="text">{{ __('Please fill out the required fields and submit again.', 'WNYC') }}</p>
-                </div>
-              </article>
-
-              <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
-                <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-ui">
-                    <use href="#lucide-info"></use>
-                  </svg>
-                </div>
-
-                <div class="c-alert__body">
-                  <p data-js-alert="text"></p>
-                </div>
-              </article>
-
-              <article aria-hidden="true" class="c-alert c-alert-status-secondary mt-5 hidden" data-js="alert-success" role="alert">
-                <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-ui">
-                    <use href="#lucide-info"></use>
-                  </svg>
-                </div>
-
-                <div class="c-alert__body">
-                  <p data-js-alert="text"></p>
-                </div>
-              </article>
-            </form>
-          </div>
+              <div class="c-alert__body">
+                <p data-js-alert="text"></p>
+              </div>
+            </article>
+          </form>
         </div>
       </div>
     </section>

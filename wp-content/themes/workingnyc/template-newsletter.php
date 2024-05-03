@@ -20,16 +20,14 @@ $context['meta'] = new WorkingNYC\Meta($post);
 
 $context['post'] = $post;
 
+$context['hide_jobseeker_and_employer_footer'] = true;
+
 // Enqueue
 add_action('wp_enqueue_scripts', function() {
   enqueue_script('newsletter');
 });
 
-$template = 'newsletter-old.twig';
-
-$context['show_newsletter'] = false;
-
-$context['form_fields'] = WorkingNYC\parse_fields($post->content);
+$template = 'newsletter.twig';
 
 // Populated email from newsletter object
 if (isset($_REQUEST['EMAIL'])) {
