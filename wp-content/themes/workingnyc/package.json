@@ -18,7 +18,8 @@
     "regenerator-runtime": "^0.13.9",
     "vue": "^2.6.12",
     "vue-router": "^3.3.4",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "for-cerial": "^1.0.0"
   },
   "devDependencies": {
     "@hail2u/css-mqpacker": "^9.0.1",
