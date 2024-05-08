@@ -71,7 +71,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     
     newsletter._data = {
       'result': params.get('result'),
-      'msg': 'Please click the confirmation link to start receiving our newsletter.',
+      'msg': 'Test message',
       'EMAIL': email
     };
 
