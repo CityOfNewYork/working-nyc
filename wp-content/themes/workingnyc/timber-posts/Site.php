@@ -35,7 +35,7 @@ class Site extends TimberSite {
     $context['language_code'] = ICL_LANGUAGE_CODE;
 
     $context['newsletter_link'] = (ICL_LANGUAGE_CODE === 'en') ?
-      '/newsletter' : '/' . ICL_LANGUAGE_CODE . '/newsletter';
+      '/jobseekers/newsletter' : '/' . ICL_LANGUAGE_CODE . '/jobseekers/newsletter';
 
     $context['direction'] = (ICL_LANGUAGE_CODE === 'ar' || ICL_LANGUAGE_CODE === 'ur') ?
       'rtl' : 'ltr';
