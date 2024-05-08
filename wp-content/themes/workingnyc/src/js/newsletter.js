@@ -33,8 +33,6 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
     if (!submit.classList.contains(newsletter.classes.HIDDEN)) {
       submit.classList.add(newsletter.classes.HIDDEN);
 
-      console.log(submit.classList);
-
       // Screen Readers
       submit.setAttribute('aria-hidden', 'true');
       submit.querySelector(newsletter.selectors.ALERT_TEXT)

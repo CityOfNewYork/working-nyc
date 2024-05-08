@@ -177,6 +177,12 @@
         this.strings[`VALID_${el.type.toUpperCase()}_INVALID`]) {
         let stringKey = `VALID_${el.type.toUpperCase()}_INVALID`;
         message.innerHTML = this.strings[stringKey];
+      } 
+      else if (!el.validity.valid &&
+          this.strings[`VALID_${el.name.toUpperCase()}_INVALID`]) {
+          // necessary for ZIP code because zipcode is not an input type
+          let stringKey = `VALID_${el.name.toUpperCase()}_INVALID`;
+          message.innerHTML = this.strings[stringKey];
       } else {
         message.innerHTML = el.validationMessage;
       }
@@ -618,36 +624,6 @@
 
     if (element) {
       newsletter = new Newsletter(element);
-
-      // newsletter.form.FORM.addEventListener('submit', (event) => {
-      //   event.preventDefault();
-
-      //   // TBD validate fields
-      //   console.log(1);
-
-      //   let emailField = element.querySelector('[id="mce-EMAIL"]');
-      //   let zipField = element.querySelector('[id="mce-ZIPCODE"]');
-
-      //   let emailValid = false;
-      //   let zipValid = zipField.checkValidity();
-
-      //   if (EMAIL_REGEX.test(String(emailField.value).toLowerCase())) {
-      //     emailValid = true;
-      //   }
-      //   else {
-      //     console.log(2);
-      //   }
-
-      //   if(!zipValid) {
-      //     console.log(3);
-      //   }
-
-      //   if (emailValid && zipValid) {
-      //     newsletter._submit(event)
-      //       .then(newsletter._onload)
-      //       .catch(newsletter._onerror);
-      //   }
-      // });
     }
 
     let params = new URLSearchParams(window.location.search);
@@ -660,8 +636,6 @@
 
       if (!submit.classList.contains(newsletter.classes.HIDDEN)) {
         submit.classList.add(newsletter.classes.HIDDEN);
-
-        console.log(submit.classList);
 
         // Screen Readers
         submit.setAttribute('aria-hidden', 'true');
