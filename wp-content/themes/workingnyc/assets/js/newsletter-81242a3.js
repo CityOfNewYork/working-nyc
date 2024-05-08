@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  // adapted from @nycopportunity/pttrn-scripts/src/forms/forms.js
+
   /**
    * Utilities for Form components
    * @class
@@ -136,6 +138,7 @@
       let message = container.querySelector('.' + this.classes.ERROR_MESSAGE);
 
       // Remove old messaging if it exists
+      el.classList.remove(this.classes.ERROR_INPUT);
       container.classList.remove(this.classes.ERROR_CONTAINER);
       if (message) message.remove();
 
@@ -167,14 +170,16 @@
       let id = `${el.getAttribute('id')}-${this.classes.ERROR_MESSAGE}`;
 
       // Get the error message from localized strings (if set).
-      if (el.validity.valueMissing && this.strings.VALID_REQUIRED)
-        message.innerHTML = this.strings.VALID_REQUIRED;
+      if (el.validity.valueMissing && this.strings.VALID_REQUIRED) {
+          message.innerHTML = this.strings.VALID_REQUIRED;
+      }
       else if (!el.validity.valid &&
         this.strings[`VALID_${el.type.toUpperCase()}_INVALID`]) {
         let stringKey = `VALID_${el.type.toUpperCase()}_INVALID`;
         message.innerHTML = this.strings[stringKey];
-      } else
+      } else {
         message.innerHTML = el.validationMessage;
+      }
 
       // Set aria attributes and css classes to the message
       message.setAttribute('id', id);
@@ -192,6 +197,7 @@
       // Add dynamic attributes to the input
       el.setAttribute(this.attrs.ERROR_INPUT[0], this.attrs.ERROR_INPUT[1]);
       el.setAttribute(this.attrs.ERROR_LABEL, id);
+      el.classList.add(this.classes.ERROR_INPUT);
 
       return this;
     }
@@ -213,7 +219,8 @@
   Forms.classes = {
     'ERROR_MESSAGE': 'error-message', // error class for the validity message
     'ERROR_CONTAINER': 'error', // class for the validity message parent
-    'ERROR_FORM': 'error'
+    'ERROR_FORM': 'error',
+    'ERROR_INPUT': 'error-input'
   };
 
   /** HTML tags and markup for various elements */
@@ -401,7 +408,9 @@
      */
     _success(msg) {
       this._elementsReset();
-      this._messaging('SUCCESS', msg);
+
+      // Use this message instead of the message from the Mailchimp API
+      this._messaging('SUCCESS', 'Please click the confirmation link to start receiving our newsletter.');
 
       return this;
     }
@@ -458,9 +467,9 @@
      * @return  {Class}  Newsletter
      */
     _elementsReset() {
-      let targets = this._el.querySelectorAll(this.selectors.ALERTS);
+      let targets = this._el.querySelectorAll(this.selectors.ALERTS + ", " + this.selectors.FORM_FIELDS + ", " + this.selectors.SUBMIT);
 
-      for (let i = 0; i < targets.length; i++)
+      for (let i = 0; i < targets.length; i++) {
         if (!targets[i].classList.contains(this.classes.HIDDEN)) {
           targets[i].classList.add(this.classes.HIDDEN);
 
@@ -470,9 +479,14 @@
 
           // Screen Readers
           targets[i].setAttribute('aria-hidden', 'true');
-          targets[i].querySelector(this.selectors.ALERT_TEXT)
-            .setAttribute('aria-live', 'off');
+          if (targets[i].querySelector(this.selectors.ALERT_TEXT)) {
+              targets[i].querySelector(this.selectors.ALERT_TEXT)
+                  .setAttribute('aria-live', 'off');
+          }
         }
+      }
+
+      this._elementShow(this._el.querySelector(this.selectors.HOME_BUTTON));
 
       return this;
     }
@@ -536,7 +550,10 @@
     ALERTS: '[data-js*="alert"]',
     WARNING: '[data-js="alert-warning"]',
     SUCCESS: '[data-js="alert-success"]',
-    ALERT_TEXT: '[data-js-alert="text"]'
+    ALERT_TEXT: '[data-js-alert="text"]',
+    FORM_FIELDS: '[data-js="form-fields"]',
+    SUBMIT: '[type=submit]',
+    HOME_BUTTON: '[data-js="home-button"]'
   };
 
   /** @type  {String}  The main DOM selector for the instance */
@@ -556,6 +573,8 @@
     VALID_REQUIRED: 'This field is required.',
     VALID_EMAIL_REQUIRED: 'Email is required.',
     VALID_EMAIL_INVALID: 'Please enter a valid email.',
+    VALID_ZIPCODE_REQUIRED: 'ZIP code is required.',
+    VALID_ZIPCODE_INVALID: 'Please enter a valid ZIP code.',
     VALID_CHECKBOX_BOROUGH: 'Please select a borough.',
     ERR_PLEASE_TRY_LATER: 'There was an error with your submission. ' +
                           'Please try again later.',
@@ -589,9 +608,7 @@
    * @author NYC Opportunity
    */
 
-  /**
-   * Init
-   */
+  const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   /**
    * Newsletter Form
@@ -600,36 +617,81 @@
     let newsletter = null;
 
     if (element) {
-      let submit = element.querySelector('[type=submit]');
-      let error = element.querySelector('[data-js="alert-error"]');
-
       newsletter = new Newsletter(element);
-      newsletter.form.selectors.ERROR_MESSAGE_PARENT = '.c-question__container';
 
-      // display error on invalid form
-      submit.addEventListener('click', function() {
-        if (response == null) {
-          error.setAttribute('aria-hidden', 'false');
+      // newsletter.form.FORM.addEventListener('submit', (event) => {
+      //   event.preventDefault();
 
-          error.classList.remove('hidden');
-        }
-      });
+      //   // TBD validate fields
+      //   console.log(1);
+
+      //   let emailField = element.querySelector('[id="mce-EMAIL"]');
+      //   let zipField = element.querySelector('[id="mce-ZIPCODE"]');
+
+      //   let emailValid = false;
+      //   let zipValid = zipField.checkValidity();
+
+      //   if (EMAIL_REGEX.test(String(emailField.value).toLowerCase())) {
+      //     emailValid = true;
+      //   }
+      //   else {
+      //     console.log(2);
+      //   }
+
+      //   if(!zipValid) {
+      //     console.log(3);
+      //   }
+
+      //   if (emailValid && zipValid) {
+      //     newsletter._submit(event)
+      //       .then(newsletter._onload)
+      //       .catch(newsletter._onerror);
+      //   }
+      // });
     }
 
     let params = new URLSearchParams(window.location.search);
     let response = params.get('response');
-    let res = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (response && newsletter) {
+      // hide form fields and submit button
+      let submit = element.querySelector('[type=submit]');
+      let fields = element.querySelector('[data-js="form-fields"]');
+
+      if (!submit.classList.contains(newsletter.classes.HIDDEN)) {
+        submit.classList.add(newsletter.classes.HIDDEN);
+
+        console.log(submit.classList);
+
+        // Screen Readers
+        submit.setAttribute('aria-hidden', 'true');
+        submit.querySelector(newsletter.selectors.ALERT_TEXT)
+          .setAttribute('aria-live', 'off');
+      }
+
+      if (!fields.classList.contains(newsletter.classes.HIDDEN)) {
+        fields.classList.add(newsletter.classes.HIDDEN);
+
+        // Screen Readers
+        fields.setAttribute('aria-hidden', 'true');
+        fields.querySelector(newsletter.selectors.ALERT_TEXT)
+          .setAttribute('aria-live', 'off');
+      }
+
+      // show return home button
+      let homeButton = element.querySelector('[data-js="home-button"]');
+      newsletter._elementShow(homeButton);
+
       let email = params.get('email');
       let input = element.querySelector('input[name="EMAIL"]');
 
-      if (res.test(String(email).toLowerCase()))
+      if (EMAIL_REGEX.test(String(email).toLowerCase())) {
         input.value = email;
-
+      }
+      
       newsletter._data = {
         'result': params.get('result'),
-        'msg': params.get('msg'),
+        'msg': 'Test message',
         'EMAIL': email
       };
 
