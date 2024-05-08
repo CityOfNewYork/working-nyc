@@ -27,17 +27,22 @@
         <div data-js="newsletter-form">
           <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank">
             <div class="flex flex-col" data-js="form-fields">
-              <label class="mb-1" for="mce-EMAIL">{{ __('Email', 'WNYC') ~ '*' }}</label>
-              <input class="w-full max-w-[342px] rounded border border-[#C1C6CB] mb-1" id="mce-EMAIL" name="EMAIL" required type="email" value="{{ email }}">
-              
-              <label class="mb-1" for="mce-ZIPCODE">{{ __('Zipcode', 'WNYC') ~ '*' }}</label>
-              <input class="w-full max-w-[160px] tablet:max-w-[100px] rounded border border-[#C1C6CB] mb-3" id="mce-ZIPCODE" name="ZIPCODE" required type="text" pattern="[0-9]{5}">
+              <div class="">
+                <label class="mb-1" for="mce-EMAIL">{{ __('Email', 'WNYC') ~ '*' }}</label>
+                <div class="mt-1">
+                  <input class="w-full max-w-[342px] rounded border border-[#C1C6CB] mb-1" id="mce-EMAIL" name="EMAIL" required="true" type="email" value="{{ email }}">
+                </div>
+              </div>
+
+              <div>
+                <label class="mb-1" for="mce-ZIPCODE">{{ __('ZIP code', 'WNYC') ~ '*' }}</label>
+                <div class="mt-1">
+                  <input class="w-full max-w-[160px] tablet:max-w-[100px] rounded border border-[#C1C6CB] mb-3" id="mce-ZIPCODE" name="ZIPCODE" required="true" type="zipcode" pattern="[0-9]{5}">
+                </div>
+              </div>
             </div>
 
             <button class="btn-secondary" type="submit">Submit</button>
-            <a class="btn-secondary hidden" 
-              href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}" 
-              data-js="home-button">Return to home</a>
 
             <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
               <div class="c-alert__graphic">
@@ -47,7 +52,7 @@
               </div>
 
               <div class="c-alert__body">
-                <p data-js-alert="text">{{ __('Please fill out the required fields and submit again.', 'WNYC') }}</p>
+                <p data-js-alert="text">{{ __('There was an error submitting the form. Please fill out the required fields and submit again.', 'WNYC') }}</p>
               </div>
             </article>
 
@@ -59,7 +64,7 @@
               </div>
 
               <div class="c-alert__body">
-                <p data-js-alert="text"></p>
+                <p data-js-alert="text">{{ __('There was an error submitting the form. Please fill out the required fields and submit again.', 'WNYC') }}</p>
               </div>
             </article>
 
@@ -75,6 +80,15 @@
                 <p data-js-alert="text">{{ __('Please click the confirmation link to start receiving our newsletter.', 'WNYC') }}</p>
               </div>
             </article>
+
+            <a class="btn-styled hidden" 
+              href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}" 
+              data-js="home-button">
+              <svg aria-hidden="true" class="icon-ui rtl:flip">
+                <use href="#lucide-arrow-left"></use>
+              </svg>
+              <span>Return to home</span>
+              </a>
           </form>
         </div>
       </div>
