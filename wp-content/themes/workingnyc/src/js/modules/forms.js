@@ -175,6 +175,12 @@ class Forms {
       this.strings[`VALID_${el.type.toUpperCase()}_INVALID`]) {
       let stringKey = `VALID_${el.type.toUpperCase()}_INVALID`;
       message.innerHTML = this.strings[stringKey];
+    } 
+    else if (!el.validity.valid &&
+        this.strings[`VALID_${el.name.toUpperCase()}_INVALID`]) {
+        // necessary for ZIP code because zipcode is not an input type
+        let stringKey = `VALID_${el.name.toUpperCase()}_INVALID`;
+        message.innerHTML = this.strings[stringKey];
     } else {
       message.innerHTML = el.validationMessage;
     }
