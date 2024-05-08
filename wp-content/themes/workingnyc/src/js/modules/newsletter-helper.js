@@ -176,8 +176,13 @@ class Newsletter {
   _success(msg) {
     this._elementsReset();
 
+    if (msg.includes(this.stringKeys.ERR_ALREADY_SUBSCRIBED)) {
+        this._messaging('ALREADY_SUBSCRIBED');
+        return this;
+    }
+
     // Use this message instead of the message from the Mailchimp API
-    this._messaging('SUCCESS', 'Please click the confirmation link to start receiving our newsletter.');
+    this._messaging('SUCCESS');
 
     return this;
   }
@@ -317,6 +322,7 @@ Newsletter.selectors = {
   ALERTS: '[data-js*="alert"]',
   WARNING: '[data-js="alert-warning"]',
   SUCCESS: '[data-js="alert-success"]',
+  ALREADY_SUBSCRIBED: '[data-js="alert-already-subscribed"]',
   ALERT_TEXT: '[data-js-alert="text"]',
   FORM_FIELDS: '[data-js="form-fields"]',
   SUBMIT: '[type=submit]',
@@ -331,7 +337,7 @@ Newsletter.stringKeys = {
   SUCCESS_CONFIRM_EMAIL: 'Almost finished...',
   ERR_PLEASE_ENTER_VALUE: 'Please enter a value',
   ERR_TOO_MANY_RECENT: 'too many',
-  ERR_ALREADY_SUBSCRIBED: 'is already subscribed',
+  ERR_ALREADY_SUBSCRIBED: 'You\'re already subscribed',
   ERR_INVALID_EMAIL: 'looks fake or invalid'
 };
 

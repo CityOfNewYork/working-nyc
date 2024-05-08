@@ -47,7 +47,7 @@
             <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
               <div class="c-alert__graphic">
                 <svg aria-hidden="true" class="icon-ui">
-                  <use href="#lucide-info"></use>
+                  <use href="#lucide-alert-triangle"></use>
                 </svg>
               </div>
 
@@ -59,7 +59,7 @@
             <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
               <div class="c-alert__graphic">
                 <svg aria-hidden="true" class="icon-ui">
-                  <use href="#lucide-info"></use>
+                  <use href="#lucide-alert-triangle"></use>
                 </svg>
               </div>
 
@@ -78,6 +78,19 @@
               <div class="c-alert__body">
                 <b>{{ __('Check your email to confirm your subscription.', 'WNYC') }}</b>
                 <p data-js-alert="text">{{ __('Please click the confirmation link to start receiving our newsletter.', 'WNYC') }}</p>
+              </div>
+            </article>
+
+            <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-already-subscribed" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-alert-triangle"></use>
+                </svg>
+              </div>
+
+              <div class="c-alert__body">
+                <b>{{ __('This email is already registered.', 'WNYC') }}</b>
+                <p data-js-alert="text">{{ __('Please check your inbox again or use a different email to subscribe.', 'WNYC') }}</p>
               </div>
             </article>
 
