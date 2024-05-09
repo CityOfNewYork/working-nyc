@@ -19,6 +19,9 @@
 
       this.submit = Forms.submit;
 
+      // whether the user has attempted to submit the form
+      this.hasSubmitted = false;
+
       this.classes = Forms.classes;
 
       this.markup = Forms.markup;
@@ -79,7 +82,9 @@
         this.reset(el);
 
         // If this input valid, skip messaging
-        if (el.validity.valid) continue;
+        if (el.validity.valid) {
+          continue;
+        }
 
         this.highlight(el);
       }
@@ -89,11 +94,13 @@
 
     /**
      * Adds focus and blur events to inputs with required attributes
-     * @param   {object}  form  Passing a form is possible, otherwise it will use
-     *                          the form passed to the constructor.
+     * @param   {object}  form            Passing a form is possible, otherwise it will use
+     *                                    the form passed to the constructor.
+     * @param   {boolean} afterSubmitted  If true, inputs will only be marked as invalid once the user has submitted
+     *                                    The form for the first time
      * @return  {class}         The form class
      */
-    watch(form = false) {
+    watch(form = false, afterSubmitted = false) {
       this.FORM = (form) ? form : this.FORM;
 
       let elements = this.FORM.querySelectorAll(this.selectors.REQUIRED);
@@ -107,23 +114,41 @@
           this.reset(el);
         });
 
-        el.addEventListener('blur', () => {
-          if (!el.validity.valid)
-            this.highlight(el);
-        });
+        if (afterSubmitted) {
+          el.addEventListener('blur', () => {
+              if (this.hasSubmitted && !el.validity.valid) {
+                  this.highlight(el);
+              }
+            });
+        }
+        else {
+          el.addEventListener('blur', () => {
+              if (!el.validity.valid) {
+                  this.highlight(el);
+              }
+            });
+        }
+        
       }
 
-      /** Submit Event */
-      this.FORM.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        if (this.valid(event) === false)
-          return false;
-
-        this.submit(event);
-      });
-
       return this;
+    }
+
+    /**
+     * Prevent form submission unless form is valid
+     */
+    validateSubmit() {
+      this.FORM.addEventListener('submit', (event) => {
+          event.preventDefault();
+
+          this.hasSubmitted = true;
+    
+          if (this.valid(event) === false){
+              return false;
+          }
+    
+          this.submit(event);
+        });
     }
 
     /**
@@ -302,7 +327,9 @@
           .catch(this._onerror);
       };
 
-      this.form.watch();
+      this.form.watch(false, true);
+
+      this.form.validateSubmit();
 
       return this;
     }
