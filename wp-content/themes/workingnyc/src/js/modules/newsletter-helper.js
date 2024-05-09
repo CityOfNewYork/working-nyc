@@ -58,7 +58,9 @@ class Newsletter {
         .catch(this._onerror);
     };
 
-    this.form.watch();
+    this.form.watch(false, true);
+
+    this.form.validateSubmit();
 
     return this;
   }
