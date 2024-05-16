@@ -32,7 +32,7 @@ remove_action( 'wp_head', '_wp_render_title_tag', 1 );
 
 if(!empty($current_page_title)){
   add_action( 'wp_head', function() use ( $current_page_title ) { 
-    echo "<title>".$current_page_title."</title>";
+    echo "<title>".esc_html($current_page_title)."</title>";
   }, 1 );
 }
 

@@ -48,7 +48,7 @@ $current_page_title = $post->page_title;
 
 if(!empty($current_page_title)){
   add_filter('document_title',function() use ( $current_page_title ) { 
-    return $current_page_title;
+    return esc_html($current_page_title);
   },10,1);
 }
 
