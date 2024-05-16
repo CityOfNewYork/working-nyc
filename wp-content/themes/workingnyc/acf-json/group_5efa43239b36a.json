@@ -60,6 +60,25 @@
             "maxlength": ""
         },
         {
+            "key": "field_66452484f0ccf",
+            "label": "Page Title",
+            "name": "page_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_60c26f433adba",
             "label": "Resources",
             "name": "",
