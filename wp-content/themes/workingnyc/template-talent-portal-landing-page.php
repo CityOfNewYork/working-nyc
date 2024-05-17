@@ -24,6 +24,17 @@ $context['hide_jobseeker_and_employer_navigation'] = true;
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
+$current_page_title = $post->page_title;
+
+// add_filter function is not getting invoked. So, removed the title render action and added again.
+
+if(!empty($current_page_title)){
+  remove_action( 'wp_head', '_wp_render_title_tag', 1 ); 
+  add_action( 'wp_head', function() use ( $current_page_title ) { 
+    echo "<title>".esc_html($current_page_title)."</title>";
+  }, 1 );
+}
+
 /**
  * Render the view
  */
