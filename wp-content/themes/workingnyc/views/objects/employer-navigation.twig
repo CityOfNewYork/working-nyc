@@ -20,8 +20,11 @@
         <use href="#languages-nav"></use>
       </svg>
       <span class="text-xs font-[500] desktop:text-sm text-[#080707]">{{ __('Language', 'WNYC - Navigation') }}</span>
-      <svg class="h-3 w-3 fill-none stroke-black">
+      <svg class="h-3 w-3 fill-none stroke-black active language-up-arrow">
         <use href="#lucide-chevron-down"></use>
+      </svg>
+      <svg class="h-3 w-3 fill-none stroke-black hidden language-down-arrow">
+        <use href="#lucide-chevron-up"></use>
       </svg>
     </button>
     {% include 'objects/languages-dropdown.twig' %}
