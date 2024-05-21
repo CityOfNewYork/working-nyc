@@ -168,8 +168,8 @@
       /** Toggle the language dropdown carrot */
 
       if(element.hasAttribute('aria-controls')){
-        let toToggle = document.querySelector("svg.language-up-arrow");
-        let hideToggle = document.querySelector("svg.language-down-arrow");
+        let toToggle = document.querySelector('[data-js="language-up-arrow"]');
+        let hideToggle = document.querySelector('[data-js="language-down-arrow"]');
         toToggle.classList.toggle("hidden");
         hideToggle.classList.toggle("hidden");
       }
