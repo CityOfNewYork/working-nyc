@@ -170,7 +170,6 @@
       if(element.hasAttribute('aria-controls')){
         let toToggle = document.querySelector("svg.language-up-arrow");
         let hideToggle = document.querySelector("svg.language-down-arrow");
-        console.log(toToggle,hideToggle);
         toToggle.classList.toggle("hidden");
         hideToggle.classList.toggle("hidden");
       }
