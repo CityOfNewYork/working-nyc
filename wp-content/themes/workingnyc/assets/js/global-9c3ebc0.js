@@ -165,15 +165,6 @@
 
       target = this.getTarget(element);
 
-      /** Toggle the language dropdown carrot */
-
-      if(element.hasAttribute('aria-controls')){
-        let toToggle = document.querySelector('[data-js="language-up-arrow"]');
-        let hideToggle = document.querySelector('[data-js="language-down-arrow"]');
-        toToggle.classList.toggle("hidden");
-        hideToggle.classList.toggle("hidden");
-      }
-
       /** Focusable Children */
       focusable = (target) ?
         target.querySelectorAll(Toggle.elFocusable.join(', ')) : focusable;
@@ -1283,7 +1274,18 @@
     googleTranslateElementInit();
   }
 
-  // Add code here
+ /** Toggle the language dropdown carrot */
+
+  let toggleElement = document.querySelector('[data-js="dialog"]');
+
+  toggleElement.addEventListener('click', (event) => {
+    if(toggleElement.hasAttribute('aria-controls')){
+      let toToggle = document.querySelector('[data-js="language-up-arrow"]');
+      let hideToggle = document.querySelector('[data-js="language-down-arrow"]');
+      toToggle.classList.toggle("hidden");
+      hideToggle.classList.toggle("hidden");
+    }
+  });
 
   /**
    * Set CSS properties of various element heights for

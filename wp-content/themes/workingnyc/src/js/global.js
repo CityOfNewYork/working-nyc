@@ -107,7 +107,18 @@ if (document.documentElement.lang != 'en') {
   googleTranslateElementInit();
 }
 
-// Add code here
+/** Toggle the language dropdown carrot */
+
+let toggleElement = document.querySelector('[data-js="dialog"]');
+
+toggleElement.element.addEventListener('click', (event) => {
+  if(toggleElement.hasAttribute('aria-controls')){
+    let toToggle = document.querySelector('[data-js="language-up-arrow"]');
+    let hideToggle = document.querySelector('[data-js="language-down-arrow"]');
+    toToggle.classList.toggle("hidden");
+    hideToggle.classList.toggle("hidden");
+  }
+});
 
 /**
  * Set CSS properties of various element heights for
