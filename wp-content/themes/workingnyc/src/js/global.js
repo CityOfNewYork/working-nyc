@@ -109,14 +109,18 @@ if (document.documentElement.lang != 'en') {
 
 /** Toggle the language dropdown carrot */
 
-let toggleElement = document.querySelector('[data-js="dialog"]');
+let toggleElement = document.querySelector('[data-js-dialog="language"]');
 
-toggleElement.element.addEventListener('click', (event) => {
+toggleElement.addEventListener('click', (event) => {
   if(toggleElement.hasAttribute('aria-controls')){
-    let toToggle = document.querySelector('[data-js="language-up-arrow"]');
-    let hideToggle = document.querySelector('[data-js="language-down-arrow"]');
-    toToggle.classList.toggle("hidden");
-    hideToggle.classList.toggle("hidden");
+    let toToggle = toggleElement.querySelector('[data-js="language-up-arrow"]');
+    let hideToggle = toggleElement.querySelector('[data-js="language-down-arrow"]');
+    if(toToggle){
+      toToggle.classList.toggle("hidden");
+    }
+    if(hideToggle){
+      hideToggle.classList.toggle("hidden");
+    }
   }
 });
 
