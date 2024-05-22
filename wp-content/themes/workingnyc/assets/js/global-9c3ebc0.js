@@ -1283,6 +1283,8 @@
     googleTranslateElementInit();
   }
 
+  // Add code here
+
   /**
    * Set CSS properties of various element heights for
    * calculating the true window bottom value in CSS.
