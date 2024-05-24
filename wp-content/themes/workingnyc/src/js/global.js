@@ -115,10 +115,8 @@ toggleElement.addEventListener('click', (event) => {
   if(toggleElement.hasAttribute('aria-controls')){
     let toToggle = toggleElement.querySelector('[data-js="language-up-arrow"]');
     let hideToggle = toggleElement.querySelector('[data-js="language-down-arrow"]');
-    if(toToggle){
+    if(toToggle && hideToggle){ 
       toToggle.classList.toggle("hidden");
-    }
-    if(hideToggle){
       hideToggle.classList.toggle("hidden");
     }
   }
