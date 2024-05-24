@@ -26,7 +26,11 @@ $context['meta'] = new WorkingNYC\Meta($post);
 
 $current_page_title = $post->page_title;
 
-// add_filter function is not getting invoked. So, removed the title render action and added again.
+/**
+ * Update the Document title.
+ * add_filter function is not getting invoked to update the doc title. So, removed the title render action and add action to set title.
+ */
+
 
 if(!empty($current_page_title)){
   remove_action( 'wp_head', '_wp_render_title_tag', 1 ); 
