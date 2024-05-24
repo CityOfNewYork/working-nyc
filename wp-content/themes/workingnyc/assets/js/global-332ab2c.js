@@ -1274,7 +1274,7 @@
     googleTranslateElementInit();
   }
 
- /** Toggle the language dropdown carrot */
+  /** Toggle the language dropdown carrot */
 
   let toggleElement = document.querySelector('[data-js-dialog="language"]');
 
