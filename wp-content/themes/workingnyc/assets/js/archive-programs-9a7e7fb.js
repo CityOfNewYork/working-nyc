@@ -460,6 +460,7 @@
 	     */
 	    click: function(event) {
 	      let taxonomy = event.data.parent;
+		  console.log(event.data);
 	      let term = event.data.id || false;
 
 	      if (term) {
@@ -562,12 +563,16 @@
 	        this.$set(this.query, taxonomy, terms);
 	        this.$set(this.query, 'page', 1);
 
+			console.log(this.posts);
 	        // hide all of the posts
 	        this.posts.map((value, index) => {
-	          if (value) this.$set(this.posts[index], 'show', false);
+	          //if (value) this.$set(this.posts[index], 'show', false);
+
+			  if (value) this.posts.length=1;
 
 	          return value;
 	        });
+			console.log(this.posts);
 
 	        resolve();
 	      })
