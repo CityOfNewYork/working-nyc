@@ -1274,6 +1274,21 @@
     googleTranslateElementInit();
   }
 
+  /** Toggle the language dropdown carrot */
+
+  let toggleElement = document.querySelector('[data-js-dialog="language"]');
+
+  toggleElement.addEventListener('click', (event) => {
+    if(toggleElement.hasAttribute('aria-controls')){
+      let toToggle = toggleElement.querySelector('[data-js="language-up-arrow"]');
+      let hideToggle = toggleElement.querySelector('[data-js="language-down-arrow"]');
+      if(toToggle && hideToggle){ 
+        toToggle.classList.toggle("hidden");
+        hideToggle.classList.toggle("hidden");
+      }
+    }
+  });
+
   /**
    * Set CSS properties of various element heights for
    * calculating the true window bottom value in CSS.
