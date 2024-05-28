@@ -102,11 +102,6 @@ if (wpmlList) {
   wpmlList.removeAttribute('class');
 }
 
-// Initialize Google Translate Widget
-if (document.documentElement.lang != 'en') {
-  googleTranslateElementInit();
-}
-
 /** Toggle the language dropdown carrot */
 
 let toggleElement = document.querySelector('[data-js-dialog="language"]');
@@ -121,6 +116,11 @@ toggleElement.addEventListener('click', (event) => {
     }
   }
 });
+
+// Initialize Google Translate Widget
+if (document.documentElement.lang != 'en') {
+  googleTranslateElementInit();
+}
 
 /**
  * Set CSS properties of various element heights for
