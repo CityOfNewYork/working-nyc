@@ -7,7 +7,7 @@ export default {
   props: {
     perPage: {
       type: Number,
-      default: 24
+      default: 12
     },
     page: {
       type: Number,
@@ -187,7 +187,146 @@ export default {
           }
         }
       })(_this);
-    }
+    },
+
+    previousPage:function(event){
+      console.log(this.posts);
+      console.log(event);
+
+      let currPage = this.posts[1].query.page;
+      this.$set(this.query, 'page', currPage-1);
+
+      console.log(currPage)
+
+      let url = [
+        this.domain,
+        this.lang.path,
+        this.endpoints[this.type],
+        this.buildUrlQuery(this.query)
+      ].join('');
+
+      console.log(url);
+
+      fetch(url)
+      .then(this.response)
+      .then(data => {
+      let query = this.query;
+      let headers = Object.assign({}, this.headers);
+
+      this.posts.length=1;
+
+      let currentPost = {
+        'posts': data,
+        'headers': headers,
+        'query': this.query,
+        'show': true
+      };
+
+      this.posts.push(currentPost);
+
+      this.posts.map(post=>{
+        if(post.query.page != query.page){
+          this.$set(post, 'show', false);
+        }
+      });
+
+      this.paginatePrograms();
+
+      }).catch(this.error);
+    },
+
+    nextPagination:function(event){
+      console.log(this.posts);
+      let currPage = this.posts[1].query.page;
+      this.$set(this.query, 'page', currPage+1);
+
+      console.log(currPage)
+
+      let url = [
+        this.domain,
+        this.lang.path,
+        this.endpoints[this.type],
+        this.buildUrlQuery(this.query)
+      ].join('');
+
+      console.log(url);
+
+      fetch(url)
+      .then(this.response)
+      .then(data => {
+      let query = this.query;
+      let headers = Object.assign({}, this.headers);
+
+      this.posts.length=1;
+
+      let currentPost = {
+        'posts': data,
+        'headers': headers,
+        'query': this.query,
+        'show': true
+      };
+
+      this.posts.push(currentPost);
+
+      this.posts.map(post=>{
+        if(post.query.page != query.page){
+          this.$set(post, 'show', false);
+        }
+      });
+
+      this.paginatePrograms();
+
+      }).catch(this.error);
+    },
+
+    immediatePage: function(event){
+      console.log(event);
+
+      let change = parseInt(event.target.dataset.amount);
+      this.$set(this.query, 'page', change);
+      console.log(this.query);
+
+      let url = [
+        this.domain,
+        this.lang.path,
+        this.endpoints[this.type],
+        this.buildUrlQuery(this.query)
+      ].join('');
+
+      console.log(url);
+
+      fetch(url)
+      .then(this.response)
+      .then(data => {
+      let query = this.query;
+      let headers = Object.assign({}, this.headers);
+
+      this.posts.length=1;
+
+      let currentPost = {
+        'posts': data,
+        'headers': headers,
+        'query': this.query,
+        'show': true
+      }
+
+      this.posts.push(currentPost);
+
+      this.posts.map(post=>{
+        if(post.query.page != query.page){
+          this.$set(post, 'show', false);
+        }
+      });
+
+      this.paginatePrograms();
+
+      }).catch(this.error);
+
+    },
+
+    paginatePrograms: function(){
+      console.log(this.posts);
+    },
   },
 
   /**

@@ -166,9 +166,14 @@
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
 
-                <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
-                  {{ strings.SHOW_MORE }}
-                </button>
+                <div>
+                  <button v-if="previous" @click="previousPage">Prev</button>
+                    <button v-for="pNo in headers.pages" class="btn btn-primary w-[40px]" @click="immediatePage" @click="immediatePage" v-bind:data-amount="pNo">
+                      {{ pNo }}
+                    </button>
+                  <button v-if="next" @click="nextPagination">Next</button>
+                </div>
+                
                 <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
               </div>
 
