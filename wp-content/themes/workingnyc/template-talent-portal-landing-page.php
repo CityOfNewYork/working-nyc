@@ -32,11 +32,11 @@ $current_page_title = $post->page_title;
  */
 
 
-if(!empty($current_page_title)){
-  remove_action( 'wp_head', '_wp_render_title_tag', 1 ); 
-  add_action( 'wp_head', function() use ( $current_page_title ) { 
+if (!empty($current_page_title)) {
+  remove_action('wp_head', '_wp_render_title_tag', 1);
+  add_action('wp_head', function() use ($current_page_title) {
     echo "<title>".esc_html($current_page_title)."</title>";
-  }, 1 );
+  }, 1);
 }
 
 /**
