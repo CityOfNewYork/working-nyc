@@ -140,6 +140,42 @@ export default {
     };
   },
 
+  computed: {
+    /**
+     * Wether there are no posts to show but a query is being made
+     *
+     * @type {Boolean}
+     */
+    loading: function() {
+      if (!this.posts.length) return false;
+
+      let pageButtons = document.querySelectorAll('[data-js="btnpage"]');
+      if(pageButtons.length>0) {
+        pageButtons.forEach(pB=>pB.classList.remove("border-b-2"))
+      }
+      let currentElement = document.querySelector(`[data-amount='${this.query.page}']`)
+      if(currentElement) currentElement.classList.add("border-b-2");
+
+      let page = this.posts[1];
+
+      if(page === undefined) return false;
+
+      return this.init && !page.posts.length && page.show;
+    },
+
+    next: function() {
+      let number = this.query.page;
+      let total = this.headers.pages;
+
+      if (!this.posts.length) return false;
+
+      //let page = this.posts[number];
+
+      return (number < total);
+    },
+
+  },
+
   /**
    * @type {Object}
    */
@@ -189,23 +225,13 @@ export default {
       })(_this);
     },
 
-    previousPage:function(event){
-      console.log(this.posts);
-      console.log(event);
-
-      let currPage = this.posts[1].query.page;
-      this.$set(this.query, 'page', currPage-1);
-
-      console.log(currPage)
-
+    updatePagination: function(){
       let url = [
         this.domain,
         this.lang.path,
         this.endpoints[this.type],
         this.buildUrlQuery(this.query)
       ].join('');
-
-      console.log(url);
 
       fetch(url)
       .then(this.response)
@@ -229,103 +255,48 @@ export default {
           this.$set(post, 'show', false);
         }
       });
-
-      this.paginatePrograms();
-
+      let element = document.querySelector('[data-js="page-focus"]');
+      if (element) {
+        element.scrollIntoView();
+      }
+      
+      
       }).catch(this.error);
+    },
+
+    previousPage:function(event){
+      let currPage = this.posts[1].query.page;
+      this.$set(this.query, 'page', currPage-1);
+      this.updatePagination();
     },
 
     nextPagination:function(event){
-      console.log(this.posts);
       let currPage = this.posts[1].query.page;
       this.$set(this.query, 'page', currPage+1);
-
-      console.log(currPage)
-
-      let url = [
-        this.domain,
-        this.lang.path,
-        this.endpoints[this.type],
-        this.buildUrlQuery(this.query)
-      ].join('');
-
-      console.log(url);
-
-      fetch(url)
-      .then(this.response)
-      .then(data => {
-      let query = this.query;
-      let headers = Object.assign({}, this.headers);
-
-      this.posts.length=1;
-
-      let currentPost = {
-        'posts': data,
-        'headers': headers,
-        'query': this.query,
-        'show': true
-      };
-
-      this.posts.push(currentPost);
-
-      this.posts.map(post=>{
-        if(post.query.page != query.page){
-          this.$set(post, 'show', false);
-        }
-      });
-
-      this.paginatePrograms();
-
-      }).catch(this.error);
+      this.updatePagination();
     },
 
     immediatePage: function(event){
-      console.log(event);
-
       let change = parseInt(event.target.dataset.amount);
       this.$set(this.query, 'page', change);
-      console.log(this.query);
-
-      let url = [
-        this.domain,
-        this.lang.path,
-        this.endpoints[this.type],
-        this.buildUrlQuery(this.query)
-      ].join('');
-
-      console.log(url);
-
-      fetch(url)
-      .then(this.response)
-      .then(data => {
-      let query = this.query;
-      let headers = Object.assign({}, this.headers);
-
-      this.posts.length=1;
-
-      let currentPost = {
-        'posts': data,
-        'headers': headers,
-        'query': this.query,
-        'show': true
-      }
-
-      this.posts.push(currentPost);
-
-      this.posts.map(post=>{
-        if(post.query.page != query.page){
-          this.$set(post, 'show', false);
-        }
-      });
-
-      this.paginatePrograms();
-
-      }).catch(this.error);
-
+      this.updatePagination();
     },
 
-    paginatePrograms: function(){
-      console.log(this.posts);
+    updateQuery: function(taxonomy, terms) {
+      return new Promise((resolve) => { // eslint-disable-line no-undef
+        this.$set(this.query, taxonomy, terms);
+        this.$set(this.query, 'page', 1);
+        // hide all of the posts
+        this.posts.map((value, index) => {
+          //if (value) this.$set(this.posts[index], 'show', false);
+          if (value) this.posts.length=1;
+          return value;
+        });
+        resolve();
+      })
+      .then(this.wp)
+      .catch(message => {
+      });
     },
   },
 

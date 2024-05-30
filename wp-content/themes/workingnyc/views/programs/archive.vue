@@ -157,7 +157,7 @@
             <section>
               <div v-if="!loading">
                 <div class="mb-3">
-                  <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
+                  <h2 class="text-p font-p inline-block m-0" data-js="page-focus" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
                     <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
                   </h2>
                 </div>
@@ -166,12 +166,20 @@
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
 
-                <div>
-                  <button v-if="previous" @click="previousPage">Prev</button>
-                    <button v-for="pNo in headers.pages" class="btn btn-primary w-[40px]" @click="immediatePage" @click="immediatePage" v-bind:data-amount="pNo">
+                <div class="text-center py-1 px-1 flex items-center no-underline justify-center">
+                  <button v-if="previous" @click="previousPage">
+                    <svg class="h-3 w-3 fill-none stroke-black">
+                      <use href="#lucide-chevron-left"></use>
+                    </svg>
+                  </button>
+                    <button v-for="pNo in headers.pages" class="w-[40px] h-[40px] no-underline" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
                       {{ pNo }}
                     </button>
-                  <button v-if="next" @click="nextPagination">Next</button>
+                  <button v-if="next" @click="nextPagination">
+                    <svg class="h-3 w-3 fill-none stroke-black">
+                      <use href="#lucide-chevron-right"></use>
+                    </svg>
+                  </button>
                 </div>
                 
                 <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
