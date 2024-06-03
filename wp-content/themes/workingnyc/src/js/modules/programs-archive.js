@@ -420,9 +420,15 @@ export default {
   updated: function(){
     let pageButtons = document.querySelectorAll('[data-js="btnpage"]');
     if(pageButtons.length>0) {
-      pageButtons.forEach(pB=>pB.classList.remove("border-b-2"))
+      pageButtons.forEach(pB=>{
+        let getPageSpan = pB.querySelector('span');
+        getPageSpan.classList.remove("border-b-2")
+      })
     }
     let currentElement = document.querySelector(`[data-amount='${this.query.page}']`)
-    if(currentElement) currentElement.classList.add("border-b-2");
+    if(currentElement){
+      let currentElementSpan = currentElement.querySelector('span');
+      currentElementSpan.classList.add("border-b-2");
+    } 
   }
 };

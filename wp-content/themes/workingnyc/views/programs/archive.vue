@@ -166,23 +166,23 @@
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
                 <div class="text-center py-1 px-1 flex items-center no-underline justify-center">
-                  <button v-if="previous" @click="previousPage">
+                  <button v-if="previous" class="text-[#080707]" @click="previousPage">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-left"></use>
                     </svg>
                   </button>
-                  <button v-if="firstPage" class="w-[40px] h-[40px] no-underline" @click="immediatePage" data-js="btnpage" data-amount="1">
-                    <span>1</span>
+                  <button v-if="firstPage" class="w-[40px] h-[40px] no-underline text-[#080707]" @click="immediatePage" data-js="btnpage" data-amount="1">
+                    <span class="pb-[10px] pl-[4px] pr-[4px]">1</span>
                   </button>
                   <span v-if="query.page>4&&headers.pages>6">...</span>
-                    <button v-for="pNo in totalPages" class="w-[40px] h-[40px] no-underline" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
-                      <span class="">{{ pNo }}</span>
+                    <button v-for="pNo in totalPages" class="w-[40px] h-[40px] no-underline text-[#080707]" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
+                      <span class="pb-[10px] pl-[4px] pr-[4px]">{{ pNo }}</span>
                     </button>
                   <span v-if="headers.pages-query.page>3&&headers.pages>6">...</span>
-                  <button v-if="lastPage" class="w-[40px] h-[40px] no-underline" data-js="btnpage" @click="immediatePage" v-bind:data-amount="headers.pages">
-                    <span>{{headers.pages}}</span>
+                  <button v-if="lastPage" class="w-[40px] h-[40px] no-underline text-[#080707]" data-js="btnpage" @click="immediatePage" v-bind:data-amount="headers.pages">
+                    <span class="pb-[10px] pl-[4px] pr-[4px]">{{headers.pages}}</span>
                   </button>
-                  <button v-if="next" @click="nextPagination">
+                  <button v-if="next" class="text-[#080707]" @click="nextPagination">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-right"></use>
                     </svg>
