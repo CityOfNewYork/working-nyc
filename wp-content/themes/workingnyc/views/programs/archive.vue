@@ -165,16 +165,23 @@
                 <div class="grid grid-cols-1 gap-3 mb-3">
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
-
                 <div class="text-center py-1 px-1 flex items-center no-underline justify-center">
                   <button v-if="previous" @click="previousPage">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-left"></use>
                     </svg>
                   </button>
-                    <button v-for="pNo in headers.pages" class="w-[40px] h-[40px] no-underline" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
-                      {{ pNo }}
+                  <button v-if="firstPage" class="w-[40px] h-[40px] no-underline" @click="immediatePage" data-js="btnpage" data-amount="1">
+                    <span>1</span>
+                  </button>
+                  <span v-if="query.page>4&&headers.pages>6">...</span>
+                    <button v-for="pNo in totalPages" class="w-[40px] h-[40px] no-underline" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
+                      <span class="">{{ pNo }}</span>
                     </button>
+                  <span v-if="headers.pages-query.page>3&&headers.pages>6">...</span>
+                  <button v-if="lastPage" class="w-[40px] h-[40px] no-underline" data-js="btnpage" @click="immediatePage" v-bind:data-amount="headers.pages">
+                    <span>{{headers.pages}}</span>
+                  </button>
                   <button v-if="next" @click="nextPagination">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-right"></use>

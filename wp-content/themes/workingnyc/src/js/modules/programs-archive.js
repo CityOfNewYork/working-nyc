@@ -7,7 +7,7 @@ export default {
   props: {
     perPage: {
       type: Number,
-      default: 12
+      default: 7
     },
     page: {
       type: Number,
@@ -26,6 +26,17 @@ export default {
     },
     strings: {
       type: Object
+    },
+    totalPages: {
+      type: Object
+    },
+    firstPage: {
+      type: Boolean,
+      default: false
+    },
+    lastPage: {
+      type: Boolean,
+      default: false
     }
   },
   data: function() {
@@ -149,13 +160,6 @@ export default {
     loading: function() {
       if (!this.posts.length) return false;
 
-      let pageButtons = document.querySelectorAll('[data-js="btnpage"]');
-      if(pageButtons.length>0) {
-        pageButtons.forEach(pB=>pB.classList.remove("border-b-2"))
-      }
-      let currentElement = document.querySelector(`[data-amount='${this.query.page}']`)
-      if(currentElement) currentElement.classList.add("border-b-2");
-
       let page = this.posts[1];
 
       if(page === undefined) return false;
@@ -225,7 +229,35 @@ export default {
       })(_this);
     },
 
+    process: function(data, query, headers) {
+      // If there are posts for this query, map them to the template.
+      let posts = (Array.isArray(data)) ?
+        data.map(this.maps()[this.type]) : false;
+
+      // Set posts and store a copy of the query for reference.
+      this.$set(this.posts[query.page], 'posts', posts);
+      this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
+
+      // If there are no posts, pass along to the error handler.
+      if (!Array.isArray(data))
+        this.error({error: data, query: query});
+
+      this.$set(this, 'init', true);
+
+      if(this.headers.pages<=6){
+        this.firstPage = false;
+        this.lastPage = false;
+        this.totalPages = this.headers.pages;
+      }
+      else{
+        this.firstPage = true;
+        this.lastPage = true;
+        this.totalPages = [2,3,4,5]
+      } 
+    },
+
     updatePagination: function(){
+      this.scrollToTop();
       let url = [
         this.domain,
         this.lang.path,
@@ -255,12 +287,7 @@ export default {
           this.$set(post, 'show', false);
         }
       });
-      let element = document.querySelector('[data-js="page-focus"]');
-      if (element) {
-        element.scrollIntoView();
-      }
-      
-      
+      this.setPagination();      
       }).catch(this.error);
     },
 
@@ -297,6 +324,54 @@ export default {
       .then(this.wp)
       .catch(message => {
       });
+    },
+
+    setPagination: function(){
+      if(this.headers.pages<=6){
+        this.firstPage = false;
+        this.lastPage = false;
+        this.totalPages = this.headers.pages;
+      }
+      else{
+        this.firstPage = true;
+        this.lastPage = true;
+        if(this.query.page<=4){
+          this.totalPages = [2,3,4,5]
+        }
+        else{
+          if((this.query.page!=this.totalPages[1])&&this.headers.pages-this.query.page>4){
+            let tempPages=[4];
+            let tempNumber;
+            if(this.query.page==this.totalPages[0]){
+              tempNumber = this.totalPages[0]-1;
+            }
+            else{
+              tempNumber = this.totalPages[1];
+            }
+            for(let i=0;i<4;i++){
+              tempPages[i]=i+tempNumber;
+            }
+            this.totalPages = tempPages;
+          }
+          else{
+            if(this.headers.pages-this.query.page<=4){
+              let tempPages=[4];
+              let bufferFlag;
+              if(this.headers.pages-this.query.page==4){
+                bufferFlag = this.query.page-1;
+              }
+              else{
+                bufferFlag = this.headers.pages-4;
+              }
+            for(let i=0;i<4;i++){
+              let j=i+bufferFlag;
+              tempPages[i]=j;
+            }
+            this.totalPages = tempPages;
+            } 
+          }
+        }
+      }    
     },
   },
 
@@ -340,5 +415,14 @@ export default {
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //
+  },
+
+  updated: function(){
+    let pageButtons = document.querySelectorAll('[data-js="btnpage"]');
+    if(pageButtons.length>0) {
+      pageButtons.forEach(pB=>pB.classList.remove("border-b-2"))
+    }
+    let currentElement = document.querySelector(`[data-amount='${this.query.page}']`)
+    if(currentElement) currentElement.classList.add("border-b-2");
   }
 };
