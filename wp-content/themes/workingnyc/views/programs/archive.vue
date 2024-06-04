@@ -135,7 +135,7 @@
                       </div>
 
                       <div class="grid gap-1" v-if="indexArr.indexOf(index) !== -1">
-                        <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
+                        <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test" v-if="filter.name.toLowerCase().trim()!='all residents'">
                           <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 
                           <span class="option__base bg-transparent border-0 items-center">
