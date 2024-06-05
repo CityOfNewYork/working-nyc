@@ -166,26 +166,26 @@
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
                 <div class="text-center py-1 px-1 flex items-center no-underline justify-center">
-                  <button v-if="previous" class="text-[#080707]" @click="previousPage">
+                  <button v-if="previous" class="text-[#080707] font-normal" @click="previousPage">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-left"></use>
                     </svg>
                   </button>
-                  <button v-if="firstPage" class="w-[40px] h-[40px] no-underline text-[#080707]" @click="immediatePage" data-js="btnpage" data-amount="1">
+                  <button v-if="firstPage" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" @click="immediatePage" data-js="btnpage" data-amount="1">
                     <span v-if="query.page==1" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">1</span>
                     <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">1</span>
                   </button>
                   <span v-if="query.page>4&&headers.pages>6">...</span>
-                    <button v-for="pNo in totalPages" class="w-[40px] h-[40px] no-underline text-[#080707]" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
+                    <button v-for="pNo in totalPages" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
                       <span  v-if="query.page==pNo" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">{{ pNo }}</span>
                       <span  v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">{{ pNo }}</span>
                     </button>
                   <span v-if="headers.pages-query.page>3&&headers.pages>6">...</span>
-                  <button v-if="lastPage" class="w-[40px] h-[40px] no-underline text-[#080707]" data-js="btnpage" @click="immediatePage" v-bind:data-amount="headers.pages">
+                  <button v-if="lastPage" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" data-js="btnpage" @click="immediatePage" v-bind:data-amount="headers.pages">
                     <span v-if="query.page==headers.pages" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">{{headers.pages}}</span>
                     <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">{{headers.pages}}</span>
                   </button>
-                  <button v-if="next" class="text-[#080707]" @click="nextPagination">
+                  <button v-if="next" class="text-[#080707] font-normal" @click="nextPagination">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-right"></use>
                     </svg>
