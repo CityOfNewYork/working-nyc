@@ -309,7 +309,27 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
-        }
+        },
+        {
+            "key": "field_6660cc4ff7dd8",
+            "label": "Employer Feedback Button",
+            "name": "employer_feedback_button",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "Send us feedback",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        } 
     ],
     "location": [
         [

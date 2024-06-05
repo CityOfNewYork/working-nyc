@@ -18,7 +18,12 @@
                 {% else %}
                 href="{{ options.feedback_form_link_jobseeker }}"
                 {% endif %}
-                >Send us feedback</a>
+                >
+                {% if employer %}
+                {{ options.employer_feedback_button }}
+                {% else %}
+                Send us feedback
+                {% endif %}</a>
             </div>
         </div>
         <div class="hidden desktop:grid grid-cols-2 gap-y-1 gap-x-2 tablet:gap-x-5 float-right w-[440px]">
