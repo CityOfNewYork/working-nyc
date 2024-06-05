@@ -6,6 +6,11 @@
             <div>
             <span class="footer-font">{{ options.feedback_prompt }}</span>
             </div>
+            {% if employer %}
+                <p class="desktop:mr-[10px] desktop:mb-0">
+                    {{ options.employers_feedback_text }}
+                </p>
+            {% endif %}
             <div class="tablet:float-right desktop:float-left">
             <a class="px-2 py-1 tablet:px-3 tablet:py-2 text-[16px] tablet:text-[20px] font-[500] tablet:font-[600] btn-secondary pointer-events-auto" target="_blank" rel="noopener"
                 {% if employer %}

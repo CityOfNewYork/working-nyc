@@ -289,6 +289,26 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_6660a473b7392",
+            "label": "Employers Feedback Text",
+            "name": "employers_feedback_text",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -314,5 +334,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1710884858
+    "modified": 1717609843
 }
