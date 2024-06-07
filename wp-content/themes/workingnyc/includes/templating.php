@@ -11,6 +11,9 @@ namespace Templating;
  */
 
 const SECTION_ID = 'field_5efa3bc7b2e45';
+const UPCOMING_EVENTS_ID =  'field_6661fde9c84cf';
+const EVENTS_HEADER_ID =  'field_6661febd61135';
+const EVENTS_FORM_ID =  'field_66620011a8efb';
 const POST_TYPE = 'field_5f1749717b140';
 const FILTERS = 'field_5f1747cb7b13d';
 const FILTERS_LABEL = 'field_5f1f45154ceb5';
@@ -30,6 +33,39 @@ function get_sections($id = null) {
   $sections = get_field(SECTION_ID, $id);
 
   return $sections;
+}
+
+/**
+ * Gets the Job Events Form data by ACF field id
+ *
+ * @return  Array  The collection of upcoming events for the post.
+ */
+function get_events_form($id = null) {
+  $events_form_data = get_field(EVENTS_FORM_ID, $id);
+
+  return $events_form_data;
+}
+
+/**
+ * Gets the Job Events Header by ACF field id
+ *
+ * @return  Array  The collection of upcoming events for the post.
+ */
+function get_events_header($id = null) {
+  $events_header = get_field(EVENTS_HEADER_ID, $id);
+
+  return $events_header;
+}
+
+/**
+ * Gets the upcoming events by ACF field id
+ *
+ * @return  Array  The collection of upcoming events for the post.
+ */
+function get_upcoming_events($id = null) {
+  $upcoming_events = get_field(UPCOMING_EVENTS_ID, $id);
+
+  return $upcoming_events;
 }
 
 /**
