@@ -1,8 +1,10 @@
 {# @Type   Element #}
 {# @For    Generic Templates #}
 <nav class="breadcrumbs flex flex-wrap" aria-label="Breadcrumb">
-  <a
-  {% if employer == true %}
+  <a class="no-underline hover:underline active:underline"
+  {% if hide_jobseeker_and_employer_navigation == true %}
+      href="{{ site.url }}"
+  {% elseif employer == true %}
       href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}"
   {% else %}
       href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}"
@@ -17,7 +19,7 @@
     </svg>
 
     {% if crumb.link != '' %}
-    <a href="{{ crumb.link }}">{{ crumb.label }}</a>
+    <a class="no-underline hover:underline active:underline" href="{{ crumb.link }}">{{ crumb.label }}</a>
     {% else %}
     <b aria-current="page">{{ crumb.label }}</b>
     {% endif %}

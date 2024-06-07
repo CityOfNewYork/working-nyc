@@ -1,5 +1,5 @@
-{% if hide_jobseeker_and_employer_navigation == false %}
-    <footer aria-label="{{ __('Footer', 'WNYC') }}" class="relative py-3 tablet:py-5 bg-white" role="contentinfo">
+{% if hide_jobseeker_and_employer_navigation == false and hide_jobseeker_and_employer_footer == false %}
+    <footer aria-label="{{ __('Footer', 'WNYC') }}" class="relative shadow-[0_-2px_16px_0px_rgba(0,0,0,0.06)] py-3 tablet:py-5 bg-white" role="contentinfo">
     <div class="site-max-width">
     <nav class="o-attribution__flex">
         <div class="flex flex-col tablet:flex-row desktop:flex-col w-fit tablet:w-full desktop:w-fit justify-start tablet:justify-between desktop:justify-start items-start tablet:items-center desktop:items-start pb-3 desktop:pb-0 gap-2 tablet:gap-5">

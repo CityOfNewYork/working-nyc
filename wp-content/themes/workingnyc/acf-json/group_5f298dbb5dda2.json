@@ -517,6 +517,33 @@
                                     "placeholder": ""
                                 }
                             ]
+                        },
+                        {
+                            "key": "field_664e1cd5235df",
+                            "label": "Container target",
+                            "name": "container_target",
+                            "type": "true_false",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_657a717b9b9a9",
+                                        "operator": "!=empty"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "relevanssi_exclude": 0,
+                            "message": "Is the container button link to an external website?",
+                            "default_value": 0,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
                         }
                     ],
                     "min": "",
@@ -560,5 +587,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1711122864
+    "modified": 1716398828
 }

@@ -2,10 +2,10 @@
 
 {% block content %}
 <div class="bg-scale-2">
-  <main class="bg-scale-1" id="content">
+  <main class="bg-scale-0" id="content">
     {# Header Section #}
-    <div class="site-max-width">
-      <header class="o-header px-0">
+    <div class="bg-[#E3F1FD]">
+      <header class="site-max-width py-5 tablet:py-6 desktop:py-7">
         <div>
           {% include 'components/breadcrumbs.twig' with {
               crumbs: [
@@ -17,107 +17,92 @@
             }
           %}
 
-          <h1 id="page-heading" class="o-header__title">{{ post.title }}</h1>
-            <div>{{options.newsletter_description}}</div>
+          <h1 id="page-heading" class="o-header__title mt-3 tablet:mt-5 desktop:mt-6 mb-1 tablet:mb-2">{{ post.title }}</h1>
+          <div>{{post.content}}</div>
         </div>
       </header>
     </div>
     <section class="site-max-width">
-      <div>
-        <div class="pb-8 mb-8">
-          {% if newsletter_message %}
-          <article class="c-alert c-alert-status-primary mt-5" data-js="alert-warning">
-            <div class="c-alert__graphic">
-              <svg aria-hidden="true" class="icon-ui">
-                <use href="#lucide-info"></use>
+      <div class="py-5 tablet:py-6">
+        <div data-js="newsletter-form">
+          <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank">
+            <div class="flex flex-col" data-js="form-fields">
+              <div class="">
+                <label class="mb-1" for="mce-EMAIL">{{ __('Email', 'WNYC') ~ '*' }}</label>
+                <div class="mt-1">
+                  <input class="w-full max-w-[342px] rounded border border-[#C1C6CB] mb-1" id="mce-EMAIL" name="EMAIL" required="true" type="email" value="{{ email }}">
+                </div>
+              </div>
+
+              <div>
+                <label class="mb-1" for="mce-ZIPCODE">{{ __('ZIP code', 'WNYC') ~ '*' }}</label>
+                <div class="mt-1">
+                  <input class="w-full max-w-[160px] tablet:max-w-[100px] rounded border border-[#C1C6CB] mb-3" id="mce-ZIPCODE" name="ZIPCODE" required="true" type="zipcode" pattern="[0-9]{5}">
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-secondary" type="submit">Submit</button>
+
+            <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-alert-triangle"></use>
+                </svg>
+              </div>
+
+              <div class="c-alert__body">
+                <p data-js-alert="text">{{ __('There was an error submitting the form. Please fill out the required fields and submit again.', 'WNYC') }}</p>
+              </div>
+            </article>
+
+            <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-alert-triangle"></use>
+                </svg>
+              </div>
+
+              <div class="c-alert__body">
+                <p data-js-alert="text">{{ __('There was an error submitting the form. Please fill out the required fields and submit again.', 'WNYC') }}</p>
+              </div>
+            </article>
+
+            <article aria-hidden="true" class="c-alert c-alert-status-secondary mt-5 bg-[#C9EEFE] hidden" data-js="alert-success" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-info"></use>
+                </svg>
+              </div>
+
+              <div class="c-alert__body">
+                <b>{{ __('Check your email to confirm your subscription.', 'WNYC') }}</b>
+                <p data-js-alert="text">{{ __('Please click the confirmation link to start receiving our newsletter.', 'WNYC') }}</p>
+              </div>
+            </article>
+
+            <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-already-subscribed" role="alert">
+              <div class="c-alert__graphic">
+                <svg aria-hidden="true" class="icon-ui">
+                  <use href="#lucide-alert-triangle"></use>
+                </svg>
+              </div>
+
+              <div class="c-alert__body">
+                <b>{{ __('This email is already registered.', 'WNYC') }}</b>
+                <p data-js-alert="text">{{ __('Please check your inbox again or use a different email to subscribe.', 'WNYC') }}</p>
+              </div>
+            </article>
+
+            <a class="btn-styled hidden" 
+              href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}" 
+              data-js="home-button">
+              <svg aria-hidden="true" class="icon-ui rtl:flip">
+                <use href="#lucide-arrow-left"></use>
               </svg>
-            </div>
-
-            <div class="c-alert__body">
-              <p data-js-alert="text">{{ __('To receive the most relevant information, please answer the following optional questions.', 'WNYC-Newsletter')}}</p>
-            </div>
-          </article>
-          {% endif %}
-
-          <div data-js="newsletter-form">
-            <form action="https://nyc.us18.list-manage.com/subscribe/post?u={{ constant('MAILCHIMP_ACCOUNT') }}&amp;id={{ constant('MAILCHIMP_AUDIENCE_ID') }}" id="mc-embedded-subscribe-form" method="post" target="_blank" novalidate="true">
-              {% for field in form_fields%}
-                {% if field.type != 'checkbox' %}
-                <div class="c-question">
-                  <label class="c-question__label" for="{{ field.id }}">{{ field.label }}</label>
-
-                  <div class="c-question__container">
-                    <div class="c-question__input">
-                      <div class="input">
-                        <input id="{{ field.id }}" name="{{ field.name }}" {% if field.required == "true" %}required="{{ field.required }}"{% endif %} type="{{ field.type }}" value="{% if field.name == 'EMAIL'%}{{ email }}{% endif %}">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {% else %}
-                <fieldset	class="c-question">
-                  <legend class="c-question__label">{{ field.legend }}</legend>
-
-                  <div class="c-question__container grid grid-cols-1 tablet:grid-cols-2 gap-2">
-                    {% for subfield in field.fields%}
-                    <label class="option" for="{{ subfield.for }}">
-                      <span class="sr-only">Select interests (option {{ loop.index }} of {{ field.fields|length }}): </span>
-
-                      <input id="{{ subfield.id }}" name="{{ subfield.name }}" type="checkbox" value="{{ subfield.value }}">
-
-                      <span class="option__base">
-                        <svg aria-hidden="true" class="option__graphic">
-                          <use href="#option-nyco-checkbox"></use>
-                        </svg>
-
-                        <span class="option__label">{{ subfield.label }}</span>
-                      </span>
-                    </label>
-                    {% endfor %}
-                  </div>
-                </fieldset>
-                {% endif %}
-              {% endfor %}
-
-              <button class="btn-primary" type="submit">Submit</button>
-
-              <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-error" role="alert">
-                <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-ui">
-                    <use href="#lucide-info"></use>
-                  </svg>
-                </div>
-
-                <div class="c-alert__body">
-                  <p data-js-alert="text">{{ __('Please fill out the required fields and submit again.', 'WNYC') }}</p>
-                </div>
-              </article>
-
-              <article aria-hidden="true" class="c-alert c-alert-status-tertiary mt-5 hidden" data-js="alert-warning" role="alert">
-                <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-ui">
-                    <use href="#lucide-info"></use>
-                  </svg>
-                </div>
-
-                <div class="c-alert__body">
-                  <p data-js-alert="text"></p>
-                </div>
-              </article>
-
-              <article aria-hidden="true" class="c-alert c-alert-status-secondary mt-5 hidden" data-js="alert-success" role="alert">
-                <div class="c-alert__graphic">
-                  <svg aria-hidden="true" class="icon-ui">
-                    <use href="#lucide-info"></use>
-                  </svg>
-                </div>
-
-                <div class="c-alert__body">
-                  <p data-js-alert="text"></p>
-                </div>
-              </article>
-            </form>
-          </div>
+              <span>Return to home</span>
+              </a>
+          </form>
         </div>
       </div>
     </section>

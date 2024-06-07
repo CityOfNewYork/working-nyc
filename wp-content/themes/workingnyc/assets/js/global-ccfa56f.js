@@ -1269,6 +1269,21 @@
     wpmlList.removeAttribute('class');
   }
 
+  /** Toggle the language dropdown carrot */
+
+  let toggleElement = document.querySelector('[data-js-dialog="language"]');
+
+  toggleElement.addEventListener('click', (event) => {
+    if(toggleElement.hasAttribute('aria-controls')){
+      let toToggle = toggleElement.querySelector('[data-js="language-up-arrow"]');
+      let hideToggle = toggleElement.querySelector('[data-js="language-down-arrow"]');
+      if(toToggle && hideToggle){ 
+        toToggle.classList.toggle("hidden");
+        hideToggle.classList.toggle("hidden");
+      }
+    }
+  });
+
   // Initialize Google Translate Widget
   if (document.documentElement.lang != 'en') {
     googleTranslateElementInit();

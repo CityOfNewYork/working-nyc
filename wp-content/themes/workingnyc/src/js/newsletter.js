@@ -8,11 +8,9 @@
  * Dependencies
  */
 
-import Newsletter from '@nycopportunity/pttrn-scripts/src/newsletter/newsletter';
+import Newsletter from './modules/newsletter-helper';
 
-/**
- * Init
- */
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 /**
  * Newsletter Form
@@ -21,36 +19,49 @@ import Newsletter from '@nycopportunity/pttrn-scripts/src/newsletter/newsletter'
   let newsletter = null;
 
   if (element) {
-    let submit = element.querySelector('[type=submit]');
-    let error = element.querySelector('[data-js="alert-error"]')
-
     newsletter = new Newsletter(element);
-    newsletter.form.selectors.ERROR_MESSAGE_PARENT = '.c-question__container';
-
-    // display error on invalid form
-    submit.addEventListener('click', function() {
-      if (response == null) {
-        error.setAttribute('aria-hidden', 'false');
-
-        error.classList.remove('hidden')
-      }
-    })
   }
 
   let params = new URLSearchParams(window.location.search);
   let response = params.get('response');
-  let res = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   if (response && newsletter) {
+    // hide form fields and submit button
+    let submit = element.querySelector('[type=submit]');
+    let fields = element.querySelector('[data-js="form-fields"]');
+
+    if (!submit.classList.contains(newsletter.classes.HIDDEN)) {
+      submit.classList.add(newsletter.classes.HIDDEN);
+
+      // Screen Readers
+      submit.setAttribute('aria-hidden', 'true');
+      submit.querySelector(newsletter.selectors.ALERT_TEXT)
+        .setAttribute('aria-live', 'off');
+    }
+
+    if (!fields.classList.contains(newsletter.classes.HIDDEN)) {
+      fields.classList.add(newsletter.classes.HIDDEN);
+
+      // Screen Readers
+      fields.setAttribute('aria-hidden', 'true');
+      fields.querySelector(newsletter.selectors.ALERT_TEXT)
+        .setAttribute('aria-live', 'off');
+    }
+
+    // show return home button
+    let homeButton = element.querySelector('[data-js="home-button"]');
+    newsletter._elementShow(homeButton);
+
     let email = params.get('email');
     let input = element.querySelector('input[name="EMAIL"]');
 
-    if (res.test(String(email).toLowerCase()))
+    if (EMAIL_REGEX.test(String(email).toLowerCase())) {
       input.value = email;
-
+    }
+    
     newsletter._data = {
       'result': params.get('result'),
-      'msg': params.get('msg'),
+      'msg': 'Test message',
       'EMAIL': email
     };
 

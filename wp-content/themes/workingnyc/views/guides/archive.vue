@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-1 relative z-40">
+    <div class="c-dropdown c-dropdown-max layout-content sticky top-0 bg-scale-0 relative z-40">
       <div class="c-utility wrap">
         <button :disabled="terms.length === 0" aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-small btn-secondary light:btn-primary" data-dialog="open" data-dialog-lock="true" data-js="dialog">
           <span class="mie-1">{{ strings.FILTERS }}</span>
@@ -27,7 +27,7 @@
             <div>
               <div class="mb-8" v-for="term in terms" :key="term.slug">
                 <fieldset class="fieldset mb-2" tabindex="-1">
-                  <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">
+                  <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-0" tabindex="-1">
                     {{ term.name }}
                   </legend>
 
@@ -57,7 +57,7 @@
             </div>
           </div>
 
-          <div class="layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1">
+          <div class="layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-0">
             <div class="wrap">
               <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1" v-html="strings.CLOSE_AND_SEE_PROGRAMS.replace('{{ number }}', headers.total)"></button>
             </div>

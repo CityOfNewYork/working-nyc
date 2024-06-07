@@ -15,7 +15,7 @@
     <div class="layout-content">
       <div>
         <fieldset class="mb-8" tabindex="-1" v-for="(filter, index) in filters">
-          <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-1" tabindex="-1">v{ labels[index] }</legend>
+          <legend class="h5 block w-full m-0 py-2 mb-1 tablet:py-3 pis-4 text-alt sticky top-0 z-10 bg-scale-0" tabindex="-1">v{ labels[index] }</legend>
 
           <div class="wrap grid gap-2 tablet:grid-cols-2 tablet:gap-3">
             <label class="option w-full m-0" tabindex="-1" v-for="term in filter" gtm-data="test">
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-1">
+    <div class="layout-content shadow-up py-2 sticky bottom-0 z-10 text-center bg-scale-0">
       <div class="wrap">
         <button aria-controls="aria-c-filter" aria-expanded="false" class="btn btn-secondary w-full" data-js="dialog" tabindex="-1">{{ __('Close and see', 'WNYC-Programs') }} v{ totalPosts } {{ __('programs', 'WNYC-Programs') }}</button>
       </div>

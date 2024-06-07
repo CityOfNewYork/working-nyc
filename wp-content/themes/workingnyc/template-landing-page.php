@@ -36,7 +36,7 @@ if ($post->slug === 'newsletter') {
     enqueue_script('newsletter');
   });
 
-  $template = 'newsletter.twig';
+  $template = 'newsletter-old.twig';
 
   $context['show_newsletter'] = false;
 

@@ -24,7 +24,7 @@
 
         <p class="mt-1 tablet:mt-2">{{ post.employer_program_preview }}</p>
         {% if post.meta('header_link') %}
-        <a href="{{ post.meta('header_link').url }}" target="{{ post.meta('header_link').target }}" class="text-[#30374F] no-underline mt-2 tablet:mt-3">
+        <a href="{{ post.meta('header_link').url }}" target="{{ post.meta('header_link').target }}" class="text-[#30374F] no-underline hover:underline mt-2 tablet:mt-3">
           <h6 class="font-bold">{{ post.meta('header_link').title }}</h6>
         </a>
         {% endif %}
@@ -59,16 +59,16 @@
       </div>
     </div>
   </div>
+  {% if post.meta('similar_programs') is not empty %}
   <div class="mt-5 tablet:mt-6 desktop:mt-7 mb-7 mx-3 tablet-mx-14 desktop-mx-26">
     <h3>{{ __('Similar services', 'WNYC') }}</h3>
     <div class="w-full grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-2">
       {% for program in post.meta('similar_programs') %}
-      <div>
       {% include 'employer-programs/similar-employer-program.twig' with { post: program } %}
-      </div>
       {% endfor %}
     </div>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
 

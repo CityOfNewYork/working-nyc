@@ -262,10 +262,30 @@
             "mime_types": ""
         },
         {
+            "key": "field_662bed4c70b98",
+            "label": "Container image focal point",
+            "name": "container_image_focal_point",
+            "type": "text",
+            "instructions": "The focal point is expressed as an \"x y\" coordinate and will be set to the \"object position\" CSS property. When the image is resized within the browser window, this coordinate of the image will mostly be kept in view. Both the x and the y value should be percentages points that generally intersect with the position on the image that needs to be focused on. For example; 50% 50% would center the image, 25% 75% would keep the top right part of the image in view.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "50% 50%",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
             "key": "field_65df64bdf93d5",
-            "label": "Container link",
-            "name": "container_link",
-            "type": "link",
+            "label": "Container links",
+            "name": "container_links",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -275,7 +295,152 @@
                 "id": ""
             },
             "relevanssi_exclude": 0,
-            "return_format": "array"
+            "collapsed": "",
+            "min": 1,
+            "max": 2,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_662fef6fc0384",
+                    "label": "link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "return_format": ""
+                }
+            ]
+        },
+        {
+            "key": "field_6605ace97a0fc",
+            "label": "Container header 2",
+            "name": "container_header_2",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_6605acff7a0fd",
+            "label": "Container subtitle 2",
+            "name": "container_subtitle_2",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_6605ad0d7a0fe",
+            "label": "Container image 2",
+            "name": "container_image_2",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_662bed8770b99",
+            "label": "Container image 2 focal point",
+            "name": "container_image_2_focal_point",
+            "type": "text",
+            "instructions": "The focal point is expressed as an \"x y\" coordinate and will be set to the \"object position\" CSS property. When the image is resized within the browser window, this coordinate of the image will mostly be kept in view. Both the x and the y value should be percentages points that generally intersect with the position on the image that needs to be focused on. For example; 50% 50% would center the image, 25% 75% would keep the top right part of the image in view.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "50% 50%",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_662fef86c0385",
+            "label": "Container 2 links",
+            "name": "container_2_links",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "collapsed": "",
+            "min": 1,
+            "max": 2,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_662fef86c0386",
+                    "label": "link",
+                    "name": "link",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "return_format": "array"
+                }
+            ]
         },
         {
             "key": "field_659ef71c52afa",
@@ -363,5 +528,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1709307164
+    "modified": 1714417576
 }

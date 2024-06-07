@@ -15,13 +15,16 @@
     <span class="hidden tablet:block desktop-font-size-13">{{ __('Official website of the City of New York', 'WNYC - Navigation') }}</span>
   </div>
   <div class="flex items-center">
-    <button class="py-1 px-1 flex items-center no-underline hover:underline active:underline" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-dialog-lock="true" data-js="dialog">
+    <button class="py-1 px-1 flex items-center no-underline hover:underline active:underline" aria-controls="aria-c-text-controller" aria-expanded="false" data-dialog="open" data-js-dialog="language" data-dialog-lock="true" data-js="dialog">
       <svg class="h-3 w-3 mr-[4px]">
         <use href="#languages-nav"></use>
       </svg>
       <span class="text-xs font-[500] desktop:text-sm text-[#080707]">{{ __('Language', 'WNYC - Navigation') }}</span>
-      <svg class="h-3 w-3 fill-none stroke-black">
+      <svg class="h-3 w-3 fill-none stroke-black active" data-js="language-up-arrow">
         <use href="#lucide-chevron-down"></use>
+      </svg>
+      <svg class="h-3 w-3 fill-none stroke-black hidden" data-js="language-down-arrow">
+        <use href="#lucide-chevron-up"></use>
       </svg>
     </button>
     {% include 'objects/languages-dropdown.twig' %}
@@ -41,7 +44,7 @@
 </nav>
 {% include 'search/search-overlay.twig' %}
 <nav aria-label="{{ job_seeker_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3 bg-white" data-js="navigation">
-  <div class="items-center flex bg-scale-1 tablet:bg-transparent">
+  <div class="items-center flex bg-scale-0 tablet:bg-transparent">
     <a class="pr-2 hidden tablet:block" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}">
       <svg class="o-navigation__svg fill-text text-brand" width="206" height="22">
         <title>{{ __('Jobs NYC jobseeker homepage', 'WNYC - Navigation') }}</title>

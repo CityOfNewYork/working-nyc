@@ -21,14 +21,28 @@
         {% if this.guides %}
         <div class="grid tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
         {% else %}
-        <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
+          {% if this.post.post_type == 'job-boards' and not is_home %}
+          <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-3 auto-rows-[1fr]">
+          {% elseif this.post.post_type == 'employer-programs' %}
+          <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-3 auto-rows-[1fr]">
+          {% else %}
+          <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
+          {% endif %}
         {% endif %}
           {% for post in this.posts %}
+              {% if post.post_type == 'employer-programs' %} {# Don't include the parent div because that interferes with the shadow #}
+                {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
+                  post: post,
+                  is_home:is_home
+                } %}
+              {% else %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
-                  post: post
+                  post: post,
+                  is_home:is_home
                 } %}
               </div>
+              {% endif %}
           {% endfor %}
         </div>
       </div>

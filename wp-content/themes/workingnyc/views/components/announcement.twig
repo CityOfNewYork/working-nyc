@@ -1,9 +1,9 @@
 {# @Type   Component #}
 {# @For    Post Type #}
 {# @Class  timber-posts/Announcements.php #}
-<article class="c-card c-card-transparent h-full px-4 pb-4">
+<article class="c-card c-card-transparent h-full px-4 pb-4 min-h-[400px]">
   <header class="pb-2 border-b-2 border-[#F0F6FA]">
-    <a href="{{ function('convert_link_locale', this.link , site.site_url, site.url) }}" target="{{ this.target }}" class="c-card__header-link pt-4">
+    <a href="{{ function('convert_link_locale', this.link , site.site_url, site.url) }}" target="{{ this.target }}" class="c-card__header-link pt-4 visited:text-[#004CBE] hover:text-[#080707]">
       <h5 class="c-card__title text-[20px] desktop:text-[22px]">
         {% if this.date_updated|date('U') > this.status_period|date('U') %}
         <mark class="badge" title="{{ this.status_title }}">
