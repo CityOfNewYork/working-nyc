@@ -65,9 +65,8 @@
       </header>
   </div>
 
-<<<<<<< HEAD
-  <div>
-    <section class="px-4 tablet:px-6">
+  <div class="site-max-width">
+    <section>
       {% if posts|length > 0 %}
         {% block list_sidebar %}
         {% endblock %}
@@ -98,7 +97,7 @@
           {% endblock %}
         </div> 
       {% else %}
-      <div class="my-3 tablet:my-4 tablet:px-6">
+      <div class="my-3 tablet:my-4">
         <h4>{{__('No results for "{{ TERM }}"', 'WNYC')|replace({'{{ TERM }}': term})}}</h4>
         <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('Search help', 'WNYC')}}</h5>
         <list>
@@ -109,53 +108,6 @@
         <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('If you still can\'t find what you\'re looking for, {{ FEEDBACK }} to improve our site.', 'WNYC')|replace({'{{ FEEDBACK }}': 
           '<a class="link-icon" href="https://airtable.com/shrfQGpXvo9mmmHpJ">send us feedback <svg aria-hidden="true" class="icon-ui rtl:flip"><use href="#lucide-external-link"></use></svg></a>'})}}</h5>
       </div>
-=======
-  <div class="site-max-width" data-js="search-results-list">
-    <section>
-      {% if term != '' %}
-        {% if posts|length > 0 %}
-          {% block list_sidebar %}
-          {% endblock %}
-          <div>
-            {% block before_list %}
-            <h2 class="text-p font-p inline-block mt-4 mb-2">
-              {% if posts|length > 1 %}
-                {{ __('Showing {{ TOTAL_VISIBLE }} results for "{{ TERM }}".', 'WNYC')|replace({'{{ TOTAL_VISIBLE }}': posts|length, '{{ TERM }}': term}) }}
-              {% else %}
-                {{ __('Showing 1 result for "{{ TERM }}".', 'WNYC')|replace({'{{ TERM }}': term}) }}
-              {% endif %}
-            </h2>
-            {% endblock %}
-            <div class="grid gap-3 desktop:grid-cols-2 mb-3">
-              {% block post_list %}
-                {% for post in posts %}
-                    <div data-js="search-result" data-js-result-type="program">
-                      {% include 'programs/program.twig' with {
-                        this: {
-                          post: post
-                        }
-                      } %}
-                    </div>
-                {% endfor %}
-              {% endblock %}
-            </div>
-            {% block after_list %}
-            {% endblock %}
-          </div> 
-        {% else %}
-        <div class="my-3 tablet:my-4">
-          <h4>{{__('No results for "{{ TERM }}"', 'WNYC')|replace({'{{ TERM }}': term})}}</h4>
-          <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('Search help', 'WNYC')}}</h5>
-          <list>
-            <li class="m-0">{{__('Check your search for typos', 'WNYC')}}</li>
-            <li class="m-0">{{__('Use generic search terms', 'WNYC')}}</li>
-            <li class="m-0">{{__('Browse our <a href="{{ PROGRAMS_URL }}">programs</a>', 'WNYC')|replace({'{{ PROGRAMS_URL }}': site.url|last == '/' ? site.url ~ 'jobseekers/programs' : site.url ~ '/jobseekers/programs'})}}</li>
-          </list>
-          <h5 style="margin-top: var(--nyco-typography-margin-bottom);">{{__('If you still can\'t find what you\'re looking for, {{ FEEDBACK }} to improve our site.', 'WNYC')|replace({'{{ FEEDBACK }}': 
-            '<a class="link-icon" href="https://airtable.com/shrfQGpXvo9mmmHpJ">send us feedback <svg aria-hidden="true" class="icon-ui rtl:flip"><use href="#lucide-external-link"></use></svg></a>'})}}</h5>
-        </div>
-        {% endif %}
->>>>>>> main
       {% endif %}
     </section>
   </div>
