@@ -229,14 +229,26 @@ export default {
       })(_this);
     },
 
+    /**
+     * This function gets executed after fetching posts data to set the Posts array.
+     * We are initializing the pagination array.
+     **/ 
+
     process: function(data, query, headers) {
       // If there are posts for this query, map them to the template.
       let posts = (Array.isArray(data)) ?
         data.map(this.maps()[this.type]) : false;
 
-      // Set posts and store a copy of the query for reference.
-      this.$set(this.posts[query.page], 'posts', posts);
-      this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
+      /**
+       * Set only current page posts
+       * The query argument gets the current, previous, next page
+       * So, we set Posts array with current page posts
+       */
+      
+      if(this.query.page == query.page){
+        this.$set(this.posts[query.page], 'posts', posts);
+        this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
+      }
 
       // If there are no posts, pass along to the error handler.
       if (!Array.isArray(data))
@@ -256,6 +268,9 @@ export default {
       } 
     },
 
+    /**
+     * Fetch the posts of updated page
+     */
     updatePagination: function(){
       this.scrollToTop();
       let url = [
@@ -268,26 +283,16 @@ export default {
       fetch(url)
       .then(this.response)
       .then(data => {
-      let query = this.query;
-      let headers = Object.assign({}, this.headers);
-
-      this.posts.length=1;
-
-      let currentPost = {
-        'posts': data,
-        'headers': headers,
-        'query': this.query,
-        'show': true
-      };
-
-      this.posts.push(currentPost);
-
-      this.posts.map(post=>{
-        if(post.query.page != query.page){
-          this.$set(post, 'show', false);
-        }
-      });
-      this.setPagination();      
+        let headers = Object.assign({}, this.headers);
+        this.posts.length=1;
+        let currentPost = {
+          'posts': data,
+          'headers': headers,
+          'query': this.query,
+          'show': true
+        };
+        this.posts.push(currentPost);
+        this.setPagination();      
       }).catch(this.error);
     },
 
@@ -314,11 +319,9 @@ export default {
         this.$set(this.query, taxonomy, terms);
         this.$set(this.query, 'page', 1);
         // hide all of the posts
-        this.posts.map((value, index) => {
-          //if (value) this.$set(this.posts[index], 'show', false);
-          if (value) this.posts.length=1;
-          return value;
-        });
+        if(this.posts.length>1){
+          this.posts.length=1;
+        }
         resolve();
       })
       .then(this.wp)
@@ -326,7 +329,21 @@ export default {
       });
     },
 
+    /**
+     * Update the pagination array
+     * The maximum pages: 6
+     */
     setPagination: function(){
+
+      /**
+       * If number of pages is less than 7
+       *  The totalPages = [1,2,3,4,5,6]
+       *  The Pagination = 1,2,3,4,5,6
+       * else
+       *  The totalPages = [2,3,4,5]
+       *  The Pagination = firstPage,2,3,4,5..lastPage
+       */
+
       if(this.headers.pages<=6){
         this.firstPage = false;
         this.lastPage = false;
@@ -335,10 +352,15 @@ export default {
       else{
         this.firstPage = true;
         this.lastPage = true;
+
+        //If current page is between 1 and 4, the totalPages = [2,3,4,5]
         if(this.query.page<=4){
           this.totalPages = [2,3,4,5]
         }
         else{
+          /**
+           * If the current page is greater than 4, we have to show the previous and next page number
+           */ 
           if((this.query.page!=this.totalPages[1])&&this.headers.pages-this.query.page>4){
             let tempPages=[4];
             let tempNumber;
@@ -354,6 +376,11 @@ export default {
             this.totalPages = tempPages;
           }
           else{
+            /**
+             * If the total pages - current page is less than or equal to 4,
+             *  we have to display the last four page numbers
+             *  we se the totalPages array with [lastpage-4,lastpage-3,lastpage-2,lastpage-1]
+             */
             if(this.headers.pages-this.query.page<=4){
               let tempPages=[4];
               let bufferFlag;
