@@ -21,15 +21,18 @@ export default {
       type: Number,
       default: 0
     },
-    paginationNextLink: {
-      type: String
-    },
     strings: {
       type: Object
     },
+
+    // The page numbers to display
     totalPages: {
       type: Object
     },
+
+    // If firstPage and lastPage are true, display page numbers
+    // 1, (totalPages), pages
+    // Otherwise, display (totalPages)
     firstPage: {
       type: Boolean,
       default: false
@@ -65,6 +68,10 @@ export default {
 
       /**
        * Setting this sets the initial headers of the app's query
+       * In the response() function inherited from archive.vue, 
+       * pages is set to be the total number of pages and 
+       * total is set to be the total number of programs returned
+       * by the query
        *
        * @type {Object}
        */
@@ -173,8 +180,6 @@ export default {
 
       if (!this.posts.length) return false;
 
-      //let page = this.posts[number];
-
       return (number < total);
     },
 
@@ -197,36 +202,6 @@ export default {
         behavior: "smooth"
         });
       this.filtersExpanded = false;
-    },
-
-    /**
-     * Proxy for pagination. This will shift focus on the next page's first
-     * result once pagination is complete.
-     *
-     * @param   {Object}  event  The bound click event
-     */
-    nextPage: function(event) {
-      let _this = this;
-
-      (async (_this) => {
-        await _this.paginate(event);
-
-        if (_this.totalVisible <= 1)
-          return false;
-
-        let pages = _this.posts.filter(page => {
-          return (page && page.show);
-        });
-
-        if (pages) {
-          let posts = pages[pages.length - 1].posts;
-          let element = document.querySelector(`[data-js='post-${posts[0].id}']`);
-
-          if (element) {
-            element.focus();
-          }
-        }
-      })(_this);
     },
 
     /**
@@ -256,6 +231,8 @@ export default {
 
       this.$set(this, 'init', true);
 
+      // Initialize the pagination array with pages 1-n if n<=6
+      // or pages 1,2,3,4,5 ... n
       if(this.headers.pages<=6){
         this.firstPage = false;
         this.lastPage = false;
@@ -302,7 +279,7 @@ export default {
       this.updatePagination();
     },
 
-    nextPagination:function(event){
+    nextPage:function(event){
       let currPage = this.posts[1].query.page;
       this.$set(this.query, 'page', currPage+1);
       this.updatePagination();
@@ -331,7 +308,7 @@ export default {
 
     /**
      * Update the pagination array
-     * The maximum pages: 6
+     * The maximum page numbers to display: 6
      */
     setPagination: function(){
 

@@ -185,14 +185,13 @@
                     <span v-if="query.page==headers.pages" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">{{headers.pages}}</span>
                     <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">{{headers.pages}}</span>
                   </button>
-                  <button v-if="next" class="text-[#080707] font-normal" @click="nextPagination">
+                  <button v-if="next" class="text-[#080707] font-normal" @click="nextPage">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-right"></use>
                     </svg>
                   </button>
                 </div>
                 
-                <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
               </div>
 
               <div class="flex items-center text-em justify-center py-4" v-if="none">
