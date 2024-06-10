@@ -173,6 +173,37 @@ export default {
     submitSearch() {
       this.wp();
       this.currentSearchTerm = this.query.s;
+    },
+    /**
+     * Proxy for pagination. This will shift focus on the next page's first
+     * result once pagination is complete.
+     * 
+     * Copied from programs-archive.js
+     *
+     * @param   {Object}  event  The bound click event
+     */
+    nextPage: function(event) {
+      let _this = this;
+
+      (async (_this) => {
+        await _this.paginate(event);
+
+        if (_this.totalVisible <= 1)
+          return false;
+
+        let pages = _this.posts.filter(page => {
+          return (page && page.show);
+        });
+
+        if (pages) {
+          let posts = pages[pages.length - 1].posts;
+          let element = document.querySelector(`[data-js='post-${posts[0].id}']`);
+
+          if (element) {
+            element.focus();
+          }
+        }
+      })(_this);
     }
   },
 

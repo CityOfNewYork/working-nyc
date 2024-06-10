@@ -188,7 +188,7 @@
 
                 <!-- If there are no posts available, display a message indicating that -->
                 <div v-else-if="none">
-                  <div v-if="totalFilters == 0">
+                  <div v-if="totalFilters == 0 && headers.total == 0">
                     <div class="my-3 tablet:my-4 tablet:px-6">
                       <h4>No results for "{{ currentSearchTerm }}"</h4>
                       <h5 class="mt-2">Search help</h5>
@@ -208,7 +208,7 @@
                 <!-- Otherwise, display the list of posts-->
                 <div v-else>
                   <div class="mb-3">
-                    <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
+                    <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null && totalVisible != 0">
                       <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
                     </h2>
                   </div>
@@ -216,6 +216,10 @@
                   <div class="grid gap-3 mb-3">
                     <SearchResult v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></SearchResult>
                   </div>
+
+                  <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
+                    {{ strings.SHOW_MORE }}
+                  </button>
                 </div>
             </section>
           </div>
