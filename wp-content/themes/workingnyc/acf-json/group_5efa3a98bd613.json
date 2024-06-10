@@ -91,13 +91,6 @@
                 "operator": "==",
                 "value": "template-talent-portal-generic-page.php"
             }
-        ],
-        [
-            {
-                "param": "page_template",
-                "operator": "==",
-                "value": "template-employ-nyc-landing-page.php"
-            }
         ]
     ],
     "menu_order": 0,
@@ -109,5 +102,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717699142
+    "modified": 1718031291
 }
