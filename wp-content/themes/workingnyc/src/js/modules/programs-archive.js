@@ -164,6 +164,13 @@ export default {
      *
      * @type {Boolean}
      */
+
+    /**
+     * The two functions below override functions in archive.vue because this implementation 
+     * has only one page's data stored at a time, while the archive.vue implementation stores data
+     * on multiple pages
+    */ 
+
     loading: function() {
       if (!this.posts.length) return false;
 
