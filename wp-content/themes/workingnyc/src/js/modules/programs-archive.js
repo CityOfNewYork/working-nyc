@@ -236,7 +236,9 @@ export default {
       if(this.headers.pages<=6){
         this.firstPage = false;
         this.lastPage = false;
-        this.totalPages = this.headers.pages;
+        for(let i=1;i<=this.headers.pages;i++){
+          this.totalPages.push(i);
+        }
       }
       else{
         this.firstPage = true;
@@ -291,21 +293,6 @@ export default {
       this.updatePagination();
     },
 
-    updateQuery: function(taxonomy, terms) {
-      return new Promise((resolve) => { // eslint-disable-line no-undef
-        this.$set(this.query, taxonomy, terms);
-        this.$set(this.query, 'page', 1);
-        // hide all of the posts
-        if(this.posts.length>1){
-          this.posts.length=1;
-        }
-        resolve();
-      })
-      .then(this.wp)
-      .catch(message => {
-      });
-    },
-
     /**
      * Update the pagination array
      * The maximum page numbers to display: 6
@@ -324,7 +311,9 @@ export default {
       if(this.headers.pages<=6){
         this.firstPage = false;
         this.lastPage = false;
-        this.totalPages = this.headers.pages;
+        for(let i=1;i<=this.headers.pages;i++){
+          this.totalPages.push(i);
+        }
       }
       else{
         this.firstPage = true;
@@ -338,15 +327,9 @@ export default {
           /**
            * If the current page is greater than 4, we have to show the previous and next page number
            */ 
-          if((this.query.page!=this.totalPages[1])&&this.headers.pages-this.query.page>4){
+          if(this.headers.pages-this.query.page>4){
             let tempPages=[4];
-            let tempNumber;
-            if(this.query.page==this.totalPages[0]){
-              tempNumber = this.totalPages[0]-1;
-            }
-            else{
-              tempNumber = this.totalPages[1];
-            }
+            let tempNumber=this.query.page-1;
             for(let i=0;i<4;i++){
               tempPages[i]=i+tempNumber;
             }
