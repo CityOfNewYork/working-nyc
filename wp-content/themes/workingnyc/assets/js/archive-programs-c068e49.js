@@ -1166,7 +1166,7 @@
 	       * So, we set Posts array with current page posts
 	       */
 	      
-	      if(this.query.page == query.page){
+	      if(this.query.page == 1){
 	        this.$set(this.posts[query.page], 'posts', posts);
 	        this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
 	      }
@@ -1182,6 +1182,7 @@
 	      if(this.headers.pages<=6){
 	        this.firstPage = false;
 	        this.lastPage = false;
+	        this.totalPages = [];
 	        for(let i=1;i<=this.headers.pages;i++){
 	          this.totalPages.push(i);
 	        }
@@ -1257,6 +1258,7 @@
 	      if(this.headers.pages<=6){
 	        this.firstPage = false;
 	        this.lastPage = false;
+	        this.totalPages = [];
 	        for(let i=1;i<=this.headers.pages;i++){
 	          this.totalPages.push(i);
 	        }
