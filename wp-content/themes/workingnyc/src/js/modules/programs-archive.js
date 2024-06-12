@@ -227,9 +227,10 @@ export default {
        * So, we set Posts array with current page posts
        */
       
-      if(this.query.page == 1){
+      if(query.page == 1){
         this.$set(this.posts[query.page], 'posts', posts);
         this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
+        this.$set(this.posts[query.page], 'show', true);
       }
 
       // If there are no posts, pass along to the error handler.
@@ -287,6 +288,21 @@ export default {
       let currPage = this.posts[1].query.page;
       this.$set(this.query, 'page', currPage-1);
       this.updatePagination();
+    },
+
+    updateQuery: function(taxonomy, terms) {
+      return new Promise((resolve) => { // eslint-disable-line no-undef
+        this.$set(this.query, taxonomy, terms);
+        this.$set(this.query, 'page', 1);
+        // hide all of the posts
+        if(this.posts.length>1){
+          this.posts.length=1;
+        }
+        resolve();
+      })
+      .then(this.wp)
+      .catch(message => {
+      });
     },
 
     nextPage:function(event){
