@@ -1274,7 +1274,7 @@
 	           * If the current page is greater than 4, we have to show the previous and next page number
 	           */ 
 	          if(this.headers.pages-this.query.page>4){
-	            let tempPages=[4];
+	            let tempPages=[];
 	            let tempNumber=this.query.page-1;
 	            for(let i=0;i<4;i++){
 	              tempPages[i]=i+tempNumber;
@@ -1288,16 +1288,16 @@
 	             *  we se the totalPages array with [lastpage-4,lastpage-3,lastpage-2,lastpage-1]
 	             */
 	            if(this.headers.pages-this.query.page<=4){
-	              let tempPages=[4];
-	              let bufferFlag;
+	              let tempPages=[];
+	              let tempNumber;
 	              if(this.headers.pages-this.query.page==4){
-	                bufferFlag = this.query.page-1;
+	                tempNumber = this.query.page-1;
 	              }
 	              else {
-	                bufferFlag = this.headers.pages-4;
+	                tempNumber = this.headers.pages-4;
 	              }
 	            for(let i=0;i<4;i++){
-	              let j=i+bufferFlag;
+	              let j=i+tempNumber;
 	              tempPages[i]=j;
 	            }
 	            this.totalPages = tempPages;
