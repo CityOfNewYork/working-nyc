@@ -76,7 +76,7 @@
             "key": "field_6661fde9c84cf",
             "label": "Upcoming Jobs Events",
             "name": "upcoming_jobs_events",
-            "type": "flexible_content",
+            "type": "repeater",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -86,130 +86,121 @@
                 "id": ""
             },
             "relevanssi_exclude": 0,
-            "layouts": {
-                "layout_6661fdfa34fb3": {
-                    "key": "layout_6661fdfa34fb3",
-                    "name": "upcoming_jobs_events",
-                    "label": "Upcoming Jobs Events",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6661fe09c84d0",
-                            "label": "Job Event Title",
-                            "name": "job_event_title",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "relevanssi_exclude": 0,
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": ""
-                        },
-                        {
-                            "key": "field_6661fe1fc84d1",
-                            "label": "Job Event Date",
-                            "name": "job_event_date",
-                            "type": "date_picker",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "relevanssi_exclude": 0,
-                            "display_format": "F j, Y",
-                            "return_format": "F j, Y",
-                            "first_day": 1
-                        },
-                        {
-                            "key": "field_6661fe3ac84d2",
-                            "label": "Job Event Start Time",
-                            "name": "job_event_start_time",
-                            "type": "time_picker",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "relevanssi_exclude": 0,
-                            "display_format": "g:i a",
-                            "return_format": "g:i a"
-                        },
-                        {
-                            "key": "field_6661fe79c84d3",
-                            "label": "Job Event End Time",
-                            "name": "job_event_end_time",
-                            "type": "time_picker",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "relevanssi_exclude": 0,
-                            "display_format": "g:i a",
-                            "return_format": "g:i a"
-                        },
-                        {
-                            "key": "field_6661fe8dc84d4",
-                            "label": "Job Event Location",
-                            "name": "job_event_location",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "relevanssi_exclude": 0,
-                            "default_value": "",
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": "",
-                            "maxlength": ""
-                        },
-                        {
-                            "key": "field_6661fe9dc84d5",
-                            "label": "Job Event Link",
-                            "name": "job_event_link",
-                            "type": "url",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "relevanssi_exclude": 0,
-                            "default_value": "",
-                            "placeholder": ""
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "",
+            "sub_fields": [
+                {
+                    "key": "field_6661fe09c84d0",
+                    "label": "Job Event Title",
+                    "name": "job_event_title",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_666b4e194a3d8",
+                    "label": "Job Event Date",
+                    "name": "job_event_date",
+                    "type": "date_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "display_format": "F j, Y",
+                    "return_format": "F j, Y",
+                    "first_day": 1
+                },
+                {
+                    "key": "field_6661fe3ac84d2",
+                    "label": "Job Event Start Time",
+                    "name": "job_event_start_time",
+                    "type": "time_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "display_format": "g:i a",
+                    "return_format": "g:i a"
+                },
+                {
+                    "key": "field_6661fe79c84d3",
+                    "label": "Job Event End Time",
+                    "name": "job_event_end_time",
+                    "type": "time_picker",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "display_format": "g:i a",
+                    "return_format": "g:i a"
+                },
+                {
+                    "key": "field_6661fe8dc84d4",
+                    "label": "Job Event Location",
+                    "name": "job_event_location",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
+                },
+                {
+                    "key": "field_6661fe9dc84d5",
+                    "label": "Job Event Link",
+                    "name": "job_event_link",
+                    "type": "link",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "relevanssi_exclude": 0,
+                    "return_format": "array"
                 }
-            },
-            "button_label": "Add Row",
-            "min": "",
-            "max": ""
+            ]
         },
         {
             "key": "field_66620011a8efb",
@@ -256,8 +247,8 @@
                             "key": "field_6662003ea8efd",
                             "label": "Interest Form URL",
                             "name": "interest_form_url",
-                            "type": "url",
-                            "instructions": "",
+                            "type": "wysiwyg",
+                            "instructions": "Use an iFrame HTML element to embed your form using the 'Text' tab. You should be able to see the form in the 'Visual' tab afterwards.",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
@@ -267,7 +258,10 @@
                             },
                             "relevanssi_exclude": 0,
                             "default_value": "",
-                            "placeholder": ""
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1,
+                            "delay": 0
                         }
                     ],
                     "min": "1",
@@ -297,5 +291,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1718031207
+    "modified": 1718310700
 }
