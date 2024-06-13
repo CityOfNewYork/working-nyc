@@ -248,7 +248,7 @@
                             "label": "Interest Form URL",
                             "name": "interest_form_url",
                             "type": "wysiwyg",
-                            "instructions": "",
+                            "instructions": "Use an iFrame HTML element to embed your form using the 'Text' tab. You should be able to see the form in the 'Visual' tab afterwards.",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
