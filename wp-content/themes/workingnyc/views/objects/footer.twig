@@ -1,10 +1,15 @@
 {% if hide_jobseeker_and_employer_navigation == false and hide_jobseeker_and_employer_footer == false %}
     <footer aria-label="{{ __('Footer', 'WNYC') }}" class="relative shadow-[0_-2px_16px_0px_rgba(0,0,0,0.06)] py-3 tablet:py-5 bg-white" role="contentinfo">
     <div class="site-max-width">
-    <nav class="o-attribution__flex">
-        <div class="flex flex-col tablet:flex-row desktop:flex-col w-fit tablet:w-full desktop:w-fit justify-start tablet:justify-between desktop:justify-start items-start tablet:items-center desktop:items-start pb-3 desktop:pb-0 gap-2 tablet:gap-5">
+    <nav class="o-attribution__flex items-baseline">
+        <div class="flex flex-col tablet:flex-row desktop:flex-col w-fit tablet:w-full desktop:w-fit desktop:mr-[10px] justify-start tablet:justify-between desktop:justify-start items-start tablet:items-center desktop:items-start pb-3 desktop:pb-0 gap-2 tablet:gap-5">
             <div>
             <span class="footer-font">{{ options.feedback_prompt }}</span>
+            {% if employer %}
+                <p class="desktop:mb-0 mt-[4px] desktop:mt-[8px] tablet:mt-[8px]">
+                    {{ options.employers_feedback_text }}
+                </p>
+            {% endif %}
             </div>
             <div class="tablet:float-right desktop:float-left">
             <a class="px-2 py-1 tablet:px-3 tablet:py-2 text-[16px] tablet:text-[20px] font-[500] tablet:font-[600] btn-secondary pointer-events-auto" target="_blank" rel="noopener"
@@ -13,7 +18,12 @@
                 {% else %}
                 href="{{ options.feedback_form_link_jobseeker }}"
                 {% endif %}
-                >Send us feedback</a>
+                >
+                {% if employer %}
+                {{ options.employer_feedback_button }}
+                {% else %}
+                Send us feedback
+                {% endif %}</a>
             </div>
         </div>
         <div class="hidden desktop:grid grid-cols-2 gap-y-1 gap-x-2 tablet:gap-x-5 float-right w-[440px]">

@@ -20,7 +20,13 @@ $context['post'] = $post;
 
 $context['meta'] = new WorkingNYC\Meta($post);
 
-$context['sections'] = Templating\get_sections();
+//$context['sections'] = Templating\get_sections();
+
+$context['upcoming_events'] = Templating\get_upcoming_events();
+
+$context['events_form'] = Templating\get_events_form();
+
+$context['events_header'] = Templating\get_events_header();
 
 $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 

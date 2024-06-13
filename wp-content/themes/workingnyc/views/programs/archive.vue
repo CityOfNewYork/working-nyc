@@ -135,7 +135,7 @@
                       </div>
 
                       <div class="grid gap-1" v-if="indexArr.indexOf(index) !== -1">
-                        <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test">
+                        <label class="option w-full m-0" tabindex="-1" v-for="filter in term.filters" :key="filter.slug" gtm-data="test" v-if="filter.name.toLowerCase().trim()!='all residents'">
                           <input type="checkbox" tabindex="-1" :value="filter.slug" :checked="filter.checked" @change="click({event: $event, data: filter})">
 
                           <span class="option__base bg-transparent border-0 items-center">
@@ -157,7 +157,7 @@
             <section>
               <div v-if="!loading">
                 <div class="mb-3">
-                  <h2 class="text-p font-p inline-block m-0" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
+                  <h2 class="text-p font-p inline-block m-0" data-js="page-focus" data-alert="text" data-dialog-focus-on-close="aria-c-filter" aria-live="polite" v-if="posts != null">
                     <span v-html="strings.SHOWING.replace('{{ TOTAL_VISIBLE }}', totalVisible).replace('{{ TOTAL }}', headers.total)"></span>
                   </h2>
                 </div>
@@ -165,11 +165,33 @@
                 <div class="grid grid-cols-1 gap-3 mb-3">
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
-
-                <button id="pagination" class="btn btn-primary w-full" @click="nextPage" v-if="next" data-amount="1">
-                  {{ strings.SHOW_MORE }}
-                </button>
-                <article class="c-alert mb-3" data-js="alert-help" v-else-if="strings.SUGGEST" v-html="strings.SUGGEST"></article>
+                <div class="text-center py-1 px-1 flex items-center no-underline justify-center">
+                  <button v-if="previous" class="text-[#080707] font-normal" @click="previousPage">
+                    <svg class="h-3 w-3 fill-none stroke-black">
+                      <use href="#lucide-chevron-left"></use>
+                    </svg>
+                  </button>
+                  <button v-if="firstPage" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" @click="immediatePage" data-js="btnpage" data-amount="1">
+                    <span v-if="query.page==1" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">1</span>
+                    <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">1</span>
+                  </button>
+                  <span v-if="query.page>4&&headers.pages>6">...</span>
+                    <button v-for="pNo in totalPages" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
+                      <span  v-if="query.page==pNo" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">{{ pNo }}</span>
+                      <span  v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">{{ pNo }}</span>
+                    </button>
+                  <span v-if="headers.pages-query.page>3&&headers.pages>6">...</span>
+                  <button v-if="lastPage" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" data-js="btnpage" @click="immediatePage" v-bind:data-amount="headers.pages">
+                    <span v-if="query.page==headers.pages" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">{{headers.pages}}</span>
+                    <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">{{headers.pages}}</span>
+                  </button>
+                  <button v-if="next" class="text-[#080707] font-normal" @click="nextPage">
+                    <svg class="h-3 w-3 fill-none stroke-black">
+                      <use href="#lucide-chevron-right"></use>
+                    </svg>
+                  </button>
+                </div>
+                
               </div>
 
               <div class="flex items-center text-em justify-center py-4" v-if="none">

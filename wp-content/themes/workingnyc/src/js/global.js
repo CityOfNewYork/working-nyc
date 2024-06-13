@@ -118,9 +118,12 @@ toggleElement.addEventListener('click', (event) => {
 });
 
 // Initialize Google Translate Widget
+
+/**
 if (document.documentElement.lang != 'en') {
   googleTranslateElementInit();
 }
+ */
 
 /**
  * Set CSS properties of various element heights for

@@ -29,25 +29,99 @@
       </header>
     </div>
 
-    {% if sections %}
+    {% if events_header %}
     <div class="bg-scale-0">
-      <div class="site-max-width pb-8 mb-8">
-        <div class="py-2">
-          {% for section in sections %}
-          <section {% if not loop.last %}class="pb-6"{% endif %} {% if section.section_title %}id="{{ section.section_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
-            {% if section.section_title %}
-            <div class="bg-scale-0 sticky top-0 z-10 pt-5">
+      <div class="site-max-width pb-4">
+          {% for section in events_header %}
+          <section {% if section.header_title %}id="{{ section.header_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
+            {% if section.header_title %}
+            <div class="bg-scale-0 sticky top-0 z-10 pt-6">
               <div>
-                <h3 class="h5 mb-3 text-alt border-b border-scale-4 py-3">
-                  {{ section.section_title }}
+                <h3 class="h5 mb-4 text-alt font-[600] text-[30px] desktop:text-[44px] tablet:text-[30px]">
+                  {{ section.header_title }}
+                </h3>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="desktop:w-[914px] text-[18px] desktop:text-[21px] tablet:text-[18px]">
+              {{ section.header_content }}
+            </div>
+          </section>
+          {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if upcoming_events %}
+    
+    <div class="bg-scale-0">
+      <div class="site-max-width pb-6">
+        <div class="bg-scale-0 sticky top-0 z-10 pb-4">
+          <h1 class="text-[30px] desktop:text-[44px] tablet:text-[30px]" font-[600]">Upcoming</h1>
+        </div>
+        <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
+          {% for section in upcoming_events %}
+            <div class="transform-none p-[32px] rounded-[5px] border-2 border-[#F0F6FA]">
+              <p class="text-[#004CBE] text-[22px] font-[700] border-b-2 border-[#ECEFF2] pb-[16px]">{{ section.job_event_title}}</p>
+              <div class="pt-[24px]">
+                <p class="flex mb-[10px]">
+                  <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
+                    <use href="#lucide-calendar"></use>
+                  </svg>
+                  {{ section.job_event_date}}
+                </p>
+                <p class="flex mb-[10px]">
+                  <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
+                    <use href="#temp-lucide-clock"></use>
+                  </svg>
+                  <span>{{ section.job_event_start_time}}</span>
+                  <span class="pl-[8px] pr-[8px]">to</span>
+                  <span>{{ section.job_event_end_time}}</span>
+                </p>
+                <p class="flex mb-[24px]">
+                  <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
+                    <use href="#lucide-map-pin"></use>
+                  </svg>{{ section.job_event_location}}
+                </p>
+                <a href="{{ function('convert_link_locale', section.job_event_link , site.site_url, site.url) }}" target="_blank" class="c-card__header-link text-[#30374F] visited:text-[#30374F] hover:text-[#30374F]">
+                  <p class="c-card__title text-[20px] flex leading-[22px] text-[20px]">
+                    <span>Learn more and RSVP</span>
+                    <svg aria-hidden="true" class="icon-ui w-[24px] h-[24px] ml-[4px]">
+                      <use href="#lucide-arrow-right"></use>
+                    </svg>
+                  </p>
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    
+
+    {% if events_form %}
+    <div class="bg-scale-0">
+      <div class="site-max-width mb-8">
+        <div class="py-6">
+          {% for section in events_form %}
+          <section {% if not loop.last %}class="pb-6"{% endif %} {% if section.interest_form_title %}id="{{ section.interest_form_title|trim|replace({' ': '-'})|lower }}"{% endif %}>
+            {% if section.interest_form_title %}
+            <div class="bg-scale-0 sticky top-0 z-10">
+              <div>
+                <h3 class="h5 mb-3 text-alt border-b border-scale-4 pb-3 text-[30px] desktop:text-[44px] tablet:text-[44px]">
+                  {{ section.interest_form_title }}
                 </h3>
               </div>
             </div>
             {% endif %}
 
             <div>
-              {{ section.section_content }}
+              <iframe style="border: none; max-width: 100%; max-height: 100vh;" src="{{ section.interest_form_url }}" width="640px" height="900px" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen="allowfullscreen"> </iframe>  
             </div>
+      
           </section>
           {% endfor %}
         </div>
