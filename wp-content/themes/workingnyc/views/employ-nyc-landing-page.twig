@@ -84,9 +84,9 @@
                     <use href="#lucide-map-pin"></use>
                   </svg>{{ section.job_event_location}}
                 </p>
-                <a href="{{ function('convert_link_locale', section.job_event_link , site.site_url, site.url) }}" target="_blank" class="c-card__header-link text-[#30374F] visited:text-[#30374F] hover:text-[#30374F]">
+                <a href="{{ function('convert_link_locale', section.job_event_link.url , site.site_url, site.url) }}" target="{{ section.job_event_link.target }}" class="c-card__header-link text-[#30374F] visited:text-[#30374F] hover:text-[#30374F]">
                   <p class="c-card__title text-[20px] flex leading-[22px] text-[20px]">
-                    <span>Learn more and RSVP</span>
+                    <span>{{ section.job_event_link.title }}</span>
                     <svg aria-hidden="true" class="icon-ui w-[24px] h-[24px] ml-[4px]">
                       <use href="#lucide-arrow-right"></use>
                     </svg>
@@ -119,7 +119,7 @@
             {% endif %}
 
             <div>
-              <iframe style="border: none; max-width: 100%; max-height: 100vh;" src="{{ section.interest_form_url }}" width="640px" height="900px" frameborder="0" marginwidth="0" marginheight="0" allowfullscreen="allowfullscreen"> </iframe>  
+              {{ section.interest_form_url }}
             </div>
       
           </section>
