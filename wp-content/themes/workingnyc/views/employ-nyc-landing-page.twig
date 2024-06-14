@@ -62,9 +62,9 @@
         </div>
         <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
           {% for section in upcoming_events %}
-            <div class="transform-none p-[32px] rounded-[5px] border-2 border-[#F0F6FA]">
-              <p class="text-[#004CBE] text-[22px] font-[700] border-b-2 border-[#ECEFF2] pb-[16px]">{{ section.job_event_title}}</p>
-              <div class="pt-[24px]">
+            <div class="transform-none p-[32px] rounded-[5px] border-2 border-[#F0F6FA] desktop:relative tablet:relative">
+              <p class="text-[#004CBE] text-[22px] font-[700] border-b-2 border-[#ECEFF2] pb-[16px] mb-[0px]">{{ section.job_event_title}}</p>
+              <div class="pt-[24px] desktop:min-h-[173px] tablet:min-h-[198px] min-h-[170px]">
                 <p class="flex mb-[10px]">
                   <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
                     <use href="#lucide-calendar"></use>
@@ -84,14 +84,17 @@
                     <use href="#lucide-map-pin"></use>
                   </svg>{{ section.job_event_location}}
                 </p>
-                <a href="{{ function('convert_link_locale', section.job_event_link.url , site.site_url, site.url) }}" target="{{ section.job_event_link.target }}" class="c-card__header-link text-[#30374F] visited:text-[#30374F] hover:text-[#30374F]">
-                  <p class="c-card__title text-[20px] flex leading-[22px] text-[20px]">
-                    <span>{{ section.job_event_link.title }}</span>
-                    <svg aria-hidden="true" class="icon-ui w-[24px] h-[24px] ml-[4px]">
-                      <use href="#lucide-arrow-right"></use>
-                    </svg>
-                  </p>
-                </a>
+                <div class="desktop:absolute desktop:bottom-[32px] tablet:absolute tablet:bottom-[32px]">
+                  <a href="{{ function('convert_link_locale', section.job_event_link.url , site.site_url, site.url) }}" target="{{ section.job_event_link.target }}" class="c-card__header-link text-[#30374F] visited:text-[#30374F] hover:text-[#30374F]">
+                    <p class="c-card__title text-[20px] flex leading-[22px] text-[20px]">
+                      <span>{{ section.job_event_link.title }}</span>
+                      <svg aria-hidden="true" class="icon-ui w-[24px] h-[24px] ml-[4px]">
+                        <use href="#lucide-arrow-right"></use>
+                      </svg>
+                    </p>
+                  </a>
+                </div>
+                
               </div>
             </div>
           {% endfor %}
