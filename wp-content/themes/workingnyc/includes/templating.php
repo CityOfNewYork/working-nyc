@@ -11,7 +11,7 @@ namespace Templating;
  */
 
 const SECTION_ID = 'field_5efa3bc7b2e45';
-const UPCOMING_EVENTS_ID = 'field_6661fde9c84cf';
+const UPCOMING_EVENTS_ID = 'field_667076fb35544';
 const EVENTS_HEADER_ID = 'field_6661febd61135';
 const EVENTS_FORM_ID = 'field_66620011a8efb';
 const POST_TYPE = 'field_5f1749717b140';
