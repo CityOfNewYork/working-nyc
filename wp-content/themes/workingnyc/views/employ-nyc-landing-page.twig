@@ -58,10 +58,10 @@
     <div class="bg-scale-0">
       <div class="site-max-width pb-6">
         <div class="bg-scale-0 sticky top-0 z-10 pb-4">
-          <h3 class="text-[30px] desktop:text-[33.18px] tablet:text-[30px]" font-[600]">Upcoming</h3>
+          <h3 class="text-[30px] desktop:text-[33.18px] tablet:text-[30px]" font-[600]">{{ upcoming_events.jobs_events_header }}</h3>
         </div>
         <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
-          {% for section in upcoming_events %}
+          {% for section in upcoming_events.jobs_events %}
             <div class="transform-none p-[32px] rounded-[5px] border-2 border-[#F0F6FA] desktop:relative tablet:relative">
               <p class="text-[#004CBE] text-[22px] font-[700] border-b-2 border-[#ECEFF2] pb-[16px] mb-[0px]">{{ section.job_event_title}}</p>
               <div class="pt-[24px] desktop:min-h-[173px] tablet:min-h-[198px] min-h-[170px] pb-[24px]">
