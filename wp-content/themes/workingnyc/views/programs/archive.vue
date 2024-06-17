@@ -166,7 +166,7 @@
                   <Program v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></Program>
                 </div>
                 <div class="text-center py-1 px-1 flex items-center no-underline justify-center">
-                  <button v-if="previous" class="text-[#080707] font-normal" @click="previousPage">
+                  <button v-if="previous" class="text-[#080707] font-normal flex" @click="previousPage">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-left"></use>
                     </svg>
@@ -185,7 +185,7 @@
                     <span v-if="query.page==headers.pages" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] border-b-4">{{headers.pages}}</span>
                     <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px]">{{headers.pages}}</span>
                   </button>
-                  <button v-if="next" class="text-[#080707] font-normal" @click="nextPage">
+                  <button v-if="next" class="text-[#080707] font-normal flex" @click="nextPage">
                     <svg class="h-3 w-3 fill-none stroke-black">
                       <use href="#lucide-chevron-right"></use>
                     </svg>
