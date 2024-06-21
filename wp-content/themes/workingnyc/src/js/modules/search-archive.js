@@ -26,6 +26,10 @@ export default {
     },
     strings: {
       type: Object
+    },
+    resetFlag: {
+      type: Boolean,
+      default: true
     }
   },
   data: function() {
@@ -204,7 +208,22 @@ export default {
           }
         }
       })(_this);
-    }
+    },
+    /**
+     * Setting the resetFlag to not display "no results" when Posts array is empty
+     */
+    reset: function(event) {
+      this.resetFlag = false;
+      for (let index = 0; index < this.terms.length; index++) {
+        this.updateQuery(this.terms[index].slug, []);
+
+        this.$set(this.terms[index], 'checked', false);
+
+        this.terms[index].filters.forEach(f => {
+          this.$set(f, 'checked', false);
+        });
+      }
+    },
   },
 
   /**

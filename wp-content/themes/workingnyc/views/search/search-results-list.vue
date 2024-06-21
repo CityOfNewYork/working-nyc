@@ -188,7 +188,7 @@
 
                 <!-- If there are no posts available, display a message indicating that -->
                 <div v-else-if="none">
-                  <div v-if="totalFilters == 0 && headers.total == 0">
+                  <div v-if="totalFilters == 0 && headers.total == 0 && resetFlag">
                     <div class="my-3 tablet:my-4 tablet:px-6">
                       <h4>No results for "{{ currentSearchTerm }}"</h4>
                       <h5 class="mt-2">Search help</h5>
