@@ -29,7 +29,10 @@ export default {
     },
     resetFlag: {
       type: Boolean,
-      default: true
+      default: false
+    },
+    submitFlag: {
+      type: Boolean,
     }
   },
   data: function() {
@@ -149,14 +152,29 @@ export default {
     };
   },
 
+  /**
+   * 
+    computed: {
+      loading: function() {
+        if (!this.posts.posts || !this.posts.posts.length) return false;
+
+        let page = this.posts.posts[this.query.page];
+
+        return this.init && !page.posts.length && page.show;
+      }
+    },
+   */
+  
   computed: {
     loading: function() {
-      if (!this.posts.posts || !this.posts.posts.length) return false;
+      if (!this.posts.length) return false;
 
-      let page = this.posts.posts[this.query.page];
+      let page = this.posts[1];
+
+	    if(page.posts.length==0) return false;
 
       return this.init && !page.posts.length && page.show;
-    }
+    },
   },
 
   methods: {
@@ -175,6 +193,8 @@ export default {
       this.filtersExpanded = false;
     },
     submitSearch() {
+      this.resetFlag = true;
+      this.submitFlag = true;
       this.wp();
       this.currentSearchTerm = this.query.s;
     },
@@ -209,6 +229,7 @@ export default {
         }
       })(_this);
     },
+
     /**
      * Setting the resetFlag to not display "no results" when Posts array is empty
      */
@@ -223,6 +244,25 @@ export default {
           this.$set(f, 'checked', false);
         });
       }
+    },
+    
+    process: function(data, query, headers) {
+      // If there are posts for this query, map them to the template.
+      let posts = (Array.isArray(data)) ?
+        data.map(this.maps()[this.type]) : false;
+
+      // Set posts and store a copy of the query for reference.
+      this.$set(this.posts[query.page], 'posts', posts);
+      this.$set(this.posts[query.page], 'headers', Object.freeze(headers));
+
+      this.submitFlag = false;
+
+      // If there are no posts, pass along to the error handler.
+      if (!Array.isArray(data))
+        this.error({error: data, query: query});
+      
+      this.$set(this, 'init', true);
+      
     },
   },
 

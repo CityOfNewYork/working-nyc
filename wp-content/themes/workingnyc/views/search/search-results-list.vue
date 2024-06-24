@@ -176,7 +176,7 @@
           <!-- List of search results -->
           <div class="w-full desktop:w-1/2">
             <section class="page-max mx-2 tablet:mx-7 desktop:mx-0">
-              <div v-if="loading">
+              <div v-if="loading || submitFlag">
                 <div class="flex items-center text-em justify-center py-8">
                   <svg class="spinner icon-4 block mie-2" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <circle class="spinner__path" cx="12" cy="12" r="10" fill="none"></circle>
@@ -188,7 +188,7 @@
 
                 <!-- If there are no posts available, display a message indicating that -->
                 <div v-else-if="none">
-                  <div v-if="totalFilters == 0 && headers.total == 0 && resetFlag">
+                  <div v-if="totalFilters == 0 && headers.total == 0 && resetFlag == true">
                     <div class="my-3 tablet:my-4 tablet:px-6">
                       <h4>No results for "{{ currentSearchTerm }}"</h4>
                       <h5 class="mt-2">Search help</h5>
