@@ -968,7 +968,7 @@
 	    },
 	    resetFlag: {
 	      type: Boolean,
-	      default: false
+	      default: true
 	    },
 	    submitFlag: {
 	      type: Boolean,
@@ -1105,11 +1105,6 @@
 	   */
 	  
 	  computed: {
-	    /**
-	     * Wether there are no posts to show but a query is being made
-	     *
-	     * @type {Boolean}
-	     */
 	    loading: function() {
 	      if (!this.posts.length) return false;
 
@@ -1180,14 +1175,15 @@
 	    reset: function(event) {
 	      this.resetFlag = false;
 	      for (let index = 0; index < this.terms.length; index++) {
-	        this.updateQuery(this.terms[index].slug, []);
-
+	        this.$set(this.query, this.terms[index].slug, []);
 	        this.$set(this.terms[index], 'checked', false);
-
+	        
 	        this.terms[index].filters.forEach(f => {
 	          this.$set(f, 'checked', false);
 	        });
 	      }
+	      this.$set(this.query, 'page', 1);
+	      this.wp();
 	    },
 	    
 	    process: function(data, query, headers) {
@@ -1207,6 +1203,84 @@
 	      
 	      this.$set(this, 'init', true);
 	      
+	    },
+	    
+	    queue: function(queries = [0, 1]) {
+	      // Set a benchmark query to compare the upcomming query to.
+	      let Obj1 = Object.assign({}, this.query); // create copy of object.
+	      delete Obj1.page; // delete the page attribute because it will be different.
+	      Object.freeze(Obj1); // prevent changes to our comparison.
+
+	      // The function is async because we want to wait until each promise
+	      // is query is finished before we run the next. We don't want to bother
+	      // sending a request if there are no previous or next pages. The way we
+	      // find out if there are previous or next pages relative to the current
+	      // page query is through the headers of the response provided by the
+	      // WP REST API.
+	      (async () => {
+	        for (let i = 0; i < queries.length; i++) {
+	          let query = Object.assign({}, this.query);
+	          // eslint-disable-next-line no-undef
+	          let promise = new Promise(resolve => resolve());
+	          let pages = this.headers.pages;
+	          let page = this.query.page;
+	          let current = false;
+	          let next = false;
+	          let previous = false;
+
+	          // Build the query and set its page number.
+	          Object.defineProperty(query, 'page', {
+	            value: page + queries[i],
+	            enumerable: true
+	          });
+
+	          // There will never be a page 0 or below, so skip this query.
+	          if (query.page <= 0) continue;
+
+	          // Check to see if we have the page that we are going to queued
+	          // and the query structure of that page matches the current query
+	          // structure (other than the page, which will obviously be
+	          // different). This will help us determine if we need to make a new
+	          // request.
+	          let havePage = (this.posts[query.page]) ? true : false;
+	          let pageQueryMatches = false;
+
+	          if (havePage) {
+	            let Obj2 = Object.assign({}, this.posts[query.page].query);
+	            delete Obj2.page;
+	            pageQueryMatches = (JSON.stringify(Obj1) === JSON.stringify(Obj2));
+	          }
+
+	          if (havePage && pageQueryMatches) continue;
+
+	          // If this is the current page we want the query to go through.
+	          current = (query.page === page);
+
+	          // If there is a next or previous page, we'll prefetch them.
+	          // We'll know there's a next or previous page based on the
+	          // headers sent by the current page query.
+	          next = (page < pages && query.page > page);
+	          previous = (page > 1 && query.page < page);
+
+	          if (current || next || previous)
+	            await promise.then(() => {
+	              return this.wpQuery(query);
+	            })
+	            .then(this.response)
+	            .then(data => {
+	              let headers = Object.assign({}, this.headers);
+
+	              // If this is the current page, replace the browser history state.
+	              if (current) this.replaceState(query);
+
+	              this.process(data, query, headers);
+	            }).catch(this.error);
+
+	            else this.submitFlag = false;
+	        }
+	      })();
+
+	      return this;
 	    },
 	  },
 
