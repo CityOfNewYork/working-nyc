@@ -2,6 +2,10 @@
 
 require_once WorkingNYC\timber_post('Programs');
 
+add_action('wp_enqueue_scripts', function() {
+  enqueue_script('search');
+});
+
 // Get the search term
 $term = (isset($_GET['s'])) ? trim($_GET['s']) : '';
 
