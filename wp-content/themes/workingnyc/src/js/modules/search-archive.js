@@ -151,27 +151,14 @@ export default {
       }
     };
   },
-
-  /**
-   * 
-    computed: {
-      loading: function() {
-        if (!this.posts.posts || !this.posts.posts.length) return false;
-
-        let page = this.posts.posts[this.query.page];
-
-        return this.init && !page.posts.length && page.show;
-      }
-    },
-   */
   
   computed: {
     loading: function() {
       if (!this.posts.length) return false;
 
       let page = this.posts[1];
-
-	    if(page.posts.length==0) return false;
+      
+      if(page.posts.length==0) return false;
 
       return this.init && !page.posts.length && page.show;
     },
@@ -337,6 +324,8 @@ export default {
               this.process(data, query, headers);
             }).catch(this.error);
 
+            // If there is no current, previous or next page,
+            // set the submitFlag to display the existing results
             else this.submitFlag = false;
         }
       })();
