@@ -1191,6 +1191,9 @@
 	      this.$set(this, 'init', true);
 	      
 	    },
+
+	    // When there is a query has made and if there are no current, previous or next page results,
+	    // set the submitFlag to display the existing results and stop loading the screen
 	    
 	    queue: function(queries = [0, 1]) {
 	      // Set a benchmark query to compare the upcomming query to.
@@ -1263,8 +1266,6 @@
 	              this.process(data, query, headers);
 	            }).catch(this.error);
 
-	            // If there is no current, previous or next page,
-	            // set the submitFlag to display the existing results
 	            else this.submitFlag = false;
 	        }
 	      })();
