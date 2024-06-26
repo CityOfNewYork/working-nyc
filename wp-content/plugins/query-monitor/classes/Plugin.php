@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /**
  * Abstract plugin wrapper.
  *
@@ -54,12 +54,6 @@ abstract class QM_Plugin {
 	 * @return string Version
 	 */
 	final public function plugin_ver( $file ) {
-		$path = $this->plugin_path( $file );
-
-		if ( file_exists( $path ) ) {
-			return (string) filemtime( $path );
-		}
-
 		return QM_VERSION;
 	}
 
@@ -95,5 +89,21 @@ abstract class QM_Plugin {
 		}
 		return $this->plugin[ $item ] . ltrim( $file, '/' );
 	}
+
+	/**
+	 * @param string $name Icon name.
+	 * @return string Icon HTML.
+	 */
+	public static function icon( $name ) {
+		if ( 'blank' === $name ) {
+			return '<span class="qm-icon qm-icon-blank"></span>';
+		}
+
+		return sprintf(
+			'<svg class="qm-icon qm-icon-%1$s" aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><use href="#qm-icon-%1$s" /></svg>',
+			esc_attr( $name )
+		);
+	}
+
 }
 }
