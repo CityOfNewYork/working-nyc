@@ -1,0 +1,96 @@
+{
+  "name": "publishpress/publishpress-future",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "description": "",
+  "authors": [
+    {
+      "name": "PublishPress",
+      "email": "help@publishpress.com",
+      "homepage": "https://publishpress.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Aaron Axelsen",
+      "homepage": "http://postexpirator.tuxdocs.net/"
+    }
+  ],
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    },
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "PublishPressFuture\\": "./src"
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/andergmartins/wordpress-ray"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/publishpress/publishpress-phpcs-standards"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.20",
+    "publishpress/wordpress-reviews": "^1.1",
+    "publishpress/publishpress-instance-protection": "^1.0",
+    "psr/container": "1.0.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "lucatume/wp-browser": "^3",
+    "codeception/module-asserts": "^1.0",
+    "codeception/module-phpbrowser": "^1.0",
+    "codeception/module-webdriver": "^1.0",
+    "codeception/module-db": "^1.0",
+    "codeception/module-filesystem": "^1.0",
+    "codeception/module-cli": "^1.0",
+    "codeception/util-universalframework": "^1.0",
+    "codeception/module-rest": "^1.3",
+    "codeception/module-sequence": "^2.0",
+    "dealerdirect/phpcodesniffer-composer-installer": "*",
+    "phpcompatibility/php-compatibility": "*",
+    "wp-coding-standards/wpcs": "*",
+    "phpmd/phpmd": "^2.8",
+    "squizlabs/php_codesniffer": "^3.5",
+    "sebastian/phpcpd": "^5.0",
+    "overtrue/phplint": "^2.1",
+    "wp-cli/i18n-command": "^2.2",
+    "vimeo/psalm": "^4.17",
+    "friendsofphp/php-cs-fixer": "^3.4",
+    "phpstan/phpstan": "^1.3",
+    "behat/behat": "^3.10",
+    "automattic/vipwpcs": "^2.3",
+    "publishpress/publishpress-phpcs-standards": "dev-main",
+    "spatie/ray": "*",
+    "realcodelab/wordpress-ray": "dev-patch-1",
+    "permafrost-dev/ray-cli": "^1.12",
+    "ext-pdo": "*",
+    "ext-yaml": "*"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths \"../../automattic/vipwpcs,../../phpcompatibility/php-compatibility,../../sirbrillig/phpcs-variable-analysis,../../wp-coding-standards/wpcs,../../publishpress/publishpress-phpcs-standards/standards/PublishPressStandards\""
+    ],
+    "post-update-cmd": [
+      "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/phpcs --config-set installed_paths \"../../automattic/vipwpcs,../../phpcompatibility/php-compatibility,../../sirbrillig/phpcs-variable-analysis,../../wp-coding-standards/wpcs,../../publishpress/publishpress-phpcs-standards/standards/PublishPressStandards\""
+    ]
+  },
+  "scripts-descriptions": {
+    "tests-php": "Show the available PHP versions for running tests."
+  },
+  "extra": {
+    "plugin-slug": "post-expirator",
+    "plugin-name": "publishpress-future",
+    "plugin-folder": "post-expirator"
+  }
+}
