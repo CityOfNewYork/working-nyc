@@ -3,7 +3,7 @@
     <!-- Header with search bar -->
     <div class="bg-[#EEF4FF]">
       <div class="site-max-width">
-        <header class="o-header">
+        <header class="o-header pl-[0px] pr-[0px]">
           <div>
             <nav class="o-header__breadcrumbs" aria-label="Breadcrumb">
               <a v-bind:href="strings.HOME_LINK">{{ strings.HOME }}</a>
@@ -22,7 +22,7 @@
               <p>{{ strings.PAGE_SUBTITLE }}</p>
             </div>
 
-            <form class="o-search__form w-full" @submit.prevent="submitSearch">
+            <form class="o-search__form w-full desktop:w-[814px]" @submit.prevent="submitSearch">
             <div class="input o-search__input rounded">
                 <input class="rounded border-0" v-model="query.s"/>
                 <button :disabled="query.s == ''" type="submit" class="o-search__submit">
@@ -127,7 +127,7 @@
 
       <!-- Main search results section -->
       <div class="mb-5 tablet:mb-6 desktop:mb-7 mt-5 tablet:mt-6 desktop:mt-0" v-if="init" v-show="!filtersExpanded">
-        <div class="flex justify-center gap-x-[5%]">
+        <div class="flex gap-x-[5%]">
 
           <!-- Filters side panel -->
           <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
