@@ -1,0 +1,1 @@
+jQuery(document).ready(function(a){a("#wpfooter, #footer-upgrade").css({opacity:"0"})});
