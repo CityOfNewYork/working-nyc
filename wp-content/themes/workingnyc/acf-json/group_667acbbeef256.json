@@ -24,8 +24,8 @@
         },
         {
             "key": "field_667acd71122bd",
-            "label": "Feedback prompt",
-            "name": "feedback_prompt",
+            "label": "Employers Feedback prompt",
+            "name": "employers_feedback_prompt",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -143,5 +143,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1719327595
+    "modified": 1719587051
 }
