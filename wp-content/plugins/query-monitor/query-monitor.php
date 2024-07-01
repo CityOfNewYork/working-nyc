@@ -4,19 +4,22 @@
  *
  * @package   query-monitor
  * @link      https://github.com/johnbillion/query-monitor
- * @author    John Blackbourn <john@johnblackbourn.com>
- * @copyright 2009-2022 John Blackbourn
+ * @author    John Blackbourn
+ * @copyright 2009-2024 John Blackbourn
  * @license   GPL v2 or later
  *
  * Plugin Name:  Query Monitor
  * Description:  The developer tools panel for WordPress.
- * Version:      3.9.0
+ * Version:      3.16.3
  * Plugin URI:   https://querymonitor.com/
  * Author:       John Blackbourn
  * Author URI:   https://querymonitor.com/
  * Text Domain:  query-monitor
  * Domain Path:  /languages/
- * Requires PHP: 5.3.6
+ * Requires at least: 5.7
+ * Requires PHP: 7.4
+ * License URI:  https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * License:      GPL v2 or later
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,30 +36,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'QM_VERSION', '3.9.0' );
+define( 'QM_VERSION', '3.16.3' );
 
-$qm_dir = dirname( __FILE__ );
-
-require_once "{$qm_dir}/classes/PHP.php";
+// This must be required before vendor/autoload.php so QM can serve its own message about PHP compatibility.
+require_once __DIR__ . '/classes/PHP.php';
 
 if ( ! QM_PHP::version_met() ) {
-	add_action( 'admin_notices', 'QM_PHP::php_version_nope' );
+	add_action( 'all_admin_notices', 'QM_PHP::php_version_nope' );
 	return;
 }
 
-# No autoloaders for us. See https://github.com/johnbillion/query-monitor/issues/7
-foreach ( array( 'Plugin', 'Activation', 'Util', 'QM' ) as $qm_class ) {
-	require_once "{$qm_dir}/classes/{$qm_class}.php";
+if ( ! file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+	add_action( 'all_admin_notices', 'QM_PHP::vendor_nope' );
+	return;
+}
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Safety check to ensure the autoloader is operational.
+if ( ! class_exists( 'QM_Activation' ) ) {
+	return;
 }
 
 QM_Activation::init( __FILE__ );
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	require_once "{$qm_dir}/classes/CLI.php";
 	QM_CLI::init( __FILE__ );
 }
 
 if ( defined( 'QM_DISABLED' ) && QM_DISABLED ) {
+	return;
+}
+
+if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) {
 	return;
 }
 
@@ -71,13 +83,15 @@ if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 	return;
 }
 
-foreach ( array( 'QueryMonitor', 'Backtrace', 'Collectors', 'Collector', 'Dispatchers', 'Dispatcher', 'Hook', 'Output', 'Timer' ) as $qm_class ) {
-	require_once "{$qm_dir}/classes/{$qm_class}.php";
-}
+# Don't load QM during plugin updates to prevent function signature changes causing issues between versions.
+if ( is_admin() ) {
+	if ( isset( $_GET['action'] ) && 'upgrade-plugin' === $_GET['action'] ) {
+		return;
+	}
 
-unset(
-	$qm_dir,
-	$qm_class
-);
+	if ( isset( $_POST['action'] ) && 'update-plugin' === $_POST['action'] ) {
+		return;
+	}
+}
 
 QueryMonitor::init( __FILE__ )->set_up();
