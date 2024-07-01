@@ -693,15 +693,8 @@ class Plugin {
 		}
 
 		if ( ! is_user_logged_in() ) {
-			if ( file_exists( WP_CONTENT_DIR . '/plugins/buddyboss-platform/class-buddypress.php' ) ) {
+			if ( file_exists( WP_CONTENT_DIR . '/plugins/gravityforms/gravityforms.php' ) && isset( $_GET['gf_page'] ) ) {
 				return $origin_url;
-			} else {
-				$current_theme = wp_get_theme();
-				if ( 'BuddyBoss Theme' !== $current_theme->name ) {
-					if ( is_plugin_active( 'gravityforms/gravityforms.php' ) && isset( $_GET['gf_page'] ) ) {
-						return $origin_url;
-					}
-				}
 			}
 		}
 

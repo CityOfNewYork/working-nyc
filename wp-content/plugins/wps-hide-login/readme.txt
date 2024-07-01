@@ -6,7 +6,7 @@ Tags: rename, login, wp-login, wp-login.php, custom login url
 Requires at least: 4.1
 Tested up to: 6.5
 Requires PHP: 7.0
-Stable tag: 1.9.16.6
+Stable tag: 1.9.16.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -139,6 +139,9 @@ Ce cas peut provenir de plugins modifiant vos fichiers .htaccess pour ajouter ou
 La première étape consiste à vérifier votre fichier .htaccess et à le comparer à un fichier .htaccess normal, pour voir si le problème provient de ce fichier.
 
 == Changelog ==
+
+= 1.9.16.7 =
+* Fix Fatal Error with BuddyBoss
 
 = 1.9.16.6 =
 * Fix Fatal Error with BuddyBoss Platform
