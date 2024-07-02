@@ -30,11 +30,11 @@ function relevanssi_add_body_stopword( $term, $verbose = true ) {
 	$terms = explode( ',', $term );
 	if ( count( $terms ) > 1 ) {
 		foreach ( $terms as $term ) {
-			$n++;
+			++$n;
 			$term    = trim( $term );
 			$success = relevanssi_add_single_body_stopword( $term );
 			if ( $success ) {
-				$s++;
+				++$s;
 			}
 		}
 		if ( $verbose ) {
@@ -234,7 +234,7 @@ function relevanssi_remove_body_stopword( $term, $verbose = true ) {
 	$term      = stripslashes( $term );
 	$stopwords = array_filter(
 		$stopwords,
-		function( $stopword ) use ( $term ) {
+		function ( $stopword ) use ( $term ) {
 			return $stopword !== $term;
 		}
 	);
@@ -360,29 +360,29 @@ function relevanssi_show_body_stopwords() {
  * weight to 0. This will eliminate all partial matches based on body stopwords
  * from the results.
  *
- * @param object $match The match object.
- * @param int    $idf   The IDF value (not used here).
- * @param string $term  The original search term.
+ * @param object $match_object The match object.
+ * @param int    $idf          The IDF value (not used here).
+ * @param string $term         The original search term.
  *
  * @return object The match object.
  */
-function relevanssi_block_body_stopwords( $match, $idf, $term ) {
+function relevanssi_block_body_stopwords( $match_object, $idf, $term ) {
 	$body_stopwords = relevanssi_fetch_body_stopwords();
 	if ( in_array( $term, $body_stopwords, true ) ) {
-		$sum = $match->content
-			+ $match->title
-			+ $match->comment
-			+ $match->link
-			+ $match->author
-			+ $match->excerpt
-			+ $match->customfield
-			+ $match->mysqlcolumn
-			+ $match->tag
-			+ $match->taxonomy
-			+ $match->category;
-		if ( (int) $match->content === (int) $sum ) {
-			$match->weight = 0;
+		$sum = $match_object->content
+			+ $match_object->title
+			+ $match_object->comment
+			+ $match_object->link
+			+ $match_object->author
+			+ $match_object->excerpt
+			+ $match_object->customfield
+			+ $match_object->mysqlcolumn
+			+ $match_object->tag
+			+ $match_object->taxonomy
+			+ $match_object->category;
+		if ( (int) $match_object->content === (int) $sum ) {
+			$match_object->weight = 0;
 		}
 	}
-	return $match;
+	return $match_object;
 }

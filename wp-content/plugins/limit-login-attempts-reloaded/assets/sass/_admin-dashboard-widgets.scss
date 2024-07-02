@@ -1,14 +1,17 @@
 #llar-admin-dashboard-widgets {
 
   .widget-title {
-    //font-weight: bold;
     padding-bottom: 15px;
     border-bottom: 1px solid #e4e4e4;
     font-size: 14px;
     text-align: left;
   }
   .widget-content {
-    overflow: hidden;
+    font-family: $font-primary, $font-secondary;
+
+    .llar-attempts-chart-legend {
+      margin-bottom: 10px;
+    }
   }
 
   .llar-widget {
@@ -16,14 +19,99 @@
     background-color: #fff;
     text-align: center;
 
+    .section-title__new {
+      font-size: 12px;
+      line-height: 150%;
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      text-align: left;
+
+      .llar {
+
+        &-label {
+          color: #2A2F40;
+          min-width: fit-content;
+          padding: 0.125rem .75rem;
+          border-radius: 8px;
+          background-color: rgba(10, 172, 208, 0.08);
+
+          &-group {
+            display: flex;
+            column-gap: 30px;
+          }
+
+          &__circle-blue {
+            font-size: 44px;
+            vertical-align: middle;
+            color: #58C3FF;
+          }
+
+          &__circle-grey {
+            font-size: 44px;
+            vertical-align: middle;
+            color: rgba(174, 174, 174, 0.6980392157);
+          }
+
+          .hint_tooltip {
+            @extend .llar_hint_tooltip;
+          }
+
+          .hint_tooltip-content {
+            @extend .llar_hint_tooltip-content;
+          }
+
+          .hint_tooltip-parent {
+            @extend .llar_hint_tooltip-parent;
+          }
+
+          .hint_tooltip {
+            left: -100%;
+
+            &:before {
+              right: 82%;
+            }
+          }
+        }
+
+        &-premium-label {
+
+          .dashicons {
+            width: unset;
+            height: unset;
+            background-color: $primary-colors__aero_blue;
+            border-radius: $border-radius__min * .5;
+            color: $background-body;
+            margin-right: 5px;
+            margin-top: 3px;
+            font-size: inherit;
+
+            &.disabled {
+              background-color: $state-color__error;
+            }
+
+            @include _1199 {
+              margin-right: 2px;
+            }
+          }
+        }
+      }
+    }
+
     .chart {
-      //margin-bottom: 10px;
       max-width: 300px;
-      //display: inline-block;
       position: relative;
-      margin-bottom: 15px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 15px auto;
+      //margin-bottom: 15px;
+      //margin-left: auto;
+      //margin-right: auto;
+
+      .doughnut-chart-wrap {
+        position: relative;
+        width: 200px;
+        height: auto;
+        margin: 0 auto;
+      }
 
       .llar-retries-count {
         position: absolute;

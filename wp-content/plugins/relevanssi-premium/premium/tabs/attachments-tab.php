@@ -108,6 +108,13 @@ function relevanssi_attachments_tab() {
 		</td>
 	</tr>
 	<tr>
+		<th scope="row"><?php esc_html_e( 'Clear server errors', 'relevanssi' ); ?></td>
+		<td>
+			<input type="button" id="clearservererrors" value="<?php esc_html_e( 'Clear server errors', 'relevanssi' ); ?>" class="button-primary" />
+			<p class="description"><?php esc_html_e( "This will clear all 'Server did not respond' errors from the posts, so you can try reading those files again.", 'relevanssi' ); ?></p>
+		</td>
+	</tr>
+	<tr>
 		<th scope="row">
 			<?php esc_html_e( 'Read new files', 'relevanssi' ); ?>
 		</th>

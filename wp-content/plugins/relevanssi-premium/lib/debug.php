@@ -19,7 +19,7 @@ add_action( 'wp', 'relevanssi_debug_post' );
  *
  * @return boolean True if debug mode is enabled, false if not.
  */
-function relevanssi_is_debug() : bool {
+function relevanssi_is_debug(): bool {
 	$debug = false;
 	if ( defined( 'RELEVANSSI_DEBUG' ) && RELEVANSSI_DEBUG ) {
 		$debug = true;
@@ -46,7 +46,7 @@ function relevanssi_debug_posts( $posts ) {
 		} else {
 			echo "<p>$post->ID: $post->post_title<br />";
 			echo "$post->post_type – $post->post_status – $post->relevance_score<br />";
-			echo "relevanssi_link: $post->relevanssi_link<br />";
+			property_exists( $post, 'relevanssi_link' ) && print( "relevanssi_link: $post->relevanssi_link<br />" );
 			echo 'the_permalink(): ';
 			the_permalink( $post->ID );
 			echo '<br />get_permalink(): ' . get_permalink( $post );
@@ -59,25 +59,25 @@ function relevanssi_debug_posts( $posts ) {
 /**
  * Prints out an array in a preformatted block.
  *
- * @param array  $array The array to print.
- * @param string $title The title for the array.
+ * @param array  $array_value The array to print.
+ * @param string $title       The title for the array.
  */
-function relevanssi_debug_array( $array, $title ) {
+function relevanssi_debug_array( $array_value, $title ) {
 	echo '<h2>' . esc_html( $title ) . '</h2>';
 	echo '<pre>';
-	print_r( $array ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+	print_r( $array_value ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 	echo '</pre>';
 }
 
 /**
  * Prints out a string in a preformatted block.
  *
- * @param string $string The string to print.
- * @param string $title  The title for the string.
+ * @param string $str   The string to print.
+ * @param string $title The title for the string.
  */
-function relevanssi_debug_string( $string, $title ) {
+function relevanssi_debug_string( $str, $title ) {
 	echo '<h2>' . esc_html( $title ) . '</h2>';
-	echo '<pre>' . esc_html( $string ) . '</pre>';
+	echo '<pre>' . esc_html( $str ) . '</pre>';
 }
 
 /**
@@ -158,4 +158,15 @@ function relevanssi_debug_search_settings() {
 
 	echo '</p>';
 	// phpcs:enable WordPress.Security.EscapeOutput.OutputNotEscaped
+}
+
+/**
+ * Returns true if RELEVANSSI_DEBUG, WP_DEBUG and WP_DEBUG_DISPLAY are true.
+ *
+ * @return bool True if debug mode is on.
+ */
+function relevanssi_log_debug(): bool {
+	return defined( 'RELEVANSSI_DEBUG' ) && RELEVANSSI_DEBUG
+		&& defined( 'WP_DEBUG' ) && WP_DEBUG
+		&& defined( 'WP_DEBUG_DISPLAY' ) && WP_DEBUG_DISPLAY;
 }

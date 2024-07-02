@@ -44,7 +44,7 @@ function relevanssi_network_menu() {
 function relevanssi_network_options() {
 	global $relevanssi_variables;
 
-	echo sprintf( '<div class="wrap"><h2>%s</h2>', esc_html__( 'Relevanssi network options', 'relevanssi' ) );
+	printf( '<div class="wrap"><h2>%s</h2>', esc_html__( 'Relevanssi network options', 'relevanssi' ) );
 
 	if ( ! empty( $_POST ) ) { // WPCS: Input var okay.
 		if ( isset( $_REQUEST['submit'] ) ) { // WPCS: Input var okay.
@@ -62,7 +62,7 @@ function relevanssi_network_options() {
 		$this_page = '?page=relevanssi-premium/relevanssi.php';
 	}
 
-	echo sprintf( "<form method='post' action='admin.php%s'>", esc_attr( $this_page ) );
+	printf( "<form method='post' action='admin.php%s'>", esc_attr( $this_page ) );
 
 	wp_nonce_field( plugin_basename( $relevanssi_variables['file'] ), 'relevanssi_network_options' );
 

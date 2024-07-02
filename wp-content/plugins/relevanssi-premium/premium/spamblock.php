@@ -34,7 +34,7 @@ function relevanssi_spamblock() {
 			$query = urldecode( str_replace( $url_prefix, '', $_SERVER['REQUEST_URI'] ) );
 		}
 	}
-	if ( ! isset( $query ) ) {
+	if ( ! isset( $query ) || is_string( $query ) === false ) {
 		return;
 	}
 
@@ -95,7 +95,7 @@ function relevanssi_spamblock() {
  *
  * @return boolean
  */
-function relevanssi_string_contains_chinese( string $text ) : bool {
+function relevanssi_string_contains_chinese( string $text ): bool {
 	return (bool) preg_match( '/\p{Han}/u', $text );
 }
 
@@ -106,7 +106,7 @@ function relevanssi_string_contains_chinese( string $text ) : bool {
  *
  * @return boolean
  */
-function relevanssi_string_contains_cyrillic( string $text ) : bool {
+function relevanssi_string_contains_cyrillic( string $text ): bool {
 	return (bool) preg_match( '/\p{Cyrillic}/u', $text );
 }
 
@@ -117,7 +117,7 @@ function relevanssi_string_contains_cyrillic( string $text ) : bool {
  *
  * @return boolean
  */
-function relevanssi_string_contains_emoji( string $text ) : bool {
+function relevanssi_string_contains_emoji( string $text ): bool {
 	$emoji = array(
 		'/[\x{1F1E6}-\x{1F1FF}]/u', // Flags.
 		'/[\x{1F300}-\x{1F5FF}]/u', // Misc and pictographs.

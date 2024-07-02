@@ -19,8 +19,14 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 	/** @var string[] Custom field keys */
 	private $custom_fields_keys;
 
-	/** @var int $total_keys */
-	private $total_keys;
+	/** @var bool $has_more If there are more fields to load. */
+	private $has_more;
+
+	/** @var bool If all fields should be loaded. */
+	private $load_all_fields = false;
+
+	/** @var int $highest_page_loaded */
+	private $highest_page_loaded;
 
 	/** @var array Custom field options */
 	private $custom_field_options;
@@ -55,19 +61,31 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 		if ( null === $this->custom_fields_keys ) {
 			$args = array_merge(
 				array(
-					'hide_system_fields' => ! $this->settings_factory->show_system_fields,
-					'items_per_page'     => self::ITEMS_PER_PAGE,
-					'page'               => 1,
+					'hide_system_fields'  => ! $this->settings_factory->show_system_fields,
+					'items_per_page'      => self::ITEMS_PER_PAGE,
+					'page'                => 1,
+					'highest_page_loaded' => 1,
 				),
 				$args
 			);
 
-			$this->custom_fields_keys = $this->get_query()->get( $args );
-			$this->total_keys         = $this->get_query()->get_total_rows();
+			$this->load_all_fields     = (int) $args['page'] < 0;
+			$this->highest_page_loaded = (int) $args['highest_page_loaded'];
 
-			if ( $this->custom_fields_keys ) {
-				natcasesort( $this->custom_fields_keys );
+			// Fetch one more item than the wanted items per page.
+			$this->custom_fields_keys = $this->get_query()->get( array_merge( $args, [ 'items_per_page' => $args['items_per_page'] + 1 ] ) );
+
+			// Check if we have more items to load.
+			$this->has_more = $this->load_all_fields
+				? false
+				: count( $this->custom_fields_keys ) > $args['items_per_page'];
+
+			if ( $this->has_more ) {
+				// Remove the extra loaded item as it should not be displayed.
+				array_pop( $this->custom_fields_keys );
 			}
+
+			natcasesort( $this->custom_fields_keys );
 		}
 	}
 
@@ -249,12 +267,26 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 		foreach ( $this->custom_fields_keys as $cf_key ) {
 			$setting       = $this->get_setting( $cf_key );
 			$status        = $setting->status();
-			$html_disabled = $setting->is_read_only() && ! $setting->is_unlocked() ? 'disabled="disabled"' : '';
+			$html_disabled = $setting->get_html_disabled();
+
 			?>
 			<div class="wpml-flex-table-row">
 				<div class="wpml-flex-table-cell name">
 					<?php
-					$this->unlock_button_ui->render( $setting->is_read_only(), $setting->is_unlocked(), $this->get_radio_name( $cf_key ), $this->get_unlock_name( $cf_key ) );
+					$override = false;
+					/**
+					 * This filter hook give the ability to override the
+					 * default custom field lock rendering.
+					 *
+					 * @since 4.6.0
+					 *
+					 * @param bool                      $override
+					 * @param WPML_Custom_Field_Setting $setting
+					 */
+					if ( ! apply_filters( 'wpml_custom_field_settings_override_lock_render', $override, $setting ) ) {
+						$this->unlock_button_ui->render( $setting->is_read_only(), $setting->is_unlocked(), $this->get_radio_name( $cf_key ), $this->get_unlock_name( $cf_key ) );
+					}
+
 					echo esc_html( $cf_key );
 					?>
 				</div>
@@ -282,7 +314,20 @@ abstract class WPML_TM_MCS_Custom_Field_Settings_Menu {
 	 */
 	public function render_pagination( $items_per_page, $current_page ) {
 		$pagination = new WPML_TM_MCS_Pagination_Render_Factory( $items_per_page );
-		echo $pagination->create( $this->total_keys, $current_page )->render();
+
+		if ( $this->load_all_fields ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo $pagination->create( count( $this->custom_fields_keys ), $current_page )->render();
+			return;
+		}
+
+		$current_fields_count = count( $this->custom_fields_keys );
+		$total_items_so_far   = 1 === $current_page && $current_fields_count < $items_per_page
+			? $current_fields_count
+			: $items_per_page * $this->highest_page_loaded + ( $this->has_more ? 1 : 0 );
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo $pagination->create( $total_items_so_far, $current_page )->render();
 	}
 
 	abstract public function get_no_data_message();

@@ -143,7 +143,7 @@ function relevanssi_redirects_tab() {
 		</td>
 		</tr>
 			<?php
-			$row++;
+			++$row;
 		}
 	}
 	?>

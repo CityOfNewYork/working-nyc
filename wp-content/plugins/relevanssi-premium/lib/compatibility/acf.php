@@ -26,7 +26,10 @@ add_filter( 'relevanssi_index_custom_fields', 'relevanssi_acf_exclude_fields', 1
  * parameter unchanged otherwise.
  */
 function relevanssi_acf_relationship_fields( $search_ok ) {
-	if ( isset( $_REQUEST['action'] ) && 'acf' === substr( $_REQUEST['action'], 0, 3 ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+	// phpcs:disable WordPress.Security.NonceVerification
+	if ( isset( $_REQUEST['action'] )
+		&& is_string( $_REQUEST['action'] )
+		&& 'acf' === substr( $_REQUEST['action'], 0, 3 ) ) {
 		$search_ok = false;
 	}
 	return $search_ok;
@@ -97,7 +100,7 @@ function relevanssi_index_acf( &$insert_data, $post_id, $field_name, $field_valu
 		/** This filter is documented in lib/indexing.php */
 		$value_tokens = apply_filters( 'relevanssi_indexing_tokens', relevanssi_tokenize( $value, true, $min_word_length, 'indexing' ), 'custom_field' );
 		foreach ( $value_tokens as $token => $count ) {
-			$n++;
+			++$n;
 			if ( ! isset( $insert_data[ $token ]['customfield'] ) ) {
 				$insert_data[ $token ]['customfield'] = 0;
 			}
@@ -165,8 +168,11 @@ function relevanssi_acf_exclude_fields( $fields, $post_id ) {
 		array( 'repeater', 'flexible_content', 'group' )
 	);
 
+	global $post;
 	foreach ( $fields as $field ) {
+		$global_post  = $post; // ACF fields can change the global $post.
 		$field_object = get_field_object( $field );
+		$post         = $global_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 
 		if ( ! $field_object || ! is_array( $field_object ) ) {
 			$field_id = relevanssi_acf_get_field_id( $field, $post_id );

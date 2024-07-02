@@ -228,14 +228,16 @@ function relevanssi_wildcards_post( $str ) {
  * @see relevanssi_term_where
  *
  * @param string $query MySQL query to modify.
+ * @param string $term  The search term.
  *
  * @return string The modified MySQL query.
  */
-function relevanssi_query_wildcards( $query ) {
+function relevanssi_query_wildcards( $query, $term ) {
 	/**
 	 * Documented in /premium/search.php.
 	 */
 	if ( apply_filters( 'relevanssi_wildcard_search', false ) ) {
+		$query = str_replace( "= '$term'", "LIKE '$term'", $query );
 		$query = str_replace( array( '?', '*' ), array( '_', '%' ), $query );
 	}
 	return $query;

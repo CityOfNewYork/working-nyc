@@ -137,7 +137,7 @@ function relevanssi_indexing_tab() {
 		</td>
 	</tr>
 	<tr>
-		<th scope="row"><?php esc_html_e( 'State of the index', 'relevanssi' ); ?></td>
+		<th scope="row"><?php esc_html_e( 'State of the index', 'relevanssi' ); ?></th>
 		<td id="stateoftheindex"><p><?php echo esc_html( $docs_count ); ?> <?php echo esc_html( _n( 'document in the index.', 'documents in the index.', $docs_count, 'relevanssi' ) ); ?>
 	<?php if ( RELEVANSSI_PREMIUM ) : ?>
 		<br /><?php echo esc_html( $user_count ); ?> <?php echo esc_html( _n( 'user in the index.', 'users in the index.', $user_count, 'relevanssi' ) ); ?><br />
@@ -379,6 +379,22 @@ function relevanssi_indexing_tab() {
 			<?php endif; ?>
 		</td>
 	</tr>
+
+	<?php if ( 'selected' === $fields_select_all || 'selected' === $fields_select_visible ) : ?>
+	<tr>
+		<th scope="row">
+			<?php esc_html_e( 'List custom fields', 'relevanssi' ); ?>
+		</th>
+		<td>
+			<button type="button" class="button button-primary" id="list_custom_fields"><?php esc_html_e( 'List custom fields', 'relevanssi' ); ?></button>
+			<p class="description"><?php esc_html_e( 'Click the button above to see the list of indexed custom fields.', 'relevanssi' ); ?></p>
+			<div id="relevanssi_custom_field_list"></div>
+			<?php if ( class_exists( 'acf', false ) ) : ?>
+				<p class="description"><?php esc_html_e( 'Fields excluded from ACF settings and with filter functions are included here.', 'relevanssi' ); ?></p>
+			<?php endif; ?>
+		</td>
+	</tr>
+	<?php endif; ?>
 
 	<tr>
 		<th scope="row">

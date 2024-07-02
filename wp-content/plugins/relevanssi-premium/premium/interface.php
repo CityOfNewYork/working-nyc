@@ -23,7 +23,7 @@ add_filter( 'manage_pages_columns', 'relevanssi_manage_columns', 10, 2 );
 add_action( 'admin_print_footer_scripts-edit.php', 'relevanssi_quick_edit_js' );
 add_filter( 'default_hidden_columns', 'relevanssi_hide_columns' );
 add_action( 'save_post', 'relevanssi_quick_edit_save' );
-add_filter( 'quick_edit_custom_box', 'relevanssi_quick_edit_custom_box', 10, 2 );
+add_filter( 'quick_edit_custom_box', 'relevanssi_quick_edit_custom_box', 10 );
 add_filter( 'manage_posts_custom_column', 'relevanssi_manage_custom_column', 10, 2 );
 add_filter( 'manage_pages_custom_column', 'relevanssi_manage_custom_column', 10, 2 );
 
@@ -130,7 +130,7 @@ function relevanssi_form_update_translations() {
 				<input type='checkbox' name='relevanssi_update_translations' id='relevanssi_update_translations' <?php echo esc_attr( $update_translations ); ?> />
 				<?php esc_html_e( 'Check for plugin translation updates', 'relevanssi' ); ?>
 			</label>
-		<p class="description"><?php esc_html_e( 'If you check this box, Relevanssi will check for updates to the plugin translations. At the moment, translations are available for: ', 'relevanssi' ); ?>
+		<p class="description"><?php esc_html_e( 'If you check this box, Relevanssi will check for updates to the plugin translations. At the moment, translations are available for:', 'relevanssi' ); ?>
 		Deutsch (de_DE), español (es_ES), français (fr_FR), suomi (fi)</p>
 		</td>
 		</td>
@@ -1262,8 +1262,38 @@ EOH;
 		}
 	}
 
+	$words = get_option( 'relevanssi_words', false );
+	if ( ! $words ) {
+		$word_text = sprintf(
+			// Translators: %1$s is <code>relevanssi_words</code>.
+			esc_html__( 'The %1$s option doesn\'t exist. You can\'t reset it; it should be regenerated when you search for something.', 'relevanssi' ),
+			'<code>relevanssi_words</code>'
+		);
+	} elseif ( isset( $words['words'] ) && isset( $words['expire'] ) ) {
+		$word_count = count( $words['words'] );
+		$word_text  = sprintf(
+			// Translators: %1$s is <code>relevanssi_words</code>, %2$d is the number of words in the option, %3$s is the expiration date of the option.
+			esc_html__( 'The %1$s option has %2$d words in it and the cache expires on %3$s.', 'relevanssi' ),
+			'<code>relevanssi_words</code>',
+			$word_count,
+			date_i18n( get_option( 'date_format' ), $words['expire'] )
+		);
+	} else {
+		$word_text = sprintf(
+			// Translators: %1$s is <code>relevanssi_words</code>.
+			esc_html__( 'The %1$s option is empty.', 'relevanssi' ),
+			'<code>relevanssi_words</code>'
+		);
+	}
+
 	?>
 	<h2><?php esc_html_e( 'Reset the relevanssi_words option', 'relevanssi' ); ?></h2>
+
+	<p>
+	<?php
+		echo $word_text; // phpcs:ignore WordPress.Security.EscapeOutput
+	?>
+	</p>
 
 	<p>
 	<?php
@@ -1407,9 +1437,8 @@ function relevanssi_manage_custom_column( $column, $post_id ) {
  * Adds the Relevanssi custom fields to the quick edit box.
  *
  * @param string $column    The column name.
- * @param string $post_type The post type.
  */
-function relevanssi_quick_edit_custom_box( $column, $post_type ) {
+function relevanssi_quick_edit_custom_box( $column ) {
 	switch ( $column ) {
 		case 'pinned_keywords':
 			?>

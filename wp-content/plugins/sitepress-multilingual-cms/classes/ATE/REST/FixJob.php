@@ -2,7 +2,7 @@
 
 namespace WPML\TM\ATE\REST;
 
-use WPML\TM\ATE\ReturnedJobsQueue;
+use WPML\TM\ATE\ReturnedJobs;
 use WP_REST_Request;
 use WPML\Rest\Adaptor;
 use WPML\TM\REST\Base;
@@ -11,6 +11,7 @@ use \WPML_TM_ATE_API;
 use \WPML_TM_ATE_Jobs;
 use \WPML_TM_Jobs_Repository;
 use WPML\FP\Obj;
+use WPML\TM\ATE\API\RequestException;
 use WPML\TM\ATE\Log\Entry;
 use WPML\TM\ATE\Log\EventsTypes;
 
@@ -99,7 +100,7 @@ class FixJob extends Base {
 	 * @param $wpmlJobId
 	 *
 	 * @return bool
-	 * @throws \Requests_Exception
+	 * @throws RequestException
 	 */
 	public function process( $ateJobId, $wpmlJobId ) {
 		$ateJob = $this->ateApi->get_job( $ateJobId )->$ateJobId;
@@ -115,7 +116,6 @@ class FixJob extends Base {
 			}
 
 			if ( $receivedWpmlJobId ) {
-				ReturnedJobsQueue::remove( $wpmlJobId );
 				return true;
 			}
 		}
@@ -137,7 +137,7 @@ class FixJob extends Base {
 			$entry->extraData = [ 'downloadUrl' => Obj::prop('url', $job) ];
 		}
 
-		if ( $e instanceof \Requests_Exception ) {
+		if ( $e instanceof RequestException ) {
 			$entry->eventType = EventsTypes::SERVER_XLIFF;
 		} else {
 			$entry->eventType = EventsTypes::JOB_DOWNLOAD;

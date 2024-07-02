@@ -2,7 +2,7 @@ jQuery(document).ready(function ($) {
 	// Show and hide the "Show Relevanssi for admins" setting on the Overview tab depending
 	// on whether the "Hide Relevanssi" setting is enabled.
 	var show_post_controls = $("#show_post_controls")
-	$("#relevanssi_hide_post_controls").change(function () {
+	$("#relevanssi_hide_post_controls").on("change", function () {
 		show_post_controls.toggleClass("screen-reader-text")
 	})
 
@@ -18,7 +18,7 @@ jQuery(document).ready(function ($) {
 	}
 
 	// Adds a new row to the redirect table on the Redirects tab.
-	$("#add_redirect").click(function (e) {
+	$("#add_redirect").on("click", function (e) {
 		redirect_row_index++
 		$(".redirect_table_row:last")
 			.clone(true)
@@ -50,7 +50,7 @@ jQuery(document).ready(function ($) {
 	})
 
 	// Related posts tab: if "Matching post types" is checked, disable and uncheck other options.
-	$("input.matching").click(function (e) {
+	$("input.matching").on("click", function (e) {
 		if ($(this).is(":checked")) {
 			$("input.nonmatching").prop("checked", false)
 			$("input.nonmatching").attr("disabled", true)
@@ -60,12 +60,12 @@ jQuery(document).ready(function ($) {
 	})
 
 	// Related posts tab: Display default thumbnail option.
-	$("#relevanssi_related_thumbnails").click(function (e) {
+	$("#relevanssi_related_thumbnails").on("click", function (e) {
 		$("#defaultthumbnail").toggleClass("screen-reader-text", !this.checked)
 	})
 
 	// Redirects tab redirect table row removal.
-	$(".remove").click(function (e) {
+	$(".remove").on("click", function (e) {
 		e.preventDefault()
 		if ($("#redirect_table >tbody >tr").length > 1) {
 			// If there is more than one row in the table, remove the last row.
@@ -79,7 +79,7 @@ jQuery(document).ready(function ($) {
 	})
 
 	// Related posts tab: Toggle settings for main switch.
-	$("#relevanssi_related_enabled").click(function () {
+	$("#relevanssi_related_enabled").on("click", function () {
 		$("#tr_relevanssi_related_append input").attr("disabled", !this.checked)
 		$("#tr_relevanssi_related_keyword input").attr("disabled", !this.checked)
 		$("#relevanssi_related_number").attr("disabled", !this.checked)
@@ -95,7 +95,7 @@ jQuery(document).ready(function ($) {
 	})
 
 	// Redirects tab redirect table row cloning.
-	$("a.copy").click(function (e) {
+	$("a.copy").on("click", function (e) {
 		e.preventDefault()
 		redirect_row_index++
 		$(this)
@@ -125,7 +125,7 @@ jQuery(document).ready(function ($) {
 		hitsNumber.html("0")
 	})
 
-	$("#attachments_tab :input").change(function (e) {
+	$("#attachments_tab :input").on("change", function (e) {
 		$("#index").attr("disabled", "disabled")
 		var relevanssi_note = $("#relevanssi-note")
 		relevanssi_note.show()
@@ -134,7 +134,7 @@ jQuery(document).ready(function ($) {
 		)
 	})
 
-	$("#build_index").click(function () {
+	$("#build_index").on("click", function () {
 		$("#relevanssi-progress").show()
 		$("#results").show()
 		$("#relevanssi-timer").show()

@@ -1,0 +1,491 @@
+@import "../css/fonts/stylesheet.css";
+
+$background-body: #FDFDFD;
+$background-body__transparent: #FDFDFD66; //rgba(253, 253, 253, 0.4);
+$background__sky-blue: #F6FBFF;
+$background-element__almond: #FFEFD6;
+$border-element__red-sand: #EBB35A;
+$border-element__ghostly-white: #E8E9EC;
+
+$primary-colors__orange: #FF7C06;
+$primary-colors__orange_light: #FF9800;
+$primary-colors__orange-back: #FF7C0619; //rgba(255, 124, 6, 0.1);;
+$primary-colors__orange-semi_back: #FF7C067F; //rgba(255, 124, 6, 0.50);
+$secondary-colors__dark-orange: #F07200;
+$state-color__error: #EC4652;
+$state-color__error_back: #EC46521A; //rgba(236, 70, 82, 0.1);
+$state-color__red_back: #FF969B26; //rgba(255, 150, 155, 0.15);
+
+$typography-primary: #2A2F40;
+$typography-secondary: #666D84;
+$typography-additional: #A4A8B7;
+$typography-additional__light: #A4A8B74C; //rgba(164, 168, 183, 0.3);
+$typography-additional__light-two: #A4A8B714; //rgba(164, 168, 183, 0.08);
+$primary-colors__steel_blue: #ABBFC1;
+$primary-colors__turquoise: #4ACAD8;
+$secondary-colors__blue: #5C8FDC;
+$secondary-colors-light-blue: #ECFAFB;
+$primary-colors__turquoise_semi_back: #4ACAD84D; //rgba(74, 202, 216, 0.3);
+$primary-colors__turquoise_back: #4ACAD819; //rgba(74, 202, 216, 0.1);
+$primary-colors__aero-blue: #97F6C8;
+
+$color-marker: #9762EF;
+$box-shadow__semi-transparent-gray: #72757B33; // rgba(114, 117, 123, 0.20);
+$box-shadow__light-transparent-gray: #A2B4BD33; //rgba(162, 180, 189, 0.20);
+
+@import "mixins";
+
+$font-primary: CoFo Sans;
+$font-secondary: arial;
+
+$text-font: 16px;
+
+@include _1599 {
+  $text-font: 14px;
+}
+
+$text-font-style: normal;
+$text-font-weight: 400;
+$text-font-weight-bold: 500;
+
+$border-radius: $text-font * 1.25;
+$border-radius__normal: $text-font;
+$border-radius__min: $border-radius__normal * .5;
+$border-radius__max: $border-radius * 2;
+
+.llar_hint_tooltip {
+  display: none;
+  position: absolute;
+  background-color: $primary-colors__turquoise;
+  color: white;
+  padding: 12px 20px;
+  width: 180px;
+  border-radius: $border-radius;
+  top: 26px;
+  right: -20px;
+  z-index: 955;
+
+  &-content {
+    @extend .llar_list;
+    font-size: 12px;
+    white-space: initial;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    right: 12%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent $primary-colors__turquoise transparent;
+  }
+
+  &-parent {
+    position: relative;
+
+    &:hover .hint_tooltip {
+      display: block;
+    }
+  }
+}
+
+.toplevel_page_limit-login-attempts {
+
+  * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .p-0 {
+    padding: 0!important;
+  }
+
+  .pt-0_5 {
+    padding-top: $text-font * .5 !important;
+  }
+
+  .pt-1_5 {
+    padding-top: $text-font * 1.5 !important;
+  }
+
+  .mt-0_5 {
+    margin-top: $text-font * .5 !important;
+  }
+
+  .mt-1_5 {
+    margin-top: $text-font * 1.5 !important;
+  }
+
+  .mx-0_5 {
+    margin-left: $text-font * .5 !important;
+    margin-right: $text-font * .5 !important;
+  }
+
+  .button_micro_cloud {
+    cursor: pointer;
+  }
+
+  .hint_tooltip {
+    @extend .llar_hint_tooltip;
+  }
+
+  .hint_tooltip-content {
+    @extend .llar_hint_tooltip-content;
+  }
+
+  .hint_tooltip-parent {
+    @extend .llar_hint_tooltip-parent;
+  }
+}
+
+.link__style_unlink, .link__style_color_inherit {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.link__style_unlink:hover, .link__style_color_inherit:hover {
+  color: inherit;
+}
+
+.link__style_color_inherit {
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.no_href_link {
+  cursor: default;
+}
+
+.llar_typography-secondary {
+  color: $typography-secondary;
+}
+
+.llar_orange {
+  color: $primary-colors__orange;
+
+  &:hover {
+    color: $secondary-colors__dark-orange;
+  }
+}
+
+.llar_turquoise {
+  color: $primary-colors__turquoise;
+}
+
+a.llar_turquoise {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+    color: $primary-colors__turquoise;
+    border-bottom: 1px solid currentColor;
+  }
+}
+
+.llar-label {
+  @extend .link__style_unlink;
+  border-radius: $border-radius__min;
+  background-color: $primary-colors__turquoise_back;
+  padding: .125rem 1.125rem;
+}
+
+.llar_bold {
+  font-weight: bold;
+}
+
+.llar-display-none {
+  display: none!important;
+}
+
+.llar-display-block {
+  display: block!important;
+}
+
+.llar-visibility {
+  visibility: visible!important;
+}
+
+.llar-hidden {
+  visibility: hidden!important;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.llar-disabled {
+  cursor: default !important;
+  pointer-events: none;
+}
+
+.dashicons-secondary {
+  margin-left: 8px;
+  font-size: 170%;
+  line-height: inherit;
+  position: relative;
+  z-index: 1;
+  color: $border-element__ghostly-white;
+  width: 15px;
+  height: 15px;
+  border-radius: 20px;
+  vertical-align: middle;
+  background: $typography-secondary;
+
+  @include _767 {
+    font-size: 1.4rem;
+  }
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.llar-auto-update-notice {
+  display: block !important;
+}
+
+.llar_input_border {
+  font-family: inherit;
+  font-size: 16px;
+  line-height: inherit;
+  padding: 6px 8px 6px 16px;
+  color: $primary-colors__turquoise;
+  border-radius: $border-radius__normal;
+  border: 1px solid $primary-colors__turquoise;
+  width: fit-content;
+
+  @include _1599 {
+    padding: 6px 8px 6px 12px;
+    font-size: 14px;
+  }
+
+  &:focus {
+    box-shadow: unset;
+    outline: none;
+  }
+
+  &::placeholder {
+    color:inherit;
+    opacity: 0.5;
+  }
+}
+
+.llar_input_checkbox {
+  background-color: $background-body;
+  border: 1.5px solid $primary-colors__steel_blue;
+  box-sizing: content-box;
+  margin: -0.25rem 0.25rem 0 0;
+
+  &:checked {
+    background-color: $primary-colors__orange;
+    border: 1.5px solid $primary-colors__orange;
+
+    &::before {
+      content: "\2714";
+      font-size: 14px;
+      line-height: 1.1;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      color: $background-body;
+    }
+  }
+
+  &:focus {
+    box-shadow: unset;
+  }
+}
+
+ul.llar_list {
+  list-style: none;
+
+  li {
+    position: relative;
+    list-style: none;
+    font-size: 12px;
+    white-space: initial;
+
+    &::before {
+      position: absolute;
+      box-sizing: inherit;
+      content: "\2727";
+      color: $background-body;
+      margin-left: -18px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+}
+
+button.llar_button {
+  font-family: inherit;
+  background: $background-body;
+  border: 1px solid $typography-primary;
+  cursor: pointer;
+  white-space: nowrap;
+  vertical-align: baseline;
+
+  &.menu__item {
+    border-radius: $border-radius * .5;
+    font-size: 16px;
+    line-height: 1.45;
+    padding: 6px 18px;
+    text-align: center;
+
+    @include _1599 {
+      font-size: 14px;
+    }
+
+    @include _991 {
+      padding: 5px 16px;
+    }
+
+    @include _428 {
+      padding: 5px 14px;
+    }
+  }
+
+  &:focus {
+    outline: none!important;
+    box-shadow: unset!important;
+  }
+}
+
+.llar_button {
+  @extend button;
+  position: relative;
+  min-width: 175px;
+  text-transform: inherit;
+  text-decoration: none;
+
+  &.button {
+
+    &__orange {
+      color: white!important;
+      background: $primary-colors__orange!important;
+      border: 1px solid $primary-colors__orange!important;
+      box-shadow: 0 6px 12px 0 $primary-colors__orange-semi_back!important;
+
+      &:hover {
+        background: $secondary-colors__dark-orange!important;
+      }
+
+      &:disabled {
+        border: 1px solid $primary-colors__orange-semi_back!important;
+        background: $primary-colors__orange-semi_back!important;
+        cursor: auto;
+      }
+    }
+
+    &__transparent_orange, &__transparent_grey {
+      color: $primary-colors__orange!important;
+      border: 1px solid currentColor!important;
+      background: transparent!important;
+
+      &.orange-back {
+        background: $primary-colors__orange-back!important;
+      }
+
+      &:hover {
+        background: $primary-colors__orange-back!important;
+        border: 1px solid currentColor!important;
+      }
+
+      &:disabled {
+        background: transparent;
+        cursor: auto;
+      }
+    }
+
+    &__transparent_grey {
+      color: $typography-additional!important;
+
+      &.gray-back {
+        background: $typography-additional__light!important;
+      }
+
+      &:hover {
+        background: $typography-additional__light!important;
+      }
+    }
+
+    &:focus {
+      outline: none!important;
+      box-shadow: unset!important;
+    }
+  }
+
+  &.tags {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+    border-radius: $border-radius__min;
+    border: 1px solid $primary-colors__orange;
+    width: fit-content;
+    padding: 0 20px;
+    z-index: 50;
+
+    &_basic {
+      color: $primary-colors__orange;
+      background: $primary-colors__orange-back;
+
+      &.active, &:hover {
+        color: $background-body;
+        background: $primary-colors__orange;
+      }
+
+      &_add {
+        color: $primary-colors__turquoise;
+        min-width: fit-content;
+        border: 1px solid currentColor;
+        background: $primary-colors__turquoise_back;
+
+        a {
+          vertical-align: middle;
+        }
+
+        &:hover {
+          background: $primary-colors__orange-back;
+        }
+      }
+    }
+
+    &_add {
+      color: $typography-additional;
+      border: 1px solid $typography-additional;
+      background: $typography-additional__light-two;
+
+      a {
+        vertical-align: middle;
+      }
+
+      &:hover {
+        background: $primary-colors__orange-back;
+      }
+    }
+  }
+
+  &:focus {
+    outline: none!important;
+    box-shadow: unset!important;
+  }
+}
+
+.llar-form-table {
+  width: 100%;
+}
