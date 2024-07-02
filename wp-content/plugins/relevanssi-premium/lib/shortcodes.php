@@ -79,12 +79,9 @@ function relevanssi_noindex_shortcode( $atts, $content ) {
  *
  * During indexing, the [noindex] shortcode returns nothing.
  *
- * @param array  $atts    The shortcode attributes. Not used.
- * @param string $content The content inside the shortcode tags.
- *
  * @return string An empty string.
  */
-function relevanssi_noindex_shortcode_indexing( $atts, $content ) {
+function relevanssi_noindex_shortcode_indexing() {
 	return '';
 }
 
@@ -160,13 +157,26 @@ function relevanssi_search_form( $atts ) {
 					$name = 'tag';
 				}
 				$args                = array(
-					'taxonomy'         => $value,
-					'echo'             => 0,
-					'hide_if_empty'    => true,
-					'show_option_none' => __( 'None' ),
-					'name'             => $name,
+					'taxonomy'          => $value,
+					'echo'              => 0,
+					'hide_if_empty'     => true,
+					'show_option_none'  => __( 'None' ),
+					'name'              => $name,
+					'option_none_value' => 0,
+					'orderby'           => 'name',
 				);
-				$additional_fields[] = wp_dropdown_categories( $args );
+				$additional_fields[] = wp_dropdown_categories(
+					/**
+					 * Filters the arguments for the Relevanssi search form
+					 * taxonomy dropdowns.
+					 *
+					 * Filters the argument array for wp_dropdown_categories().
+					 *
+					 * @param array $args The arguments for the dropdown.
+					 * @see wp_dropdown_categories()
+					 */
+					apply_filters( 'relevanssi_searchform_dropdown_args', $args )
+				);
 			} elseif ( 'checklist' === $key && 'post_type' !== $value ) {
 				$name = $value;
 				if ( 'category' === $value ) {

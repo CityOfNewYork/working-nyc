@@ -13,6 +13,27 @@
 class Relevanssi_Language_Packs {
 
 	/**
+	 * Project type, either plugin or theme.
+	 *
+	 * @var string
+	 */
+	public $type;
+
+	/**
+	 * Project directory slug.
+	 *
+	 * @var string
+	 */
+	public $slug;
+
+	/**
+	 * Full GlotPress API URL.
+	 *
+	 * @var string
+	 */
+	public $api_url;
+
+	/**
 	 * The class constructor.
 	 *
 	 * @param string $type    Project type, either plugin or theme.
@@ -104,10 +125,10 @@ class Relevanssi_Language_Packs {
 	 * @since 1.1.0
 	 */
 	public function register_clean_translations_cache() {
-		$clear_plugin_translations = function() {
+		$clear_plugin_translations = function () {
 			$this->clean_translations_cache( 'plugin' );
 		};
-		$clear_theme_translations  = function() {
+		$clear_theme_translations  = function () {
 			$this->clean_translations_cache( 'theme' );
 		};
 

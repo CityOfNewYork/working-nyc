@@ -106,7 +106,13 @@ function relevanssi_delete_user( int $user ) {
  */
 function relevanssi_delete_taxonomy_term( $term, $term_taxonomy_id, $taxonomy ) {
 	global $wpdb, $relevanssi_variables;
-	$wpdb->query( 'DELETE FROM ' . $relevanssi_variables['relevanssi_table'] . " WHERE item = $term AND type = '$taxonomy'" ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	$wpdb->query(
+		$wpdb->prepare(
+			'DELETE FROM ' . $relevanssi_variables['relevanssi_table'] . ' WHERE item = %d AND type = %s', // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			$term,
+			$taxonomy
+		)
+	);
 }
 
 /**
@@ -351,17 +357,17 @@ function relevanssi_strip_internal_links( $text ) {
  *
  * Finds numbers separated by the chosen thousand separator and combine them.
  *
- * @param string $string The string to fix.
+ * @param string $str The string to fix.
  *
- * @return string $string The fixed string.
+ * @return string $str The fixed string.
  */
-function relevanssi_apply_thousands_separator( $string ) {
+function relevanssi_apply_thousands_separator( $str ) {
 	$thousands_separator = get_option( 'relevanssi_thousand_separator', '' );
 	if ( ! empty( $thousands_separator ) ) {
 		$pattern = '/(\d+)' . preg_quote( $thousands_separator, '/' ) . '(\d+)/u';
-		$string  = preg_replace( $pattern, '$1$2', $string );
+		$str     = preg_replace( $pattern, '$1$2', $str );
 	}
-	return $string;
+	return $str;
 }
 
 /**
@@ -369,20 +375,22 @@ function relevanssi_apply_thousands_separator( $string ) {
  *
  * This filter introduces a new filter hook that runs the stemmers.
  *
- * @param string $string The string that is stemmed.
+ * @param string $str The string that is stemmed.
  *
- * @return string $string The string after stemming.
+ * @return string $str The string after stemming.
  */
-function relevanssi_enable_stemmer( $string ) {
+function relevanssi_enable_stemmer( $str ) {
+	add_filter( 'pre_option_relevanssi_implicit_operator', 'relevanssi_return_or' );
 	/**
 	 * Applies stemmer to document content and search terms.
 	 *
-	 * @param string $string The string that is stemmed.
+	 * @param string $str The string that is stemmed.
 	 *
-	 * @return string $string The string after stemming.
+	 * @return string $str The string after stemming.
 	 */
-	$string = apply_filters( 'relevanssi_stemmer', $string );
-	return $string;
+	$str = apply_filters( 'relevanssi_stemmer', $str );
+	remove_filter( 'pre_option_relevanssi_implicit_operator', 'relevanssi_return_or' );
+	return $str;
 }
 
 /**
@@ -400,7 +408,7 @@ function relevanssi_simple_english_stemmer( $term ) {
 	$end1 = substr( $term, -1, 1 );
 	if ( 's' === $end1 && $len > 3 ) {
 		$term = substr( $term, 0, -1 );
-		$len--;
+		--$len;
 	}
 	$end = substr( $term, -3, 3 );
 
@@ -623,6 +631,14 @@ function relevanssi_index_pdf_for_parent( $insert_data, $post_id ) {
 	$pdf_content = $wpdb->get_col( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
 	if ( is_array( $pdf_content ) ) {
+		/**
+		 * Filters the custom field value before indexing.
+		 *
+		 * @param array            Custom field values.
+		 * @param string $field    The custom field name.
+		 * @param int    $post_id The post ID.
+		 */
+		$pdf_content = apply_filters( 'relevanssi_custom_field_value', $pdf_content, '_relevanssi_pdf_content', $post_id );
 		foreach ( $pdf_content as $row ) {
 			/** This filter is documented in common/indexing.php */
 			$data = apply_filters( 'relevanssi_indexing_tokens', relevanssi_tokenize( $row, true, get_option( 'relevanssi_min_word_length', 3 ), 'indexing' ), 'pdf-content' );
@@ -729,7 +745,7 @@ function relevanssi_index_users_ajax( $limit, $offset ) {
 		$index_this_user = apply_filters( 'relevanssi_user_index_ok', true, $user );
 		if ( $index_this_user ) {
 			relevanssi_index_user( $user, $update );
-			$indexed_users++;
+			++$indexed_users;
 		}
 	}
 
@@ -845,7 +861,7 @@ function relevanssi_index_user( $user, $remove_first = false ) {
 				continue;
 			}
 			if ( isset( $insert_data[ $part ]['title'] ) ) {
-				$insert_data[ $part ]['title']++;
+				++$insert_data[ $part ]['title'];
 			} else {
 				$insert_data[ $part ]['title'] = 1;
 			}
@@ -859,7 +875,7 @@ function relevanssi_index_user( $user, $remove_first = false ) {
 				continue;
 			}
 			if ( isset( $insert_data[ $part ]['title'] ) ) {
-				$insert_data[ $part ]['title']++;
+				++$insert_data[ $part ]['title'];
 			} else {
 				$insert_data[ $part ]['title'] = 1;
 			}
@@ -873,7 +889,7 @@ function relevanssi_index_user( $user, $remove_first = false ) {
 				continue;
 			}
 			if ( isset( $insert_data[ $part ]['title'] ) ) {
-				$insert_data[ $part ]['title']++;
+				++$insert_data[ $part ]['title'];
 			} else {
 				$insert_data[ $part ]['title'] = 1;
 			}
@@ -1060,12 +1076,16 @@ function relevanssi_index_taxonomies_ajax( $taxonomy, $limit, $offset ) {
 		$end_reached = true;
 	}
 
+	do_action( 'relevanssi_pre_index_taxonomies' );
+
 	foreach ( $terms as $term_id ) {
 		$update = false;
 		$term   = get_term( $term_id, $taxonomy );
 		relevanssi_index_taxonomy_term( $term, $taxonomy, $update );
-		$indexed_terms++;
+		++$indexed_terms;
 	}
+
+	do_action( 'relevanssi_post_index_taxonomies' );
 
 	$response = array(
 		'indexed'            => $indexed_terms,
@@ -1095,6 +1115,8 @@ function relevanssi_index_taxonomies( $is_ajax = false ) {
 
 	$wpdb->query( 'DELETE FROM ' . $relevanssi_variables['relevanssi_table'] . " WHERE doc = -1 AND type NOT IN ('user', 'post_type')" ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 
+	do_action( 'relevanssi_pre_index_taxonomies' );
+
 	$taxonomies    = get_option( 'relevanssi_index_terms' );
 	$indexed_terms = 0;
 	foreach ( $taxonomies as $taxonomy ) {
@@ -1107,7 +1129,7 @@ function relevanssi_index_taxonomies( $is_ajax = false ) {
 		$update = false;
 		foreach ( $terms as $term ) {
 			relevanssi_index_taxonomy_term( $term, $taxonomy, $update );
-			$indexed_terms++;
+			++$indexed_terms;
 			if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				$progress->tick();
 			}
@@ -1116,6 +1138,8 @@ function relevanssi_index_taxonomies( $is_ajax = false ) {
 			$progress->finish();
 		}
 	}
+
+	do_action( 'relevanssi_post_index_taxonomies' );
 
 	if ( $is_ajax ) {
 		if ( $indexed_terms > 0 ) {
@@ -1136,7 +1160,7 @@ function relevanssi_index_taxonomies( $is_ajax = false ) {
  *
  * @return array A list of taxonomy terms.
  */
-function relevanssi_get_terms( string $taxonomy, int $limit = 0, int $offset = 0 ) : array {
+function relevanssi_get_terms( string $taxonomy, int $limit = 0, int $offset = 0 ): array {
 	global $wpdb;
 
 	/**
@@ -1443,15 +1467,11 @@ function relevanssi_index_post_type_archives() {
 			if ( defined( 'WP_CLI' ) && WP_CLI ) {
 				$progress->finish();
 			}
-		} else {
-			if ( defined( 'WP_CLI' ) && WP_CLI ) {
-				WP_CLI::log( 'No post types available for post type archive indexing.' );
-			}
+		} elseif ( defined( 'WP_CLI' ) && WP_CLI ) {
+			WP_CLI::log( 'No post types available for post type archive indexing.' );
 		}
-	} else {
-		if ( defined( 'WP_CLI' ) && WP_CLI ) {
-			WP_CLI::error( 'Post type archive indexing disabled.' );
-		}
+	} elseif ( defined( 'WP_CLI' ) && WP_CLI ) {
+		WP_CLI::error( 'Post type archive indexing disabled.' );
 	}
 }
 
@@ -1476,7 +1496,7 @@ function relevanssi_index_post_type_archives_ajax() {
 	$indexed_post_types = 0;
 	foreach ( $post_types as $post_type ) {
 		relevanssi_index_post_type_archive( $post_type );
-		$indexed_post_types++;
+		++$indexed_post_types;
 	}
 
 	$response = array(
@@ -1510,7 +1530,7 @@ function relevanssi_assign_post_type_ids() {
 	foreach ( $post_types as $post_type ) {
 		$post_type_ids_by_id[ $id ]          = $post_type;
 		$post_type_ids_by_name[ $post_type ] = $id;
-		$id++;
+		++$id;
 	}
 	update_option(
 		'relevanssi_post_type_ids',

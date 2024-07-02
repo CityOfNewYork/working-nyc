@@ -189,7 +189,7 @@ class Relevanssi_SpellCorrector {
 		$candidates = array();
 		if ( self::known( array( $word ) ) ) {
 			// Word is in the dictionary. It's fine.
-			return $word;
+			return true;
 		} else {
 			$tmp_candidates = self::known( self::edits1( $word ) );
 			if ( ! empty( $tmp_candidates ) ) {

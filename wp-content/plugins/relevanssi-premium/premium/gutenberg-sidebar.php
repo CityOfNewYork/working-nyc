@@ -13,6 +13,7 @@
 add_action( 'init', 'relevanssi_register_gutenberg_meta' );
 add_action( 'enqueue_block_editor_assets', 'relevanssi_block_editor_assets' );
 add_action( 'rest_api_init', 'relevanssi_register_gutenberg_rest_routes' );
+add_filter( 'load_script_translation_file', 'relevanssi_rename_translation_file', 10, 2 );
 
 /**
  * Registers the meta fields for the block editor.
@@ -136,7 +137,7 @@ function relevanssi_register_gutenberg_script() {
 		1,
 		true
 	);
-	wp_set_script_translations( 'relevanssi-sidebar', 'relevanssi', $relevanssi_variables['plugin_dir'] . 'languages' );
+	wp_set_script_translations( 'relevanssi-sidebar', 'relevanssi', WP_CONTENT_DIR . '/languages/plugins' );
 }
 
 /**
@@ -352,14 +353,14 @@ function relevanssi_register_gutenberg_rest_routes() {
 			switch ( $type ) {
 				case 'metakey':
 					$args[ $name ] = array(
-						'validate_callback' => function( $param, $request, $key ) {
+						'validate_callback' => function ( $param ) {
 							return in_array( $param, array( '_relevanssi_related_keywords', '_relevanssi_related_include_ids' ), true );
 						},
 					);
 					break;
 				case 'urldecode':
 					$args[ $name ] = array(
-						'sanitize_callback' => function( $param, $request, $key ) {
+						'sanitize_callback' => function ( $param ) {
 							return urldecode( $param );
 						},
 					);
@@ -367,7 +368,7 @@ function relevanssi_register_gutenberg_rest_routes() {
 				case 'numeric':
 				default:
 					$args[ $name ] = array(
-						'validate_callback' => function( $param, $request, $key ) {
+						'validate_callback' => function ( $param ) {
 							return is_numeric( $param );
 						},
 					);
@@ -391,3 +392,21 @@ function relevanssi_register_gutenberg_rest_routes() {
 	}
 }
 
+/**
+ * Rename the Relevanssi Gutenberg sidebar translation file.
+ *
+ * WordPress assumes the file name is relevanssi-LOCALE-relevanssi-sidebar.json,
+ * but the file from TranslationsPress is relevanssi-LOCALE.json. We rename the
+ * file WP is looking for here.
+ *
+ * @param string $file   The original file name.
+ * @param string $handle The script handle.
+ *
+ * @return string The corrected filename.
+ */
+function relevanssi_rename_translation_file( $file, $handle ) {
+	if ( 'relevanssi-sidebar' !== $handle ) {
+		return $file;
+	}
+	return str_replace( '-relevanssi-sidebar', '', $file );
+}

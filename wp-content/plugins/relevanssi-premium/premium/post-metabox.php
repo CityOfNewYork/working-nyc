@@ -66,8 +66,16 @@ function relevanssi_post_metabox() {
 	$hide_content = checked( 'on', get_post_meta( $post->ID, '_relevanssi_hide_content', true ), false );
 	$pin_for_all  = checked( 'on', get_post_meta( $post->ID, '_relevanssi_pin_for_all', true ), false );
 
-	$pins = get_post_meta( $post->ID, '_relevanssi_pin', false );
-	$pin  = implode( ', ', $pins );
+	$pins          = get_post_meta( $post->ID, '_relevanssi_pin', false );
+	$pin_weights   = get_post_meta( $post->ID, '_relevanssi_pin_weights', true );
+	$weighted_pins = array();
+	foreach ( $pins as $pin ) {
+		if ( isset( $pin_weights[ $pin ] ) ) {
+			$pin .= ' (' . $pin_weights[ $pin ] . ')';
+		}
+		$weighted_pins[] = $pin;
+	}
+	$pin = implode( ', ', $weighted_pins );
 
 	$unpins = get_post_meta( $post->ID, '_relevanssi_unpin', false );
 	$unpin  = implode( ', ', $unpins );
@@ -248,10 +256,8 @@ function relevanssi_save_postdata( $post_id ) {
 			if ( ! current_user_can( 'edit_page', $post_id ) ) {
 				return;
 			}
-		} else {
-			if ( ! current_user_can( 'edit_post', $post_id ) ) {
-				return;
-			}
+		} elseif ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
 		}
 	}
 
@@ -392,7 +398,7 @@ function relevanssi_related_posts_metabox( $post_id ) {
 	<?php esc_html_e( "Don't show this as a related post for any post.", 'relevanssi' ); ?></label></p>
 
 	<p><strong><?php esc_html_e( 'Related Posts keywords', 'relevanssi' ); ?></strong></p>
-	<p><?php esc_html_e( 'A comma-separated list of keywords to use for the Related Posts feature. Anything entered here will used when searching for related posts. Using phrases with quotes is allowed, but will restrict the related posts to posts including that phrase.', 'relevanssi' ); ?></p>
+	<p><?php esc_html_e( 'A comma-separated list of keywords to use for the Related Posts feature. Anything entered here will be used when searching for related posts. Using phrases with quotes is allowed, but will restrict the related posts to posts including that phrase.', 'relevanssi' ); ?></p>
 	<label for="relevanssi_related_keywords" class="screen-reader-text"><?php esc_html_e( 'Related posts keywords for this post', 'relevanssi' ); ?></label>
 	<p><textarea id="relevanssi_related_keywords" name="relevanssi_related_keywords" cols="30" rows="2" style="max-width: 100%"><?php echo esc_html( $related ); ?></textarea></p>
 
@@ -466,7 +472,7 @@ function relevanssi_generate_tracking_insights_most_common( int $post_id, string
 			$list = '<li>' . implode(
 				'</li><li>',
 				array_map(
-					function( $v ) {
+					function ( $v ) {
 						return "$v->query ($v->count)";
 					},
 					$common_terms
@@ -514,7 +520,7 @@ function relevanssi_generate_tracking_insights_low_ranking( int $post_id, string
 			$list = '<li>' . implode(
 				'</li><li>',
 				array_map(
-					function( $v ) {
+					function ( $v ) {
 						return "$v->query ($v->rank)";
 					},
 					$low_ranking_terms
@@ -594,10 +600,8 @@ function relevanssi_generate_excluded_list( $post_id, $output = 'HTML' ) {
 				);
 			}
 		}
-	} else {
-		if ( $output_html ) {
-			$list .= '<li>' . esc_html__( 'Nothing excluded.', 'relevanssi' ) . '</li>';
-		}
+	} elseif ( $output_html ) {
+		$list .= '<li>' . esc_html__( 'Nothing excluded.', 'relevanssi' ) . '</li>';
 	}
 	return $list;
 }

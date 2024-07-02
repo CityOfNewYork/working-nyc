@@ -107,33 +107,31 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 		} elseif ( 'post_types' === $target ) {
 			relevanssi_index_post_type_archives();
 			WP_CLI::success( 'Done!' );
-		} else {
-			if ( isset( $post_id ) ) {
-				$n = relevanssi_index_doc( $post_id, true, relevanssi_get_custom_fields(), true, $debug );
-				switch ( $n ) {
-					case -1:
-						WP_CLI::error( "No such post: $post_id!" );
-						break;
-					case 'hide':
-						WP_CLI::error( "Post $post_id is excluded from indexing." );
-						break;
-					case 'donotindex':
-						WP_CLI::error( "Post $post_id is excluded from indexing by the relevanssi_do_not_index filter." );
-						break;
-					default:
-						WP_CLI::success( "Reindexed post $post_id!" );
-				}
-			} else {
-				$verbose              = false;
-				list( $complete, $n ) = relevanssi_build_index( $extend, $verbose, $limit );
-
-				$completion = 'Index is not complete yet.';
-				if ( $complete ) {
-					$completion = 'Index is complete.';
-				}
-
-				WP_CLI::success( "$n posts indexed. $completion" );
+		} elseif ( isset( $post_id ) ) {
+			$n = relevanssi_index_doc( $post_id, true, relevanssi_get_custom_fields(), true, $debug );
+			switch ( $n ) {
+				case -1:
+					WP_CLI::error( "No such post: $post_id!" );
+					break;
+				case 'hide':
+					WP_CLI::error( "Post $post_id is excluded from indexing." );
+					break;
+				case 'donotindex':
+					WP_CLI::error( "Post $post_id is excluded from indexing by the relevanssi_do_not_index filter." );
+					break;
+				default:
+					WP_CLI::success( "Reindexed post $post_id!" );
 			}
+		} else {
+			$verbose              = false;
+			list( $complete, $n ) = relevanssi_build_index( $extend, $verbose, $limit );
+
+			$completion = 'Index is not complete yet.';
+			if ( $complete ) {
+				$completion = 'Index is complete.';
+			}
+
+			WP_CLI::success( "$n posts indexed. $completion" );
 		}
 	}
 
@@ -163,7 +161,7 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 		);
 
 		$found_posts = count( $all_indexed_posts );
-		$progress    = relevanssi_generate_progress_bar( 'Indexing posts', $found_posts );
+		$progress    = $this->relevanssi_generate_progress_bar( 'Indexing posts', $found_posts );
 
 		WP_CLI::log( 'Found ' . $found_posts . ' posts to refresh.' );
 		foreach ( $all_indexed_posts as $post_id ) {
@@ -442,7 +440,7 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 		$count     = count( $posts );
 		WP_CLI::log( 'Regenerating related posts for post types ' . implode( ', ', $post_types ) . ", total $count posts." );
 
-		$progress = relevanssi_generate_progress_bar( 'Regenerating', $count );
+		$progress = $this->relevanssi_generate_progress_bar( 'Regenerating', $count );
 
 		foreach ( $posts as $post_id ) {
 			relevanssi_related_posts( $post_id, $post_objects );
@@ -695,38 +693,22 @@ class Relevanssi_WP_CLI_Command extends WP_CLI_Command {
 			WP_CLI\Utils\format_items( $format, $posts, array( 'Title', 'Type' ) );
 		}
 	}
+
+	/**
+	 * Generates a WP CLI progress bar.
+	 *
+	 * If WP CLI is enabled, creates a progress bar using WP_CLI\Utils\make_progress_bar().
+	 *
+	 * @param string $title Title of the progress bar.
+	 * @param int    $count Total count for the bar.
+	 */
+	public static function relevanssi_generate_progress_bar( $title, $count ) {
+		$progress = null;
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			$progress = WP_CLI\Utils\make_progress_bar( $title, $count );
+		}
+		return $progress;
+	}
 }
 
 WP_CLI::add_command( 'relevanssi', 'Relevanssi_WP_Cli_Command' );
-
-/**
- * Generates a WP CLI progress bar.
- *
- * If WP CLI is enabled, creates a progress bar using WP_CLI\Utils\make_progress_bar().
- *
- * @param string $title Title of the progress bar.
- * @param int    $count Total count for the bar.
- */
-function relevanssi_generate_progress_bar( $title, $count ) {
-	$progress = null;
-	if ( defined( 'WP_CLI' ) && WP_CLI ) {
-		$progress = WP_CLI\Utils\make_progress_bar( $title, $count );
-	}
-	return $progress;
-}
-
-add_filter( 'relevanssi_search_ok', 'relevanssi_cli_query_ok', 10, 2 );
-/**
- * Sets the relevanssi_search_ok true for searches.
- *
- * @param boolean  $ok    Whether it's ok to do a Relevanssi search or not.
- * @param WP_Query $query The query object.
- *
- * @return boolean Whether it's ok to do a Relevanssi search or not.
- */
-function relevanssi_cli_query_ok( $ok, $query ) {
-	if ( $query->is_search() ) {
-		return true;
-	}
-	return $ok;
-}

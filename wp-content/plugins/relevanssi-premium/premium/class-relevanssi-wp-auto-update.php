@@ -220,28 +220,3 @@ class Relevanssi_WP_Auto_Update {
 		return false;
 	}
 }
-
-/**
- * Activates the auto update mechanism.
- *
- * @global array $relevanssi_variables Relevanssi global variables, used for plugin file name and version number.
- *
- * Hooks into 'init' filter hook to activate the auto update mechanism.
- */
-function relevanssi_activate_auto_update() {
-	global $relevanssi_variables;
-	$api_key = get_network_option( null, 'relevanssi_api_key' );
-	if ( ! $api_key ) {
-		$api_key = get_option( 'relevanssi_api_key' );
-	}
-	if ( 'su9qtC30xCLLA' === crypt( $api_key, 'suolaa' ) ) {
-		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update-development-2022.php';
-	} else {
-		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update-2022.php';
-	}
-	$relevanssi_variables['autoupdate'] = new Relevanssi_WP_Auto_Update(
-		$relevanssi_variables['plugin_version'],
-		$relevanssi_plugin_remote_path,
-		$relevanssi_variables['plugin_basename']
-	);
-}

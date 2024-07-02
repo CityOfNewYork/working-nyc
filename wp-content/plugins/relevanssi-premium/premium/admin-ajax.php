@@ -10,6 +10,7 @@
 
 add_action( 'wp_ajax_relevanssi_list_pdfs', 'relevanssi_list_pdfs_action' );
 add_action( 'wp_ajax_relevanssi_wipe_pdfs', 'relevanssi_wipe_pdfs_action' );
+add_action( 'wp_ajax_relevanssi_wipe_server_errors', 'relevanssi_wipe_server_errors_action' );
 add_action( 'wp_ajax_relevanssi_index_pdfs', 'relevanssi_index_pdfs_action' );
 add_action( 'wp_ajax_relevanssi_send_pdf', 'relevanssi_send_pdf' );
 add_action( 'wp_ajax_relevanssi_send_url', 'relevanssi_send_url' );
@@ -81,6 +82,36 @@ function relevanssi_wipe_pdfs_action() {
 	if ( $deleted_errors ) {
 		$response['deleted_errors'] = true;
 	}
+
+	echo wp_json_encode( $response );
+
+	wp_die();
+}
+
+/**
+ * Performs the "wipe server errors" AJAX action.
+ *
+ * Removes all '_relevanssi_pdf_error' post meta fields from the wp_postmeta
+ * table where the meta_value is 'R_ERR06: Server did not respond.'.
+ */
+function relevanssi_wipe_server_errors_action() {
+	check_ajax_referer( 'relevanssi-wipe-errors', 'security' );
+	relevanssi_current_user_can_access_options();
+
+	global $wpdb;
+	$result = $wpdb->delete(
+		$wpdb->postmeta,
+		array(
+			'meta_key'   => '_relevanssi_pdf_error',
+			'meta_value' => 'R_ERR06: Server did not respond.',
+		),
+		array(
+			'%s',
+			'%s',
+		)
+	);
+
+	$response['deleted_rows'] = $result;
 
 	echo wp_json_encode( $response );
 
@@ -167,7 +198,7 @@ function relevanssi_index_pdfs_action() {
 			}
 
 			$index_response = relevanssi_index_pdf( $post_id, $echo_and_die, $send_files );
-			$completed++;
+			++$completed;
 
 			if ( $index_response['success'] ) {
 				// translators: placeholder is the post ID.
@@ -305,9 +336,14 @@ function relevanssi_index_taxonomies_ajax_wrapper() {
 
 	$completed = absint( $post_data['completed'] );
 	$total     = absint( $post_data['total'] );
-	$taxonomy  = $post_data['taxonomy'];
-	$offset    = $post_data['offset'];
-	$limit     = $post_data['limit'];
+	$taxonomy  = relevanssi_validate_taxonomy( $post_data['taxonomy'] );
+	$offset    = intval( $post_data['offset'] );
+	$limit     = intval( $post_data['limit'] );
+
+	if ( empty( $taxonomy ) ) {
+		// Non-valid taxonomy.
+		wp_die();
+	}
 
 	$response = array();
 
@@ -734,9 +770,11 @@ function relevanssi_ajax_index_pdf() {
 		wp_die();
 	}
 
-	update_post_meta( $_REQUEST['post_id'], '_relevanssi_pdf_error', RELEVANSSI_ERROR_05 );
+	$post_id = intval( $_REQUEST['post_id'] );
 
-	relevanssi_index_pdf( $_REQUEST['post_id'] );
+	update_post_meta( $post_id, '_relevanssi_pdf_error', RELEVANSSI_ERROR_05 );
+
+	relevanssi_index_pdf( $post_id );
 
 	wp_die();
 }

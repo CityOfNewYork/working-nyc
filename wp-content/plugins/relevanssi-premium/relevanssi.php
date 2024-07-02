@@ -13,7 +13,7 @@
  * Plugin Name: Relevanssi Premium
  * Plugin URI: https://www.relevanssi.com/
  * Description: This premium plugin replaces WordPress search with a relevance-sorting search.
- * Version: 2.21.0
+ * Version: 2.25.2
  * Author: Mikko Saari
  * Author URI: https://www.mikkosaari.fi/
  * Text Domain: relevanssi
@@ -22,7 +22,7 @@
  */
 
 /*
-	Copyright 2023 Mikko Saari  (email: mikko@mikkosaari.fi)
+	Copyright 2024 Mikko Saari  (email: mikko@mikkosaari.fi)
 
 	This file is part of Relevanssi Premium, a search plugin for WordPress.
 
@@ -64,7 +64,7 @@ add_filter( 'relevanssi_phrase_queries', 'relevanssi_premium_phrase_queries', 10
 
 global $wp_version;
 if ( version_compare( $wp_version, '5.1', '>=' ) ) {
-	add_action( 'wp_insert_site', 'relevanssi_new_blog', 10, 1 );
+	add_action( 'wp_initialize_site', 'relevanssi_new_blog', 200, 1 );
 } else {
 	add_action( 'wpmu_new_blog', 'relevanssi_new_blog', 10, 1 );
 }
@@ -75,15 +75,15 @@ global $relevanssi_variables;
 $relevanssi_variables['relevanssi_table']                      = $wpdb->prefix . 'relevanssi';
 $relevanssi_variables['stopword_table']                        = $wpdb->prefix . 'relevanssi_stopwords';
 $relevanssi_variables['log_table']                             = $wpdb->prefix . 'relevanssi_log';
-$relevanssi_variables['tracking_table']                        = $wpdb->prefix . 'relevanssi_tracking';
+$relevanssi_variables['tracking_table']                        = $wpdb->prefix . 'relevanssi_tracking'; // Note: this is also hardcoded in /premium/click-tracking.php.
 $relevanssi_variables['post_type_weight_defaults']['post_tag'] = 0.5;
 $relevanssi_variables['post_type_weight_defaults']['category'] = 0.5;
 $relevanssi_variables['content_boost_default']                 = 5;
 $relevanssi_variables['title_boost_default']                   = 5;
 $relevanssi_variables['link_boost_default']                    = 0.75;
 $relevanssi_variables['comment_boost_default']                 = 0.75;
-$relevanssi_variables['database_version']                      = 21;
-$relevanssi_variables['plugin_version']                        = '2.21.0';
+$relevanssi_variables['database_version']                      = 23;
+$relevanssi_variables['plugin_version']                        = '2.25.2';
 $relevanssi_variables['plugin_dir']                            = plugin_dir_path( __FILE__ );
 $relevanssi_variables['plugin_basename']                       = plugin_basename( __FILE__ );
 $relevanssi_variables['file']                                  = __FILE__;
@@ -145,4 +145,45 @@ if ( version_compare( $wp_version, '5.0', '>=' ) ) {
 
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
 	require_once 'premium/class-relevanssi-wp-cli-command.php';
+	add_filter( 'relevanssi_search_ok', 'relevanssi_cli_query_ok', 10, 2 );
+}
+
+/**
+ * Sets the relevanssi_search_ok true for searches.
+ *
+ * @param boolean  $ok    Whether it's ok to do a Relevanssi search or not.
+ * @param WP_Query $query The query object.
+ *
+ * @return boolean Whether it's ok to do a Relevanssi search or not.
+ */
+function relevanssi_cli_query_ok( $ok, $query ) {
+	if ( $query->is_search() ) {
+		return true;
+	}
+	return $ok;
+}
+
+/**
+ * Activates the auto update mechanism.
+ *
+ * @global array $relevanssi_variables Relevanssi global variables, used for plugin file name and version number.
+ *
+ * Hooks into 'init' filter hook to activate the auto update mechanism.
+ */
+function relevanssi_activate_auto_update() {
+	global $relevanssi_variables;
+	$api_key = get_network_option( null, 'relevanssi_api_key' );
+	if ( ! $api_key ) {
+		$api_key = get_option( 'relevanssi_api_key' );
+	}
+	if ( 'su9qtC30xCLLA' === crypt( $api_key, 'suolaa' ) ) {
+		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update-development-2022.php';
+	} else {
+		$relevanssi_plugin_remote_path = 'https://www.relevanssi.com/update/update-2022.php';
+	}
+	$relevanssi_variables['autoupdate'] = new Relevanssi_WP_Auto_Update(
+		$relevanssi_variables['plugin_version'],
+		$relevanssi_plugin_remote_path,
+		$relevanssi_variables['plugin_basename']
+	);
 }

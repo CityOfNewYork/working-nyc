@@ -39,6 +39,7 @@ function relevanssi_related( $query, $pre = '<ul><li>', $sep = '</li><li>', $pos
 	$query_slug = sanitize_title( $query );
 	$related    = get_transient( 'related-' . $query_slug );
 	if ( ! $related ) {
+		$related = array();
 		/**
 		 * Loop over each token in the query and return logged queries which:
 		 *
@@ -69,8 +70,10 @@ function relevanssi_related( $query, $pre = '<ul><li>', $sep = '</li><li>', $pos
 					$number
 				)
 			);
-			foreach ( $results as $result ) {
-				$related[] = $result->query;
+			if ( is_array( $results ) ) {
+				foreach ( $results as $result ) {
+					$related[] = $result->query;
+				}
 			}
 		}
 		if ( empty( $related ) ) {
@@ -113,7 +116,8 @@ function relevanssi_related( $query, $pre = '<ul><li>', $sep = '</li><li>', $pos
  * @param int        $blog_id The blog ID, used to make caching work in
  * multisite environment. Defaults to -1, which means the blog id is not used.
  *
- * @return object $post The post object for the post ID.
+ * @return object|WP_Error $post The post object for the post ID or a WP_Error
+ * object if the post ID is not found.
  */
 function relevanssi_premium_get_post( $id, int $blog_id = -1 ) {
 	global $relevanssi_post_array;
@@ -245,6 +249,11 @@ function relevanssi_premium_get_post( $id, int $blog_id = -1 ) {
 				);
 			}
 	}
+
+	if ( ! $post ) {
+		$post = new WP_Error( 'post_not_found', __( 'The requested post does not exist.' ) );
+	}
+
 	return $post;
 }
 
@@ -282,21 +291,32 @@ function relevanssi_get_non_post_post_types() {
  *
  * @param int $post_id The post ID of the parent post.
  *
- * @return string $pdf_content The PDF content of the child posts.
+ * @return array $pdf_content The PDF content of the child posts.
  */
-function relevanssi_get_child_pdf_content( $post_id ) {
+function relevanssi_get_child_pdf_content( $post_id ): array {
 	global $wpdb;
 
 	$post_id     = intval( $post_id );
 	$pdf_content = '';
 
 	if ( $post_id > 0 ) {
-		$pdf_content = $wpdb->get_col( "SELECT meta_value FROM $wpdb->postmeta AS pm, $wpdb->posts AS p WHERE pm.post_id = p.ID AND p.post_parent = $post_id AND meta_key = '_relevanssi_pdf_content'" ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		/**
+		 * Filters the custom field value before indexing.
+		 *
+		 * @param array            Custom field values.
+		 * @param string $field    The custom field name.
+		 * @param int    $post_id The post ID.
+		 */
+		return apply_filters(
+			'relevanssi_custom_field_value',
+			$wpdb->get_col( "SELECT meta_value FROM $wpdb->postmeta AS pm, $wpdb->posts AS p WHERE pm.post_id = p.ID AND p.post_parent = $post_id AND meta_key = '_relevanssi_pdf_content'" ), // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared,WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+			'_relevanssi_pdf_content',
+			$post_id
+		);
 		// Only user-provided variable is $post_id, and that's from Relevanssi and sanitized as an int.
-		return implode( ' ', $pdf_content );
 	}
 
-	return '';
+	return array();
 }
 
 /**
@@ -313,6 +333,9 @@ function relevanssi_get_child_pdf_content( $post_id ) {
  * @param string $post  Text printed out after the suggestion.
  * @param int    $n     Maximum number of hits before the suggestions are shown,
  * default 5.
+ *
+ * @return string Empty string if there's nothing to correct; otherwise a string
+ * with the HTML link to the corrected search.
  */
 function relevanssi_premium_didyoumean( $query, $pre, $post, $n = 5 ) {
 	global $wp_query;
@@ -325,6 +348,9 @@ function relevanssi_premium_didyoumean( $query, $pre, $post, $n = 5 ) {
 	}
 
 	$suggestion = relevanssi_premium_generate_suggestion( $query );
+	if ( true === $suggestion ) {
+		return $result;
+	}
 	if ( empty( $suggestion ) ) {
 		$suggestion = relevanssi_simple_generate_suggestion( $query );
 	}
@@ -360,8 +386,8 @@ function relevanssi_premium_didyoumean( $query, $pre, $post, $n = 5 ) {
  *
  * @param string $query The search query to correct.
  *
- * @return string $query Corrected query, empty if there are no corrections
- * available.
+ * @return string $query Corrected query, empty string if there are no
+ * corrections available and true if the query was already correct.
  */
 function relevanssi_premium_generate_suggestion( $query ) {
 	$corrected_query = '';
@@ -392,16 +418,16 @@ function relevanssi_premium_generate_suggestion( $query ) {
 				continue;
 			}
 			$c = $sc->correct( $token );
-			if ( ! empty( $c ) && strval( $token ) !== $c ) {
+			if ( true === $c ) {
+				++$exact_matches;
+			} elseif ( ! empty( $c ) && strval( $token ) !== $c ) {
 				array_push( $correct, $c );
 				$query = str_ireplace( $token, $c, $query ); // Replace misspelled word in query with suggestion.
-			} elseif ( null !== $c ) {
-				$exact_matches++;
 			}
 		}
 		if ( count( $tokens ) === $exact_matches ) {
 			// All tokens are correct.
-			return '';
+			return true;
 		}
 		if ( count( $correct ) > 0 ) {
 			// Strip quotes, because they are likely incorrect.
@@ -473,7 +499,7 @@ function relevanssi_premium_init() {
 	// will swipe out the Relevanssi post controls settings.
 	add_action(
 		'future_to_publish',
-		function( $post ) {
+		function () {
 			remove_action( 'save_post', 'relevanssi_save_postdata' );
 		}
 	);
@@ -497,7 +523,7 @@ function relevanssi_premium_init() {
 		if ( ! $public && 'options-general.php' === $pagenow && $on_relevanssi_page ) {
 			add_action(
 				'admin_notices',
-				function() {
+				function () {
 					printf(
 						"<div id='relevanssi-warning' class='update-nag'><p><strong>%s</strong></p></div>",
 						esc_html__( 'Your site is not public. By default, Relevanssi does not search private sites. If you want to be able to search on this site, either make it public or add a filter function that returns true on \'relevanssi_multisite_public_status\' filter hook.', 'relevanssi' )
@@ -509,20 +535,20 @@ function relevanssi_premium_init() {
 
 	add_filter( 'relevanssi_remove_punctuation', 'relevanssi_wildcards_pre', 8 );
 	add_filter( 'relevanssi_remove_punctuation', 'relevanssi_wildcards_post', 12 );
-	add_filter( 'relevanssi_term_where', 'relevanssi_query_wildcards' );
+	add_filter( 'relevanssi_term_where', 'relevanssi_query_wildcards', 10, 2 );
 
 	add_filter( 'relevanssi_indexing_restriction', 'relevanssi_hide_post_restriction' );
 
 	if ( defined( 'RELEVANSSI_API_KEY' ) ) {
 		add_filter(
 			'pre_option_relevanssi_api_key',
-			function() {
+			function () {
 				return RELEVANSSI_API_KEY;
 			}
 		);
 		add_filter(
 			'pre_site_option_relevanssi_api_key',
-			function() {
+			function () {
 				return RELEVANSSI_API_KEY;
 			}
 		);
@@ -581,7 +607,9 @@ function relevanssi_hide_post_restriction( $restrictions ) {
 /**
  * Replaces the standard permalink with $post->relevanssi_link if it exists.
  *
- * Relevanssi adds a link to the user profile or taxonomy term page to $post->relevanssi_link. This function replaces permalink with that link, if it exists.
+ * Relevanssi adds a link to the user profile or taxonomy term page to
+ * $post->relevanssi_link. This function replaces permalink with that link, if
+ * it exists.
  *
  * @param string $permalink The permalink to filter.
  * @param int    $post_id   The post ID.
@@ -646,7 +674,7 @@ function relevanssi_premium_install() {
 	add_option( 'relevanssi_index_users', 'off' );
 	add_option( 'relevanssi_internal_links', 'noindex' );
 	add_option( 'relevanssi_link_boost', $relevanssi_variables['link_boost_default'] );
-	add_option( 'relevanssi_link_pdf_files', 'off' );
+	add_option( 'relevanssi_link_pdf_files', 'on' );
 	add_option( 'relevanssi_max_excerpts', 1 );
 	add_option( 'relevanssi_mysql_columns', '' );
 	add_option( 'relevanssi_post_type_weights', '' );
@@ -678,7 +706,7 @@ function relevanssi_premium_install() {
  *
  * @return string 'eu' or 'us', depending on the locale.
  */
-function relevanssi_default_server_location() : string {
+function relevanssi_default_server_location(): string {
 	$server = 'us';
 	$locale = get_locale();
 
@@ -775,67 +803,67 @@ function relevanssi_extract_specifier( $query ) {
  *
  * @global array $relevanssi_variables Used to store the target data.
  *
- * @param object $match The Relevanssi match object.
+ * @param object $match_object The Relevanssi match object.
  *
  * @return object The match object, with the weight modified if necessary.
  */
-function relevanssi_target_matches( $match ) {
+function relevanssi_target_matches( $match_object ) {
 	global $relevanssi_variables;
 
-	if ( is_numeric( $match->term ) ) {
-		$match->term = ' ' . $match->term;
+	if ( is_numeric( $match_object->term ) ) {
+		$match_object->term = ' ' . $match_object->term;
 	}
 
 	$fuzzy = get_option( 'relevanssi_fuzzy' );
 	if ( 'always' === $fuzzy || 'sometimes' === $fuzzy ) {
 		foreach ( $relevanssi_variables['targets'] as $term => $target ) {
 			if (
-				substr( $match->term, 0, strlen( $term ) ) === $term ||
-				substr( strrev( $match->term ), 0, strlen( $term ) ) === strrev( $term )
+				substr( $match_object->term, 0, strlen( $term ) ) === $term ||
+				substr( strrev( $match_object->term ), 0, strlen( $term ) ) === strrev( $term )
 			) {
-				$relevanssi_variables['targets'][ $match->term ] =
+				$relevanssi_variables['targets'][ $match_object->term ] =
 					$relevanssi_variables['targets'][ $term ];
 			}
 		}
 	}
 
 	$no_matches = false;
-	if ( isset( $relevanssi_variables['targets'][ $match->term ] ) ) {
+	if ( isset( $relevanssi_variables['targets'][ $match_object->term ] ) ) {
 		$no_matches = true;
-		foreach ( $relevanssi_variables['targets'][ $match->term ] as $target ) {
-			if ( isset( $match->$target ) && '0' !== $match->$target ) {
+		foreach ( $relevanssi_variables['targets'][ $match_object->term ] as $target ) {
+			if ( isset( $match_object->$target ) && '0' !== $match_object->$target ) {
 				$no_matches = false;
 				break;
 			}
-			if ( ! is_object( $match->customfield_detail ) ) {
-				$match->customfield_detail = json_decode( $match->customfield_detail );
+			if ( $match_object->customfield_detail && ! is_object( $match_object->customfield_detail ) ) {
+				$match_object->customfield_detail = json_decode( $match_object->customfield_detail );
 			}
 			if (
-				! empty( $match->customfield_detail ) &&
-				isset( $match->customfield_detail->$target ) &&
-				'0' !== $match->customfield_detail->$target
+				! empty( $match_object->customfield_detail ) &&
+				isset( $match_object->customfield_detail->$target ) &&
+				'0' !== $match_object->customfield_detail->$target
 				) {
 				$no_matches = false;
 				break;
 			}
-			if ( ! is_object( $match->taxonomy_detail ) ) {
-				$match->taxonomy_detail = json_decode( $match->taxonomy_detail );
+			if ( ! is_object( $match_object->taxonomy_detail ) ) {
+				$match_object->taxonomy_detail = json_decode( $match_object->taxonomy_detail );
 			}
 			if (
-				! empty( $match->taxonomy_detail ) &&
-				isset( $match->taxonomy_detail->$target ) &&
-				'0' !== $match->taxonomy_detail->$target
+				! empty( $match_object->taxonomy_detail ) &&
+				isset( $match_object->taxonomy_detail->$target ) &&
+				'0' !== $match_object->taxonomy_detail->$target
 				) {
 				$no_matches = false;
 				break;
 			}
-			if ( ! is_object( $match->mysqlcolumn_detail ) ) {
-				$match->mysqlcolumn_detail = json_decode( $match->mysqlcolumn_detail );
+			if ( ! is_object( $match_object->mysqlcolumn_detail ) ) {
+				$match_object->mysqlcolumn_detail = json_decode( $match_object->mysqlcolumn_detail );
 			}
 			if (
-				! empty( $match->mysqlcolumn_detail ) &&
-				isset( $match->mysqlcolumn_detail->$target ) &&
-				'0' !== $match->mysqlcolumn_detail->$target
+				! empty( $match_object->mysqlcolumn_detail ) &&
+				isset( $match_object->mysqlcolumn_detail->$target ) &&
+				'0' !== $match_object->mysqlcolumn_detail->$target
 				) {
 				$no_matches = false;
 				break;
@@ -843,10 +871,20 @@ function relevanssi_target_matches( $match ) {
 		}
 	}
 	if ( $no_matches ) {
-		$match->weight = 0;
+		$match_object->weight = 0;
 	}
 
-	return $match;
+	if ( is_object( $match_object->customfield_detail ) ) {
+		$match_object->customfield_detail = wp_json_encode( $match_object->customfield_detail );
+	}
+	if ( is_object( $match_object->taxonomy_detail ) ) {
+		$match_object->taxonomy_detail = wp_json_encode( $match_object->taxonomy_detail );
+	}
+	if ( is_object( $match_object->mysqlcolumn_detail ) ) {
+		$match_object->mysqlcolumn_detail = wp_json_encode( $match_object->mysqlcolumn_detail );
+	}
+
+	return $match_object;
 }
 
 /**
@@ -1082,35 +1120,35 @@ function relevanssi_add_must_have( $post ) {
  *
  * @param array    $term_hits    The term hits array (passed as reference).
  * @param array    $match_arrays The matches array (passed as reference).
- * @param stdClass $match        The match object.
+ * @param stdClass $match_object The match object.
  * @param string   $term         The search term.
  */
-function relevanssi_premium_update_term_hits( &$term_hits, &$match_arrays, $match, $term ) {
-	relevanssi_increase_value( $match_arrays['mysqlcolumn'][ $match->doc ], $match->mysqlcolumn );
+function relevanssi_premium_update_term_hits( &$term_hits, &$match_arrays, $match_object, $term ) {
+	relevanssi_increase_value( $match_arrays['mysqlcolumn'][ $match_object->doc ], $match_object->mysqlcolumn );
 
-	$match_arrays['customfield_detail'][ $match->doc ] = array();
-	$match_arrays['taxonomy_detail'][ $match->doc ]    = array();
-	$match_arrays['mysqlcolumn_detail'][ $match->doc ] = array();
+	$match_arrays['customfield_detail'][ $match_object->doc ] = array();
+	$match_arrays['taxonomy_detail'][ $match_object->doc ]    = array();
+	$match_arrays['mysqlcolumn_detail'][ $match_object->doc ] = array();
 
-	if ( ! empty( $match->customfield_detail ) ) {
-		$match_arrays['customfield_detail'][ $match->doc ][ $term ] = $match->customfield_detail;
+	if ( ! empty( $match_object->customfield_detail ) ) {
+		$match_arrays['customfield_detail'][ $match_object->doc ][ $term ] = $match_object->customfield_detail;
 	}
-	if ( ! empty( $match->taxonomy_detail ) ) {
-		$match_arrays['taxonomy_detail'][ $match->doc ][ $term ] = $match->taxonomy_detail;
+	if ( ! empty( $match_object->taxonomy_detail ) ) {
+		$match_arrays['taxonomy_detail'][ $match_object->doc ][ $term ] = $match_object->taxonomy_detail;
 	}
-	if ( ! empty( $match->mysqlcolumn_detail ) ) {
-		$match_arrays['mysqlcolumn_detail'][ $match->doc ][ $term ] = $match->mysqlcolumn_detail;
+	if ( ! empty( $match_object->mysqlcolumn_detail ) ) {
+		$match_arrays['mysqlcolumn_detail'][ $match_object->doc ][ $term ] = $match_object->mysqlcolumn_detail;
 	}
 }
 
 /**
  * Adds Premium features to the $return array from $match_arrays.
  *
- * @param array $return       The search return value array, passed as a
+ * @param array $return_value The search return value array, passed as a
  * reference.
  * @param array $match_arrays The match array for source data.
  */
-function relevanssi_premium_update_return_array( &$return, $match_arrays ) {
+function relevanssi_premium_update_return_array( &$return_value, $match_arrays ) {
 	$match_arrays['mysqlcolumn_matches'] = $match_arrays['mysqlcolumn_matches'] ?? '';
 	$match_arrays['customfield_detail']  = $match_arrays['customfield_detail'] ?? '';
 	$match_arrays['taxonomy_detail']     = $match_arrays['taxonomy_detail'] ?? '';
@@ -1123,7 +1161,7 @@ function relevanssi_premium_update_return_array( &$return, $match_arrays ) {
 		'mysqlcolumn_detail' => $match_arrays['mysqlcolumn_detail'],
 	);
 
-	$return = array_merge( $return, $additions );
+	$return_value = array_merge( $return_value, $additions );
 }
 
 /**
@@ -1140,7 +1178,7 @@ function relevanssi_premium_add_matches( &$hits, $data, $post_id ) {
 	$hits['mysqlcolumn_detail'] = $data['mysqlcolumn_detail'][ $post_id ] ?? array();
 
 	$hits['customfield_detail'] = array_map(
-		function( $value ) {
+		function ( $value ) {
 			return (array) json_decode( $value );
 		},
 		$hits['customfield_detail']
@@ -1159,7 +1197,7 @@ function relevanssi_premium_add_matches( &$hits, $data, $post_id ) {
  *
  * @return string The custom field content.
  */
-function relevanssi_get_user_custom_field_content( $user_id ) : string {
+function relevanssi_get_user_custom_field_content( $user_id ): string {
 	$custom_field_content = '';
 
 	$fields = relevanssi_get_user_field_content( $user_id );
@@ -1178,7 +1216,7 @@ function relevanssi_get_user_custom_field_content( $user_id ) : string {
  *
  * @return array Array of user custom field names.
  */
-function relevanssi_generate_list_of_user_fields() : array {
+function relevanssi_generate_list_of_user_fields(): array {
 	$user_fields = array();
 
 	$user_fields_option = get_option( 'relevanssi_index_user_fields' );
@@ -1208,7 +1246,7 @@ function relevanssi_generate_list_of_user_fields() : array {
  *
  * @return array An array of (field, value) pairs.
  */
-function relevanssi_get_user_field_content( $user_id ) : array {
+function relevanssi_get_user_field_content( $user_id ): array {
 	$fields    = relevanssi_generate_list_of_user_fields();
 	$user      = get_user_by( 'id', $user_id );
 	$user_vars = get_object_vars( $user );

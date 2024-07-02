@@ -33,7 +33,7 @@ function relevanssi_pinning( $hits ) {
 
 	// Is pinning used?
 	$results = $wpdb->get_results( "SELECT * FROM $wpdb->postmeta WHERE ( meta_key = '_relevanssi_pin' OR meta_key = '_relevanssi_unpin' OR meta_key = '_relevanssi_pin_for_all' ) AND meta_value != '' LIMIT 1" );
-	if ( empty( $results ) ) {
+	if ( ! is_multisite() && empty( $results ) ) {
 		// No, nothing is pinned.
 		return $hits;
 	}
@@ -117,7 +117,7 @@ function relevanssi_pinning( $hits ) {
 			$return_value = $object_array['format'];
 
 			$blog_id = 0;
-			if ( isset( $hit->blog_id ) ) {
+			if ( isset( $hit->blog_id ) && function_exists( 'switch_to_blog' ) ) {
 				// Multisite, so switch_to_blog() to correct blog and process
 				// the pinned hits per blog.
 				$blog_id = $hit->blog_id;
@@ -131,13 +131,10 @@ function relevanssi_pinning( $hits ) {
 					$pins_fetched[ $blog_id ] = true;
 				}
 				restore_current_blog();
-			} else {
-				// Single site.
-				if ( ! $pins_fetched ) {
-					$positive_ids[0] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_relevanssi_pin' AND meta_value IN ( $term_list )" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					$negative_ids[0] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_relevanssi_unpin' AND meta_value IN ( $term_list )" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-					$pins_fetched    = true;
-				}
+			} elseif ( ! $pins_fetched ) { // Single site.
+				$positive_ids[0] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_relevanssi_pin' AND meta_value IN ( $term_list )" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$negative_ids[0] = $wpdb->get_col( "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_relevanssi_unpin' AND meta_value IN ( $term_list )" ); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+				$pins_fetched    = true;
 			}
 			$hit_id = strval( $hit->ID ); // The IDs from the database are strings, the one from the post is an integer in some contexts.
 
@@ -166,13 +163,11 @@ function relevanssi_pinning( $hits ) {
 			if ( $hit_id && $positive_match && ! $negative_match ) {
 				$hit->relevanssi_pinned                 = 1;
 				$pinned_posts[ $term ][ $pin_weight ][] = relevanssi_return_value( $hit, $return_value );
-			} else {
-				if ( $pinned_for_all && ! $negative_match ) {
-					$hit->relevanssi_pinned = 1;
-					$pinned_posts[0][0][]   = relevanssi_return_value( $hit, $return_value );
-				} elseif ( ! $negative_match ) {
-					$other_posts[] = relevanssi_return_value( $hit, $return_value );
-				}
+			} elseif ( $pinned_for_all && ! $negative_match ) {
+				$hit->relevanssi_pinned = 1;
+				$pinned_posts[0][0][]   = relevanssi_return_value( $hit, $return_value );
+			} elseif ( ! $negative_match ) {
+				$other_posts[] = relevanssi_return_value( $hit, $return_value );
 			}
 		}
 		array_multisort( array_map( 'relevanssi_strlen', array_keys( $pinned_posts ) ), SORT_DESC, $pinned_posts );

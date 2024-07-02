@@ -92,6 +92,7 @@ function relevanssi_serialize_options() {
 	$serialize_options['relevanssi_excerpt_allowable_tags']   = get_option( 'relevanssi_excerpt_allowable_tags' );
 	$serialize_options['relevanssi_excerpt_custom_fields']    = get_option( 'relevanssi_excerpt_custom_fields' );
 	$serialize_options['relevanssi_excerpt_length']           = get_option( 'relevanssi_excerpt_length' );
+	$serialize_options['relevanssi_excerpt_specific_fields']  = get_option( 'relevanssi_excerpt_specific_fields' );
 	$serialize_options['relevanssi_excerpt_type']             = get_option( 'relevanssi_excerpt_type' );
 	$serialize_options['relevanssi_excerpts']                 = get_option( 'relevanssi_excerpts' );
 	$serialize_options['relevanssi_exclude_posts']            = get_option( 'relevanssi_exclude_posts' );

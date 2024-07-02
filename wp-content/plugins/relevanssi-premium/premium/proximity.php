@@ -1,4 +1,12 @@
 <?php
+/**
+ * /premium/proximity.php
+ *
+ * @package Relevanssi_Premium
+ * @author  Mikko Saari
+ * @license https://wordpress.org/about/gpl/ GNU General Public License
+ * @see     https://www.relevanssi.com/
+ */
 
 add_action( 'init', 'relevanssi_enable_proximity_sorting' );
 
@@ -119,7 +127,7 @@ function relevanssi_add_distance( $doc_weight ) {
  *
  * @return float Distance between points in kilometers.
  */
-function relevanssi_get_distance( float $latitude_from, float $longitude_from, float $latitude_to, float $longitude_to ) : float {
+function relevanssi_get_distance( float $latitude_from, float $longitude_from, float $latitude_to, float $longitude_to ): float {
 	$earth_radius = 6371;
 
 	$lat_from = deg2rad( $latitude_from );

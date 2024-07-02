@@ -257,7 +257,7 @@ function relevanssi_options_form() {
 	<?php
 	array_walk(
 		$tabs,
-		function( $tab ) use ( $this_page, $active_tab ) {
+		function ( $tab ) use ( $this_page, $active_tab ) {
 			?>
 			<a href="<?php echo esc_attr( $this_page ); ?>&amp;tab=<?php echo esc_attr( $tab['slug'] ); ?>"
 			class="nav-tab <?php echo esc_attr( $tab['slug'] === $active_tab ? 'nav-tab-active' : '' ); ?>">
@@ -370,6 +370,8 @@ function relevanssi_add_admin_scripts( $hook ) {
 		'pdf_reset_confirm'    => __( 'Are you sure you want to delete all attachment content from the index?', 'relevanssi' ),
 		'pdf_reset_done'       => __( 'Relevanssi attachment data wiped clean.', 'relevanssi' ),
 		'pdf_reset_problems'   => __( 'There were problems wiping the Relevanssi attachment data clean.', 'relevanssi' ),
+		'error_reset_done'     => __( 'Relevanssi attachment server errors wiped.', 'relevanssi' ),
+		'error_reset_problems' => __( 'There were problems wiping the Relevanssi attachment server errors.', 'relevanssi' ),
 		'hour'                 => __( 'hour', 'relevanssi' ),
 		'hours'                => __( 'hours', 'relevanssi' ),
 		'about'                => __( 'about', 'relevanssi' ),

@@ -332,7 +332,7 @@ function relevanssi_get_related_post_ids( $post_id, $use_cache = true ) {
 			// further down the line.
 			$related_posts = array_filter(
 				$related_posts,
-				function( $value ) {
+				function ( $value ) {
 					return $value;
 				}
 			);
@@ -349,7 +349,7 @@ function relevanssi_get_related_post_ids( $post_id, $use_cache = true ) {
 	if ( 'random_cat' === $settings['notenough'] || 'random_cat' === $settings['nothing'] ) {
 		$cats      = get_the_category( $post_id );
 		$cat_ids   = array_map(
-			function( $cat ) {
+			function ( $cat ) {
 				return $cat->term_id;
 			},
 			$cats
@@ -445,7 +445,7 @@ function relevanssi_get_related_post_ids( $post_id, $use_cache = true ) {
 	 * post IDs. This step makes sure the array has post IDs.
 	 */
 	$related_posts = array_map(
-		function( $item ) {
+		function ( $item ) {
 			if ( is_object( $item ) && isset( $item->ID ) ) {
 				return $item->ID;
 			} else {

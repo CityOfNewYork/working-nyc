@@ -343,9 +343,9 @@ function relevanssi_build_index( $extend_offset = false, $verbose = null, $post_
 	do_action( 'relevanssi_pre_indexing_query' );
 
 	$content = $wpdb->get_results( $query ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-	if ( defined( 'WP_CLI' ) && WP_CLI && function_exists( 'relevanssi_generate_progress_bar' ) ) {
+	if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		// @codeCoverageIgnoreStart
-		$progress = relevanssi_generate_progress_bar( 'Indexing posts', count( $content ) );
+		$progress = WP_CLI\Utils\make_progress_bar( 'Indexing posts', count( $content ) );
 		// @codeCoverageIgnoreEnd
 	}
 
@@ -359,7 +359,7 @@ function relevanssi_build_index( $extend_offset = false, $verbose = null, $post_
 		$result = relevanssi_index_doc( $post->ID, $remove_first, $custom_fields, $bypass_global_post );
 		if ( is_numeric( $result ) && $result > 0 ) {
 			// $n calculates the number of posts indexed.
-			$n++;
+			++$n;
 		}
 		if ( defined( 'WP_CLI' ) && WP_CLI && isset( $progress ) ) {
 			// @codeCoverageIgnoreStart
@@ -439,6 +439,10 @@ function relevanssi_index_doc( $index_post, $remove_first = false, $custom_field
 	$post_was_null    = true;
 	$previous_post    = null;
 
+	if ( relevanssi_log_debug() ) {
+		$debug = true;
+	}
+
 	// Check if this is a Jetpack Contact Form entry.
 	if ( isset( $_REQUEST['contact-form-id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 		return -1;
@@ -463,6 +467,10 @@ function relevanssi_index_doc( $index_post, $remove_first = false, $custom_field
 			$post = $previous_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 		}
 		return -1;
+	}
+
+	if ( $debug ) {
+		relevanssi_debug_echo( 'Indexing post ID ' . $post->ID . '...' );
 	}
 
 	// Post exclusion feature from Relevanssi Premium.
@@ -677,7 +685,7 @@ function relevanssi_index_taxonomy_terms( &$insert_data, $post_id, $taxonomy, $d
 
 	if ( count( $term_tokens ) > 0 ) {
 		foreach ( $term_tokens as $token => $count ) {
-			$n++;
+			++$n;
 
 			switch ( $taxonomy ) {
 				case 'post_tag':
@@ -787,12 +795,12 @@ function relevanssi_update_child_posts( $new_status, $old_status, $post ) {
 		if ( ! in_array( $new_status, $index_statuses, true ) ) {
 			foreach ( $child_posts as $post ) {
 				relevanssi_remove_doc( $post->ID );
-				$removed++;
+				++$removed;
 			}
 		} else {
 			foreach ( $child_posts as $post ) {
 				relevanssi_publish( $post->ID );
-				$indexed++;
+				++$indexed;
 			}
 		}
 	}
@@ -1187,7 +1195,7 @@ function relevanssi_index_comments( &$insert_data, $post_id, $min_word_length, $
 		);
 		if ( count( $post_comments_tokens ) > 0 ) {
 			foreach ( $post_comments_tokens as $token => $count ) {
-				$n++;
+				++$n;
 				$insert_data[ $token ]['comment'] = $count;
 			}
 		}
@@ -1228,7 +1236,7 @@ function relevanssi_index_author( &$insert_data, $post_author, $min_word_length,
 		relevanssi_debug_echo( 'Indexing post author as: ' . implode( ' ', array_keys( $name_tokens ) ) );
 	}
 	foreach ( $name_tokens as $token => $count ) {
-		$n++;
+		++$n;
 		if ( ! isset( $insert_data[ $token ]['author'] ) ) {
 			$insert_data[ $token ]['author'] = 0;
 		}
@@ -1321,7 +1329,7 @@ function relevanssi_index_custom_fields( &$insert_data, $post_id, $custom_fields
 			);
 
 			foreach ( $value_tokens as $token => $count ) {
-				$n++;
+				++$n;
 				if ( ! isset( $insert_data[ $token ]['customfield'] ) ) {
 					$insert_data[ $token ]['customfield'] = 0;
 				}
@@ -1367,7 +1375,7 @@ function relevanssi_index_excerpt( &$insert_data, $excerpt, $min_word_length, $d
 		'excerpt'
 	);
 	foreach ( $excerpt_tokens as $token => $count ) {
-		$n++;
+		++$n;
 		if ( ! isset( $insert_data[ $token ]['excerpt'] ) ) {
 			$insert_data[ $token ]['excerpt'] = 0;
 		}
@@ -1380,25 +1388,27 @@ function relevanssi_index_excerpt( &$insert_data, $excerpt, $min_word_length, $d
  * Creates indexing queries for post title.
  *
  * @param array   $insert_data     The INSERT query data. Modified here.
- * @param object  $post            The post object.
+ * @param object  $post_object     The post object.
  * @param int     $min_word_length The minimum word length.
  * @param boolean $debug           If true, print out debug notices.
  *
  * @return int The number of tokens added to the data.
  */
-function relevanssi_index_title( &$insert_data, $post, $min_word_length, $debug ) {
+function relevanssi_index_title( &$insert_data, $post_object, $min_word_length, $debug ) {
 	$n = 0;
 
-	if ( empty( $post->post_title ) ) {
+	if ( empty( $post_object->post_title ) ) {
 		return 0;
 	}
 
 	/**
 	 * If this filter returns false, titles are not indexed at all.
 	 *
-	 * @param boolean Return false to prevent titles from being indexed. Default true.
+	 * @param boolean Return false to prevent titles from being indexed. Default
+	 * true.
+	 * @param object  $post_object The post object.
 	 */
-	if ( ! apply_filters( 'relevanssi_index_titles', true ) ) {
+	if ( ! apply_filters( 'relevanssi_index_titles', true, $post_object ) ) {
 		return 0;
 	}
 
@@ -1406,14 +1416,22 @@ function relevanssi_index_title( &$insert_data, $post, $min_word_length, $debug 
 		relevanssi_debug_echo( 'Indexing post title.' );
 	}
 	/** This filter is documented in wp-includes/post-template.php */
-	$filtered_title = apply_filters( 'the_title', $post->post_title, $post->ID );
+	$filtered_title = apply_filters(
+		'the_title',
+		$post_object->post_title,
+		$post_object->ID
+	);
 	/**
 	 * Filters the title before tokenizing and indexing.
 	 *
-	 * @param string $post->post_title The title.
-	 * @param object $post             The full post object.
+	 * @param string $post_object->post_title The title.
+	 * @param object $post_object             The full post object.
 	 */
-	$filtered_title = apply_filters( 'relevanssi_post_title_before_tokenize', $filtered_title, $post );
+	$filtered_title = apply_filters(
+		'relevanssi_post_title_before_tokenize',
+		$filtered_title,
+		$post_object
+	);
 	$title_tokens   = relevanssi_tokenize(
 		$filtered_title,
 		/**
@@ -1433,7 +1451,7 @@ function relevanssi_index_title( &$insert_data, $post, $min_word_length, $debug 
 	}
 
 	foreach ( $title_tokens as $token => $count ) {
-		$n++;
+		++$n;
 		if ( ! isset( $insert_data[ $token ]['title'] ) ) {
 			$insert_data[ $token ]['title'] = 0;
 		}
@@ -1459,9 +1477,11 @@ function relevanssi_index_content( &$insert_data, $post_object, $min_word_length
 	/**
 	 * If this filter returns false, post content is not indexed at all.
 	 *
-	 * @param boolean Return false to prevent post content from being indexed. Default true.
+	 * @param boolean Return false to prevent post content from being indexed.
+	 * Default true.
+	 * @param object  $post_object The post object.
 	 */
-	if ( ! apply_filters( 'relevanssi_index_content', true ) ) {
+	if ( ! apply_filters( 'relevanssi_index_content', true, $post_object ) ) {
 		return $n;
 	}
 
@@ -1550,7 +1570,7 @@ function relevanssi_index_content( &$insert_data, $post_object, $min_word_length
 	}
 
 	foreach ( $content_tokens as $token => $count ) {
-		$n++;
+		++$n;
 		if ( ! isset( $insert_data[ $token ]['content'] ) ) {
 			$insert_data[ $token ]['content'] = 0;
 		}
@@ -1640,7 +1660,6 @@ function relevanssi_disable_shortcodes() {
 		remove_shortcode( trim( $shortcode ) );
 		add_shortcode( trim( $shortcode ), '__return_empty_string' );
 	}
-
 }
 
 /**
