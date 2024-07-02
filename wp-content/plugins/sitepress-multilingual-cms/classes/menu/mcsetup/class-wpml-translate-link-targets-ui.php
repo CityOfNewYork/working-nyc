@@ -27,24 +27,20 @@ class WPML_Translate_Link_Targets_UI extends WPML_TM_MCS_Section_UI {
 
 		$main_message     = __( 'Adjust links in posts so they point to the translated content', 'wpml-translation-management' );
 		$complete_message = __( 'All posts have been processed. %s links were changed to point to the translated content.', 'wpml-translation-management' );
-		$string_count     = 0;
-
-		$posts      = new WPML_Translate_Link_Targets_In_Posts_Global( new WPML_Translate_Link_Target_Global_State( $this->sitepress ), $this->wpdb, $this->pro_translation );
-		$post_count = $posts->get_number_to_be_fixed();
+		$scanning_message = __( 'Scanning now, please wait...', 'sitepress' );
+		$error_message    = __( 'Error! Reload the page and try again.', 'sitepress' );
 
 		if ( defined( 'WPML_ST_VERSION' ) ) {
-			$strings          = new WPML_Translate_Link_Targets_In_Strings_Global( new WPML_Translate_Link_Target_Global_State( $this->sitepress ), $this->wpdb, $this->wp_api, $this->pro_translation );
-			$string_count     = $strings->get_number_to_be_fixed();
 			$main_message     = __( 'Adjust links in posts and strings so they point to the translated content', 'wpml-translation-management' );
 			$complete_message = __( 'All posts and strings have been processed. %s links were changed to point to the translated content.', 'wpml-translation-management' );
 		}
 
 		$data_attributes = array(
 			'post-message'     => esc_attr__( 'Processing posts... %1$s of %2$s done.', 'wpml-translation-management' ),
-			'post-count'       => $post_count,
 			'string-message'   => esc_attr__( 'Processing strings... %1$s of %2$s done.', 'wpml-translation-management' ),
-			'string-count'     => $string_count,
 			'complete-message' => esc_attr( $complete_message ),
+			'scanning-message' => esc_attr( $scanning_message ),
+			'error-message'    => esc_attr( $error_message ),
 		);
 
 		$output .= '<p>' . $main_message . '</p>';

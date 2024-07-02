@@ -11,18 +11,6 @@ var WPML_TM = WPML_TM || {};
 
         jQuery(document).on('change', '.icl_tj_select_translator select', icl_tm_assign_translator);
 
-
-        jQuery('#icl_side_by_site').find('a[href="#cancel"]').click(function () {
-            var anchor = jQuery(this);
-            jQuery.ajax({
-                type   : "POST", url: ajaxurl, data: 'action=dismiss_icl_side_by_site',
-                success: function () {
-                    anchor.parent().parent().fadeOut();
-                }
-            });
-            return false;
-        });
-
         // Translator notes - translation dashboard - start
         jQuery('.icl_tn_link').click(function () {
             jQuery('.icl_post_note:visible').slideUp();
@@ -86,29 +74,9 @@ var WPML_TM = WPML_TM || {};
         var icl_translation_jobs_basket = jQuery('#icl-translation-jobs-basket');
         icl_translation_jobs_basket.find('th :checkbox').change(iclTmSelectAllJobsBasket);
         icl_translation_jobs_basket.find('td :checkbox').change(iclTmUpdateJobsSelectionBasket);
-        var icl_translation_jobs = jQuery('#icl-translation-jobs');
-        icl_translation_jobs.find('td.js-check-all :checkbox').change(iclTmSelectAllJobsSelection);
-        icl_translation_jobs.find('td :checkbox').change(update_translation_job_checkboxes);
 
         jQuery('#icl_tm_jobs_dup_submit').click(function () {
             return confirm(jQuery(this).next().html());
-        });
-
-        jQuery('#icl_hide_promo').click(function () {
-            jQuery.ajax({type: "POST", url: ajaxurl, data: 'action=icl_tm_toggle_promo&value=1', success: function () {
-                    jQuery('.icl-translation-services').slideUp(function () {
-                        jQuery('#icl_show_promo').fadeIn();
-                    });
-                }});
-            return false;
-        });
-
-        jQuery('#icl_show_promo').click(function () {
-            jQuery.ajax({type: "POST", url: ajaxurl, data: 'action=icl_tm_toggle_promo&value=0', success: function () {
-                    jQuery('#icl_show_promo').hide();
-                    jQuery('.icl-translation-services').slideDown();
-                }});
-            return false;
         });
 
         // --- Start: XLIFF form handler ---
@@ -287,11 +255,6 @@ var WPML_TM = WPML_TM || {};
             !jQuery(tableSelector).find('.js-wpml-job-row :checkbox:not(:checked)').length
         );
     }
-
-    function update_translation_job_checkboxes() {
-        updateJobCheckboxes('#icl-translation-jobs');
-        updateTMSelectAllCheckbox('#icl-translation-jobs');
-    }
     function updateJobCheckboxes(table_selector) {
         var job_parent = jQuery(table_selector);
 
@@ -309,13 +272,6 @@ var WPML_TM = WPML_TM || {};
     function iclTmUpdateJobsSelectionBasket() {
         iclTmSelectAllJobsBasket(this);
         updateJobCheckboxes('#icl-translation-jobs-basket');
-    }
-
-    function iclTmSelectAllJobsSelection() {
-        jQuery('#icl-translation-jobs').find(':checkbox').prop(
-            'checked',
-            jQuery('#icl-translation-jobs td.js-check-all :checkbox').prop('checked')
-        );
     }
 
     if (typeof String.prototype.startsWith !== 'function') {

@@ -53,6 +53,7 @@ abstract class AbstractQuery implements Query {
 				'translations.language_code AS target_language',
 				'translations.trid',
 				'translations.element_type',
+				'translations.element_id',
 				'translation_status.translation_service AS translation_service',
 				'translation_status.timestamp AS sent_date',
 				'translate_job.deadline_date AS deadline_date',
@@ -191,6 +192,7 @@ abstract class AbstractQuery implements Query {
 		}
 
 		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_id() );
+		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_ids() );
 		$query_builder->set_numeric_value_filter( 'translation_status.rid', $params->get_local_job_ids() );
 		$query_builder->set_numeric_value_filter(
 			'original_translations.element_id',
@@ -200,8 +202,6 @@ abstract class AbstractQuery implements Query {
 
 		if ( $params->needs_review() ) {
 			$query_builder->set_needs_review();
-		} elseif ( $params->needs_review() === false ) {
-			$query_builder->set_do_not_need_review();
 		}
 
 		if ( $params->should_exclude_manual() ) {
@@ -247,14 +247,17 @@ abstract class AbstractQuery implements Query {
 				if ( $statuses ) {
 					$statuses = wpml_prepare_in( $params->get_status(), '%d' );
 					$statuses = sprintf( 'translation_status.status IN (%s)', $statuses );
-
-					$query_builder->add_AND_where_condition( "( translation_status.needs_update = 1 OR {$statuses} )" );
+					$query_builder->add_AND_where_condition( "( translation_status.needs_update = 1 AND {$statuses} )" );
 				} else {
 					$query_builder->add_AND_where_condition( 'translation_status.needs_update = 1' );
 				}
 			}
 		} else {
 			$query_builder->set_status_filter( 'translation_status.status', $params );
+		}
+
+		if ( $params->should_exclude_cancelled() ) {
+			$query_builder->add_AND_where_condition( 'translation_status.status != 0' );
 		}
 	}
 

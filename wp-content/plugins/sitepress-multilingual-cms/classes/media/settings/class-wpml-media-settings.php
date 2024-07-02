@@ -1,5 +1,7 @@
 <?php
 
+use WPML\LIB\WP\Nonce;
+
 class WPML_Media_Settings {
 	const ID = 'ml-content-setup-sec-media';
 
@@ -16,22 +18,49 @@ class WPML_Media_Settings {
 	}
 
 	public function enqueue_script() {
-		wp_enqueue_script( 'wpml-media-settings', ICL_PLUGIN_URL . '/res/js/media/settings.js', array(), ICL_SITEPRESS_VERSION, true );
+		$handle = 'wpml-media-settings';
+
+		wp_register_script(
+			$handle,
+			ICL_PLUGIN_URL . '/res/js/media/settings.js',
+			[],
+			ICL_SITEPRESS_VERSION,
+			true
+		);
+
+		wp_localize_script(
+			$handle,
+			'wpml_media_settings_data',
+			[
+				'nonce_wpml_media_scan_prepare'         => wp_create_nonce( 'wpml_media_scan_prepare' ),
+				'nonce_wpml_media_set_initial_language' => wp_create_nonce( 'wpml_media_set_initial_language' ),
+				'nonce_wpml_media_translate_media'      => wp_create_nonce( 'wpml_media_translate_media' ),
+				'nonce_wpml_media_duplicate_featured_images' => wp_create_nonce( 'wpml_media_duplicate_featured_images' ),
+				'nonce_wpml_media_set_content_prepare'  => wp_create_nonce( 'wpml_media_set_content_prepare' ),
+				'nonce_wpml_media_set_content_defaults' => wp_create_nonce( 'wpml_media_set_content_defaults' ),
+				'nonce_wpml_media_duplicate_media'      => wp_create_nonce( 'wpml_media_duplicate_media' ),
+				'nonce_wpml_media_mark_processed'       => wp_create_nonce( 'wpml_media_mark_processed' ),
+            ]
+        );
+
+		wp_enqueue_script( $handle );
 	}
 
 	public function render() {
-		$orphan_attachments_sql = "
-		SELECT COUNT(*)
-		FROM {$this->wpdb->posts}
-		WHERE post_type = 'attachment'
-			AND ID NOT IN (
-				SELECT element_id
-				FROM {$this->wpdb->prefix}icl_translations
-				WHERE element_type='post_attachment'
-			)
-		";
 
-		$orphan_attachments = $this->wpdb->get_var( $orphan_attachments_sql );
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$has_orphan_attachments = $this->wpdb->get_var(
+			"SELECT ID
+			FROM {$this->wpdb->posts} as posts
+			LEFT JOIN {$this->wpdb->prefix}icl_translations as translations
+			ON posts.ID = translations.element_id
+			WHERE posts.post_type = 'attachment'
+			AND translations.element_id IS NULL
+			LIMIT 0, 1"
+		);
+		// phpcs:enable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+
+		$has_orphan_attachments = $has_orphan_attachments ? 1 : 0;
 
 		?>
 		<div class="wpml-section" id="<?php echo esc_attr( self::ID ); ?>">
@@ -41,7 +70,7 @@ class WPML_Media_Settings {
 			</div>
 
 			<div class="wpml-section-content">
-				<?php if ( $orphan_attachments ) : ?>
+				<?php if ( $has_orphan_attachments ) : ?>
 
 					<p><?php esc_html_e( "The Media Translation plugin needs to add languages to your site's media. Without this language information, existing media files will not be displayed in the WordPress admin.", 'sitepress' ); ?></p>
 
@@ -52,22 +81,24 @@ class WPML_Media_Settings {
 				<?php endif ?>
 
 				<form id="wpml_media_options_form">
-					<input type="hidden" name="no_lang_attachments" value="<?php echo $orphan_attachments; ?>"/>
+					<input type="hidden" name="no_lang_attachments" value="<?php echo (int) $has_orphan_attachments; ?>"/>
 					<input type="hidden" id="wpml_media_options_action"/>
 					<table class="wpml-media-existing-content">
 
 						<tr>
 							<td colspan="2">
 								<ul class="wpml_media_options_language">
-									<li><label><input type="checkbox" id="set_language_info" name="set_language_info" value="1" 
-									<?php
-									if ( ! empty( $orphan_attachments ) ) :
-										?>
-										checked="checked"<?php endif; ?>
-													  <?php
-														if ( empty( $orphan_attachments ) ) :
-															?>
-															disabled="disabled"<?php endif ?> />&nbsp;<?php esc_html_e( 'Set language information for existing media', 'sitepress' ); ?></label></li>
+									<li>
+										<label>
+											<input type="checkbox" id="set_language_info" name="set_language_info" value="1"
+											<?php
+												echo $has_orphan_attachments
+													? ' checked="checked"'
+													: ' disabled="disabled"';
+											?>
+											/>
+											<?php esc_html_e( 'Set language information for existing media', 'sitepress' ); ?>
+										</label></li>
 									<li><label><input type="checkbox" id="translate_media" name="translate_media" value="1" checked="checked"/>&nbsp;<?php esc_html_e( 'Translate existing media in all languages', 'sitepress' ); ?></label></li>
 									<li><label><input type="checkbox" id="duplicate_media" name="duplicate_media" value="1" checked="checked"/>&nbsp;<?php esc_html_e( 'Duplicate existing media for translated content', 'sitepress' ); ?></label></li>
 									<li><label><input type="checkbox" id="duplicate_featured" name="duplicate_featured" value="1" checked="checked"/>&nbsp;<?php esc_html_e( 'Duplicate the featured images for translated content', 'sitepress' ); ?></label></li>
@@ -78,7 +109,6 @@ class WPML_Media_Settings {
 						<tr>
 							<td><a href="https://wpml.org/documentation/getting-started-guide/media-translation/?utm_source=plugin&utm_medium=gui&utm_campaign=wpmlcore" target="_blank"><?php esc_html_e( 'Media Translation Documentation', 'sitepress' ); ?></a></td>
 							<td align="right">
-								<?php wp_nonce_field( 'wpml_media_settings_actions', 'wpml_media_settings_nonce' ); ?>
 								<input class="button-primary" name="start" type="submit" value="<?php esc_attr_e( 'Start', 'sitepress' ); ?> &raquo;"/>
 							</td>
 
@@ -104,8 +134,7 @@ class WPML_Media_Settings {
 							<td colspan="2">
 								<ul class="wpml_media_options_language">
 									<?php
-									$settings         = get_option( '_wpml_media' );
-									$content_defaults = $settings['new_content_settings'];
+									$content_defaults = \WPML\Media\Option::getNewContentSettings();
 
 									$always_translate_media_html_checked = $content_defaults['always_translate_media'] ? 'checked="checked"' : '';
 									$duplicate_media_html_checked        = $content_defaults['duplicate_media'] ? 'checked="checked"' : '';
@@ -127,6 +156,31 @@ class WPML_Media_Settings {
 							</td>
 						</tr>
 
+
+
+						<tr>
+							<td colspan="2">
+								<h4><?php esc_html_e( 'How to handle media library texts:', 'sitepress' ); ?></h4>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<ul class="wpml_media_options_media_library_texts">
+									<?php
+									$translateMediaLibraryTexts = \WPML\Media\Option::getTranslateMediaLibraryTexts() ? 'checked="checked"' : '';
+									?>
+									<li>
+										<label><input type="checkbox" name="translate_media_library_texts"
+													  value="1" <?php echo $translateMediaLibraryTexts; ?> />&nbsp;<?php esc_html_e( 'Translate media library texts with posts', 'sitepress' ); ?></label>
+									</li>
+								</ul>
+							</td>
+						</tr>
+
+
+
+
+
 						<tr>
 							<td colspan="2" align="right">
 								<input class="button-secondary" name="set_defaults" type="submit" value="<?php esc_attr_e( 'Apply', 'sitepress' ); ?>"/>
@@ -139,6 +193,9 @@ class WPML_Media_Settings {
 								&nbsp;<span class="content_default_status"> </span>
 							</td>
 						</tr>
+
+
+
 
 					</table>
 
