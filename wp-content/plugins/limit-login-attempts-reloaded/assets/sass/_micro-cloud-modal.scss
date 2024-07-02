@@ -1,0 +1,279 @@
+.toplevel_page_limit-login-attempts {
+  font-family: $font-primary, $font-secondary;
+
+  .jconfirm {
+
+    .jconfirm-box {
+      padding: 0 !important;
+      background-color: transparent;
+
+      .jconfirm-content-pane {
+        display: block;
+        margin-bottom: 0;
+        border-radius: $border-radius__normal;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          width: 0px;
+        }
+      }
+
+      .jconfirm-closeIcon {
+        top: 17px !important;
+      }
+
+      .jconfirm-buttons {
+        padding-right: 15px;
+      }
+
+      .button {
+        @extend .llar_button;
+      }
+
+      .preloader-wrapper {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(white, 0.3);
+        align-items: center;
+        justify-content: center;
+
+        .spinner {
+          display: block;
+          position: relative;
+          float: none;
+          visibility: hidden;
+          top: 50%;
+          transform: translateY(-50%);
+          margin: 0 auto;
+        }
+      }
+
+      .llar-disabled {
+
+        .preloader-wrapper {
+          display: block;
+        }
+      }
+
+      .input_border {
+        @extend .llar_input_border;
+        font-size: 16px;
+        min-width: 420px;
+        padding: 15px 30px;
+      }
+
+      .popup_error_content {
+
+        &__content {
+          padding: 15px;
+          border-radius: $border-radius__normal;
+          background-color: $background-body;
+        }
+
+        &__body {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.5;
+          color: $typography-primary;
+          padding: 0 15px;
+
+          .card {
+            padding: 0;
+            border: unset;
+            box-shadow: unset;
+
+            &-header {
+              color: $state-color__error;
+            }
+
+            &-body {
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+
+
+      .micro_cloud_modal {
+
+        &__content {
+          padding: 15px;
+          border-radius: $border-radius__normal;
+          background: url("./images/micro-cloud-bg.webp") no-repeat center top;
+          background-size: 100%;
+          background-color: $background-body;
+        }
+
+        &__body {
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 1.5;
+          color: $typography-primary;
+          padding: 55px 60px;
+
+          &_header {
+            display: flex;
+            flex-direction: row;
+
+
+            .left_side {
+              width: 60%;
+            }
+
+            .right_side {
+              width: 40%;
+
+              img {
+                display: block;
+                width: 306px;
+                margin: 0 auto;
+              }
+            }
+
+            .title {
+              font-size: 44px;
+              font-weight: 500;
+              margin-right: 70px;
+              text-align: left;
+            }
+
+            .description {
+              margin-top: 10px;
+              color: $typography-secondary;
+
+              &-add {
+                font-size: 14px;
+                font-weight: 500;
+                color: $typography-secondary;
+                margin-top: 10px;
+                padding: 10px 20px;
+                background-color: $secondary-colors-light-blue;
+                border-radius: $border-radius__normal;
+              }
+            }
+          }
+
+          .card {
+            min-width: 100%;
+            text-align: center;
+            margin-top: 15px;
+            padding: 0;
+            border: unset;
+            background-color: $background__sky-blue;
+            border-radius: $border-radius;
+            box-shadow: 2px 2px 9px 0 $box-shadow__light-transparent-gray;
+
+            &-header {
+              color: $primary-colors__orange;
+              padding: 15px 63px;
+              margin-bottom: 0;
+              background-color: $primary-colors__orange-back;
+              border-bottom: 1px solid $primary-colors__orange;
+              border-top-left-radius: $border-radius__normal;
+              border-top-right-radius: $border-radius__normal;
+
+              .title {
+                font-size: 20px;
+                font-weight: 500;
+                text-align: left;
+
+                img {
+                  width: 22px;
+                  vertical-align: middle;
+                  margin-right: 15px;
+                }
+              }
+
+            }
+
+            &-body {
+              padding: 10px 63px;
+              text-align: left;
+
+              .description {
+                font-size: 16px;
+                color: $typography-secondary;
+                margin-top: 20px;
+              }
+
+              .field {
+
+                &-email {
+                  margin-top: 20px;
+                }
+
+                &-checkbox {
+                  color: $typography-secondary;
+                  font-size: 16px;
+                  margin-top: 20px;
+                }
+
+                &-desc {
+                  color: $typography-secondary;
+                  font-size: 16px;
+                  margin-top: 20px;
+                }
+
+                &-image {
+                  width: 240px;
+                  margin: 0 auto;
+                }
+              }
+
+              .button_block-single {
+                text-align: left;
+                margin-bottom: 30px;
+
+                .description_add {
+                  font-size: 14px;
+                  color: $typography-additional;
+                  margin-top: 15px;
+                }
+
+                .llar-disabled {
+
+                }
+              }
+
+              &.step-second {
+                text-align: center;
+
+                .button_block-single {
+                  text-align: center;
+                }
+              }
+
+              .llar-upgrade-subscribe_notification {
+                font-size: 18px;
+                margin: 5px auto 0;
+
+                .field-image img {
+                  width: 220px;
+                  margin: 0 auto;
+                }
+
+                &__error {
+                  color: $state-color__error;
+                  padding: 9px 70px;
+                  width: fit-content;
+                  border-radius: $border-radius__min;
+                  background-color: $state-color__error_back;
+                }
+
+                img {
+                  display: inline-block;
+                  width: 12.5px;
+                  margin-right: 2px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

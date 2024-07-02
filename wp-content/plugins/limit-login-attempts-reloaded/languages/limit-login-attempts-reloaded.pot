@@ -1,960 +1,2775 @@
-# Copyright (C) 2012 Limit Login Attempts
-# This file is distributed under the same license as the Limit Login Attempts package.
-#, fuzzy
+# Copyright (C) 2024 Limit Login Attempts Reloaded
+# This file is distributed under the same license as the Limit Login Attempts Reloaded plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Limit Login Attempts Reloaded 2.22.1\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/limit-login-attempts\n"
-"POT-Creation-Date: 2021-07-13 14:56+0300\n"
+"Project-Id-Version: Limit Login Attempts Reloaded 2.26.11\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/limit-login-attempts-reloaded\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2012-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"X-Generator: Poedit 2.4.3\n"
-"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;"
-"_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;"
-"esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: assets\n"
-"X-Poedit-SearchPathExcluded-1: languages\n"
+"POT-Creation-Date: 2024-06-21T14:43:55+03:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.7.1\n"
+"X-Domain: limit-login-attempts-reloaded\n"
 
-#: core/App.php:117
-msgid ""
-"The endpoint is not responding. Please contact your app provider to settle that."
+#. Plugin Name of the plugin
+#. Author of the plugin
+#: core/LimitLoginAttempts.php:152
+msgid "Limit Login Attempts Reloaded"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:90
-msgid ""
-"By proceeding you understand and give your consent that your IP address and "
-"browser information might be processed by the security plugins installed on this "
-"site."
+#. Description of the plugin
+msgid "Block excessive login attempts and protect your site against brute force attacks. Simple, yet powerful tools to improve site performance."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:262 views/options-page.php:33
-msgid "Settings"
+#. Author URI of the plugin
+msgid "https://www.limitloginattempts.com/"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:263
-msgid "Premium Support"
+#: core/Ajax.php:189
+msgid "Please specify the Setup Code"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:426 core/LimitLoginAttempts.php:773
-#: core/LimitLoginAttempts.php:1242
-msgid "<strong>ERROR</strong>: Too many failed login attempts."
+#: core/Ajax.php:385
+#: core/Ajax.php:674
+msgid "No events yet."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:433 core/LimitLoginAttempts.php:778
-#: core/LimitLoginAttempts.php:1258
-#, php-format
-msgid "Please try again in %d hour."
-msgid_plural "Please try again in %d hours."
-msgstr[0] ""
-msgstr[1] ""
+#: core/Ajax.php:474
+msgid "Today at "
+msgstr ""
 
-#: core/LimitLoginAttempts.php:435 core/LimitLoginAttempts.php:780
-#: core/LimitLoginAttempts.php:1260
-#, php-format
-msgid "Please try again in %d minute."
-msgid_plural "Please try again in %d minutes."
-msgstr[0] ""
-msgstr[1] ""
+#: core/Ajax.php:550
+msgid "Login details could not be populated due to insufficient cloud resources.<br>Please <a class=\"link__style_unlink llar_turquoise\" href=\"%s\" target=\"_blank\">upgrade to Premium</a> to access this data."
+msgstr ""
 
-#: core/LimitLoginAttempts.php:766 core/LimitLoginAttempts.php:1395
-#, php-format
+#: core/Ajax.php:561
+msgid "Continent: "
+msgstr ""
+
+#: core/Ajax.php:570
+msgid "Country: "
+msgstr ""
+
+#: core/Ajax.php:576
+msgid "State/Province: "
+msgstr ""
+
+#: core/Ajax.php:582
+msgid "District: "
+msgstr ""
+
+#: core/Ajax.php:588
+msgid "City: "
+msgstr ""
+
+#: core/Ajax.php:594
+msgid "Zipcode: "
+msgstr ""
+
+#: core/Ajax.php:600
+msgid "Latitude, Longitude: "
+msgstr ""
+
+#: core/Ajax.php:619
+msgid "Timezone: "
+msgstr ""
+
+#: core/Ajax.php:648
+msgid "Internet Provider: "
+msgstr ""
+
+#: core/Ajax.php:655
+msgid "Connection Type: "
+msgstr ""
+
+#: core/Ajax.php:726
+msgid "No lockouts yet."
+msgstr ""
+
+#: core/Ajax.php:743
+msgid "Meanwhile, the app falls over to the <a href=\"%s\">default functionality</a>."
+msgstr ""
+
+#: core/Ajax.php:797
+msgid "No rules yet."
+msgstr ""
+
+#: core/Ajax.php:1024
 msgid "<strong>%d</strong> attempt remaining."
 msgid_plural "<strong>%d</strong> attempts remaining."
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/LimitLoginAttempts.php:949
-#, php-format
+#: core/Ajax.php:1166
+msgid "Wrong email format."
+msgstr ""
+
+#: core/Ajax.php:1172
+msgid "LLAR Security Notifications [TEST]"
+msgstr ""
+
+#: core/Ajax.php:1173
+msgid "Your email notifications for Limit Login Attempts Reloaded are working correctly. If this email is going to spam, please be sure to add this address to your safelist."
+msgstr ""
+
+#: core/CloudApp.php:132
+msgid "The endpoint is not responding. Please contact your app provider to settle that."
+msgstr ""
+
+#: core/CloudApp.php:157
+msgid "The app has been successfully imported."
+msgstr ""
+
+#: core/Config.php:96
+msgid "By proceeding you understand and give your consent that your IP address and browser information might be processed by the security plugins installed on this site."
+msgstr ""
+
+#: core/LimitLoginAttempts.php:315
+#: core/LimitLoginAttempts.php:675
+#: views/options-page.php:129
+msgid "Dashboard"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:316
+#: core/LimitLoginAttempts.php:680
+#: views/options-page.php:133
+msgid "Settings"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:326
+#: core/LimitLoginAttempts.php:709
+msgid "Free Upgrade"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:333
+#: views/tab-dashboard.php:97
+#: views/tab-dashboard.php:253
+msgid "Upgrade to Premium"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:474
+#: core/LimitLoginAttempts.php:981
+#: core/LimitLoginAttempts.php:1449
+msgid "<strong>ERROR</strong>: Too many failed login attempts."
+msgstr ""
+
+#: core/LimitLoginAttempts.php:481
+#: core/LimitLoginAttempts.php:988
+#: core/LimitLoginAttempts.php:1466
+msgid "Please try again in %d hour."
+msgid_plural "Please try again in %d hours."
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/LimitLoginAttempts.php:483
+#: core/LimitLoginAttempts.php:990
+#: core/LimitLoginAttempts.php:1469
+msgid "Please try again in %d minute."
+msgid_plural "Please try again in %d minutes."
+msgstr[0] ""
+msgstr[1] ""
+
+#: core/LimitLoginAttempts.php:686
+#: resources/compare-plans-data.php:64
+#: views/options-page.php:139
+msgid "Login Firewall"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:691
+#: views/options-page.php:145
+msgid "Logs"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:696
+#: views/options-page.php:151
+msgid "Debug"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:701
+#: views/options-page.php:155
+#: views/tab-dashboard.php:128
+msgid "Help"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:709
+msgid "Premium"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:787
+msgid "LLAR"
+msgstr ""
+
+#: core/LimitLoginAttempts.php:1174
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/LimitLoginAttempts.php:955
-#, php-format
+#: core/LimitLoginAttempts.php:1181
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: core/LimitLoginAttempts.php:990
-#, php-format
-msgid "[%s] Failed WordPress login attempt by IP %s"
+#: core/LimitLoginAttempts.php:1218
+msgid "Failed login by IP %s www.limitloginattempts.com"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:996
-#, php-format
-msgid ""
-"<p>Hello%1$s,</p>\n"
-"<p>%2$d failed login attempts (%3$d lockout(s)) from IP <b>%4$s</b><br>\n"
-"Last user attempted: <b>%5$s</b><br>\n"
-"IP was blocked for %6$s</p>\n"
-"<p>This notification was sent automatically via Limit Login Attempts Reloaded "
-"Plugin. \n"
-"<b>This is installed on your %7$s WordPress site. Please login to your WordPress "
-"dashboard to view more info.</b></p>\n"
-"<p>Under Attack? Try our <a href=\"%8$s\" target=\"_blank\">advanced protection</"
-"a>. \n"
-"Have Questions? Visit our <a href=\"%9$s\" target=\"_blank\">help section</a>.</p>"
-msgstr ""
-
-#: core/LimitLoginAttempts.php:1023
-#, php-format
-msgid ""
-"<p><i>This alert was sent by your website where Limit Login Attempts Reloaded free "
-"version \n"
-"is installed and you are listed as the admin. If you are a GoDaddy customer, the "
-"plugin is installed \n"
-"into a must-use (MU) folder. You can read more <a href=\"%s\" target=\"_blank"
-"\">here</a>.</i></p>"
-msgstr ""
-
-#: core/LimitLoginAttempts.php:1031
-#, php-format
-msgid "<hr><a href=\"%s\">Unsubscribe</a> from these notifications."
-msgstr ""
-
-#: core/LimitLoginAttempts.php:1250
+#: core/LimitLoginAttempts.php:1457
 msgid "Please try again later."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1312
+#: core/LimitLoginAttempts.php:1503
 msgid "<strong>ERROR</strong>: Incorrect email address or password."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1314
+#: core/LimitLoginAttempts.php:1506
 msgid "<strong>ERROR</strong>: Incorrect username or password."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1329
+#: core/LimitLoginAttempts.php:1522
 msgid "WC Error"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1558
+#: core/LimitLoginAttempts.php:1709
 msgid "Cleared IP log"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1565
+#: core/LimitLoginAttempts.php:1716
 msgid "Reset lockout count"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1572
+#: core/LimitLoginAttempts.php:1723
 msgid "Cleared current lockouts"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1606
-msgid "The \""
+#: core/LimitLoginAttempts.php:1768
+msgid "The %s IP range is invalid"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1628 core/LimitLoginAttempts.php:1699
+#: core/LimitLoginAttempts.php:1795
+#: core/LimitLoginAttempts.php:1868
 msgid "Settings saved."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1797
+#: core/LimitLoginAttempts.php:2021
 msgid "Hey <strong>Limit Login Attempts Reloaded</strong> user!"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1798
-msgid ""
-"A <strong>crazy idea</strong> we wanted to share! What if we put an image from YOU "
-"on the <a href=\"https://wordpress.org/plugins/limit-login-attempts-reloaded/\" "
-"target=\"_blank\">LLAR page</a>?! (<a href=\"https://wordpress.org/plugins/hello-"
-"dolly/\" target=\"_blank\">example</a>) A drawing made by you or your child would "
-"cheer people up! Send us your drawing by <a href=\"mailto:wpchef.me@gmail.com\" "
-"target=\"_blank\">email</a> and we like it, we'll add it in the next release. "
-"Let's have some fun!"
+#: core/LimitLoginAttempts.php:2022
+msgid "A <strong>crazy idea</strong> we wanted to share! What if we put an image from YOU on the <a href=\"https://wordpress.org/plugins/limit-login-attempts-reloaded/\" target=\"_blank\">LLAR page</a>?! (<a href=\"https://wordpress.org/plugins/hello-dolly/\" target=\"_blank\">example</a>) A drawing made by you or your child would cheer people up! Send us your drawing by <a href=\"mailto:wpchef.me@gmail.com\" target=\"_blank\">email</a> and we like it, we'll add it in the next release. Let's have some fun!"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1799
-msgid ""
-"We would really like to hear your feedback about the plugin! Please take a couple "
-"minutes to write a few words <a href=\"https://wordpress.org/support/plugin/limit-"
-"login-attempts-reloaded/reviews/#new-post\" target=\"_blank\">here</a>. Thank you!"
+#: core/LimitLoginAttempts.php:2023
+msgid "We would really like to hear your feedback about the plugin! Please take a couple minutes to write a few words <a href=\"https://wordpress.org/support/plugin/limit-login-attempts-reloaded/reviews/#new-post\" target=\"_blank\">here</a>. Thank you!"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1802
+#: core/LimitLoginAttempts.php:2026
 msgid "Don't show again"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1803
+#: core/LimitLoginAttempts.php:2027
 msgid "Maybe later"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1804
+#: core/LimitLoginAttempts.php:2028
 msgid "Leave a review"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1885
-msgid ""
-"You have been upgraded to the latest version of <strong>Limit Login Attempts "
-"Reloaded</strong>.<br> Due to increased security threats around the holidays, we "
-"recommend turning on email notifications when you receive a failed login attempt."
+#: core/LimitLoginAttempts.php:2114
+msgid "You have been upgraded to the latest version of <strong>Limit Login Attempts Reloaded</strong>.<br> Due to increased security threats around the holidays, we recommend turning on email notifications when you receive a failed login attempt."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1890
+#: core/LimitLoginAttempts.php:2119
 msgid "Yes, turn on email notifications"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1891
+#: core/LimitLoginAttempts.php:2120
 msgid "Remind me a month from now"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:1892
+#: core/LimitLoginAttempts.php:2121
 msgid "Don't show this message again"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2052
-msgid "The app has been successfully imported."
+#: resources/compare-plans-data.php:27
+msgid "Installed"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2066
-msgid "Please specify the Setup Code"
+#: resources/compare-plans-data.php:31
+msgid "Get Started (Free)"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2237 views/app-widgets/event-log.php:19
-msgid "Time"
+#: resources/compare-plans-data.php:35
+msgid "Upgrade now"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2238 core/LimitLoginAttempts.php:2320
-#: views/app-widgets/active-lockouts.php:18 views/app-widgets/event-log.php:20
-msgid "IP"
+#: resources/compare-plans-data.php:50
+msgid "Limit Number of Retry Attempts"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2239 views/app-widgets/event-log.php:21
-#: views/tab-logs-local.php:123
-msgid "Gateway"
+#: resources/compare-plans-data.php:57
+msgid "Configurable Lockout Timing"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2240 core/LimitLoginAttempts.php:2321
-#: views/app-widgets/active-lockouts.php:19 views/app-widgets/event-log.php:22
-msgid "Login"
+#: resources/compare-plans-data.php:65
+msgid "Secure your login page with our cutting-edge login firewall, defending against unauthorized access attempts and protecting your users' accounts and sensitive information."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2241 core/LimitLoginAttempts.php:2384
-#: views/app-widgets/acl-rules.php:11 views/app-widgets/acl-rules.php:21
-#: views/app-widgets/event-log.php:23
-msgid "Rule"
+#: resources/compare-plans-data.php:72
+msgid "Performance Optimizer"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2242 views/app-widgets/event-log.php:24
-msgid "Reason"
+#: resources/compare-plans-data.php:73
+msgid "Absorb failed login attempts from brute force bots in the cloud to keep your website at its optimal performance."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2243 core/LimitLoginAttempts.php:2383
-#: core/LimitLoginAttempts.php:2388 views/app-widgets/acl-rules.php:10
-#: views/app-widgets/acl-rules.php:20 views/app-widgets/event-log.php:25
-msgid "Pattern"
+#: resources/compare-plans-data.php:75
+msgid "1k for first month%s(100 per month after)"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2244 views/app-widgets/event-log.php:26
-msgid "Attempts Left"
+#: resources/compare-plans-data.php:76
+msgid "100k requests per month"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2245 views/app-widgets/event-log.php:27
-msgid "Lockout Duration"
+#: resources/compare-plans-data.php:77
+msgid "200k requests per month"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2246 views/app-widgets/event-log.php:28
-msgid "Actions"
+#: resources/compare-plans-data.php:78
+msgid "300k requests per month"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2285
-msgid "No events yet."
+#: resources/compare-plans-data.php:80
+msgid "Successful Login Logs"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2322 views/app-widgets/active-lockouts.php:20
-#: views/tab-dashboard.php:363
-msgid "Count"
+#: resources/compare-plans-data.php:81
+msgid "Ensure the security and integrity of your website by logging your successful logins."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2323 views/app-widgets/active-lockouts.php:21
-msgid "Expires in (minutes)"
+#: resources/compare-plans-data.php:88
+msgid "Block By Country"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2337
-msgid "No lockouts yet."
+#: resources/compare-plans-data.php:89
+msgid "Disable IPs from any region to disable logins."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2352
-#, php-format
-msgid ""
-"Meanwhile, the app falls over to the <a href=\"%s\">default functionality</a>."
+#: resources/compare-plans-data.php:96
+msgid "Access Blocklist of Malicious IPs"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2385 views/app-widgets/acl-rules.php:12
-#: views/app-widgets/acl-rules.php:22
-msgid "Action"
+#: resources/compare-plans-data.php:97
+msgid "Add another layer of protection from brute force bots by accessing a global database of known IPs with malicious activity."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2391
-msgid "Deny"
+#: resources/compare-plans-data.php:104
+msgid "Auto IP Blocklist"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2392
-msgid "Allow"
+#: resources/compare-plans-data.php:105
+msgid "Automatically add malicious IPs to your blocklist when triggered by the system."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2393
-msgid "Pass"
+#: resources/compare-plans-data.php:112
+msgid "Access Active Cloud Blocklist"
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2396 views/app-widgets/country-access-rules.php:17
-msgid "Add"
+#: resources/compare-plans-data.php:113
+msgid "Use system wide data from over 10,000 WordPress websites to identify and block malicious IPs. This is an active list in real-time."
 msgstr ""
 
-#: core/LimitLoginAttempts.php:2408
-msgid "No rules yet."
+#: resources/compare-plans-data.php:120
+msgid "Intelligent IP Blocking"
 msgstr ""
 
-#: views/app-widgets/acl-rules.php:7
+#: resources/compare-plans-data.php:121
+msgid "Use active IP database via the cloud to automatically block users before they are able to make a failed login."
+msgstr ""
+
+#: resources/compare-plans-data.php:128
+msgid "Synchronize Lockouts & Safelists/Blocklists"
+msgstr ""
+
+#: resources/compare-plans-data.php:129
+msgid "Lockouts & safelists/blocklists can be shared between multiple domains to enhance protection."
+msgstr ""
+
+#: resources/compare-plans-data.php:136
+#: views/tab-help.php:173
+msgid "Premium Support"
+msgstr ""
+
+#: resources/compare-plans-data.php:138
+msgid "Receive 1 on 1 technical support via email for any issues. Free support availabe in the <a href=\"%s\" target=\"_blank\">WordPress support forum</a>."
+msgstr ""
+
+#: resources/continent.php:3
+msgid "Asia"
+msgstr ""
+
+#: resources/continent.php:4
+#: resources/countries.php:249
+msgid "Antarctica"
+msgstr ""
+
+#: resources/continent.php:5
+msgid "Africa"
+msgstr ""
+
+#: resources/continent.php:6
+msgid "Europe"
+msgstr ""
+
+#: resources/continent.php:7
+msgid "North America"
+msgstr ""
+
+#: resources/continent.php:8
+msgid "Oceania"
+msgstr ""
+
+#: resources/continent.php:9
+msgid "South America"
+msgstr ""
+
+#: resources/continent.php:10
+msgid "Intercontinental"
+msgstr ""
+
+#: resources/continent.php:11
+#: resources/countries.php:3
+msgid "Unknown"
+msgstr ""
+
+#: resources/countries.php:4
+msgid "Rwanda"
+msgstr ""
+
+#: resources/countries.php:5
+msgid "Somalia"
+msgstr ""
+
+#: resources/countries.php:6
+msgid "Yemen"
+msgstr ""
+
+#: resources/countries.php:7
+msgid "Iraq"
+msgstr ""
+
+#: resources/countries.php:8
+msgid "Saudi Arabia"
+msgstr ""
+
+#: resources/countries.php:9
+msgid "Iran"
+msgstr ""
+
+#: resources/countries.php:10
+msgid "Cyprus"
+msgstr ""
+
+#: resources/countries.php:11
+msgid "Tanzania"
+msgstr ""
+
+#: resources/countries.php:12
+msgid "Syria"
+msgstr ""
+
+#: resources/countries.php:13
+msgid "Armenia"
+msgstr ""
+
+#: resources/countries.php:14
+msgid "Kenya"
+msgstr ""
+
+#: resources/countries.php:15
+msgid "DR Congo"
+msgstr ""
+
+#: resources/countries.php:16
+msgid "Djibouti"
+msgstr ""
+
+#: resources/countries.php:17
+msgid "Uganda"
+msgstr ""
+
+#: resources/countries.php:18
+msgid "Central African Republic"
+msgstr ""
+
+#: resources/countries.php:19
+msgid "Seychelles"
+msgstr ""
+
+#: resources/countries.php:20
+msgid "Jordan"
+msgstr ""
+
+#: resources/countries.php:21
+msgid "Lebanon"
+msgstr ""
+
+#: resources/countries.php:22
+msgid "Kuwait"
+msgstr ""
+
+#: resources/countries.php:23
+msgid "Oman"
+msgstr ""
+
+#: resources/countries.php:24
+msgid "Qatar"
+msgstr ""
+
+#: resources/countries.php:25
+msgid "Bahrain"
+msgstr ""
+
+#: resources/countries.php:26
+msgid "United Arab Emirates"
+msgstr ""
+
+#: resources/countries.php:27
+msgid "Israel"
+msgstr ""
+
+#: resources/countries.php:28
+msgid "Turkey"
+msgstr ""
+
+#: resources/countries.php:29
+msgid "Ethiopia"
+msgstr ""
+
+#: resources/countries.php:30
+msgid "Eritrea"
+msgstr ""
+
+#: resources/countries.php:31
+msgid "Egypt"
+msgstr ""
+
+#: resources/countries.php:32
+msgid "Sudan"
+msgstr ""
+
+#: resources/countries.php:33
+msgid "Greece"
+msgstr ""
+
+#: resources/countries.php:34
+msgid "Burundi"
+msgstr ""
+
+#: resources/countries.php:35
+msgid "Estonia"
+msgstr ""
+
+#: resources/countries.php:36
+msgid "Latvia"
+msgstr ""
+
+#: resources/countries.php:37
+msgid "Azerbaijan"
+msgstr ""
+
+#: resources/countries.php:38
+msgid "Lithuania"
+msgstr ""
+
+#: resources/countries.php:39
+msgid "Svalbard and Jan Mayen"
+msgstr ""
+
+#: resources/countries.php:40
+msgid "Georgia"
+msgstr ""
+
+#: resources/countries.php:41
+msgid "Moldova"
+msgstr ""
+
+#: resources/countries.php:42
+msgid "Belarus"
+msgstr ""
+
+#: resources/countries.php:43
+msgid "Finland"
+msgstr ""
+
+#: resources/countries.php:44
+msgid "Åland"
+msgstr ""
+
+#: resources/countries.php:45
+msgid "Ukraine"
+msgstr ""
+
+#: resources/countries.php:46
+msgid "North Macedonia"
+msgstr ""
+
+#: resources/countries.php:47
+msgid "Hungary"
+msgstr ""
+
+#: resources/countries.php:48
+msgid "Bulgaria"
+msgstr ""
+
+#: resources/countries.php:49
+msgid "Albania"
+msgstr ""
+
+#: resources/countries.php:50
+msgid "Poland"
+msgstr ""
+
+#: resources/countries.php:51
+msgid "Romania"
+msgstr ""
+
+#: resources/countries.php:52
+msgid "Kosovo"
+msgstr ""
+
+#: resources/countries.php:53
+msgid "Zimbabwe"
+msgstr ""
+
+#: resources/countries.php:54
+msgid "Zambia"
+msgstr ""
+
+#: resources/countries.php:55
+msgid "Comoros"
+msgstr ""
+
+#: resources/countries.php:56
+msgid "Malawi"
+msgstr ""
+
+#: resources/countries.php:57
+msgid "Lesotho"
+msgstr ""
+
+#: resources/countries.php:58
+msgid "Botswana"
+msgstr ""
+
+#: resources/countries.php:59
+msgid "Mauritius"
+msgstr ""
+
+#: resources/countries.php:60
+msgid "Eswatini"
+msgstr ""
+
+#: resources/countries.php:61
+msgid "Réunion"
+msgstr ""
+
+#: resources/countries.php:62
+msgid "South Africa"
+msgstr ""
+
+#: resources/countries.php:63
+msgid "Mayotte"
+msgstr ""
+
+#: resources/countries.php:64
+msgid "Mozambique"
+msgstr ""
+
+#: resources/countries.php:65
+msgid "Madagascar"
+msgstr ""
+
+#: resources/countries.php:66
+msgid "Afghanistan"
+msgstr ""
+
+#: resources/countries.php:67
+msgid "Pakistan"
+msgstr ""
+
+#: resources/countries.php:68
+msgid "Bangladesh"
+msgstr ""
+
+#: resources/countries.php:69
+msgid "Turkmenistan"
+msgstr ""
+
+#: resources/countries.php:70
+msgid "Tajikistan"
+msgstr ""
+
+#: resources/countries.php:71
+msgid "Sri Lanka"
+msgstr ""
+
+#: resources/countries.php:72
+msgid "Bhutan"
+msgstr ""
+
+#: resources/countries.php:73
+msgid "India"
+msgstr ""
+
+#: resources/countries.php:74
+msgid "Maldives"
+msgstr ""
+
+#: resources/countries.php:75
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: resources/countries.php:76
+msgid "Nepal"
+msgstr ""
+
+#: resources/countries.php:77
+msgid "Myanmar"
+msgstr ""
+
+#: resources/countries.php:78
+msgid "Uzbekistan"
+msgstr ""
+
+#: resources/countries.php:79
+msgid "Kazakhstan"
+msgstr ""
+
+#: resources/countries.php:80
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: resources/countries.php:81
+msgid "French Southern Territories"
+msgstr ""
+
+#: resources/countries.php:82
+msgid "Heard Island and McDonald Islands"
+msgstr ""
+
+#: resources/countries.php:83
+msgid "Cocos [Keeling] Islands"
+msgstr ""
+
+#: resources/countries.php:84
+msgid "Palau"
+msgstr ""
+
+#: resources/countries.php:85
+msgid "Vietnam"
+msgstr ""
+
+#: resources/countries.php:86
+msgid "Thailand"
+msgstr ""
+
+#: resources/countries.php:87
+msgid "Indonesia"
+msgstr ""
+
+#: resources/countries.php:88
+msgid "Laos"
+msgstr ""
+
+#: resources/countries.php:89
+msgid "Taiwan"
+msgstr ""
+
+#: resources/countries.php:90
+msgid "Philippines"
+msgstr ""
+
+#: resources/countries.php:91
+msgid "Malaysia"
+msgstr ""
+
+#: resources/countries.php:92
+msgid "China"
+msgstr ""
+
+#: resources/countries.php:93
+msgid "Hong Kong"
+msgstr ""
+
+#: resources/countries.php:94
+msgid "Brunei"
+msgstr ""
+
+#: resources/countries.php:95
+msgid "Macao"
+msgstr ""
+
+#: resources/countries.php:96
+msgid "Cambodia"
+msgstr ""
+
+#: resources/countries.php:97
+msgid "South Korea"
+msgstr ""
+
+#: resources/countries.php:98
+msgid "Japan"
+msgstr ""
+
+#: resources/countries.php:99
+msgid "North Korea"
+msgstr ""
+
+#: resources/countries.php:100
+msgid "Singapore"
+msgstr ""
+
+#: resources/countries.php:101
+msgid "Cook Islands"
+msgstr ""
+
+#: resources/countries.php:102
+msgid "East Timor"
+msgstr ""
+
+#: resources/countries.php:103
+msgid "Russia"
+msgstr ""
+
+#: resources/countries.php:104
+msgid "Mongolia"
+msgstr ""
+
+#: resources/countries.php:105
+msgid "Australia"
+msgstr ""
+
+#: resources/countries.php:106
+msgid "Christmas Island"
+msgstr ""
+
+#: resources/countries.php:107
+msgid "Marshall Islands"
+msgstr ""
+
+#: resources/countries.php:108
+msgid "Federated States of Micronesia"
+msgstr ""
+
+#: resources/countries.php:109
+msgid "Papua New Guinea"
+msgstr ""
+
+#: resources/countries.php:110
+msgid "Solomon Islands"
+msgstr ""
+
+#: resources/countries.php:111
+msgid "Tuvalu"
+msgstr ""
+
+#: resources/countries.php:112
+msgid "Nauru"
+msgstr ""
+
+#: resources/countries.php:113
+msgid "Vanuatu"
+msgstr ""
+
+#: resources/countries.php:114
+msgid "New Caledonia"
+msgstr ""
+
+#: resources/countries.php:115
+msgid "Norfolk Island"
+msgstr ""
+
+#: resources/countries.php:116
+msgid "New Zealand"
+msgstr ""
+
+#: resources/countries.php:117
+msgid "Fiji"
+msgstr ""
+
+#: resources/countries.php:118
+msgid "Libya"
+msgstr ""
+
+#: resources/countries.php:119
+msgid "Cameroon"
+msgstr ""
+
+#: resources/countries.php:120
+msgid "Senegal"
+msgstr ""
+
+#: resources/countries.php:121
+msgid "Congo Republic"
+msgstr ""
+
+#: resources/countries.php:122
+msgid "Portugal"
+msgstr ""
+
+#: resources/countries.php:123
+msgid "Liberia"
+msgstr ""
+
+#: resources/countries.php:124
+msgid "Ivory Coast"
+msgstr ""
+
+#: resources/countries.php:125
+msgid "Ghana"
+msgstr ""
+
+#: resources/countries.php:126
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: resources/countries.php:127
+msgid "Nigeria"
+msgstr ""
+
+#: resources/countries.php:128
+msgid "Burkina Faso"
+msgstr ""
+
+#: resources/countries.php:129
+msgid "Togo"
+msgstr ""
+
+#: resources/countries.php:130
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: resources/countries.php:131
+msgid "Mauritania"
+msgstr ""
+
+#: resources/countries.php:132
+msgid "Benin"
+msgstr ""
+
+#: resources/countries.php:133
+msgid "Gabon"
+msgstr ""
+
+#: resources/countries.php:134
+msgid "Sierra Leone"
+msgstr ""
+
+#: resources/countries.php:135
+msgid "São Tomé and Príncipe"
+msgstr ""
+
+#: resources/countries.php:136
+msgid "Gibraltar"
+msgstr ""
+
+#: resources/countries.php:137
+msgid "Gambia"
+msgstr ""
+
+#: resources/countries.php:138
+msgid "Guinea"
+msgstr ""
+
+#: resources/countries.php:139
+msgid "Chad"
+msgstr ""
+
+#: resources/countries.php:140
+msgid "Niger"
+msgstr ""
+
+#: resources/countries.php:141
+msgid "Mali"
+msgstr ""
+
+#: resources/countries.php:142
+msgid "Western Sahara"
+msgstr ""
+
+#: resources/countries.php:143
+msgid "Tunisia"
+msgstr ""
+
+#: resources/countries.php:144
+msgid "Spain"
+msgstr ""
+
+#: resources/countries.php:145
+msgid "Morocco"
+msgstr ""
+
+#: resources/countries.php:146
+msgid "Malta"
+msgstr ""
+
+#: resources/countries.php:147
+msgid "Algeria"
+msgstr ""
+
+#: resources/countries.php:148
+msgid "Faroe Islands"
+msgstr ""
+
+#: resources/countries.php:149
+msgid "Denmark"
+msgstr ""
+
+#: resources/countries.php:150
+msgid "Iceland"
+msgstr ""
+
+#: resources/countries.php:151
+msgid "United Kingdom"
+msgstr ""
+
+#: resources/countries.php:152
+msgid "Switzerland"
+msgstr ""
+
+#: resources/countries.php:153
+msgid "Sweden"
+msgstr ""
+
+#: resources/countries.php:154
+msgid "Netherlands"
+msgstr ""
+
+#: resources/countries.php:155
+msgid "Austria"
+msgstr ""
+
+#: resources/countries.php:156
+msgid "Belgium"
+msgstr ""
+
+#: resources/countries.php:157
+msgid "Germany"
+msgstr ""
+
+#: resources/countries.php:158
+msgid "Luxembourg"
+msgstr ""
+
+#: resources/countries.php:159
+msgid "Ireland"
+msgstr ""
+
+#: resources/countries.php:160
+msgid "Monaco"
+msgstr ""
+
+#: resources/countries.php:161
+msgid "France"
+msgstr ""
+
+#: resources/countries.php:162
+msgid "Andorra"
+msgstr ""
+
+#: resources/countries.php:163
+msgid "Liechtenstein"
+msgstr ""
+
+#: resources/countries.php:164
+msgid "Jersey"
+msgstr ""
+
+#: resources/countries.php:165
+msgid "Isle of Man"
+msgstr ""
+
+#: resources/countries.php:166
+msgid "Guernsey"
+msgstr ""
+
+#: resources/countries.php:167
+msgid "Slovakia"
+msgstr ""
+
+#: resources/countries.php:168
+msgid "Czechia"
+msgstr ""
+
+#: resources/countries.php:169
+msgid "Norway"
+msgstr ""
+
+#: resources/countries.php:170
+msgid "Vatican City"
+msgstr ""
+
+#: resources/countries.php:171
+msgid "San Marino"
+msgstr ""
+
+#: resources/countries.php:172
+msgid "Italy"
+msgstr ""
+
+#: resources/countries.php:173
+msgid "Slovenia"
+msgstr ""
+
+#: resources/countries.php:174
+msgid "Montenegro"
+msgstr ""
+
+#: resources/countries.php:175
+msgid "Croatia"
+msgstr ""
+
+#: resources/countries.php:176
+msgid "Bosnia and Herzegovina"
+msgstr ""
+
+#: resources/countries.php:177
+msgid "Angola"
+msgstr ""
+
+#: resources/countries.php:178
+msgid "Namibia"
+msgstr ""
+
+#: resources/countries.php:179
+msgid "Saint Helena"
+msgstr ""
+
+#: resources/countries.php:180
+msgid "Bouvet Island"
+msgstr ""
+
+#: resources/countries.php:181
+msgid "Barbados"
+msgstr ""
+
+#: resources/countries.php:182
+msgid "Cabo Verde"
+msgstr ""
+
+#: resources/countries.php:183
+msgid "Guyana"
+msgstr ""
+
+#: resources/countries.php:184
+msgid "French Guiana"
+msgstr ""
+
+#: resources/countries.php:185
+msgid "Suriname"
+msgstr ""
+
+#: resources/countries.php:186
+msgid "Saint Pierre and Miquelon"
+msgstr ""
+
+#: resources/countries.php:187
+msgid "Greenland"
+msgstr ""
+
+#: resources/countries.php:188
+msgid "Paraguay"
+msgstr ""
+
+#: resources/countries.php:189
+msgid "Uruguay"
+msgstr ""
+
+#: resources/countries.php:190
+msgid "Brazil"
+msgstr ""
+
+#: resources/countries.php:191
+msgid "Falkland Islands"
+msgstr ""
+
+#: resources/countries.php:192
+msgid "South Georgia and the South Sandwich Islands"
+msgstr ""
+
+#: resources/countries.php:193
+msgid "Jamaica"
+msgstr ""
+
+#: resources/countries.php:194
+msgid "Dominican Republic"
+msgstr ""
+
+#: resources/countries.php:195
+msgid "Cuba"
+msgstr ""
+
+#: resources/countries.php:196
+msgid "Martinique"
+msgstr ""
+
+#: resources/countries.php:197
+msgid "Bahamas"
+msgstr ""
+
+#: resources/countries.php:198
+msgid "Bermuda"
+msgstr ""
+
+#: resources/countries.php:199
+msgid "Anguilla"
+msgstr ""
+
+#: resources/countries.php:200
+msgid "Trinidad and Tobago"
+msgstr ""
+
+#: resources/countries.php:201
+msgid "St Kitts and Nevis"
+msgstr ""
+
+#: resources/countries.php:202
+msgid "Dominica"
+msgstr ""
+
+#: resources/countries.php:203
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: resources/countries.php:204
+msgid "Saint Lucia"
+msgstr ""
+
+#: resources/countries.php:205
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: resources/countries.php:206
+msgid "Aruba"
+msgstr ""
+
+#: resources/countries.php:207
+msgid "British Virgin Islands"
+msgstr ""
+
+#: resources/countries.php:208
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: resources/countries.php:209
+msgid "Montserrat"
+msgstr ""
+
+#: resources/countries.php:210
+msgid "Saint Martin"
+msgstr ""
+
+#: resources/countries.php:211
+msgid "Saint Barthélemy"
+msgstr ""
+
+#: resources/countries.php:212
+msgid "Guadeloupe"
+msgstr ""
+
+#: resources/countries.php:213
+msgid "Grenada"
+msgstr ""
+
+#: resources/countries.php:214
+msgid "Cayman Islands"
+msgstr ""
+
+#: resources/countries.php:215
+msgid "Belize"
+msgstr ""
+
+#: resources/countries.php:216
+msgid "El Salvador"
+msgstr ""
+
+#: resources/countries.php:217
+msgid "Guatemala"
+msgstr ""
+
+#: resources/countries.php:218
+msgid "Honduras"
+msgstr ""
+
+#: resources/countries.php:219
+msgid "Nicaragua"
+msgstr ""
+
+#: resources/countries.php:220
+msgid "Costa Rica"
+msgstr ""
+
+#: resources/countries.php:221
+msgid "Venezuela"
+msgstr ""
+
+#: resources/countries.php:222
+msgid "Ecuador"
+msgstr ""
+
+#: resources/countries.php:223
+msgid "Colombia"
+msgstr ""
+
+#: resources/countries.php:224
+msgid "Panama"
+msgstr ""
+
+#: resources/countries.php:225
+msgid "Haiti"
+msgstr ""
+
+#: resources/countries.php:226
+msgid "Argentina"
+msgstr ""
+
+#: resources/countries.php:227
+msgid "Chile"
+msgstr ""
+
+#: resources/countries.php:228
+msgid "Bolivia"
+msgstr ""
+
+#: resources/countries.php:229
+msgid "Peru"
+msgstr ""
+
+#: resources/countries.php:230
+msgid "Mexico"
+msgstr ""
+
+#: resources/countries.php:231
+msgid "French Polynesia"
+msgstr ""
+
+#: resources/countries.php:232
+msgid "Pitcairn Islands"
+msgstr ""
+
+#: resources/countries.php:233
+msgid "Kiribati"
+msgstr ""
+
+#: resources/countries.php:234
+msgid "Tokelau"
+msgstr ""
+
+#: resources/countries.php:235
+msgid "Tonga"
+msgstr ""
+
+#: resources/countries.php:236
+msgid "Wallis and Futuna"
+msgstr ""
+
+#: resources/countries.php:237
+msgid "Samoa"
+msgstr ""
+
+#: resources/countries.php:238
+msgid "Niue"
+msgstr ""
+
+#: resources/countries.php:239
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: resources/countries.php:240
+msgid "Guam"
+msgstr ""
+
+#: resources/countries.php:241
+msgid "Puerto Rico"
+msgstr ""
+
+#: resources/countries.php:242
+msgid "U.S. Virgin Islands"
+msgstr ""
+
+#: resources/countries.php:243
+msgid "U.S. Minor Outlying Islands"
+msgstr ""
+
+#: resources/countries.php:244
+msgid "American Samoa"
+msgstr ""
+
+#: resources/countries.php:245
+msgid "Canada"
+msgstr ""
+
+#: resources/countries.php:246
+msgid "United States"
+msgstr ""
+
+#: resources/countries.php:247
+msgid "Palestine"
+msgstr ""
+
+#: resources/countries.php:248
+msgid "Serbia"
+msgstr ""
+
+#: resources/countries.php:250
+msgid "Sint Maarten"
+msgstr ""
+
+#: resources/countries.php:251
+msgid "Curaçao"
+msgstr ""
+
+#: resources/countries.php:252
+msgid "Bonaire, Sint Eustatius, and Saba"
+msgstr ""
+
+#: resources/countries.php:253
+msgid "South Sudan"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:10
 msgid "Login Access Rules"
 msgstr ""
 
-#: views/app-widgets/acl-rules.php:17
+#: views/app-widgets/acl-rules.php:14
+#: views/app-widgets/acl-rules.php:63
+msgid "Documentation"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:24
+#: views/app-widgets/acl-rules.php:33
+#: views/app-widgets/acl-rules.php:73
+#: views/app-widgets/acl-rules.php:82
+#: views/app-widgets/event-log.php:43
+msgid "Pattern"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:25
+#: views/app-widgets/acl-rules.php:74
+#: views/app-widgets/event-log.php:41
+msgid "Rule"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:26
+#: views/app-widgets/acl-rules.php:75
+msgid "Action"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:37
+#: views/app-widgets/acl-rules.php:86
+#: views/app-widgets/country-access-rules.php:54
+msgid "Deny"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:38
+#: views/app-widgets/acl-rules.php:87
+msgid "Allow"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:39
+#: views/app-widgets/acl-rules.php:88
+msgid "Pass"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:44
+#: views/app-widgets/acl-rules.php:93
+#: views/app-widgets/country-access-rules.php:25
+msgid "Add"
+msgstr ""
+
+#: views/app-widgets/acl-rules.php:59
 msgid "IP Access Rules"
 msgstr ""
 
-#: views/app-widgets/active-lockouts.php:5
+#: views/app-widgets/active-lockouts.php:8
 msgid "Active Lockouts"
 msgstr ""
 
-#: views/app-widgets/country-access-rules.php:6
-msgid "Country Access Rules"
+#: views/app-widgets/active-lockouts.php:13
+msgid "Reload"
+msgstr ""
+
+#: views/app-widgets/active-lockouts.php:22
+#: views/app-widgets/event-log.php:38
+#: views/app-widgets/login-attempts.php:51
+msgid "IP"
+msgstr ""
+
+#: views/app-widgets/active-lockouts.php:23
+#: views/app-widgets/event-log.php:40
+#: views/app-widgets/login-attempts.php:50
+msgid "Login"
+msgstr ""
+
+#: views/app-widgets/active-lockouts.php:24
+msgid "Count"
+msgstr ""
+
+#: views/app-widgets/active-lockouts.php:25
+msgid "Expires in (minutes)"
 msgstr ""
 
 #: views/app-widgets/country-access-rules.php:14
+msgid "Country Access Rules"
+msgstr ""
+
+#: views/app-widgets/country-access-rules.php:21
 msgid "these countries:"
 msgstr ""
 
-#: views/app-widgets/event-log.php:5
+#: views/app-widgets/country-access-rules.php:55
+msgid "Allow only"
+msgstr ""
+
+#: views/app-widgets/event-log.php:14
 msgid "Event Log"
 msgstr ""
 
-#: views/options-page.php:22
-#, php-format
-msgid ""
-"Thank you for using the free version of <b>Limit Login Attempts Reloaded</b>. <a "
-"href=\"%s\" target=\"_blank\">Upgrade to our cloud app</a> for enhanced "
-"protection, visual metrics & premium support."
+#: views/app-widgets/event-log.php:19
+msgid "Full Logs"
 msgstr ""
 
-#: views/options-page.php:29 views/welcome-page.php:11
-msgid "Limit Login Attempts Reloaded"
+#: views/app-widgets/event-log.php:24
+msgid "All attempts blocked by access rules are hidden by default. You can see the full log at this link."
 msgstr ""
 
-#: views/options-page.php:32
-msgid "Dashboard"
+#: views/app-widgets/event-log.php:37
+#: views/app-widgets/login-attempts.php:49
+msgid "Time"
 msgstr ""
 
-#: views/options-page.php:35 views/options-page.php:37
-msgid "Logs"
+#: views/app-widgets/event-log.php:39
+#: views/tab-logs-local.php:220
+msgid "Gateway"
 msgstr ""
 
-#: views/options-page.php:39
-msgid "Debug"
+#: views/app-widgets/event-log.php:42
+msgid "Reason"
 msgstr ""
 
-#: views/options-page.php:42
-msgid "Failover"
+#: views/app-widgets/event-log.php:44
+msgid "Attempts Left"
 msgstr ""
 
-#: views/tab-dashboard.php:27
-msgid "Hooray! Zero failed login attempts today"
+#: views/app-widgets/event-log.php:45
+msgid "Lockout Duration"
 msgstr ""
 
-#: views/tab-dashboard.php:32
-#, php-format
+#: views/app-widgets/event-log.php:46
+msgid "Actions"
+msgstr ""
+
+#: views/app-widgets/event-log.php:54
+#: views/app-widgets/login-attempts.php:61
+msgid "Load older events"
+msgstr ""
+
+#: views/app-widgets/event-log.php:61
+msgid "Loading older events, skipping ACL events. <a href=\"%s\" target=\"_blank\">Full logs</a>"
+msgstr ""
+
+#: views/app-widgets/login-attempts.php:24
+#: views/app-widgets/login-attempts.php:38
+msgid "Successful Login Attempts"
+msgstr ""
+
+#: views/app-widgets/login-attempts.php:28
+msgid " View more"
+msgstr ""
+
+#: views/app-widgets/login-attempts.php:52
+msgid "Role"
+msgstr ""
+
+#: views/app-widgets/login-attempts.php:83
+msgid "View a complete history of successful logins for your WordPress account"
+msgstr ""
+
+#: views/app-widgets/login-attempts.php:86
+msgid "All logs are stored in the cloud to ensure malicious users are unable to delete or manipulate site login data."
+msgstr ""
+
+#: views/app-widgets/login-attempts.php:90
+msgid "This feature is only available for<br><a class=\"link__style_unlink llar_turquoise\" href=\"%s\">Premium</a> users."
+msgstr ""
+
+#: views/app-widgets/login-attempts.php:92
+msgid "This feature is only available for<br><a class=\"link__style_unlink llar_turquoise\" href=\"%s\">Premium</a> and <a class=\"link__style_unlink llar_turquoise button_micro_cloud\">Micro Cloud (FREE!)</a> users."
+msgstr ""
+
+#: views/chart-circle-failed-attempts-today.php:40
+#: views/chart-circle-failed-attempts-today.php:75
+msgid "Hooray! Zero failed login attempts (past 24 hrs)"
+msgstr ""
+
+#: views/chart-circle-failed-attempts-today.php:45
+#: views/chart-circle-failed-attempts-today.php:79
 msgid "%d failed login attempt "
 msgid_plural "%d failed login attempts "
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/tab-dashboard.php:33 views/tab-dashboard.php:380
-msgid "today"
+#: views/chart-circle-failed-attempts-today.php:46
+#: views/chart-circle-failed-attempts-today.php:80
+msgid "(past 24 hrs)"
 msgstr ""
 
-#: views/tab-dashboard.php:34
-msgid "Your site might have been discovered by hackers"
+#: views/chart-circle-failed-attempts-today.php:47
+#: views/chart-circle-failed-attempts-today.php:81
+msgid "Your site is currently at a low risk for brute force activity"
 msgstr ""
 
-#: views/tab-dashboard.php:38
-msgid "Warning: More than 100 failed login attempts today"
+#: views/chart-circle-failed-attempts-today.php:51
+msgid "Warning: Your site has experienced over 100 failed login attempts in the past 24 hours"
 msgstr ""
 
-#: views/tab-dashboard.php:39
-msgid "Your site is likely under a brute-force attack"
+#: views/chart-circle-failed-attempts-today.php:55
+#: views/chart-circle-failed-attempts-today.php:87
+msgid "Based on your level of brute force activity, we recommend <a href=\"%s\" class=\"llar_orange\" target=\"_blank\">upgrading to premium</a> to access features to reduce failed logins and improve site performance."
 msgstr ""
 
-#: views/tab-dashboard.php:53
+#: views/chart-circle-failed-attempts-today.php:59
+msgid "Based on your level of brute force activity, we recommend <a class=\"llar_orange %s\">free Micro Cloud upgrade</a> to access features to reduce failed logins and improve site performance."
+msgstr ""
+
+#: views/chart-circle-failed-attempts-today.php:93
 msgid "Failed Login Attempts Today"
 msgstr ""
 
-#: views/tab-dashboard.php:54
-msgid "All failed login attempts have been neutralized in the cloud"
-msgstr ""
-
-#: views/tab-dashboard.php:62
-msgid "Limit Login Attempts Reloaded Dashboard"
-msgstr ""
-
-#: views/tab-dashboard.php:66 views/tab-dashboard.php:152 views/tab-dashboard.php:203
+#: views/chart-circle-failed-attempts-today.php:102
+#: views/chart-failed-attempts.php:36
+#: views/chart-failed-attempts.php:121
+#: views/chart-failed-attempts.php:131
 msgid "Failed Login Attempts"
 msgstr ""
 
-#: views/tab-dashboard.php:129
-msgid "Change your password to something more secure."
+#: views/chart-circle-failed-attempts-today.php:108
+#: views/chart-failed-attempts.php:137
+msgid "An IP that hasn't been previously denied by the cloud app, but has made an unsuccessful login attempt on your website."
 msgstr ""
 
-#: views/tab-dashboard.php:130
-msgid "Make sure WordPress and all your plugins are updated."
+#: views/chart-circle-failed-attempts-today.php:109
+#: views/chart-failed-attempts.php:138
+msgid "An IP that has made an unsuccessful login attempt on your website."
 msgstr ""
 
-#: views/tab-dashboard.php:131
-#, php-format
-msgid ""
-"<a href=\"%s\" target=\"_blank\">Update to Premium</a> Limit Login Attempts "
-"Reloaded."
+#: views/chart-circle-failed-attempts-today.php:120
+msgid "Cloud protection enabled"
 msgstr ""
 
-#: views/tab-dashboard.php:166
+#: views/chart-failed-attempts.php:44
+#: views/chart-failed-attempts.php:147
+#: views/chart-failed-attempts.php:244
 msgid "Requests"
 msgstr ""
 
-#: views/tab-dashboard.php:271
-msgid "Premium Protection Disabled"
+#: views/chart-failed-attempts.php:152
+msgid "A request is utilized when the cloud validates whether an IP address is allowed to attempt a login, which also includes denied logins."
 msgstr ""
 
-#: views/tab-dashboard.php:272
-msgid ""
-"As a free user, your local server is absorbing the traffic brought on by brute "
-"force attacks, potentially slowing down your website. Upgrade to Premium today to "
-"outsource these attacks through our cloud app, and slow down future attacks with "
-"advanced throttling."
+#: views/chart-failed-attempts.php:162
+msgid "Monthly Usage: "
 msgstr ""
 
-#: views/tab-dashboard.php:274
-msgid "Upgrade to Premium"
+#: views/chart-failed-attempts.php:227
+msgid "Attempts"
 msgstr ""
 
-#: views/tab-dashboard.php:282
+#: views/emails/failed-login.php:243
+msgid "Hello {name},"
+msgstr ""
+
+#: views/emails/failed-login.php:244
+msgid "Hello,"
+msgstr ""
+
+#: views/emails/failed-login.php:246
+msgid "This notification was sent automatically via Limit Login Attempts Reloaded Plugin."
+msgstr ""
+
+#: views/emails/failed-login.php:248
+msgid "This is installed on your <b>{domain}</b> WordPress site."
+msgstr ""
+
+#: views/emails/failed-login.php:250
+msgid "The failed login details include:"
+msgstr ""
+
+#: views/emails/failed-login.php:253
+msgid "{attempts_count} failed login attempts ({lockouts_count} lockout(s)) from IP <b>{ip_address}</b>"
+msgstr ""
+
+#: views/emails/failed-login.php:256
+msgid "Last user attempted: <b>{username}</b>"
+msgstr ""
+
+#: views/emails/failed-login.php:258
+msgid "IP was blocked for {blocked_duration}"
+msgstr ""
+
+#: views/emails/failed-login.php:262
+msgid "Please visit your WordPress dashboard for additional details, investigation options, and help articles."
+msgstr ""
+
+#: views/emails/failed-login.php:276
+msgid "Go to Dashboard"
+msgstr ""
+
+#: views/emails/failed-login.php:292
+msgid "<b>Experiencing frequent attacks or degraded performance?</b> You can now receive premium protection for FREE with "
+msgstr ""
+
+#: views/emails/failed-login.php:295
+msgid "Micro Cloud©."
+msgstr ""
+
+#: views/emails/failed-login.php:296
+msgid " Go to your LLAR dashboard to get starte."
+msgstr ""
+
+#: views/emails/failed-login.php:305
+msgid "Frequently Asked Questions"
+msgstr ""
+
+#: views/emails/failed-login.php:307
+msgid "What is a failed login attempt?"
+msgstr ""
+
+#: views/emails/failed-login.php:308
+msgid "A failed login attempt is when an IP address uses incorrect credentials to log into your website. The IP address could be a human operator, or a program designed to guess your password."
+msgstr ""
+
+#: views/emails/failed-login.php:310
+msgid "Why am I getting these emails?"
+msgstr ""
+
+#: views/emails/failed-login.php:311
+msgid "You are receiving this email because there was a failed login attempt on your website {domain}. If you'd like to opt out of these notifications, please click the “Unsubscribe” link below."
+msgstr ""
+
+#: views/emails/failed-login.php:313
+msgid "How dangerous is this failed login attempt?"
+msgstr ""
+
+#: views/emails/failed-login.php:314
+msgid "Unfortunately, we cannot determine the severity of the IP address with the free version of the plugin. If the IP continues to make attempts and is not recognized by your organization, then it's likely to have malicious intent. Depending on how frequent the attacks are, you may experience performance issues. In the plugin dashboard, you can investigate the frequency of the failed login attempts in the logs and take additional steps to protect your website (i.e. adding them to the block list). You can visit the "
+msgstr ""
+
+#: views/emails/failed-login.php:317
+msgid "Limit Login Attempts Reloaded website"
+msgstr ""
+
+#: views/emails/failed-login.php:317
+msgid " for more information on our premium services, which can automatically block and detect malicious IP addresses."
+msgstr ""
+
+#: views/emails/failed-login.php:327
+msgid "This alert was sent by your website where Limit Login Attempts Reloaded free version is installed and you are listed as the admin. If you are a GoDaddy customer, the plugin is installed into a must-use (MU) folder."
+msgstr ""
+
+#: views/emails/failed-login.php:347
+msgid "Unsubscribe"
+msgstr ""
+
+#: views/emails/failed-login.php:348
+msgid "from these notifications."
+msgstr ""
+
+#: views/micro-cloud-modal.php:26
+msgid "Get Started with Micro Cloud for FREE"
+msgstr ""
+
+#: views/micro-cloud-modal.php:29
+msgid "Help us secure our network and we’ll provide you with limited access to our premium features including our login firewall, IP Intelligence, and performance optimizer."
+msgstr ""
+
+#: views/micro-cloud-modal.php:32
+msgid "Please note that some domains have very high brute force activity, which may cause Micro Cloud to run out of resources in under 24 hours. We will send an email when resources are fully utilized and the app reverts back to the free version. You may upgrade to one of our premium plans to prevent the app from reverting."
+msgstr ""
+
+#: views/micro-cloud-modal.php:43
+msgid "How To Activate Micro Cloud"
+msgstr ""
+
+#: views/micro-cloud-modal.php:48
+#: views/onboarding-popup.php:187
+msgid "Please enter the email that will receive activation confirmation"
+msgstr ""
+
+#: views/micro-cloud-modal.php:53
+#: views/onboarding-popup.php:142
+#: views/onboarding-popup.php:190
+#: views/tab-settings.php:553
+#: views/tab-settings.php:577
+msgid "Your email"
+msgstr ""
+
+#: views/micro-cloud-modal.php:61
+#: views/onboarding-popup.php:196
+msgid "I consent to registering my domain name <b>%s</b> with the Limit Login Attempts Reloaded cloud service."
+msgstr ""
+
+#: views/micro-cloud-modal.php:68
+#: views/onboarding-popup.php:158
+#: views/onboarding-popup.php:230
+msgid "Continue"
+msgstr ""
+
+#: views/micro-cloud-modal.php:73
+msgid "By signing up you agree to our <a href=\"%s\" class=\"llar_turquoise\">terms of service</a> and <a href=\"%s\" class=\"llar_turquoise\">privacy policy.</a>"
+msgstr ""
+
+#: views/micro-cloud-modal.php:82
+#: views/onboarding-popup.php:223
+msgid "The server is not working, try again later"
+msgstr ""
+
+#: views/micro-cloud-modal.php:90
+msgid "Micro Cloud has been activated!"
+msgstr ""
+
+#: views/micro-cloud-modal.php:95
+#: views/onboarding-popup.php:253
+msgid "Go To Dashboard"
+msgstr ""
+
+#: views/onboarding-popup.php:35
+#: views/onboarding-popup.php:60
+msgid "Welcome"
+msgstr ""
+
+#: views/onboarding-popup.php:41
 msgid "Notifications"
 msgstr ""
 
-#: views/tab-dashboard.php:293
-msgid "Multiply Your Protection By Adding More Domains"
+#: views/onboarding-popup.php:47
+msgid "Limited Upgrade"
 msgstr ""
 
-#: views/tab-dashboard.php:294
-msgid ""
-"When you upgrade to premium, you can synchronize your IP safelist and blacklist "
-"between multiple sites. This is a great way to improve your network performance "
-"and slow down future attacks."
+#: views/onboarding-popup.php:53
+msgid "Completion"
 msgstr ""
 
-#: views/tab-dashboard.php:296
+#: views/onboarding-popup.php:65
+msgid "Add your Setup Code"
+msgstr ""
+
+#: views/onboarding-popup.php:68
+msgid "Your Setup Code"
+msgstr ""
+
+#: views/onboarding-popup.php:70
+msgid "Activate"
+msgstr ""
+
+#: views/onboarding-popup.php:77
+msgid "The Setup Code can be found in your email if you have subscribed to premium"
+msgstr ""
+
+#: views/onboarding-popup.php:84
+msgid "Not A Premium User?"
+msgstr ""
+
+#: views/onboarding-popup.php:87
+msgid "We <b>highly recommend</b> upgrading to premium for the best protection against brute force attacks and unauthorized logins"
+msgstr ""
+
+#: views/onboarding-popup.php:91
+msgid "Detect, counter, and deny unauthorized logins with IP Intelligence"
+msgstr ""
+
+#: views/onboarding-popup.php:94
+msgid "Absorb failed login activity to improve site performance"
+msgstr ""
+
+#: views/onboarding-popup.php:97
+msgid "Block IPs by country, premium support, and much more!"
+msgstr ""
+
+#: views/onboarding-popup.php:113
+msgid "Yes, show me plan options"
+msgstr ""
+
+#: views/onboarding-popup.php:116
+msgid "No, I don’t want advanced protection"
+msgstr ""
+
+#: views/onboarding-popup.php:122
+#: views/onboarding-popup.php:162
+#: views/onboarding-popup.php:227
+msgid "Skip"
+msgstr ""
+
+#: views/onboarding-popup.php:137
+msgid "Notification Settings"
+msgstr ""
+
+#: views/onboarding-popup.php:146
+msgid "This email will receive notifications of unauthorized access to your website. You may turn this off in your settings."
+msgstr ""
+
+#: views/onboarding-popup.php:151
+msgid "Sign me up for the LLAR newsletter to receive important security alerts, plugin updates, and helpful guides."
+msgstr ""
+
+#: views/onboarding-popup.php:176
+msgid "Limited Upgrade (Free)"
+msgstr ""
+
+#: views/onboarding-popup.php:181
+msgid "Help us secure our network and we’ll provide you with limited access to our premium features including our login firewall, IP intelligence, and performance optimizer (up to 1,000 requests monthly)."
+msgstr ""
+
+#: views/onboarding-popup.php:184
+msgid "<b>Would you like to opt-in?</b>"
+msgstr ""
+
+#: views/onboarding-popup.php:206
+msgid "Sign Me Up"
+msgstr ""
+
+#: views/onboarding-popup.php:212
+msgid "You may opt-out of this program at any time. You accept our <a class=\"link__style_color_inherit llar_turquoise\" href=\"%s\" target=\"_blank\">terms of service</a> by participating in this program."
+msgstr ""
+
+#: views/onboarding-popup.php:219
+msgid "Congrats! Your website is now activated for Micro Cloud. Account information has been emailed to you for your reference."
+msgstr ""
+
+#: views/onboarding-popup.php:245
+msgid "Thank you for completing the setup"
+msgstr ""
+
+#: views/options-page.php:57
+msgid "You have exhausted your monthly quota of free Micro Cloud requests. The plugin has now reverted to the free version. <a href=\"%s\" class=\"link__style_color_inherit\" target=\"_blank\">Upgrade to the premium</a> version today to maintain cloud protection and advanced features."
+msgstr ""
+
+#: views/options-page.php:72
+msgid "Enjoying Micro Cloud? To prevent interruption of the cloud app, <a href=\"%s\" class=\"link__style_color_inherit\" target=\"_blank\">Upgrade to Premium</a> today"
+msgstr ""
+
+#: views/options-page.php:86
+msgid "Do you want Limit Login Attempts Reloaded to provide the latest version automatically?"
+msgstr ""
+
+#: views/options-page.php:88
+msgid "Yes, enable auto-update"
+msgstr ""
+
+#: views/options-page.php:92
+msgid "No thanks"
+msgstr ""
+
+#: views/options-page.php:116
+msgid "Account Login"
+msgstr ""
+
+#: views/options-page.php:159
+msgid "Premium / Extensions"
+msgstr ""
+
+#: views/options-page.php:164
+msgid "Failover"
+msgstr ""
+
+#: views/options-page.php:169
+msgid "Automatic switch to free version when premium stops working (usually due to non-payment or exceeding monthly resource budget)."
+msgstr ""
+
+#: views/tab-dashboard.php:44
+msgid "Enable Micro Cloud (FREE)"
+msgstr ""
+
+#: views/tab-dashboard.php:50
+msgid "Help us secure our network by providing access to your login IP data."
+msgstr ""
+
+#: views/tab-dashboard.php:53
+msgid "In return, receive access to our premium features up to 1,000 requests per month, and 100 for each subsequent month."
+msgstr ""
+
+#: views/tab-dashboard.php:56
+msgid "Once the allocated requests are consumed, the premium app will switch back to the free version and reset the following month."
+msgstr ""
+
+#: views/tab-dashboard.php:67
+#: views/tab-settings.php:89
 msgid "Learn More"
 msgstr ""
 
-#: views/tab-dashboard.php:297
-msgid "Connect This Site"
+#: views/tab-dashboard.php:71
+#: views/tab-settings.php:93
+#: views/tab-settings.php:298
+#: views/tab-settings.php:407
+msgid "Get Started"
 msgstr ""
 
-#: views/tab-dashboard.php:308
+#: views/tab-dashboard.php:75
+msgid "* A request is utilized when our cloud app validates an IP before it is able to perform a login attempt."
+msgstr ""
+
+#: views/tab-dashboard.php:83
+msgid "Premium Protection Disabled"
+msgstr ""
+
+#: views/tab-dashboard.php:87
+msgid "As a free user, your local server is absorbing the traffic brought on by brute force attacks, potentially slowing down your website. Upgrade to Premium today to outsource these attacks through our cloud app, and slow down future attacks with advanced throttling."
+msgstr ""
+
+#: views/tab-dashboard.php:113
 msgid "Tools"
 msgstr ""
 
-#: views/tab-dashboard.php:309
+#: views/tab-dashboard.php:117
 msgid "View lockouts logs, block or whitelist usernames or IPs, and more."
 msgstr ""
 
-#: views/tab-dashboard.php:317
-msgid "Help"
-msgstr ""
-
-#: views/tab-dashboard.php:318
+#: views/tab-dashboard.php:132
 msgid "Find the documentation and help you need."
 msgstr ""
 
-#: views/tab-dashboard.php:326
+#: views/tab-dashboard.php:143
 msgid "Global Options"
 msgstr ""
 
-#: views/tab-dashboard.php:327
+#: views/tab-dashboard.php:147
 msgid "Many options such as notifications, alerts, premium status, and more."
 msgstr ""
 
-#: views/tab-dashboard.php:335
-msgid "Refer A Friend"
+#: views/tab-dashboard.php:183
+msgid "Login Security Checklist"
 msgstr ""
 
-#: views/tab-dashboard.php:336
-msgid "Earn $20 for every friend or client that signs up for our premium service."
+#: views/tab-dashboard.php:186
+msgid "Recommended tasks to greatly improve the security of your website."
 msgstr ""
 
-#: views/tab-dashboard.php:356
-msgid "Failed Login Attempts By Country"
+#: views/tab-dashboard.php:193
+msgid "Enable Email Notifications"
 msgstr ""
 
-#: views/tab-dashboard.php:357 views/tab-dashboard.php:387
-msgid "Global Network (Premium Users)"
+#: views/tab-dashboard.php:197
+msgid "<a class=\"link__style_unlink llar_turquoise\" href=\"%s\">Enable email notifications</a> to receive timely alerts and updates via email."
 msgstr ""
 
-#: views/tab-dashboard.php:362
-msgid "Country"
+#: views/tab-dashboard.php:205
+msgid "Implement strong account policies"
 msgstr ""
 
-#: views/tab-dashboard.php:386
-msgid "Total Failed Login Attempts"
+#: views/tab-dashboard.php:207
+#: views/tab-dashboard.php:226
+msgid "Check when done."
 msgstr ""
 
-#: views/tab-dashboard.php:402
-msgid "Total Attempts"
+#: views/tab-dashboard.php:210
+msgid "<a class=\"link__style_unlink llar_turquoise\" href=\"%s\" target=\"_blank\">Read our guide</a> on implementing and enforcing strong password policies in your organization."
 msgstr ""
 
-#: views/tab-debug.php:37
-msgid "Debug info"
+#: views/tab-dashboard.php:218
+msgid "Deny/Allow countries"
 msgstr ""
 
-#: views/tab-debug.php:40
+#: views/tab-dashboard.php:221
+msgid "Deny/Allow countries (Premium+ Users)"
+msgstr ""
+
+#: views/tab-dashboard.php:232
+msgid "<a class=\"link__style_unlink llar_turquoise\" href=\"%s\" target=\"_blank\">Allow or Deny countries</a> to ensure only legitimate users login."
+msgstr ""
+
+#: views/tab-dashboard.php:240
+msgid "Turn on plugin auto-updates"
+msgstr ""
+
+#: views/tab-dashboard.php:244
+msgid "Enable automatic updates to ensure that the plugin stays current with the latest software patches and features."
+msgstr ""
+
+#: views/tab-dashboard.php:246
+msgid "<a class=\"link__style_unlink llar_turquoise\" href=\"#llar_auto_update_choice\">Enable automatic updates</a> to ensure that the plugin stays current with the latest software patches and features."
+msgstr ""
+
+#: views/tab-dashboard.php:257
+msgid "Upgrade to our premium version for advanced protection."
+msgstr ""
+
+#: views/tab-dashboard.php:263
+msgid "<a class=\"link__style_unlink llar_turquoise\" href=\"%s\" target=\"_blank\">Upgrade to our premium</a> version for advanced protection."
+msgstr ""
+
+#: views/tab-debug.php:58
+msgid "Debug Info"
+msgstr ""
+
+#: views/tab-debug.php:65
 msgid "Copy the contents of the window and provide to support."
 msgstr ""
 
-#: views/tab-logs-local.php:26
-msgid "Statistics"
+#: views/tab-debug.php:70
+msgid "Version"
 msgstr ""
 
-#: views/tab-logs-local.php:31
-msgid "Total lockouts"
+#: views/tab-debug.php:77
+msgid "Start Over"
+msgstr ""
+
+#: views/tab-debug.php:82
+msgid "You can start over the onboarding process by clicking this button. All existing data will remain unchanged."
+msgstr ""
+
+#: views/tab-debug.php:90
+msgid "Reset"
+msgstr ""
+
+#: views/tab-help.php:20
+msgid "Upgrade Now to Access Premium Support"
+msgstr ""
+
+#: views/tab-help.php:23
+msgid "Our technical support team is available by email to help<br>with any questions."
+msgstr ""
+
+#: views/tab-help.php:28
+msgid "Upgrade To Premium"
+msgstr ""
+
+#: views/tab-help.php:34
+msgid "Free Support"
+msgstr ""
+
+#: views/tab-help.php:37
+msgid "Support for free customers is available via our forums page on WordPress.org.<br>The majority of requests <b>receive an answer within a few days</b>."
+msgstr ""
+
+#: views/tab-help.php:42
+msgid "Go To Support Forums"
+msgstr ""
+
+#: views/tab-help.php:51
+msgid "GDPR Information"
+msgstr ""
+
+#: views/tab-help.php:55
+msgid "Software Documentation"
+msgstr ""
+
+#: views/tab-help.php:62
+msgid "All Documentation"
+msgstr ""
+
+#: views/tab-help.php:68
+msgid "Cloud Service & Security"
+msgstr ""
+
+#: views/tab-help.php:70
+msgid "Questions regarding the cloud service including how to activate, logs and storage, and compliance."
+msgstr ""
+
+#: views/tab-help.php:76
+msgid "Technical Questions"
+msgstr ""
+
+#: views/tab-help.php:78
+msgid "Popular technical questions about the service including admin blocking, definitions, and email notifications."
+msgstr ""
+
+#: views/tab-help.php:83
+msgid "Accounts & Billing"
+msgstr ""
+
+#: views/tab-help.php:85
+msgid "Questions regarding updating billing info, cancellation, and expiration."
+msgstr ""
+
+#: views/tab-help.php:91
+msgid "Pre-sales Questions"
+msgstr ""
+
+#: views/tab-help.php:93
+msgid "Questions regarding premium software sales."
+msgstr ""
+
+#: views/tab-help.php:101
+msgid "Top Topics and Questions"
+msgstr ""
+
+#: views/tab-help.php:107
+msgid "How do I know if I'm under attack?"
+msgstr ""
+
+#: views/tab-help.php:113
+msgid "How can I tell that the premium plugin is working?"
+msgstr ""
+
+#: views/tab-help.php:119
+msgid "What do I do if the admin gets blocked?"
+msgstr ""
+
+#: views/tab-help.php:125
+msgid "Why am I still seeing login attempts even after the IP got blocked?"
+msgstr ""
+
+#: views/tab-help.php:131
+msgid "Could these failed login attempts be fake?"
+msgstr ""
+
+#: views/tab-help.php:137
+msgid "How does the login firewall work?"
+msgstr ""
+
+#: views/tab-help.php:143
+msgid "What happens if my site exceeds the request limits in the plan?"
+msgstr ""
+
+#: views/tab-help.php:149
+msgid "What do I do if all users get blocked?"
+msgstr ""
+
+#: views/tab-help.php:155
+msgid "I just installed LLAR and I'm already getting several failed login attempts"
+msgstr ""
+
+#: views/tab-help.php:161
+msgid "What URLs are being attacked and protected?"
+msgstr ""
+
+#: views/tab-help.php:176
+msgid "Our technical support team is available by email to help with any questions."
+msgstr ""
+
+#: views/tab-help.php:181
+msgid "Contact Support"
+msgstr ""
+
+#: views/tab-logs-custom.php:26
+msgid "Your Micro Cloud plan has exhausted its requests for the month, which is required to operate the Login Firewall."
+msgstr ""
+
+#: views/tab-logs-custom.php:31
+msgid "You can <a href=\"%s\" class=\"link__style_color_inherit llar_bold\" target=\"_blank\">Upgrade to Premium</a> to increase requests."
+msgstr ""
+
+#: views/tab-logs-custom.php:36
+msgid "Or"
+msgstr ""
+
+#: views/tab-logs-custom.php:39
+msgid "Switch to the failover to access IP management tools with the free version."
 msgstr ""
 
 #: views/tab-logs-local.php:35
+msgid "Statistics"
+msgstr ""
+
+#: views/tab-logs-local.php:45
+msgid "Total lockouts"
+msgstr ""
+
+#: views/tab-logs-local.php:50
 msgid "Reset Counter"
 msgstr ""
 
-#: views/tab-logs-local.php:37
-#, php-format
+#: views/tab-logs-local.php:53
 msgid "%d lockout since last reset"
 msgid_plural "%d lockouts since last reset"
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/tab-logs-local.php:39
+#: views/tab-logs-local.php:57
 msgid "No lockouts yet"
 msgstr ""
 
-#: views/tab-logs-local.php:46
+#: views/tab-logs-local.php:64
 msgid "Active lockouts"
 msgstr ""
 
-#: views/tab-logs-local.php:49
+#: views/tab-logs-local.php:68
 msgid "Restore Lockouts"
 msgstr ""
 
-#: views/tab-logs-local.php:51
-#, php-format
+#: views/tab-logs-local.php:71
 msgid "%d IP is currently blocked from trying to log in"
 msgstr ""
 
-#: views/tab-logs-local.php:63
+#: views/tab-logs-local.php:88
 msgid "Safelist"
 msgstr ""
 
-#: views/tab-logs-local.php:66 views/tab-logs-local.php:80
+#: views/tab-logs-local.php:93
+#: views/tab-logs-local.php:116
 msgid "One IP or IP range (1.2.3.4-5.6.7.8) per line"
 msgstr ""
 
-#: views/tab-logs-local.php:70 views/tab-logs-local.php:84
+#: views/tab-logs-local.php:101
+#: views/tab-logs-local.php:124
 msgid "One Username per line"
 msgstr ""
 
-#: views/tab-logs-local.php:77
-msgid "Blocklist"
+#: views/tab-logs-local.php:111
+msgid "Denylist"
 msgstr ""
 
-#: views/tab-logs-local.php:91 views/tab-settings.php:324
+#: views/tab-logs-local.php:132
+msgid "Automate your denylist with IP intelligence when you <a href=\"%s\" class=\"unlink link__style_unlink\" target=\"_blank\">upgrade to premium</a>."
+msgstr ""
+
+#: views/tab-logs-local.php:142
+#: views/tab-settings.php:458
+#: views/tab-settings.php:777
 msgid "Save Settings"
 msgstr ""
 
-#: views/tab-logs-local.php:103
+#: views/tab-logs-local.php:151
+msgid "Upgrade To Premium For Our Login Firewall"
+msgstr ""
+
+#: views/tab-logs-local.php:154
+#: views/tab-logs-local.php:260
+#: views/tab-settings.php:290
+#: views/tab-settings.php:399
+msgid "Try For FREE"
+msgstr ""
+
+#: views/tab-logs-local.php:161
+msgid "Identify & Counter New Threats With IP Intelligence"
+msgstr ""
+
+#: views/tab-logs-local.php:167
+msgid "Access Active Databases Of Malicious IPs To Bolster Defenses"
+msgstr ""
+
+#: views/tab-logs-local.php:173
+msgid "Unblock The Blocked Admin With Ease"
+msgstr ""
+
+#: views/tab-logs-local.php:179
+msgid "Deny IPs By Country"
+msgstr ""
+
+#: views/tab-logs-local.php:194
 msgid "Lockout log"
 msgstr ""
 
-#: views/tab-logs-local.php:108
+#: views/tab-logs-local.php:202
 msgid "Clear Log"
 msgstr ""
 
-#: views/tab-logs-local.php:111
-#, php-format
-msgid ""
-"Receive enhanced logs and visual metrics when you <a href=\"%s\" target=\"_blank"
-"\">upgrade to our cloud app</a>"
+#: views/tab-logs-local.php:206
+msgid "<a href=\"%s\" class=\"unlink link__style_unlink\" target=\"_blank\">Upgrade today</a> to optimize or unload your DB by moving logs to the cloud."
 msgstr ""
 
-#: views/tab-logs-local.php:120
+#: views/tab-logs-local.php:217
 msgid "Date"
 msgstr ""
 
-#: views/tab-logs-local.php:121
+#: views/tab-logs-local.php:218
 msgctxt "Internet address"
 msgid "IP"
 msgstr ""
 
-#: views/tab-logs-local.php:122
+#: views/tab-logs-local.php:219
 msgid "Tried to log in as"
 msgstr ""
 
-#: views/tab-settings.php:34
-msgid "General Settings"
+#: views/tab-logs-local.php:226
+msgid "F d, Y H:i"
 msgstr ""
 
-#: views/tab-settings.php:35
-msgid "These settings are independent of the apps (see below)."
+#: views/tab-logs-local.php:231
+msgid " lockouts"
 msgstr ""
 
-#: views/tab-settings.php:41
-msgid "Let network sites use their own settings"
+#: views/tab-logs-local.php:240
+msgid "Unlock"
 msgstr ""
 
-#: views/tab-settings.php:42
-msgid ""
-"If disabled, the global settings will be forcibly applied to the entire network."
+#: views/tab-logs-local.php:243
+msgid "Unlocked"
 msgstr ""
 
-#: views/tab-settings.php:44
-msgid "Use global settings"
+#: views/tab-logs-local.php:257
+msgid "Upgrade Today For Enhanced Logs & IP Intelligence"
 msgstr ""
 
-#: views/tab-settings.php:66
-msgid "GDPR compliance"
+#: views/tab-logs-local.php:267
+msgid "Enhanced Logs Tell You Exactly Which IPs Are Attempting Logins"
 msgstr ""
 
-#: views/tab-settings.php:69
-msgid ""
-"this makes the plugin <a href=\"https://gdpr-info.eu/\" target=\"_blank\" >GDPR</"
-"a> compliant"
+#: views/tab-logs-local.php:273
+msgid "Identify & Counter New Threats With Ease"
 msgstr ""
 
-#: views/tab-settings.php:74
-msgid "GDPR message"
+#: views/tab-logs-local.php:279
+msgid "Automatically Add Malicious IPs To Your Deny List"
 msgstr ""
 
-#: views/tab-settings.php:82
-msgid "Notify on lockout"
+#: views/tab-logs-local.php:285
+msgid "Unblock The Blocked Admins Effortlessly"
 msgstr ""
 
-#: views/tab-settings.php:85
-msgid "Email to"
+#: views/tab-premium.php:23
+msgid "Limit Login Attempts Reloaded <strong>Micro Cloud</strong>"
 msgstr ""
 
-#: views/tab-settings.php:88
-msgid "after"
+#: views/tab-premium.php:25
+msgid "Limit Login Attempts Reloaded <strong>Premium</strong>"
 msgstr ""
 
-#: views/tab-settings.php:91
-msgid "lockouts"
+#: views/tab-premium.php:31
+msgid "Full feature list"
 msgstr ""
 
-#: views/tab-settings.php:97
-msgid "Show top-level menu item"
+#: views/tab-premium.php:36
+msgid "Pre-sales FAQs"
 msgstr ""
 
-#: views/tab-settings.php:99
-msgid "(Reload the page to see the changes)"
+#: views/tab-premium.php:41
+msgid "Ask a pre-sales question"
 msgstr ""
 
-#: views/tab-settings.php:104
-msgid "Active App"
+#: views/tab-premium.php:46
+msgid "Support"
 msgstr ""
 
-#: views/tab-settings.php:107
-msgid "Local"
+#: views/tab-premium.php:54
+msgid "Get It Here"
 msgstr ""
 
-#: views/tab-settings.php:113
-msgid ""
-"Get advanced protection by <a href=\"#\" class=\"llar-upgrade-to-cloud\">upgrading "
-"to our Cloud App.</a>"
+#: views/tab-premium.php:61
+msgid "You are currently using the free version of <strong>Limit Login Attempts Reloaded</strong>."
 msgstr ""
 
-#: views/tab-settings.php:119
+#: views/tab-premium.php:63
+msgid "If you purchased a premium plan, check your email for setup instructions (Setup Code included)"
+msgstr ""
+
+#: views/tab-premium.php:67
+msgid "You are currently using Micro Cloud, which provides access to premium cloud app on a limited basis. To prevent interruption, upgrade to one of our paid plans below."
+msgstr ""
+
+#: views/tab-premium.php:69
+msgid "You are currently using the premium version of Limit Login Attempts Reloaded."
+msgstr ""
+
+#: views/tab-premium.php:78
+msgid "Why Should I Consider Premium?"
+msgstr ""
+
+#: views/tab-premium.php:81
+msgid "Although the free version offers basic protection, the premium version includes an important feature called <b>IP Intelligence</b>. With IP intelligence, your website will be able to identify malicious IPs before they attempt a login, and absorb them into the cloud to save system resources. Your site will not only be more secure, but will operate at its optimal performance."
+msgstr ""
+
+#: views/tab-premium.php:88
+msgid "Features comparison"
+msgstr ""
+
+#: views/tab-settings.php:58
 msgid "App Settings"
 msgstr ""
 
-#: views/tab-settings.php:120
-msgid ""
-"The app absorbs the main load caused by brute-force attacks, analyzes login "
-"attempts, and blocks unwanted visitors. It provides other service functions as "
-"well."
+#: views/tab-settings.php:61
+msgid "The app absorbs the main load caused by brute-force attacks, analyzes login attempts, and blocks unwanted visitors. It provides other service functions as well."
 msgstr ""
 
-#: views/tab-settings.php:123
+#: views/tab-settings.php:67
+msgid "Micro Cloud"
+msgstr ""
+
+#: views/tab-settings.php:72
+msgid "Micro Cloud is a limited upgrade to our cloud app that provides complimentary access to our premium features"
+msgstr ""
+
+#: views/tab-settings.php:79
+msgid "Help us secure our network by sharing your login IP data. In return, receive limited access to our premium features up to 1,000 requests for the first month, and 100 requests each subsequent month. Once requests are exceeded for a given month, the premium app will switch to FREE and reset the following month."
+msgstr ""
+
+#: views/tab-settings.php:82
+msgid "* Requests are utilized when the cloud app validates an IP address before it is able to perform a login."
+msgstr ""
+
+#: views/tab-settings.php:101
+msgid "Active App"
+msgstr ""
+
+#: views/tab-settings.php:106
+msgid "Switches from free version (local) to premium (cloud)."
+msgstr ""
+
+#: views/tab-settings.php:114
+msgid "Local (Free version)"
+msgstr ""
+
+#: views/tab-settings.php:119
+msgid "Cloud App (Premium version)"
+msgstr ""
+
+#: views/tab-settings.php:126
+msgid "Get advanced protection by <a href=\"%s\" class=\"unlink llar-upgrade-to-cloud\">upgrading to our Cloud App</a>."
+msgstr ""
+
+#: views/tab-settings.php:137
 msgid "Local App"
 msgstr ""
 
-#: views/tab-settings.php:127
+#: views/tab-settings.php:141
 msgid "Lockout"
 msgstr ""
 
-#: views/tab-settings.php:132
-msgid "allowed retries"
-msgstr ""
-
-#: views/tab-settings.php:136
-msgid "minutes lockout"
-msgstr ""
-
-#: views/tab-settings.php:140
-msgid "lockouts increase lockout time to"
-msgstr ""
-
-#: views/tab-settings.php:143
-msgid "hours"
-msgstr ""
-
 #: views/tab-settings.php:146
-msgid "hours until retries are reset"
-msgstr ""
-
-#: views/tab-settings.php:151
-msgid "Trusted IP Origins"
+msgid "Set lockout limits based on failed attempts."
 msgstr ""
 
 #: views/tab-settings.php:155
-msgid ""
-"Specify the origins you trust in order of priority, separated by commas. We "
-"strongly recommend that you <b>do not</b> use anything other than REMOTE_ADDR "
-"since other origins can be easily faked. Examples: HTTP_X_FORWARDED_FOR, "
-"HTTP_CF_CONNECTING_IP, HTTP_X_SUCURI_CLIENTIP"
+msgid "allowed retries"
 msgstr ""
 
-#: views/tab-settings.php:162
-msgid "Custom App"
+#: views/tab-settings.php:160
+msgid "Number of failed attempts allowed before locking out."
+msgstr ""
+
+#: views/tab-settings.php:168
+msgid "minutes lockout"
 msgstr ""
 
 #: views/tab-settings.php:173
-msgid "Setup Code"
+msgid "Lockout time in minutes."
 msgstr ""
 
-#: views/tab-settings.php:176
-msgid "Submit"
+#: views/tab-settings.php:180
+msgid "lockouts increase lockout time to"
 msgstr ""
 
-#: views/tab-settings.php:182
-#, php-format
-msgid ""
-"Use the <a href=\"%s\" target=\"_blank\">premium app</a> that we offer or follow "
-"the instructions on <a href=\"%s\" target=\"_blank\">how to</a> create your own "
-"one."
-msgstr ""
-
-#: views/tab-settings.php:187
-msgid "Why Use Our Premium Cloud App?"
+#: views/tab-settings.php:184
+msgid "hours"
 msgstr ""
 
 #: views/tab-settings.php:189
+msgid "After the specified number of lockouts the lockout time will increase by specified hours."
+msgstr ""
+
+#: views/tab-settings.php:197
+msgid "hours until retries are reset"
+msgstr ""
+
+#: views/tab-settings.php:202
+msgid "Time in hours before blocks are removed."
+msgstr ""
+
+#: views/tab-settings.php:208
+msgid "After a specific IP address fails to log in <b>%1$s</b> times, a lockout lasting <b>%2$s</b> minutes is activated. If additional failed attempts occur within <b>%3$s</b> hours and lead to another lockout, once their combined total hits <b>%4$s</b>, the <b>%2$s</b> minutes duration is extended to <b>%5$s</b> hours. The lockout will be lifted once <b>%3$s</b> hours have passed since the last lockout incident."
+msgstr ""
+
+#: views/tab-settings.php:219
+msgid "Trusted IP Origins"
+msgstr ""
+
+#: views/tab-settings.php:224
+msgid "Server variables containing IP addresses."
+msgstr ""
+
+#: views/tab-settings.php:234
+msgid "Specify the origins you trust in order of priority, separated by commas. We strongly recommend that you <b>do not</b> use anything other than REMOTE_ADDR since other origins can be easily faked. Examples: HTTP_X_FORWARDED_FOR, HTTP_CF_CONNECTING_IP, HTTP_X_SUCURI_CLIENTIP"
+msgstr ""
+
+#: views/tab-settings.php:243
+#: views/tab-settings.php:395
+msgid "Why Use Our Premium Cloud App?"
+msgstr ""
+
+#: views/tab-settings.php:249
+#: views/tab-settings.php:415
 msgid "Absorb site load caused by attacks"
 msgstr ""
 
-#: views/tab-settings.php:190
-msgid "Use intelligent IP blocking/unblocking technology"
+#: views/tab-settings.php:255
+#: views/tab-settings.php:421
+msgid "Use intelligent IP denial/unblocking technology"
 msgstr ""
 
-#: views/tab-settings.php:191
+#: views/tab-settings.php:262
+#: views/tab-settings.php:427
 msgid "Sync the allow/deny/pass lists between multiple domains"
 msgstr ""
 
-#: views/tab-settings.php:192
+#: views/tab-settings.php:269
+#: views/tab-settings.php:433
 msgid "Get premium support"
 msgstr ""
 
-#: views/tab-settings.php:193
+#: views/tab-settings.php:276
+#: views/tab-settings.php:439
 msgid "Run auto backups of access control lists, lockouts and logs"
 msgstr ""
 
-#: views/tab-settings.php:194
-msgid "Only pay $4.99/m per domain - cancel any time"
+#: views/tab-settings.php:283
+#: views/tab-settings.php:445
+msgid "No contract - cancel anytime"
 msgstr ""
 
-#: views/tab-settings.php:203
+#: views/tab-settings.php:294
+#: views/tab-settings.php:403
+msgid "Upgrade"
+msgstr ""
+
+#: views/tab-settings.php:304
+msgid "Custom App"
+msgstr ""
+
+#: views/tab-settings.php:308
+msgid "Setup Code"
+msgstr ""
+
+#: views/tab-settings.php:313
+msgid "This is the code you receive via email once you subscribe to the LLAR premium cloud app. (example xxxxxxxxxxxxx=yek?putes/1v/moc.stpmettanigoltimil.ipa)"
+msgstr ""
+
+#: views/tab-settings.php:321
+msgid "Edit"
+msgstr ""
+
+#: views/tab-settings.php:330
+msgid "Submit"
+msgstr ""
+
+#: views/tab-settings.php:335
+msgid "Add this code to all websites in your network to sync protection (payment required for additional domains unless it's with an Agency plan's first tier)."
+msgstr ""
+
+#: views/tab-settings.php:342
 msgid "Configuration"
 msgstr ""
 
-#: views/welcome-page.php:14
-msgid "Welcome to Limit Login Attempts Reloaded"
+#: views/tab-settings.php:464
+msgid "General Settings"
 msgstr ""
 
-#: views/welcome-page.php:15
-msgid ""
-"Thank you for choosing Limit Login Attempts Reloaded - A simple, yet powerful bot-"
-"blocking plugin that keeps your login page safe. "
+#: views/tab-settings.php:467
+msgid "These settings are independent of the apps."
 msgstr ""
 
-#: views/welcome-page.php:17
-msgid "With This Plugin, You Can…"
+#: views/tab-settings.php:475
+msgid "Let network sites use their own settings"
 msgstr ""
 
-#: views/welcome-page.php:19
-msgid "View who’s trying to access your site"
+#: views/tab-settings.php:476
+msgid "If disabled, the global settings will be forcibly applied to the entire network."
 msgstr ""
 
-#: views/welcome-page.php:20
-msgid "Protect from future attacks by allowing or denying IPs"
+#: views/tab-settings.php:481
+msgid "Use global settings"
 msgstr ""
 
-#: views/welcome-page.php:21
-msgid "Optimize site performance by redirecting malicious logins"
+#: views/tab-settings.php:505
+msgid "GDPR compliance"
 msgstr ""
 
-#: views/welcome-page.php:22
-msgid "Receive email alerts when your site is under attack"
+#: views/tab-settings.php:509
+msgid "This makes the plugin <a href=\"%s\" class=\"unlink link__style_unlink\" target=\"_blank\">GDPR</a> compliant by showing a message on the login page. <a href=\"%s\" class=\"unlink llar-label\" target=\"_blank\">Read more</a>"
 msgstr ""
 
-#: views/welcome-page.php:23
-msgid "Synchronize lockout data across a network of sites"
+#: views/tab-settings.php:516
+msgid "GDPR message"
 msgstr ""
 
-#: views/welcome-page.php:25
-msgid "And Much More!"
+#: views/tab-settings.php:521
+msgid "This message will appear at the bottom of the login page."
 msgstr ""
 
-#: views/welcome-page.php:31
-msgid ""
-"Although we recommend using the default settings, you can get a quick video "
-"tutorial if you wanted to learn more about the plugin and what it does."
+#: views/tab-settings.php:531
+msgid "You can use a shortcode here to insert links, for example, a link to your Privacy Policy page. <br>The shortcode is: [llar-link url=\"https://example.com\" text=\"Privacy Policy\"]"
 msgstr ""
 
-#: views/welcome-page.php:37
-#, php-format
-msgid ""
-"If you have more questions, please check out the <a href=\"%s\" target=\"_blank"
-"\">help section</a> on our website."
+#: views/tab-settings.php:538
+#: views/tab-settings.php:543
+msgid "Weekly Digest"
 msgstr ""
 
-#: views/welcome-page.php:42
-msgid "2,000,000+ active installations on <br>WordPress worldwide!"
+#: views/tab-settings.php:550
+#: views/tab-settings.php:574
+msgid "Email to"
 msgstr ""
 
-#: views/welcome-page.php:44
-#, php-format
-msgid ""
-"Looking for advanced protection? <a href=\"%s\" target=\"_blank\">Try our premium "
-"service</a> for only $4.99/month!"
+#: views/tab-settings.php:555
+msgid "Receive a weekly digest that includes a recap of your failed logins and lockout notifications. Premium users will be able to see additional data such as countries and IPs with most failed logins."
 msgstr ""
 
-#: views/welcome-page.php:54
-msgid "Performance Optimizer"
+#: views/tab-settings.php:562
+msgid "Notify on lockout"
 msgstr ""
 
-#: views/welcome-page.php:55
-msgid ""
-"We absorb up to 100k login attempts (per month) to keep your site at optimal "
-"performance"
+#: views/tab-settings.php:567
+msgid "Email address to which lockout notifications will be sent."
 msgstr ""
 
-#: views/welcome-page.php:63
-msgid "Lockout/IP Throttling"
+#: views/tab-settings.php:577
+msgid "after"
 msgstr ""
 
-#: views/welcome-page.php:64
-msgid "Longer lockout intervals each time a hacker/bot tries to login unsuccessfully"
+#: views/tab-settings.php:580
+msgid "lockouts"
 msgstr ""
 
-#: views/welcome-page.php:72
-msgid "Premium Support Forum"
+#: views/tab-settings.php:582
+msgid "Test Email Notifications"
 msgstr ""
 
-#: views/welcome-page.php:73
-msgid "Get your technical questions answered by our experts"
+#: views/tab-settings.php:589
+msgid "It's not uncommon for web hosts to turn off emails for plugins as a security measure.<br>We've <a class=\"llar_bold link__style_color_inherit\" href=\"%s\" target=\"_blank\">created an article</a> to troubleshoot common email deliverability issues."
 msgstr ""
 
-#: views/welcome-page.php:81
-msgid "Intelligent IP Blocking/Unblocking"
+#: views/tab-settings.php:597
+msgid "Display top menu item"
 msgstr ""
 
-#: views/welcome-page.php:82
-msgid "We make sure the legitimate IP’s are allowed automatically"
+#: views/tab-settings.php:602
+msgid "The LLAR plugin displays its item on the top navigation menu, which provides a shortcut to the plugin."
 msgstr ""
 
-#: views/welcome-page.php:90
-msgid "CSV Download of IP Data"
+#: views/tab-settings.php:609
+#: views/tab-settings.php:626
+#: views/tab-settings.php:657
+msgid "(Save and reload this page to see the changes)"
 msgstr ""
 
-#: views/welcome-page.php:91
-msgid "CSV Download of all IP data"
+#: views/tab-settings.php:614
+msgid "Display left menu item"
 msgstr ""
 
-#: views/welcome-page.php:99
-msgid "Synchronized Lockouts"
+#: views/tab-settings.php:619
+msgid "The LLAR plugin displays its item on the left navigation menu, which provides a shortcut to the plugin."
 msgstr ""
 
-#: views/welcome-page.php:100
-msgid "Lockouts can be shared between multiple domains"
+#: views/tab-settings.php:630
+msgid "Hide Dashboard Widget"
 msgstr ""
 
-#: views/welcome-page.php:108
-msgid "Synchronized Safelist/Blacklist"
+#: views/tab-settings.php:635
+msgid "The LLAR dashboard widget provides a quick glance of your daily failed login activity on the main WordPress dashboard. You may hide this widget by checking this box."
 msgstr ""
 
-#: views/welcome-page.php:109
-msgid "Safelist/Blacklists can be shared between multiple domains"
+#: views/tab-settings.php:645
+msgid "Display Menu Warning Icon"
 msgstr ""
 
-#: views/welcome-page.php:117
-msgid "Auto Backup Of All Data"
+#: views/tab-settings.php:650
+msgid "The warning badge is a red bubble icon displayed next to the LLAR logo on the main vertical navigation menu. It displays a warning if there were more than 100 attempts for a day."
 msgstr ""
 
-#: views/welcome-page.php:118
-msgid "Regular cloud backups of all data"
-msgstr ""
-
-#: views/welcome-page.php:123
-msgid "We highly recommend upgrading if you are a…"
-msgstr ""
-
-#: views/welcome-page.php:126
-msgid "Digital Agency"
-msgstr ""
-
-#: views/welcome-page.php:127
-msgid "Site admin w/ multiple domains"
-msgstr ""
-
-#: views/welcome-page.php:128
-msgid "E-commerce website"
-msgstr ""
-
-#: views/welcome-page.php:129
-msgid "A forum"
-msgstr ""
-
-#: views/welcome-page.php:130
-msgid "A website with a lot of traffic"
-msgstr ""
-
-#: views/welcome-page.php:131
-msgid "A website that holds sensitive data"
-msgstr ""
-
-#: views/welcome-page.php:132
-msgid "A website with hundreds or thousands of registered users"
-msgstr ""
-
-#: views/welcome-page.php:133
-msgid "A website that is constantly being attacked"
-msgstr ""
-
-#: views/welcome-page.php:137
-msgid "Upgrade Now"
-msgstr ""
-
-#: views/welcome-page.php:139
-msgid ""
-"Questions? Email us at <a href=\"mailto:sales@limitloginattempts.com"
-"\">sales@limitloginattempts.com</a>"
+#: views/tab-settings.php:764
+msgid "Test email has been sent!"
 msgstr ""

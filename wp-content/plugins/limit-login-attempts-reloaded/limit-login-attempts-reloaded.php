@@ -1,14 +1,16 @@
 <?php
 /*
 Plugin Name: Limit Login Attempts Reloaded
-Description: Limit the rate of login attempts for each IP address.
+Description: Block excessive login attempts and protect your site against brute force attacks. Simple, yet powerful tools to improve site performance.
 Author: Limit Login Attempts Reloaded
 Author URI: https://www.limitloginattempts.com/
 Text Domain: limit-login-attempts-reloaded
-Version: 2.25.0
+Version: 2.26.11
 
-Copyright 2008 - 2012 Johan Eenfeldt, 2016 - 2022 Limit Login Attempts Reloaded
+Copyright 2008 - 2012 Johan Eenfeldt, 2016 - 2023 Limit Login Attempts Reloaded
 */
+
+if( !defined( 'ABSPATH' ) ) exit;
 
 /***************************************************************************************
  * Constants
@@ -31,13 +33,11 @@ $limit_login_my_error_shown = false; /* have we shown our stuff? */
 $limit_login_just_lockedout = false; /* started this pageload??? */
 $limit_login_nonempty_credentials = false; /* user and pwd nonempty */
 
-/***************************************************************************************
- * Include files
- **************************************************************************************/
-require_once( LLA_PLUGIN_DIR . '/lib/CidrCheck.php' );
-require_once( LLA_PLUGIN_DIR . '/core/Shortcodes.php' );
-require_once( LLA_PLUGIN_DIR . '/core/Helpers.php' );
-require_once( LLA_PLUGIN_DIR . '/core/App.php' );
-require_once( LLA_PLUGIN_DIR . '/core/LimitLoginAttempts.php' );
+if( file_exists( LLA_PLUGIN_DIR . 'autoload.php' ) ) {
 
-$limit_login_attempts_obj = new Limit_Login_Attempts();
+	require_once( LLA_PLUGIN_DIR . 'autoload.php' );
+
+	add_action( 'plugins_loaded', function() {
+		(new LLAR\Core\LimitLoginAttempts());
+	}, 9999 );
+}
