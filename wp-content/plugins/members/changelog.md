@@ -1,5 +1,46 @@
 # Change Log
 
+## 3.2.9 - 2023-11-28
+### Fixed
+- Fix PHP 8.1 deprecation notice on ACF integration (props @DSGND)
+
+## 3.2.8 - 2023-09-20
+### Added
+- Add members_wp_roles filter to WP roles in Content Permission box
+
+### Fixed
+- Fix Content Permission icon in Panel block
+- Fix position of Field Group menu item in ACF
+
+## 3.2.6-7 - 2023-08-08
+### Fixed
+- PHP 8+ Compatibility
+- members_show_roles_page_cap filter added for edit_roles_cap
+- Fix improperly named variable
+
+## 3.2.5 - 2023-04-28
+### Fixed
+- Fixed WP Cron task for in-plugin notifications running unnecessarily.
+
+## 3.2.4 - 2023-03-16
+### Fixed
+ - More package deployment fixes
+
+## 3.2.3 - 2023-03-16
+
+### Added
+- Footer with helpful links
+
+### Fixed
+- Fixed package files deployed unecessarily
+- Debug warnings
+- Correct bootstrap file required
+
+## 3.2.2 - 2022-10-24
+
+### Fixed
+- Fixed undefined index notice
+
 ## 3.2.1 - 2022-04-19
 
 ### Fixed

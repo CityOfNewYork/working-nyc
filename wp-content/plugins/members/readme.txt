@@ -1,12 +1,12 @@
 === Members - Membership & User Role Editor Plugin ===
 
-Contributors: supercleanse
+Contributors: supercleanse, cartpauj
 Donate link: https://memberpress.com/plugins/members
 Tags: memberpress, member-type, access-control, permissions, members-only, security, membership-plan, memberships, roles, capabilities, editor, users, security, access, permission, protect, restrict content, blocks
-Requires at least: 4.7
-Tested up to: 5.9
-Requires PHP: 5.6
-Stable tag: 3.2.1
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 7.0
+Stable tag: 3.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
