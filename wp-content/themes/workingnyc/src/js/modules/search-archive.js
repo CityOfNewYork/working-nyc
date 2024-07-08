@@ -190,7 +190,7 @@ export default {
       this.submitFlag = true;
       this.wp();
       this.currentSearchTerm = this.query.s;
-      this.toggleFilterMenu = false; // 
+      this.toggleFilterMenu = false; // Set toggleFilterMenu to hide the side filter
     },
     /**
      * Proxy for pagination. This will shift focus on the next page's first
