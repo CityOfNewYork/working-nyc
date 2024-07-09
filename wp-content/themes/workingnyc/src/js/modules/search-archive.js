@@ -33,11 +33,6 @@ export default {
     },
     submitFlag: {
       type: Boolean,
-      default: true
-    },
-    toggleFilterMenu: {
-      type: Boolean,
-      default: false
     }
   },
   data: function() {
@@ -185,12 +180,10 @@ export default {
       this.filtersExpanded = false;
     },
     submitSearch() {
-      this.reset(); // to clear the existing filters when new request is made
       this.resetFlag = true;
       this.submitFlag = true;
       this.wp();
       this.currentSearchTerm = this.query.s;
-      this.toggleFilterMenu = false; // Set toggleFilterMenu to hide the side filter
     },
     /**
      * Proxy for pagination. This will shift focus on the next page's first
@@ -226,11 +219,9 @@ export default {
 
     /**
      * Setting the resetFlag to not display "no results" when Posts array is empty
-     * Setting the toggleFilterMenu to toggle the side filter
      */
     reset: function(event) {
       this.resetFlag = false;
-      this.toggleFilterMenu = true;
       for (let index = 0; index < this.terms.length; index++) {
         this.$set(this.query, this.terms[index].slug, []);
         this.$set(this.terms[index], 'checked', false);
@@ -241,31 +232,6 @@ export default {
       }
       this.$set(this.query, 'page', 1);
       this.wp();
-    },
-
-    //Setting the toggleFilterMenu to toggle the side filter
-    click: function(event) {
-      this.toggleFilterMenu = true;
-      let taxonomy = event.data.parent;
-      let term = event.data.id || false;
-
-      if (term) {
-        // set the individual filter to checked
-        this.$set(event.data, 'checked', !event.data.checked);
-
-        // check the parent taxonomy if all filters are checked,
-        // set parent to truthy checked state if so
-        let tax = this.terms.find(t => t.slug === taxonomy);
-        let checked = (tax.filters.filter(t => t.checked).length === tax.filters.length);
-
-        this.$set(tax, 'checked', checked);
-
-        this.filter(taxonomy, term);
-      } else {
-        this.filterAll(taxonomy);
-      }
-
-      return this;
     },
     
     process: function(data, query, headers) {
