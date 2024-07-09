@@ -24,9 +24,15 @@ $posts = Timber::get_posts($wp_query_ids);
 // Set Context
 $context = Timber::get_context();
 $context['term'] = $term;
-$context['posts'] = array_map(function($p) {
+
+if (is_null($posts)) {
+  $context['posts'] = array();
+}
+else {
+  $context['posts'] = array_map(function($p) {
     return new WorkingNYC\Programs($p);
 }, $posts);
+}
 
 // TODO: add translations to search
 // $context['language'] = ICL_LANGUAGE_CODE;
