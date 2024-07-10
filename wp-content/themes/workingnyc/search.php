@@ -27,11 +27,10 @@ $context['term'] = $term;
 
 if (is_null($posts)) {
   $context['posts'] = array();
-}
-else {
+} else {
   $context['posts'] = array_map(function($p) {
     return new WorkingNYC\Programs($p);
-}, $posts);
+  }, $posts);
 }
 
 // TODO: add translations to search
