@@ -2,26 +2,6 @@
 
 {% block content %}
 {% if term == ''%}
-<div>
-  <div class="bg-[#E9F4FD]">
-      <header class="site-max-width block py-5 tablet:py-6 desktop:py-7">
-        <div class="max-w-[896px]">
-          <div class="c-utility p-0 min-h-0 mb-3">
-            <a data-js="home-link" class="link-icon mie-auto" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers' , site.site_url, site.url) }}">
-              <svg aria-hidden="true" class="icon-ui rtl:flip">
-                <use href="#lucide-chevron-left"></use>
-              </svg>
-              <span>{{ __('Home', 'WNYC') }}</span>
-            </a>
-          </div>
-          <div class="o-header__title mt-0" style="">
-            <h1 data-js="title" id="page-heading" class="o-header__heading">{{ __('Search', 'WNYC')}}</h1>
-          </div>
-          {% include 'search/search-form.twig' %}
-          </div>
-      </header>
-  </div>
-</div>
 <div class="bg-[#EEF4FF]">
   <div class="site-max-width">
     <header class="o-header">

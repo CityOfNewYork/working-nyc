@@ -102,7 +102,8 @@
           v-bind:class="'desktop:w-4/5 py-2 px-2 desktop:pt-7 desktop:px-0 tablet:px-7 flex desktop:flex-wrap overflow-x-auto gap-y-2 justify-start items-center shadow-[2px_2px_30px_0_#EFF1F5] desktop:shadow-none ' 
           + (totalFilters > 0 ? 'desktop:pb-5' : 'desktop:pb-0')" 
           v-else>
-          <div class="desktop:hidden pr-2">
+          <!--Hide filters when no posts for new search request -->
+          <div v-if="(posts.length>0 && posts[1].posts.length >= 1) || toggleFilterMenu == true" class="desktop:hidden pr-2">
             <button :disabled="terms.length === 0" @click="filtersExpanded = true" class="btn btn-small btn-secondary bg-white text-[#30374F] border-[#30374F]">
               <span class="mie-1">{{ strings.FILTERS }}</span>
               <span class="badge badge-small bg-[#30374F] text-white font-normal">{{ totalFilters }}</span>
@@ -130,7 +131,8 @@
         <div class="flex gap-x-[5%]">
 
           <!-- Filters side panel -->
-          <section class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
+          <!--Hide filters when no posts for new search request -->
+          <section v-if="(posts.length>0 && posts[1].posts.length >= 1) || toggleFilterMenu == true" class="hidden desktop:flex w-1/4 p-3 rounded border border-scale-3">
             <form class="w-full">
               <div>
                 <div class="font-[500] text-[20px] mb-3">
