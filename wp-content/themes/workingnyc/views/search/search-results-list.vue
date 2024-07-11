@@ -193,14 +193,8 @@
                   <div v-if="totalFilters == 0 && headers.total == 0 && resetFlag == true">
                     <div class="my-3 tablet:my-4 tablet:px-6">
                       <h4>No results for "{{ currentSearchTerm }}"</h4>
-                      <h5 class="mt-2">Search help</h5>
-                      <list>
-                        <li class="m-0">Check your search for typos</li>
-                        <li class="m-0">Use generic search terms</li>
-                        <li class="m-0">Browse our <a v-bind:href="strings.HOME_LINK + 'programs'">programs</a></li>
-                      </list>
-                      <h5 class="mt-2">If you still can't find what you're looking for, <a class="link-icon" href="https://airtable.com/shrfQGpXvo9mmmHpJ">send us feedback <svg aria-hidden="true" class="icon-ui rtl:flip"><use href="#lucide-external-link"></use></svg></a> to improve our site.</h5>
-                    </div>
+                      <div v-html="noResults_data"></div>
+                      </div>
                   </div>
                   <div class="flex items-center text-em justify-center py-4" v-else>
                     <p>{{ strings.NO_RESULTS }} <button v-html="strings.RESET" @click="reset"></button></p>
