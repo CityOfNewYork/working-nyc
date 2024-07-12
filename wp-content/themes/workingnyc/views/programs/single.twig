@@ -100,7 +100,7 @@
             {% endif %}
 
 
-            <span>{% if post.terms('duration') %}{{ post.terms('duration')[0] }}{% endif %}{% if post.terms('duration') and post.terms('schedule') %}, {% endif %}{% if post.terms('schedule') %}{{ post.terms('schedule')[0] }}{% endif %}</span>
+            <span>{% if post.terms('duration') %}{{ post.terms('duration')[0] }}{% endif %}{% if post.terms('duration') and post.terms('schedule') %}, {% endif %}{% if post.terms('schedule') %}{{ post.terms('schedule')|map(s => "#{s}")|join(', ') }}{% endif %}</span>
           </p>
           {% endif %}
 
