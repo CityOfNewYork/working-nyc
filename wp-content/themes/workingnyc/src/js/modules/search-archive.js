@@ -247,8 +247,10 @@ export default {
     },
 
     //Setting the toggleFilterMenu to toggle the side filter
+    // Setting the resetFlag to not display "no results" when Posts array is empty
     click: function(event) {
       this.toggleFilterMenu = true;
+      this.resetFlag = false;
       let taxonomy = event.data.parent;
       let term = event.data.id || false;
 
