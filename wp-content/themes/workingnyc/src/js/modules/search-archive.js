@@ -249,6 +249,7 @@ export default {
     //Setting the toggleFilterMenu to toggle the side filter
     click: function(event) {
       this.toggleFilterMenu = true;
+      this.resetFlag = false;
       let taxonomy = event.data.parent;
       let term = event.data.id || false;
 
