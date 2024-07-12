@@ -38,6 +38,9 @@ export default {
     toggleFilterMenu: {
       type: Boolean,
       default: false
+    },
+    noResults_data:{
+      type: Object
     }
   },
   data: function() {
@@ -421,5 +424,18 @@ export default {
       .queue()            // Initialize the first page request
       .fetch('terms')     // Get the terms from the 'terms' endpoint
       .catch(this.error); //
+  },
+
+  mounted: function(){
+    fetch('/wp-json/acf/v3/options/options')
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      this.noResults_data = data.acf.no_search_results_text;
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }
 };
