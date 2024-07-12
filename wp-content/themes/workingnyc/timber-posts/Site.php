@@ -64,7 +64,14 @@ class Site extends TimberSite {
      * WKNYC Settings
      */
 
+    $defaultLanguage = 'en';
+    add_filter('acf/settings/current_language', function() use($defaultLanguage) { 
+      return $defaultLanguage;
+    }, 10,1);
     $context['options'] = get_fields('options');
+    remove_filter('acf/settings/current_language', function() use($defaultLanguage) { 
+      return $defaultLanguage;
+    }, 10,1);
 
     /**
      * SVG Sprite Paths
