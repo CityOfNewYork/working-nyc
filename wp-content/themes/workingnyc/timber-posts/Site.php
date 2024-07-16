@@ -65,13 +65,13 @@ class Site extends TimberSite {
      */
 
     $defaultLanguage = 'en';
-    add_filter('acf/settings/current_language', function() use($defaultLanguage) { 
+    add_filter('acf/settings/current_language', function() use ($defaultLanguage) {
       return $defaultLanguage;
-    }, 10,1);
+    }, 10, 1);
     $context['options'] = get_fields('options');
-    remove_filter('acf/settings/current_language', function() use($defaultLanguage) { 
+    remove_filter('acf/settings/current_language', function() use ($defaultLanguage) {
       return $defaultLanguage;
-    }, 10,1);
+    }, 10, 1);
 
     /**
      * SVG Sprite Paths
