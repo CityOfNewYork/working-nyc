@@ -23,6 +23,7 @@ define('wsq_CLASSES', '');
  *
  * @author NYC Opportunity
  */
+/*
 add_action('plugins_loaded', function() {
   if (is_plugin_active('wp-bitly/wp-bitly.php') && defined('SMNYC_WPBITLY_OAUTH_TOKEN')) {
     $opts = get_option(WPBITLY_OPTIONS);
@@ -32,6 +33,7 @@ add_action('plugins_loaded', function() {
     update_option(WPBITLY_AUTHORIZED, true); // Set the authorization to true
   }
 });
+*/
 
 /**
  * Have GatherContent Importer Plugin use tokens defined by constants.
