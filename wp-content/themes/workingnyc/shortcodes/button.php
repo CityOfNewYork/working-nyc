@@ -48,12 +48,12 @@ class Button extends Shortcode {
     $button = array(
       'id' => $id,
       'label' => do_shortcode($content),
-      'hyperlink' => ($atts['link']) ? array(
+      'hyperlink' => array_key_exists('link', $atts) ? array(
         'href' => $atts['link'],
         'external' => in_array('link-is-external', $atts)
       ) : false,
-      'function' => ($atts['function']) ? $atts['function'] : false,
-      'type' => ($atts['type']) ? $atts['type'] : false,
+      'function' => array_key_exists('function', $atts) ? $atts['function'] : false,
+      'type' => array_key_exists('type', $atts) ? $atts['type'] : false,
     );
 
     return Timber::compile(
