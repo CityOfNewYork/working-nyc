@@ -2,7 +2,11 @@
 {# @For    Custom Field #}
 {# @Class  includes/collection.php #}
 <section class="site-max-width" id="{{ this.heading|trim|replace({' ': '-'})|lower }}">
+{% if this.post.post_type == 'announcements' %}
+  <div class="py-2 pt-5 tablet:py-8">
+  {% else %}
   <div class="py-5 tablet:py-6">
+{% endif %}
     {% if this.display == 'container' %}
       {% include 'components/container.twig' %}
     {% endif %}
@@ -38,17 +42,11 @@
                   is_home:is_home
                 } %}
               {% elseif post.post_type == 'announcements' %}
-              <section class="" id="announcements">
-                <div class="py-2 pt-5 tablet:py-8">
-                    <div>
-                    <div class="">
+               
                         <div class="transform-none border-2 border-[#F0F6FA] rounded-[5px]">
                         {% include 'announcements/announcement.twig' with {this: post, site:site } only %}
                         </div>
-                    </div>
-                    </div>
-                </div>
-              </section>
+
               {% else %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
