@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-[#E9F4FD]">
+    <div class="bg-[#E3F1FD]">
       <div class="site-max-width">
         <div>
           <header class="o-header px-0 pb-5 tablet:pb-6 desktop:pb-7">

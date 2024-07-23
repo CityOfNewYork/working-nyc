@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bg-[#E3F1FD]">
+    <div class="bg-[#EEF4FF]">
       <div class="site-max-width py-5 tablet:py-6 desktop:py-7">
         <div>
           <header>
