@@ -6,6 +6,7 @@
             "key": "field_5f298dc24e4dc",
             "label": "Home Page Sections",
             "name": "featured_posts",
+            "aria-label": "",
             "type": "flexible_content",
             "instructions": "Add multiple containers and collections of posts, separated by a heading, description, post list, and follow-up link. Short-codes can be used in the description for additional dynamic content.",
             "required": 0,
@@ -27,6 +28,7 @@
                             "key": "field_635a91574f18d",
                             "label": "Post List or Container Display",
                             "name": "featured_posts_display",
+                            "aria-label": "",
                             "type": "button_group",
                             "instructions": "Choose how the container or collection will display. All display types show the heading, description, and link (if desired). <b>Cards<\/b> are the default display. Different post types have different card types. <b>Callouts<\/b> display a large image for the first post in the collection. <b>Gallery<\/b> displays a grid of featured post images.",
                             "required": 0,
@@ -53,6 +55,7 @@
                             "key": "field_5f298deb4e4dd",
                             "label": "Heading",
                             "name": "featured_posts_heading",
+                            "aria-label": "",
                             "type": "text",
                             "instructions": "",
                             "required": 0,
@@ -72,6 +75,7 @@
                             "key": "field_5f298e014e4de",
                             "label": "Description",
                             "name": "featured_posts_description",
+                            "aria-label": "",
                             "type": "wysiwyg",
                             "instructions": "<span class=\"dashicons dashicons-shortcode\"><\/span>  Short-codes, such as accordion groups, can be added in this field. Select a short-code from the dropdown to add one. Refer to the <a href=\"\/short-codes\" target=\"_blank\" rel=\"noopener nofollow\">Short-codes<\/a> page for more details on available options.",
                             "required": 0,
@@ -91,6 +95,7 @@
                             "key": "field_5f298e124e4df",
                             "label": "Post List",
                             "name": "featured_posts_objects",
+                            "aria-label": "",
                             "type": "relationship",
                             "instructions": "",
                             "required": 0,
@@ -119,23 +124,28 @@
                                 "jobs",
                                 "guides",
                                 "employer-programs",
-                                "job-boards"
+                                "job-boards",
+                                "announcements"
                             ],
+                            "post_status": "",
                             "taxonomy": "",
                             "filters": [
                                 "search",
                                 "post_type",
                                 "taxonomy"
                             ],
-                            "elements": "",
+                            "return_format": "object",
                             "min": "",
                             "max": 12,
-                            "return_format": "object"
+                            "elements": "",
+                            "bidirectional": 0,
+                            "bidirectional_target": []
                         },
                         {
                             "key": "field_635a8d141dce1",
                             "label": "Show Archive Link",
                             "name": "featured_posts_archive",
+                            "aria-label": "",
                             "type": "true_false",
                             "instructions": "",
                             "required": 0,
@@ -169,6 +179,7 @@
                             "key": "field_635a8ca21dce0",
                             "label": "Post Archive Link",
                             "name": "featured_posts_archive_link",
+                            "aria-label": "",
                             "type": "text",
                             "instructions": "The link to the post type archive will be used by default if this is left empty and there is only one post type in the collection.",
                             "required": 0,
@@ -196,6 +207,7 @@
                             "key": "field_635aebe5a5cb5",
                             "label": "Post Archive External",
                             "name": "featured_posts_archive_is_external",
+                            "aria-label": "",
                             "type": "checkbox",
                             "instructions": "Is this link to an external website?",
                             "required": 0,
@@ -221,12 +233,14 @@
                             "layout": "vertical",
                             "toggle": 0,
                             "return_format": "value",
-                            "save_custom": 0
+                            "save_custom": 0,
+                            "custom_choice_button_text": "Add new choice"
                         },
                         {
                             "key": "field_635a8e971dce2",
                             "label": "Post Archive Label",
                             "name": "featured_posts_archive_label",
+                            "aria-label": "",
                             "type": "text",
                             "instructions": "",
                             "required": 0,
@@ -254,6 +268,7 @@
                             "key": "field_657a6ddc59bdc",
                             "label": "Container image side",
                             "name": "container_image_side",
+                            "aria-label": "",
                             "type": "radio",
                             "instructions": "Decide whether the image should be on the left or right side of the text (on a desktop). On tablet and mobile, the image will be above the text.",
                             "required": 0,
@@ -287,6 +302,7 @@
                             "key": "field_657a6eee59bdd",
                             "label": "Container image",
                             "name": "container_image",
+                            "aria-label": "",
                             "type": "image",
                             "instructions": "The image to be displayed in the container",
                             "required": 0,
@@ -320,6 +336,7 @@
                             "key": "field_657a70ca9b9a7",
                             "label": "Container button type",
                             "name": "container_button_type",
+                            "aria-label": "",
                             "type": "radio",
                             "instructions": "",
                             "required": 0,
@@ -355,6 +372,7 @@
                             "key": "field_657a71429b9a8",
                             "label": "Container button text",
                             "name": "container_button_text",
+                            "aria-label": "",
                             "type": "text",
                             "instructions": "",
                             "required": 0,
@@ -383,6 +401,7 @@
                             "key": "field_657a717b9b9a9",
                             "label": "Container button link",
                             "name": "container_button_link",
+                            "aria-label": "",
                             "type": "url",
                             "instructions": "",
                             "required": 0,
@@ -408,6 +427,7 @@
                             "key": "field_65fb4f94d9324",
                             "label": "Cards information",
                             "name": "cards_information",
+                            "aria-label": "",
                             "type": "repeater",
                             "instructions": "",
                             "required": 0,
@@ -430,12 +450,13 @@
                             "min": 2,
                             "max": 2,
                             "layout": "table",
-                            "button_label": "",
+                            "button_label": "Add Row",
                             "sub_fields": [
                                 {
                                     "key": "field_65fb4fbfd9325",
                                     "label": "Title",
                                     "name": "title",
+                                    "aria-label": "",
                                     "type": "text",
                                     "instructions": "",
                                     "required": 0,
@@ -450,12 +471,14 @@
                                     "placeholder": "",
                                     "prepend": "",
                                     "append": "",
-                                    "maxlength": ""
+                                    "maxlength": "",
+                                    "parent_repeater": "field_65fb4f94d9324"
                                 },
                                 {
                                     "key": "field_65fb4fdbd9326",
                                     "label": "Description",
                                     "name": "description",
+                                    "aria-label": "",
                                     "type": "text",
                                     "instructions": "",
                                     "required": 0,
@@ -470,12 +493,14 @@
                                     "placeholder": "",
                                     "prepend": "",
                                     "append": "",
-                                    "maxlength": ""
+                                    "maxlength": "",
+                                    "parent_repeater": "field_65fb4f94d9324"
                                 },
                                 {
                                     "key": "field_65fb4fe5d9327",
                                     "label": "CTA",
                                     "name": "cta",
+                                    "aria-label": "",
                                     "type": "link",
                                     "instructions": "",
                                     "required": 0,
@@ -486,12 +511,14 @@
                                         "id": ""
                                     },
                                     "relevanssi_exclude": 0,
-                                    "return_format": "array"
+                                    "return_format": "array",
+                                    "parent_repeater": "field_65fb4f94d9324"
                                 },
                                 {
                                     "key": "field_65fb51e836a0b",
                                     "label": "Logo",
                                     "name": "logo",
+                                    "aria-label": "",
                                     "type": "select",
                                     "instructions": "",
                                     "required": 0,
@@ -514,14 +541,17 @@
                                     "ui": 0,
                                     "return_format": "value",
                                     "ajax": 0,
-                                    "placeholder": ""
+                                    "placeholder": "",
+                                    "parent_repeater": "field_65fb4f94d9324"
                                 }
-                            ]
+                            ],
+                            "rows_per_page": 20
                         },
                         {
                             "key": "field_664e1cd5235df",
                             "label": "Container target",
                             "name": "container_target",
+                            "aria-label": "",
                             "type": "true_false",
                             "instructions": "",
                             "required": 0,
@@ -587,5 +617,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716398828
+    "modified": 1721672052
 }
