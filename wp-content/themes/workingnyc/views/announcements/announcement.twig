@@ -1,0 +1,104 @@
+{# @Type   Component #}
+{# @For    Post Type #}
+{# @Class  timber-posts/Announcements.php #}
+<article class="c-card c-card-transparent h-full px-4 pb-4 min-h-[400px]">
+  <header class="pb-2 border-b-2 border-[#F0F6FA]">
+    <a href="{{ function('convert_link_locale', this.link , site.site_url, site.url) }}" target="{{ this.target }}" class="c-card__header-link pt-4 visited:text-[#004CBE] hover:text-[#080707]">
+      <h5 class="c-card__title text-[20px] desktop:text-[22px]">
+        {% if this.date_updated|date('U') > this.status_period|date('U') %}
+        <mark class="badge" title="{{ this.status_title }}">
+          {{ this.status }}
+        </mark>
+        {% endif %}
+
+        <span>{{ this.announcement_title }}</span>
+
+        {% if this.target == '_blank' %}
+        <svg aria-hidden="true" class="icon-ui">
+          <use href="#lucide-external-link"></use>
+        </svg>
+        {% endif %}
+      </h5>
+    </a>
+  </header>
+
+  <div class="c-card__body tablet:pt-3">
+    <div>
+    {% if this.announcement_date is not empty or this.announcement_start_time is not empty or this.announcement_location is not empty %}
+      <ul class="list-none pl-0 mb-2">
+        {% if this.announcement_date is not empty %}
+          <li class="mb-1">
+            <svg class="icon-ui c-card__feature-icon" role="img">
+              <title>{{ __('Date', 'WNYC') }}</title>
+
+              <use href="#lucide-calendar"></use>
+            </svg>
+            <span>{{ this.announcement_date|date(fn('get_option', 'date_format')) }}</span>
+          </li>
+        {% endif %}
+        {% if this.announcement_start_time is not empty %}
+          <li class="mb-1">
+            <svg class="icon-ui c-card__feature-icon" role="img">
+              <title>{{ __('Time', 'WNYC') }}</title>
+
+              <use href="#temp-lucide-clock"></use>
+            </svg>
+            <span>
+              {{ this.announcement_start_time|date(fn('get_option', 'time_format')) }}
+              {% if this.announcement_end_time is not empty %}
+                {{ __('to', 'WNYC') }}
+                {{ this.announcement_end_time|date(fn('get_option', 'time_format')) }}
+              {% endif %}
+            </span>
+          </li>
+        {% endif %}
+        {% if this.announcement_location is not empty %}
+          <li class="mb-1">
+            <svg class="icon-ui c-card__feature-icon" role="img">
+              <title>{{ __('Location', 'WNYC') }}</title>
+
+              <use href="#lucide-map-pin"></use>
+            </svg>
+            <span>{{ this.announcement_location }}</span>
+          </li>
+        {% endif %}
+        </ul>
+      {% endif %}
+      {{ this.announcement_details|wpautop }}
+    </div>
+
+    <ul class="list-none pl-0 my-3">
+      <li class="text-[16px]">
+        <svg class="icon-ui c-card__feature-icon" role="img">
+          <title>{{ __('Last Updated', 'WNYC') }}</title>
+
+          <use href="#lucide-info"></use>
+        </svg>
+
+        <span>
+          {{ __('Updated', 'WNYC') }}
+          {{ this.date_updated|date(fn('get_option', 'date_format')) }}
+          {{ this.date_updated|date(fn('get_option', 'time_format')) }}
+        </span>
+      </li>
+    </ul>
+
+    <div class="c-card__web-share mb-0">
+      {% set announcement_share_id = fn('uniqid') %}
+
+      {% include 'components/web-share.twig' with {this: {
+        id: announcement_share_id,
+        class: 'z-30',
+        share: {
+          'title': this.announcement_title,
+          'text': this.announcement_details|striptags,
+          'url': this.short_link,
+          'subject': __('this announcement', 'WNYC')
+        }
+      }} only %}
+    </div>
+
+    {# @span This empty span tag currently assists the stylesheet in removing margin on the last visible element in the card. #}
+    <span></span>
+  </div>
+</article>

@@ -50,6 +50,7 @@ class Collection {
     require_once WorkingNYC\timber_post('Guides');
     require_once WorkingNYC\timber_post('EmployerPrograms');
     require_once WorkingNYC\timber_post('JobBoards');
+    require_once WorkingNYC\timber_post('Announcements');
 
     $posts = $this->fields['featured_posts_objects'];
 
@@ -78,6 +79,8 @@ class Collection {
           $post = new WorkingNYC\JobBoards($post);
 
           break;
+        case 'announcements':
+          $post = new WorkingNYC\Announcements($post);
       }
 
       return $post;
