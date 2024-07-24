@@ -6,6 +6,7 @@
             "key": "field_5fc55e19cfde8",
             "label": "Announcement Title",
             "name": "announcement_title",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -23,8 +24,9 @@
         },
         {
             "key": "field_5fc55e34cfde9",
-            "label": "Announcement Details",
+            "label": "Announcement Card Details",
             "name": "announcement_details",
+            "aria-label": "",
             "type": "wysiwyg",
             "instructions": "",
             "required": 0,
@@ -34,6 +36,7 @@
                 "class": "",
                 "id": ""
             },
+            "relevanssi_exclude": 0,
             "default_value": "",
             "tabs": "all",
             "toolbar": "full",
@@ -44,6 +47,7 @@
             "key": "field_5fc55e91cfdea",
             "label": "External URL",
             "name": "announcement_is_external",
+            "aria-label": "",
             "type": "radio",
             "instructions": "Is this link to an external website?",
             "required": 0,
@@ -68,6 +72,7 @@
             "key": "field_5fc55edfcfdec",
             "label": "URL",
             "name": "announcement_url",
+            "aria-label": "",
             "type": "url",
             "instructions": "",
             "required": 0,
@@ -92,6 +97,7 @@
             "key": "field_5fd25f8efed31",
             "label": "Content",
             "name": "announcement_content",
+            "aria-label": "",
             "type": "post_object",
             "instructions": "",
             "required": 0,
@@ -114,12 +120,14 @@
             "allow_null": 1,
             "multiple": 0,
             "return_format": "object",
-            "ui": 1
+            "ui": 1,
+            "bidirectional_target": []
         },
         {
             "key": "field_655e8253d7973",
             "label": "Date",
             "name": "announcement_date",
+            "aria-label": "",
             "type": "date_picker",
             "instructions": "",
             "required": 0,
@@ -138,6 +146,7 @@
             "key": "field_655e829ed7974",
             "label": "Start time",
             "name": "announcement_start_time",
+            "aria-label": "",
             "type": "time_picker",
             "instructions": "",
             "required": 0,
@@ -155,6 +164,7 @@
             "key": "field_655e82d2d7975",
             "label": "End time",
             "name": "announcement_end_time",
+            "aria-label": "",
             "type": "time_picker",
             "instructions": "",
             "required": 0,
@@ -172,6 +182,7 @@
             "key": "field_655e82eed7976",
             "label": "Location",
             "name": "announcement_location",
+            "aria-label": "",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -187,6 +198,27 @@
             "prepend": "",
             "append": "",
             "maxlength": ""
+        },
+        {
+            "key": "field_66a067088c52b",
+            "label": "Announcement Body",
+            "name": "announcement_body",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
         }
     ],
     "location": [
@@ -207,5 +239,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1721671681
+    "modified": 1721788183
 }
