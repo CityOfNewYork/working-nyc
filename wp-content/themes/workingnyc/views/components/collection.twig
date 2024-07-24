@@ -42,11 +42,9 @@
                   is_home:is_home
                 } %}
               {% elseif post.post_type == 'announcements' %}
-               
-                        <div class="transform-none border-2 border-[#F0F6FA] rounded-[5px]">
-                        {% include 'announcements/announcement.twig' with {this: post, site:site } only %}
-                        </div>
-
+                <div class="transform-none border-2 border-[#F0F6FA] rounded-[5px]">
+                  {% include 'announcements/announcement.twig' with {this: post, site:site } only %}
+                </div>
               {% else %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
