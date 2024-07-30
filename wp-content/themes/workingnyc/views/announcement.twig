@@ -37,10 +37,12 @@
         <div>
           <h1 id="page-heading" class="o-header__title">{{ post.title }}</h1>
 
-          {{ post.announcement_details|wpautop }}
-
-          {{ post.announcement_body|wpautop }}
-
+          <div class="mb-2">
+            {{ post.announcement_details|wpautop }}
+          </div>
+          <div class="mb-2">
+            {{ post.announcement_body|wpautop }}
+          </div>
           <p class="small flex items-center">
             <svg class="icon-ui mie-1 icon-2" role="img">
               <title>{{ __('Last updated', 'WNYC-Date') }}</title>
