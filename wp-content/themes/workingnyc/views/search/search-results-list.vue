@@ -177,7 +177,7 @@
 
           <!-- List of search results -->
           <div class="w-full desktop:w-1/2">
-            <section class="page-max mx-2 tablet:mx-7 desktop:mx-0">
+            <section class="page-max tablet:mx-7 desktop:mx-0">
               <div v-if="loading || submitFlag">
                 <div class="flex items-center text-em justify-center py-8">
                   <svg class="spinner icon-4 block mie-2" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -209,7 +209,7 @@
                     </h2>
                   </div>
 
-                  <div class="grid gap-3 mb-3">
+                  <div class="grid grid-cols-1 gap-3 mb-3">
                     <SearchResult v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></SearchResult>
                   </div>
 
