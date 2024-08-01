@@ -209,7 +209,7 @@
                     </h2>
                   </div>
 
-                  <div class="grid gap-3 mb-3">
+                  <div class="grid grid-cols-1 gap-3 mb-3">
                     <SearchResult v-for="post in postsFlat" :key="post.id" v-bind:post="post" v-bind:strings="strings"></SearchResult>
                   </div>
 
