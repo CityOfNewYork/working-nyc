@@ -77,7 +77,8 @@ new Vue({
           LOADING: 'Loading',
           SHOW_MORE: 'Show more',
           BACK_TO_TOP: 'Back to top',
-          SUGGEST:  (config.suggest) ? config.suggest.innerHTML : ''
+          SUGGEST:  (config.suggest) ? config.suggest.innerHTML : '',
+          EXTERNAL_LINK: 'Visit program site'
         }
       }
     });
