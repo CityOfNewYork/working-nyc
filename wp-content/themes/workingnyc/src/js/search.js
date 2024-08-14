@@ -60,7 +60,8 @@ render: createElement => {
         LOADING: 'Loading',
         SHOW_MORE: 'Show more',
         BACK_TO_TOP: 'Back to top',
-        SUGGEST: ''
+        SUGGEST: '',
+        EXTERNAL_LINK: 'Visit program site'
         }
     }
     });
