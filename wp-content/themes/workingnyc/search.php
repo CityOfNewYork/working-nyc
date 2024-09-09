@@ -7,7 +7,7 @@ add_action('wp_enqueue_scripts', function() {
 });
 
 // Get the search term
-$term = (isset($_GET['s'])) ? trim($_GET['s']) : '';
+$term = isset($_GET['s']) ? htmlspecialchars(trim($_GET['s'])) : '';
 
 // Create query
 $wp_query = new WP_Query(array(

@@ -417,8 +417,12 @@ export default {
     const URLparams = new URLSearchParams(window.location.search);
     this.currentSearchTerm = URLparams.get('s');
 
+    function escapeHTML(str) {
+      return str.replace(/[&<>"'\/]/g, "")
+    }
+
     const query = {
-      's': this.currentSearchTerm
+      's': escapeHTML(this.currentSearchTerm)
     };
 
     // Initialize the application
