@@ -172,18 +172,18 @@
                     </svg>
                   </button>
                   <button v-if="firstPage" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" @click="immediatePage" data-js="btnpage" data-amount="1">
-                    <span v-if="query.page==1" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px] border-b-4">1</span>
-                    <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px]">1</span>
+                    <span v-if="query.page==1" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px] border-b-4" v-html=1></span>
+                    <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px]" v-html=1></span>
                   </button>
                   <span v-if="query.page>4&&headers.pages>6">...</span>
                     <button v-for="pNo in totalPages" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" data-js="btnpage" @click="immediatePage" v-bind:data-amount="pNo">
-                      <span  v-if="query.page==pNo" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px] border-b-4">{{ pNo }}</span>
-                      <span  v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px]">{{ pNo }}</span>
+                      <span  v-if="query.page==pNo" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px] border-b-4" v-html="pNo"></span>
+                      <span  v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px]" v-html="pNo"></span>
                     </button>
                   <span v-if="headers.pages-query.page>3&&headers.pages>6">...</span>
                   <button v-if="lastPage" class="w-[40px] h-[40px] no-underline text-[#080707] font-normal" data-js="btnpage" @click="immediatePage" v-bind:data-amount="headers.pages">
-                    <span v-if="query.page==headers.pages" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px] border-b-4">{{headers.pages}}</span>
-                    <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px]">{{headers.pages}}</span>
+                    <span v-if="query.page==headers.pages" class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px] border-b-4" v-html="headers.pages"></span>
+                    <span v-else class="pb-[10px] pl-[4px] pr-[4px] text-[14px] desktop:text-[18px] tablet:text-[18px]" v-html="headers.pages"></span>
                   </button>
                   <button v-if="next" class="text-[#080707] font-normal flex" @click="nextPage">
                     <svg class="h-3 w-3 fill-none stroke-black">
