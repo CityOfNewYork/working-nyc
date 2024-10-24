@@ -1,0 +1,25 @@
+
+<div class="transform-none p-[32px] rounded-[5px] border-2 border-[#F0F6FA] desktop:relative tablet:relative">
+    <p class="text-[22px] font-[700] border-b-2 border-[#ECEFF2] pb-[16px] mb-[0px]">{{ this.job_event_title}}</p>
+    <div class="pt-[24px] desktop:min-h-[173px] tablet:min-h-[198px] min-h-[170px] pb-[24px]">
+        <p class="flex mb-[10px]">
+            <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
+            <use href="#lucide-calendar"></use>
+            </svg>
+            {{ this.job_event_date|date(fn('get_option', 'date_format'))}}
+        </p>
+        <p class="flex mb-[10px]">
+            <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
+            <use href="#temp-lucide-clock"></use>
+            </svg>
+            <span>{{ this.job_event_start_time|date(fn('get_option', 'time_format'))}}</span>
+            <span class="pl-[8px] pr-[8px]">to</span>
+            <span>{{ this.job_event_end_time|date(fn('get_option', 'time_format'))}}</span>
+        </p>
+        <p class="flex mb-[24px]">
+            <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
+            <use href="#lucide-map-pin"></use>
+            </svg>{{ this.job_event_location}}
+        </p>
+    </div>
+</div>

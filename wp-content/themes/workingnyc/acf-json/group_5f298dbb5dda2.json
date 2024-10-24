@@ -125,7 +125,8 @@
                                 "guides",
                                 "employer-programs",
                                 "job-boards",
-                                "announcements"
+                                "announcements",
+                                "job-event"
                             ],
                             "post_status": "",
                             "taxonomy": "",

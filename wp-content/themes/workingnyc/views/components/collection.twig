@@ -31,6 +31,8 @@
           <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-3 auto-rows-[1fr]">
           {% elseif this.post.post_type == 'announcements' %}
             <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
+          {% elseif this.post.post_type == 'job-event' %}
+            <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
           {% else %}
           <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
           {% endif %}
@@ -45,6 +47,10 @@
                 <div class="transform-none border-2 border-[#F0F6FA] rounded-[5px]">
                   {% include 'announcements/announcement.twig' with {this: post, site:site } only %}
                 </div>
+              {% elseif post.post_type == 'job-event' %}
+                
+                  {% include 'job-event/job-event.twig' with {this: post, site:site } only %}
+              
               {% else %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
