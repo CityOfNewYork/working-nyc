@@ -2,7 +2,7 @@
 {# @For    Post Type #}
 {# @Class  timber-posts/Programs.php #}
 <article class="c-card h-full">
-  <header class="bg-[#F0F6FA] py-2 tablet:py-3 px-5 min-h-[128px]">
+  <header class="bg-[#F0F6FA] py-2 tablet:py-3 px-5 {{ is_home ? 'h-full' : 'min-h-[128px]' }}">
       <h3 class="text-[20px] tablet:text-[23px] font-[600] text-[#080707] mb-2">{{ post.program_plain_language_title }}</h3>
       <p class="text-[18px] desktop:text-[20px] text-alt">
         {{ post.program_title }}
@@ -10,11 +10,24 @@
           {{ __('by', 'WNYC') }} {{ post.program_agency }}
         {% endif %}
       </p>
+      {% if is_home%}
+        <a class="btn btn-secondary desktop:w-fit w-full p-3" href="{{ post.link }}" {% if post.external %}target="_blank" rel="noopener"{% endif %}>      
+          {% if post.external %}
+          <span class="text-[22px] font-[700]">{{ post.link_label }}</span>
+          {% else %}
+          <span class="text-[22px] font-[700]">{{ __('Learn more', 'WNYC') }} <span class="sr-only">{{ __('about', 'WNYC') }} <span>{{ post.program_title }}</span></span></span>
+          {% endif %}
+          <svg aria-hidden="true" class="icon-ui rtl:flip h-22 w-22">
+            <use href="#lucide-{% if post.external %}external-link{% else %}arrow-right{% endif %}"></use>
+          </svg>
+        </a>
+      {%endif%}
   </header>
 
+{% if post.status and not is_home %}
   <div class="c-card__body py-3 px-5 tablet:py-5 min-h-[206px] justify-between">
     <div class="mb-0">
-      {% if post.status and not is_home %}
+      
         <p class="c-card__status">
           {% if post.status.recruiting %}
           <mark class="badge" data-program="recruiting">
@@ -43,12 +56,12 @@
             </span>
           {% endif %}
         </p>
-      {% endif %}
-      {% if post.preview %}
+        {% if post.preview %}
           <p class="mb-3">
             {{ post.preview }}
           </p>
-      {% endif %}
+        {% endif %}
+      
     </div>
     
     <div>
@@ -98,4 +111,5 @@
       </a>
     </div>
   </div>
+{% endif %}
 </article>
