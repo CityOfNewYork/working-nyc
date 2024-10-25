@@ -17,15 +17,33 @@
           {# The post content can include html tags and CSS classes. The following line is an example of some classes that were used in the past #}
           {# class="h4 text-center tablet:text-start tablet:text-h3 font-primary text-alt" #}
           <h1 class="text-[40px] desktop:text-[55px] mt-3 mb-5 tablet:mb-3 desktop:mb-6">{{ post.post_content }}</h1>
-
-          <a class="btn btn-secondary w-full tablet:w-fit" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers/programs' , site.site_url, site.url) }}">
+          <div class="flex flex-col tablet:flex-row gap-2 tablet:gap-4">
+          {% if options.jobseeker_hero_primary_button %}
+            <a class="btn btn-secondary w-full tablet:w-fit" href="{{ options.jobseeker_hero_primary_button.url }}" {% if options.jobseeker_hero_primary_button.target == '_blank' %}target="{{ options.jobseeker_hero_primary_button.target }}" {% endif %}>
+            <div>{{ options.jobseeker_hero_primary_button.title }}</div>
+          {% else %}
+            <a class="btn btn-secondary w-full tablet:w-fit" href="{{ function('convert_link_locale', site.site_url ~ '/jobseekers/programs' , site.site_url, site.url) }}">
             <div>{{ __('Explore programs', 'WNYC') }}</div>
+          {% endif %}
             <svg aria-hidden="true" class="w-[20px] h-[20px] ml-[4px] icon-ui rtl:flip">
               <use href="#lucide-arrow-right"></use>
             </svg>
           </a>
+          {% if options.jobseeker_hero_secondary_button %}
+            <a class="btn btn-styled w-full tablet:w-fit text-[#30374F] border-[#30374F]" href="{{ options.jobseeker_hero_secondary_button.url }}" {% if options.jobseeker_hero_secondary_button.target == '_blank' %}target="{{ options.jobseeker_hero_secondary_button.target }}" {% endif %}>
+              <div>{{ options.jobseeker_hero_primary_button.title }}</div>
+              <svg aria-hidden="true" class="w-[20px] h-[20px] ml-[4px] icon-ui rtl:flip">
+                <use href="#lucide-arrow-right"></use>
+              </svg>
+            </a>
+            </div>
+            <a class="h-5 flex flex-col justify-center w-fit" href="{{ options.jobseeker_hero_text_link.url }}" {% if options.jobseeker_hero_text_link.target == '_blank' %}target="{{ options.jobseeker_hero_text_link.target }}" {% endif %} rel="noopener">
+              <div class="font-600 text-[#0C264D] text-[16px]">
+                {{ options.jobseeker_hero_text_link.title }}
+              </div>
+            </a>
+          {% endif %}
         </div>
-
     {% if post.thumbnail %}
 
       <div class="relative items-center hidden tablet:flex">
