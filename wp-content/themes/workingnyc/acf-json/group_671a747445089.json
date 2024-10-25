@@ -4,8 +4,8 @@
     "fields": [
         {
             "key": "field_671a74742e5a5",
-            "label": "Job Event Title",
-            "name": "job_event_title",
+            "label": "Jobs Event Title",
+            "name": "jobs_event_title",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -25,8 +25,8 @@
         },
         {
             "key": "field_671a751d2e5a6",
-            "label": "Job Event Date",
-            "name": "job_event_date",
+            "label": "Jobs Event Date",
+            "name": "jobs_event_date",
             "aria-label": "",
             "type": "date_picker",
             "instructions": "",
@@ -44,8 +44,8 @@
         },
         {
             "key": "field_671a754d2e5a7",
-            "label": "Job Event Start Time",
-            "name": "job_event_start_time",
+            "label": "Jobs Event Start Time",
+            "name": "jobs_event_start_time",
             "aria-label": "",
             "type": "time_picker",
             "instructions": "",
@@ -62,7 +62,7 @@
         },
         {
             "key": "field_671a757f2e5a8",
-            "label": "Job Event End Time",
+            "label": "Jobs Event End Time",
             "name": "job_event_end_time",
             "aria-label": "",
             "type": "time_picker",
@@ -80,8 +80,8 @@
         },
         {
             "key": "field_671a759a2e5a9",
-            "label": "Job Event Location",
-            "name": "job_event_location",
+            "label": "Jobs Event Location",
+            "name": "jobs_event_location",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -105,7 +105,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "job-event"
+                "value": "jobs-events"
             }
         ]
     ],
@@ -118,5 +118,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1729797496
+    "modified": 1729823298
 }
