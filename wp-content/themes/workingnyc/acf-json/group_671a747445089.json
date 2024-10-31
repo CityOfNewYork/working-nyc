@@ -63,7 +63,7 @@
         {
             "key": "field_671a757f2e5a8",
             "label": "Jobs Event End Time",
-            "name": "job_event_end_time",
+            "name": "jobs_event_end_time",
             "aria-label": "",
             "type": "time_picker",
             "instructions": "",
@@ -98,6 +98,23 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_6723da7a6244f",
+            "label": "Jobs Event Link",
+            "name": "jobs_event_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array"
         }
     ],
     "location": [
@@ -118,5 +135,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1729823298
+    "modified": 1730402975
 }
