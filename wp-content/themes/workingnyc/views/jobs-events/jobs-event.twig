@@ -1,6 +1,13 @@
 
 <div class="transform-none p-[32px] rounded-[5px] border-2 border-[#F0F6FA] desktop:relative tablet:relative">
-    <p class="text-[22px] font-[700] border-b-2 border-[#ECEFF2] pb-[16px] mb-[0px]">{{ this.jobs_event_title}}</p>
+    <header class="pb-2 border-b-2 border-[#F0F6FA]">
+        <a href="{{ function('convert_link_locale', this.jobs_event_link.url , site.site_url, site.url) }}" target="{{ this.jobs_event_link.target }}" class="c-card__header-link visited:text-[#004CBE] hover:text-[#080707]">
+            <h5 class="c-card__title text-[20px] desktop:text-[22px]">
+                <span>{{ this.jobs_event_title }}</span>
+            </h5>
+        </a>
+    </header>
+
     <div class="pt-[24px] desktop:min-h-[173px] tablet:min-h-[198px] min-h-[170px] pb-[24px]">
         <p class="flex mb-[10px]">
             <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
