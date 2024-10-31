@@ -300,4 +300,45 @@ add_action('init', function() {
       'with_front' => false
     )
   ));
+
+  /**
+   * Post Type: Job Events
+   *
+   * @author NYC Opportunity
+   */
+  register_post_type('jobs-events', array(
+    'labels' => array(
+      'name' => __('Jobs Events'),
+      'singular_name' => __('Jobs Event'),
+      'all_items' => __('All Jobs Events'),
+      'add_new' => __('Add New'),
+      'add_new_item' => __('Add New Jobs Event'),
+      'edit' => __('Edit'),
+      'edit_item' => __('Edit Jobs Event'),
+      'new_item' => __('New Jobs Event'),
+      'view_item' => __('View Jobs Events'),
+      'search_items' => __('Search Jobs Events')
+    ),
+    'public' => true,
+    'show_in_rest' => true,
+    'exclude_from_search' => false,
+    'show_ui' => true,
+    'hierarchical' => false,
+    'supports' => ['title', 'editor'],
+
+    /**
+     * @source https://developer.wordpress.org/resource/dashicons/
+     */
+    'menu_icon' => 'dashicons-calendar',
+
+    /**
+     * Use the registration order to enforce menu position
+     */
+    'menu_position' => 21,
+    'has_archive' => true,
+    'rewrite' => array(
+      'slug' => 'jobs-events',
+      'with_front' => false
+    )
+  ));
 });
