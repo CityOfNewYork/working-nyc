@@ -208,6 +208,57 @@
             "toolbar": "full",
             "media_upload": 1,
             "delay": 0
+        },
+        {
+            "key": "field_671be34bc8e5c",
+            "label": "Jobseeker Hero Primary Button",
+            "name": "jobseeker_hero_primary_button",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array"
+        },
+        {
+            "key": "field_671beee372aed",
+            "label": "Jobseeker Hero Secondary Button",
+            "name": "jobseeker_hero_secondary_button",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array"
+        },
+        {
+            "key": "field_671bef6c842af",
+            "label": "Jobseeker Hero Text Link",
+            "name": "jobseeker_hero_text_link",
+            "aria-label": "",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "relevanssi_exclude": 0,
+            "return_format": "array"
         }
     ],
     "location": [
@@ -233,5 +284,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1720720127
+    "modified": 1729884032
 }
