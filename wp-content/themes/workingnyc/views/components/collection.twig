@@ -31,6 +31,8 @@
           <div class="grid grid-cols-1 tablet:grid-cols-2 desktop:grid-cols-3 gap-3 auto-rows-[1fr]">
           {% elseif this.post.post_type == 'announcements' %}
             <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
+          {% elseif this.post.post_type == 'jobs-events' %}
+            <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
           {% else %}
           <div class="grid grid-cols-1 tablet:grid-cols-2 gap-3 auto-rows-[1fr]">
           {% endif %}
@@ -45,6 +47,10 @@
                 <div class="transform-none border-2 border-[#F0F6FA] rounded-[5px]">
                   {% include 'announcements/announcement.twig' with {this: post, site:site } only %}
                 </div>
+              {% elseif post.post_type == 'jobs-events' %}
+                
+                  {% include 'jobs-events/jobs-event.twig' with {this: post, site:site } only %}
+              
               {% else %}
               <div class="max-w-full">
                 {% include [ post.post_type ~ '/' ~ post.singular ~ '.twig'] with {
@@ -59,17 +65,27 @@
       {% endif %}
 
       {% if this.archive.link %}
-      <div>
-        <div class="wrap tablet:pt-6">
-          <a class="btn btn-primary btn-next w-full" href="{{ this.archive.link }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
-            <span>{{ this.archive.label }}</span>
+        <div>
+          <div class="wrap tablet:pt-2">
+            {% if this.post.post_type == 'jobs-events' %}
+              <a href="{{ function('convert_link_locale', site.site_url ~ '/jobsevents' , site.site_url, site.url) }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
+                <span>{{ this.archive.label }}</span>
 
-            <svg aria-hidden="true" class="icon-ui rtl:flip">
-              <use href="#lucide-{% if this.archive.external %}external-link{% else %}arrow-right{% endif %}"></use>
-            </svg>
-          </a>
+                <svg aria-hidden="true" class="icon-ui rtl:flip">
+                  <use href="#lucide-{% if this.archive.external %}external-link{% else %}arrow-right{% endif %}"></use>
+                </svg>
+              </a>
+            {% else %}
+              <a class="btn btn-primary btn-next w-full" href="{{ this.archive.link }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
+                <span>{{ this.archive.label }}</span>
+
+                <svg aria-hidden="true" class="icon-ui rtl:flip">
+                  <use href="#lucide-{% if this.archive.external %}external-link{% else %}arrow-right{% endif %}"></use>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
         </div>
-      </div>
       {% endif %}
     {% endif %}
 
