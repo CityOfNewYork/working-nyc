@@ -1,4 +1,4 @@
-<nav aria-label="{{ employer_header_menu.name }}" class="bg-[#F8F9FB] px-2 tablet:px-5 desktop:px-3 py-1 flex justify-between align-middle items-center" data-js="navigation">
+<nav aria-label="{{ __('Employer Header', 'WNYC') }}" class="bg-[#F8F9FB] px-2 tablet:px-5 desktop:px-3 py-1 flex justify-between align-middle items-center" data-js="navigation">
   <div class="flex">
     <a class="tablet:hidden flex" href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}">
       <svg class="o-navigation__svg fill-text text-brand" width="80" height="40">
@@ -30,18 +30,21 @@
     {% include 'objects/languages-dropdown.twig' %}
   </div>
 </nav>
-<nav aria-label="{{ employer_header_menu.name }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3 bg-white" data-js="navigation">
+<nav aria-label="{{ __('Employer Header', 'WNYC') }}" class="flex justify-between border-t-4 border-[#2D3282] px-2 tablet:px-5 desktop:px-3 py-2 desktop:py-3 bg-white" data-js="navigation">
   <div class="items-center flex bg-scale-0 tablet:bg-transparent">
     <a class="pr-2 hidden tablet:block" href="{{ function('convert_link_locale', site.site_url ~ '/employers' , site.site_url, site.url) }}">
       <svg class="o-navigation__svg fill-text text-brand" width="196" height="22">
         <title>{{ __('Jobs NYC employer homepage', 'WNYC - Navigation') }}</title>
-        <use href="#logo-jobs-nyc-employer"></use>
+        <use href="#logo-jobs-nyc-black-blue"></use>
       </svg>
     </a>
-    <h6 class="mt-0 tablet:hidden">{{ __('Employers', 'WNYC - Navigation') }}</h6>
+    <h6 class="mt-0 tablet:hidden mb-0">{{ __('Employers', 'WNYC - Navigation') }}</h6>
+    {% for menu_item in employer_header_left_menu.get_items %}
+      <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12 text-[#080707] no-underline hover:underline active:underline" width="84" height="70" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}" target="{{ menu_item.target }}">{{ menu_item.title }}</a>
+    {% endfor %}
   </div>
-  <div>
-    {% for menu_item in employer_header_menu.get_items %}
+  <div class="items-center flex bg-scale-0 tablet:bg-transparent">
+    {% for menu_item in employer_header_right_menu.get_items %}
       <a class="o-navigation__item mr-2 font-[500] desktop:py-2 desktop-px-12 text-[#080707] no-underline hover:underline active:underline" width="84" height="70" target="{{menu_item.target}}" href="{{ function('convert_link_locale', menu_item.link, site.site_url, site.url) }}">{{ menu_item.title }}</a>
     {% endfor %}
   </div>
