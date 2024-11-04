@@ -66,11 +66,17 @@
 
       {% if this.archive.link %}
         <div>
-          <div class="wrap tablet:pt-2">
+          <div class="pt-2">
             {% if this.post.post_type == 'jobs-events' %}
               <a href="{{ function('convert_link_locale', site.site_url ~ '/jobsevents' , site.site_url, site.url) }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
                 <span>{{ this.archive.label }}</span>
-
+                <svg aria-hidden="true" class="icon-ui rtl:flip">
+                  <use href="#lucide-{% if this.archive.external %}external-link{% else %}arrow-right{% endif %}"></use>
+                </svg>
+              </a>
+            {% elseif this.post.post_type == 'programs' %}
+              <a href="{{ this.archive.link }}"{% if this.archive.external %} target="_blank" rel="noopener"{% endif %}>
+                <span>{{ this.archive.label }}</span>
                 <svg aria-hidden="true" class="icon-ui rtl:flip">
                   <use href="#lucide-{% if this.archive.external %}external-link{% else %}arrow-right{% endif %}"></use>
                 </svg>
