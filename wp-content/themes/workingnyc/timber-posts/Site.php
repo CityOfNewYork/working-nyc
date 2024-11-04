@@ -46,9 +46,9 @@ class Site extends TimberSite {
      * Menus
      */
 
-    $context['job_seeker_header_menu'] = new TimberMenu('job_seeker_header_menu');
+    $context['job_seeker_header_right_menu'] = new TimberMenu('job_seeker_header_right_menu');
 
-    $context['employer_header_menu'] = new TimberMenu('employer_header_menu');
+    $context['employer_header_right_menu'] = new TimberMenu('employer_header_right_menu');
 
     $context['job_seeker_footer_menu'] = new TimberMenu('job_seeker_footer_menu');
 
@@ -59,6 +59,10 @@ class Site extends TimberSite {
     $context['employer_footer_menu'] = new TimberMenu('employer_footer_menu');
 
     $context['global_footer_menu'] = new TimberMenu('global_footer_menu');
+
+    $context['job_seeker_header_left_menu'] = new TimberMenu('job_seeker_header_left_menu');
+
+    $context['employer_header_left_menu'] = new TimberMenu('employer_header_left_menu');
 
     /**
      * WKNYC Settings
