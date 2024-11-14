@@ -22,6 +22,14 @@ $context['meta'] = new WorkingNYC\Meta($post);
 
 //$context['sections'] = Templating\get_sections();
 
+/**
+ * Create template friendly data for collections template
+ */
+
+ $context['collections'] = array_map(function($collection) {
+    return new WorkingNYC\Collection($collection);
+  }, Templating\get_featured_posts($post->ID));
+
 $context['upcoming_events'] = Templating\get_upcoming_events();
 
 $context['events_form'] = Templating\get_events_form();

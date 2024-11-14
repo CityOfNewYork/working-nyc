@@ -13,11 +13,14 @@
     {% if this.display == 'cards' %}
 
       {% if this.heading or this.description %}
-       
+
+        {% if is_nyc_landing %}
+            <h3 class="text-[30px] desktop:text-[33.18px] tablet:text-[30px]" font-[600]">{{ this.heading }}</h3>
+        {% else %}
             <h2 class="text-[26px] tablet:text-[40px] desktop:text-[44px] text-alt mt-0 mb-4">{{ this.heading }}</h2>
 
             {{ this.description }}
-  
+        {% endif %}
       {% endif %}
 
       {% if this.posts %}
@@ -49,7 +52,7 @@
                 </div>
               {% elseif post.post_type == 'jobs-events' %}
                 
-                  {% include 'jobs-events/jobs-event.twig' with {this: post, site:site } only %}
+                  {% include 'jobs-events/jobs-event.twig' with {this: post, is_nyc_landing:is_nyc_landing, site:site } only %}
               
               {% else %}
               <div class="max-w-full">

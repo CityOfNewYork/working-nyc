@@ -53,57 +53,17 @@
     </div>
     {% endif %}
 
-    {% if upcoming_events %}
-    
     <div class="bg-scale-0">
-      <div class="site-max-width pb-6">
-        <div class="bg-scale-0 sticky top-0 z-10 pb-4">
-          <h3 class="text-[30px] desktop:text-[33.18px] tablet:text-[30px]" font-[600]">{{ upcoming_events.jobs_events_header }}</h3>
-        </div>
-        <div class="grid desktop:grid-cols-3 tablet:grid-cols-2  gap-2 desktop:gap-3">
-          {% for section in upcoming_events.jobs_events %}
-            <div class="transform-none p-[32px] rounded-[5px] border-2 border-[#F0F6FA] desktop:relative tablet:relative">
-              <p class="text-[22px] font-[700] border-b-2 border-[#ECEFF2] pb-[16px] mb-[0px]">{{ section.job_event_title}}</p>
-              <div class="pt-[24px] desktop:min-h-[173px] tablet:min-h-[198px] min-h-[170px] pb-[24px]">
-                <p class="flex mb-[10px]">
-                  <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
-                    <use href="#lucide-calendar"></use>
-                  </svg>
-                  {{ section.job_event_date}}
-                </p>
-                <p class="flex mb-[10px]">
-                  <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
-                    <use href="#temp-lucide-clock"></use>
-                  </svg>
-                  <span>{{ section.job_event_start_time}}</span>
-                  <span class="pl-[8px] pr-[8px]">to</span>
-                  <span>{{ section.job_event_end_time}}</span>
-                </p>
-                <p class="flex mb-[24px]">
-                  <svg aria-hidden="true" class="icon-ui c-card__feature-icon w-[24px] h-[24px]">
-                    <use href="#lucide-map-pin"></use>
-                  </svg>{{ section.job_event_location}}
-                </p>
-                <div class="desktop:absolute desktop:bottom-[32px] tablet:absolute tablet:bottom-[32px]">
-                  <a href="{{ function('convert_link_locale', section.job_event_link.url , site.site_url, site.url) }}" target="{{ section.job_event_link.target }}" class="c-card__header-link hover:text-[#080707] visited:text-[#30374F] underline">
-                    <p class="c-card__title text-[20px] flex leading-[22px] text-[20px]">
-                      <span>{{ section.job_event_link.title }}</span>
-                      <svg aria-hidden="true" class="icon-ui w-[24px] h-[24px] ml-[4px]">
-                        <use href="#lucide-arrow-right"></use>
-                      </svg>
-                    </p>
-                  </a>
-                </div>
-                
-              </div>
-            </div>
+      <div>
+        {# Collections #}
+        {% if collections %}
+          {% for collection in collections %}
+            {% include collection.template with {this: collection, is_nyc_landing: true, site: site} only %}
           {% endfor %}
-        </div>
+        {% endif %}
+
       </div>
     </div>
-    {% endif %}
-
-    
 
     {% if events_form %}
     <div class="bg-scale-0">

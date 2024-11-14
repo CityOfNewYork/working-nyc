@@ -28,5 +28,17 @@
             <use href="#lucide-map-pin"></use>
             </svg>{{ this.jobs_event_location}}
         </p>
+        {% if is_nyc_landing %}
+            <div class="desktop:absolute desktop:bottom-[32px] tablet:absolute tablet:bottom-[32px]">
+                <a href="{{ function('convert_link_locale', this.jobs_event_link.url , site.site_url, site.url) }}" target="{{ this.jobs_event_link.target }}" class="c-card__header-link hover:text-[#080707] visited:text-[#30374F] underline">
+                    <p class="c-card__title text-[20px] flex leading-[22px] text-[20px]">
+                        <span>{{ this.jobs_event_link.title }}</span>
+                        <svg aria-hidden="true" class="icon-ui w-[24px] h-[24px] ml-[4px]">
+                        <use href="#lucide-arrow-right"></use>
+                        </svg>
+                    </p>
+                </a>
+            </div>
+        {% endif %}
     </div>
 </div>
