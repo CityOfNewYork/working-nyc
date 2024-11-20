@@ -607,6 +607,13 @@
                 "operator": "==",
                 "value": "template-employer-home-page.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-employ-nyc-landing-page.php"
+            }
         ]
     ],
     "menu_order": 1,
@@ -618,5 +625,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1721672052
+    "modified": 1731619806
 }
