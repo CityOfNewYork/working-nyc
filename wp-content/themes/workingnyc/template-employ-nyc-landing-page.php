@@ -28,17 +28,17 @@ $context['meta'] = new WorkingNYC\Meta($post);
 
  $context['collections'] = array_map(function($collection) {
     return new WorkingNYC\Collection($collection);
-  }, Templating\get_featured_posts($post->ID));
+ }, Templating\get_featured_posts($post->ID));
 
-$context['upcoming_events'] = Templating\get_upcoming_events();
+ $context['upcoming_events'] = Templating\get_upcoming_events();
 
-$context['events_form'] = Templating\get_events_form();
+ $context['events_form'] = Templating\get_events_form();
 
-$context['events_header'] = Templating\get_events_header();
+ $context['events_header'] = Templating\get_events_header();
 
-$context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
+ $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
-$context['hide_jobseeker_and_employer_navigation'] = true;
+ $context['hide_jobseeker_and_employer_navigation'] = true;
 
 /**
  * Render the view
@@ -46,6 +46,6 @@ $context['hide_jobseeker_and_employer_navigation'] = true;
  * @author NYC Opportunity
  */
 
-$compiled = new WorkingNYC\CompileImgPreload('employ-nyc-landing-page.twig', $context);
+ $compiled = new WorkingNYC\CompileImgPreload('employ-nyc-landing-page.twig', $context);
 
-echo $compiled->html;
+ echo $compiled->html;
