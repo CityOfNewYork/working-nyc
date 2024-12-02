@@ -288,3 +288,147 @@ add_action('rest_api_init', function() {
     }
   ));
 });
+
+add_action('rest_api_init', function() {
+  $v = 'api/v1'; // namespace for the current version of the API
+
+  $exp = WEEK_IN_SECONDS; // expiration of the transient caches
+  
+
+  register_rest_route('api/v1', '/confirmation-events/', array(
+    'methods' => 'POST',
+    'permission_callback' => '__return_true',
+
+    'callback' => function(WP_REST_Request $request) {
+      $input = $request->get_body();
+      $data = json_decode($input, true);
+
+      $response = new WP_REST_Response($data);
+
+      if (is_array($data)) {
+        $log_dir = WP_CONTENT_DIR . '/sendgrid-events';
+        $log_file = $log_dir . '/events.log';
+        $logMessage = print_r($data, true);
+        file_put_contents($log_file, $logMessage, FILE_APPEND);
+        foreach ($data as $event) {
+          //file_put_contents($log_file, $event, FILE_APPEND);
+          $event_type = isset($event['event']) ? $event['event'] : 'unknown';
+          $templateName = isset($event['sg_template_name']) ? $event['sg_template_name'] : 'unknown';
+          $email = isset($event['email']) ? $event['email'] : 'unknown';
+          $timestamp = isset($event['timestamp']) ? $event['timestamp'] : 'unknown';
+          $url = isset($event['url']) ? $event['url'] : 'unknown';
+          $log_data = "Event: $event_type | Email: $email | URL: $url | Timestamp: $timestamp\n";
+          //file_put_contents($log_file, $log_data, FILE_APPEND);
+          if($event_type=='click' && $templateName=='Test Email'){
+            //file_put_contents($log_file, 'Test', FILE_APPEND);
+            $apiKey = "";
+            $sg = new \SendGrid($apiKey);
+            $request_body = json_decode('{
+              "list_ids": [""],
+              "contacts": [
+                {
+                  "email": "' . $email . '",
+                  "custom_fields": {
+                    "Subscription_Status": "confirmed"
+                  }
+                }
+              ]
+            }');
+            try {
+              //file_put_contents($log_file, 'test', FILE_APPEND);
+                $response = $sg->client
+                    ->marketing()
+                    ->contacts()
+                    ->put($request_body);
+                    //file_put_contents($log_file, $email, FILE_APPEND);
+
+                if($response->statusCode() == 202){
+                  $sendEmail = new \SendGrid\Mail\Mail();
+                  $sendEmail->setFrom("jobsnycinfo@em2719.info.jobs.nyc.gov", "No Reply");
+                  $sendEmail->setSubject("Jobs NYC: Jobseekers: Subscription Confirmed");
+                  $sendEmail->addTo($email,"User"); 
+                  $templateId = "";
+                  $sendEmail->setTemplateId($templateId);
+                  $sendgrid = new \SendGrid($apiKey);
+                  try {
+                      $response_email = $sendgrid->send($sendEmail);
+                      if($response_email->statusCode() == 202){
+                        return new WP_REST_Response("success", 200);
+                      }
+                  } catch (Exception $e) {
+                      return new WP_REST_Response($e->getMessage(), 500);
+                  }
+                }
+            } catch (Exception $ex) {
+              return new WP_REST_Response($e->getMessage(), 500);
+            }
+          }
+        }
+        //$response->set_status(200);
+      }
+      else {
+        $response->set_status(400);
+        return $response;
+      }
+      
+    }
+  ));
+});
+
+add_action('rest_api_init', function() {
+  $v = 'api/v1'; // namespace for the current version of the API
+
+  $exp = WEEK_IN_SECONDS; // expiration of the transient caches
+  
+
+  register_rest_route('api/v1', '/addUser/', array(
+    'methods' => 'GET',
+    'permission_callback' => '__return_true',
+
+    'callback' => function(WP_REST_Request $request) {
+      $email_address = $request->get_param('EMAIL');
+      $zipcode = $request->get_param('ZIPCODE');
+      $apiKey = "";
+      $sg = new \SendGrid($apiKey);
+      $request_body = json_decode('{
+        "list_ids": [""],
+         "contacts": [
+           {
+             "email": "' . $email_address . '",
+             "postal_code": "' . $zipcode . '",
+             "custom_fields": {
+               "Subscription_Status": "pending"
+             }
+           }
+         ]
+       }');
+      try {
+          $response = $sg->client
+              ->marketing()
+              ->contacts()
+              ->put($request_body);
+
+          if($response->statusCode() == 202){
+              $email = new \SendGrid\Mail\Mail();
+              $email->setFrom("jobsnycinfo@em2719.info.jobs.nyc.gov", "No Reply");
+              $email->setSubject("Jobs NYC: Jobseekers: Please Confirm Subscription");
+              $email->addTo($email_address,"User"); 
+              $templateId = "";
+              $email->setTemplateId($templateId);
+              $sendgrid = new \SendGrid($apiKey);
+              try {
+                  $response_email = $sendgrid->send($email);
+                  if($response_email->statusCode() == 202){
+                    return new WP_REST_Response("success", 200);
+                  }
+              } catch (Exception $e) {
+                  return new WP_REST_Response($e->getMessage(), 500);
+              }
+            }
+      } catch (Exception $ex) {
+        return new WP_REST_Response($e->getMessage(), 500);
+      }
+      
+    }
+  ));
+});

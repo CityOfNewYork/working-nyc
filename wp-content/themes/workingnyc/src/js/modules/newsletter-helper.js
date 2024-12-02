@@ -53,9 +53,7 @@ class Newsletter {
     this.form.submit = (event) => {
       event.preventDefault();
 
-      this._submit(event)
-        .then(this._onload)
-        .catch(this._onerror);
+      this._submit(event);
     };
 
     this.form.watch(false, true);
@@ -79,12 +77,11 @@ class Newsletter {
 
     // Serialize the data
     this._data = serialize(event.target, {hash: true});
+    let domain= '';
 
     // Switch the action to post-json. This creates an endpoint for mailchimp
     // that acts as a script that can be loaded onto our page.
-    let action = event.target.action.replace(
-      `${this.endpoints.MAIN}?`, `${this.endpoints.MAIN_JSON}?`
-    );
+    let action = "/wp-json/api/v1/addUser";
 
     // Add our params to the action
     action = action + serialize(event.target, {serializer: (...params) => {
@@ -93,20 +90,24 @@ class Newsletter {
       return `${prev}&${params[1]}=${params[2]}`;
     }});
 
+    action = domain+action.replace("addUser&","addUser?");
+
     // Append the callback reference. Mailchimp will wrap the JSON response in
     // our callback method. Once we load the script the callback will execute.
-    action = `${action}&c=window.${this.callback}`;
+    //action = `${action}&c=window.${this.callback}`;
 
     // Create a promise that appends the script response of the post-json method
-    return new Promise((resolve, reject) => {
-      const script = document.createElement('script');
 
-      document.body.appendChild(script);
-      script.onload = resolve;
-      script.onerror = reject;
-      script.async = true;
-      script.src = encodeURI(action);
-    });
+    fetch(`${domain}${action}`)
+      .then(response => response.json())
+      .then(d => {
+        window[this.callback](d);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+          throw error;
+      });
+
   }
 
   /**
@@ -144,8 +145,8 @@ class Newsletter {
    * @return  {Class}        The Newsletter class
    */
   _callback(data) {
-    if (this[`_${data[this._key('MC_RESULT')]}`]) {
-      this[`_${data[this._key('MC_RESULT')]}`](data.msg);
+    if (data == 'success') {
+      this._success(data);
     } else {
       // eslint-disable-next-line no-console
       if (process.env.NODE_ENV !== 'production') console.dir(data);
