@@ -24,22 +24,22 @@ require_once WorkingNYC\timber_post('Announcements');
  $context['announcements'] = array_map(function($post) {
     return new WorkingNYC\Announcements($post);
  }, Timber::get_posts(array(
-  'posts_per_page' => 4,
-  'post_type' => 'announcements',
-  'orderby' => 'menu_order',
-  'order' => 'ASC',
+   'posts_per_page' => 4,
+   'post_type' => 'announcements',
+   'orderby' => 'menu_order',
+   'order' => 'ASC',
  )));
 
 //Set the 404 page title to landing page title
 
-$current_page_title = $post->page_title;
+ $current_page_title = $post->page_title;
 
-if (!empty($current_page_title)) {
-  add_filter('document_title', function() use ($current_page_title) {
+ if (!empty($current_page_title)) {
+   add_filter('document_title', function() use ($current_page_title) {
     return esc_html($current_page_title);
     ;
-  }, 10, 1);
-}
+   }, 10, 1);
+ }
  
  /**
   * Set Meta context
@@ -51,7 +51,7 @@ if (!empty($current_page_title)) {
 
  $context['collections'] = array_map(function($collection) {
     return new WorkingNYC\Collection($collection);
-  }, Templating\get_featured_posts($post->ID));
+ }, Templating\get_featured_posts($post->ID));
  
  /**
   * Render the view of new Landing page.

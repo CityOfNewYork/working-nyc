@@ -28,11 +28,11 @@ $context['meta'] = new WorkingNYC\Meta($post);
 
  //Show Jobs events when collection is added on CMS
  
- if(Templating\get_featured_posts($post->ID)){
-   $context['collections'] = array_map(function($collection) {
-      return new WorkingNYC\Collection($collection);
-   }, Templating\get_featured_posts($post->ID));
- }
+if (Templating\get_featured_posts($post->ID)) {
+  $context['collections'] = array_map(function($collection) {
+     return new WorkingNYC\Collection($collection);
+  }, Templating\get_featured_posts($post->ID));
+}
 
  $context['upcoming_events'] = Templating\get_upcoming_events();
 
