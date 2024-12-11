@@ -24,7 +24,8 @@
       {%endif%}
   </header>
 
-{% if post.status and not is_home %}
+{# Fix Empty cards issue. Removed recruitment status condition #}
+{% if not is_home %}
   <div class="c-card__body py-3 px-5 tablet:py-5 min-h-[206px] justify-between">
     <div class="mb-0">
       
