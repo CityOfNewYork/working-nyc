@@ -1,13 +1,12 @@
 <?php
 
 /**
- * Index template and Homepage
+ * Index template
  *
- * A fallback list template used if a more specific template is not available
+ * A fallback list template used if a more specific template is not available (i.e., this is the 404 page template)
+ * Most code is copied from template-home-page.php
  *
  */
-
-// Use the landing page template but with the homepage
 
 /**
  * Context
