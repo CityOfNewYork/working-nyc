@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Index template and Homepage
+ * Index template
  *
- * A fallback list template used if a more specific template is not available
+ * A fallback template used if a more specific template is not available (i.e., this template is used for 404 errors)
  *
  */
 
