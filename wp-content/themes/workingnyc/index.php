@@ -49,9 +49,11 @@ require_once WorkingNYC\timber_post('Announcements');
 
  //Set the collections context of new Landing page
 
- $context['collections'] = array_map(function($collection) {
-    return new WorkingNYC\Collection($collection);
- }, Templating\get_featured_posts($post->ID));
+ if (Templating\get_featured_posts($post->ID)){
+    $context['collections'] = array_map(function($collection) {
+        return new WorkingNYC\Collection($collection);
+    }, Templating\get_featured_posts($post->ID));
+ }
  
  /**
   * Render the view of new Landing page.
