@@ -6,7 +6,9 @@
  * Author: NYC Opportunity
  */
 
- use RestPreparePosts\RestPreparePosts as RestPreparePosts;
+ use Spyc;
+
+ use RestPreparePosts\RestPreparePosts as RestPreparePosts; 
 
 /**
  * Register REST Route shouldn't be done before the REST api init hook so we
@@ -300,6 +302,28 @@ add_action('rest_api_init', function() {
     'permission_callback' => '__return_true',
 
     'callback' => function(WP_REST_Request $request) {
+
+      $path = ABSPATH . 'wp-content/mu-plugins/config/config.yml';
+
+      $sendgrid_api_key;
+      $sendgrid_confirmation_template_id;
+      $sendgrid_confirmed_template_id;
+      $sendgrid_contact_list_id;
+     
+      //Fetch the Sendgrid Configuration values from config file
+       if (file_exists($path)) {
+         $sendgrid_api = 'SENDGRID_API_KEY';
+         $sendgrid_template_id1 = 'CONFIRMATION_TEMPLATE_ID';
+         $sendgrid_template_id2 = 'CONFIRMED_TEMPLATE_ID';
+         $sendgrid_list_id = 'LIST_ID';
+         $config_val = Spyc::YAMLLoad($path);
+         $sendgrid_values = $config_val['sendgrid'];
+         $sendgrid_api_key = $sendgrid_values[$sendgrid_api];
+         $sendgrid_confirmation_template_id = $sendgrid_values[$sendgrid_template_id1];
+         $sendgrid_confirmed_template_id = $sendgrid_values[$sendgrid_template_id2];
+         $sendgrid_contact_list_id = $sendgrid_values[$sendgrid_list_id];
+       }
+
       $input = $request->get_body();
       $data = json_decode($input, true);
 
@@ -308,23 +332,19 @@ add_action('rest_api_init', function() {
       if (is_array($data)) {
         $log_dir = WP_CONTENT_DIR . '/sendgrid-events';
         $log_file = $log_dir . '/events.log';
-        $logMessage = print_r($data, true);
-        file_put_contents($log_file, $logMessage, FILE_APPEND);
+        $logMessage = print_r($data, true);        
         foreach ($data as $event) {
-          //file_put_contents($log_file, $event, FILE_APPEND);
           $event_type = isset($event['event']) ? $event['event'] : 'unknown';
           $templateName = isset($event['sg_template_name']) ? $event['sg_template_name'] : 'unknown';
           $email = isset($event['email']) ? $event['email'] : 'unknown';
           $timestamp = isset($event['timestamp']) ? $event['timestamp'] : 'unknown';
           $url = isset($event['url']) ? $event['url'] : 'unknown';
           $log_data = "Event: $event_type | Email: $email | URL: $url | Timestamp: $timestamp\n";
-          //file_put_contents($log_file, $log_data, FILE_APPEND);
           if($event_type=='click' && $templateName=='Test Email'){
-            //file_put_contents($log_file, 'Test', FILE_APPEND);
-            $apiKey = "";
+            $apiKey = $sendgrid_api_key;
             $sg = new \SendGrid($apiKey);
             $request_body = json_decode('{
-              "list_ids": [""],
+              "list_ids": ["'. $sendgrid_contact_list_id .'"],
               "contacts": [
                 {
                   "email": "' . $email . '",
@@ -347,7 +367,7 @@ add_action('rest_api_init', function() {
                   $sendEmail->setFrom("jobsnycinfo@em2719.info.jobs.nyc.gov", "No Reply");
                   $sendEmail->setSubject("Jobs NYC: Jobseekers: Subscription Confirmed");
                   $sendEmail->addTo($email,"User"); 
-                  $templateId = "";
+                  $templateId = $sendgrid_confirmed_template_id;
                   $sendEmail->setTemplateId($templateId);
                   $sendgrid = new \SendGrid($apiKey);
                   try {
@@ -386,12 +406,34 @@ add_action('rest_api_init', function() {
     'permission_callback' => '__return_true',
 
     'callback' => function(WP_REST_Request $request) {
+
+      $path = ABSPATH . 'wp-content/mu-plugins/config/config.yml';
+
+      $sendgrid_api_key;
+      $sendgrid_confirmation_template_id;
+      $sendgrid_confirmed_template_id;
+      $sendgrid_contact_list_id;
+     
+      //Fetch the SendGrid configuration properties from config file
+       if (file_exists($path)) {
+         $sendgrid_api = 'SENDGRID_API_KEY';
+         $sendgrid_template_id1 = 'CONFIRMATION_TEMPLATE_ID';
+         $sendgrid_template_id2 = 'CONFIRMED_TEMPLATE_ID';
+         $sendgrid_list_id = 'LIST_ID';
+         $config_val = Spyc::YAMLLoad($path);
+         $sendgrid_values = $config_val['sendgrid'];
+         $sendgrid_api_key = $sendgrid_values[$sendgrid_api];
+         $sendgrid_confirmation_template_id = $sendgrid_values[$sendgrid_template_id1];
+         $sendgrid_confirmed_template_id = $sendgrid_values[$sendgrid_template_id2];
+         $sendgrid_contact_list_id = $sendgrid_values[$sendgrid_list_id];
+       }
+
       $email_address = $request->get_param('EMAIL');
       $zipcode = $request->get_param('ZIPCODE');
-      $apiKey = "";
+      $apiKey = $sendgrid_api_key;
       $sg = new \SendGrid($apiKey);
       $request_body = json_decode('{
-        "list_ids": [""],
+        "list_ids": ["'. $sendgrid_contact_list_id .'"],
          "contacts": [
            {
              "email": "' . $email_address . '",
@@ -413,7 +455,7 @@ add_action('rest_api_init', function() {
               $email->setFrom("jobsnycinfo@em2719.info.jobs.nyc.gov", "No Reply");
               $email->setSubject("Jobs NYC: Jobseekers: Please Confirm Subscription");
               $email->addTo($email_address,"User"); 
-              $templateId = "";
+              $templateId = $sendgrid_confirmation_template_id;
               $email->setTemplateId($templateId);
               $sendgrid = new \SendGrid($apiKey);
               try {
