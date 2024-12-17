@@ -42,7 +42,7 @@ if (Templating\get_featured_posts($post->ID)) {
 
  $context['modified_date'] = WorkingNYC\modified_date_formatted($post->ID);
 
- $context['hide_jobseeker_and_employer_navigation'] = true;
+ //$context['hide_jobseeker_and_employer_navigation'] = true;
 
 /**
  * Render the view
