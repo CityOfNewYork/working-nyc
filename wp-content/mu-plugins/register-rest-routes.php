@@ -380,7 +380,7 @@ add_action('rest_api_init', function() {
                   }
                 }
             } catch (Exception $ex) {
-              return new WP_REST_Response($e->getMessage(), 500);
+              return new WP_REST_Response($ex->getMessage(), 500);
             }
           }
         }

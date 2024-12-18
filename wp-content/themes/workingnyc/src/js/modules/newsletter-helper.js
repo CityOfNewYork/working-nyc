@@ -105,7 +105,7 @@ class Newsletter {
       })
       .catch(error => {
         console.error('Error:', error);
-          throw error;
+        this._error('An error occurred while processing your request. Please try again later.');
       });
 
   }
@@ -149,6 +149,7 @@ class Newsletter {
       this._success(data);
     } else {
       // eslint-disable-next-line no-console
+      this._error('Subscription failed. Please verify your information and try again.');
       if (process.env.NODE_ENV !== 'production') console.dir(data);
     }
 
