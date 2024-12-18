@@ -155,11 +155,6 @@
                                     {
                                         "field": "field_635a91574f18d",
                                         "operator": "!=",
-                                        "value": "container"
-                                    },
-                                    {
-                                        "field": "field_635a91574f18d",
-                                        "operator": "!=",
                                         "value": "two-card"
                                     }
                                 ]
@@ -625,5 +620,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1731619806
+    "modified": 1734469695
 }
