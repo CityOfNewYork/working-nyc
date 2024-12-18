@@ -155,6 +155,11 @@
                                     {
                                         "field": "field_635a91574f18d",
                                         "operator": "!=",
+                                        "value": "container"
+                                    },
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "!=",
                                         "value": "two-card"
                                     }
                                 ]
@@ -186,6 +191,13 @@
                                         "operator": "==",
                                         "value": "1"
                                     }
+                                ],
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
+                                    }
                                 ]
                             ],
                             "wrapper": {
@@ -213,6 +225,13 @@
                                         "field": "field_635a8d141dce1",
                                         "operator": "==",
                                         "value": "1"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
                                     }
                                 ]
                             ],
@@ -246,6 +265,13 @@
                                         "field": "field_635a8d141dce1",
                                         "operator": "==",
                                         "value": "1"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
                                     }
                                 ]
                             ],
