@@ -31,10 +31,16 @@
           {% set container_target_external_site = '_blank' %}
         {% endif %}
 
-        <a class="mt-2 btn {{ container_button_class }} pointer-events-auto" target="{{ container_target_external_site }}" href="{{ function('convert_link_locale', this.fields.container_button_link, site.site_url, site.url) }}">{{ this.fields.container_button_text }}</a>
+        <a class="mt-2 btn {{ container_button_class }} pointer-events-auto" 
+          target="{{ container_target_external_site }}" 
+          href="{{ function('convert_link_locale', this.fields.container_button_link, site.site_url, site.url) }}">{{ this.fields.container_button_text }}</a>
+        
         {% if this.fields.featured_posts_archive_link %}
           <div class="pt-2">
-            <a class="h-5 flex flex-col justify-center w-fit decoration-[#0C264D]" href="{{ this.fields.featured_posts_archive_link }}" {% if this.fields.featured_posts_archive_is_external == 1 %} target="_blank" {% endif %} rel="noopener">
+            <a class="h-5 flex flex-col justify-center w-fit decoration-[#0C264D]" 
+               href="{{ this.fields.featured_posts_archive_link }}" 
+               {% if this.fields.featured_posts_archive_is_external[0] == 'yes' %} target="_blank" {% endif %} 
+               rel="noopener">
               <div class="font-600 text-[#0C264D] text-[16px]">
                 {{ this.fields.featured_posts_archive_label }}
               </div>
