@@ -191,6 +191,13 @@
                                         "operator": "==",
                                         "value": "1"
                                     }
+                                ],
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
+                                    }
                                 ]
                             ],
                             "wrapper": {
@@ -218,6 +225,13 @@
                                         "field": "field_635a8d141dce1",
                                         "operator": "==",
                                         "value": "1"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
                                     }
                                 ]
                             ],
@@ -251,6 +265,13 @@
                                         "field": "field_635a8d141dce1",
                                         "operator": "==",
                                         "value": "1"
+                                    }
+                                ],
+                                [
+                                    {
+                                        "field": "field_635a91574f18d",
+                                        "operator": "==",
+                                        "value": "container"
                                     }
                                 ]
                             ],
@@ -625,5 +646,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1731619806
+    "modified": 1734469695
 }
