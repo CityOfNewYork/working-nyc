@@ -25,7 +25,7 @@
     <section class="site-max-width">
       <div class="py-5 tablet:py-6">
         <div data-js="newsletter-form">
-          <form action="https://api.sendgrid.com/v3/marketing/contacts" id="mc-embedded-subscribe-form" method="post" target="_blank">
+          <form action="/wp-json/api/v1/newsletter/signUp" id="mc-embedded-subscribe-form" method="post" target="_blank">
             <div class="flex flex-col" data-js="form-fields">
               <div class="">
                 <label class="mb-1" for="mce-EMAIL">{{ __('Email', 'WNYC') ~ '*' }}</label>

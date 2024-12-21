@@ -81,7 +81,7 @@ class Newsletter {
 
     // Switch the action to post-json. This creates an endpoint for mailchimp
     // that acts as a script that can be loaded onto our page.
-    let action = "/wp-json/api/v1/addUser";
+    let action = "/wp-json/api/v1/newsletter/signUp";
 
     // Add our params to the action
     action = action + serialize(event.target, {serializer: (...params) => {
@@ -90,7 +90,7 @@ class Newsletter {
       return `${prev}&${params[1]}=${params[2]}`;
     }});
 
-    action = domain+action.replace("addUser&","addUser?");
+    action = domain+action.replace("signUp&","signUp?");
 
     // Append the callback reference. Mailchimp will wrap the JSON response in
     // our callback method. Once we load the script the callback will execute.
