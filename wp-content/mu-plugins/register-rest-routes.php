@@ -292,20 +292,21 @@ add_action('rest_api_init', function() {
 });
 
 add_action('rest_api_init', function() {
-  $v = 'api/v1'; // namespace for the current version of the API
 
-  $exp = WEEK_IN_SECONDS; // expiration of the transient caches  
-
-  function LogEventData($eventData){
+  function log_event_data($eventType, $URL, $time_stamp){
     $log_dir = WP_CONTENT_DIR . '/sendgrid-events';
     $log_file = $log_dir . '/events.log'; 
+    $log_data = "Event: $eventType | URL: $URL | Timestamp: $time_stamp\n";
+    file_put_contents($log_file, $log_data, FILE_APPEND);
+  }
+
+  function transform_event_data($eventData){
     $event_type = isset($eventData['event']) ? $eventData['event'] : 'unknown';
     $templateName = isset($eventData['sg_template_name']) ? $eventData['sg_template_name'] : 'unknown';
     $email = isset($eventData['email']) ? $eventData['email'] : 'unknown';
     $timestamp = isset($eventData['timestamp']) ? $eventData['timestamp'] : 'unknown';
     $url = isset($eventData['url']) ? $eventData['url'] : 'unknown';
-    $log_data = "Event: $event_type | URL: $url | Timestamp: $timestamp\n";
-    file_put_contents($log_file, $log_data, FILE_APPEND);
+    log_event_data($event_type, $url, $timestamp);
     return array('event'=>$event_type, 'email'=>$email, 'templateName'=>$templateName);
   }
   
@@ -319,7 +320,7 @@ add_action('rest_api_init', function() {
 
       if (is_array($data)) {     
         foreach ($data as $event) {
-          $event_data = LogEventData($event);          
+          $event_data = transform_event_data($event);         
           if($event_data['event']=='click' && $event_data['templateName']==SENDGRID_CONFIRMED_TEMPLATE_NAME){
             $apiKey = SENDGRID_API_KEY;
             $sg = new \SendGrid($apiKey);
@@ -372,10 +373,6 @@ add_action('rest_api_init', function() {
 });
 
 add_action('rest_api_init', function() {
-  $v = 'api/v1'; // namespace for the current version of the API
-
-  $exp = WEEK_IN_SECONDS; // expiration of the transient caches
-  
 
   register_rest_route('api/v1', '/newsletter/signUp/', array(
     'methods' => 'GET',
