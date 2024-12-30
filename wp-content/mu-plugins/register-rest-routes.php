@@ -420,8 +420,8 @@ add_action('rest_api_init', function() {
               $email->setFrom(SENDGRID_SENDER_EMAIL_ADDRESS, SENDGRID_SENDER_NAME);
               $email->setSubject(SENDGRID_SUBSCRIPTION_CONFIRM_SUBJECT);
               $email->addTo($email_address,"User"); 
-              $templateId = $sendgrid_confirmation_template_id;
-              $email->setTemplateId(SENDGRID_CONFIRMATION_TEMPATE_ID);
+              $templateId = SENDGRID_CONFIRMATION_TEMPATE_ID;
+              $email->setTemplateId($templateId);
               $sendgrid = new \SendGrid($apiKey);
               try {
                   $response_email = $sendgrid->send($email);
@@ -433,7 +433,7 @@ add_action('rest_api_init', function() {
               }
             }
       } catch (Exception $ex) {
-        return new WP_REST_Response($e->getMessage(), 500);
+        return new WP_REST_Response($ex->getMessage(), 500);
       }
       
     }
