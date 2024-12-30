@@ -295,6 +295,9 @@ add_action('rest_api_init', function() {
 
   function log_event_data($eventType, $URL, $time_stamp){
     $log_dir = WP_CONTENT_DIR . '/sendgrid-events';
+    if (!file_exists($log_dir)) {
+      mkdir($log_dir, 0755, true);
+    }
     $log_file = $log_dir . '/events.log'; 
     $log_data = "Event: $eventType | URL: $URL | Timestamp: $time_stamp\n";
     file_put_contents($log_file, $log_data, FILE_APPEND);
@@ -384,7 +387,7 @@ add_action('rest_api_init', function() {
     'permission_callback' => '__return_true',
 
     'callback' => function(WP_REST_Request $request) {
-      
+
       $email_address = filter_var($request->get_param('EMAIL'), FILTER_SANITIZE_EMAIL);
       if (!is_email($email_address)) {
         return new WP_REST_Response('Invalid email address', 400);
