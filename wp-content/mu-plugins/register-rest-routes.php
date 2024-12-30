@@ -343,7 +343,7 @@ add_action('rest_api_init', function() {
 
                 if($response->statusCode() == 202){
                   $sendEmail = new \SendGrid\Mail\Mail();
-                  $sendEmail->setFrom(SENDGRID_SENDGER_EMAIL_ADDRESS, SENGRID_SENDER_NAME);
+                  $sendEmail->setFrom(SENDGRID_SENDER_EMAIL_ADDRESS, SENDGRID_SENDER_NAME);
                   $sendEmail->setSubject(SENDGRID_CONFIRMED_SUBSCRIPTION_SUBJECT);
                   $sendEmail->addTo($event_data['email'],"User"); 
                   $templateId = SENDGRID_CONFIRMED_TEMPLATE_ID;
@@ -374,13 +374,24 @@ add_action('rest_api_init', function() {
 
 add_action('rest_api_init', function() {
 
+  // Remove all non-numeric characters
+  function sanitize_zip_code($zipcode) {
+    return preg_replace('/\D/', '', $zipcode);
+  }
+
   register_rest_route('api/v1', '/newsletter/signUp/', array(
-    'methods' => 'GET',
+    'methods' => 'POST',
     'permission_callback' => '__return_true',
 
     'callback' => function(WP_REST_Request $request) {
-      $email_address = $request->get_param('EMAIL');
-      $zipcode = $request->get_param('ZIPCODE');
+      
+      $email_address = filter_var($request->get_param('EMAIL'), FILTER_SANITIZE_EMAIL);
+      if (!is_email($email_address)) {
+        return new WP_REST_Response('Invalid email address', 400);
+      }
+
+      $zipcode = sanitize_zip_code($request->get_param('ZIPCODE')); 
+
       $apiKey = SENDGRID_API_KEY;
       $sg = new \SendGrid($apiKey);
       $request_body = json_decode('{
@@ -403,7 +414,7 @@ add_action('rest_api_init', function() {
 
           if($response->statusCode() == 202){
               $email = new \SendGrid\Mail\Mail();
-              $email->setFrom(SENDGRID_SENDGER_EMAIL_ADDRESS, SENGRID_SENDER_NAME);
+              $email->setFrom(SENDGRID_SENDER_EMAIL_ADDRESS, SENDGRID_SENDER_NAME);
               $email->setSubject(SENDGRID_SUBSCRIPTION_CONFIRM_SUBJECT);
               $email->addTo($email_address,"User"); 
               $templateId = $sendgrid_confirmation_template_id;

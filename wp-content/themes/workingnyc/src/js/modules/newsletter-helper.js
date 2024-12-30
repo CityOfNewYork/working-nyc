@@ -75,22 +75,22 @@ class Newsletter {
   _submit(event) {
     event.preventDefault();
 
+    const data = new FormData(event.target);
+    const formData = [...data];
+    
+    // Convert formData to an object
+    const dataObject = {};
+    formData.forEach(item => {
+        dataObject[item[0]] = item[1];
+    });
+
     // Serialize the data
     this._data = serialize(event.target, {hash: true});
-    let domain= '';
+    //let domain= '';
 
     // Switch the action to post-json. This creates an endpoint for mailchimp
     // that acts as a script that can be loaded onto our page.
     let action = "/wp-json/api/v1/newsletter/signUp";
-
-    // Add our params to the action
-    action = action + serialize(event.target, {serializer: (...params) => {
-      let prev = (typeof params[0] === 'string') ? params[0] : '';
-
-      return `${prev}&${params[1]}=${params[2]}`;
-    }});
-
-    action = domain+action.replace("signUp&","signUp?");
 
     // Append the callback reference. Mailchimp will wrap the JSON response in
     // our callback method. Once we load the script the callback will execute.
@@ -98,15 +98,22 @@ class Newsletter {
 
     // Create a promise that appends the script response of the post-json method
 
-    fetch(`${domain}${action}`)
-      .then(response => response.json())
-      .then(d => {
-        window[this.callback](d);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        this._error('An error occurred while processing your request. Please try again later.');
-      });
+    fetch(action, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dataObject)
+    })
+    .then(response => response.json())
+    .then(d => {
+      console.log(d)
+      window[this.callback](d);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      this._error('An error occurred while processing your request. Please try again later.');
+    });
 
   }
 
