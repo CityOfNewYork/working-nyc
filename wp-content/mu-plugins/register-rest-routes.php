@@ -420,7 +420,7 @@ add_action('rest_api_init', function() {
               $email->setFrom(SENDGRID_SENDER_EMAIL_ADDRESS, SENDGRID_SENDER_NAME);
               $email->setSubject(SENDGRID_SUBSCRIPTION_CONFIRM_SUBJECT);
               $email->addTo($email_address,"User"); 
-              $templateId = SENDGRID_CONFIRMATION_TEMPATE_ID;
+              $templateId = SENDGRID_CONFIRMATION_TEMPLATE_ID;
               $email->setTemplateId($templateId);
               $sendgrid = new \SendGrid($apiKey);
               try {
