@@ -3,7 +3,7 @@
         'name' => 'nyco/working-nyc',
         'pretty_version' => '3.0.0',
         'version' => '3.0.0.0',
-        'reference' => NULL,
+        'reference' => null,
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -121,7 +121,7 @@
         'nyco/working-nyc' => array(
             'pretty_version' => '3.0.0',
             'version' => '3.0.0.0',
-            'reference' => NULL,
+            'reference' => null,
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -205,6 +205,30 @@
                 0 => '*',
             ),
         ),
+        'sendgrid/php-http-client' => array(
+            'pretty_version' => '4.1.1',
+            'version' => '4.1.1.0',
+            'reference' => 'ec09bcfccabeb21d69e245a1e1c0e51f2813fc35',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sendgrid/php-http-client',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'sendgrid/sendgrid' => array(
+            'pretty_version' => '8.1.2',
+            'version' => '8.1.2.0',
+            'reference' => '6700d2cf50df38915fa2d9a03affbca58c48599f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../sendgrid/sendgrid',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'sendgrid/sendgrid-php' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => '*',
+            ),
+        ),
         'shama/baton' => array(
             'dev_requirement' => false,
             'replaced' => array(
@@ -228,6 +252,15 @@
             'install_path' => __DIR__ . '/../squizlabs/php_codesniffer',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'starkbank/ecdsa' => array(
+            'pretty_version' => '0.0.5',
+            'version' => '0.0.5.0',
+            'reference' => '484bedac47bac4012dc73df91da221f0a66845cb',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../starkbank/ecdsa',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'symfony/polyfill-ctype' => array(
             'pretty_version' => 'v1.25.0',

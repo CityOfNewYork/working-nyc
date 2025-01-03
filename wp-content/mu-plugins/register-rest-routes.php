@@ -6,7 +6,9 @@
  * Author: NYC Opportunity
  */
 
- use RestPreparePosts\RestPreparePosts as RestPreparePosts;
+ use Spyc;
+
+ use RestPreparePosts\RestPreparePosts as RestPreparePosts; 
 
 /**
  * Register REST Route shouldn't be done before the REST api init hook so we
@@ -285,6 +287,155 @@ add_action('rest_api_init', function() {
       ]);
 
       return $response;
+    }
+  ));
+});
+
+add_action('rest_api_init', function() {
+
+  function log_event_data($eventType, $URL, $time_stamp){
+    $log_dir = WP_CONTENT_DIR . '/sendgrid-events';
+    if (!file_exists($log_dir)) {
+      mkdir($log_dir, 0755, true);
+    }
+    $log_file = $log_dir . '/events.log'; 
+    $log_data = "Event: $eventType | URL: $URL | Timestamp: $time_stamp\n";
+    file_put_contents($log_file, $log_data, FILE_APPEND);
+  }
+
+  function transform_event_data($eventData){
+    $event_type = isset($eventData['event']) ? $eventData['event'] : 'unknown';
+    $templateName = isset($eventData['sg_template_name']) ? $eventData['sg_template_name'] : 'unknown';
+    $email = isset($eventData['email']) ? $eventData['email'] : 'unknown';
+    $timestamp = isset($eventData['timestamp']) ? $eventData['timestamp'] : 'unknown';
+    $url = isset($eventData['url']) ? $eventData['url'] : 'unknown';
+    log_event_data($event_type, $url, $timestamp);
+    return array('event'=>$event_type, 'email'=>$email, 'templateName'=>$templateName);
+  }
+  
+  register_rest_route('api/v1', '/newsletter/confirm/', array(
+    'methods' => 'POST',
+    'permission_callback' => '__return_true',
+
+    'callback' => function(WP_REST_Request $request) {
+      $input = $request->get_body();
+      $data = json_decode($input, true);
+
+      if (is_array($data)) {     
+        foreach ($data as $event) {
+          $event_data = transform_event_data($event);         
+          if($event_data['event']=='click' && $event_data['templateName']==SENDGRID_CONFIRMED_TEMPLATE_NAME){
+            $apiKey = SENDGRID_API_KEY;
+            $sg = new \SendGrid($apiKey);
+            $request_body = json_decode('{
+              "list_ids": ["'. SENDGRID_LIST_ID .'"],
+              "contacts": [
+                {
+                  "email": "' . $event_data['email'] . '",
+                  "custom_fields": {
+                    "Subscription_Status": "confirmed"
+                  }
+                }
+              ]
+            }');
+            try {
+                $response = $sg->client
+                    ->marketing()
+                    ->contacts()
+                    ->put($request_body);
+
+                if($response->statusCode() == 202){
+                  $sendEmail = new \SendGrid\Mail\Mail();
+                  $sendEmail->setFrom(SENDGRID_SENDER_EMAIL_ADDRESS, SENDGRID_SENDER_NAME);
+                  $sendEmail->setSubject(SENDGRID_CONFIRMED_SUBSCRIPTION_SUBJECT);
+                  $sendEmail->addTo($event_data['email'],"User"); 
+                  $templateId = SENDGRID_CONFIRMED_TEMPLATE_ID;
+                  $sendEmail->setTemplateId($templateId);
+                  $sendgrid = new \SendGrid($apiKey);
+                  try {
+                      $response_email = $sendgrid->send($sendEmail);
+                      if($response_email->statusCode() == 202){
+                        return new WP_REST_Response("success", 200);
+                      }
+                  } catch (Exception $e) {
+                      return new WP_REST_Response($e->getMessage(), 500);
+                  }
+                }
+            } catch (Exception $ex) {
+              return new WP_REST_Response($ex->getMessage(), 500);
+            }
+          }
+        }
+      }
+      else {
+        $response->set_status(400);
+        return $response;
+      }
+    }
+  ));
+});
+
+add_action('rest_api_init', function() {
+
+  // Remove all non-numeric characters
+  function sanitize_zip_code($zipcode) {
+    return preg_replace('/\D/', '', $zipcode);
+  }
+
+  register_rest_route('api/v1', '/newsletter/signUp/', array(
+    'methods' => 'POST',
+    'permission_callback' => '__return_true',
+
+    'callback' => function(WP_REST_Request $request) {
+
+      $email_address = filter_var($request->get_param('EMAIL'), FILTER_SANITIZE_EMAIL);
+      if (!is_email($email_address)) {
+        return new WP_REST_Response('Invalid email address', 400);
+      }
+
+      $zipcode = sanitize_zip_code($request->get_param('ZIPCODE')); 
+
+      $apiKey = SENDGRID_API_KEY;
+      $sg = new \SendGrid($apiKey);
+      $request_body = json_decode('{
+        "list_ids": ["'. SENDGRID_LIST_ID .'"],
+         "contacts": [
+           {
+             "email": "' . $email_address . '",
+             "postal_code": "' . $zipcode . '",
+             "custom_fields": {
+               "Subscription_Status": "pending"
+             }
+           }
+         ]
+       }');
+      try {
+          $response = $sg->client
+              ->marketing()
+              ->contacts()
+              ->put($request_body);
+
+          if($response->statusCode() == 202){
+              $email = new \SendGrid\Mail\Mail();
+              $email->setFrom(SENDGRID_SENDER_EMAIL_ADDRESS, SENDGRID_SENDER_NAME);
+              $email->setSubject(SENDGRID_SUBSCRIPTION_CONFIRM_SUBJECT);
+              $email->addTo($email_address,"User"); 
+              $templateId = SENDGRID_CONFIRMATION_TEMPLATE_ID;
+              $email->setTemplateId($templateId);
+              $sendgrid = new \SendGrid($apiKey);
+              try {
+                  $response_email = $sendgrid->send($email);
+                  if($response_email->statusCode() == 202){
+                    return new WP_REST_Response("success", 200);
+                  }
+              } catch (Exception $e) {
+                  return new WP_REST_Response($e->getMessage(), 500);
+              }
+            }
+      } catch (Exception $ex) {
+        return new WP_REST_Response($ex->getMessage(), 500);
+      }
+      
     }
   ));
 });
