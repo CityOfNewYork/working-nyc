@@ -299,27 +299,6 @@
         {% endif %}
       </nav>
     </section>
-
-    {# Suggest Update #}
-    <section class="desktop:max-w-[963px] site-max-width bg-scale-0 pb-4 pb-8 mb-8" id="suggest-update">
-      <div>
-        <article class="c-alert" data-js="alert-help">
-          <div class="c-alert__graphic">
-            <svg aria-hidden="true" class="icon-ui">
-              <use href="#lucide-help-circle"></use>
-            </svg>
-          </div>
-
-          <div class="c-alert__body">
-            <b class="text-alt mb-1">
-              {{ options.update_program_heading }}
-            </b>
-
-            <p data-js-alert="text">{{ options.update_program_body|striptags('<a><svg><title><use>') }}</p>
-          </div>
-        </article>
-      </div>
-    </section>
     {% if show_newsletter is not defined %}
     {% include 'objects/newsletter.twig' %}
     {% endif %}
